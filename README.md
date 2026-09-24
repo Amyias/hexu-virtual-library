@@ -18,6 +18,8 @@ npm start
 
 | 路径 | 职责 |
 | --- | --- |
+| `DEVELOPMENT.md` | 开发与提交约定、远端仓库与凭据位置，动手前先读 |
+| `AGENTS.md` | 约定要点，供自动化代理读取 |
 | `index.html` | 页面结构、import map、本地依赖入口 |
 | `src/main.js` | 启动与资源加载错误提示 |
 | `src/app.js` | 唤醒、导航、阅读、芯片特写、归还的状态与动画编排 |
