@@ -275,7 +275,8 @@ export async function startLibrary() {
     phase = "READING";
     document.body.classList.add("reading");
     $("reader").classList.add("show");
-    $("readerTitle").textContent = b.title;
+    /* 书名已印在封面上，浮层不再重复；位置信息保留，书名交给读屏软件读取。 */
+    $("reader").setAttribute("aria-label", `${b.title} · 书籍阅读特写`);
     $("bookLocation").textContent =
       `${b.bookId} / ${b.side} 面 / 第 ${b.layer} 层 / 第 ${b.slot} 本`;
     $("dragHint").textContent = "按住封面向左拖动，让故事从这里展开";
