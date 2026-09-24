@@ -18,4 +18,4 @@
 & 'D:\Blender Foundation\Blender 5.2\blender.exe' --background --factory-startup blender/hexu-library.blend --python-exit-code 1 --python blender/refine_vegetation.py
 ```
 
-网页仍读取 `public/models/hexu-library.glb`。导出合并材质后约 12.5 MiB（13,090,076 字节）、70 个网格、328,102 个三角面；源场景中的每盆植物及每丛灌木保留单独命名的枝叶网格。架上 320 本书不由该文件导出，而由 `public/models/smart-book.glb` 在网页端实例化，因此这里的网格数与面数不含藏书。
+网页仍读取 `public/models/hexu-library.glb`。导出合并材质后约 12.53 MiB（13,133,420 字节）、70 个网格、328,642 个三角面；源场景中的每盆植物及每丛灌木保留单独命名的枝叶网格。架上 320 本书不由该文件导出，而由 `public/models/smart-book.glb` 在网页端实例化，因此这里的网格数与面数不含藏书。书架进深与图书摆放见 `SHELVING_REFERENCES.md`。

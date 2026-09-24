@@ -24,13 +24,17 @@ test("every catalogued chip rests on its board inside a bay, 8 per face and laye
   );
   assert.deepEqual(books, input);
   // Blender envelope: each shelf is 1m (X) x 2m (Y) x 8m (Z), centred on the anchors.
-  // Slot numbers are a bay-relative index 1..8; real placement lives in worldPosition.
+  // Each face is a bookcase with a 300 mm deep cavity; slot numbers are a bay-relative
+  // index 1..8 and real placement lives in worldPosition.
   const centres = [-6, -3, 0, 3, 6];
   const posts = [-8.75, -6.8, -4.8, -2.8, -0.85];
   const halfPost = 0.05;
   const halfBook = 0.216 / 2;
   const halfHeight = 0.306 / 2;
   const boardTops = [0.09, 0.535, 1.035, 1.535];
+  const backFace = 0.2; // the face a book leans on, from the shelf centre plane
+  const rearBoard = 0.0126; // book root to its rear board, off smart-book.glb
+  const thickness = 0.0258; // book depth, off smart-book.glb
   const slots = new Set();
   const perFace = new Map();
   for (const b of books) {
@@ -40,13 +44,22 @@ test("every catalogued chip rests on its board inside a bay, 8 per face and laye
     assert.ok(b.slot >= 1 && b.slot <= 8, `${b.bookId} is outside the 8-per-face grid`);
 
     const [x, y, z] = b.worldPosition;
-    const faceX = centres[b.shelf - 1] + (b.side === "A" ? 0.46 : -0.46);
-    assert.ok(Math.abs(x - faceX) < 1e-9, `${b.bookId} is off its shelf centre`);
+    const centre = centres[b.shelf - 1];
+    const sign = b.side === "A" ? 1 : -1;
+    // The rear board must touch the back panel face, which is what holds the volume up.
+    assert.ok(
+      Math.abs(x - sign * rearBoard - (centre + sign * backFace)) < 1e-9,
+      `${b.bookId} does not lean on the back panel`,
+    );
     // The volume stands on the board: centre height = board top + half the book height.
     assert.ok(
       Math.abs(y - (boardTops[b.layer - 1] + halfHeight)) < 1e-9,
       `${b.bookId} does not rest on layer ${b.layer}`,
     );
+    // Entirely inside its own bookcase, clear of the brass lip and the frame posts.
+    const outerX = x + sign * (thickness - rearBoard);
+    const lipX = centre + sign * 0.4955;
+    assert.ok(sign * outerX < sign * lipX, `${b.bookId} pokes through the brass lip`);
     assert.ok(z - halfBook > -8.75 && z + halfBook < -0.85, `${b.bookId} leaves the shelf`);
     for (const post of posts)
       assert.ok(

@@ -177,7 +177,12 @@ for s,x in enumerate([-6,-3,0,3,6],1):
     group('Shelf_'+str(s))
     # Exact finished envelope: width=1m, height=2m, length=8m.
     cube('Shelf plinth',(x,.065,-4.8),(.94,.13,7.9),walnut,.022)
-    cube('Shelf central back',(x,1.04,-4.8),(.055,1.84,7.90),oak,.006)
+    # Each face is its own bookcase with a 300 mm deep cavity behind a solid back panel —
+    # the depth general collections are shelved at. A full partition between the two faces
+    # (rather than a rear lip) is what lets a book stand unsupported without sliding through.
+    # Panel spans centre +/-(0.17..0.20), so the face a book leans on sits 0.20 from centre.
+    for side in [-1,1]:
+        cube('Shelf back panel',(x+side*.185,1.04,-4.8),(.03,1.84,7.90),oak,.006)
     for y in [.055,.50,1.00,1.50,1.965]:
         cube('Shelf board',(x,y,-4.8),(1,.07,8),oak,.012)
         for side in [-1,1]:

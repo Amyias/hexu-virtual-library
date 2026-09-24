@@ -20,7 +20,7 @@ export const books = [
     "locationCode": "S1-A-L1-P01",
     "placeholder": true,
     "worldPosition": [
-      -5.54,
+      -5.7874,
       0.243,
       -8.2
     ],
@@ -53,7 +53,7 @@ export const books = [
     "locationCode": "S1-A-L1-P02",
     "placeholder": true,
     "worldPosition": [
-      -5.54,
+      -5.7874,
       0.243,
       -7.4
     ],
@@ -86,7 +86,7 @@ export const books = [
     "locationCode": "S1-A-L1-P03",
     "placeholder": true,
     "worldPosition": [
-      -5.54,
+      -5.7874,
       0.243,
       -6.2
     ],
@@ -119,7 +119,7 @@ export const books = [
     "locationCode": "S1-A-L1-P04",
     "placeholder": true,
     "worldPosition": [
-      -5.54,
+      -5.7874,
       0.243,
       -5.4
     ],
@@ -152,7 +152,7 @@ export const books = [
     "locationCode": "S1-A-L1-P05",
     "placeholder": true,
     "worldPosition": [
-      -5.54,
+      -5.7874,
       0.243,
       -4.2
     ],
@@ -185,7 +185,7 @@ export const books = [
     "locationCode": "S1-A-L1-P06",
     "placeholder": true,
     "worldPosition": [
-      -5.54,
+      -5.7874,
       0.243,
       -3.4
     ],
@@ -221,7 +221,7 @@ export const books = [
     "locationCode": "S1-A-L1-P07",
     "placeholder": false,
     "worldPosition": [
-      -5.54,
+      -5.7874,
       0.243,
       -2.2
     ],
@@ -254,7 +254,7 @@ export const books = [
     "locationCode": "S1-A-L1-P08",
     "placeholder": true,
     "worldPosition": [
-      -5.54,
+      -5.7874,
       0.243,
       -1.4
     ],
@@ -287,7 +287,7 @@ export const books = [
     "locationCode": "S1-A-L2-P01",
     "placeholder": true,
     "worldPosition": [
-      -5.54,
+      -5.7874,
       0.688,
       -8.2
     ],
@@ -320,7 +320,7 @@ export const books = [
     "locationCode": "S1-A-L2-P02",
     "placeholder": true,
     "worldPosition": [
-      -5.54,
+      -5.7874,
       0.688,
       -7.4
     ],
@@ -353,7 +353,7 @@ export const books = [
     "locationCode": "S1-A-L2-P03",
     "placeholder": true,
     "worldPosition": [
-      -5.54,
+      -5.7874,
       0.688,
       -6.2
     ],
@@ -386,7 +386,7 @@ export const books = [
     "locationCode": "S1-A-L2-P04",
     "placeholder": true,
     "worldPosition": [
-      -5.54,
+      -5.7874,
       0.688,
       -5.4
     ],
@@ -419,7 +419,7 @@ export const books = [
     "locationCode": "S1-A-L2-P05",
     "placeholder": true,
     "worldPosition": [
-      -5.54,
+      -5.7874,
       0.688,
       -4.2
     ],
@@ -452,7 +452,7 @@ export const books = [
     "locationCode": "S1-A-L2-P06",
     "placeholder": true,
     "worldPosition": [
-      -5.54,
+      -5.7874,
       0.688,
       -3.4
     ],
@@ -485,7 +485,7 @@ export const books = [
     "locationCode": "S1-A-L2-P07",
     "placeholder": true,
     "worldPosition": [
-      -5.54,
+      -5.7874,
       0.688,
       -2.2
     ],
@@ -518,7 +518,7 @@ export const books = [
     "locationCode": "S1-A-L2-P08",
     "placeholder": true,
     "worldPosition": [
-      -5.54,
+      -5.7874,
       0.688,
       -1.4
     ],
@@ -551,7 +551,7 @@ export const books = [
     "locationCode": "S1-A-L3-P01",
     "placeholder": true,
     "worldPosition": [
-      -5.54,
+      -5.7874,
       1.188,
       -8.2
     ],
@@ -584,7 +584,7 @@ export const books = [
     "locationCode": "S1-A-L3-P02",
     "placeholder": true,
     "worldPosition": [
-      -5.54,
+      -5.7874,
       1.188,
       -7.4
     ],
@@ -617,7 +617,7 @@ export const books = [
     "locationCode": "S1-A-L3-P03",
     "placeholder": true,
     "worldPosition": [
-      -5.54,
+      -5.7874,
       1.188,
       -6.2
     ],
@@ -650,7 +650,7 @@ export const books = [
     "locationCode": "S1-A-L3-P04",
     "placeholder": true,
     "worldPosition": [
-      -5.54,
+      -5.7874,
       1.188,
       -5.4
     ],
@@ -683,7 +683,7 @@ export const books = [
     "locationCode": "S1-A-L3-P05",
     "placeholder": true,
     "worldPosition": [
-      -5.54,
+      -5.7874,
       1.188,
       -4.2
     ],
@@ -716,7 +716,7 @@ export const books = [
     "locationCode": "S1-A-L3-P06",
     "placeholder": true,
     "worldPosition": [
-      -5.54,
+      -5.7874,
       1.188,
       -3.4
     ],
@@ -749,7 +749,7 @@ export const books = [
     "locationCode": "S1-A-L3-P07",
     "placeholder": true,
     "worldPosition": [
-      -5.54,
+      -5.7874,
       1.188,
       -2.2
     ],
@@ -786,7 +786,7 @@ export const books = [
     "locationCode": "S1-A-L3-P08",
     "placeholder": false,
     "worldPosition": [
-      -5.54,
+      -5.7874,
       1.188,
       -1.4
     ],
@@ -819,7 +819,7 @@ export const books = [
     "locationCode": "S1-A-L4-P01",
     "placeholder": true,
     "worldPosition": [
-      -5.54,
+      -5.7874,
       1.688,
       -8.2
     ],
@@ -852,7 +852,7 @@ export const books = [
     "locationCode": "S1-A-L4-P02",
     "placeholder": true,
     "worldPosition": [
-      -5.54,
+      -5.7874,
       1.688,
       -7.4
     ],
@@ -885,7 +885,7 @@ export const books = [
     "locationCode": "S1-A-L4-P03",
     "placeholder": true,
     "worldPosition": [
-      -5.54,
+      -5.7874,
       1.688,
       -6.2
     ],
@@ -918,7 +918,7 @@ export const books = [
     "locationCode": "S1-A-L4-P04",
     "placeholder": true,
     "worldPosition": [
-      -5.54,
+      -5.7874,
       1.688,
       -5.4
     ],
@@ -951,7 +951,7 @@ export const books = [
     "locationCode": "S1-A-L4-P05",
     "placeholder": true,
     "worldPosition": [
-      -5.54,
+      -5.7874,
       1.688,
       -4.2
     ],
@@ -984,7 +984,7 @@ export const books = [
     "locationCode": "S1-A-L4-P06",
     "placeholder": true,
     "worldPosition": [
-      -5.54,
+      -5.7874,
       1.688,
       -3.4
     ],
@@ -1017,7 +1017,7 @@ export const books = [
     "locationCode": "S1-A-L4-P07",
     "placeholder": true,
     "worldPosition": [
-      -5.54,
+      -5.7874,
       1.688,
       -2.2
     ],
@@ -1050,7 +1050,7 @@ export const books = [
     "locationCode": "S1-A-L4-P08",
     "placeholder": true,
     "worldPosition": [
-      -5.54,
+      -5.7874,
       1.688,
       -1.4
     ],
@@ -1083,7 +1083,7 @@ export const books = [
     "locationCode": "S1-B-L1-P01",
     "placeholder": true,
     "worldPosition": [
-      -6.46,
+      -6.2126,
       0.243,
       -8.2
     ],
@@ -1116,7 +1116,7 @@ export const books = [
     "locationCode": "S1-B-L1-P02",
     "placeholder": true,
     "worldPosition": [
-      -6.46,
+      -6.2126,
       0.243,
       -7.4
     ],
@@ -1149,7 +1149,7 @@ export const books = [
     "locationCode": "S1-B-L1-P03",
     "placeholder": true,
     "worldPosition": [
-      -6.46,
+      -6.2126,
       0.243,
       -6.2
     ],
@@ -1182,7 +1182,7 @@ export const books = [
     "locationCode": "S1-B-L1-P04",
     "placeholder": true,
     "worldPosition": [
-      -6.46,
+      -6.2126,
       0.243,
       -5.4
     ],
@@ -1215,7 +1215,7 @@ export const books = [
     "locationCode": "S1-B-L1-P05",
     "placeholder": true,
     "worldPosition": [
-      -6.46,
+      -6.2126,
       0.243,
       -4.2
     ],
@@ -1248,7 +1248,7 @@ export const books = [
     "locationCode": "S1-B-L1-P06",
     "placeholder": true,
     "worldPosition": [
-      -6.46,
+      -6.2126,
       0.243,
       -3.4
     ],
@@ -1281,7 +1281,7 @@ export const books = [
     "locationCode": "S1-B-L1-P07",
     "placeholder": true,
     "worldPosition": [
-      -6.46,
+      -6.2126,
       0.243,
       -2.2
     ],
@@ -1314,7 +1314,7 @@ export const books = [
     "locationCode": "S1-B-L1-P08",
     "placeholder": true,
     "worldPosition": [
-      -6.46,
+      -6.2126,
       0.243,
       -1.4
     ],
@@ -1347,7 +1347,7 @@ export const books = [
     "locationCode": "S1-B-L2-P01",
     "placeholder": true,
     "worldPosition": [
-      -6.46,
+      -6.2126,
       0.688,
       -8.2
     ],
@@ -1380,7 +1380,7 @@ export const books = [
     "locationCode": "S1-B-L2-P02",
     "placeholder": true,
     "worldPosition": [
-      -6.46,
+      -6.2126,
       0.688,
       -7.4
     ],
@@ -1413,7 +1413,7 @@ export const books = [
     "locationCode": "S1-B-L2-P03",
     "placeholder": true,
     "worldPosition": [
-      -6.46,
+      -6.2126,
       0.688,
       -6.2
     ],
@@ -1446,7 +1446,7 @@ export const books = [
     "locationCode": "S1-B-L2-P04",
     "placeholder": true,
     "worldPosition": [
-      -6.46,
+      -6.2126,
       0.688,
       -5.4
     ],
@@ -1479,7 +1479,7 @@ export const books = [
     "locationCode": "S1-B-L2-P05",
     "placeholder": true,
     "worldPosition": [
-      -6.46,
+      -6.2126,
       0.688,
       -4.2
     ],
@@ -1512,7 +1512,7 @@ export const books = [
     "locationCode": "S1-B-L2-P06",
     "placeholder": true,
     "worldPosition": [
-      -6.46,
+      -6.2126,
       0.688,
       -3.4
     ],
@@ -1545,7 +1545,7 @@ export const books = [
     "locationCode": "S1-B-L2-P07",
     "placeholder": true,
     "worldPosition": [
-      -6.46,
+      -6.2126,
       0.688,
       -2.2
     ],
@@ -1578,7 +1578,7 @@ export const books = [
     "locationCode": "S1-B-L2-P08",
     "placeholder": true,
     "worldPosition": [
-      -6.46,
+      -6.2126,
       0.688,
       -1.4
     ],
@@ -1611,7 +1611,7 @@ export const books = [
     "locationCode": "S1-B-L3-P01",
     "placeholder": true,
     "worldPosition": [
-      -6.46,
+      -6.2126,
       1.188,
       -8.2
     ],
@@ -1644,7 +1644,7 @@ export const books = [
     "locationCode": "S1-B-L3-P02",
     "placeholder": true,
     "worldPosition": [
-      -6.46,
+      -6.2126,
       1.188,
       -7.4
     ],
@@ -1677,7 +1677,7 @@ export const books = [
     "locationCode": "S1-B-L3-P03",
     "placeholder": true,
     "worldPosition": [
-      -6.46,
+      -6.2126,
       1.188,
       -6.2
     ],
@@ -1710,7 +1710,7 @@ export const books = [
     "locationCode": "S1-B-L3-P04",
     "placeholder": true,
     "worldPosition": [
-      -6.46,
+      -6.2126,
       1.188,
       -5.4
     ],
@@ -1743,7 +1743,7 @@ export const books = [
     "locationCode": "S1-B-L3-P05",
     "placeholder": true,
     "worldPosition": [
-      -6.46,
+      -6.2126,
       1.188,
       -4.2
     ],
@@ -1776,7 +1776,7 @@ export const books = [
     "locationCode": "S1-B-L3-P06",
     "placeholder": true,
     "worldPosition": [
-      -6.46,
+      -6.2126,
       1.188,
       -3.4
     ],
@@ -1809,7 +1809,7 @@ export const books = [
     "locationCode": "S1-B-L3-P07",
     "placeholder": true,
     "worldPosition": [
-      -6.46,
+      -6.2126,
       1.188,
       -2.2
     ],
@@ -1842,7 +1842,7 @@ export const books = [
     "locationCode": "S1-B-L3-P08",
     "placeholder": true,
     "worldPosition": [
-      -6.46,
+      -6.2126,
       1.188,
       -1.4
     ],
@@ -1875,7 +1875,7 @@ export const books = [
     "locationCode": "S1-B-L4-P01",
     "placeholder": true,
     "worldPosition": [
-      -6.46,
+      -6.2126,
       1.688,
       -8.2
     ],
@@ -1908,7 +1908,7 @@ export const books = [
     "locationCode": "S1-B-L4-P02",
     "placeholder": true,
     "worldPosition": [
-      -6.46,
+      -6.2126,
       1.688,
       -7.4
     ],
@@ -1941,7 +1941,7 @@ export const books = [
     "locationCode": "S1-B-L4-P03",
     "placeholder": true,
     "worldPosition": [
-      -6.46,
+      -6.2126,
       1.688,
       -6.2
     ],
@@ -1974,7 +1974,7 @@ export const books = [
     "locationCode": "S1-B-L4-P04",
     "placeholder": true,
     "worldPosition": [
-      -6.46,
+      -6.2126,
       1.688,
       -5.4
     ],
@@ -2007,7 +2007,7 @@ export const books = [
     "locationCode": "S1-B-L4-P05",
     "placeholder": true,
     "worldPosition": [
-      -6.46,
+      -6.2126,
       1.688,
       -4.2
     ],
@@ -2040,7 +2040,7 @@ export const books = [
     "locationCode": "S1-B-L4-P06",
     "placeholder": true,
     "worldPosition": [
-      -6.46,
+      -6.2126,
       1.688,
       -3.4
     ],
@@ -2077,7 +2077,7 @@ export const books = [
     "locationCode": "S1-B-L4-P07",
     "placeholder": false,
     "worldPosition": [
-      -6.46,
+      -6.2126,
       1.688,
       -2.2
     ],
@@ -2110,7 +2110,7 @@ export const books = [
     "locationCode": "S1-B-L4-P08",
     "placeholder": true,
     "worldPosition": [
-      -6.46,
+      -6.2126,
       1.688,
       -1.4
     ],
@@ -2143,7 +2143,7 @@ export const books = [
     "locationCode": "S2-A-L1-P01",
     "placeholder": true,
     "worldPosition": [
-      -2.54,
+      -2.7874,
       0.243,
       -8.2
     ],
@@ -2176,7 +2176,7 @@ export const books = [
     "locationCode": "S2-A-L1-P02",
     "placeholder": true,
     "worldPosition": [
-      -2.54,
+      -2.7874,
       0.243,
       -7.4
     ],
@@ -2209,7 +2209,7 @@ export const books = [
     "locationCode": "S2-A-L1-P03",
     "placeholder": true,
     "worldPosition": [
-      -2.54,
+      -2.7874,
       0.243,
       -6.2
     ],
@@ -2242,7 +2242,7 @@ export const books = [
     "locationCode": "S2-A-L1-P04",
     "placeholder": true,
     "worldPosition": [
-      -2.54,
+      -2.7874,
       0.243,
       -5.4
     ],
@@ -2275,7 +2275,7 @@ export const books = [
     "locationCode": "S2-A-L1-P05",
     "placeholder": true,
     "worldPosition": [
-      -2.54,
+      -2.7874,
       0.243,
       -4.2
     ],
@@ -2308,7 +2308,7 @@ export const books = [
     "locationCode": "S2-A-L1-P06",
     "placeholder": true,
     "worldPosition": [
-      -2.54,
+      -2.7874,
       0.243,
       -3.4
     ],
@@ -2341,7 +2341,7 @@ export const books = [
     "locationCode": "S2-A-L1-P07",
     "placeholder": true,
     "worldPosition": [
-      -2.54,
+      -2.7874,
       0.243,
       -2.2
     ],
@@ -2374,7 +2374,7 @@ export const books = [
     "locationCode": "S2-A-L1-P08",
     "placeholder": true,
     "worldPosition": [
-      -2.54,
+      -2.7874,
       0.243,
       -1.4
     ],
@@ -2407,7 +2407,7 @@ export const books = [
     "locationCode": "S2-A-L2-P01",
     "placeholder": true,
     "worldPosition": [
-      -2.54,
+      -2.7874,
       0.688,
       -8.2
     ],
@@ -2440,7 +2440,7 @@ export const books = [
     "locationCode": "S2-A-L2-P02",
     "placeholder": true,
     "worldPosition": [
-      -2.54,
+      -2.7874,
       0.688,
       -7.4
     ],
@@ -2473,7 +2473,7 @@ export const books = [
     "locationCode": "S2-A-L2-P03",
     "placeholder": true,
     "worldPosition": [
-      -2.54,
+      -2.7874,
       0.688,
       -6.2
     ],
@@ -2506,7 +2506,7 @@ export const books = [
     "locationCode": "S2-A-L2-P04",
     "placeholder": true,
     "worldPosition": [
-      -2.54,
+      -2.7874,
       0.688,
       -5.4
     ],
@@ -2539,7 +2539,7 @@ export const books = [
     "locationCode": "S2-A-L2-P05",
     "placeholder": true,
     "worldPosition": [
-      -2.54,
+      -2.7874,
       0.688,
       -4.2
     ],
@@ -2572,7 +2572,7 @@ export const books = [
     "locationCode": "S2-A-L2-P06",
     "placeholder": true,
     "worldPosition": [
-      -2.54,
+      -2.7874,
       0.688,
       -3.4
     ],
@@ -2605,7 +2605,7 @@ export const books = [
     "locationCode": "S2-A-L2-P07",
     "placeholder": true,
     "worldPosition": [
-      -2.54,
+      -2.7874,
       0.688,
       -2.2
     ],
@@ -2642,7 +2642,7 @@ export const books = [
     "locationCode": "S2-A-L2-P08",
     "placeholder": false,
     "worldPosition": [
-      -2.54,
+      -2.7874,
       0.688,
       -1.4
     ],
@@ -2675,7 +2675,7 @@ export const books = [
     "locationCode": "S2-A-L3-P01",
     "placeholder": true,
     "worldPosition": [
-      -2.54,
+      -2.7874,
       1.188,
       -8.2
     ],
@@ -2708,7 +2708,7 @@ export const books = [
     "locationCode": "S2-A-L3-P02",
     "placeholder": true,
     "worldPosition": [
-      -2.54,
+      -2.7874,
       1.188,
       -7.4
     ],
@@ -2741,7 +2741,7 @@ export const books = [
     "locationCode": "S2-A-L3-P03",
     "placeholder": true,
     "worldPosition": [
-      -2.54,
+      -2.7874,
       1.188,
       -6.2
     ],
@@ -2774,7 +2774,7 @@ export const books = [
     "locationCode": "S2-A-L3-P04",
     "placeholder": true,
     "worldPosition": [
-      -2.54,
+      -2.7874,
       1.188,
       -5.4
     ],
@@ -2807,7 +2807,7 @@ export const books = [
     "locationCode": "S2-A-L3-P05",
     "placeholder": true,
     "worldPosition": [
-      -2.54,
+      -2.7874,
       1.188,
       -4.2
     ],
@@ -2840,7 +2840,7 @@ export const books = [
     "locationCode": "S2-A-L3-P06",
     "placeholder": true,
     "worldPosition": [
-      -2.54,
+      -2.7874,
       1.188,
       -3.4
     ],
@@ -2873,7 +2873,7 @@ export const books = [
     "locationCode": "S2-A-L3-P07",
     "placeholder": true,
     "worldPosition": [
-      -2.54,
+      -2.7874,
       1.188,
       -2.2
     ],
@@ -2906,7 +2906,7 @@ export const books = [
     "locationCode": "S2-A-L3-P08",
     "placeholder": true,
     "worldPosition": [
-      -2.54,
+      -2.7874,
       1.188,
       -1.4
     ],
@@ -2939,7 +2939,7 @@ export const books = [
     "locationCode": "S2-A-L4-P01",
     "placeholder": true,
     "worldPosition": [
-      -2.54,
+      -2.7874,
       1.688,
       -8.2
     ],
@@ -2972,7 +2972,7 @@ export const books = [
     "locationCode": "S2-A-L4-P02",
     "placeholder": true,
     "worldPosition": [
-      -2.54,
+      -2.7874,
       1.688,
       -7.4
     ],
@@ -3005,7 +3005,7 @@ export const books = [
     "locationCode": "S2-A-L4-P03",
     "placeholder": true,
     "worldPosition": [
-      -2.54,
+      -2.7874,
       1.688,
       -6.2
     ],
@@ -3038,7 +3038,7 @@ export const books = [
     "locationCode": "S2-A-L4-P04",
     "placeholder": true,
     "worldPosition": [
-      -2.54,
+      -2.7874,
       1.688,
       -5.4
     ],
@@ -3071,7 +3071,7 @@ export const books = [
     "locationCode": "S2-A-L4-P05",
     "placeholder": true,
     "worldPosition": [
-      -2.54,
+      -2.7874,
       1.688,
       -4.2
     ],
@@ -3104,7 +3104,7 @@ export const books = [
     "locationCode": "S2-A-L4-P06",
     "placeholder": true,
     "worldPosition": [
-      -2.54,
+      -2.7874,
       1.688,
       -3.4
     ],
@@ -3137,7 +3137,7 @@ export const books = [
     "locationCode": "S2-A-L4-P07",
     "placeholder": true,
     "worldPosition": [
-      -2.54,
+      -2.7874,
       1.688,
       -2.2
     ],
@@ -3170,7 +3170,7 @@ export const books = [
     "locationCode": "S2-A-L4-P08",
     "placeholder": true,
     "worldPosition": [
-      -2.54,
+      -2.7874,
       1.688,
       -1.4
     ],
@@ -3203,7 +3203,7 @@ export const books = [
     "locationCode": "S2-B-L1-P01",
     "placeholder": true,
     "worldPosition": [
-      -3.46,
+      -3.2126,
       0.243,
       -8.2
     ],
@@ -3236,7 +3236,7 @@ export const books = [
     "locationCode": "S2-B-L1-P02",
     "placeholder": true,
     "worldPosition": [
-      -3.46,
+      -3.2126,
       0.243,
       -7.4
     ],
@@ -3269,7 +3269,7 @@ export const books = [
     "locationCode": "S2-B-L1-P03",
     "placeholder": true,
     "worldPosition": [
-      -3.46,
+      -3.2126,
       0.243,
       -6.2
     ],
@@ -3302,7 +3302,7 @@ export const books = [
     "locationCode": "S2-B-L1-P04",
     "placeholder": true,
     "worldPosition": [
-      -3.46,
+      -3.2126,
       0.243,
       -5.4
     ],
@@ -3335,7 +3335,7 @@ export const books = [
     "locationCode": "S2-B-L1-P05",
     "placeholder": true,
     "worldPosition": [
-      -3.46,
+      -3.2126,
       0.243,
       -4.2
     ],
@@ -3368,7 +3368,7 @@ export const books = [
     "locationCode": "S2-B-L1-P06",
     "placeholder": true,
     "worldPosition": [
-      -3.46,
+      -3.2126,
       0.243,
       -3.4
     ],
@@ -3401,7 +3401,7 @@ export const books = [
     "locationCode": "S2-B-L1-P07",
     "placeholder": true,
     "worldPosition": [
-      -3.46,
+      -3.2126,
       0.243,
       -2.2
     ],
@@ -3434,7 +3434,7 @@ export const books = [
     "locationCode": "S2-B-L1-P08",
     "placeholder": true,
     "worldPosition": [
-      -3.46,
+      -3.2126,
       0.243,
       -1.4
     ],
@@ -3467,7 +3467,7 @@ export const books = [
     "locationCode": "S2-B-L2-P01",
     "placeholder": true,
     "worldPosition": [
-      -3.46,
+      -3.2126,
       0.688,
       -8.2
     ],
@@ -3500,7 +3500,7 @@ export const books = [
     "locationCode": "S2-B-L2-P02",
     "placeholder": true,
     "worldPosition": [
-      -3.46,
+      -3.2126,
       0.688,
       -7.4
     ],
@@ -3533,7 +3533,7 @@ export const books = [
     "locationCode": "S2-B-L2-P03",
     "placeholder": true,
     "worldPosition": [
-      -3.46,
+      -3.2126,
       0.688,
       -6.2
     ],
@@ -3566,7 +3566,7 @@ export const books = [
     "locationCode": "S2-B-L2-P04",
     "placeholder": true,
     "worldPosition": [
-      -3.46,
+      -3.2126,
       0.688,
       -5.4
     ],
@@ -3599,7 +3599,7 @@ export const books = [
     "locationCode": "S2-B-L2-P05",
     "placeholder": true,
     "worldPosition": [
-      -3.46,
+      -3.2126,
       0.688,
       -4.2
     ],
@@ -3632,7 +3632,7 @@ export const books = [
     "locationCode": "S2-B-L2-P06",
     "placeholder": true,
     "worldPosition": [
-      -3.46,
+      -3.2126,
       0.688,
       -3.4
     ],
@@ -3665,7 +3665,7 @@ export const books = [
     "locationCode": "S2-B-L2-P07",
     "placeholder": true,
     "worldPosition": [
-      -3.46,
+      -3.2126,
       0.688,
       -2.2
     ],
@@ -3698,7 +3698,7 @@ export const books = [
     "locationCode": "S2-B-L2-P08",
     "placeholder": true,
     "worldPosition": [
-      -3.46,
+      -3.2126,
       0.688,
       -1.4
     ],
@@ -3731,7 +3731,7 @@ export const books = [
     "locationCode": "S2-B-L3-P01",
     "placeholder": true,
     "worldPosition": [
-      -3.46,
+      -3.2126,
       1.188,
       -8.2
     ],
@@ -3764,7 +3764,7 @@ export const books = [
     "locationCode": "S2-B-L3-P02",
     "placeholder": true,
     "worldPosition": [
-      -3.46,
+      -3.2126,
       1.188,
       -7.4
     ],
@@ -3797,7 +3797,7 @@ export const books = [
     "locationCode": "S2-B-L3-P03",
     "placeholder": true,
     "worldPosition": [
-      -3.46,
+      -3.2126,
       1.188,
       -6.2
     ],
@@ -3830,7 +3830,7 @@ export const books = [
     "locationCode": "S2-B-L3-P04",
     "placeholder": true,
     "worldPosition": [
-      -3.46,
+      -3.2126,
       1.188,
       -5.4
     ],
@@ -3863,7 +3863,7 @@ export const books = [
     "locationCode": "S2-B-L3-P05",
     "placeholder": true,
     "worldPosition": [
-      -3.46,
+      -3.2126,
       1.188,
       -4.2
     ],
@@ -3896,7 +3896,7 @@ export const books = [
     "locationCode": "S2-B-L3-P06",
     "placeholder": true,
     "worldPosition": [
-      -3.46,
+      -3.2126,
       1.188,
       -3.4
     ],
@@ -3933,7 +3933,7 @@ export const books = [
     "locationCode": "S2-B-L3-P07",
     "placeholder": false,
     "worldPosition": [
-      -3.46,
+      -3.2126,
       1.188,
       -2.2
     ],
@@ -3966,7 +3966,7 @@ export const books = [
     "locationCode": "S2-B-L3-P08",
     "placeholder": true,
     "worldPosition": [
-      -3.46,
+      -3.2126,
       1.188,
       -1.4
     ],
@@ -3999,7 +3999,7 @@ export const books = [
     "locationCode": "S2-B-L4-P01",
     "placeholder": true,
     "worldPosition": [
-      -3.46,
+      -3.2126,
       1.688,
       -8.2
     ],
@@ -4032,7 +4032,7 @@ export const books = [
     "locationCode": "S2-B-L4-P02",
     "placeholder": true,
     "worldPosition": [
-      -3.46,
+      -3.2126,
       1.688,
       -7.4
     ],
@@ -4065,7 +4065,7 @@ export const books = [
     "locationCode": "S2-B-L4-P03",
     "placeholder": true,
     "worldPosition": [
-      -3.46,
+      -3.2126,
       1.688,
       -6.2
     ],
@@ -4098,7 +4098,7 @@ export const books = [
     "locationCode": "S2-B-L4-P04",
     "placeholder": true,
     "worldPosition": [
-      -3.46,
+      -3.2126,
       1.688,
       -5.4
     ],
@@ -4131,7 +4131,7 @@ export const books = [
     "locationCode": "S2-B-L4-P05",
     "placeholder": true,
     "worldPosition": [
-      -3.46,
+      -3.2126,
       1.688,
       -4.2
     ],
@@ -4164,7 +4164,7 @@ export const books = [
     "locationCode": "S2-B-L4-P06",
     "placeholder": true,
     "worldPosition": [
-      -3.46,
+      -3.2126,
       1.688,
       -3.4
     ],
@@ -4197,7 +4197,7 @@ export const books = [
     "locationCode": "S2-B-L4-P07",
     "placeholder": true,
     "worldPosition": [
-      -3.46,
+      -3.2126,
       1.688,
       -2.2
     ],
@@ -4230,7 +4230,7 @@ export const books = [
     "locationCode": "S2-B-L4-P08",
     "placeholder": true,
     "worldPosition": [
-      -3.46,
+      -3.2126,
       1.688,
       -1.4
     ],
@@ -4263,7 +4263,7 @@ export const books = [
     "locationCode": "S3-A-L1-P01",
     "placeholder": true,
     "worldPosition": [
-      0.46,
+      0.2126,
       0.243,
       -8.2
     ],
@@ -4296,7 +4296,7 @@ export const books = [
     "locationCode": "S3-A-L1-P02",
     "placeholder": true,
     "worldPosition": [
-      0.46,
+      0.2126,
       0.243,
       -7.4
     ],
@@ -4329,7 +4329,7 @@ export const books = [
     "locationCode": "S3-A-L1-P03",
     "placeholder": true,
     "worldPosition": [
-      0.46,
+      0.2126,
       0.243,
       -6.2
     ],
@@ -4362,7 +4362,7 @@ export const books = [
     "locationCode": "S3-A-L1-P04",
     "placeholder": true,
     "worldPosition": [
-      0.46,
+      0.2126,
       0.243,
       -5.4
     ],
@@ -4395,7 +4395,7 @@ export const books = [
     "locationCode": "S3-A-L1-P05",
     "placeholder": true,
     "worldPosition": [
-      0.46,
+      0.2126,
       0.243,
       -4.2
     ],
@@ -4428,7 +4428,7 @@ export const books = [
     "locationCode": "S3-A-L1-P06",
     "placeholder": true,
     "worldPosition": [
-      0.46,
+      0.2126,
       0.243,
       -3.4
     ],
@@ -4461,7 +4461,7 @@ export const books = [
     "locationCode": "S3-A-L1-P07",
     "placeholder": true,
     "worldPosition": [
-      0.46,
+      0.2126,
       0.243,
       -2.2
     ],
@@ -4494,7 +4494,7 @@ export const books = [
     "locationCode": "S3-A-L1-P08",
     "placeholder": true,
     "worldPosition": [
-      0.46,
+      0.2126,
       0.243,
       -1.4
     ],
@@ -4527,7 +4527,7 @@ export const books = [
     "locationCode": "S3-A-L2-P01",
     "placeholder": true,
     "worldPosition": [
-      0.46,
+      0.2126,
       0.688,
       -8.2
     ],
@@ -4560,7 +4560,7 @@ export const books = [
     "locationCode": "S3-A-L2-P02",
     "placeholder": true,
     "worldPosition": [
-      0.46,
+      0.2126,
       0.688,
       -7.4
     ],
@@ -4593,7 +4593,7 @@ export const books = [
     "locationCode": "S3-A-L2-P03",
     "placeholder": true,
     "worldPosition": [
-      0.46,
+      0.2126,
       0.688,
       -6.2
     ],
@@ -4626,7 +4626,7 @@ export const books = [
     "locationCode": "S3-A-L2-P04",
     "placeholder": true,
     "worldPosition": [
-      0.46,
+      0.2126,
       0.688,
       -5.4
     ],
@@ -4659,7 +4659,7 @@ export const books = [
     "locationCode": "S3-A-L2-P05",
     "placeholder": true,
     "worldPosition": [
-      0.46,
+      0.2126,
       0.688,
       -4.2
     ],
@@ -4692,7 +4692,7 @@ export const books = [
     "locationCode": "S3-A-L2-P06",
     "placeholder": true,
     "worldPosition": [
-      0.46,
+      0.2126,
       0.688,
       -3.4
     ],
@@ -4725,7 +4725,7 @@ export const books = [
     "locationCode": "S3-A-L2-P07",
     "placeholder": true,
     "worldPosition": [
-      0.46,
+      0.2126,
       0.688,
       -2.2
     ],
@@ -4762,7 +4762,7 @@ export const books = [
     "locationCode": "S3-A-L2-P08",
     "placeholder": false,
     "worldPosition": [
-      0.46,
+      0.2126,
       0.688,
       -1.4
     ],
@@ -4795,7 +4795,7 @@ export const books = [
     "locationCode": "S3-A-L3-P01",
     "placeholder": true,
     "worldPosition": [
-      0.46,
+      0.2126,
       1.188,
       -8.2
     ],
@@ -4828,7 +4828,7 @@ export const books = [
     "locationCode": "S3-A-L3-P02",
     "placeholder": true,
     "worldPosition": [
-      0.46,
+      0.2126,
       1.188,
       -7.4
     ],
@@ -4861,7 +4861,7 @@ export const books = [
     "locationCode": "S3-A-L3-P03",
     "placeholder": true,
     "worldPosition": [
-      0.46,
+      0.2126,
       1.188,
       -6.2
     ],
@@ -4894,7 +4894,7 @@ export const books = [
     "locationCode": "S3-A-L3-P04",
     "placeholder": true,
     "worldPosition": [
-      0.46,
+      0.2126,
       1.188,
       -5.4
     ],
@@ -4927,7 +4927,7 @@ export const books = [
     "locationCode": "S3-A-L3-P05",
     "placeholder": true,
     "worldPosition": [
-      0.46,
+      0.2126,
       1.188,
       -4.2
     ],
@@ -4960,7 +4960,7 @@ export const books = [
     "locationCode": "S3-A-L3-P06",
     "placeholder": true,
     "worldPosition": [
-      0.46,
+      0.2126,
       1.188,
       -3.4
     ],
@@ -4993,7 +4993,7 @@ export const books = [
     "locationCode": "S3-A-L3-P07",
     "placeholder": true,
     "worldPosition": [
-      0.46,
+      0.2126,
       1.188,
       -2.2
     ],
@@ -5026,7 +5026,7 @@ export const books = [
     "locationCode": "S3-A-L3-P08",
     "placeholder": true,
     "worldPosition": [
-      0.46,
+      0.2126,
       1.188,
       -1.4
     ],
@@ -5059,7 +5059,7 @@ export const books = [
     "locationCode": "S3-A-L4-P01",
     "placeholder": true,
     "worldPosition": [
-      0.46,
+      0.2126,
       1.688,
       -8.2
     ],
@@ -5092,7 +5092,7 @@ export const books = [
     "locationCode": "S3-A-L4-P02",
     "placeholder": true,
     "worldPosition": [
-      0.46,
+      0.2126,
       1.688,
       -7.4
     ],
@@ -5125,7 +5125,7 @@ export const books = [
     "locationCode": "S3-A-L4-P03",
     "placeholder": true,
     "worldPosition": [
-      0.46,
+      0.2126,
       1.688,
       -6.2
     ],
@@ -5158,7 +5158,7 @@ export const books = [
     "locationCode": "S3-A-L4-P04",
     "placeholder": true,
     "worldPosition": [
-      0.46,
+      0.2126,
       1.688,
       -5.4
     ],
@@ -5191,7 +5191,7 @@ export const books = [
     "locationCode": "S3-A-L4-P05",
     "placeholder": true,
     "worldPosition": [
-      0.46,
+      0.2126,
       1.688,
       -4.2
     ],
@@ -5224,7 +5224,7 @@ export const books = [
     "locationCode": "S3-A-L4-P06",
     "placeholder": true,
     "worldPosition": [
-      0.46,
+      0.2126,
       1.688,
       -3.4
     ],
@@ -5257,7 +5257,7 @@ export const books = [
     "locationCode": "S3-A-L4-P07",
     "placeholder": true,
     "worldPosition": [
-      0.46,
+      0.2126,
       1.688,
       -2.2
     ],
@@ -5290,7 +5290,7 @@ export const books = [
     "locationCode": "S3-A-L4-P08",
     "placeholder": true,
     "worldPosition": [
-      0.46,
+      0.2126,
       1.688,
       -1.4
     ],
@@ -5323,7 +5323,7 @@ export const books = [
     "locationCode": "S3-B-L1-P01",
     "placeholder": true,
     "worldPosition": [
-      -0.46,
+      -0.2126,
       0.243,
       -8.2
     ],
@@ -5356,7 +5356,7 @@ export const books = [
     "locationCode": "S3-B-L1-P02",
     "placeholder": true,
     "worldPosition": [
-      -0.46,
+      -0.2126,
       0.243,
       -7.4
     ],
@@ -5389,7 +5389,7 @@ export const books = [
     "locationCode": "S3-B-L1-P03",
     "placeholder": true,
     "worldPosition": [
-      -0.46,
+      -0.2126,
       0.243,
       -6.2
     ],
@@ -5422,7 +5422,7 @@ export const books = [
     "locationCode": "S3-B-L1-P04",
     "placeholder": true,
     "worldPosition": [
-      -0.46,
+      -0.2126,
       0.243,
       -5.4
     ],
@@ -5455,7 +5455,7 @@ export const books = [
     "locationCode": "S3-B-L1-P05",
     "placeholder": true,
     "worldPosition": [
-      -0.46,
+      -0.2126,
       0.243,
       -4.2
     ],
@@ -5488,7 +5488,7 @@ export const books = [
     "locationCode": "S3-B-L1-P06",
     "placeholder": true,
     "worldPosition": [
-      -0.46,
+      -0.2126,
       0.243,
       -3.4
     ],
@@ -5521,7 +5521,7 @@ export const books = [
     "locationCode": "S3-B-L1-P07",
     "placeholder": true,
     "worldPosition": [
-      -0.46,
+      -0.2126,
       0.243,
       -2.2
     ],
@@ -5554,7 +5554,7 @@ export const books = [
     "locationCode": "S3-B-L1-P08",
     "placeholder": true,
     "worldPosition": [
-      -0.46,
+      -0.2126,
       0.243,
       -1.4
     ],
@@ -5587,7 +5587,7 @@ export const books = [
     "locationCode": "S3-B-L2-P01",
     "placeholder": true,
     "worldPosition": [
-      -0.46,
+      -0.2126,
       0.688,
       -8.2
     ],
@@ -5620,7 +5620,7 @@ export const books = [
     "locationCode": "S3-B-L2-P02",
     "placeholder": true,
     "worldPosition": [
-      -0.46,
+      -0.2126,
       0.688,
       -7.4
     ],
@@ -5653,7 +5653,7 @@ export const books = [
     "locationCode": "S3-B-L2-P03",
     "placeholder": true,
     "worldPosition": [
-      -0.46,
+      -0.2126,
       0.688,
       -6.2
     ],
@@ -5686,7 +5686,7 @@ export const books = [
     "locationCode": "S3-B-L2-P04",
     "placeholder": true,
     "worldPosition": [
-      -0.46,
+      -0.2126,
       0.688,
       -5.4
     ],
@@ -5719,7 +5719,7 @@ export const books = [
     "locationCode": "S3-B-L2-P05",
     "placeholder": true,
     "worldPosition": [
-      -0.46,
+      -0.2126,
       0.688,
       -4.2
     ],
@@ -5752,7 +5752,7 @@ export const books = [
     "locationCode": "S3-B-L2-P06",
     "placeholder": true,
     "worldPosition": [
-      -0.46,
+      -0.2126,
       0.688,
       -3.4
     ],
@@ -5785,7 +5785,7 @@ export const books = [
     "locationCode": "S3-B-L2-P07",
     "placeholder": true,
     "worldPosition": [
-      -0.46,
+      -0.2126,
       0.688,
       -2.2
     ],
@@ -5818,7 +5818,7 @@ export const books = [
     "locationCode": "S3-B-L2-P08",
     "placeholder": true,
     "worldPosition": [
-      -0.46,
+      -0.2126,
       0.688,
       -1.4
     ],
@@ -5851,7 +5851,7 @@ export const books = [
     "locationCode": "S3-B-L3-P01",
     "placeholder": true,
     "worldPosition": [
-      -0.46,
+      -0.2126,
       1.188,
       -8.2
     ],
@@ -5884,7 +5884,7 @@ export const books = [
     "locationCode": "S3-B-L3-P02",
     "placeholder": true,
     "worldPosition": [
-      -0.46,
+      -0.2126,
       1.188,
       -7.4
     ],
@@ -5917,7 +5917,7 @@ export const books = [
     "locationCode": "S3-B-L3-P03",
     "placeholder": true,
     "worldPosition": [
-      -0.46,
+      -0.2126,
       1.188,
       -6.2
     ],
@@ -5950,7 +5950,7 @@ export const books = [
     "locationCode": "S3-B-L3-P04",
     "placeholder": true,
     "worldPosition": [
-      -0.46,
+      -0.2126,
       1.188,
       -5.4
     ],
@@ -5983,7 +5983,7 @@ export const books = [
     "locationCode": "S3-B-L3-P05",
     "placeholder": true,
     "worldPosition": [
-      -0.46,
+      -0.2126,
       1.188,
       -4.2
     ],
@@ -6016,7 +6016,7 @@ export const books = [
     "locationCode": "S3-B-L3-P06",
     "placeholder": true,
     "worldPosition": [
-      -0.46,
+      -0.2126,
       1.188,
       -3.4
     ],
@@ -6053,7 +6053,7 @@ export const books = [
     "locationCode": "S3-B-L3-P07",
     "placeholder": false,
     "worldPosition": [
-      -0.46,
+      -0.2126,
       1.188,
       -2.2
     ],
@@ -6086,7 +6086,7 @@ export const books = [
     "locationCode": "S3-B-L3-P08",
     "placeholder": true,
     "worldPosition": [
-      -0.46,
+      -0.2126,
       1.188,
       -1.4
     ],
@@ -6119,7 +6119,7 @@ export const books = [
     "locationCode": "S3-B-L4-P01",
     "placeholder": true,
     "worldPosition": [
-      -0.46,
+      -0.2126,
       1.688,
       -8.2
     ],
@@ -6152,7 +6152,7 @@ export const books = [
     "locationCode": "S3-B-L4-P02",
     "placeholder": true,
     "worldPosition": [
-      -0.46,
+      -0.2126,
       1.688,
       -7.4
     ],
@@ -6185,7 +6185,7 @@ export const books = [
     "locationCode": "S3-B-L4-P03",
     "placeholder": true,
     "worldPosition": [
-      -0.46,
+      -0.2126,
       1.688,
       -6.2
     ],
@@ -6218,7 +6218,7 @@ export const books = [
     "locationCode": "S3-B-L4-P04",
     "placeholder": true,
     "worldPosition": [
-      -0.46,
+      -0.2126,
       1.688,
       -5.4
     ],
@@ -6251,7 +6251,7 @@ export const books = [
     "locationCode": "S3-B-L4-P05",
     "placeholder": true,
     "worldPosition": [
-      -0.46,
+      -0.2126,
       1.688,
       -4.2
     ],
@@ -6284,7 +6284,7 @@ export const books = [
     "locationCode": "S3-B-L4-P06",
     "placeholder": true,
     "worldPosition": [
-      -0.46,
+      -0.2126,
       1.688,
       -3.4
     ],
@@ -6317,7 +6317,7 @@ export const books = [
     "locationCode": "S3-B-L4-P07",
     "placeholder": true,
     "worldPosition": [
-      -0.46,
+      -0.2126,
       1.688,
       -2.2
     ],
@@ -6350,7 +6350,7 @@ export const books = [
     "locationCode": "S3-B-L4-P08",
     "placeholder": true,
     "worldPosition": [
-      -0.46,
+      -0.2126,
       1.688,
       -1.4
     ],
@@ -6383,7 +6383,7 @@ export const books = [
     "locationCode": "S4-A-L1-P01",
     "placeholder": true,
     "worldPosition": [
-      3.46,
+      3.2126,
       0.243,
       -8.2
     ],
@@ -6416,7 +6416,7 @@ export const books = [
     "locationCode": "S4-A-L1-P02",
     "placeholder": true,
     "worldPosition": [
-      3.46,
+      3.2126,
       0.243,
       -7.4
     ],
@@ -6449,7 +6449,7 @@ export const books = [
     "locationCode": "S4-A-L1-P03",
     "placeholder": true,
     "worldPosition": [
-      3.46,
+      3.2126,
       0.243,
       -6.2
     ],
@@ -6482,7 +6482,7 @@ export const books = [
     "locationCode": "S4-A-L1-P04",
     "placeholder": true,
     "worldPosition": [
-      3.46,
+      3.2126,
       0.243,
       -5.4
     ],
@@ -6515,7 +6515,7 @@ export const books = [
     "locationCode": "S4-A-L1-P05",
     "placeholder": true,
     "worldPosition": [
-      3.46,
+      3.2126,
       0.243,
       -4.2
     ],
@@ -6548,7 +6548,7 @@ export const books = [
     "locationCode": "S4-A-L1-P06",
     "placeholder": true,
     "worldPosition": [
-      3.46,
+      3.2126,
       0.243,
       -3.4
     ],
@@ -6581,7 +6581,7 @@ export const books = [
     "locationCode": "S4-A-L1-P07",
     "placeholder": true,
     "worldPosition": [
-      3.46,
+      3.2126,
       0.243,
       -2.2
     ],
@@ -6614,7 +6614,7 @@ export const books = [
     "locationCode": "S4-A-L1-P08",
     "placeholder": true,
     "worldPosition": [
-      3.46,
+      3.2126,
       0.243,
       -1.4
     ],
@@ -6647,7 +6647,7 @@ export const books = [
     "locationCode": "S4-A-L2-P01",
     "placeholder": true,
     "worldPosition": [
-      3.46,
+      3.2126,
       0.688,
       -8.2
     ],
@@ -6680,7 +6680,7 @@ export const books = [
     "locationCode": "S4-A-L2-P02",
     "placeholder": true,
     "worldPosition": [
-      3.46,
+      3.2126,
       0.688,
       -7.4
     ],
@@ -6713,7 +6713,7 @@ export const books = [
     "locationCode": "S4-A-L2-P03",
     "placeholder": true,
     "worldPosition": [
-      3.46,
+      3.2126,
       0.688,
       -6.2
     ],
@@ -6746,7 +6746,7 @@ export const books = [
     "locationCode": "S4-A-L2-P04",
     "placeholder": true,
     "worldPosition": [
-      3.46,
+      3.2126,
       0.688,
       -5.4
     ],
@@ -6779,7 +6779,7 @@ export const books = [
     "locationCode": "S4-A-L2-P05",
     "placeholder": true,
     "worldPosition": [
-      3.46,
+      3.2126,
       0.688,
       -4.2
     ],
@@ -6812,7 +6812,7 @@ export const books = [
     "locationCode": "S4-A-L2-P06",
     "placeholder": true,
     "worldPosition": [
-      3.46,
+      3.2126,
       0.688,
       -3.4
     ],
@@ -6845,7 +6845,7 @@ export const books = [
     "locationCode": "S4-A-L2-P07",
     "placeholder": true,
     "worldPosition": [
-      3.46,
+      3.2126,
       0.688,
       -2.2
     ],
@@ -6882,7 +6882,7 @@ export const books = [
     "locationCode": "S4-A-L2-P08",
     "placeholder": false,
     "worldPosition": [
-      3.46,
+      3.2126,
       0.688,
       -1.4
     ],
@@ -6915,7 +6915,7 @@ export const books = [
     "locationCode": "S4-A-L3-P01",
     "placeholder": true,
     "worldPosition": [
-      3.46,
+      3.2126,
       1.188,
       -8.2
     ],
@@ -6948,7 +6948,7 @@ export const books = [
     "locationCode": "S4-A-L3-P02",
     "placeholder": true,
     "worldPosition": [
-      3.46,
+      3.2126,
       1.188,
       -7.4
     ],
@@ -6981,7 +6981,7 @@ export const books = [
     "locationCode": "S4-A-L3-P03",
     "placeholder": true,
     "worldPosition": [
-      3.46,
+      3.2126,
       1.188,
       -6.2
     ],
@@ -7014,7 +7014,7 @@ export const books = [
     "locationCode": "S4-A-L3-P04",
     "placeholder": true,
     "worldPosition": [
-      3.46,
+      3.2126,
       1.188,
       -5.4
     ],
@@ -7047,7 +7047,7 @@ export const books = [
     "locationCode": "S4-A-L3-P05",
     "placeholder": true,
     "worldPosition": [
-      3.46,
+      3.2126,
       1.188,
       -4.2
     ],
@@ -7080,7 +7080,7 @@ export const books = [
     "locationCode": "S4-A-L3-P06",
     "placeholder": true,
     "worldPosition": [
-      3.46,
+      3.2126,
       1.188,
       -3.4
     ],
@@ -7113,7 +7113,7 @@ export const books = [
     "locationCode": "S4-A-L3-P07",
     "placeholder": true,
     "worldPosition": [
-      3.46,
+      3.2126,
       1.188,
       -2.2
     ],
@@ -7146,7 +7146,7 @@ export const books = [
     "locationCode": "S4-A-L3-P08",
     "placeholder": true,
     "worldPosition": [
-      3.46,
+      3.2126,
       1.188,
       -1.4
     ],
@@ -7179,7 +7179,7 @@ export const books = [
     "locationCode": "S4-A-L4-P01",
     "placeholder": true,
     "worldPosition": [
-      3.46,
+      3.2126,
       1.688,
       -8.2
     ],
@@ -7212,7 +7212,7 @@ export const books = [
     "locationCode": "S4-A-L4-P02",
     "placeholder": true,
     "worldPosition": [
-      3.46,
+      3.2126,
       1.688,
       -7.4
     ],
@@ -7245,7 +7245,7 @@ export const books = [
     "locationCode": "S4-A-L4-P03",
     "placeholder": true,
     "worldPosition": [
-      3.46,
+      3.2126,
       1.688,
       -6.2
     ],
@@ -7278,7 +7278,7 @@ export const books = [
     "locationCode": "S4-A-L4-P04",
     "placeholder": true,
     "worldPosition": [
-      3.46,
+      3.2126,
       1.688,
       -5.4
     ],
@@ -7311,7 +7311,7 @@ export const books = [
     "locationCode": "S4-A-L4-P05",
     "placeholder": true,
     "worldPosition": [
-      3.46,
+      3.2126,
       1.688,
       -4.2
     ],
@@ -7344,7 +7344,7 @@ export const books = [
     "locationCode": "S4-A-L4-P06",
     "placeholder": true,
     "worldPosition": [
-      3.46,
+      3.2126,
       1.688,
       -3.4
     ],
@@ -7377,7 +7377,7 @@ export const books = [
     "locationCode": "S4-A-L4-P07",
     "placeholder": true,
     "worldPosition": [
-      3.46,
+      3.2126,
       1.688,
       -2.2
     ],
@@ -7410,7 +7410,7 @@ export const books = [
     "locationCode": "S4-A-L4-P08",
     "placeholder": true,
     "worldPosition": [
-      3.46,
+      3.2126,
       1.688,
       -1.4
     ],
@@ -7443,7 +7443,7 @@ export const books = [
     "locationCode": "S4-B-L1-P01",
     "placeholder": true,
     "worldPosition": [
-      2.54,
+      2.7874,
       0.243,
       -8.2
     ],
@@ -7476,7 +7476,7 @@ export const books = [
     "locationCode": "S4-B-L1-P02",
     "placeholder": true,
     "worldPosition": [
-      2.54,
+      2.7874,
       0.243,
       -7.4
     ],
@@ -7509,7 +7509,7 @@ export const books = [
     "locationCode": "S4-B-L1-P03",
     "placeholder": true,
     "worldPosition": [
-      2.54,
+      2.7874,
       0.243,
       -6.2
     ],
@@ -7542,7 +7542,7 @@ export const books = [
     "locationCode": "S4-B-L1-P04",
     "placeholder": true,
     "worldPosition": [
-      2.54,
+      2.7874,
       0.243,
       -5.4
     ],
@@ -7575,7 +7575,7 @@ export const books = [
     "locationCode": "S4-B-L1-P05",
     "placeholder": true,
     "worldPosition": [
-      2.54,
+      2.7874,
       0.243,
       -4.2
     ],
@@ -7608,7 +7608,7 @@ export const books = [
     "locationCode": "S4-B-L1-P06",
     "placeholder": true,
     "worldPosition": [
-      2.54,
+      2.7874,
       0.243,
       -3.4
     ],
@@ -7643,7 +7643,7 @@ export const books = [
     "locationCode": "S4-B-L1-P07",
     "placeholder": false,
     "worldPosition": [
-      2.54,
+      2.7874,
       0.243,
       -2.2
     ],
@@ -7676,7 +7676,7 @@ export const books = [
     "locationCode": "S4-B-L1-P08",
     "placeholder": true,
     "worldPosition": [
-      2.54,
+      2.7874,
       0.243,
       -1.4
     ],
@@ -7709,7 +7709,7 @@ export const books = [
     "locationCode": "S4-B-L2-P01",
     "placeholder": true,
     "worldPosition": [
-      2.54,
+      2.7874,
       0.688,
       -8.2
     ],
@@ -7742,7 +7742,7 @@ export const books = [
     "locationCode": "S4-B-L2-P02",
     "placeholder": true,
     "worldPosition": [
-      2.54,
+      2.7874,
       0.688,
       -7.4
     ],
@@ -7775,7 +7775,7 @@ export const books = [
     "locationCode": "S4-B-L2-P03",
     "placeholder": true,
     "worldPosition": [
-      2.54,
+      2.7874,
       0.688,
       -6.2
     ],
@@ -7808,7 +7808,7 @@ export const books = [
     "locationCode": "S4-B-L2-P04",
     "placeholder": true,
     "worldPosition": [
-      2.54,
+      2.7874,
       0.688,
       -5.4
     ],
@@ -7841,7 +7841,7 @@ export const books = [
     "locationCode": "S4-B-L2-P05",
     "placeholder": true,
     "worldPosition": [
-      2.54,
+      2.7874,
       0.688,
       -4.2
     ],
@@ -7874,7 +7874,7 @@ export const books = [
     "locationCode": "S4-B-L2-P06",
     "placeholder": true,
     "worldPosition": [
-      2.54,
+      2.7874,
       0.688,
       -3.4
     ],
@@ -7907,7 +7907,7 @@ export const books = [
     "locationCode": "S4-B-L2-P07",
     "placeholder": true,
     "worldPosition": [
-      2.54,
+      2.7874,
       0.688,
       -2.2
     ],
@@ -7940,7 +7940,7 @@ export const books = [
     "locationCode": "S4-B-L2-P08",
     "placeholder": true,
     "worldPosition": [
-      2.54,
+      2.7874,
       0.688,
       -1.4
     ],
@@ -7973,7 +7973,7 @@ export const books = [
     "locationCode": "S4-B-L3-P01",
     "placeholder": true,
     "worldPosition": [
-      2.54,
+      2.7874,
       1.188,
       -8.2
     ],
@@ -8006,7 +8006,7 @@ export const books = [
     "locationCode": "S4-B-L3-P02",
     "placeholder": true,
     "worldPosition": [
-      2.54,
+      2.7874,
       1.188,
       -7.4
     ],
@@ -8039,7 +8039,7 @@ export const books = [
     "locationCode": "S4-B-L3-P03",
     "placeholder": true,
     "worldPosition": [
-      2.54,
+      2.7874,
       1.188,
       -6.2
     ],
@@ -8072,7 +8072,7 @@ export const books = [
     "locationCode": "S4-B-L3-P04",
     "placeholder": true,
     "worldPosition": [
-      2.54,
+      2.7874,
       1.188,
       -5.4
     ],
@@ -8105,7 +8105,7 @@ export const books = [
     "locationCode": "S4-B-L3-P05",
     "placeholder": true,
     "worldPosition": [
-      2.54,
+      2.7874,
       1.188,
       -4.2
     ],
@@ -8138,7 +8138,7 @@ export const books = [
     "locationCode": "S4-B-L3-P06",
     "placeholder": true,
     "worldPosition": [
-      2.54,
+      2.7874,
       1.188,
       -3.4
     ],
@@ -8171,7 +8171,7 @@ export const books = [
     "locationCode": "S4-B-L3-P07",
     "placeholder": true,
     "worldPosition": [
-      2.54,
+      2.7874,
       1.188,
       -2.2
     ],
@@ -8204,7 +8204,7 @@ export const books = [
     "locationCode": "S4-B-L3-P08",
     "placeholder": true,
     "worldPosition": [
-      2.54,
+      2.7874,
       1.188,
       -1.4
     ],
@@ -8237,7 +8237,7 @@ export const books = [
     "locationCode": "S4-B-L4-P01",
     "placeholder": true,
     "worldPosition": [
-      2.54,
+      2.7874,
       1.688,
       -8.2
     ],
@@ -8270,7 +8270,7 @@ export const books = [
     "locationCode": "S4-B-L4-P02",
     "placeholder": true,
     "worldPosition": [
-      2.54,
+      2.7874,
       1.688,
       -7.4
     ],
@@ -8303,7 +8303,7 @@ export const books = [
     "locationCode": "S4-B-L4-P03",
     "placeholder": true,
     "worldPosition": [
-      2.54,
+      2.7874,
       1.688,
       -6.2
     ],
@@ -8336,7 +8336,7 @@ export const books = [
     "locationCode": "S4-B-L4-P04",
     "placeholder": true,
     "worldPosition": [
-      2.54,
+      2.7874,
       1.688,
       -5.4
     ],
@@ -8369,7 +8369,7 @@ export const books = [
     "locationCode": "S4-B-L4-P05",
     "placeholder": true,
     "worldPosition": [
-      2.54,
+      2.7874,
       1.688,
       -4.2
     ],
@@ -8402,7 +8402,7 @@ export const books = [
     "locationCode": "S4-B-L4-P06",
     "placeholder": true,
     "worldPosition": [
-      2.54,
+      2.7874,
       1.688,
       -3.4
     ],
@@ -8435,7 +8435,7 @@ export const books = [
     "locationCode": "S4-B-L4-P07",
     "placeholder": true,
     "worldPosition": [
-      2.54,
+      2.7874,
       1.688,
       -2.2
     ],
@@ -8468,7 +8468,7 @@ export const books = [
     "locationCode": "S4-B-L4-P08",
     "placeholder": true,
     "worldPosition": [
-      2.54,
+      2.7874,
       1.688,
       -1.4
     ],
@@ -8501,7 +8501,7 @@ export const books = [
     "locationCode": "S5-A-L1-P01",
     "placeholder": true,
     "worldPosition": [
-      6.46,
+      6.2126,
       0.243,
       -8.2
     ],
@@ -8534,7 +8534,7 @@ export const books = [
     "locationCode": "S5-A-L1-P02",
     "placeholder": true,
     "worldPosition": [
-      6.46,
+      6.2126,
       0.243,
       -7.4
     ],
@@ -8567,7 +8567,7 @@ export const books = [
     "locationCode": "S5-A-L1-P03",
     "placeholder": true,
     "worldPosition": [
-      6.46,
+      6.2126,
       0.243,
       -6.2
     ],
@@ -8600,7 +8600,7 @@ export const books = [
     "locationCode": "S5-A-L1-P04",
     "placeholder": true,
     "worldPosition": [
-      6.46,
+      6.2126,
       0.243,
       -5.4
     ],
@@ -8633,7 +8633,7 @@ export const books = [
     "locationCode": "S5-A-L1-P05",
     "placeholder": true,
     "worldPosition": [
-      6.46,
+      6.2126,
       0.243,
       -4.2
     ],
@@ -8666,7 +8666,7 @@ export const books = [
     "locationCode": "S5-A-L1-P06",
     "placeholder": true,
     "worldPosition": [
-      6.46,
+      6.2126,
       0.243,
       -3.4
     ],
@@ -8699,7 +8699,7 @@ export const books = [
     "locationCode": "S5-A-L1-P07",
     "placeholder": true,
     "worldPosition": [
-      6.46,
+      6.2126,
       0.243,
       -2.2
     ],
@@ -8732,7 +8732,7 @@ export const books = [
     "locationCode": "S5-A-L1-P08",
     "placeholder": true,
     "worldPosition": [
-      6.46,
+      6.2126,
       0.243,
       -1.4
     ],
@@ -8765,7 +8765,7 @@ export const books = [
     "locationCode": "S5-A-L2-P01",
     "placeholder": true,
     "worldPosition": [
-      6.46,
+      6.2126,
       0.688,
       -8.2
     ],
@@ -8798,7 +8798,7 @@ export const books = [
     "locationCode": "S5-A-L2-P02",
     "placeholder": true,
     "worldPosition": [
-      6.46,
+      6.2126,
       0.688,
       -7.4
     ],
@@ -8831,7 +8831,7 @@ export const books = [
     "locationCode": "S5-A-L2-P03",
     "placeholder": true,
     "worldPosition": [
-      6.46,
+      6.2126,
       0.688,
       -6.2
     ],
@@ -8864,7 +8864,7 @@ export const books = [
     "locationCode": "S5-A-L2-P04",
     "placeholder": true,
     "worldPosition": [
-      6.46,
+      6.2126,
       0.688,
       -5.4
     ],
@@ -8897,7 +8897,7 @@ export const books = [
     "locationCode": "S5-A-L2-P05",
     "placeholder": true,
     "worldPosition": [
-      6.46,
+      6.2126,
       0.688,
       -4.2
     ],
@@ -8930,7 +8930,7 @@ export const books = [
     "locationCode": "S5-A-L2-P06",
     "placeholder": true,
     "worldPosition": [
-      6.46,
+      6.2126,
       0.688,
       -3.4
     ],
@@ -8963,7 +8963,7 @@ export const books = [
     "locationCode": "S5-A-L2-P07",
     "placeholder": true,
     "worldPosition": [
-      6.46,
+      6.2126,
       0.688,
       -2.2
     ],
@@ -8996,7 +8996,7 @@ export const books = [
     "locationCode": "S5-A-L2-P08",
     "placeholder": true,
     "worldPosition": [
-      6.46,
+      6.2126,
       0.688,
       -1.4
     ],
@@ -9029,7 +9029,7 @@ export const books = [
     "locationCode": "S5-A-L3-P01",
     "placeholder": true,
     "worldPosition": [
-      6.46,
+      6.2126,
       1.188,
       -8.2
     ],
@@ -9062,7 +9062,7 @@ export const books = [
     "locationCode": "S5-A-L3-P02",
     "placeholder": true,
     "worldPosition": [
-      6.46,
+      6.2126,
       1.188,
       -7.4
     ],
@@ -9095,7 +9095,7 @@ export const books = [
     "locationCode": "S5-A-L3-P03",
     "placeholder": true,
     "worldPosition": [
-      6.46,
+      6.2126,
       1.188,
       -6.2
     ],
@@ -9128,7 +9128,7 @@ export const books = [
     "locationCode": "S5-A-L3-P04",
     "placeholder": true,
     "worldPosition": [
-      6.46,
+      6.2126,
       1.188,
       -5.4
     ],
@@ -9161,7 +9161,7 @@ export const books = [
     "locationCode": "S5-A-L3-P05",
     "placeholder": true,
     "worldPosition": [
-      6.46,
+      6.2126,
       1.188,
       -4.2
     ],
@@ -9194,7 +9194,7 @@ export const books = [
     "locationCode": "S5-A-L3-P06",
     "placeholder": true,
     "worldPosition": [
-      6.46,
+      6.2126,
       1.188,
       -3.4
     ],
@@ -9227,7 +9227,7 @@ export const books = [
     "locationCode": "S5-A-L3-P07",
     "placeholder": true,
     "worldPosition": [
-      6.46,
+      6.2126,
       1.188,
       -2.2
     ],
@@ -9265,7 +9265,7 @@ export const books = [
     "locationCode": "S5-A-L3-P08",
     "placeholder": false,
     "worldPosition": [
-      6.46,
+      6.2126,
       1.188,
       -1.4
     ],
@@ -9298,7 +9298,7 @@ export const books = [
     "locationCode": "S5-A-L4-P01",
     "placeholder": true,
     "worldPosition": [
-      6.46,
+      6.2126,
       1.688,
       -8.2
     ],
@@ -9331,7 +9331,7 @@ export const books = [
     "locationCode": "S5-A-L4-P02",
     "placeholder": true,
     "worldPosition": [
-      6.46,
+      6.2126,
       1.688,
       -7.4
     ],
@@ -9364,7 +9364,7 @@ export const books = [
     "locationCode": "S5-A-L4-P03",
     "placeholder": true,
     "worldPosition": [
-      6.46,
+      6.2126,
       1.688,
       -6.2
     ],
@@ -9397,7 +9397,7 @@ export const books = [
     "locationCode": "S5-A-L4-P04",
     "placeholder": true,
     "worldPosition": [
-      6.46,
+      6.2126,
       1.688,
       -5.4
     ],
@@ -9430,7 +9430,7 @@ export const books = [
     "locationCode": "S5-A-L4-P05",
     "placeholder": true,
     "worldPosition": [
-      6.46,
+      6.2126,
       1.688,
       -4.2
     ],
@@ -9463,7 +9463,7 @@ export const books = [
     "locationCode": "S5-A-L4-P06",
     "placeholder": true,
     "worldPosition": [
-      6.46,
+      6.2126,
       1.688,
       -3.4
     ],
@@ -9496,7 +9496,7 @@ export const books = [
     "locationCode": "S5-A-L4-P07",
     "placeholder": true,
     "worldPosition": [
-      6.46,
+      6.2126,
       1.688,
       -2.2
     ],
@@ -9530,7 +9530,7 @@ export const books = [
     "locationCode": "S5-A-L4-P08",
     "placeholder": false,
     "worldPosition": [
-      6.46,
+      6.2126,
       1.688,
       -1.4
     ],
@@ -9563,7 +9563,7 @@ export const books = [
     "locationCode": "S5-B-L1-P01",
     "placeholder": true,
     "worldPosition": [
-      5.54,
+      5.7874,
       0.243,
       -8.2
     ],
@@ -9596,7 +9596,7 @@ export const books = [
     "locationCode": "S5-B-L1-P02",
     "placeholder": true,
     "worldPosition": [
-      5.54,
+      5.7874,
       0.243,
       -7.4
     ],
@@ -9629,7 +9629,7 @@ export const books = [
     "locationCode": "S5-B-L1-P03",
     "placeholder": true,
     "worldPosition": [
-      5.54,
+      5.7874,
       0.243,
       -6.2
     ],
@@ -9662,7 +9662,7 @@ export const books = [
     "locationCode": "S5-B-L1-P04",
     "placeholder": true,
     "worldPosition": [
-      5.54,
+      5.7874,
       0.243,
       -5.4
     ],
@@ -9695,7 +9695,7 @@ export const books = [
     "locationCode": "S5-B-L1-P05",
     "placeholder": true,
     "worldPosition": [
-      5.54,
+      5.7874,
       0.243,
       -4.2
     ],
@@ -9728,7 +9728,7 @@ export const books = [
     "locationCode": "S5-B-L1-P06",
     "placeholder": true,
     "worldPosition": [
-      5.54,
+      5.7874,
       0.243,
       -3.4
     ],
@@ -9764,7 +9764,7 @@ export const books = [
     "locationCode": "S5-B-L1-P07",
     "placeholder": false,
     "worldPosition": [
-      5.54,
+      5.7874,
       0.243,
       -2.2
     ],
@@ -9797,7 +9797,7 @@ export const books = [
     "locationCode": "S5-B-L1-P08",
     "placeholder": true,
     "worldPosition": [
-      5.54,
+      5.7874,
       0.243,
       -1.4
     ],
@@ -9830,7 +9830,7 @@ export const books = [
     "locationCode": "S5-B-L2-P01",
     "placeholder": true,
     "worldPosition": [
-      5.54,
+      5.7874,
       0.688,
       -8.2
     ],
@@ -9863,7 +9863,7 @@ export const books = [
     "locationCode": "S5-B-L2-P02",
     "placeholder": true,
     "worldPosition": [
-      5.54,
+      5.7874,
       0.688,
       -7.4
     ],
@@ -9896,7 +9896,7 @@ export const books = [
     "locationCode": "S5-B-L2-P03",
     "placeholder": true,
     "worldPosition": [
-      5.54,
+      5.7874,
       0.688,
       -6.2
     ],
@@ -9929,7 +9929,7 @@ export const books = [
     "locationCode": "S5-B-L2-P04",
     "placeholder": true,
     "worldPosition": [
-      5.54,
+      5.7874,
       0.688,
       -5.4
     ],
@@ -9962,7 +9962,7 @@ export const books = [
     "locationCode": "S5-B-L2-P05",
     "placeholder": true,
     "worldPosition": [
-      5.54,
+      5.7874,
       0.688,
       -4.2
     ],
@@ -9995,7 +9995,7 @@ export const books = [
     "locationCode": "S5-B-L2-P06",
     "placeholder": true,
     "worldPosition": [
-      5.54,
+      5.7874,
       0.688,
       -3.4
     ],
@@ -10028,7 +10028,7 @@ export const books = [
     "locationCode": "S5-B-L2-P07",
     "placeholder": true,
     "worldPosition": [
-      5.54,
+      5.7874,
       0.688,
       -2.2
     ],
@@ -10061,7 +10061,7 @@ export const books = [
     "locationCode": "S5-B-L2-P08",
     "placeholder": true,
     "worldPosition": [
-      5.54,
+      5.7874,
       0.688,
       -1.4
     ],
@@ -10094,7 +10094,7 @@ export const books = [
     "locationCode": "S5-B-L3-P01",
     "placeholder": true,
     "worldPosition": [
-      5.54,
+      5.7874,
       1.188,
       -8.2
     ],
@@ -10127,7 +10127,7 @@ export const books = [
     "locationCode": "S5-B-L3-P02",
     "placeholder": true,
     "worldPosition": [
-      5.54,
+      5.7874,
       1.188,
       -7.4
     ],
@@ -10160,7 +10160,7 @@ export const books = [
     "locationCode": "S5-B-L3-P03",
     "placeholder": true,
     "worldPosition": [
-      5.54,
+      5.7874,
       1.188,
       -6.2
     ],
@@ -10193,7 +10193,7 @@ export const books = [
     "locationCode": "S5-B-L3-P04",
     "placeholder": true,
     "worldPosition": [
-      5.54,
+      5.7874,
       1.188,
       -5.4
     ],
@@ -10226,7 +10226,7 @@ export const books = [
     "locationCode": "S5-B-L3-P05",
     "placeholder": true,
     "worldPosition": [
-      5.54,
+      5.7874,
       1.188,
       -4.2
     ],
@@ -10259,7 +10259,7 @@ export const books = [
     "locationCode": "S5-B-L3-P06",
     "placeholder": true,
     "worldPosition": [
-      5.54,
+      5.7874,
       1.188,
       -3.4
     ],
@@ -10292,7 +10292,7 @@ export const books = [
     "locationCode": "S5-B-L3-P07",
     "placeholder": true,
     "worldPosition": [
-      5.54,
+      5.7874,
       1.188,
       -2.2
     ],
@@ -10325,7 +10325,7 @@ export const books = [
     "locationCode": "S5-B-L3-P08",
     "placeholder": true,
     "worldPosition": [
-      5.54,
+      5.7874,
       1.188,
       -1.4
     ],
@@ -10358,7 +10358,7 @@ export const books = [
     "locationCode": "S5-B-L4-P01",
     "placeholder": true,
     "worldPosition": [
-      5.54,
+      5.7874,
       1.688,
       -8.2
     ],
@@ -10391,7 +10391,7 @@ export const books = [
     "locationCode": "S5-B-L4-P02",
     "placeholder": true,
     "worldPosition": [
-      5.54,
+      5.7874,
       1.688,
       -7.4
     ],
@@ -10424,7 +10424,7 @@ export const books = [
     "locationCode": "S5-B-L4-P03",
     "placeholder": true,
     "worldPosition": [
-      5.54,
+      5.7874,
       1.688,
       -6.2
     ],
@@ -10457,7 +10457,7 @@ export const books = [
     "locationCode": "S5-B-L4-P04",
     "placeholder": true,
     "worldPosition": [
-      5.54,
+      5.7874,
       1.688,
       -5.4
     ],
@@ -10490,7 +10490,7 @@ export const books = [
     "locationCode": "S5-B-L4-P05",
     "placeholder": true,
     "worldPosition": [
-      5.54,
+      5.7874,
       1.688,
       -4.2
     ],
@@ -10523,7 +10523,7 @@ export const books = [
     "locationCode": "S5-B-L4-P06",
     "placeholder": true,
     "worldPosition": [
-      5.54,
+      5.7874,
       1.688,
       -3.4
     ],
@@ -10556,7 +10556,7 @@ export const books = [
     "locationCode": "S5-B-L4-P07",
     "placeholder": true,
     "worldPosition": [
-      5.54,
+      5.7874,
       1.688,
       -2.2
     ],
@@ -10589,7 +10589,7 @@ export const books = [
     "locationCode": "S5-B-L4-P08",
     "placeholder": true,
     "worldPosition": [
-      5.54,
+      5.7874,
       1.688,
       -1.4
     ],

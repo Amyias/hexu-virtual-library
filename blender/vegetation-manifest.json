@@ -7,6 +7,5 @@
     "Strelitzia nicolai",
     "Buxus sempervirens"
   ],
-  "leaf_texture": "public/textures/botanical-leaf.png",
-  "unchanged_objects": 6064
+  "leaf_texture": "public/textures/botanical-leaf.png"
 }

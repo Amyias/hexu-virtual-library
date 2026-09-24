@@ -20,4 +20,13 @@ target=Vector((x,-z,y));cam.location=target+Vector((.50,.08,.07));cam.rotation_e
 scene.render.filepath=str(ROOT/'blender/smart-book-detail.png');bpy.ops.render.render(write_still=True)
 target+=Vector((.013,.065,-.105));cam.location=target+Vector((.30,.012,.015));cam.rotation_euler=(target-cam.location).to_track_quat('-Z','Y').to_euler();cam.data.ortho_scale=.065
 scene.render.filepath=str(ROOT/'blender/chip-detail.png');bpy.ops.render.render(write_still=True)
+# Shelf interior: the volume stands on the board and leans back on the solid back panel.
+# Framed at the top layer, which catches the softbox; the offsets were picked by rendering
+# candidates, because a deeper book sits in the shelf's own shadow.
+shelf=next(b for b in inventory if b['shelf']==5 and b['side']=='A' and b['layer']==4 and b['slot']==5)
+x,y,z=shelf['worldPosition']
+t=Vector((x,-z,y))
+cam.data.ortho_scale=.85
+cam.location=t+Vector((.78,.50,.16));cam.rotation_euler=(t-cam.location).to_track_quat('-Z','Y').to_euler()
+scene.render.filepath=str(ROOT/'blender/shelf-detail.png');bpy.ops.render.render(write_still=True)
 print('BOOK_AND_CHIP_RENDERS_OK',flush=True)

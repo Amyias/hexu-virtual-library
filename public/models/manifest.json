@@ -1,5 +1,5 @@
 {
-  "generator": "5.2.1 LTS",
+  "generator": "5.2.2 LTS",
   "source": "blender/hexu-library.blend",
   "model": "public/models/hexu-library.glb",
   "shelves": [
@@ -96,8 +96,8 @@
   ],
   "static_books": 0,
   "mesh_objects": 70,
-  "triangles": 328102,
-  "bytes": 13090076,
+  "triangles": 328642,
+  "bytes": 13133420,
   "texture": "public/textures/oak-grain.png",
   "interactive_books": 320,
   "books_per_side_layer": 8

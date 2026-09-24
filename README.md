@@ -36,14 +36,16 @@ npm start
 | `blender/build_library.py` | 可重复执行的建模、导出、渲染脚本 |
 | `blender/export_saved.py` | 从已保存的源模型重新导出，不重建或覆盖源文件 |
 | `blender/smart_books.py` | 硬皮书模板（下凹芯片槽）建模、`smart-book.glb` 导出、320 本书实例化 |
-| `blender/refine_books.py` | 定点更新书籍，备份、导出并渲染书本与芯片近景 |
+| `blender/refine_books.py` | 定点更新书籍，备份、导出并渲染书本、芯片与书架内景 |
 | `blender/vegetation.py` | 盆栽曲面叶片、叶脉、陶盆与灌木分枝建模 |
 | `blender/refine_vegetation.py` | 定点更新植物，核验其余模型不变，导出并渲染近景 |
 | `blender/BOTANICAL_REFERENCES.md` | 植物形态参考、生成参数与更新方法 |
+| `blender/SHELVING_REFERENCES.md` | 书架进深标准、图书摆放方式与更新方法 |
 | `blender/catalog.json` | 320 本书的坐标与芯片载荷（生成物） |
 | `blender/library-preview.png` | Blender 实际渲染的场景预览 |
 | `blender/smart-book-detail.png` | 书本与芯片槽近景渲染 |
 | `blender/chip-detail.png` | 芯片微刻字近景渲染 |
+| `blender/shelf-detail.png` | 书架内景：书立在层板上、靠住背板 |
 | `public/models/hexu-library.glb` | 网页使用的合并材质环境模型（不含架上藏书） |
 | `public/models/smart-book.glb` | 320 本书共用的硬皮书模板 |
 | `public/models/book-inventory.json` | 馆藏清单副本（与 `blender/catalog.json` 一致） |
@@ -59,11 +61,13 @@ npm start
 
 ## Blender 模型
 
-打开 `blender/hexu-library.blend` 可编辑原始对象：书架按集合 `Shelf_1` 至 `Shelf_5` 组织，另有建筑、前台、阅读家具、绿植、灯具、书籍模板与渲染相机集合。源文件在合并之前保存，网页 GLB 按“集合 + 材质”合并，降低绘制调用数量。环境本身不导出静态藏书——架上 320 本书全部来自 `smart-book.glb` 的实例化；当前导出为 70 个网格、328,102 个三角面、13,090,076 字节（约 12.5 MiB），精确统计见 `public/models/manifest.json`。毫米级书脊条纹在网页导出时简化倒角，源文件保留完整细节。
+打开 `blender/hexu-library.blend` 可编辑原始对象：书架按集合 `Shelf_1` 至 `Shelf_5` 组织，另有建筑、前台、阅读家具、绿植、灯具、书籍模板与渲染相机集合。源文件在合并之前保存，网页 GLB 按“集合 + 材质”合并，降低绘制调用数量。环境本身不导出静态藏书——架上 320 本书全部来自 `smart-book.glb` 的实例化；当前导出为 70 个网格、328,642 个三角面、12.53 MiB，精确统计见 `public/models/manifest.json`。毫米级书脊条纹在网页导出时简化倒角，源文件保留完整细节。
+
+每个书架外围为 8 m 长 × 1 m 宽 × 2 m 高，但每个架面是进深 30 cm 的独立书柜，由一块实体背板与另一面隔开；书立在层板上并靠在背板上。进深取值依据见 `blender/SHELVING_REFERENCES.md`。
 
 植物已升级为 6 盆鹤望兰形态盆栽与 26 丛黄杨形态灌木，包含 54 片曲面大叶及 14,144 片对生小叶。盆栽有叶脉纹理、弯曲叶柄、陶盆内壁、卷边与土壤颗粒；灌木通过分枝与叶片形成自然冠形。近景见 `blender/plant-detail.png` 和 `blender/hedge-detail.png`，图像由 Blender 实际渲染。
 
-建模内容包括倒角木制层板、中央背板、框架立柱、黄铜层板包边、编号铭牌、弧角石台面、木条前台、软包座椅、台灯、植物叶片、窗框及悬吊灯具。木纹使用真实 UV 贴图并内嵌导出。动态阅读用书与能量光球仍由 Three.js 驱动，以支持拖动与实时文字。
+建模内容包括倒角木制层板、书架实体背板、框架立柱、黄铜层板包边、编号铭牌、弧角石台面、木条前台、软包座椅、台灯、植物叶片、窗框及悬吊灯具。木纹使用真实 UV 贴图并内嵌导出。动态阅读用书与能量光球仍由 Three.js 驱动，以支持拖动与实时文字。
 
 ## 馆藏芯片与智能书
 
@@ -74,7 +78,7 @@ npm start
 - 网页端按网格部件各建一个 `InstancedMesh`，封面颜色走逐实例着色；封面刻印是 4096 × 2560 的 Canvas 图集（16 × 20 格，恰好 320 格），由 `atlasOffset` 实例属性采样。因此 320 本书只占 45 个绘制调用（44 个网格部件 + 芯片图集）。
 - 点击「查看芯片」会把书上的芯片放大成特写，展示编号、位置码与内部标记。
 
-书的位置由真实坐标决定，并由回归测试核对：每本书的 `worldPosition` 必须正好落在对应层板的顶面上、位于立柱之间的开间内，且每面每层恰好 8 本。
+书的位置由真实坐标决定，并由回归测试核对：每本书的 `worldPosition` 必须正好落在对应层板的顶面上、书背贴合架内背板、位于立柱之间的开间内，且每面每层恰好 8 本。进深与摆放依据见 `blender/SHELVING_REFERENCES.md`。
 
 `tools/prepare-smart-books.mjs` 是馆藏清单的唯一生成器，一次写入三份必须完全一致的副本：`blender/catalog.json`、`public/models/book-inventory.json`、`src/data/catalog.js`。它从当前清单继承那 12 本示例书，因此调整示例书目后需要重跑并核对数量：
 
