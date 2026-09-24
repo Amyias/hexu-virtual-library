@@ -1,0 +1,14 @@
+# 项目无 npm 依赖，npm start 不需要安装；此目录只有工具缓存
+node_modules/
+
+# Blender 保存时自动生成的上一版备份，以及 Python 字节码
+*.blend1
+__pycache__/
+*.pyc
+
+# 本机安全扫描插件的钩子状态，与项目无关
+.mimosa/
+
+# 系统文件
+.DS_Store
+Thumbs.db

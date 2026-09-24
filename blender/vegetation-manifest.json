@@ -1,0 +1,12 @@
+{
+  "potted_plants": 6,
+  "large_leaves": 54,
+  "shrubs": 26,
+  "small_leaves": 14144,
+  "reference_species": [
+    "Strelitzia nicolai",
+    "Buxus sempervirens"
+  ],
+  "leaf_texture": "public/textures/botanical-leaf.png",
+  "unchanged_objects": 6064
+}

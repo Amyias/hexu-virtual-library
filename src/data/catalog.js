@@ -1,0 +1,10607 @@
+// Generated inventory: 5 shelves × 2 faces × 4 layers × 8 slots.
+export const books = [
+  {
+    "title": "馆藏 HX-0001",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "A",
+    "layer": 1,
+    "slot": 1,
+    "color": "#466b60",
+    "keys": [
+      "HX-0001",
+      "HX0001",
+      "S1-A-L1-P01"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0001",
+    "chipId": "HX-0001",
+    "locationCode": "S1-A-L1-P01",
+    "placeholder": true,
+    "worldPosition": [
+      -5.54,
+      0.243,
+      -8.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0001",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "A",
+      "layer": 1,
+      "slot": 1,
+      "location_code": "S1-A-L1-P01"
+    }
+  },
+  {
+    "title": "馆藏 HX-0002",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "A",
+    "layer": 1,
+    "slot": 2,
+    "color": "#466b60",
+    "keys": [
+      "HX-0002",
+      "HX0002",
+      "S1-A-L1-P02"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0002",
+    "chipId": "HX-0002",
+    "locationCode": "S1-A-L1-P02",
+    "placeholder": true,
+    "worldPosition": [
+      -5.54,
+      0.243,
+      -7.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0002",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "A",
+      "layer": 1,
+      "slot": 2,
+      "location_code": "S1-A-L1-P02"
+    }
+  },
+  {
+    "title": "馆藏 HX-0003",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "A",
+    "layer": 1,
+    "slot": 3,
+    "color": "#466b60",
+    "keys": [
+      "HX-0003",
+      "HX0003",
+      "S1-A-L1-P03"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0003",
+    "chipId": "HX-0003",
+    "locationCode": "S1-A-L1-P03",
+    "placeholder": true,
+    "worldPosition": [
+      -5.54,
+      0.243,
+      -6.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0003",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "A",
+      "layer": 1,
+      "slot": 3,
+      "location_code": "S1-A-L1-P03"
+    }
+  },
+  {
+    "title": "馆藏 HX-0004",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "A",
+    "layer": 1,
+    "slot": 4,
+    "color": "#466b60",
+    "keys": [
+      "HX-0004",
+      "HX0004",
+      "S1-A-L1-P04"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0004",
+    "chipId": "HX-0004",
+    "locationCode": "S1-A-L1-P04",
+    "placeholder": true,
+    "worldPosition": [
+      -5.54,
+      0.243,
+      -5.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0004",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "A",
+      "layer": 1,
+      "slot": 4,
+      "location_code": "S1-A-L1-P04"
+    }
+  },
+  {
+    "title": "馆藏 HX-0005",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "A",
+    "layer": 1,
+    "slot": 5,
+    "color": "#466b60",
+    "keys": [
+      "HX-0005",
+      "HX0005",
+      "S1-A-L1-P05"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0005",
+    "chipId": "HX-0005",
+    "locationCode": "S1-A-L1-P05",
+    "placeholder": true,
+    "worldPosition": [
+      -5.54,
+      0.243,
+      -4.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0005",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "A",
+      "layer": 1,
+      "slot": 5,
+      "location_code": "S1-A-L1-P05"
+    }
+  },
+  {
+    "title": "馆藏 HX-0006",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "A",
+    "layer": 1,
+    "slot": 6,
+    "color": "#466b60",
+    "keys": [
+      "HX-0006",
+      "HX0006",
+      "S1-A-L1-P06"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0006",
+    "chipId": "HX-0006",
+    "locationCode": "S1-A-L1-P06",
+    "placeholder": true,
+    "worldPosition": [
+      -5.54,
+      0.243,
+      -3.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0006",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "A",
+      "layer": 1,
+      "slot": 6,
+      "location_code": "S1-A-L1-P06"
+    }
+  },
+  {
+    "title": "计算机基础",
+    "author": "和序图书馆教研组",
+    "category": "计算机入门 · 示例教材",
+    "shelf": 1,
+    "side": "A",
+    "layer": 1,
+    "slot": 7,
+    "color": "#466b60",
+    "keys": [
+      "计算机基础",
+      "电脑",
+      "计算机入门",
+      "HX-0007",
+      "HX0007",
+      "S1-A-L1-P07"
+    ],
+    "synopsis": "从一次开机到一段程序的运行，本书以日常使用场景解释计算机的工作方式。内容覆盖硬件组成、操作系统、网络连接与数据表示，并通过小练习串起各个概念。这是为原型编写的示例教材，适合希望建立完整知识框架的初学者阅读。",
+    "bookId": "HX-0007",
+    "chipId": "HX-0007",
+    "locationCode": "S1-A-L1-P07",
+    "placeholder": false,
+    "worldPosition": [
+      -5.54,
+      0.243,
+      -2.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0007",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "A",
+      "layer": 1,
+      "slot": 7,
+      "location_code": "S1-A-L1-P07"
+    }
+  },
+  {
+    "title": "馆藏 HX-0008",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "A",
+    "layer": 1,
+    "slot": 8,
+    "color": "#466b60",
+    "keys": [
+      "HX-0008",
+      "HX0008",
+      "S1-A-L1-P08"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0008",
+    "chipId": "HX-0008",
+    "locationCode": "S1-A-L1-P08",
+    "placeholder": true,
+    "worldPosition": [
+      -5.54,
+      0.243,
+      -1.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0008",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "A",
+      "layer": 1,
+      "slot": 8,
+      "location_code": "S1-A-L1-P08"
+    }
+  },
+  {
+    "title": "馆藏 HX-0009",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "A",
+    "layer": 2,
+    "slot": 1,
+    "color": "#466b60",
+    "keys": [
+      "HX-0009",
+      "HX0009",
+      "S1-A-L2-P01"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0009",
+    "chipId": "HX-0009",
+    "locationCode": "S1-A-L2-P01",
+    "placeholder": true,
+    "worldPosition": [
+      -5.54,
+      0.688,
+      -8.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0009",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "A",
+      "layer": 2,
+      "slot": 1,
+      "location_code": "S1-A-L2-P01"
+    }
+  },
+  {
+    "title": "馆藏 HX-0010",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "A",
+    "layer": 2,
+    "slot": 2,
+    "color": "#466b60",
+    "keys": [
+      "HX-0010",
+      "HX0010",
+      "S1-A-L2-P02"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0010",
+    "chipId": "HX-0010",
+    "locationCode": "S1-A-L2-P02",
+    "placeholder": true,
+    "worldPosition": [
+      -5.54,
+      0.688,
+      -7.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0010",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "A",
+      "layer": 2,
+      "slot": 2,
+      "location_code": "S1-A-L2-P02"
+    }
+  },
+  {
+    "title": "馆藏 HX-0011",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "A",
+    "layer": 2,
+    "slot": 3,
+    "color": "#466b60",
+    "keys": [
+      "HX-0011",
+      "HX0011",
+      "S1-A-L2-P03"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0011",
+    "chipId": "HX-0011",
+    "locationCode": "S1-A-L2-P03",
+    "placeholder": true,
+    "worldPosition": [
+      -5.54,
+      0.688,
+      -6.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0011",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "A",
+      "layer": 2,
+      "slot": 3,
+      "location_code": "S1-A-L2-P03"
+    }
+  },
+  {
+    "title": "馆藏 HX-0012",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "A",
+    "layer": 2,
+    "slot": 4,
+    "color": "#466b60",
+    "keys": [
+      "HX-0012",
+      "HX0012",
+      "S1-A-L2-P04"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0012",
+    "chipId": "HX-0012",
+    "locationCode": "S1-A-L2-P04",
+    "placeholder": true,
+    "worldPosition": [
+      -5.54,
+      0.688,
+      -5.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0012",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "A",
+      "layer": 2,
+      "slot": 4,
+      "location_code": "S1-A-L2-P04"
+    }
+  },
+  {
+    "title": "馆藏 HX-0013",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "A",
+    "layer": 2,
+    "slot": 5,
+    "color": "#466b60",
+    "keys": [
+      "HX-0013",
+      "HX0013",
+      "S1-A-L2-P05"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0013",
+    "chipId": "HX-0013",
+    "locationCode": "S1-A-L2-P05",
+    "placeholder": true,
+    "worldPosition": [
+      -5.54,
+      0.688,
+      -4.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0013",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "A",
+      "layer": 2,
+      "slot": 5,
+      "location_code": "S1-A-L2-P05"
+    }
+  },
+  {
+    "title": "馆藏 HX-0014",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "A",
+    "layer": 2,
+    "slot": 6,
+    "color": "#466b60",
+    "keys": [
+      "HX-0014",
+      "HX0014",
+      "S1-A-L2-P06"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0014",
+    "chipId": "HX-0014",
+    "locationCode": "S1-A-L2-P06",
+    "placeholder": true,
+    "worldPosition": [
+      -5.54,
+      0.688,
+      -3.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0014",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "A",
+      "layer": 2,
+      "slot": 6,
+      "location_code": "S1-A-L2-P06"
+    }
+  },
+  {
+    "title": "馆藏 HX-0015",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "A",
+    "layer": 2,
+    "slot": 7,
+    "color": "#466b60",
+    "keys": [
+      "HX-0015",
+      "HX0015",
+      "S1-A-L2-P07"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0015",
+    "chipId": "HX-0015",
+    "locationCode": "S1-A-L2-P07",
+    "placeholder": true,
+    "worldPosition": [
+      -5.54,
+      0.688,
+      -2.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0015",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "A",
+      "layer": 2,
+      "slot": 7,
+      "location_code": "S1-A-L2-P07"
+    }
+  },
+  {
+    "title": "馆藏 HX-0016",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "A",
+    "layer": 2,
+    "slot": 8,
+    "color": "#466b60",
+    "keys": [
+      "HX-0016",
+      "HX0016",
+      "S1-A-L2-P08"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0016",
+    "chipId": "HX-0016",
+    "locationCode": "S1-A-L2-P08",
+    "placeholder": true,
+    "worldPosition": [
+      -5.54,
+      0.688,
+      -1.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0016",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "A",
+      "layer": 2,
+      "slot": 8,
+      "location_code": "S1-A-L2-P08"
+    }
+  },
+  {
+    "title": "馆藏 HX-0017",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "A",
+    "layer": 3,
+    "slot": 1,
+    "color": "#466b60",
+    "keys": [
+      "HX-0017",
+      "HX0017",
+      "S1-A-L3-P01"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0017",
+    "chipId": "HX-0017",
+    "locationCode": "S1-A-L3-P01",
+    "placeholder": true,
+    "worldPosition": [
+      -5.54,
+      1.188,
+      -8.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0017",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "A",
+      "layer": 3,
+      "slot": 1,
+      "location_code": "S1-A-L3-P01"
+    }
+  },
+  {
+    "title": "馆藏 HX-0018",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "A",
+    "layer": 3,
+    "slot": 2,
+    "color": "#466b60",
+    "keys": [
+      "HX-0018",
+      "HX0018",
+      "S1-A-L3-P02"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0018",
+    "chipId": "HX-0018",
+    "locationCode": "S1-A-L3-P02",
+    "placeholder": true,
+    "worldPosition": [
+      -5.54,
+      1.188,
+      -7.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0018",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "A",
+      "layer": 3,
+      "slot": 2,
+      "location_code": "S1-A-L3-P02"
+    }
+  },
+  {
+    "title": "馆藏 HX-0019",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "A",
+    "layer": 3,
+    "slot": 3,
+    "color": "#466b60",
+    "keys": [
+      "HX-0019",
+      "HX0019",
+      "S1-A-L3-P03"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0019",
+    "chipId": "HX-0019",
+    "locationCode": "S1-A-L3-P03",
+    "placeholder": true,
+    "worldPosition": [
+      -5.54,
+      1.188,
+      -6.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0019",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "A",
+      "layer": 3,
+      "slot": 3,
+      "location_code": "S1-A-L3-P03"
+    }
+  },
+  {
+    "title": "馆藏 HX-0020",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "A",
+    "layer": 3,
+    "slot": 4,
+    "color": "#466b60",
+    "keys": [
+      "HX-0020",
+      "HX0020",
+      "S1-A-L3-P04"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0020",
+    "chipId": "HX-0020",
+    "locationCode": "S1-A-L3-P04",
+    "placeholder": true,
+    "worldPosition": [
+      -5.54,
+      1.188,
+      -5.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0020",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "A",
+      "layer": 3,
+      "slot": 4,
+      "location_code": "S1-A-L3-P04"
+    }
+  },
+  {
+    "title": "馆藏 HX-0021",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "A",
+    "layer": 3,
+    "slot": 5,
+    "color": "#466b60",
+    "keys": [
+      "HX-0021",
+      "HX0021",
+      "S1-A-L3-P05"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0021",
+    "chipId": "HX-0021",
+    "locationCode": "S1-A-L3-P05",
+    "placeholder": true,
+    "worldPosition": [
+      -5.54,
+      1.188,
+      -4.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0021",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "A",
+      "layer": 3,
+      "slot": 5,
+      "location_code": "S1-A-L3-P05"
+    }
+  },
+  {
+    "title": "馆藏 HX-0022",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "A",
+    "layer": 3,
+    "slot": 6,
+    "color": "#466b60",
+    "keys": [
+      "HX-0022",
+      "HX0022",
+      "S1-A-L3-P06"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0022",
+    "chipId": "HX-0022",
+    "locationCode": "S1-A-L3-P06",
+    "placeholder": true,
+    "worldPosition": [
+      -5.54,
+      1.188,
+      -3.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0022",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "A",
+      "layer": 3,
+      "slot": 6,
+      "location_code": "S1-A-L3-P06"
+    }
+  },
+  {
+    "title": "馆藏 HX-0023",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "A",
+    "layer": 3,
+    "slot": 7,
+    "color": "#466b60",
+    "keys": [
+      "HX-0023",
+      "HX0023",
+      "S1-A-L3-P07"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0023",
+    "chipId": "HX-0023",
+    "locationCode": "S1-A-L3-P07",
+    "placeholder": true,
+    "worldPosition": [
+      -5.54,
+      1.188,
+      -2.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0023",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "A",
+      "layer": 3,
+      "slot": 7,
+      "location_code": "S1-A-L3-P07"
+    }
+  },
+  {
+    "title": "人工智能：一种现代的方法",
+    "author": "斯图尔特·罗素 / 彼得·诺维格",
+    "category": "人工智能",
+    "shelf": 1,
+    "side": "A",
+    "layer": 3,
+    "slot": 8,
+    "color": "#466b60",
+    "keys": [
+      "人工智能",
+      "ai",
+      "机器学习",
+      "智能",
+      "HX-0024",
+      "HX0024",
+      "S1-A-L3-P08"
+    ],
+    "synopsis": "围绕能够感知环境并采取行动的智能体，本书系统介绍人工智能的核心问题。从搜索、推理与知识表示，到概率、学习和决策，读者可以逐步理解不同方法的适用边界。它既呈现技术思路，也引导我们思考智能系统与人类目标之间的关系。",
+    "bookId": "HX-0024",
+    "chipId": "HX-0024",
+    "locationCode": "S1-A-L3-P08",
+    "placeholder": false,
+    "worldPosition": [
+      -5.54,
+      1.188,
+      -1.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0024",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "A",
+      "layer": 3,
+      "slot": 8,
+      "location_code": "S1-A-L3-P08"
+    }
+  },
+  {
+    "title": "馆藏 HX-0025",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "A",
+    "layer": 4,
+    "slot": 1,
+    "color": "#466b60",
+    "keys": [
+      "HX-0025",
+      "HX0025",
+      "S1-A-L4-P01"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0025",
+    "chipId": "HX-0025",
+    "locationCode": "S1-A-L4-P01",
+    "placeholder": true,
+    "worldPosition": [
+      -5.54,
+      1.688,
+      -8.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0025",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "A",
+      "layer": 4,
+      "slot": 1,
+      "location_code": "S1-A-L4-P01"
+    }
+  },
+  {
+    "title": "馆藏 HX-0026",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "A",
+    "layer": 4,
+    "slot": 2,
+    "color": "#466b60",
+    "keys": [
+      "HX-0026",
+      "HX0026",
+      "S1-A-L4-P02"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0026",
+    "chipId": "HX-0026",
+    "locationCode": "S1-A-L4-P02",
+    "placeholder": true,
+    "worldPosition": [
+      -5.54,
+      1.688,
+      -7.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0026",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "A",
+      "layer": 4,
+      "slot": 2,
+      "location_code": "S1-A-L4-P02"
+    }
+  },
+  {
+    "title": "馆藏 HX-0027",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "A",
+    "layer": 4,
+    "slot": 3,
+    "color": "#466b60",
+    "keys": [
+      "HX-0027",
+      "HX0027",
+      "S1-A-L4-P03"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0027",
+    "chipId": "HX-0027",
+    "locationCode": "S1-A-L4-P03",
+    "placeholder": true,
+    "worldPosition": [
+      -5.54,
+      1.688,
+      -6.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0027",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "A",
+      "layer": 4,
+      "slot": 3,
+      "location_code": "S1-A-L4-P03"
+    }
+  },
+  {
+    "title": "馆藏 HX-0028",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "A",
+    "layer": 4,
+    "slot": 4,
+    "color": "#466b60",
+    "keys": [
+      "HX-0028",
+      "HX0028",
+      "S1-A-L4-P04"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0028",
+    "chipId": "HX-0028",
+    "locationCode": "S1-A-L4-P04",
+    "placeholder": true,
+    "worldPosition": [
+      -5.54,
+      1.688,
+      -5.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0028",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "A",
+      "layer": 4,
+      "slot": 4,
+      "location_code": "S1-A-L4-P04"
+    }
+  },
+  {
+    "title": "馆藏 HX-0029",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "A",
+    "layer": 4,
+    "slot": 5,
+    "color": "#466b60",
+    "keys": [
+      "HX-0029",
+      "HX0029",
+      "S1-A-L4-P05"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0029",
+    "chipId": "HX-0029",
+    "locationCode": "S1-A-L4-P05",
+    "placeholder": true,
+    "worldPosition": [
+      -5.54,
+      1.688,
+      -4.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0029",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "A",
+      "layer": 4,
+      "slot": 5,
+      "location_code": "S1-A-L4-P05"
+    }
+  },
+  {
+    "title": "馆藏 HX-0030",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "A",
+    "layer": 4,
+    "slot": 6,
+    "color": "#466b60",
+    "keys": [
+      "HX-0030",
+      "HX0030",
+      "S1-A-L4-P06"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0030",
+    "chipId": "HX-0030",
+    "locationCode": "S1-A-L4-P06",
+    "placeholder": true,
+    "worldPosition": [
+      -5.54,
+      1.688,
+      -3.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0030",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "A",
+      "layer": 4,
+      "slot": 6,
+      "location_code": "S1-A-L4-P06"
+    }
+  },
+  {
+    "title": "馆藏 HX-0031",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "A",
+    "layer": 4,
+    "slot": 7,
+    "color": "#466b60",
+    "keys": [
+      "HX-0031",
+      "HX0031",
+      "S1-A-L4-P07"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0031",
+    "chipId": "HX-0031",
+    "locationCode": "S1-A-L4-P07",
+    "placeholder": true,
+    "worldPosition": [
+      -5.54,
+      1.688,
+      -2.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0031",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "A",
+      "layer": 4,
+      "slot": 7,
+      "location_code": "S1-A-L4-P07"
+    }
+  },
+  {
+    "title": "馆藏 HX-0032",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "A",
+    "layer": 4,
+    "slot": 8,
+    "color": "#466b60",
+    "keys": [
+      "HX-0032",
+      "HX0032",
+      "S1-A-L4-P08"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0032",
+    "chipId": "HX-0032",
+    "locationCode": "S1-A-L4-P08",
+    "placeholder": true,
+    "worldPosition": [
+      -5.54,
+      1.688,
+      -1.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0032",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "A",
+      "layer": 4,
+      "slot": 8,
+      "location_code": "S1-A-L4-P08"
+    }
+  },
+  {
+    "title": "馆藏 HX-0033",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "B",
+    "layer": 1,
+    "slot": 1,
+    "color": "#466b60",
+    "keys": [
+      "HX-0033",
+      "HX0033",
+      "S1-B-L1-P01"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0033",
+    "chipId": "HX-0033",
+    "locationCode": "S1-B-L1-P01",
+    "placeholder": true,
+    "worldPosition": [
+      -6.46,
+      0.243,
+      -8.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0033",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "B",
+      "layer": 1,
+      "slot": 1,
+      "location_code": "S1-B-L1-P01"
+    }
+  },
+  {
+    "title": "馆藏 HX-0034",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "B",
+    "layer": 1,
+    "slot": 2,
+    "color": "#466b60",
+    "keys": [
+      "HX-0034",
+      "HX0034",
+      "S1-B-L1-P02"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0034",
+    "chipId": "HX-0034",
+    "locationCode": "S1-B-L1-P02",
+    "placeholder": true,
+    "worldPosition": [
+      -6.46,
+      0.243,
+      -7.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0034",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "B",
+      "layer": 1,
+      "slot": 2,
+      "location_code": "S1-B-L1-P02"
+    }
+  },
+  {
+    "title": "馆藏 HX-0035",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "B",
+    "layer": 1,
+    "slot": 3,
+    "color": "#466b60",
+    "keys": [
+      "HX-0035",
+      "HX0035",
+      "S1-B-L1-P03"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0035",
+    "chipId": "HX-0035",
+    "locationCode": "S1-B-L1-P03",
+    "placeholder": true,
+    "worldPosition": [
+      -6.46,
+      0.243,
+      -6.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0035",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "B",
+      "layer": 1,
+      "slot": 3,
+      "location_code": "S1-B-L1-P03"
+    }
+  },
+  {
+    "title": "馆藏 HX-0036",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "B",
+    "layer": 1,
+    "slot": 4,
+    "color": "#466b60",
+    "keys": [
+      "HX-0036",
+      "HX0036",
+      "S1-B-L1-P04"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0036",
+    "chipId": "HX-0036",
+    "locationCode": "S1-B-L1-P04",
+    "placeholder": true,
+    "worldPosition": [
+      -6.46,
+      0.243,
+      -5.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0036",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "B",
+      "layer": 1,
+      "slot": 4,
+      "location_code": "S1-B-L1-P04"
+    }
+  },
+  {
+    "title": "馆藏 HX-0037",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "B",
+    "layer": 1,
+    "slot": 5,
+    "color": "#466b60",
+    "keys": [
+      "HX-0037",
+      "HX0037",
+      "S1-B-L1-P05"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0037",
+    "chipId": "HX-0037",
+    "locationCode": "S1-B-L1-P05",
+    "placeholder": true,
+    "worldPosition": [
+      -6.46,
+      0.243,
+      -4.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0037",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "B",
+      "layer": 1,
+      "slot": 5,
+      "location_code": "S1-B-L1-P05"
+    }
+  },
+  {
+    "title": "馆藏 HX-0038",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "B",
+    "layer": 1,
+    "slot": 6,
+    "color": "#466b60",
+    "keys": [
+      "HX-0038",
+      "HX0038",
+      "S1-B-L1-P06"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0038",
+    "chipId": "HX-0038",
+    "locationCode": "S1-B-L1-P06",
+    "placeholder": true,
+    "worldPosition": [
+      -6.46,
+      0.243,
+      -3.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0038",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "B",
+      "layer": 1,
+      "slot": 6,
+      "location_code": "S1-B-L1-P06"
+    }
+  },
+  {
+    "title": "馆藏 HX-0039",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "B",
+    "layer": 1,
+    "slot": 7,
+    "color": "#466b60",
+    "keys": [
+      "HX-0039",
+      "HX0039",
+      "S1-B-L1-P07"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0039",
+    "chipId": "HX-0039",
+    "locationCode": "S1-B-L1-P07",
+    "placeholder": true,
+    "worldPosition": [
+      -6.46,
+      0.243,
+      -2.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0039",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "B",
+      "layer": 1,
+      "slot": 7,
+      "location_code": "S1-B-L1-P07"
+    }
+  },
+  {
+    "title": "馆藏 HX-0040",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "B",
+    "layer": 1,
+    "slot": 8,
+    "color": "#466b60",
+    "keys": [
+      "HX-0040",
+      "HX0040",
+      "S1-B-L1-P08"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0040",
+    "chipId": "HX-0040",
+    "locationCode": "S1-B-L1-P08",
+    "placeholder": true,
+    "worldPosition": [
+      -6.46,
+      0.243,
+      -1.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0040",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "B",
+      "layer": 1,
+      "slot": 8,
+      "location_code": "S1-B-L1-P08"
+    }
+  },
+  {
+    "title": "馆藏 HX-0041",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "B",
+    "layer": 2,
+    "slot": 1,
+    "color": "#466b60",
+    "keys": [
+      "HX-0041",
+      "HX0041",
+      "S1-B-L2-P01"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0041",
+    "chipId": "HX-0041",
+    "locationCode": "S1-B-L2-P01",
+    "placeholder": true,
+    "worldPosition": [
+      -6.46,
+      0.688,
+      -8.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0041",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "B",
+      "layer": 2,
+      "slot": 1,
+      "location_code": "S1-B-L2-P01"
+    }
+  },
+  {
+    "title": "馆藏 HX-0042",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "B",
+    "layer": 2,
+    "slot": 2,
+    "color": "#466b60",
+    "keys": [
+      "HX-0042",
+      "HX0042",
+      "S1-B-L2-P02"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0042",
+    "chipId": "HX-0042",
+    "locationCode": "S1-B-L2-P02",
+    "placeholder": true,
+    "worldPosition": [
+      -6.46,
+      0.688,
+      -7.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0042",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "B",
+      "layer": 2,
+      "slot": 2,
+      "location_code": "S1-B-L2-P02"
+    }
+  },
+  {
+    "title": "馆藏 HX-0043",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "B",
+    "layer": 2,
+    "slot": 3,
+    "color": "#466b60",
+    "keys": [
+      "HX-0043",
+      "HX0043",
+      "S1-B-L2-P03"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0043",
+    "chipId": "HX-0043",
+    "locationCode": "S1-B-L2-P03",
+    "placeholder": true,
+    "worldPosition": [
+      -6.46,
+      0.688,
+      -6.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0043",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "B",
+      "layer": 2,
+      "slot": 3,
+      "location_code": "S1-B-L2-P03"
+    }
+  },
+  {
+    "title": "馆藏 HX-0044",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "B",
+    "layer": 2,
+    "slot": 4,
+    "color": "#466b60",
+    "keys": [
+      "HX-0044",
+      "HX0044",
+      "S1-B-L2-P04"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0044",
+    "chipId": "HX-0044",
+    "locationCode": "S1-B-L2-P04",
+    "placeholder": true,
+    "worldPosition": [
+      -6.46,
+      0.688,
+      -5.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0044",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "B",
+      "layer": 2,
+      "slot": 4,
+      "location_code": "S1-B-L2-P04"
+    }
+  },
+  {
+    "title": "馆藏 HX-0045",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "B",
+    "layer": 2,
+    "slot": 5,
+    "color": "#466b60",
+    "keys": [
+      "HX-0045",
+      "HX0045",
+      "S1-B-L2-P05"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0045",
+    "chipId": "HX-0045",
+    "locationCode": "S1-B-L2-P05",
+    "placeholder": true,
+    "worldPosition": [
+      -6.46,
+      0.688,
+      -4.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0045",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "B",
+      "layer": 2,
+      "slot": 5,
+      "location_code": "S1-B-L2-P05"
+    }
+  },
+  {
+    "title": "馆藏 HX-0046",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "B",
+    "layer": 2,
+    "slot": 6,
+    "color": "#466b60",
+    "keys": [
+      "HX-0046",
+      "HX0046",
+      "S1-B-L2-P06"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0046",
+    "chipId": "HX-0046",
+    "locationCode": "S1-B-L2-P06",
+    "placeholder": true,
+    "worldPosition": [
+      -6.46,
+      0.688,
+      -3.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0046",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "B",
+      "layer": 2,
+      "slot": 6,
+      "location_code": "S1-B-L2-P06"
+    }
+  },
+  {
+    "title": "馆藏 HX-0047",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "B",
+    "layer": 2,
+    "slot": 7,
+    "color": "#466b60",
+    "keys": [
+      "HX-0047",
+      "HX0047",
+      "S1-B-L2-P07"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0047",
+    "chipId": "HX-0047",
+    "locationCode": "S1-B-L2-P07",
+    "placeholder": true,
+    "worldPosition": [
+      -6.46,
+      0.688,
+      -2.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0047",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "B",
+      "layer": 2,
+      "slot": 7,
+      "location_code": "S1-B-L2-P07"
+    }
+  },
+  {
+    "title": "馆藏 HX-0048",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "B",
+    "layer": 2,
+    "slot": 8,
+    "color": "#466b60",
+    "keys": [
+      "HX-0048",
+      "HX0048",
+      "S1-B-L2-P08"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0048",
+    "chipId": "HX-0048",
+    "locationCode": "S1-B-L2-P08",
+    "placeholder": true,
+    "worldPosition": [
+      -6.46,
+      0.688,
+      -1.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0048",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "B",
+      "layer": 2,
+      "slot": 8,
+      "location_code": "S1-B-L2-P08"
+    }
+  },
+  {
+    "title": "馆藏 HX-0049",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "B",
+    "layer": 3,
+    "slot": 1,
+    "color": "#466b60",
+    "keys": [
+      "HX-0049",
+      "HX0049",
+      "S1-B-L3-P01"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0049",
+    "chipId": "HX-0049",
+    "locationCode": "S1-B-L3-P01",
+    "placeholder": true,
+    "worldPosition": [
+      -6.46,
+      1.188,
+      -8.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0049",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "B",
+      "layer": 3,
+      "slot": 1,
+      "location_code": "S1-B-L3-P01"
+    }
+  },
+  {
+    "title": "馆藏 HX-0050",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "B",
+    "layer": 3,
+    "slot": 2,
+    "color": "#466b60",
+    "keys": [
+      "HX-0050",
+      "HX0050",
+      "S1-B-L3-P02"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0050",
+    "chipId": "HX-0050",
+    "locationCode": "S1-B-L3-P02",
+    "placeholder": true,
+    "worldPosition": [
+      -6.46,
+      1.188,
+      -7.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0050",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "B",
+      "layer": 3,
+      "slot": 2,
+      "location_code": "S1-B-L3-P02"
+    }
+  },
+  {
+    "title": "馆藏 HX-0051",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "B",
+    "layer": 3,
+    "slot": 3,
+    "color": "#466b60",
+    "keys": [
+      "HX-0051",
+      "HX0051",
+      "S1-B-L3-P03"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0051",
+    "chipId": "HX-0051",
+    "locationCode": "S1-B-L3-P03",
+    "placeholder": true,
+    "worldPosition": [
+      -6.46,
+      1.188,
+      -6.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0051",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "B",
+      "layer": 3,
+      "slot": 3,
+      "location_code": "S1-B-L3-P03"
+    }
+  },
+  {
+    "title": "馆藏 HX-0052",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "B",
+    "layer": 3,
+    "slot": 4,
+    "color": "#466b60",
+    "keys": [
+      "HX-0052",
+      "HX0052",
+      "S1-B-L3-P04"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0052",
+    "chipId": "HX-0052",
+    "locationCode": "S1-B-L3-P04",
+    "placeholder": true,
+    "worldPosition": [
+      -6.46,
+      1.188,
+      -5.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0052",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "B",
+      "layer": 3,
+      "slot": 4,
+      "location_code": "S1-B-L3-P04"
+    }
+  },
+  {
+    "title": "馆藏 HX-0053",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "B",
+    "layer": 3,
+    "slot": 5,
+    "color": "#466b60",
+    "keys": [
+      "HX-0053",
+      "HX0053",
+      "S1-B-L3-P05"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0053",
+    "chipId": "HX-0053",
+    "locationCode": "S1-B-L3-P05",
+    "placeholder": true,
+    "worldPosition": [
+      -6.46,
+      1.188,
+      -4.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0053",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "B",
+      "layer": 3,
+      "slot": 5,
+      "location_code": "S1-B-L3-P05"
+    }
+  },
+  {
+    "title": "馆藏 HX-0054",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "B",
+    "layer": 3,
+    "slot": 6,
+    "color": "#466b60",
+    "keys": [
+      "HX-0054",
+      "HX0054",
+      "S1-B-L3-P06"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0054",
+    "chipId": "HX-0054",
+    "locationCode": "S1-B-L3-P06",
+    "placeholder": true,
+    "worldPosition": [
+      -6.46,
+      1.188,
+      -3.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0054",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "B",
+      "layer": 3,
+      "slot": 6,
+      "location_code": "S1-B-L3-P06"
+    }
+  },
+  {
+    "title": "馆藏 HX-0055",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "B",
+    "layer": 3,
+    "slot": 7,
+    "color": "#466b60",
+    "keys": [
+      "HX-0055",
+      "HX0055",
+      "S1-B-L3-P07"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0055",
+    "chipId": "HX-0055",
+    "locationCode": "S1-B-L3-P07",
+    "placeholder": true,
+    "worldPosition": [
+      -6.46,
+      1.188,
+      -2.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0055",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "B",
+      "layer": 3,
+      "slot": 7,
+      "location_code": "S1-B-L3-P07"
+    }
+  },
+  {
+    "title": "馆藏 HX-0056",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "B",
+    "layer": 3,
+    "slot": 8,
+    "color": "#466b60",
+    "keys": [
+      "HX-0056",
+      "HX0056",
+      "S1-B-L3-P08"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0056",
+    "chipId": "HX-0056",
+    "locationCode": "S1-B-L3-P08",
+    "placeholder": true,
+    "worldPosition": [
+      -6.46,
+      1.188,
+      -1.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0056",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "B",
+      "layer": 3,
+      "slot": 8,
+      "location_code": "S1-B-L3-P08"
+    }
+  },
+  {
+    "title": "馆藏 HX-0057",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "B",
+    "layer": 4,
+    "slot": 1,
+    "color": "#466b60",
+    "keys": [
+      "HX-0057",
+      "HX0057",
+      "S1-B-L4-P01"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0057",
+    "chipId": "HX-0057",
+    "locationCode": "S1-B-L4-P01",
+    "placeholder": true,
+    "worldPosition": [
+      -6.46,
+      1.688,
+      -8.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0057",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "B",
+      "layer": 4,
+      "slot": 1,
+      "location_code": "S1-B-L4-P01"
+    }
+  },
+  {
+    "title": "馆藏 HX-0058",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "B",
+    "layer": 4,
+    "slot": 2,
+    "color": "#466b60",
+    "keys": [
+      "HX-0058",
+      "HX0058",
+      "S1-B-L4-P02"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0058",
+    "chipId": "HX-0058",
+    "locationCode": "S1-B-L4-P02",
+    "placeholder": true,
+    "worldPosition": [
+      -6.46,
+      1.688,
+      -7.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0058",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "B",
+      "layer": 4,
+      "slot": 2,
+      "location_code": "S1-B-L4-P02"
+    }
+  },
+  {
+    "title": "馆藏 HX-0059",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "B",
+    "layer": 4,
+    "slot": 3,
+    "color": "#466b60",
+    "keys": [
+      "HX-0059",
+      "HX0059",
+      "S1-B-L4-P03"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0059",
+    "chipId": "HX-0059",
+    "locationCode": "S1-B-L4-P03",
+    "placeholder": true,
+    "worldPosition": [
+      -6.46,
+      1.688,
+      -6.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0059",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "B",
+      "layer": 4,
+      "slot": 3,
+      "location_code": "S1-B-L4-P03"
+    }
+  },
+  {
+    "title": "馆藏 HX-0060",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "B",
+    "layer": 4,
+    "slot": 4,
+    "color": "#466b60",
+    "keys": [
+      "HX-0060",
+      "HX0060",
+      "S1-B-L4-P04"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0060",
+    "chipId": "HX-0060",
+    "locationCode": "S1-B-L4-P04",
+    "placeholder": true,
+    "worldPosition": [
+      -6.46,
+      1.688,
+      -5.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0060",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "B",
+      "layer": 4,
+      "slot": 4,
+      "location_code": "S1-B-L4-P04"
+    }
+  },
+  {
+    "title": "馆藏 HX-0061",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "B",
+    "layer": 4,
+    "slot": 5,
+    "color": "#466b60",
+    "keys": [
+      "HX-0061",
+      "HX0061",
+      "S1-B-L4-P05"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0061",
+    "chipId": "HX-0061",
+    "locationCode": "S1-B-L4-P05",
+    "placeholder": true,
+    "worldPosition": [
+      -6.46,
+      1.688,
+      -4.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0061",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "B",
+      "layer": 4,
+      "slot": 5,
+      "location_code": "S1-B-L4-P05"
+    }
+  },
+  {
+    "title": "馆藏 HX-0062",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "B",
+    "layer": 4,
+    "slot": 6,
+    "color": "#466b60",
+    "keys": [
+      "HX-0062",
+      "HX0062",
+      "S1-B-L4-P06"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0062",
+    "chipId": "HX-0062",
+    "locationCode": "S1-B-L4-P06",
+    "placeholder": true,
+    "worldPosition": [
+      -6.46,
+      1.688,
+      -3.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0062",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "B",
+      "layer": 4,
+      "slot": 6,
+      "location_code": "S1-B-L4-P06"
+    }
+  },
+  {
+    "title": "时间简史",
+    "author": "斯蒂芬·霍金",
+    "category": "数学与物理",
+    "shelf": 1,
+    "side": "B",
+    "layer": 4,
+    "slot": 7,
+    "color": "#466b60",
+    "keys": [
+      "时间简史",
+      "物理",
+      "宇宙",
+      "数学",
+      "HX-0063",
+      "HX0063",
+      "S1-B-L4-P07"
+    ],
+    "synopsis": "时间是否有起点，宇宙又会走向何处？霍金以面向大众的叙述，引领读者接近空间、时间、黑洞与宇宙起源等基本问题。书中将宏大的理论与直观的比喻相连接，让没有专业背景的读者也能感受现代物理不断追问世界的思想力量。",
+    "bookId": "HX-0063",
+    "chipId": "HX-0063",
+    "locationCode": "S1-B-L4-P07",
+    "placeholder": false,
+    "worldPosition": [
+      -6.46,
+      1.688,
+      -2.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0063",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "B",
+      "layer": 4,
+      "slot": 7,
+      "location_code": "S1-B-L4-P07"
+    }
+  },
+  {
+    "title": "馆藏 HX-0064",
+    "author": "和序图书馆 · 编号样书",
+    "category": "计算机与AI技术",
+    "shelf": 1,
+    "side": "B",
+    "layer": 4,
+    "slot": 8,
+    "color": "#466b60",
+    "keys": [
+      "HX-0064",
+      "HX0064",
+      "S1-B-L4-P08"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0064",
+    "chipId": "HX-0064",
+    "locationCode": "S1-B-L4-P08",
+    "placeholder": true,
+    "worldPosition": [
+      -6.46,
+      1.688,
+      -1.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0064",
+      "shelf_id": "Shelf_1",
+      "shelf_side": "B",
+      "layer": 4,
+      "slot": 8,
+      "location_code": "S1-B-L4-P08"
+    }
+  },
+  {
+    "title": "馆藏 HX-0065",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "A",
+    "layer": 1,
+    "slot": 1,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0065",
+      "HX0065",
+      "S2-A-L1-P01"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0065",
+    "chipId": "HX-0065",
+    "locationCode": "S2-A-L1-P01",
+    "placeholder": true,
+    "worldPosition": [
+      -2.54,
+      0.243,
+      -8.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0065",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "A",
+      "layer": 1,
+      "slot": 1,
+      "location_code": "S2-A-L1-P01"
+    }
+  },
+  {
+    "title": "馆藏 HX-0066",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "A",
+    "layer": 1,
+    "slot": 2,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0066",
+      "HX0066",
+      "S2-A-L1-P02"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0066",
+    "chipId": "HX-0066",
+    "locationCode": "S2-A-L1-P02",
+    "placeholder": true,
+    "worldPosition": [
+      -2.54,
+      0.243,
+      -7.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0066",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "A",
+      "layer": 1,
+      "slot": 2,
+      "location_code": "S2-A-L1-P02"
+    }
+  },
+  {
+    "title": "馆藏 HX-0067",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "A",
+    "layer": 1,
+    "slot": 3,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0067",
+      "HX0067",
+      "S2-A-L1-P03"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0067",
+    "chipId": "HX-0067",
+    "locationCode": "S2-A-L1-P03",
+    "placeholder": true,
+    "worldPosition": [
+      -2.54,
+      0.243,
+      -6.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0067",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "A",
+      "layer": 1,
+      "slot": 3,
+      "location_code": "S2-A-L1-P03"
+    }
+  },
+  {
+    "title": "馆藏 HX-0068",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "A",
+    "layer": 1,
+    "slot": 4,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0068",
+      "HX0068",
+      "S2-A-L1-P04"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0068",
+    "chipId": "HX-0068",
+    "locationCode": "S2-A-L1-P04",
+    "placeholder": true,
+    "worldPosition": [
+      -2.54,
+      0.243,
+      -5.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0068",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "A",
+      "layer": 1,
+      "slot": 4,
+      "location_code": "S2-A-L1-P04"
+    }
+  },
+  {
+    "title": "馆藏 HX-0069",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "A",
+    "layer": 1,
+    "slot": 5,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0069",
+      "HX0069",
+      "S2-A-L1-P05"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0069",
+    "chipId": "HX-0069",
+    "locationCode": "S2-A-L1-P05",
+    "placeholder": true,
+    "worldPosition": [
+      -2.54,
+      0.243,
+      -4.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0069",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "A",
+      "layer": 1,
+      "slot": 5,
+      "location_code": "S2-A-L1-P05"
+    }
+  },
+  {
+    "title": "馆藏 HX-0070",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "A",
+    "layer": 1,
+    "slot": 6,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0070",
+      "HX0070",
+      "S2-A-L1-P06"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0070",
+    "chipId": "HX-0070",
+    "locationCode": "S2-A-L1-P06",
+    "placeholder": true,
+    "worldPosition": [
+      -2.54,
+      0.243,
+      -3.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0070",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "A",
+      "layer": 1,
+      "slot": 6,
+      "location_code": "S2-A-L1-P06"
+    }
+  },
+  {
+    "title": "馆藏 HX-0071",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "A",
+    "layer": 1,
+    "slot": 7,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0071",
+      "HX0071",
+      "S2-A-L1-P07"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0071",
+    "chipId": "HX-0071",
+    "locationCode": "S2-A-L1-P07",
+    "placeholder": true,
+    "worldPosition": [
+      -2.54,
+      0.243,
+      -2.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0071",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "A",
+      "layer": 1,
+      "slot": 7,
+      "location_code": "S2-A-L1-P07"
+    }
+  },
+  {
+    "title": "馆藏 HX-0072",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "A",
+    "layer": 1,
+    "slot": 8,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0072",
+      "HX0072",
+      "S2-A-L1-P08"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0072",
+    "chipId": "HX-0072",
+    "locationCode": "S2-A-L1-P08",
+    "placeholder": true,
+    "worldPosition": [
+      -2.54,
+      0.243,
+      -1.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0072",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "A",
+      "layer": 1,
+      "slot": 8,
+      "location_code": "S2-A-L1-P08"
+    }
+  },
+  {
+    "title": "馆藏 HX-0073",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "A",
+    "layer": 2,
+    "slot": 1,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0073",
+      "HX0073",
+      "S2-A-L2-P01"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0073",
+    "chipId": "HX-0073",
+    "locationCode": "S2-A-L2-P01",
+    "placeholder": true,
+    "worldPosition": [
+      -2.54,
+      0.688,
+      -8.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0073",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "A",
+      "layer": 2,
+      "slot": 1,
+      "location_code": "S2-A-L2-P01"
+    }
+  },
+  {
+    "title": "馆藏 HX-0074",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "A",
+    "layer": 2,
+    "slot": 2,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0074",
+      "HX0074",
+      "S2-A-L2-P02"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0074",
+    "chipId": "HX-0074",
+    "locationCode": "S2-A-L2-P02",
+    "placeholder": true,
+    "worldPosition": [
+      -2.54,
+      0.688,
+      -7.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0074",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "A",
+      "layer": 2,
+      "slot": 2,
+      "location_code": "S2-A-L2-P02"
+    }
+  },
+  {
+    "title": "馆藏 HX-0075",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "A",
+    "layer": 2,
+    "slot": 3,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0075",
+      "HX0075",
+      "S2-A-L2-P03"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0075",
+    "chipId": "HX-0075",
+    "locationCode": "S2-A-L2-P03",
+    "placeholder": true,
+    "worldPosition": [
+      -2.54,
+      0.688,
+      -6.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0075",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "A",
+      "layer": 2,
+      "slot": 3,
+      "location_code": "S2-A-L2-P03"
+    }
+  },
+  {
+    "title": "馆藏 HX-0076",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "A",
+    "layer": 2,
+    "slot": 4,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0076",
+      "HX0076",
+      "S2-A-L2-P04"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0076",
+    "chipId": "HX-0076",
+    "locationCode": "S2-A-L2-P04",
+    "placeholder": true,
+    "worldPosition": [
+      -2.54,
+      0.688,
+      -5.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0076",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "A",
+      "layer": 2,
+      "slot": 4,
+      "location_code": "S2-A-L2-P04"
+    }
+  },
+  {
+    "title": "馆藏 HX-0077",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "A",
+    "layer": 2,
+    "slot": 5,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0077",
+      "HX0077",
+      "S2-A-L2-P05"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0077",
+    "chipId": "HX-0077",
+    "locationCode": "S2-A-L2-P05",
+    "placeholder": true,
+    "worldPosition": [
+      -2.54,
+      0.688,
+      -4.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0077",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "A",
+      "layer": 2,
+      "slot": 5,
+      "location_code": "S2-A-L2-P05"
+    }
+  },
+  {
+    "title": "馆藏 HX-0078",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "A",
+    "layer": 2,
+    "slot": 6,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0078",
+      "HX0078",
+      "S2-A-L2-P06"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0078",
+    "chipId": "HX-0078",
+    "locationCode": "S2-A-L2-P06",
+    "placeholder": true,
+    "worldPosition": [
+      -2.54,
+      0.688,
+      -3.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0078",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "A",
+      "layer": 2,
+      "slot": 6,
+      "location_code": "S2-A-L2-P06"
+    }
+  },
+  {
+    "title": "馆藏 HX-0079",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "A",
+    "layer": 2,
+    "slot": 7,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0079",
+      "HX0079",
+      "S2-A-L2-P07"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0079",
+    "chipId": "HX-0079",
+    "locationCode": "S2-A-L2-P07",
+    "placeholder": true,
+    "worldPosition": [
+      -2.54,
+      0.688,
+      -2.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0079",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "A",
+      "layer": 2,
+      "slot": 7,
+      "location_code": "S2-A-L2-P07"
+    }
+  },
+  {
+    "title": "人类简史",
+    "author": "尤瓦尔·赫拉利",
+    "category": "社会与历史",
+    "shelf": 2,
+    "side": "A",
+    "layer": 2,
+    "slot": 8,
+    "color": "#7f6650",
+    "keys": [
+      "人类简史",
+      "历史",
+      "哲学",
+      "社科",
+      "HX-0080",
+      "HX0080",
+      "S2-A-L2-P08"
+    ],
+    "synopsis": "从认知革命、农业革命到科学革命，本书以宏观视角讲述智人的发展历程。作者关注共同想象、制度与协作如何塑造社会，并重新审视进步与幸福之间的联系。鲜明的观点与跨学科叙述，为读者提供了讨论人类过去和未来的思考入口。",
+    "bookId": "HX-0080",
+    "chipId": "HX-0080",
+    "locationCode": "S2-A-L2-P08",
+    "placeholder": false,
+    "worldPosition": [
+      -2.54,
+      0.688,
+      -1.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0080",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "A",
+      "layer": 2,
+      "slot": 8,
+      "location_code": "S2-A-L2-P08"
+    }
+  },
+  {
+    "title": "馆藏 HX-0081",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "A",
+    "layer": 3,
+    "slot": 1,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0081",
+      "HX0081",
+      "S2-A-L3-P01"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0081",
+    "chipId": "HX-0081",
+    "locationCode": "S2-A-L3-P01",
+    "placeholder": true,
+    "worldPosition": [
+      -2.54,
+      1.188,
+      -8.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0081",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "A",
+      "layer": 3,
+      "slot": 1,
+      "location_code": "S2-A-L3-P01"
+    }
+  },
+  {
+    "title": "馆藏 HX-0082",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "A",
+    "layer": 3,
+    "slot": 2,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0082",
+      "HX0082",
+      "S2-A-L3-P02"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0082",
+    "chipId": "HX-0082",
+    "locationCode": "S2-A-L3-P02",
+    "placeholder": true,
+    "worldPosition": [
+      -2.54,
+      1.188,
+      -7.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0082",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "A",
+      "layer": 3,
+      "slot": 2,
+      "location_code": "S2-A-L3-P02"
+    }
+  },
+  {
+    "title": "馆藏 HX-0083",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "A",
+    "layer": 3,
+    "slot": 3,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0083",
+      "HX0083",
+      "S2-A-L3-P03"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0083",
+    "chipId": "HX-0083",
+    "locationCode": "S2-A-L3-P03",
+    "placeholder": true,
+    "worldPosition": [
+      -2.54,
+      1.188,
+      -6.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0083",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "A",
+      "layer": 3,
+      "slot": 3,
+      "location_code": "S2-A-L3-P03"
+    }
+  },
+  {
+    "title": "馆藏 HX-0084",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "A",
+    "layer": 3,
+    "slot": 4,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0084",
+      "HX0084",
+      "S2-A-L3-P04"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0084",
+    "chipId": "HX-0084",
+    "locationCode": "S2-A-L3-P04",
+    "placeholder": true,
+    "worldPosition": [
+      -2.54,
+      1.188,
+      -5.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0084",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "A",
+      "layer": 3,
+      "slot": 4,
+      "location_code": "S2-A-L3-P04"
+    }
+  },
+  {
+    "title": "馆藏 HX-0085",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "A",
+    "layer": 3,
+    "slot": 5,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0085",
+      "HX0085",
+      "S2-A-L3-P05"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0085",
+    "chipId": "HX-0085",
+    "locationCode": "S2-A-L3-P05",
+    "placeholder": true,
+    "worldPosition": [
+      -2.54,
+      1.188,
+      -4.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0085",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "A",
+      "layer": 3,
+      "slot": 5,
+      "location_code": "S2-A-L3-P05"
+    }
+  },
+  {
+    "title": "馆藏 HX-0086",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "A",
+    "layer": 3,
+    "slot": 6,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0086",
+      "HX0086",
+      "S2-A-L3-P06"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0086",
+    "chipId": "HX-0086",
+    "locationCode": "S2-A-L3-P06",
+    "placeholder": true,
+    "worldPosition": [
+      -2.54,
+      1.188,
+      -3.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0086",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "A",
+      "layer": 3,
+      "slot": 6,
+      "location_code": "S2-A-L3-P06"
+    }
+  },
+  {
+    "title": "馆藏 HX-0087",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "A",
+    "layer": 3,
+    "slot": 7,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0087",
+      "HX0087",
+      "S2-A-L3-P07"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0087",
+    "chipId": "HX-0087",
+    "locationCode": "S2-A-L3-P07",
+    "placeholder": true,
+    "worldPosition": [
+      -2.54,
+      1.188,
+      -2.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0087",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "A",
+      "layer": 3,
+      "slot": 7,
+      "location_code": "S2-A-L3-P07"
+    }
+  },
+  {
+    "title": "馆藏 HX-0088",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "A",
+    "layer": 3,
+    "slot": 8,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0088",
+      "HX0088",
+      "S2-A-L3-P08"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0088",
+    "chipId": "HX-0088",
+    "locationCode": "S2-A-L3-P08",
+    "placeholder": true,
+    "worldPosition": [
+      -2.54,
+      1.188,
+      -1.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0088",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "A",
+      "layer": 3,
+      "slot": 8,
+      "location_code": "S2-A-L3-P08"
+    }
+  },
+  {
+    "title": "馆藏 HX-0089",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "A",
+    "layer": 4,
+    "slot": 1,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0089",
+      "HX0089",
+      "S2-A-L4-P01"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0089",
+    "chipId": "HX-0089",
+    "locationCode": "S2-A-L4-P01",
+    "placeholder": true,
+    "worldPosition": [
+      -2.54,
+      1.688,
+      -8.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0089",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "A",
+      "layer": 4,
+      "slot": 1,
+      "location_code": "S2-A-L4-P01"
+    }
+  },
+  {
+    "title": "馆藏 HX-0090",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "A",
+    "layer": 4,
+    "slot": 2,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0090",
+      "HX0090",
+      "S2-A-L4-P02"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0090",
+    "chipId": "HX-0090",
+    "locationCode": "S2-A-L4-P02",
+    "placeholder": true,
+    "worldPosition": [
+      -2.54,
+      1.688,
+      -7.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0090",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "A",
+      "layer": 4,
+      "slot": 2,
+      "location_code": "S2-A-L4-P02"
+    }
+  },
+  {
+    "title": "馆藏 HX-0091",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "A",
+    "layer": 4,
+    "slot": 3,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0091",
+      "HX0091",
+      "S2-A-L4-P03"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0091",
+    "chipId": "HX-0091",
+    "locationCode": "S2-A-L4-P03",
+    "placeholder": true,
+    "worldPosition": [
+      -2.54,
+      1.688,
+      -6.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0091",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "A",
+      "layer": 4,
+      "slot": 3,
+      "location_code": "S2-A-L4-P03"
+    }
+  },
+  {
+    "title": "馆藏 HX-0092",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "A",
+    "layer": 4,
+    "slot": 4,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0092",
+      "HX0092",
+      "S2-A-L4-P04"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0092",
+    "chipId": "HX-0092",
+    "locationCode": "S2-A-L4-P04",
+    "placeholder": true,
+    "worldPosition": [
+      -2.54,
+      1.688,
+      -5.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0092",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "A",
+      "layer": 4,
+      "slot": 4,
+      "location_code": "S2-A-L4-P04"
+    }
+  },
+  {
+    "title": "馆藏 HX-0093",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "A",
+    "layer": 4,
+    "slot": 5,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0093",
+      "HX0093",
+      "S2-A-L4-P05"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0093",
+    "chipId": "HX-0093",
+    "locationCode": "S2-A-L4-P05",
+    "placeholder": true,
+    "worldPosition": [
+      -2.54,
+      1.688,
+      -4.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0093",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "A",
+      "layer": 4,
+      "slot": 5,
+      "location_code": "S2-A-L4-P05"
+    }
+  },
+  {
+    "title": "馆藏 HX-0094",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "A",
+    "layer": 4,
+    "slot": 6,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0094",
+      "HX0094",
+      "S2-A-L4-P06"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0094",
+    "chipId": "HX-0094",
+    "locationCode": "S2-A-L4-P06",
+    "placeholder": true,
+    "worldPosition": [
+      -2.54,
+      1.688,
+      -3.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0094",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "A",
+      "layer": 4,
+      "slot": 6,
+      "location_code": "S2-A-L4-P06"
+    }
+  },
+  {
+    "title": "馆藏 HX-0095",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "A",
+    "layer": 4,
+    "slot": 7,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0095",
+      "HX0095",
+      "S2-A-L4-P07"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0095",
+    "chipId": "HX-0095",
+    "locationCode": "S2-A-L4-P07",
+    "placeholder": true,
+    "worldPosition": [
+      -2.54,
+      1.688,
+      -2.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0095",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "A",
+      "layer": 4,
+      "slot": 7,
+      "location_code": "S2-A-L4-P07"
+    }
+  },
+  {
+    "title": "馆藏 HX-0096",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "A",
+    "layer": 4,
+    "slot": 8,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0096",
+      "HX0096",
+      "S2-A-L4-P08"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0096",
+    "chipId": "HX-0096",
+    "locationCode": "S2-A-L4-P08",
+    "placeholder": true,
+    "worldPosition": [
+      -2.54,
+      1.688,
+      -1.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0096",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "A",
+      "layer": 4,
+      "slot": 8,
+      "location_code": "S2-A-L4-P08"
+    }
+  },
+  {
+    "title": "馆藏 HX-0097",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "B",
+    "layer": 1,
+    "slot": 1,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0097",
+      "HX0097",
+      "S2-B-L1-P01"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0097",
+    "chipId": "HX-0097",
+    "locationCode": "S2-B-L1-P01",
+    "placeholder": true,
+    "worldPosition": [
+      -3.46,
+      0.243,
+      -8.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0097",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "B",
+      "layer": 1,
+      "slot": 1,
+      "location_code": "S2-B-L1-P01"
+    }
+  },
+  {
+    "title": "馆藏 HX-0098",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "B",
+    "layer": 1,
+    "slot": 2,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0098",
+      "HX0098",
+      "S2-B-L1-P02"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0098",
+    "chipId": "HX-0098",
+    "locationCode": "S2-B-L1-P02",
+    "placeholder": true,
+    "worldPosition": [
+      -3.46,
+      0.243,
+      -7.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0098",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "B",
+      "layer": 1,
+      "slot": 2,
+      "location_code": "S2-B-L1-P02"
+    }
+  },
+  {
+    "title": "馆藏 HX-0099",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "B",
+    "layer": 1,
+    "slot": 3,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0099",
+      "HX0099",
+      "S2-B-L1-P03"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0099",
+    "chipId": "HX-0099",
+    "locationCode": "S2-B-L1-P03",
+    "placeholder": true,
+    "worldPosition": [
+      -3.46,
+      0.243,
+      -6.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0099",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "B",
+      "layer": 1,
+      "slot": 3,
+      "location_code": "S2-B-L1-P03"
+    }
+  },
+  {
+    "title": "馆藏 HX-0100",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "B",
+    "layer": 1,
+    "slot": 4,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0100",
+      "HX0100",
+      "S2-B-L1-P04"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0100",
+    "chipId": "HX-0100",
+    "locationCode": "S2-B-L1-P04",
+    "placeholder": true,
+    "worldPosition": [
+      -3.46,
+      0.243,
+      -5.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0100",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "B",
+      "layer": 1,
+      "slot": 4,
+      "location_code": "S2-B-L1-P04"
+    }
+  },
+  {
+    "title": "馆藏 HX-0101",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "B",
+    "layer": 1,
+    "slot": 5,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0101",
+      "HX0101",
+      "S2-B-L1-P05"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0101",
+    "chipId": "HX-0101",
+    "locationCode": "S2-B-L1-P05",
+    "placeholder": true,
+    "worldPosition": [
+      -3.46,
+      0.243,
+      -4.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0101",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "B",
+      "layer": 1,
+      "slot": 5,
+      "location_code": "S2-B-L1-P05"
+    }
+  },
+  {
+    "title": "馆藏 HX-0102",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "B",
+    "layer": 1,
+    "slot": 6,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0102",
+      "HX0102",
+      "S2-B-L1-P06"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0102",
+    "chipId": "HX-0102",
+    "locationCode": "S2-B-L1-P06",
+    "placeholder": true,
+    "worldPosition": [
+      -3.46,
+      0.243,
+      -3.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0102",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "B",
+      "layer": 1,
+      "slot": 6,
+      "location_code": "S2-B-L1-P06"
+    }
+  },
+  {
+    "title": "馆藏 HX-0103",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "B",
+    "layer": 1,
+    "slot": 7,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0103",
+      "HX0103",
+      "S2-B-L1-P07"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0103",
+    "chipId": "HX-0103",
+    "locationCode": "S2-B-L1-P07",
+    "placeholder": true,
+    "worldPosition": [
+      -3.46,
+      0.243,
+      -2.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0103",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "B",
+      "layer": 1,
+      "slot": 7,
+      "location_code": "S2-B-L1-P07"
+    }
+  },
+  {
+    "title": "馆藏 HX-0104",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "B",
+    "layer": 1,
+    "slot": 8,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0104",
+      "HX0104",
+      "S2-B-L1-P08"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0104",
+    "chipId": "HX-0104",
+    "locationCode": "S2-B-L1-P08",
+    "placeholder": true,
+    "worldPosition": [
+      -3.46,
+      0.243,
+      -1.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0104",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "B",
+      "layer": 1,
+      "slot": 8,
+      "location_code": "S2-B-L1-P08"
+    }
+  },
+  {
+    "title": "馆藏 HX-0105",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "B",
+    "layer": 2,
+    "slot": 1,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0105",
+      "HX0105",
+      "S2-B-L2-P01"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0105",
+    "chipId": "HX-0105",
+    "locationCode": "S2-B-L2-P01",
+    "placeholder": true,
+    "worldPosition": [
+      -3.46,
+      0.688,
+      -8.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0105",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "B",
+      "layer": 2,
+      "slot": 1,
+      "location_code": "S2-B-L2-P01"
+    }
+  },
+  {
+    "title": "馆藏 HX-0106",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "B",
+    "layer": 2,
+    "slot": 2,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0106",
+      "HX0106",
+      "S2-B-L2-P02"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0106",
+    "chipId": "HX-0106",
+    "locationCode": "S2-B-L2-P02",
+    "placeholder": true,
+    "worldPosition": [
+      -3.46,
+      0.688,
+      -7.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0106",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "B",
+      "layer": 2,
+      "slot": 2,
+      "location_code": "S2-B-L2-P02"
+    }
+  },
+  {
+    "title": "馆藏 HX-0107",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "B",
+    "layer": 2,
+    "slot": 3,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0107",
+      "HX0107",
+      "S2-B-L2-P03"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0107",
+    "chipId": "HX-0107",
+    "locationCode": "S2-B-L2-P03",
+    "placeholder": true,
+    "worldPosition": [
+      -3.46,
+      0.688,
+      -6.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0107",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "B",
+      "layer": 2,
+      "slot": 3,
+      "location_code": "S2-B-L2-P03"
+    }
+  },
+  {
+    "title": "馆藏 HX-0108",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "B",
+    "layer": 2,
+    "slot": 4,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0108",
+      "HX0108",
+      "S2-B-L2-P04"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0108",
+    "chipId": "HX-0108",
+    "locationCode": "S2-B-L2-P04",
+    "placeholder": true,
+    "worldPosition": [
+      -3.46,
+      0.688,
+      -5.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0108",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "B",
+      "layer": 2,
+      "slot": 4,
+      "location_code": "S2-B-L2-P04"
+    }
+  },
+  {
+    "title": "馆藏 HX-0109",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "B",
+    "layer": 2,
+    "slot": 5,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0109",
+      "HX0109",
+      "S2-B-L2-P05"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0109",
+    "chipId": "HX-0109",
+    "locationCode": "S2-B-L2-P05",
+    "placeholder": true,
+    "worldPosition": [
+      -3.46,
+      0.688,
+      -4.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0109",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "B",
+      "layer": 2,
+      "slot": 5,
+      "location_code": "S2-B-L2-P05"
+    }
+  },
+  {
+    "title": "馆藏 HX-0110",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "B",
+    "layer": 2,
+    "slot": 6,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0110",
+      "HX0110",
+      "S2-B-L2-P06"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0110",
+    "chipId": "HX-0110",
+    "locationCode": "S2-B-L2-P06",
+    "placeholder": true,
+    "worldPosition": [
+      -3.46,
+      0.688,
+      -3.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0110",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "B",
+      "layer": 2,
+      "slot": 6,
+      "location_code": "S2-B-L2-P06"
+    }
+  },
+  {
+    "title": "馆藏 HX-0111",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "B",
+    "layer": 2,
+    "slot": 7,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0111",
+      "HX0111",
+      "S2-B-L2-P07"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0111",
+    "chipId": "HX-0111",
+    "locationCode": "S2-B-L2-P07",
+    "placeholder": true,
+    "worldPosition": [
+      -3.46,
+      0.688,
+      -2.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0111",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "B",
+      "layer": 2,
+      "slot": 7,
+      "location_code": "S2-B-L2-P07"
+    }
+  },
+  {
+    "title": "馆藏 HX-0112",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "B",
+    "layer": 2,
+    "slot": 8,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0112",
+      "HX0112",
+      "S2-B-L2-P08"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0112",
+    "chipId": "HX-0112",
+    "locationCode": "S2-B-L2-P08",
+    "placeholder": true,
+    "worldPosition": [
+      -3.46,
+      0.688,
+      -1.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0112",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "B",
+      "layer": 2,
+      "slot": 8,
+      "location_code": "S2-B-L2-P08"
+    }
+  },
+  {
+    "title": "馆藏 HX-0113",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "B",
+    "layer": 3,
+    "slot": 1,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0113",
+      "HX0113",
+      "S2-B-L3-P01"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0113",
+    "chipId": "HX-0113",
+    "locationCode": "S2-B-L3-P01",
+    "placeholder": true,
+    "worldPosition": [
+      -3.46,
+      1.188,
+      -8.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0113",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "B",
+      "layer": 3,
+      "slot": 1,
+      "location_code": "S2-B-L3-P01"
+    }
+  },
+  {
+    "title": "馆藏 HX-0114",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "B",
+    "layer": 3,
+    "slot": 2,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0114",
+      "HX0114",
+      "S2-B-L3-P02"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0114",
+    "chipId": "HX-0114",
+    "locationCode": "S2-B-L3-P02",
+    "placeholder": true,
+    "worldPosition": [
+      -3.46,
+      1.188,
+      -7.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0114",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "B",
+      "layer": 3,
+      "slot": 2,
+      "location_code": "S2-B-L3-P02"
+    }
+  },
+  {
+    "title": "馆藏 HX-0115",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "B",
+    "layer": 3,
+    "slot": 3,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0115",
+      "HX0115",
+      "S2-B-L3-P03"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0115",
+    "chipId": "HX-0115",
+    "locationCode": "S2-B-L3-P03",
+    "placeholder": true,
+    "worldPosition": [
+      -3.46,
+      1.188,
+      -6.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0115",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "B",
+      "layer": 3,
+      "slot": 3,
+      "location_code": "S2-B-L3-P03"
+    }
+  },
+  {
+    "title": "馆藏 HX-0116",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "B",
+    "layer": 3,
+    "slot": 4,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0116",
+      "HX0116",
+      "S2-B-L3-P04"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0116",
+    "chipId": "HX-0116",
+    "locationCode": "S2-B-L3-P04",
+    "placeholder": true,
+    "worldPosition": [
+      -3.46,
+      1.188,
+      -5.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0116",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "B",
+      "layer": 3,
+      "slot": 4,
+      "location_code": "S2-B-L3-P04"
+    }
+  },
+  {
+    "title": "馆藏 HX-0117",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "B",
+    "layer": 3,
+    "slot": 5,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0117",
+      "HX0117",
+      "S2-B-L3-P05"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0117",
+    "chipId": "HX-0117",
+    "locationCode": "S2-B-L3-P05",
+    "placeholder": true,
+    "worldPosition": [
+      -3.46,
+      1.188,
+      -4.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0117",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "B",
+      "layer": 3,
+      "slot": 5,
+      "location_code": "S2-B-L3-P05"
+    }
+  },
+  {
+    "title": "馆藏 HX-0118",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "B",
+    "layer": 3,
+    "slot": 6,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0118",
+      "HX0118",
+      "S2-B-L3-P06"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0118",
+    "chipId": "HX-0118",
+    "locationCode": "S2-B-L3-P06",
+    "placeholder": true,
+    "worldPosition": [
+      -3.46,
+      1.188,
+      -3.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0118",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "B",
+      "layer": 3,
+      "slot": 6,
+      "location_code": "S2-B-L3-P06"
+    }
+  },
+  {
+    "title": "小王子",
+    "author": "安托万·德·圣埃克苏佩里",
+    "category": "中外文学",
+    "shelf": 2,
+    "side": "B",
+    "layer": 3,
+    "slot": 7,
+    "color": "#7f6650",
+    "keys": [
+      "小王子",
+      "文学",
+      "童话",
+      "小说",
+      "HX-0119",
+      "HX0119",
+      "S2-B-L3-P07"
+    ],
+    "synopsis": "来自遥远星球的小王子，在旅途中遇见了不同的大人，也在地球上结识了狐狸与飞行员。朴素的故事承载着关于爱、责任与孤独的追问。那些看似轻盈的对话，提醒我们珍惜关系中的付出，重新看见被忙碌生活遮蔽的珍贵事物。",
+    "bookId": "HX-0119",
+    "chipId": "HX-0119",
+    "locationCode": "S2-B-L3-P07",
+    "placeholder": false,
+    "worldPosition": [
+      -3.46,
+      1.188,
+      -2.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0119",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "B",
+      "layer": 3,
+      "slot": 7,
+      "location_code": "S2-B-L3-P07"
+    }
+  },
+  {
+    "title": "馆藏 HX-0120",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "B",
+    "layer": 3,
+    "slot": 8,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0120",
+      "HX0120",
+      "S2-B-L3-P08"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0120",
+    "chipId": "HX-0120",
+    "locationCode": "S2-B-L3-P08",
+    "placeholder": true,
+    "worldPosition": [
+      -3.46,
+      1.188,
+      -1.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0120",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "B",
+      "layer": 3,
+      "slot": 8,
+      "location_code": "S2-B-L3-P08"
+    }
+  },
+  {
+    "title": "馆藏 HX-0121",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "B",
+    "layer": 4,
+    "slot": 1,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0121",
+      "HX0121",
+      "S2-B-L4-P01"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0121",
+    "chipId": "HX-0121",
+    "locationCode": "S2-B-L4-P01",
+    "placeholder": true,
+    "worldPosition": [
+      -3.46,
+      1.688,
+      -8.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0121",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "B",
+      "layer": 4,
+      "slot": 1,
+      "location_code": "S2-B-L4-P01"
+    }
+  },
+  {
+    "title": "馆藏 HX-0122",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "B",
+    "layer": 4,
+    "slot": 2,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0122",
+      "HX0122",
+      "S2-B-L4-P02"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0122",
+    "chipId": "HX-0122",
+    "locationCode": "S2-B-L4-P02",
+    "placeholder": true,
+    "worldPosition": [
+      -3.46,
+      1.688,
+      -7.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0122",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "B",
+      "layer": 4,
+      "slot": 2,
+      "location_code": "S2-B-L4-P02"
+    }
+  },
+  {
+    "title": "馆藏 HX-0123",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "B",
+    "layer": 4,
+    "slot": 3,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0123",
+      "HX0123",
+      "S2-B-L4-P03"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0123",
+    "chipId": "HX-0123",
+    "locationCode": "S2-B-L4-P03",
+    "placeholder": true,
+    "worldPosition": [
+      -3.46,
+      1.688,
+      -6.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0123",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "B",
+      "layer": 4,
+      "slot": 3,
+      "location_code": "S2-B-L4-P03"
+    }
+  },
+  {
+    "title": "馆藏 HX-0124",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "B",
+    "layer": 4,
+    "slot": 4,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0124",
+      "HX0124",
+      "S2-B-L4-P04"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0124",
+    "chipId": "HX-0124",
+    "locationCode": "S2-B-L4-P04",
+    "placeholder": true,
+    "worldPosition": [
+      -3.46,
+      1.688,
+      -5.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0124",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "B",
+      "layer": 4,
+      "slot": 4,
+      "location_code": "S2-B-L4-P04"
+    }
+  },
+  {
+    "title": "馆藏 HX-0125",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "B",
+    "layer": 4,
+    "slot": 5,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0125",
+      "HX0125",
+      "S2-B-L4-P05"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0125",
+    "chipId": "HX-0125",
+    "locationCode": "S2-B-L4-P05",
+    "placeholder": true,
+    "worldPosition": [
+      -3.46,
+      1.688,
+      -4.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0125",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "B",
+      "layer": 4,
+      "slot": 5,
+      "location_code": "S2-B-L4-P05"
+    }
+  },
+  {
+    "title": "馆藏 HX-0126",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "B",
+    "layer": 4,
+    "slot": 6,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0126",
+      "HX0126",
+      "S2-B-L4-P06"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0126",
+    "chipId": "HX-0126",
+    "locationCode": "S2-B-L4-P06",
+    "placeholder": true,
+    "worldPosition": [
+      -3.46,
+      1.688,
+      -3.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0126",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "B",
+      "layer": 4,
+      "slot": 6,
+      "location_code": "S2-B-L4-P06"
+    }
+  },
+  {
+    "title": "馆藏 HX-0127",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "B",
+    "layer": 4,
+    "slot": 7,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0127",
+      "HX0127",
+      "S2-B-L4-P07"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0127",
+    "chipId": "HX-0127",
+    "locationCode": "S2-B-L4-P07",
+    "placeholder": true,
+    "worldPosition": [
+      -3.46,
+      1.688,
+      -2.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0127",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "B",
+      "layer": 4,
+      "slot": 7,
+      "location_code": "S2-B-L4-P07"
+    }
+  },
+  {
+    "title": "馆藏 HX-0128",
+    "author": "和序图书馆 · 编号样书",
+    "category": "文学与历史哲学",
+    "shelf": 2,
+    "side": "B",
+    "layer": 4,
+    "slot": 8,
+    "color": "#7f6650",
+    "keys": [
+      "HX-0128",
+      "HX0128",
+      "S2-B-L4-P08"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0128",
+    "chipId": "HX-0128",
+    "locationCode": "S2-B-L4-P08",
+    "placeholder": true,
+    "worldPosition": [
+      -3.46,
+      1.688,
+      -1.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0128",
+      "shelf_id": "Shelf_2",
+      "shelf_side": "B",
+      "layer": 4,
+      "slot": 8,
+      "location_code": "S2-B-L4-P08"
+    }
+  },
+  {
+    "title": "馆藏 HX-0129",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "A",
+    "layer": 1,
+    "slot": 1,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0129",
+      "HX0129",
+      "S3-A-L1-P01"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0129",
+    "chipId": "HX-0129",
+    "locationCode": "S3-A-L1-P01",
+    "placeholder": true,
+    "worldPosition": [
+      0.46,
+      0.243,
+      -8.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0129",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "A",
+      "layer": 1,
+      "slot": 1,
+      "location_code": "S3-A-L1-P01"
+    }
+  },
+  {
+    "title": "馆藏 HX-0130",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "A",
+    "layer": 1,
+    "slot": 2,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0130",
+      "HX0130",
+      "S3-A-L1-P02"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0130",
+    "chipId": "HX-0130",
+    "locationCode": "S3-A-L1-P02",
+    "placeholder": true,
+    "worldPosition": [
+      0.46,
+      0.243,
+      -7.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0130",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "A",
+      "layer": 1,
+      "slot": 2,
+      "location_code": "S3-A-L1-P02"
+    }
+  },
+  {
+    "title": "馆藏 HX-0131",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "A",
+    "layer": 1,
+    "slot": 3,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0131",
+      "HX0131",
+      "S3-A-L1-P03"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0131",
+    "chipId": "HX-0131",
+    "locationCode": "S3-A-L1-P03",
+    "placeholder": true,
+    "worldPosition": [
+      0.46,
+      0.243,
+      -6.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0131",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "A",
+      "layer": 1,
+      "slot": 3,
+      "location_code": "S3-A-L1-P03"
+    }
+  },
+  {
+    "title": "馆藏 HX-0132",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "A",
+    "layer": 1,
+    "slot": 4,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0132",
+      "HX0132",
+      "S3-A-L1-P04"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0132",
+    "chipId": "HX-0132",
+    "locationCode": "S3-A-L1-P04",
+    "placeholder": true,
+    "worldPosition": [
+      0.46,
+      0.243,
+      -5.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0132",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "A",
+      "layer": 1,
+      "slot": 4,
+      "location_code": "S3-A-L1-P04"
+    }
+  },
+  {
+    "title": "馆藏 HX-0133",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "A",
+    "layer": 1,
+    "slot": 5,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0133",
+      "HX0133",
+      "S3-A-L1-P05"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0133",
+    "chipId": "HX-0133",
+    "locationCode": "S3-A-L1-P05",
+    "placeholder": true,
+    "worldPosition": [
+      0.46,
+      0.243,
+      -4.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0133",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "A",
+      "layer": 1,
+      "slot": 5,
+      "location_code": "S3-A-L1-P05"
+    }
+  },
+  {
+    "title": "馆藏 HX-0134",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "A",
+    "layer": 1,
+    "slot": 6,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0134",
+      "HX0134",
+      "S3-A-L1-P06"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0134",
+    "chipId": "HX-0134",
+    "locationCode": "S3-A-L1-P06",
+    "placeholder": true,
+    "worldPosition": [
+      0.46,
+      0.243,
+      -3.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0134",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "A",
+      "layer": 1,
+      "slot": 6,
+      "location_code": "S3-A-L1-P06"
+    }
+  },
+  {
+    "title": "馆藏 HX-0135",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "A",
+    "layer": 1,
+    "slot": 7,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0135",
+      "HX0135",
+      "S3-A-L1-P07"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0135",
+    "chipId": "HX-0135",
+    "locationCode": "S3-A-L1-P07",
+    "placeholder": true,
+    "worldPosition": [
+      0.46,
+      0.243,
+      -2.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0135",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "A",
+      "layer": 1,
+      "slot": 7,
+      "location_code": "S3-A-L1-P07"
+    }
+  },
+  {
+    "title": "馆藏 HX-0136",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "A",
+    "layer": 1,
+    "slot": 8,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0136",
+      "HX0136",
+      "S3-A-L1-P08"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0136",
+    "chipId": "HX-0136",
+    "locationCode": "S3-A-L1-P08",
+    "placeholder": true,
+    "worldPosition": [
+      0.46,
+      0.243,
+      -1.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0136",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "A",
+      "layer": 1,
+      "slot": 8,
+      "location_code": "S3-A-L1-P08"
+    }
+  },
+  {
+    "title": "馆藏 HX-0137",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "A",
+    "layer": 2,
+    "slot": 1,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0137",
+      "HX0137",
+      "S3-A-L2-P01"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0137",
+    "chipId": "HX-0137",
+    "locationCode": "S3-A-L2-P01",
+    "placeholder": true,
+    "worldPosition": [
+      0.46,
+      0.688,
+      -8.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0137",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "A",
+      "layer": 2,
+      "slot": 1,
+      "location_code": "S3-A-L2-P01"
+    }
+  },
+  {
+    "title": "馆藏 HX-0138",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "A",
+    "layer": 2,
+    "slot": 2,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0138",
+      "HX0138",
+      "S3-A-L2-P02"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0138",
+    "chipId": "HX-0138",
+    "locationCode": "S3-A-L2-P02",
+    "placeholder": true,
+    "worldPosition": [
+      0.46,
+      0.688,
+      -7.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0138",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "A",
+      "layer": 2,
+      "slot": 2,
+      "location_code": "S3-A-L2-P02"
+    }
+  },
+  {
+    "title": "馆藏 HX-0139",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "A",
+    "layer": 2,
+    "slot": 3,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0139",
+      "HX0139",
+      "S3-A-L2-P03"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0139",
+    "chipId": "HX-0139",
+    "locationCode": "S3-A-L2-P03",
+    "placeholder": true,
+    "worldPosition": [
+      0.46,
+      0.688,
+      -6.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0139",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "A",
+      "layer": 2,
+      "slot": 3,
+      "location_code": "S3-A-L2-P03"
+    }
+  },
+  {
+    "title": "馆藏 HX-0140",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "A",
+    "layer": 2,
+    "slot": 4,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0140",
+      "HX0140",
+      "S3-A-L2-P04"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0140",
+    "chipId": "HX-0140",
+    "locationCode": "S3-A-L2-P04",
+    "placeholder": true,
+    "worldPosition": [
+      0.46,
+      0.688,
+      -5.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0140",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "A",
+      "layer": 2,
+      "slot": 4,
+      "location_code": "S3-A-L2-P04"
+    }
+  },
+  {
+    "title": "馆藏 HX-0141",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "A",
+    "layer": 2,
+    "slot": 5,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0141",
+      "HX0141",
+      "S3-A-L2-P05"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0141",
+    "chipId": "HX-0141",
+    "locationCode": "S3-A-L2-P05",
+    "placeholder": true,
+    "worldPosition": [
+      0.46,
+      0.688,
+      -4.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0141",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "A",
+      "layer": 2,
+      "slot": 5,
+      "location_code": "S3-A-L2-P05"
+    }
+  },
+  {
+    "title": "馆藏 HX-0142",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "A",
+    "layer": 2,
+    "slot": 6,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0142",
+      "HX0142",
+      "S3-A-L2-P06"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0142",
+    "chipId": "HX-0142",
+    "locationCode": "S3-A-L2-P06",
+    "placeholder": true,
+    "worldPosition": [
+      0.46,
+      0.688,
+      -3.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0142",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "A",
+      "layer": 2,
+      "slot": 6,
+      "location_code": "S3-A-L2-P06"
+    }
+  },
+  {
+    "title": "馆藏 HX-0143",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "A",
+    "layer": 2,
+    "slot": 7,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0143",
+      "HX0143",
+      "S3-A-L2-P07"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0143",
+    "chipId": "HX-0143",
+    "locationCode": "S3-A-L2-P07",
+    "placeholder": true,
+    "worldPosition": [
+      0.46,
+      0.688,
+      -2.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0143",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "A",
+      "layer": 2,
+      "slot": 7,
+      "location_code": "S3-A-L2-P07"
+    }
+  },
+  {
+    "title": "经济学原理",
+    "author": "N. 格里高利·曼昆",
+    "category": "经济与金融",
+    "shelf": 3,
+    "side": "A",
+    "layer": 2,
+    "slot": 8,
+    "color": "#536c7d",
+    "keys": [
+      "经济",
+      "金融",
+      "商业",
+      "管理",
+      "HX-0144",
+      "HX0144",
+      "S3-A-L2-P08"
+    ],
+    "synopsis": "个人如何选择，市场如何协调资源，政策又如何影响生活？本书从清晰的基本原理出发，介绍供求、竞争、宏观经济与公共政策。熟悉的生活案例帮助读者建立经济学直觉，并学会在成本、激励与取舍之间理解日常决策的逻辑。",
+    "bookId": "HX-0144",
+    "chipId": "HX-0144",
+    "locationCode": "S3-A-L2-P08",
+    "placeholder": false,
+    "worldPosition": [
+      0.46,
+      0.688,
+      -1.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0144",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "A",
+      "layer": 2,
+      "slot": 8,
+      "location_code": "S3-A-L2-P08"
+    }
+  },
+  {
+    "title": "馆藏 HX-0145",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "A",
+    "layer": 3,
+    "slot": 1,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0145",
+      "HX0145",
+      "S3-A-L3-P01"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0145",
+    "chipId": "HX-0145",
+    "locationCode": "S3-A-L3-P01",
+    "placeholder": true,
+    "worldPosition": [
+      0.46,
+      1.188,
+      -8.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0145",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "A",
+      "layer": 3,
+      "slot": 1,
+      "location_code": "S3-A-L3-P01"
+    }
+  },
+  {
+    "title": "馆藏 HX-0146",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "A",
+    "layer": 3,
+    "slot": 2,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0146",
+      "HX0146",
+      "S3-A-L3-P02"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0146",
+    "chipId": "HX-0146",
+    "locationCode": "S3-A-L3-P02",
+    "placeholder": true,
+    "worldPosition": [
+      0.46,
+      1.188,
+      -7.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0146",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "A",
+      "layer": 3,
+      "slot": 2,
+      "location_code": "S3-A-L3-P02"
+    }
+  },
+  {
+    "title": "馆藏 HX-0147",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "A",
+    "layer": 3,
+    "slot": 3,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0147",
+      "HX0147",
+      "S3-A-L3-P03"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0147",
+    "chipId": "HX-0147",
+    "locationCode": "S3-A-L3-P03",
+    "placeholder": true,
+    "worldPosition": [
+      0.46,
+      1.188,
+      -6.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0147",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "A",
+      "layer": 3,
+      "slot": 3,
+      "location_code": "S3-A-L3-P03"
+    }
+  },
+  {
+    "title": "馆藏 HX-0148",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "A",
+    "layer": 3,
+    "slot": 4,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0148",
+      "HX0148",
+      "S3-A-L3-P04"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0148",
+    "chipId": "HX-0148",
+    "locationCode": "S3-A-L3-P04",
+    "placeholder": true,
+    "worldPosition": [
+      0.46,
+      1.188,
+      -5.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0148",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "A",
+      "layer": 3,
+      "slot": 4,
+      "location_code": "S3-A-L3-P04"
+    }
+  },
+  {
+    "title": "馆藏 HX-0149",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "A",
+    "layer": 3,
+    "slot": 5,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0149",
+      "HX0149",
+      "S3-A-L3-P05"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0149",
+    "chipId": "HX-0149",
+    "locationCode": "S3-A-L3-P05",
+    "placeholder": true,
+    "worldPosition": [
+      0.46,
+      1.188,
+      -4.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0149",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "A",
+      "layer": 3,
+      "slot": 5,
+      "location_code": "S3-A-L3-P05"
+    }
+  },
+  {
+    "title": "馆藏 HX-0150",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "A",
+    "layer": 3,
+    "slot": 6,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0150",
+      "HX0150",
+      "S3-A-L3-P06"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0150",
+    "chipId": "HX-0150",
+    "locationCode": "S3-A-L3-P06",
+    "placeholder": true,
+    "worldPosition": [
+      0.46,
+      1.188,
+      -3.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0150",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "A",
+      "layer": 3,
+      "slot": 6,
+      "location_code": "S3-A-L3-P06"
+    }
+  },
+  {
+    "title": "馆藏 HX-0151",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "A",
+    "layer": 3,
+    "slot": 7,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0151",
+      "HX0151",
+      "S3-A-L3-P07"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0151",
+    "chipId": "HX-0151",
+    "locationCode": "S3-A-L3-P07",
+    "placeholder": true,
+    "worldPosition": [
+      0.46,
+      1.188,
+      -2.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0151",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "A",
+      "layer": 3,
+      "slot": 7,
+      "location_code": "S3-A-L3-P07"
+    }
+  },
+  {
+    "title": "馆藏 HX-0152",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "A",
+    "layer": 3,
+    "slot": 8,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0152",
+      "HX0152",
+      "S3-A-L3-P08"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0152",
+    "chipId": "HX-0152",
+    "locationCode": "S3-A-L3-P08",
+    "placeholder": true,
+    "worldPosition": [
+      0.46,
+      1.188,
+      -1.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0152",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "A",
+      "layer": 3,
+      "slot": 8,
+      "location_code": "S3-A-L3-P08"
+    }
+  },
+  {
+    "title": "馆藏 HX-0153",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "A",
+    "layer": 4,
+    "slot": 1,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0153",
+      "HX0153",
+      "S3-A-L4-P01"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0153",
+    "chipId": "HX-0153",
+    "locationCode": "S3-A-L4-P01",
+    "placeholder": true,
+    "worldPosition": [
+      0.46,
+      1.688,
+      -8.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0153",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "A",
+      "layer": 4,
+      "slot": 1,
+      "location_code": "S3-A-L4-P01"
+    }
+  },
+  {
+    "title": "馆藏 HX-0154",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "A",
+    "layer": 4,
+    "slot": 2,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0154",
+      "HX0154",
+      "S3-A-L4-P02"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0154",
+    "chipId": "HX-0154",
+    "locationCode": "S3-A-L4-P02",
+    "placeholder": true,
+    "worldPosition": [
+      0.46,
+      1.688,
+      -7.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0154",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "A",
+      "layer": 4,
+      "slot": 2,
+      "location_code": "S3-A-L4-P02"
+    }
+  },
+  {
+    "title": "馆藏 HX-0155",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "A",
+    "layer": 4,
+    "slot": 3,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0155",
+      "HX0155",
+      "S3-A-L4-P03"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0155",
+    "chipId": "HX-0155",
+    "locationCode": "S3-A-L4-P03",
+    "placeholder": true,
+    "worldPosition": [
+      0.46,
+      1.688,
+      -6.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0155",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "A",
+      "layer": 4,
+      "slot": 3,
+      "location_code": "S3-A-L4-P03"
+    }
+  },
+  {
+    "title": "馆藏 HX-0156",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "A",
+    "layer": 4,
+    "slot": 4,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0156",
+      "HX0156",
+      "S3-A-L4-P04"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0156",
+    "chipId": "HX-0156",
+    "locationCode": "S3-A-L4-P04",
+    "placeholder": true,
+    "worldPosition": [
+      0.46,
+      1.688,
+      -5.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0156",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "A",
+      "layer": 4,
+      "slot": 4,
+      "location_code": "S3-A-L4-P04"
+    }
+  },
+  {
+    "title": "馆藏 HX-0157",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "A",
+    "layer": 4,
+    "slot": 5,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0157",
+      "HX0157",
+      "S3-A-L4-P05"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0157",
+    "chipId": "HX-0157",
+    "locationCode": "S3-A-L4-P05",
+    "placeholder": true,
+    "worldPosition": [
+      0.46,
+      1.688,
+      -4.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0157",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "A",
+      "layer": 4,
+      "slot": 5,
+      "location_code": "S3-A-L4-P05"
+    }
+  },
+  {
+    "title": "馆藏 HX-0158",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "A",
+    "layer": 4,
+    "slot": 6,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0158",
+      "HX0158",
+      "S3-A-L4-P06"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0158",
+    "chipId": "HX-0158",
+    "locationCode": "S3-A-L4-P06",
+    "placeholder": true,
+    "worldPosition": [
+      0.46,
+      1.688,
+      -3.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0158",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "A",
+      "layer": 4,
+      "slot": 6,
+      "location_code": "S3-A-L4-P06"
+    }
+  },
+  {
+    "title": "馆藏 HX-0159",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "A",
+    "layer": 4,
+    "slot": 7,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0159",
+      "HX0159",
+      "S3-A-L4-P07"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0159",
+    "chipId": "HX-0159",
+    "locationCode": "S3-A-L4-P07",
+    "placeholder": true,
+    "worldPosition": [
+      0.46,
+      1.688,
+      -2.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0159",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "A",
+      "layer": 4,
+      "slot": 7,
+      "location_code": "S3-A-L4-P07"
+    }
+  },
+  {
+    "title": "馆藏 HX-0160",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "A",
+    "layer": 4,
+    "slot": 8,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0160",
+      "HX0160",
+      "S3-A-L4-P08"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0160",
+    "chipId": "HX-0160",
+    "locationCode": "S3-A-L4-P08",
+    "placeholder": true,
+    "worldPosition": [
+      0.46,
+      1.688,
+      -1.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0160",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "A",
+      "layer": 4,
+      "slot": 8,
+      "location_code": "S3-A-L4-P08"
+    }
+  },
+  {
+    "title": "馆藏 HX-0161",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "B",
+    "layer": 1,
+    "slot": 1,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0161",
+      "HX0161",
+      "S3-B-L1-P01"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0161",
+    "chipId": "HX-0161",
+    "locationCode": "S3-B-L1-P01",
+    "placeholder": true,
+    "worldPosition": [
+      -0.46,
+      0.243,
+      -8.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0161",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "B",
+      "layer": 1,
+      "slot": 1,
+      "location_code": "S3-B-L1-P01"
+    }
+  },
+  {
+    "title": "馆藏 HX-0162",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "B",
+    "layer": 1,
+    "slot": 2,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0162",
+      "HX0162",
+      "S3-B-L1-P02"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0162",
+    "chipId": "HX-0162",
+    "locationCode": "S3-B-L1-P02",
+    "placeholder": true,
+    "worldPosition": [
+      -0.46,
+      0.243,
+      -7.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0162",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "B",
+      "layer": 1,
+      "slot": 2,
+      "location_code": "S3-B-L1-P02"
+    }
+  },
+  {
+    "title": "馆藏 HX-0163",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "B",
+    "layer": 1,
+    "slot": 3,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0163",
+      "HX0163",
+      "S3-B-L1-P03"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0163",
+    "chipId": "HX-0163",
+    "locationCode": "S3-B-L1-P03",
+    "placeholder": true,
+    "worldPosition": [
+      -0.46,
+      0.243,
+      -6.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0163",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "B",
+      "layer": 1,
+      "slot": 3,
+      "location_code": "S3-B-L1-P03"
+    }
+  },
+  {
+    "title": "馆藏 HX-0164",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "B",
+    "layer": 1,
+    "slot": 4,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0164",
+      "HX0164",
+      "S3-B-L1-P04"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0164",
+    "chipId": "HX-0164",
+    "locationCode": "S3-B-L1-P04",
+    "placeholder": true,
+    "worldPosition": [
+      -0.46,
+      0.243,
+      -5.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0164",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "B",
+      "layer": 1,
+      "slot": 4,
+      "location_code": "S3-B-L1-P04"
+    }
+  },
+  {
+    "title": "馆藏 HX-0165",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "B",
+    "layer": 1,
+    "slot": 5,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0165",
+      "HX0165",
+      "S3-B-L1-P05"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0165",
+    "chipId": "HX-0165",
+    "locationCode": "S3-B-L1-P05",
+    "placeholder": true,
+    "worldPosition": [
+      -0.46,
+      0.243,
+      -4.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0165",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "B",
+      "layer": 1,
+      "slot": 5,
+      "location_code": "S3-B-L1-P05"
+    }
+  },
+  {
+    "title": "馆藏 HX-0166",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "B",
+    "layer": 1,
+    "slot": 6,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0166",
+      "HX0166",
+      "S3-B-L1-P06"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0166",
+    "chipId": "HX-0166",
+    "locationCode": "S3-B-L1-P06",
+    "placeholder": true,
+    "worldPosition": [
+      -0.46,
+      0.243,
+      -3.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0166",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "B",
+      "layer": 1,
+      "slot": 6,
+      "location_code": "S3-B-L1-P06"
+    }
+  },
+  {
+    "title": "馆藏 HX-0167",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "B",
+    "layer": 1,
+    "slot": 7,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0167",
+      "HX0167",
+      "S3-B-L1-P07"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0167",
+    "chipId": "HX-0167",
+    "locationCode": "S3-B-L1-P07",
+    "placeholder": true,
+    "worldPosition": [
+      -0.46,
+      0.243,
+      -2.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0167",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "B",
+      "layer": 1,
+      "slot": 7,
+      "location_code": "S3-B-L1-P07"
+    }
+  },
+  {
+    "title": "馆藏 HX-0168",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "B",
+    "layer": 1,
+    "slot": 8,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0168",
+      "HX0168",
+      "S3-B-L1-P08"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0168",
+    "chipId": "HX-0168",
+    "locationCode": "S3-B-L1-P08",
+    "placeholder": true,
+    "worldPosition": [
+      -0.46,
+      0.243,
+      -1.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0168",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "B",
+      "layer": 1,
+      "slot": 8,
+      "location_code": "S3-B-L1-P08"
+    }
+  },
+  {
+    "title": "馆藏 HX-0169",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "B",
+    "layer": 2,
+    "slot": 1,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0169",
+      "HX0169",
+      "S3-B-L2-P01"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0169",
+    "chipId": "HX-0169",
+    "locationCode": "S3-B-L2-P01",
+    "placeholder": true,
+    "worldPosition": [
+      -0.46,
+      0.688,
+      -8.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0169",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "B",
+      "layer": 2,
+      "slot": 1,
+      "location_code": "S3-B-L2-P01"
+    }
+  },
+  {
+    "title": "馆藏 HX-0170",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "B",
+    "layer": 2,
+    "slot": 2,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0170",
+      "HX0170",
+      "S3-B-L2-P02"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0170",
+    "chipId": "HX-0170",
+    "locationCode": "S3-B-L2-P02",
+    "placeholder": true,
+    "worldPosition": [
+      -0.46,
+      0.688,
+      -7.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0170",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "B",
+      "layer": 2,
+      "slot": 2,
+      "location_code": "S3-B-L2-P02"
+    }
+  },
+  {
+    "title": "馆藏 HX-0171",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "B",
+    "layer": 2,
+    "slot": 3,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0171",
+      "HX0171",
+      "S3-B-L2-P03"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0171",
+    "chipId": "HX-0171",
+    "locationCode": "S3-B-L2-P03",
+    "placeholder": true,
+    "worldPosition": [
+      -0.46,
+      0.688,
+      -6.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0171",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "B",
+      "layer": 2,
+      "slot": 3,
+      "location_code": "S3-B-L2-P03"
+    }
+  },
+  {
+    "title": "馆藏 HX-0172",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "B",
+    "layer": 2,
+    "slot": 4,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0172",
+      "HX0172",
+      "S3-B-L2-P04"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0172",
+    "chipId": "HX-0172",
+    "locationCode": "S3-B-L2-P04",
+    "placeholder": true,
+    "worldPosition": [
+      -0.46,
+      0.688,
+      -5.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0172",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "B",
+      "layer": 2,
+      "slot": 4,
+      "location_code": "S3-B-L2-P04"
+    }
+  },
+  {
+    "title": "馆藏 HX-0173",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "B",
+    "layer": 2,
+    "slot": 5,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0173",
+      "HX0173",
+      "S3-B-L2-P05"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0173",
+    "chipId": "HX-0173",
+    "locationCode": "S3-B-L2-P05",
+    "placeholder": true,
+    "worldPosition": [
+      -0.46,
+      0.688,
+      -4.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0173",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "B",
+      "layer": 2,
+      "slot": 5,
+      "location_code": "S3-B-L2-P05"
+    }
+  },
+  {
+    "title": "馆藏 HX-0174",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "B",
+    "layer": 2,
+    "slot": 6,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0174",
+      "HX0174",
+      "S3-B-L2-P06"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0174",
+    "chipId": "HX-0174",
+    "locationCode": "S3-B-L2-P06",
+    "placeholder": true,
+    "worldPosition": [
+      -0.46,
+      0.688,
+      -3.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0174",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "B",
+      "layer": 2,
+      "slot": 6,
+      "location_code": "S3-B-L2-P06"
+    }
+  },
+  {
+    "title": "馆藏 HX-0175",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "B",
+    "layer": 2,
+    "slot": 7,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0175",
+      "HX0175",
+      "S3-B-L2-P07"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0175",
+    "chipId": "HX-0175",
+    "locationCode": "S3-B-L2-P07",
+    "placeholder": true,
+    "worldPosition": [
+      -0.46,
+      0.688,
+      -2.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0175",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "B",
+      "layer": 2,
+      "slot": 7,
+      "location_code": "S3-B-L2-P07"
+    }
+  },
+  {
+    "title": "馆藏 HX-0176",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "B",
+    "layer": 2,
+    "slot": 8,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0176",
+      "HX0176",
+      "S3-B-L2-P08"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0176",
+    "chipId": "HX-0176",
+    "locationCode": "S3-B-L2-P08",
+    "placeholder": true,
+    "worldPosition": [
+      -0.46,
+      0.688,
+      -1.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0176",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "B",
+      "layer": 2,
+      "slot": 8,
+      "location_code": "S3-B-L2-P08"
+    }
+  },
+  {
+    "title": "馆藏 HX-0177",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "B",
+    "layer": 3,
+    "slot": 1,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0177",
+      "HX0177",
+      "S3-B-L3-P01"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0177",
+    "chipId": "HX-0177",
+    "locationCode": "S3-B-L3-P01",
+    "placeholder": true,
+    "worldPosition": [
+      -0.46,
+      1.188,
+      -8.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0177",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "B",
+      "layer": 3,
+      "slot": 1,
+      "location_code": "S3-B-L3-P01"
+    }
+  },
+  {
+    "title": "馆藏 HX-0178",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "B",
+    "layer": 3,
+    "slot": 2,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0178",
+      "HX0178",
+      "S3-B-L3-P02"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0178",
+    "chipId": "HX-0178",
+    "locationCode": "S3-B-L3-P02",
+    "placeholder": true,
+    "worldPosition": [
+      -0.46,
+      1.188,
+      -7.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0178",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "B",
+      "layer": 3,
+      "slot": 2,
+      "location_code": "S3-B-L3-P02"
+    }
+  },
+  {
+    "title": "馆藏 HX-0179",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "B",
+    "layer": 3,
+    "slot": 3,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0179",
+      "HX0179",
+      "S3-B-L3-P03"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0179",
+    "chipId": "HX-0179",
+    "locationCode": "S3-B-L3-P03",
+    "placeholder": true,
+    "worldPosition": [
+      -0.46,
+      1.188,
+      -6.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0179",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "B",
+      "layer": 3,
+      "slot": 3,
+      "location_code": "S3-B-L3-P03"
+    }
+  },
+  {
+    "title": "馆藏 HX-0180",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "B",
+    "layer": 3,
+    "slot": 4,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0180",
+      "HX0180",
+      "S3-B-L3-P04"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0180",
+    "chipId": "HX-0180",
+    "locationCode": "S3-B-L3-P04",
+    "placeholder": true,
+    "worldPosition": [
+      -0.46,
+      1.188,
+      -5.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0180",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "B",
+      "layer": 3,
+      "slot": 4,
+      "location_code": "S3-B-L3-P04"
+    }
+  },
+  {
+    "title": "馆藏 HX-0181",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "B",
+    "layer": 3,
+    "slot": 5,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0181",
+      "HX0181",
+      "S3-B-L3-P05"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0181",
+    "chipId": "HX-0181",
+    "locationCode": "S3-B-L3-P05",
+    "placeholder": true,
+    "worldPosition": [
+      -0.46,
+      1.188,
+      -4.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0181",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "B",
+      "layer": 3,
+      "slot": 5,
+      "location_code": "S3-B-L3-P05"
+    }
+  },
+  {
+    "title": "馆藏 HX-0182",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "B",
+    "layer": 3,
+    "slot": 6,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0182",
+      "HX0182",
+      "S3-B-L3-P06"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0182",
+    "chipId": "HX-0182",
+    "locationCode": "S3-B-L3-P06",
+    "placeholder": true,
+    "worldPosition": [
+      -0.46,
+      1.188,
+      -3.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0182",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "B",
+      "layer": 3,
+      "slot": 6,
+      "location_code": "S3-B-L3-P06"
+    }
+  },
+  {
+    "title": "思考，快与慢",
+    "author": "丹尼尔·卡尼曼",
+    "category": "心理与生活",
+    "shelf": 3,
+    "side": "B",
+    "layer": 3,
+    "slot": 7,
+    "color": "#536c7d",
+    "keys": [
+      "思考",
+      "心理",
+      "生活",
+      "快与慢",
+      "HX-0183",
+      "HX0183",
+      "S3-B-L3-P07"
+    ],
+    "synopsis": "我们常以为自己能够理性判断，却会不知不觉受到直觉与情境的影响。卡尼曼借助丰富的研究，讨论快速直觉与审慎思考的不同机制。本书带你观察偏差、风险和选择，理解判断何时值得信任，又何时需要暂停片刻并重新检视。",
+    "bookId": "HX-0183",
+    "chipId": "HX-0183",
+    "locationCode": "S3-B-L3-P07",
+    "placeholder": false,
+    "worldPosition": [
+      -0.46,
+      1.188,
+      -2.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0183",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "B",
+      "layer": 3,
+      "slot": 7,
+      "location_code": "S3-B-L3-P07"
+    }
+  },
+  {
+    "title": "馆藏 HX-0184",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "B",
+    "layer": 3,
+    "slot": 8,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0184",
+      "HX0184",
+      "S3-B-L3-P08"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0184",
+    "chipId": "HX-0184",
+    "locationCode": "S3-B-L3-P08",
+    "placeholder": true,
+    "worldPosition": [
+      -0.46,
+      1.188,
+      -1.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0184",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "B",
+      "layer": 3,
+      "slot": 8,
+      "location_code": "S3-B-L3-P08"
+    }
+  },
+  {
+    "title": "馆藏 HX-0185",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "B",
+    "layer": 4,
+    "slot": 1,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0185",
+      "HX0185",
+      "S3-B-L4-P01"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0185",
+    "chipId": "HX-0185",
+    "locationCode": "S3-B-L4-P01",
+    "placeholder": true,
+    "worldPosition": [
+      -0.46,
+      1.688,
+      -8.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0185",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "B",
+      "layer": 4,
+      "slot": 1,
+      "location_code": "S3-B-L4-P01"
+    }
+  },
+  {
+    "title": "馆藏 HX-0186",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "B",
+    "layer": 4,
+    "slot": 2,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0186",
+      "HX0186",
+      "S3-B-L4-P02"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0186",
+    "chipId": "HX-0186",
+    "locationCode": "S3-B-L4-P02",
+    "placeholder": true,
+    "worldPosition": [
+      -0.46,
+      1.688,
+      -7.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0186",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "B",
+      "layer": 4,
+      "slot": 2,
+      "location_code": "S3-B-L4-P02"
+    }
+  },
+  {
+    "title": "馆藏 HX-0187",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "B",
+    "layer": 4,
+    "slot": 3,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0187",
+      "HX0187",
+      "S3-B-L4-P03"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0187",
+    "chipId": "HX-0187",
+    "locationCode": "S3-B-L4-P03",
+    "placeholder": true,
+    "worldPosition": [
+      -0.46,
+      1.688,
+      -6.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0187",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "B",
+      "layer": 4,
+      "slot": 3,
+      "location_code": "S3-B-L4-P03"
+    }
+  },
+  {
+    "title": "馆藏 HX-0188",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "B",
+    "layer": 4,
+    "slot": 4,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0188",
+      "HX0188",
+      "S3-B-L4-P04"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0188",
+    "chipId": "HX-0188",
+    "locationCode": "S3-B-L4-P04",
+    "placeholder": true,
+    "worldPosition": [
+      -0.46,
+      1.688,
+      -5.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0188",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "B",
+      "layer": 4,
+      "slot": 4,
+      "location_code": "S3-B-L4-P04"
+    }
+  },
+  {
+    "title": "馆藏 HX-0189",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "B",
+    "layer": 4,
+    "slot": 5,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0189",
+      "HX0189",
+      "S3-B-L4-P05"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0189",
+    "chipId": "HX-0189",
+    "locationCode": "S3-B-L4-P05",
+    "placeholder": true,
+    "worldPosition": [
+      -0.46,
+      1.688,
+      -4.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0189",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "B",
+      "layer": 4,
+      "slot": 5,
+      "location_code": "S3-B-L4-P05"
+    }
+  },
+  {
+    "title": "馆藏 HX-0190",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "B",
+    "layer": 4,
+    "slot": 6,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0190",
+      "HX0190",
+      "S3-B-L4-P06"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0190",
+    "chipId": "HX-0190",
+    "locationCode": "S3-B-L4-P06",
+    "placeholder": true,
+    "worldPosition": [
+      -0.46,
+      1.688,
+      -3.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0190",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "B",
+      "layer": 4,
+      "slot": 6,
+      "location_code": "S3-B-L4-P06"
+    }
+  },
+  {
+    "title": "馆藏 HX-0191",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "B",
+    "layer": 4,
+    "slot": 7,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0191",
+      "HX0191",
+      "S3-B-L4-P07"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0191",
+    "chipId": "HX-0191",
+    "locationCode": "S3-B-L4-P07",
+    "placeholder": true,
+    "worldPosition": [
+      -0.46,
+      1.688,
+      -2.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0191",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "B",
+      "layer": 4,
+      "slot": 7,
+      "location_code": "S3-B-L4-P07"
+    }
+  },
+  {
+    "title": "馆藏 HX-0192",
+    "author": "和序图书馆 · 编号样书",
+    "category": "商业经济与管理",
+    "shelf": 3,
+    "side": "B",
+    "layer": 4,
+    "slot": 8,
+    "color": "#536c7d",
+    "keys": [
+      "HX-0192",
+      "HX0192",
+      "S3-B-L4-P08"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0192",
+    "chipId": "HX-0192",
+    "locationCode": "S3-B-L4-P08",
+    "placeholder": true,
+    "worldPosition": [
+      -0.46,
+      1.688,
+      -1.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0192",
+      "shelf_id": "Shelf_3",
+      "shelf_side": "B",
+      "layer": 4,
+      "slot": 8,
+      "location_code": "S3-B-L4-P08"
+    }
+  },
+  {
+    "title": "馆藏 HX-0193",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "A",
+    "layer": 1,
+    "slot": 1,
+    "color": "#886554",
+    "keys": [
+      "HX-0193",
+      "HX0193",
+      "S4-A-L1-P01"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0193",
+    "chipId": "HX-0193",
+    "locationCode": "S4-A-L1-P01",
+    "placeholder": true,
+    "worldPosition": [
+      3.46,
+      0.243,
+      -8.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0193",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "A",
+      "layer": 1,
+      "slot": 1,
+      "location_code": "S4-A-L1-P01"
+    }
+  },
+  {
+    "title": "馆藏 HX-0194",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "A",
+    "layer": 1,
+    "slot": 2,
+    "color": "#886554",
+    "keys": [
+      "HX-0194",
+      "HX0194",
+      "S4-A-L1-P02"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0194",
+    "chipId": "HX-0194",
+    "locationCode": "S4-A-L1-P02",
+    "placeholder": true,
+    "worldPosition": [
+      3.46,
+      0.243,
+      -7.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0194",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "A",
+      "layer": 1,
+      "slot": 2,
+      "location_code": "S4-A-L1-P02"
+    }
+  },
+  {
+    "title": "馆藏 HX-0195",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "A",
+    "layer": 1,
+    "slot": 3,
+    "color": "#886554",
+    "keys": [
+      "HX-0195",
+      "HX0195",
+      "S4-A-L1-P03"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0195",
+    "chipId": "HX-0195",
+    "locationCode": "S4-A-L1-P03",
+    "placeholder": true,
+    "worldPosition": [
+      3.46,
+      0.243,
+      -6.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0195",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "A",
+      "layer": 1,
+      "slot": 3,
+      "location_code": "S4-A-L1-P03"
+    }
+  },
+  {
+    "title": "馆藏 HX-0196",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "A",
+    "layer": 1,
+    "slot": 4,
+    "color": "#886554",
+    "keys": [
+      "HX-0196",
+      "HX0196",
+      "S4-A-L1-P04"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0196",
+    "chipId": "HX-0196",
+    "locationCode": "S4-A-L1-P04",
+    "placeholder": true,
+    "worldPosition": [
+      3.46,
+      0.243,
+      -5.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0196",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "A",
+      "layer": 1,
+      "slot": 4,
+      "location_code": "S4-A-L1-P04"
+    }
+  },
+  {
+    "title": "馆藏 HX-0197",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "A",
+    "layer": 1,
+    "slot": 5,
+    "color": "#886554",
+    "keys": [
+      "HX-0197",
+      "HX0197",
+      "S4-A-L1-P05"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0197",
+    "chipId": "HX-0197",
+    "locationCode": "S4-A-L1-P05",
+    "placeholder": true,
+    "worldPosition": [
+      3.46,
+      0.243,
+      -4.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0197",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "A",
+      "layer": 1,
+      "slot": 5,
+      "location_code": "S4-A-L1-P05"
+    }
+  },
+  {
+    "title": "馆藏 HX-0198",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "A",
+    "layer": 1,
+    "slot": 6,
+    "color": "#886554",
+    "keys": [
+      "HX-0198",
+      "HX0198",
+      "S4-A-L1-P06"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0198",
+    "chipId": "HX-0198",
+    "locationCode": "S4-A-L1-P06",
+    "placeholder": true,
+    "worldPosition": [
+      3.46,
+      0.243,
+      -3.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0198",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "A",
+      "layer": 1,
+      "slot": 6,
+      "location_code": "S4-A-L1-P06"
+    }
+  },
+  {
+    "title": "馆藏 HX-0199",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "A",
+    "layer": 1,
+    "slot": 7,
+    "color": "#886554",
+    "keys": [
+      "HX-0199",
+      "HX0199",
+      "S4-A-L1-P07"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0199",
+    "chipId": "HX-0199",
+    "locationCode": "S4-A-L1-P07",
+    "placeholder": true,
+    "worldPosition": [
+      3.46,
+      0.243,
+      -2.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0199",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "A",
+      "layer": 1,
+      "slot": 7,
+      "location_code": "S4-A-L1-P07"
+    }
+  },
+  {
+    "title": "馆藏 HX-0200",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "A",
+    "layer": 1,
+    "slot": 8,
+    "color": "#886554",
+    "keys": [
+      "HX-0200",
+      "HX0200",
+      "S4-A-L1-P08"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0200",
+    "chipId": "HX-0200",
+    "locationCode": "S4-A-L1-P08",
+    "placeholder": true,
+    "worldPosition": [
+      3.46,
+      0.243,
+      -1.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0200",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "A",
+      "layer": 1,
+      "slot": 8,
+      "location_code": "S4-A-L1-P08"
+    }
+  },
+  {
+    "title": "馆藏 HX-0201",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "A",
+    "layer": 2,
+    "slot": 1,
+    "color": "#886554",
+    "keys": [
+      "HX-0201",
+      "HX0201",
+      "S4-A-L2-P01"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0201",
+    "chipId": "HX-0201",
+    "locationCode": "S4-A-L2-P01",
+    "placeholder": true,
+    "worldPosition": [
+      3.46,
+      0.688,
+      -8.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0201",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "A",
+      "layer": 2,
+      "slot": 1,
+      "location_code": "S4-A-L2-P01"
+    }
+  },
+  {
+    "title": "馆藏 HX-0202",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "A",
+    "layer": 2,
+    "slot": 2,
+    "color": "#886554",
+    "keys": [
+      "HX-0202",
+      "HX0202",
+      "S4-A-L2-P02"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0202",
+    "chipId": "HX-0202",
+    "locationCode": "S4-A-L2-P02",
+    "placeholder": true,
+    "worldPosition": [
+      3.46,
+      0.688,
+      -7.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0202",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "A",
+      "layer": 2,
+      "slot": 2,
+      "location_code": "S4-A-L2-P02"
+    }
+  },
+  {
+    "title": "馆藏 HX-0203",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "A",
+    "layer": 2,
+    "slot": 3,
+    "color": "#886554",
+    "keys": [
+      "HX-0203",
+      "HX0203",
+      "S4-A-L2-P03"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0203",
+    "chipId": "HX-0203",
+    "locationCode": "S4-A-L2-P03",
+    "placeholder": true,
+    "worldPosition": [
+      3.46,
+      0.688,
+      -6.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0203",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "A",
+      "layer": 2,
+      "slot": 3,
+      "location_code": "S4-A-L2-P03"
+    }
+  },
+  {
+    "title": "馆藏 HX-0204",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "A",
+    "layer": 2,
+    "slot": 4,
+    "color": "#886554",
+    "keys": [
+      "HX-0204",
+      "HX0204",
+      "S4-A-L2-P04"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0204",
+    "chipId": "HX-0204",
+    "locationCode": "S4-A-L2-P04",
+    "placeholder": true,
+    "worldPosition": [
+      3.46,
+      0.688,
+      -5.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0204",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "A",
+      "layer": 2,
+      "slot": 4,
+      "location_code": "S4-A-L2-P04"
+    }
+  },
+  {
+    "title": "馆藏 HX-0205",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "A",
+    "layer": 2,
+    "slot": 5,
+    "color": "#886554",
+    "keys": [
+      "HX-0205",
+      "HX0205",
+      "S4-A-L2-P05"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0205",
+    "chipId": "HX-0205",
+    "locationCode": "S4-A-L2-P05",
+    "placeholder": true,
+    "worldPosition": [
+      3.46,
+      0.688,
+      -4.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0205",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "A",
+      "layer": 2,
+      "slot": 5,
+      "location_code": "S4-A-L2-P05"
+    }
+  },
+  {
+    "title": "馆藏 HX-0206",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "A",
+    "layer": 2,
+    "slot": 6,
+    "color": "#886554",
+    "keys": [
+      "HX-0206",
+      "HX0206",
+      "S4-A-L2-P06"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0206",
+    "chipId": "HX-0206",
+    "locationCode": "S4-A-L2-P06",
+    "placeholder": true,
+    "worldPosition": [
+      3.46,
+      0.688,
+      -3.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0206",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "A",
+      "layer": 2,
+      "slot": 6,
+      "location_code": "S4-A-L2-P06"
+    }
+  },
+  {
+    "title": "馆藏 HX-0207",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "A",
+    "layer": 2,
+    "slot": 7,
+    "color": "#886554",
+    "keys": [
+      "HX-0207",
+      "HX0207",
+      "S4-A-L2-P07"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0207",
+    "chipId": "HX-0207",
+    "locationCode": "S4-A-L2-P07",
+    "placeholder": true,
+    "worldPosition": [
+      3.46,
+      0.688,
+      -2.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0207",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "A",
+      "layer": 2,
+      "slot": 7,
+      "location_code": "S4-A-L2-P07"
+    }
+  },
+  {
+    "title": "设计心理学",
+    "author": "唐纳德·A. 诺曼",
+    "category": "视觉与产品设计",
+    "shelf": 4,
+    "side": "A",
+    "layer": 2,
+    "slot": 8,
+    "color": "#886554",
+    "keys": [
+      "设计",
+      "艺术",
+      "建筑",
+      "视觉",
+      "HX-0208",
+      "HX0208",
+      "S4-A-L2-P08"
+    ],
+    "synopsis": "一扇难以推开的门，一个让人困惑的开关，都可能暴露设计中的问题。诺曼从日常物品出发，讨论示能、反馈与概念模型如何影响使用体验。本书鼓励设计者理解人的行为与局限，让产品通过清晰的线索与自然的操作，成为可靠的伙伴。",
+    "bookId": "HX-0208",
+    "chipId": "HX-0208",
+    "locationCode": "S4-A-L2-P08",
+    "placeholder": false,
+    "worldPosition": [
+      3.46,
+      0.688,
+      -1.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0208",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "A",
+      "layer": 2,
+      "slot": 8,
+      "location_code": "S4-A-L2-P08"
+    }
+  },
+  {
+    "title": "馆藏 HX-0209",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "A",
+    "layer": 3,
+    "slot": 1,
+    "color": "#886554",
+    "keys": [
+      "HX-0209",
+      "HX0209",
+      "S4-A-L3-P01"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0209",
+    "chipId": "HX-0209",
+    "locationCode": "S4-A-L3-P01",
+    "placeholder": true,
+    "worldPosition": [
+      3.46,
+      1.188,
+      -8.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0209",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "A",
+      "layer": 3,
+      "slot": 1,
+      "location_code": "S4-A-L3-P01"
+    }
+  },
+  {
+    "title": "馆藏 HX-0210",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "A",
+    "layer": 3,
+    "slot": 2,
+    "color": "#886554",
+    "keys": [
+      "HX-0210",
+      "HX0210",
+      "S4-A-L3-P02"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0210",
+    "chipId": "HX-0210",
+    "locationCode": "S4-A-L3-P02",
+    "placeholder": true,
+    "worldPosition": [
+      3.46,
+      1.188,
+      -7.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0210",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "A",
+      "layer": 3,
+      "slot": 2,
+      "location_code": "S4-A-L3-P02"
+    }
+  },
+  {
+    "title": "馆藏 HX-0211",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "A",
+    "layer": 3,
+    "slot": 3,
+    "color": "#886554",
+    "keys": [
+      "HX-0211",
+      "HX0211",
+      "S4-A-L3-P03"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0211",
+    "chipId": "HX-0211",
+    "locationCode": "S4-A-L3-P03",
+    "placeholder": true,
+    "worldPosition": [
+      3.46,
+      1.188,
+      -6.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0211",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "A",
+      "layer": 3,
+      "slot": 3,
+      "location_code": "S4-A-L3-P03"
+    }
+  },
+  {
+    "title": "馆藏 HX-0212",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "A",
+    "layer": 3,
+    "slot": 4,
+    "color": "#886554",
+    "keys": [
+      "HX-0212",
+      "HX0212",
+      "S4-A-L3-P04"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0212",
+    "chipId": "HX-0212",
+    "locationCode": "S4-A-L3-P04",
+    "placeholder": true,
+    "worldPosition": [
+      3.46,
+      1.188,
+      -5.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0212",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "A",
+      "layer": 3,
+      "slot": 4,
+      "location_code": "S4-A-L3-P04"
+    }
+  },
+  {
+    "title": "馆藏 HX-0213",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "A",
+    "layer": 3,
+    "slot": 5,
+    "color": "#886554",
+    "keys": [
+      "HX-0213",
+      "HX0213",
+      "S4-A-L3-P05"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0213",
+    "chipId": "HX-0213",
+    "locationCode": "S4-A-L3-P05",
+    "placeholder": true,
+    "worldPosition": [
+      3.46,
+      1.188,
+      -4.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0213",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "A",
+      "layer": 3,
+      "slot": 5,
+      "location_code": "S4-A-L3-P05"
+    }
+  },
+  {
+    "title": "馆藏 HX-0214",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "A",
+    "layer": 3,
+    "slot": 6,
+    "color": "#886554",
+    "keys": [
+      "HX-0214",
+      "HX0214",
+      "S4-A-L3-P06"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0214",
+    "chipId": "HX-0214",
+    "locationCode": "S4-A-L3-P06",
+    "placeholder": true,
+    "worldPosition": [
+      3.46,
+      1.188,
+      -3.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0214",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "A",
+      "layer": 3,
+      "slot": 6,
+      "location_code": "S4-A-L3-P06"
+    }
+  },
+  {
+    "title": "馆藏 HX-0215",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "A",
+    "layer": 3,
+    "slot": 7,
+    "color": "#886554",
+    "keys": [
+      "HX-0215",
+      "HX0215",
+      "S4-A-L3-P07"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0215",
+    "chipId": "HX-0215",
+    "locationCode": "S4-A-L3-P07",
+    "placeholder": true,
+    "worldPosition": [
+      3.46,
+      1.188,
+      -2.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0215",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "A",
+      "layer": 3,
+      "slot": 7,
+      "location_code": "S4-A-L3-P07"
+    }
+  },
+  {
+    "title": "馆藏 HX-0216",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "A",
+    "layer": 3,
+    "slot": 8,
+    "color": "#886554",
+    "keys": [
+      "HX-0216",
+      "HX0216",
+      "S4-A-L3-P08"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0216",
+    "chipId": "HX-0216",
+    "locationCode": "S4-A-L3-P08",
+    "placeholder": true,
+    "worldPosition": [
+      3.46,
+      1.188,
+      -1.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0216",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "A",
+      "layer": 3,
+      "slot": 8,
+      "location_code": "S4-A-L3-P08"
+    }
+  },
+  {
+    "title": "馆藏 HX-0217",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "A",
+    "layer": 4,
+    "slot": 1,
+    "color": "#886554",
+    "keys": [
+      "HX-0217",
+      "HX0217",
+      "S4-A-L4-P01"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0217",
+    "chipId": "HX-0217",
+    "locationCode": "S4-A-L4-P01",
+    "placeholder": true,
+    "worldPosition": [
+      3.46,
+      1.688,
+      -8.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0217",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "A",
+      "layer": 4,
+      "slot": 1,
+      "location_code": "S4-A-L4-P01"
+    }
+  },
+  {
+    "title": "馆藏 HX-0218",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "A",
+    "layer": 4,
+    "slot": 2,
+    "color": "#886554",
+    "keys": [
+      "HX-0218",
+      "HX0218",
+      "S4-A-L4-P02"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0218",
+    "chipId": "HX-0218",
+    "locationCode": "S4-A-L4-P02",
+    "placeholder": true,
+    "worldPosition": [
+      3.46,
+      1.688,
+      -7.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0218",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "A",
+      "layer": 4,
+      "slot": 2,
+      "location_code": "S4-A-L4-P02"
+    }
+  },
+  {
+    "title": "馆藏 HX-0219",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "A",
+    "layer": 4,
+    "slot": 3,
+    "color": "#886554",
+    "keys": [
+      "HX-0219",
+      "HX0219",
+      "S4-A-L4-P03"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0219",
+    "chipId": "HX-0219",
+    "locationCode": "S4-A-L4-P03",
+    "placeholder": true,
+    "worldPosition": [
+      3.46,
+      1.688,
+      -6.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0219",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "A",
+      "layer": 4,
+      "slot": 3,
+      "location_code": "S4-A-L4-P03"
+    }
+  },
+  {
+    "title": "馆藏 HX-0220",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "A",
+    "layer": 4,
+    "slot": 4,
+    "color": "#886554",
+    "keys": [
+      "HX-0220",
+      "HX0220",
+      "S4-A-L4-P04"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0220",
+    "chipId": "HX-0220",
+    "locationCode": "S4-A-L4-P04",
+    "placeholder": true,
+    "worldPosition": [
+      3.46,
+      1.688,
+      -5.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0220",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "A",
+      "layer": 4,
+      "slot": 4,
+      "location_code": "S4-A-L4-P04"
+    }
+  },
+  {
+    "title": "馆藏 HX-0221",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "A",
+    "layer": 4,
+    "slot": 5,
+    "color": "#886554",
+    "keys": [
+      "HX-0221",
+      "HX0221",
+      "S4-A-L4-P05"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0221",
+    "chipId": "HX-0221",
+    "locationCode": "S4-A-L4-P05",
+    "placeholder": true,
+    "worldPosition": [
+      3.46,
+      1.688,
+      -4.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0221",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "A",
+      "layer": 4,
+      "slot": 5,
+      "location_code": "S4-A-L4-P05"
+    }
+  },
+  {
+    "title": "馆藏 HX-0222",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "A",
+    "layer": 4,
+    "slot": 6,
+    "color": "#886554",
+    "keys": [
+      "HX-0222",
+      "HX0222",
+      "S4-A-L4-P06"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0222",
+    "chipId": "HX-0222",
+    "locationCode": "S4-A-L4-P06",
+    "placeholder": true,
+    "worldPosition": [
+      3.46,
+      1.688,
+      -3.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0222",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "A",
+      "layer": 4,
+      "slot": 6,
+      "location_code": "S4-A-L4-P06"
+    }
+  },
+  {
+    "title": "馆藏 HX-0223",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "A",
+    "layer": 4,
+    "slot": 7,
+    "color": "#886554",
+    "keys": [
+      "HX-0223",
+      "HX0223",
+      "S4-A-L4-P07"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0223",
+    "chipId": "HX-0223",
+    "locationCode": "S4-A-L4-P07",
+    "placeholder": true,
+    "worldPosition": [
+      3.46,
+      1.688,
+      -2.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0223",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "A",
+      "layer": 4,
+      "slot": 7,
+      "location_code": "S4-A-L4-P07"
+    }
+  },
+  {
+    "title": "馆藏 HX-0224",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "A",
+    "layer": 4,
+    "slot": 8,
+    "color": "#886554",
+    "keys": [
+      "HX-0224",
+      "HX0224",
+      "S4-A-L4-P08"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0224",
+    "chipId": "HX-0224",
+    "locationCode": "S4-A-L4-P08",
+    "placeholder": true,
+    "worldPosition": [
+      3.46,
+      1.688,
+      -1.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0224",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "A",
+      "layer": 4,
+      "slot": 8,
+      "location_code": "S4-A-L4-P08"
+    }
+  },
+  {
+    "title": "馆藏 HX-0225",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "B",
+    "layer": 1,
+    "slot": 1,
+    "color": "#886554",
+    "keys": [
+      "HX-0225",
+      "HX0225",
+      "S4-B-L1-P01"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0225",
+    "chipId": "HX-0225",
+    "locationCode": "S4-B-L1-P01",
+    "placeholder": true,
+    "worldPosition": [
+      2.54,
+      0.243,
+      -8.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0225",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "B",
+      "layer": 1,
+      "slot": 1,
+      "location_code": "S4-B-L1-P01"
+    }
+  },
+  {
+    "title": "馆藏 HX-0226",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "B",
+    "layer": 1,
+    "slot": 2,
+    "color": "#886554",
+    "keys": [
+      "HX-0226",
+      "HX0226",
+      "S4-B-L1-P02"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0226",
+    "chipId": "HX-0226",
+    "locationCode": "S4-B-L1-P02",
+    "placeholder": true,
+    "worldPosition": [
+      2.54,
+      0.243,
+      -7.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0226",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "B",
+      "layer": 1,
+      "slot": 2,
+      "location_code": "S4-B-L1-P02"
+    }
+  },
+  {
+    "title": "馆藏 HX-0227",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "B",
+    "layer": 1,
+    "slot": 3,
+    "color": "#886554",
+    "keys": [
+      "HX-0227",
+      "HX0227",
+      "S4-B-L1-P03"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0227",
+    "chipId": "HX-0227",
+    "locationCode": "S4-B-L1-P03",
+    "placeholder": true,
+    "worldPosition": [
+      2.54,
+      0.243,
+      -6.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0227",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "B",
+      "layer": 1,
+      "slot": 3,
+      "location_code": "S4-B-L1-P03"
+    }
+  },
+  {
+    "title": "馆藏 HX-0228",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "B",
+    "layer": 1,
+    "slot": 4,
+    "color": "#886554",
+    "keys": [
+      "HX-0228",
+      "HX0228",
+      "S4-B-L1-P04"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0228",
+    "chipId": "HX-0228",
+    "locationCode": "S4-B-L1-P04",
+    "placeholder": true,
+    "worldPosition": [
+      2.54,
+      0.243,
+      -5.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0228",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "B",
+      "layer": 1,
+      "slot": 4,
+      "location_code": "S4-B-L1-P04"
+    }
+  },
+  {
+    "title": "馆藏 HX-0229",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "B",
+    "layer": 1,
+    "slot": 5,
+    "color": "#886554",
+    "keys": [
+      "HX-0229",
+      "HX0229",
+      "S4-B-L1-P05"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0229",
+    "chipId": "HX-0229",
+    "locationCode": "S4-B-L1-P05",
+    "placeholder": true,
+    "worldPosition": [
+      2.54,
+      0.243,
+      -4.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0229",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "B",
+      "layer": 1,
+      "slot": 5,
+      "location_code": "S4-B-L1-P05"
+    }
+  },
+  {
+    "title": "馆藏 HX-0230",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "B",
+    "layer": 1,
+    "slot": 6,
+    "color": "#886554",
+    "keys": [
+      "HX-0230",
+      "HX0230",
+      "S4-B-L1-P06"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0230",
+    "chipId": "HX-0230",
+    "locationCode": "S4-B-L1-P06",
+    "placeholder": true,
+    "worldPosition": [
+      2.54,
+      0.243,
+      -3.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0230",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "B",
+      "layer": 1,
+      "slot": 6,
+      "location_code": "S4-B-L1-P06"
+    }
+  },
+  {
+    "title": "音乐的故事",
+    "author": "保罗·亨利·朗",
+    "category": "音乐与戏剧",
+    "shelf": 4,
+    "side": "B",
+    "layer": 1,
+    "slot": 7,
+    "color": "#886554",
+    "keys": [
+      "音乐",
+      "戏剧",
+      "HX-0231",
+      "HX0231",
+      "S4-B-L1-P07"
+    ],
+    "synopsis": "音乐既是声音的组织，也是时代与文化的回响。本书引导读者沿着西方音乐发展的线索，认识不同风格、创作观念与历史背景。阅读时不妨搭配作品聆听，在旋律、节奏与音色之间，体会作曲家如何回应生活，并拓展自己的欣赏方式。",
+    "bookId": "HX-0231",
+    "chipId": "HX-0231",
+    "locationCode": "S4-B-L1-P07",
+    "placeholder": false,
+    "worldPosition": [
+      2.54,
+      0.243,
+      -2.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0231",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "B",
+      "layer": 1,
+      "slot": 7,
+      "location_code": "S4-B-L1-P07"
+    }
+  },
+  {
+    "title": "馆藏 HX-0232",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "B",
+    "layer": 1,
+    "slot": 8,
+    "color": "#886554",
+    "keys": [
+      "HX-0232",
+      "HX0232",
+      "S4-B-L1-P08"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0232",
+    "chipId": "HX-0232",
+    "locationCode": "S4-B-L1-P08",
+    "placeholder": true,
+    "worldPosition": [
+      2.54,
+      0.243,
+      -1.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0232",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "B",
+      "layer": 1,
+      "slot": 8,
+      "location_code": "S4-B-L1-P08"
+    }
+  },
+  {
+    "title": "馆藏 HX-0233",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "B",
+    "layer": 2,
+    "slot": 1,
+    "color": "#886554",
+    "keys": [
+      "HX-0233",
+      "HX0233",
+      "S4-B-L2-P01"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0233",
+    "chipId": "HX-0233",
+    "locationCode": "S4-B-L2-P01",
+    "placeholder": true,
+    "worldPosition": [
+      2.54,
+      0.688,
+      -8.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0233",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "B",
+      "layer": 2,
+      "slot": 1,
+      "location_code": "S4-B-L2-P01"
+    }
+  },
+  {
+    "title": "馆藏 HX-0234",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "B",
+    "layer": 2,
+    "slot": 2,
+    "color": "#886554",
+    "keys": [
+      "HX-0234",
+      "HX0234",
+      "S4-B-L2-P02"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0234",
+    "chipId": "HX-0234",
+    "locationCode": "S4-B-L2-P02",
+    "placeholder": true,
+    "worldPosition": [
+      2.54,
+      0.688,
+      -7.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0234",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "B",
+      "layer": 2,
+      "slot": 2,
+      "location_code": "S4-B-L2-P02"
+    }
+  },
+  {
+    "title": "馆藏 HX-0235",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "B",
+    "layer": 2,
+    "slot": 3,
+    "color": "#886554",
+    "keys": [
+      "HX-0235",
+      "HX0235",
+      "S4-B-L2-P03"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0235",
+    "chipId": "HX-0235",
+    "locationCode": "S4-B-L2-P03",
+    "placeholder": true,
+    "worldPosition": [
+      2.54,
+      0.688,
+      -6.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0235",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "B",
+      "layer": 2,
+      "slot": 3,
+      "location_code": "S4-B-L2-P03"
+    }
+  },
+  {
+    "title": "馆藏 HX-0236",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "B",
+    "layer": 2,
+    "slot": 4,
+    "color": "#886554",
+    "keys": [
+      "HX-0236",
+      "HX0236",
+      "S4-B-L2-P04"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0236",
+    "chipId": "HX-0236",
+    "locationCode": "S4-B-L2-P04",
+    "placeholder": true,
+    "worldPosition": [
+      2.54,
+      0.688,
+      -5.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0236",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "B",
+      "layer": 2,
+      "slot": 4,
+      "location_code": "S4-B-L2-P04"
+    }
+  },
+  {
+    "title": "馆藏 HX-0237",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "B",
+    "layer": 2,
+    "slot": 5,
+    "color": "#886554",
+    "keys": [
+      "HX-0237",
+      "HX0237",
+      "S4-B-L2-P05"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0237",
+    "chipId": "HX-0237",
+    "locationCode": "S4-B-L2-P05",
+    "placeholder": true,
+    "worldPosition": [
+      2.54,
+      0.688,
+      -4.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0237",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "B",
+      "layer": 2,
+      "slot": 5,
+      "location_code": "S4-B-L2-P05"
+    }
+  },
+  {
+    "title": "馆藏 HX-0238",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "B",
+    "layer": 2,
+    "slot": 6,
+    "color": "#886554",
+    "keys": [
+      "HX-0238",
+      "HX0238",
+      "S4-B-L2-P06"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0238",
+    "chipId": "HX-0238",
+    "locationCode": "S4-B-L2-P06",
+    "placeholder": true,
+    "worldPosition": [
+      2.54,
+      0.688,
+      -3.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0238",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "B",
+      "layer": 2,
+      "slot": 6,
+      "location_code": "S4-B-L2-P06"
+    }
+  },
+  {
+    "title": "馆藏 HX-0239",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "B",
+    "layer": 2,
+    "slot": 7,
+    "color": "#886554",
+    "keys": [
+      "HX-0239",
+      "HX0239",
+      "S4-B-L2-P07"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0239",
+    "chipId": "HX-0239",
+    "locationCode": "S4-B-L2-P07",
+    "placeholder": true,
+    "worldPosition": [
+      2.54,
+      0.688,
+      -2.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0239",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "B",
+      "layer": 2,
+      "slot": 7,
+      "location_code": "S4-B-L2-P07"
+    }
+  },
+  {
+    "title": "馆藏 HX-0240",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "B",
+    "layer": 2,
+    "slot": 8,
+    "color": "#886554",
+    "keys": [
+      "HX-0240",
+      "HX0240",
+      "S4-B-L2-P08"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0240",
+    "chipId": "HX-0240",
+    "locationCode": "S4-B-L2-P08",
+    "placeholder": true,
+    "worldPosition": [
+      2.54,
+      0.688,
+      -1.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0240",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "B",
+      "layer": 2,
+      "slot": 8,
+      "location_code": "S4-B-L2-P08"
+    }
+  },
+  {
+    "title": "馆藏 HX-0241",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "B",
+    "layer": 3,
+    "slot": 1,
+    "color": "#886554",
+    "keys": [
+      "HX-0241",
+      "HX0241",
+      "S4-B-L3-P01"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0241",
+    "chipId": "HX-0241",
+    "locationCode": "S4-B-L3-P01",
+    "placeholder": true,
+    "worldPosition": [
+      2.54,
+      1.188,
+      -8.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0241",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "B",
+      "layer": 3,
+      "slot": 1,
+      "location_code": "S4-B-L3-P01"
+    }
+  },
+  {
+    "title": "馆藏 HX-0242",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "B",
+    "layer": 3,
+    "slot": 2,
+    "color": "#886554",
+    "keys": [
+      "HX-0242",
+      "HX0242",
+      "S4-B-L3-P02"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0242",
+    "chipId": "HX-0242",
+    "locationCode": "S4-B-L3-P02",
+    "placeholder": true,
+    "worldPosition": [
+      2.54,
+      1.188,
+      -7.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0242",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "B",
+      "layer": 3,
+      "slot": 2,
+      "location_code": "S4-B-L3-P02"
+    }
+  },
+  {
+    "title": "馆藏 HX-0243",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "B",
+    "layer": 3,
+    "slot": 3,
+    "color": "#886554",
+    "keys": [
+      "HX-0243",
+      "HX0243",
+      "S4-B-L3-P03"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0243",
+    "chipId": "HX-0243",
+    "locationCode": "S4-B-L3-P03",
+    "placeholder": true,
+    "worldPosition": [
+      2.54,
+      1.188,
+      -6.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0243",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "B",
+      "layer": 3,
+      "slot": 3,
+      "location_code": "S4-B-L3-P03"
+    }
+  },
+  {
+    "title": "馆藏 HX-0244",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "B",
+    "layer": 3,
+    "slot": 4,
+    "color": "#886554",
+    "keys": [
+      "HX-0244",
+      "HX0244",
+      "S4-B-L3-P04"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0244",
+    "chipId": "HX-0244",
+    "locationCode": "S4-B-L3-P04",
+    "placeholder": true,
+    "worldPosition": [
+      2.54,
+      1.188,
+      -5.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0244",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "B",
+      "layer": 3,
+      "slot": 4,
+      "location_code": "S4-B-L3-P04"
+    }
+  },
+  {
+    "title": "馆藏 HX-0245",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "B",
+    "layer": 3,
+    "slot": 5,
+    "color": "#886554",
+    "keys": [
+      "HX-0245",
+      "HX0245",
+      "S4-B-L3-P05"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0245",
+    "chipId": "HX-0245",
+    "locationCode": "S4-B-L3-P05",
+    "placeholder": true,
+    "worldPosition": [
+      2.54,
+      1.188,
+      -4.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0245",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "B",
+      "layer": 3,
+      "slot": 5,
+      "location_code": "S4-B-L3-P05"
+    }
+  },
+  {
+    "title": "馆藏 HX-0246",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "B",
+    "layer": 3,
+    "slot": 6,
+    "color": "#886554",
+    "keys": [
+      "HX-0246",
+      "HX0246",
+      "S4-B-L3-P06"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0246",
+    "chipId": "HX-0246",
+    "locationCode": "S4-B-L3-P06",
+    "placeholder": true,
+    "worldPosition": [
+      2.54,
+      1.188,
+      -3.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0246",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "B",
+      "layer": 3,
+      "slot": 6,
+      "location_code": "S4-B-L3-P06"
+    }
+  },
+  {
+    "title": "馆藏 HX-0247",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "B",
+    "layer": 3,
+    "slot": 7,
+    "color": "#886554",
+    "keys": [
+      "HX-0247",
+      "HX0247",
+      "S4-B-L3-P07"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0247",
+    "chipId": "HX-0247",
+    "locationCode": "S4-B-L3-P07",
+    "placeholder": true,
+    "worldPosition": [
+      2.54,
+      1.188,
+      -2.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0247",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "B",
+      "layer": 3,
+      "slot": 7,
+      "location_code": "S4-B-L3-P07"
+    }
+  },
+  {
+    "title": "馆藏 HX-0248",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "B",
+    "layer": 3,
+    "slot": 8,
+    "color": "#886554",
+    "keys": [
+      "HX-0248",
+      "HX0248",
+      "S4-B-L3-P08"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0248",
+    "chipId": "HX-0248",
+    "locationCode": "S4-B-L3-P08",
+    "placeholder": true,
+    "worldPosition": [
+      2.54,
+      1.188,
+      -1.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0248",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "B",
+      "layer": 3,
+      "slot": 8,
+      "location_code": "S4-B-L3-P08"
+    }
+  },
+  {
+    "title": "馆藏 HX-0249",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "B",
+    "layer": 4,
+    "slot": 1,
+    "color": "#886554",
+    "keys": [
+      "HX-0249",
+      "HX0249",
+      "S4-B-L4-P01"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0249",
+    "chipId": "HX-0249",
+    "locationCode": "S4-B-L4-P01",
+    "placeholder": true,
+    "worldPosition": [
+      2.54,
+      1.688,
+      -8.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0249",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "B",
+      "layer": 4,
+      "slot": 1,
+      "location_code": "S4-B-L4-P01"
+    }
+  },
+  {
+    "title": "馆藏 HX-0250",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "B",
+    "layer": 4,
+    "slot": 2,
+    "color": "#886554",
+    "keys": [
+      "HX-0250",
+      "HX0250",
+      "S4-B-L4-P02"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0250",
+    "chipId": "HX-0250",
+    "locationCode": "S4-B-L4-P02",
+    "placeholder": true,
+    "worldPosition": [
+      2.54,
+      1.688,
+      -7.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0250",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "B",
+      "layer": 4,
+      "slot": 2,
+      "location_code": "S4-B-L4-P02"
+    }
+  },
+  {
+    "title": "馆藏 HX-0251",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "B",
+    "layer": 4,
+    "slot": 3,
+    "color": "#886554",
+    "keys": [
+      "HX-0251",
+      "HX0251",
+      "S4-B-L4-P03"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0251",
+    "chipId": "HX-0251",
+    "locationCode": "S4-B-L4-P03",
+    "placeholder": true,
+    "worldPosition": [
+      2.54,
+      1.688,
+      -6.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0251",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "B",
+      "layer": 4,
+      "slot": 3,
+      "location_code": "S4-B-L4-P03"
+    }
+  },
+  {
+    "title": "馆藏 HX-0252",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "B",
+    "layer": 4,
+    "slot": 4,
+    "color": "#886554",
+    "keys": [
+      "HX-0252",
+      "HX0252",
+      "S4-B-L4-P04"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0252",
+    "chipId": "HX-0252",
+    "locationCode": "S4-B-L4-P04",
+    "placeholder": true,
+    "worldPosition": [
+      2.54,
+      1.688,
+      -5.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0252",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "B",
+      "layer": 4,
+      "slot": 4,
+      "location_code": "S4-B-L4-P04"
+    }
+  },
+  {
+    "title": "馆藏 HX-0253",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "B",
+    "layer": 4,
+    "slot": 5,
+    "color": "#886554",
+    "keys": [
+      "HX-0253",
+      "HX0253",
+      "S4-B-L4-P05"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0253",
+    "chipId": "HX-0253",
+    "locationCode": "S4-B-L4-P05",
+    "placeholder": true,
+    "worldPosition": [
+      2.54,
+      1.688,
+      -4.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0253",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "B",
+      "layer": 4,
+      "slot": 5,
+      "location_code": "S4-B-L4-P05"
+    }
+  },
+  {
+    "title": "馆藏 HX-0254",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "B",
+    "layer": 4,
+    "slot": 6,
+    "color": "#886554",
+    "keys": [
+      "HX-0254",
+      "HX0254",
+      "S4-B-L4-P06"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0254",
+    "chipId": "HX-0254",
+    "locationCode": "S4-B-L4-P06",
+    "placeholder": true,
+    "worldPosition": [
+      2.54,
+      1.688,
+      -3.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0254",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "B",
+      "layer": 4,
+      "slot": 6,
+      "location_code": "S4-B-L4-P06"
+    }
+  },
+  {
+    "title": "馆藏 HX-0255",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "B",
+    "layer": 4,
+    "slot": 7,
+    "color": "#886554",
+    "keys": [
+      "HX-0255",
+      "HX0255",
+      "S4-B-L4-P07"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0255",
+    "chipId": "HX-0255",
+    "locationCode": "S4-B-L4-P07",
+    "placeholder": true,
+    "worldPosition": [
+      2.54,
+      1.688,
+      -2.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0255",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "B",
+      "layer": 4,
+      "slot": 7,
+      "location_code": "S4-B-L4-P07"
+    }
+  },
+  {
+    "title": "馆藏 HX-0256",
+    "author": "和序图书馆 · 编号样书",
+    "category": "艺术设计与建筑",
+    "shelf": 4,
+    "side": "B",
+    "layer": 4,
+    "slot": 8,
+    "color": "#886554",
+    "keys": [
+      "HX-0256",
+      "HX0256",
+      "S4-B-L4-P08"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0256",
+    "chipId": "HX-0256",
+    "locationCode": "S4-B-L4-P08",
+    "placeholder": true,
+    "worldPosition": [
+      2.54,
+      1.688,
+      -1.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0256",
+      "shelf_id": "Shelf_4",
+      "shelf_side": "B",
+      "layer": 4,
+      "slot": 8,
+      "location_code": "S4-B-L4-P08"
+    }
+  },
+  {
+    "title": "馆藏 HX-0257",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "A",
+    "layer": 1,
+    "slot": 1,
+    "color": "#596879",
+    "keys": [
+      "HX-0257",
+      "HX0257",
+      "S5-A-L1-P01"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0257",
+    "chipId": "HX-0257",
+    "locationCode": "S5-A-L1-P01",
+    "placeholder": true,
+    "worldPosition": [
+      6.46,
+      0.243,
+      -8.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0257",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "A",
+      "layer": 1,
+      "slot": 1,
+      "location_code": "S5-A-L1-P01"
+    }
+  },
+  {
+    "title": "馆藏 HX-0258",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "A",
+    "layer": 1,
+    "slot": 2,
+    "color": "#596879",
+    "keys": [
+      "HX-0258",
+      "HX0258",
+      "S5-A-L1-P02"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0258",
+    "chipId": "HX-0258",
+    "locationCode": "S5-A-L1-P02",
+    "placeholder": true,
+    "worldPosition": [
+      6.46,
+      0.243,
+      -7.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0258",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "A",
+      "layer": 1,
+      "slot": 2,
+      "location_code": "S5-A-L1-P02"
+    }
+  },
+  {
+    "title": "馆藏 HX-0259",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "A",
+    "layer": 1,
+    "slot": 3,
+    "color": "#596879",
+    "keys": [
+      "HX-0259",
+      "HX0259",
+      "S5-A-L1-P03"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0259",
+    "chipId": "HX-0259",
+    "locationCode": "S5-A-L1-P03",
+    "placeholder": true,
+    "worldPosition": [
+      6.46,
+      0.243,
+      -6.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0259",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "A",
+      "layer": 1,
+      "slot": 3,
+      "location_code": "S5-A-L1-P03"
+    }
+  },
+  {
+    "title": "馆藏 HX-0260",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "A",
+    "layer": 1,
+    "slot": 4,
+    "color": "#596879",
+    "keys": [
+      "HX-0260",
+      "HX0260",
+      "S5-A-L1-P04"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0260",
+    "chipId": "HX-0260",
+    "locationCode": "S5-A-L1-P04",
+    "placeholder": true,
+    "worldPosition": [
+      6.46,
+      0.243,
+      -5.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0260",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "A",
+      "layer": 1,
+      "slot": 4,
+      "location_code": "S5-A-L1-P04"
+    }
+  },
+  {
+    "title": "馆藏 HX-0261",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "A",
+    "layer": 1,
+    "slot": 5,
+    "color": "#596879",
+    "keys": [
+      "HX-0261",
+      "HX0261",
+      "S5-A-L1-P05"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0261",
+    "chipId": "HX-0261",
+    "locationCode": "S5-A-L1-P05",
+    "placeholder": true,
+    "worldPosition": [
+      6.46,
+      0.243,
+      -4.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0261",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "A",
+      "layer": 1,
+      "slot": 5,
+      "location_code": "S5-A-L1-P05"
+    }
+  },
+  {
+    "title": "馆藏 HX-0262",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "A",
+    "layer": 1,
+    "slot": 6,
+    "color": "#596879",
+    "keys": [
+      "HX-0262",
+      "HX0262",
+      "S5-A-L1-P06"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0262",
+    "chipId": "HX-0262",
+    "locationCode": "S5-A-L1-P06",
+    "placeholder": true,
+    "worldPosition": [
+      6.46,
+      0.243,
+      -3.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0262",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "A",
+      "layer": 1,
+      "slot": 6,
+      "location_code": "S5-A-L1-P06"
+    }
+  },
+  {
+    "title": "馆藏 HX-0263",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "A",
+    "layer": 1,
+    "slot": 7,
+    "color": "#596879",
+    "keys": [
+      "HX-0263",
+      "HX0263",
+      "S5-A-L1-P07"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0263",
+    "chipId": "HX-0263",
+    "locationCode": "S5-A-L1-P07",
+    "placeholder": true,
+    "worldPosition": [
+      6.46,
+      0.243,
+      -2.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0263",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "A",
+      "layer": 1,
+      "slot": 7,
+      "location_code": "S5-A-L1-P07"
+    }
+  },
+  {
+    "title": "馆藏 HX-0264",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "A",
+    "layer": 1,
+    "slot": 8,
+    "color": "#596879",
+    "keys": [
+      "HX-0264",
+      "HX0264",
+      "S5-A-L1-P08"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0264",
+    "chipId": "HX-0264",
+    "locationCode": "S5-A-L1-P08",
+    "placeholder": true,
+    "worldPosition": [
+      6.46,
+      0.243,
+      -1.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0264",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "A",
+      "layer": 1,
+      "slot": 8,
+      "location_code": "S5-A-L1-P08"
+    }
+  },
+  {
+    "title": "馆藏 HX-0265",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "A",
+    "layer": 2,
+    "slot": 1,
+    "color": "#596879",
+    "keys": [
+      "HX-0265",
+      "HX0265",
+      "S5-A-L2-P01"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0265",
+    "chipId": "HX-0265",
+    "locationCode": "S5-A-L2-P01",
+    "placeholder": true,
+    "worldPosition": [
+      6.46,
+      0.688,
+      -8.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0265",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "A",
+      "layer": 2,
+      "slot": 1,
+      "location_code": "S5-A-L2-P01"
+    }
+  },
+  {
+    "title": "馆藏 HX-0266",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "A",
+    "layer": 2,
+    "slot": 2,
+    "color": "#596879",
+    "keys": [
+      "HX-0266",
+      "HX0266",
+      "S5-A-L2-P02"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0266",
+    "chipId": "HX-0266",
+    "locationCode": "S5-A-L2-P02",
+    "placeholder": true,
+    "worldPosition": [
+      6.46,
+      0.688,
+      -7.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0266",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "A",
+      "layer": 2,
+      "slot": 2,
+      "location_code": "S5-A-L2-P02"
+    }
+  },
+  {
+    "title": "馆藏 HX-0267",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "A",
+    "layer": 2,
+    "slot": 3,
+    "color": "#596879",
+    "keys": [
+      "HX-0267",
+      "HX0267",
+      "S5-A-L2-P03"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0267",
+    "chipId": "HX-0267",
+    "locationCode": "S5-A-L2-P03",
+    "placeholder": true,
+    "worldPosition": [
+      6.46,
+      0.688,
+      -6.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0267",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "A",
+      "layer": 2,
+      "slot": 3,
+      "location_code": "S5-A-L2-P03"
+    }
+  },
+  {
+    "title": "馆藏 HX-0268",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "A",
+    "layer": 2,
+    "slot": 4,
+    "color": "#596879",
+    "keys": [
+      "HX-0268",
+      "HX0268",
+      "S5-A-L2-P04"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0268",
+    "chipId": "HX-0268",
+    "locationCode": "S5-A-L2-P04",
+    "placeholder": true,
+    "worldPosition": [
+      6.46,
+      0.688,
+      -5.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0268",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "A",
+      "layer": 2,
+      "slot": 4,
+      "location_code": "S5-A-L2-P04"
+    }
+  },
+  {
+    "title": "馆藏 HX-0269",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "A",
+    "layer": 2,
+    "slot": 5,
+    "color": "#596879",
+    "keys": [
+      "HX-0269",
+      "HX0269",
+      "S5-A-L2-P05"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0269",
+    "chipId": "HX-0269",
+    "locationCode": "S5-A-L2-P05",
+    "placeholder": true,
+    "worldPosition": [
+      6.46,
+      0.688,
+      -4.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0269",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "A",
+      "layer": 2,
+      "slot": 5,
+      "location_code": "S5-A-L2-P05"
+    }
+  },
+  {
+    "title": "馆藏 HX-0270",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "A",
+    "layer": 2,
+    "slot": 6,
+    "color": "#596879",
+    "keys": [
+      "HX-0270",
+      "HX0270",
+      "S5-A-L2-P06"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0270",
+    "chipId": "HX-0270",
+    "locationCode": "S5-A-L2-P06",
+    "placeholder": true,
+    "worldPosition": [
+      6.46,
+      0.688,
+      -3.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0270",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "A",
+      "layer": 2,
+      "slot": 6,
+      "location_code": "S5-A-L2-P06"
+    }
+  },
+  {
+    "title": "馆藏 HX-0271",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "A",
+    "layer": 2,
+    "slot": 7,
+    "color": "#596879",
+    "keys": [
+      "HX-0271",
+      "HX0271",
+      "S5-A-L2-P07"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0271",
+    "chipId": "HX-0271",
+    "locationCode": "S5-A-L2-P07",
+    "placeholder": true,
+    "worldPosition": [
+      6.46,
+      0.688,
+      -2.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0271",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "A",
+      "layer": 2,
+      "slot": 7,
+      "location_code": "S5-A-L2-P07"
+    }
+  },
+  {
+    "title": "馆藏 HX-0272",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "A",
+    "layer": 2,
+    "slot": 8,
+    "color": "#596879",
+    "keys": [
+      "HX-0272",
+      "HX0272",
+      "S5-A-L2-P08"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0272",
+    "chipId": "HX-0272",
+    "locationCode": "S5-A-L2-P08",
+    "placeholder": true,
+    "worldPosition": [
+      6.46,
+      0.688,
+      -1.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0272",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "A",
+      "layer": 2,
+      "slot": 8,
+      "location_code": "S5-A-L2-P08"
+    }
+  },
+  {
+    "title": "馆藏 HX-0273",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "A",
+    "layer": 3,
+    "slot": 1,
+    "color": "#596879",
+    "keys": [
+      "HX-0273",
+      "HX0273",
+      "S5-A-L3-P01"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0273",
+    "chipId": "HX-0273",
+    "locationCode": "S5-A-L3-P01",
+    "placeholder": true,
+    "worldPosition": [
+      6.46,
+      1.188,
+      -8.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0273",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "A",
+      "layer": 3,
+      "slot": 1,
+      "location_code": "S5-A-L3-P01"
+    }
+  },
+  {
+    "title": "馆藏 HX-0274",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "A",
+    "layer": 3,
+    "slot": 2,
+    "color": "#596879",
+    "keys": [
+      "HX-0274",
+      "HX0274",
+      "S5-A-L3-P02"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0274",
+    "chipId": "HX-0274",
+    "locationCode": "S5-A-L3-P02",
+    "placeholder": true,
+    "worldPosition": [
+      6.46,
+      1.188,
+      -7.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0274",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "A",
+      "layer": 3,
+      "slot": 2,
+      "location_code": "S5-A-L3-P02"
+    }
+  },
+  {
+    "title": "馆藏 HX-0275",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "A",
+    "layer": 3,
+    "slot": 3,
+    "color": "#596879",
+    "keys": [
+      "HX-0275",
+      "HX0275",
+      "S5-A-L3-P03"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0275",
+    "chipId": "HX-0275",
+    "locationCode": "S5-A-L3-P03",
+    "placeholder": true,
+    "worldPosition": [
+      6.46,
+      1.188,
+      -6.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0275",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "A",
+      "layer": 3,
+      "slot": 3,
+      "location_code": "S5-A-L3-P03"
+    }
+  },
+  {
+    "title": "馆藏 HX-0276",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "A",
+    "layer": 3,
+    "slot": 4,
+    "color": "#596879",
+    "keys": [
+      "HX-0276",
+      "HX0276",
+      "S5-A-L3-P04"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0276",
+    "chipId": "HX-0276",
+    "locationCode": "S5-A-L3-P04",
+    "placeholder": true,
+    "worldPosition": [
+      6.46,
+      1.188,
+      -5.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0276",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "A",
+      "layer": 3,
+      "slot": 4,
+      "location_code": "S5-A-L3-P04"
+    }
+  },
+  {
+    "title": "馆藏 HX-0277",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "A",
+    "layer": 3,
+    "slot": 5,
+    "color": "#596879",
+    "keys": [
+      "HX-0277",
+      "HX0277",
+      "S5-A-L3-P05"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0277",
+    "chipId": "HX-0277",
+    "locationCode": "S5-A-L3-P05",
+    "placeholder": true,
+    "worldPosition": [
+      6.46,
+      1.188,
+      -4.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0277",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "A",
+      "layer": 3,
+      "slot": 5,
+      "location_code": "S5-A-L3-P05"
+    }
+  },
+  {
+    "title": "馆藏 HX-0278",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "A",
+    "layer": 3,
+    "slot": 6,
+    "color": "#596879",
+    "keys": [
+      "HX-0278",
+      "HX0278",
+      "S5-A-L3-P06"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0278",
+    "chipId": "HX-0278",
+    "locationCode": "S5-A-L3-P06",
+    "placeholder": true,
+    "worldPosition": [
+      6.46,
+      1.188,
+      -3.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0278",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "A",
+      "layer": 3,
+      "slot": 6,
+      "location_code": "S5-A-L3-P06"
+    }
+  },
+  {
+    "title": "馆藏 HX-0279",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "A",
+    "layer": 3,
+    "slot": 7,
+    "color": "#596879",
+    "keys": [
+      "HX-0279",
+      "HX0279",
+      "S5-A-L3-P07"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0279",
+    "chipId": "HX-0279",
+    "locationCode": "S5-A-L3-P07",
+    "placeholder": true,
+    "worldPosition": [
+      6.46,
+      1.188,
+      -2.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0279",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "A",
+      "layer": 3,
+      "slot": 7,
+      "location_code": "S5-A-L3-P07"
+    }
+  },
+  {
+    "title": "三体",
+    "author": "刘慈欣",
+    "category": "科幻与未来",
+    "shelf": 5,
+    "side": "A",
+    "layer": 3,
+    "slot": 8,
+    "color": "#596879",
+    "keys": [
+      "三体",
+      "3体",
+      "科幻",
+      "外星",
+      "未来",
+      "HX-0280",
+      "HX0280",
+      "S5-A-L3-P08"
+    ],
+    "synopsis": "一次向宇宙深处发出的讯息，连接了地球与一个在三颗恒星间艰难求生的文明。科学家面对接连出现的谜团，逐渐走近一场跨越星际的危机。小说将物理想象、文明命运与人性的选择交织在一起，邀请读者重新思考我们在宇宙中的位置。",
+    "bookId": "HX-0280",
+    "chipId": "HX-0280",
+    "locationCode": "S5-A-L3-P08",
+    "placeholder": false,
+    "worldPosition": [
+      6.46,
+      1.188,
+      -1.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0280",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "A",
+      "layer": 3,
+      "slot": 8,
+      "location_code": "S5-A-L3-P08"
+    }
+  },
+  {
+    "title": "馆藏 HX-0281",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "A",
+    "layer": 4,
+    "slot": 1,
+    "color": "#596879",
+    "keys": [
+      "HX-0281",
+      "HX0281",
+      "S5-A-L4-P01"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0281",
+    "chipId": "HX-0281",
+    "locationCode": "S5-A-L4-P01",
+    "placeholder": true,
+    "worldPosition": [
+      6.46,
+      1.688,
+      -8.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0281",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "A",
+      "layer": 4,
+      "slot": 1,
+      "location_code": "S5-A-L4-P01"
+    }
+  },
+  {
+    "title": "馆藏 HX-0282",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "A",
+    "layer": 4,
+    "slot": 2,
+    "color": "#596879",
+    "keys": [
+      "HX-0282",
+      "HX0282",
+      "S5-A-L4-P02"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0282",
+    "chipId": "HX-0282",
+    "locationCode": "S5-A-L4-P02",
+    "placeholder": true,
+    "worldPosition": [
+      6.46,
+      1.688,
+      -7.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0282",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "A",
+      "layer": 4,
+      "slot": 2,
+      "location_code": "S5-A-L4-P02"
+    }
+  },
+  {
+    "title": "馆藏 HX-0283",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "A",
+    "layer": 4,
+    "slot": 3,
+    "color": "#596879",
+    "keys": [
+      "HX-0283",
+      "HX0283",
+      "S5-A-L4-P03"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0283",
+    "chipId": "HX-0283",
+    "locationCode": "S5-A-L4-P03",
+    "placeholder": true,
+    "worldPosition": [
+      6.46,
+      1.688,
+      -6.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0283",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "A",
+      "layer": 4,
+      "slot": 3,
+      "location_code": "S5-A-L4-P03"
+    }
+  },
+  {
+    "title": "馆藏 HX-0284",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "A",
+    "layer": 4,
+    "slot": 4,
+    "color": "#596879",
+    "keys": [
+      "HX-0284",
+      "HX0284",
+      "S5-A-L4-P04"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0284",
+    "chipId": "HX-0284",
+    "locationCode": "S5-A-L4-P04",
+    "placeholder": true,
+    "worldPosition": [
+      6.46,
+      1.688,
+      -5.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0284",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "A",
+      "layer": 4,
+      "slot": 4,
+      "location_code": "S5-A-L4-P04"
+    }
+  },
+  {
+    "title": "馆藏 HX-0285",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "A",
+    "layer": 4,
+    "slot": 5,
+    "color": "#596879",
+    "keys": [
+      "HX-0285",
+      "HX0285",
+      "S5-A-L4-P05"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0285",
+    "chipId": "HX-0285",
+    "locationCode": "S5-A-L4-P05",
+    "placeholder": true,
+    "worldPosition": [
+      6.46,
+      1.688,
+      -4.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0285",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "A",
+      "layer": 4,
+      "slot": 5,
+      "location_code": "S5-A-L4-P05"
+    }
+  },
+  {
+    "title": "馆藏 HX-0286",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "A",
+    "layer": 4,
+    "slot": 6,
+    "color": "#596879",
+    "keys": [
+      "HX-0286",
+      "HX0286",
+      "S5-A-L4-P06"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0286",
+    "chipId": "HX-0286",
+    "locationCode": "S5-A-L4-P06",
+    "placeholder": true,
+    "worldPosition": [
+      6.46,
+      1.688,
+      -3.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0286",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "A",
+      "layer": 4,
+      "slot": 6,
+      "location_code": "S5-A-L4-P06"
+    }
+  },
+  {
+    "title": "馆藏 HX-0287",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "A",
+    "layer": 4,
+    "slot": 7,
+    "color": "#596879",
+    "keys": [
+      "HX-0287",
+      "HX0287",
+      "S5-A-L4-P07"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0287",
+    "chipId": "HX-0287",
+    "locationCode": "S5-A-L4-P07",
+    "placeholder": true,
+    "worldPosition": [
+      6.46,
+      1.688,
+      -2.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0287",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "A",
+      "layer": 4,
+      "slot": 7,
+      "location_code": "S5-A-L4-P07"
+    }
+  },
+  {
+    "title": "沙丘",
+    "author": "弗兰克·赫伯特",
+    "category": "科幻与未来",
+    "shelf": 5,
+    "side": "A",
+    "layer": 4,
+    "slot": 8,
+    "color": "#596879",
+    "keys": [
+      "沙丘",
+      "HX-0288",
+      "HX0288",
+      "S5-A-L4-P08"
+    ],
+    "synopsis": "在荒漠星球厄拉科斯，珍贵的香料将生态、权力与命运紧紧相连。年轻的保罗被卷入家族冲突，也必须面对预言与选择带来的重负。宏大的世界设定之下，小说持续追问资源如何塑造文明，以及人们为何渴望并依赖救世主式的英雄。",
+    "bookId": "HX-0288",
+    "chipId": "HX-0288",
+    "locationCode": "S5-A-L4-P08",
+    "placeholder": false,
+    "worldPosition": [
+      6.46,
+      1.688,
+      -1.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0288",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "A",
+      "layer": 4,
+      "slot": 8,
+      "location_code": "S5-A-L4-P08"
+    }
+  },
+  {
+    "title": "馆藏 HX-0289",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "B",
+    "layer": 1,
+    "slot": 1,
+    "color": "#596879",
+    "keys": [
+      "HX-0289",
+      "HX0289",
+      "S5-B-L1-P01"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0289",
+    "chipId": "HX-0289",
+    "locationCode": "S5-B-L1-P01",
+    "placeholder": true,
+    "worldPosition": [
+      5.54,
+      0.243,
+      -8.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0289",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "B",
+      "layer": 1,
+      "slot": 1,
+      "location_code": "S5-B-L1-P01"
+    }
+  },
+  {
+    "title": "馆藏 HX-0290",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "B",
+    "layer": 1,
+    "slot": 2,
+    "color": "#596879",
+    "keys": [
+      "HX-0290",
+      "HX0290",
+      "S5-B-L1-P02"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0290",
+    "chipId": "HX-0290",
+    "locationCode": "S5-B-L1-P02",
+    "placeholder": true,
+    "worldPosition": [
+      5.54,
+      0.243,
+      -7.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0290",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "B",
+      "layer": 1,
+      "slot": 2,
+      "location_code": "S5-B-L1-P02"
+    }
+  },
+  {
+    "title": "馆藏 HX-0291",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "B",
+    "layer": 1,
+    "slot": 3,
+    "color": "#596879",
+    "keys": [
+      "HX-0291",
+      "HX0291",
+      "S5-B-L1-P03"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0291",
+    "chipId": "HX-0291",
+    "locationCode": "S5-B-L1-P03",
+    "placeholder": true,
+    "worldPosition": [
+      5.54,
+      0.243,
+      -6.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0291",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "B",
+      "layer": 1,
+      "slot": 3,
+      "location_code": "S5-B-L1-P03"
+    }
+  },
+  {
+    "title": "馆藏 HX-0292",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "B",
+    "layer": 1,
+    "slot": 4,
+    "color": "#596879",
+    "keys": [
+      "HX-0292",
+      "HX0292",
+      "S5-B-L1-P04"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0292",
+    "chipId": "HX-0292",
+    "locationCode": "S5-B-L1-P04",
+    "placeholder": true,
+    "worldPosition": [
+      5.54,
+      0.243,
+      -5.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0292",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "B",
+      "layer": 1,
+      "slot": 4,
+      "location_code": "S5-B-L1-P04"
+    }
+  },
+  {
+    "title": "馆藏 HX-0293",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "B",
+    "layer": 1,
+    "slot": 5,
+    "color": "#596879",
+    "keys": [
+      "HX-0293",
+      "HX0293",
+      "S5-B-L1-P05"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0293",
+    "chipId": "HX-0293",
+    "locationCode": "S5-B-L1-P05",
+    "placeholder": true,
+    "worldPosition": [
+      5.54,
+      0.243,
+      -4.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0293",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "B",
+      "layer": 1,
+      "slot": 5,
+      "location_code": "S5-B-L1-P05"
+    }
+  },
+  {
+    "title": "馆藏 HX-0294",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "B",
+    "layer": 1,
+    "slot": 6,
+    "color": "#596879",
+    "keys": [
+      "HX-0294",
+      "HX0294",
+      "S5-B-L1-P06"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0294",
+    "chipId": "HX-0294",
+    "locationCode": "S5-B-L1-P06",
+    "placeholder": true,
+    "worldPosition": [
+      5.54,
+      0.243,
+      -3.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0294",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "B",
+      "layer": 1,
+      "slot": 6,
+      "location_code": "S5-B-L1-P06"
+    }
+  },
+  {
+    "title": "中国大百科全书",
+    "author": "中国大百科全书总编辑委员会",
+    "category": "工具与参考",
+    "shelf": 5,
+    "side": "B",
+    "layer": 1,
+    "slot": 7,
+    "color": "#596879",
+    "keys": [
+      "百科",
+      "工具",
+      "参考",
+      "HX-0295",
+      "HX0295",
+      "S5-B-L1-P07"
+    ],
+    "synopsis": "以条目化的方式组织知识，百科全书为跨学科查阅提供了清晰入口。读者可以从一个问题出发，在相关概念、人物与事件之间建立联系。它适合作为进一步阅读前的知识地图，帮助我们明确术语、理解背景，并发现值得继续探索的方向。",
+    "bookId": "HX-0295",
+    "chipId": "HX-0295",
+    "locationCode": "S5-B-L1-P07",
+    "placeholder": false,
+    "worldPosition": [
+      5.54,
+      0.243,
+      -2.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0295",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "B",
+      "layer": 1,
+      "slot": 7,
+      "location_code": "S5-B-L1-P07"
+    }
+  },
+  {
+    "title": "馆藏 HX-0296",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "B",
+    "layer": 1,
+    "slot": 8,
+    "color": "#596879",
+    "keys": [
+      "HX-0296",
+      "HX0296",
+      "S5-B-L1-P08"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0296",
+    "chipId": "HX-0296",
+    "locationCode": "S5-B-L1-P08",
+    "placeholder": true,
+    "worldPosition": [
+      5.54,
+      0.243,
+      -1.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0296",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "B",
+      "layer": 1,
+      "slot": 8,
+      "location_code": "S5-B-L1-P08"
+    }
+  },
+  {
+    "title": "馆藏 HX-0297",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "B",
+    "layer": 2,
+    "slot": 1,
+    "color": "#596879",
+    "keys": [
+      "HX-0297",
+      "HX0297",
+      "S5-B-L2-P01"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0297",
+    "chipId": "HX-0297",
+    "locationCode": "S5-B-L2-P01",
+    "placeholder": true,
+    "worldPosition": [
+      5.54,
+      0.688,
+      -8.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0297",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "B",
+      "layer": 2,
+      "slot": 1,
+      "location_code": "S5-B-L2-P01"
+    }
+  },
+  {
+    "title": "馆藏 HX-0298",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "B",
+    "layer": 2,
+    "slot": 2,
+    "color": "#596879",
+    "keys": [
+      "HX-0298",
+      "HX0298",
+      "S5-B-L2-P02"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0298",
+    "chipId": "HX-0298",
+    "locationCode": "S5-B-L2-P02",
+    "placeholder": true,
+    "worldPosition": [
+      5.54,
+      0.688,
+      -7.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0298",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "B",
+      "layer": 2,
+      "slot": 2,
+      "location_code": "S5-B-L2-P02"
+    }
+  },
+  {
+    "title": "馆藏 HX-0299",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "B",
+    "layer": 2,
+    "slot": 3,
+    "color": "#596879",
+    "keys": [
+      "HX-0299",
+      "HX0299",
+      "S5-B-L2-P03"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0299",
+    "chipId": "HX-0299",
+    "locationCode": "S5-B-L2-P03",
+    "placeholder": true,
+    "worldPosition": [
+      5.54,
+      0.688,
+      -6.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0299",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "B",
+      "layer": 2,
+      "slot": 3,
+      "location_code": "S5-B-L2-P03"
+    }
+  },
+  {
+    "title": "馆藏 HX-0300",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "B",
+    "layer": 2,
+    "slot": 4,
+    "color": "#596879",
+    "keys": [
+      "HX-0300",
+      "HX0300",
+      "S5-B-L2-P04"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0300",
+    "chipId": "HX-0300",
+    "locationCode": "S5-B-L2-P04",
+    "placeholder": true,
+    "worldPosition": [
+      5.54,
+      0.688,
+      -5.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0300",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "B",
+      "layer": 2,
+      "slot": 4,
+      "location_code": "S5-B-L2-P04"
+    }
+  },
+  {
+    "title": "馆藏 HX-0301",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "B",
+    "layer": 2,
+    "slot": 5,
+    "color": "#596879",
+    "keys": [
+      "HX-0301",
+      "HX0301",
+      "S5-B-L2-P05"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0301",
+    "chipId": "HX-0301",
+    "locationCode": "S5-B-L2-P05",
+    "placeholder": true,
+    "worldPosition": [
+      5.54,
+      0.688,
+      -4.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0301",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "B",
+      "layer": 2,
+      "slot": 5,
+      "location_code": "S5-B-L2-P05"
+    }
+  },
+  {
+    "title": "馆藏 HX-0302",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "B",
+    "layer": 2,
+    "slot": 6,
+    "color": "#596879",
+    "keys": [
+      "HX-0302",
+      "HX0302",
+      "S5-B-L2-P06"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0302",
+    "chipId": "HX-0302",
+    "locationCode": "S5-B-L2-P06",
+    "placeholder": true,
+    "worldPosition": [
+      5.54,
+      0.688,
+      -3.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0302",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "B",
+      "layer": 2,
+      "slot": 6,
+      "location_code": "S5-B-L2-P06"
+    }
+  },
+  {
+    "title": "馆藏 HX-0303",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "B",
+    "layer": 2,
+    "slot": 7,
+    "color": "#596879",
+    "keys": [
+      "HX-0303",
+      "HX0303",
+      "S5-B-L2-P07"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0303",
+    "chipId": "HX-0303",
+    "locationCode": "S5-B-L2-P07",
+    "placeholder": true,
+    "worldPosition": [
+      5.54,
+      0.688,
+      -2.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0303",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "B",
+      "layer": 2,
+      "slot": 7,
+      "location_code": "S5-B-L2-P07"
+    }
+  },
+  {
+    "title": "馆藏 HX-0304",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "B",
+    "layer": 2,
+    "slot": 8,
+    "color": "#596879",
+    "keys": [
+      "HX-0304",
+      "HX0304",
+      "S5-B-L2-P08"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0304",
+    "chipId": "HX-0304",
+    "locationCode": "S5-B-L2-P08",
+    "placeholder": true,
+    "worldPosition": [
+      5.54,
+      0.688,
+      -1.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0304",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "B",
+      "layer": 2,
+      "slot": 8,
+      "location_code": "S5-B-L2-P08"
+    }
+  },
+  {
+    "title": "馆藏 HX-0305",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "B",
+    "layer": 3,
+    "slot": 1,
+    "color": "#596879",
+    "keys": [
+      "HX-0305",
+      "HX0305",
+      "S5-B-L3-P01"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0305",
+    "chipId": "HX-0305",
+    "locationCode": "S5-B-L3-P01",
+    "placeholder": true,
+    "worldPosition": [
+      5.54,
+      1.188,
+      -8.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0305",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "B",
+      "layer": 3,
+      "slot": 1,
+      "location_code": "S5-B-L3-P01"
+    }
+  },
+  {
+    "title": "馆藏 HX-0306",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "B",
+    "layer": 3,
+    "slot": 2,
+    "color": "#596879",
+    "keys": [
+      "HX-0306",
+      "HX0306",
+      "S5-B-L3-P02"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0306",
+    "chipId": "HX-0306",
+    "locationCode": "S5-B-L3-P02",
+    "placeholder": true,
+    "worldPosition": [
+      5.54,
+      1.188,
+      -7.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0306",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "B",
+      "layer": 3,
+      "slot": 2,
+      "location_code": "S5-B-L3-P02"
+    }
+  },
+  {
+    "title": "馆藏 HX-0307",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "B",
+    "layer": 3,
+    "slot": 3,
+    "color": "#596879",
+    "keys": [
+      "HX-0307",
+      "HX0307",
+      "S5-B-L3-P03"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0307",
+    "chipId": "HX-0307",
+    "locationCode": "S5-B-L3-P03",
+    "placeholder": true,
+    "worldPosition": [
+      5.54,
+      1.188,
+      -6.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0307",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "B",
+      "layer": 3,
+      "slot": 3,
+      "location_code": "S5-B-L3-P03"
+    }
+  },
+  {
+    "title": "馆藏 HX-0308",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "B",
+    "layer": 3,
+    "slot": 4,
+    "color": "#596879",
+    "keys": [
+      "HX-0308",
+      "HX0308",
+      "S5-B-L3-P04"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0308",
+    "chipId": "HX-0308",
+    "locationCode": "S5-B-L3-P04",
+    "placeholder": true,
+    "worldPosition": [
+      5.54,
+      1.188,
+      -5.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0308",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "B",
+      "layer": 3,
+      "slot": 4,
+      "location_code": "S5-B-L3-P04"
+    }
+  },
+  {
+    "title": "馆藏 HX-0309",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "B",
+    "layer": 3,
+    "slot": 5,
+    "color": "#596879",
+    "keys": [
+      "HX-0309",
+      "HX0309",
+      "S5-B-L3-P05"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0309",
+    "chipId": "HX-0309",
+    "locationCode": "S5-B-L3-P05",
+    "placeholder": true,
+    "worldPosition": [
+      5.54,
+      1.188,
+      -4.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0309",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "B",
+      "layer": 3,
+      "slot": 5,
+      "location_code": "S5-B-L3-P05"
+    }
+  },
+  {
+    "title": "馆藏 HX-0310",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "B",
+    "layer": 3,
+    "slot": 6,
+    "color": "#596879",
+    "keys": [
+      "HX-0310",
+      "HX0310",
+      "S5-B-L3-P06"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0310",
+    "chipId": "HX-0310",
+    "locationCode": "S5-B-L3-P06",
+    "placeholder": true,
+    "worldPosition": [
+      5.54,
+      1.188,
+      -3.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0310",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "B",
+      "layer": 3,
+      "slot": 6,
+      "location_code": "S5-B-L3-P06"
+    }
+  },
+  {
+    "title": "馆藏 HX-0311",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "B",
+    "layer": 3,
+    "slot": 7,
+    "color": "#596879",
+    "keys": [
+      "HX-0311",
+      "HX0311",
+      "S5-B-L3-P07"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0311",
+    "chipId": "HX-0311",
+    "locationCode": "S5-B-L3-P07",
+    "placeholder": true,
+    "worldPosition": [
+      5.54,
+      1.188,
+      -2.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0311",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "B",
+      "layer": 3,
+      "slot": 7,
+      "location_code": "S5-B-L3-P07"
+    }
+  },
+  {
+    "title": "馆藏 HX-0312",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "B",
+    "layer": 3,
+    "slot": 8,
+    "color": "#596879",
+    "keys": [
+      "HX-0312",
+      "HX0312",
+      "S5-B-L3-P08"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0312",
+    "chipId": "HX-0312",
+    "locationCode": "S5-B-L3-P08",
+    "placeholder": true,
+    "worldPosition": [
+      5.54,
+      1.188,
+      -1.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0312",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "B",
+      "layer": 3,
+      "slot": 8,
+      "location_code": "S5-B-L3-P08"
+    }
+  },
+  {
+    "title": "馆藏 HX-0313",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "B",
+    "layer": 4,
+    "slot": 1,
+    "color": "#596879",
+    "keys": [
+      "HX-0313",
+      "HX0313",
+      "S5-B-L4-P01"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0313",
+    "chipId": "HX-0313",
+    "locationCode": "S5-B-L4-P01",
+    "placeholder": true,
+    "worldPosition": [
+      5.54,
+      1.688,
+      -8.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0313",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "B",
+      "layer": 4,
+      "slot": 1,
+      "location_code": "S5-B-L4-P01"
+    }
+  },
+  {
+    "title": "馆藏 HX-0314",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "B",
+    "layer": 4,
+    "slot": 2,
+    "color": "#596879",
+    "keys": [
+      "HX-0314",
+      "HX0314",
+      "S5-B-L4-P02"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0314",
+    "chipId": "HX-0314",
+    "locationCode": "S5-B-L4-P02",
+    "placeholder": true,
+    "worldPosition": [
+      5.54,
+      1.688,
+      -7.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0314",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "B",
+      "layer": 4,
+      "slot": 2,
+      "location_code": "S5-B-L4-P02"
+    }
+  },
+  {
+    "title": "馆藏 HX-0315",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "B",
+    "layer": 4,
+    "slot": 3,
+    "color": "#596879",
+    "keys": [
+      "HX-0315",
+      "HX0315",
+      "S5-B-L4-P03"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0315",
+    "chipId": "HX-0315",
+    "locationCode": "S5-B-L4-P03",
+    "placeholder": true,
+    "worldPosition": [
+      5.54,
+      1.688,
+      -6.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0315",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "B",
+      "layer": 4,
+      "slot": 3,
+      "location_code": "S5-B-L4-P03"
+    }
+  },
+  {
+    "title": "馆藏 HX-0316",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "B",
+    "layer": 4,
+    "slot": 4,
+    "color": "#596879",
+    "keys": [
+      "HX-0316",
+      "HX0316",
+      "S5-B-L4-P04"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0316",
+    "chipId": "HX-0316",
+    "locationCode": "S5-B-L4-P04",
+    "placeholder": true,
+    "worldPosition": [
+      5.54,
+      1.688,
+      -5.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0316",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "B",
+      "layer": 4,
+      "slot": 4,
+      "location_code": "S5-B-L4-P04"
+    }
+  },
+  {
+    "title": "馆藏 HX-0317",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "B",
+    "layer": 4,
+    "slot": 5,
+    "color": "#596879",
+    "keys": [
+      "HX-0317",
+      "HX0317",
+      "S5-B-L4-P05"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0317",
+    "chipId": "HX-0317",
+    "locationCode": "S5-B-L4-P05",
+    "placeholder": true,
+    "worldPosition": [
+      5.54,
+      1.688,
+      -4.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0317",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "B",
+      "layer": 4,
+      "slot": 5,
+      "location_code": "S5-B-L4-P05"
+    }
+  },
+  {
+    "title": "馆藏 HX-0318",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "B",
+    "layer": 4,
+    "slot": 6,
+    "color": "#596879",
+    "keys": [
+      "HX-0318",
+      "HX0318",
+      "S5-B-L4-P06"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0318",
+    "chipId": "HX-0318",
+    "locationCode": "S5-B-L4-P06",
+    "placeholder": true,
+    "worldPosition": [
+      5.54,
+      1.688,
+      -3.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0318",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "B",
+      "layer": 4,
+      "slot": 6,
+      "location_code": "S5-B-L4-P06"
+    }
+  },
+  {
+    "title": "馆藏 HX-0319",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "B",
+    "layer": 4,
+    "slot": 7,
+    "color": "#596879",
+    "keys": [
+      "HX-0319",
+      "HX0319",
+      "S5-B-L4-P07"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0319",
+    "chipId": "HX-0319",
+    "locationCode": "S5-B-L4-P07",
+    "placeholder": true,
+    "worldPosition": [
+      5.54,
+      1.688,
+      -2.2
+    ],
+    "chipPayload": {
+      "book_id": "HX-0319",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "B",
+      "layer": 4,
+      "slot": 7,
+      "location_code": "S5-B-L4-P07"
+    }
+  },
+  {
+    "title": "馆藏 HX-0320",
+    "author": "和序图书馆 · 编号样书",
+    "category": "科幻与未来馆藏",
+    "shelf": 5,
+    "side": "B",
+    "layer": 4,
+    "slot": 8,
+    "color": "#596879",
+    "keys": [
+      "HX-0320",
+      "HX0320",
+      "S5-B-L4-P08"
+    ],
+    "synopsis": "这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。",
+    "bookId": "HX-0320",
+    "chipId": "HX-0320",
+    "locationCode": "S5-B-L4-P08",
+    "placeholder": true,
+    "worldPosition": [
+      5.54,
+      1.688,
+      -1.4
+    ],
+    "chipPayload": {
+      "book_id": "HX-0320",
+      "shelf_id": "Shelf_5",
+      "shelf_side": "B",
+      "layer": 4,
+      "slot": 8,
+      "location_code": "S5-B-L4-P08"
+    }
+  }
+];
+export const anchors=[-6,-3,0,3,6];
+export const heights=[.3,.7,1.2,1.7];

@@ -1,0 +1,104 @@
+{
+  "generator": "5.2.1 LTS",
+  "source": "blender/hexu-library.blend",
+  "model": "public/models/hexu-library.glb",
+  "shelves": [
+    {
+      "name": "Shelf_1",
+      "dimensions_m": [
+        1,
+        2,
+        8
+      ],
+      "landing": [
+        -6,
+        1,
+        0
+      ],
+      "sides": [
+        "A",
+        "B"
+      ],
+      "layers": 4
+    },
+    {
+      "name": "Shelf_2",
+      "dimensions_m": [
+        1,
+        2,
+        8
+      ],
+      "landing": [
+        -3,
+        1,
+        0
+      ],
+      "sides": [
+        "A",
+        "B"
+      ],
+      "layers": 4
+    },
+    {
+      "name": "Shelf_3",
+      "dimensions_m": [
+        1,
+        2,
+        8
+      ],
+      "landing": [
+        0,
+        1,
+        0
+      ],
+      "sides": [
+        "A",
+        "B"
+      ],
+      "layers": 4
+    },
+    {
+      "name": "Shelf_4",
+      "dimensions_m": [
+        1,
+        2,
+        8
+      ],
+      "landing": [
+        3,
+        1,
+        0
+      ],
+      "sides": [
+        "A",
+        "B"
+      ],
+      "layers": 4
+    },
+    {
+      "name": "Shelf_5",
+      "dimensions_m": [
+        1,
+        2,
+        8
+      ],
+      "landing": [
+        6,
+        1,
+        0
+      ],
+      "sides": [
+        "A",
+        "B"
+      ],
+      "layers": 4
+    }
+  ],
+  "static_books": 0,
+  "mesh_objects": 70,
+  "triangles": 328102,
+  "bytes": 13090076,
+  "texture": "public/textures/oak-grain.png",
+  "interactive_books": 320,
+  "books_per_side_layer": 8
+}

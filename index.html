@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#edece7" />
+    <title>和序 · 虚拟智能图书馆</title>
+    <link rel="stylesheet" href="./src/styles/library.css" />
+  </head>
+  <body>
+    <canvas id="scene" aria-label="可旋转浏览的三维图书馆"></canvas>
+    <header>
+      <div class="brand">
+        <div class="mark">和</div>
+        <div>
+          <strong>和序图书馆</strong><small>HE XU · LIVING LIBRARY</small>
+        </div>
+      </div>
+      <div class="top-right">
+        <div class="pill" role="status">
+          <i id="micDot" class="status-dot"></i
+          ><span id="micStatus">语音感知未启动</span>
+        </div>
+        <div class="pill">05 馆藏分区 · 双面开放书架</div>
+      </div>
+    </header>
+    <aside class="intro">
+      <div class="eyebrow">A QUIETER WAY TO DISCOVER</div>
+      <h1>让每一次好奇，<br />都有回响。</h1>
+      <p>在书与书之间，遇见新的世界。<br />轻唤「小和」，让知识来到你面前。</p>
+      <div class="rule"></div>
+      <p>你的专属馆员，一直在这里。</p>
+      <div class="hint"><kbd>拖动</kbd> 环视空间　<kbd>滚轮</kbd> 靠近书架</div>
+    </aside>
+    <aside class="collection">
+      <div class="section-title"><span>探索馆藏</span><span>INDEX</span></div>
+      <button class="shelf-link" data-query="人工智能">
+        <span class="number">01</span
+        ><span
+          ><strong>计算机与 AI 技术</strong
+          ><small>COMPUTER & SCIENCE</small></span
+        ></button
+      ><button class="shelf-link" data-query="文学">
+        <span class="number">02</span
+        ><span
+          ><strong>文学与历史哲学</strong
+          ><small>LITERATURE & HISTORY</small></span
+        ></button
+      ><button class="shelf-link" data-query="经济">
+        <span class="number">03</span
+        ><span
+          ><strong>商业经济与管理</strong><small>BUSINESS & LIFE</small></span
+        ></button
+      ><button class="shelf-link" data-query="设计">
+        <span class="number">04</span
+        ><span
+          ><strong>艺术设计与建筑</strong><small>ART & DESIGN</small></span
+        ></button
+      ><button class="shelf-link" data-query="科幻">
+        <span class="number">05</span
+        ><span
+          ><strong>科幻与未来馆藏</strong><small>SCIENCE FICTION</small></span
+        >
+      </button>
+      <div class="collection-note">
+        5 架 · 双面 4 层 · 每面每层 8 本<br />320 枚独立编号芯片，可按编号找书。
+      </div>
+    </aside>
+    <div id="bubble" class="bubble" role="status">有什么需求吗？</div>
+    <div class="bottom">
+      <div class="suggestions">
+        <button class="chip" data-query="三体">探索《三体》 ↗</button
+        ><button class="chip" data-query="计算机基础">计算机基础</button
+        ><button class="chip" data-query="设计">寻找设计灵感</button>
+      </div>
+      <div class="console">
+        <div class="listen-row">
+          <button id="micButton" class="mic-button">◉ 启动语音感知</button>
+          <div class="voice-copy">
+            <strong id="voiceTitle">说一声「小和」，开启一段探索</strong
+            ><span id="transcript" aria-live="polite"
+              >首次使用，请允许浏览器访问麦克风</span
+            >
+          </div>
+          <div class="wave" aria-hidden="true">
+            <i></i><i></i><i></i><i></i><i></i>
+          </div>
+        </div>
+        <form id="searchForm">
+          <input
+            id="query"
+            aria-label="输入书名或语音指令"
+            placeholder="输入书名或芯片编号，如 HX-0001"
+            autocomplete="off"
+          /><button type="submit">找书 ↗</button>
+        </form>
+      </div>
+      <div class="footnote">
+        真实语音识别 · 首次点击授权 · 建议 Chrome / Edge + localhost
+      </div>
+    </div>
+    <div class="location">
+      <b>01 / THE READING GARDEN</b
+      ><span id="locationText">前台服务区 · 小和待命中</span>
+    </div>
+    <div class="view-tools">
+      <button id="home" aria-label="重置视角" title="重置视角">⌂</button
+      ><button id="sound" aria-label="开启语音播报" title="开启语音播报">
+        ♪
+      </button>
+    </div>
+    <section id="reader" aria-label="书籍阅读特写">
+      <div class="reader-head">
+        <span id="bookLocation"></span>
+        <h2 id="readerTitle"></h2>
+      </div>
+      <div class="reader-bottom">
+        <p id="dragHint">按住封面向左拖动，让故事从这里展开</p>
+        <button id="openBook" class="secondary">翻开书页</button
+        ><button id="inspectChip" class="secondary">查看芯片</button
+        ><button id="returnBook">放回书架 ↗</button>
+      </div>
+      <div id="chipPanel">
+        <div class="reader-head"><span>EMBEDDED IDENTITY / 嵌入式馆藏芯片</span><h2 id="chipId"></h2><p id="chipLocation"></p></div>
+        <div class="reader-bottom"><p>芯片编号对应书籍编号 · 内部标记记录书架、面、层与槽位</p><button id="closeChip">返回书本 ↗</button></div>
+      </div>
+    </section>
+    <details class="help">
+      <summary>使用说明 ↗</summary>
+      <div class="help-body">
+        <p>
+          <b>先点击「启动语音感知」并允许麦克风。</b
+          >说「小和」，再说「帮我找三体」；也可以一句说完。
+        </p>
+        <p>
+          支持：小和、小何、肖和、小荷、xiao he。唤醒后等待 25
+          秒；未匹配的书名会请你换一个关键词，不会随机定位。
+        </p>
+        <p>
+          语音播报默认关闭，气泡回应始终开启；右下角 ♪
+          可开启播报，建议配合耳机以减少扬声器回声。
+        </p>
+        <p>
+          这是含 320 本编号馆藏的本地规则原型，其中 12 本有演示书目，其余为编号样书；不连接大模型。浏览器语音识别可能把音频发送至其识别服务，需要可用的网络；后台页面不保证持续识别。<a
+            href="https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition"
+            target="_blank"
+            rel="noreferrer"
+            >Web Speech API 说明</a
+          >
+        </p>
+        <p>
+          本地运行：在本文件目录终端执行 <code>npm start</code>，打开
+          <code>http://localhost:8080</code>。模型与渲染依赖均保存在本项目内。
+        </p>
+        <p>
+          每架沿 Z 轴延伸 8m，宽 1m、高 2m；给定坐标是架端引导点，A / B
+          书籍位于各架两侧。
+        </p>
+        <p>最近一次结构化响应：</p>
+        <pre id="protocol">等待唤醒</pre>
+      </div>
+    </details>
+    <div id="notice" role="alert"></div>
+    <div id="loading">
+      <div>
+        <strong>和序 · 正在开馆</strong>
+        <p>正在加载 Blender 精细建模空间</p>
+      </div>
+    </div>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "./public/vendor/three.module.js",
+          "three/addons/": "./public/vendor/addons/"
+        }
+      }
+    </script>
+    <script src="./public/vendor/gsap.min.js"></script>
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
