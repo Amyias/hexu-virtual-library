@@ -33,4 +33,5 @@
 - **命令行不要传中文。** Git Bash 会把 argv 里的 UTF-8 中文转成 GBK 字节，导致服务端收到 `U+FFFD` 乱码。需要传非 ASCII 内容时改用文件传参。
 - **不要提交** `node_modules/`、`blender/__pycache__/`、`blender/*.blend1`、`.mimosa/`。`archive/` 下的 `.blend` 是有意保留的版本备份，应当提交。
 - **不要直接覆盖仓库内的模型成品。** 改动 Blender 脚本后，先把项目复制到临时目录跑重建，与现有产物对比确认无误。
+- **Blender 在 `D:\Blender Foundation\Blender 5.2\blender.exe`。** 做模型精细化时按 [DEVELOPMENT.md](./DEVELOPMENT.md) 的「模型精细化的做法」执行：先渲染取证 → 网上找形态参考（只用来看，不下载贴图）→ 写生成模块 → 写带不变量断言的定点替换脚本 → 写 `blender/<部件>_REFERENCES.md` → 验证 → 同步 README。
 - **改动馆藏坐标后**，重跑 `node tools/prepare-smart-books.mjs` 并重建模型，保持三份清单副本一致。

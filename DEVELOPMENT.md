@@ -156,6 +156,24 @@ node tools/prepare-smart-books.mjs
 
 改动馆藏坐标后，应重跑 `prepare-smart-books.mjs` 并重建模型，避免书籍与预留槽位不一致。
 
+## 模型精细化的做法
+
+Blender 位于 `D:\Blender Foundation\Blender 5.2\blender.exe`。
+
+需要精细化某个部件时，按 `blender/BOTANICAL_REFERENCES.md` 立下的流程走：
+
+1. **先取证**。写一个只读脚本渲染现状（加载 `.blend`、只渲染、绝不保存），确认目标部件当前粗糙在哪里。不要凭印象动手。
+2. **找参考**。上网查阅该物件的形态资料，提取比例与构造要点。参考图只用于观察，**不下载第三方照片或贴图**——网格与纹理一律由本项目脚本生成。
+3. **写生成模块**。新建 `blender/<部件>.py`，与 `vegetation.py` 同构：按剖面与参数程序化生成，可重复执行，自带固定随机种子。
+4. **写定点替换脚本**。新建 `blender/refine_<部件>.py`，与 `refine_vegetation.py` 同构：先对无关对象取 `matrix_world` 不变量快照，替换后断言其余对象未变，再保存、导出、渲染近景。
+5. **写参考文档**。新建 `blender/<部件>_REFERENCES.md`，记录参考来源、形态提取要点、生成参数与单独更新命令。
+6. **验证**。`npm test`；确认面数与体积仍落在合理区间；浏览器回归一遍；与替换前的渲染对比。
+7. **同步**。更新 `README.md` 的文件清单与模型统计数字。
+
+第 4 步的不变量断言是这套流程的核心保障——它能在替换过程中**证明**只改了目标对象。跳过它就可能悄悄破坏其他已验证的模型。
+
+不要直接把 `.blend` 或 `.glb` 覆盖了再检查。要先用副本验证，确认无误再落到仓库产物上。
+
 ## 已知的脚本间隐式耦合
 
 `export_saved.py` 通过 `exec` 复用 `build_library.py` 中「`# Merge by collection`」之后的合并段，`refine_books.py` 与 `refine_vegetation.py` 又 `exec` 了 `export_saved.py`。三者共享同一个全局命名空间，`static_books` 等变量正是靠这个机制在脚本间传递。
