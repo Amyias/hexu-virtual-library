@@ -6,13 +6,33 @@ import { findBook, wakeRE } from "../src/voice/intent.js";
 import { createSpeech } from "../src/voice/speech.js";
 
 test("wake aliases and Chinese/English normalization", () => {
-  for (const word of ["小和", "小何", "肖和", "小荷", "xiao he", "XIAO HE"])
+  for (const word of ["小和", "小何", "肖和", "小荷", "小禾", "小鹤", "xiao he", "XIAO HE"])
     assert.ok(wakeRE.test(word));
   assert.equal(findBook("小和，帮我找《三体》").title, "三体");
   assert.equal(findBook("计算机基础在哪里").shelf, 1);
   assert.equal(findBook("我想找一本关于人工智能的书").layer, 3);
   assert.equal(findBook("时间简史").side, "B");
   assert.equal(findBook("一本不存在的书"), undefined);
+});
+
+test("tolerates a one-character recognition slip without matching unrelated words", () => {
+  // 单字同音错字：编辑距离为 1，书名 3 字以上时应能找回。
+  assert.equal(findBook("时间减史").title, "时间简史");
+  assert.equal(findBook("人类减史").title, "人类简史");
+  // 查询只是书名的一段。
+  assert.equal(findBook("计算机").title, "计算机基础");
+  assert.equal(findBook("时间").title, "时间简史");
+  // 单字查询不参与近似匹配，否则会大面积误命中。
+  assert.equal(findBook("三"), undefined);
+  assert.equal(findBook("书"), undefined);
+  // 二字书名只做精确匹配。编辑距离分不出同音与不同音——「题」「体」同音而
+  // 「国」「体」不同音，距离却都是 1——放开「三体」会让下列常用词全部误命中。
+  // 「三题」这类二字错字改由识别器的候选列表救回，比放宽距离更准。
+  for (const word of ["身体", "全体", "团体", "三国", "三千", "沙滩", "沙发", "沙子"])
+    assert.equal(findBook(word), undefined, word + " 不应命中任何馆藏");
+  // 差得较远的输入仍须无匹配。
+  for (const word of ["计算机图形学", "今天天气怎么样", "帮我找本书", "放回书架"])
+    assert.equal(findBook(word), undefined, word + " 不应命中任何馆藏");
 });
 
 test("every catalogued chip rests on its board inside a bay, 8 per face and layer", () => {
@@ -235,6 +255,7 @@ test("real recognizer adapter preserves interim wake, final intent, restart and 
     assert.equal(voice.getState().running, true);
     assert.equal(recognizer.continuous, true);
     assert.equal(recognizer.interimResults, true);
+    assert.ok(recognizer.maxAlternatives > 1, "候选数必须大于 1，否则没有可用的候选");
     const result = [{ transcript: "小何，帮我找三体" }];
     result.isFinal = false;
     recognizer.onresult({ resultIndex: 0, results: [result] });
@@ -244,6 +265,20 @@ test("real recognizer adapter preserves interim wake, final intent, restart and 
     result.isFinal = true;
     recognizer.onresult({ resultIndex: 0, results: [result] });
     assert.deepEqual(finals, [["小何，帮我找三体", false, true]]);
+    // 首选听成同音错字时，必须靠较低候选把这句话救回来，而不是整句丢掉。
+    const multi = [
+      { transcript: "小何，帮我找三替" },
+      { transcript: "小何，帮我找三体" },
+    ];
+    multi.isFinal = true;
+    recognizer.onresult({ resultIndex: 1, results: [result, multi] });
+    assert.deepEqual(finals[1], ["小何，帮我找三体", false, false]);
+    // 诊断记录必须同时留下「听到的」与「实际采用的」，否则无法分辨是谁的错。
+    const recent = voice.getState().recent;
+    assert.equal(recent.at(-1).heard, "小何，帮我找三替");
+    assert.equal(recent.at(-1).used, "小何，帮我找三体");
+    assert.equal(recent.at(-1).candidates, 2);
+    assert.equal(recent.at(-1).matched, true);
     recognizer.onend();
     assert.equal(timers.size, 1);
     const retry = [...timers.values()][0];

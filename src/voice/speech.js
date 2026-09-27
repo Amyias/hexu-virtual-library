@@ -1,5 +1,5 @@
-import { wakeRE } from "./intent.js";
-/** Browser recognizer lifecycle, independent of rendering and animation. */
+import { findBook, wakeRE } from "./intent.js";
+/* Browser recognizer lifecycle, independent of rendering and animation. */
 export function createSpeech({ $, notice, wake, processText, getPhase }) {
   // Real Web Speech API: one live recognizer, interim wake-up, final intent, automatic restart.
   const Recognition =
@@ -13,6 +13,32 @@ export function createSpeech({ $, notice, wake, processText, getPhase }) {
     retryDelay = 450,
     interimWakes = new Set(),
     lastNetworkError = false;
+  /* Every hypothesis the recogniser offers, best first. Engines that expose only
+     alternative 0 degrade to a single-element list. */
+  function alternatives(result) {
+    const list = [];
+    for (let i = 0; i < (result?.length ?? 1); i++) {
+      const text = result[i]?.transcript?.trim();
+      if (text) list.push(text);
+    }
+    return list;
+  }
+  /* Bounded record of what was heard versus what was used. Without it a recognition
+     error and a matching miss look identical in the interface — both just do nothing. */
+  const recent = [];
+  function record(heard, used, candidates, matched) {
+    recent.push({ heard, used, candidates, matched });
+    if (recent.length > 20) recent.shift();
+    $("voiceLog").textContent = recent
+      .slice(-5)
+      .reverse()
+      .map((r) =>
+        r.matched
+          ? `听到：${r.heard}${r.used !== r.heard ? ` → 采用候选：${r.used}` : ""} ✓`
+          : `听到：${r.heard} ✗ ${r.candidates > 1 ? `${r.candidates} 条候选均未匹配` : "未匹配馆藏"}`,
+      )
+      .join("\n");
+  }
   function micStatus(text, kind = "off") {
     $("micStatus").textContent = text;
     $("micDot").className =
@@ -49,7 +75,9 @@ export function createSpeech({ $, notice, wake, processText, getPhase }) {
     recognition.lang = "zh-CN";
     recognition.continuous = true;
     recognition.interimResults = true;
-    recognition.maxAlternatives = 1;
+    /* Ask for several hypotheses: they are free, and one of them often carries the
+       correct title when the top-scoring one is a homophone slip. */
+    recognition.maxAlternatives = 5;
     recognition.onstart = () => {
       running = true;
       starting = false;
@@ -61,7 +89,8 @@ export function createSpeech({ $, notice, wake, processText, getPhase }) {
       failures = 0;
       retryDelay = 450;
       for (let i = e.resultIndex; i < e.results.length; i++) {
-        const text = e.results[i][0].transcript.trim();
+        const heard = alternatives(e.results[i]);
+        const text = heard[0] ?? "";
         $("transcript").textContent = "听到：" + text;
         /* Optional TTS echo gate; ASR remains running. Headphones recommended. */ if (
           window.speechSynthesis?.speaking
@@ -78,9 +107,17 @@ export function createSpeech({ $, notice, wake, processText, getPhase }) {
           }
           continue;
         }
+        /* Fall back to a lower-ranked hypothesis only when the top one matches no
+           catalogue entry. A lower one may not contain the wake word, and depending
+           on the 25s window for that would make every rescue fragile. */
+        const chosen = findBook(text)
+          ? text
+          : heard.find((candidate) => findBook(candidate)) ?? text;
+        const matched = Boolean(findBook(chosen));
+        record(text, chosen, heard.length, matched);
         const already = interimWakes.has(i);
         interimWakes.delete(i);
-        processText(text, false, already);
+        processText(chosen, false, already);
       }
     };
     recognition.onerror = (e) => {
@@ -162,7 +199,7 @@ export function createSpeech({ $, notice, wake, processText, getPhase }) {
   });
 
   return {
-    getState: () => ({ wanted, running }),
+    getState: () => ({ wanted, running, recent }),
     stop() {
       wanted = false;
       clearTimeout(restartTimer);

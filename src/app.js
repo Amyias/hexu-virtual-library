@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { books, anchors, heights } from "./data/catalog.js";
-import { wakeRE, findBook } from "./voice/intent.js";
+import { wakeRE, wakeStripRE, findBook } from "./voice/intent.js";
 import { createSpeech } from "./voice/speech.js";
 import { createRuntime } from "./scene/runtime.js";
 import { loadEnvironment } from "./scene/environment.js";
@@ -111,7 +111,7 @@ export async function startLibrary() {
       return null;
     }
     const request = text
-      .replace(wakeRE, "")
+      .replace(wakeStripRE, "")
       .replace(/你好|您好|在吗|你在吗|嗨|嘿|哈喽|hello/gi, "")
       .replace(/[\s，。！？、,.!?]/g, "");
     if (!request) {
