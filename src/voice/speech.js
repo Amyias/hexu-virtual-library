@@ -12,7 +12,23 @@ export function createSpeech({ $, notice, wake, processText, getPhase }) {
     failures = 0,
     retryDelay = 450,
     interimWakes = new Set(),
-    lastNetworkError = false;
+    lastNetworkError = false,
+    resultSeen = false,
+    silentTimer = null;
+  /* A recogniser can report "listening" and then never deliver a single result, because the
+     fault is upstream of this module: no audio is reaching the browser, or the browser vendor's
+     speech service is not answering. Both look identical to a healthy session, so say so rather
+     than leaving the user guessing why nothing happens. */
+  function watchForSilence() {
+    clearTimeout(silentTimer);
+    silentTimer = setTimeout(() => {
+      if (!wanted || resultSeen) return;
+      micStatus("监听中，但收不到识别结果", "error");
+      notice(
+        "麦克风已授权、识别器也在运行，但浏览器一次结果都没回传。通常是这两种原因：系统麦克风被静音或输入设备选错；或浏览器厂商的识别服务连不上。可先用下方文字找书。",
+      );
+    }, 20000);
+  }
   /* Every hypothesis the recogniser offers, best first. Engines that expose only
      alternative 0 degrade to a single-element list. */
   function alternatives(result) {
@@ -82,12 +98,22 @@ export function createSpeech({ $, notice, wake, processText, getPhase }) {
       running = true;
       starting = false;
       interimWakes.clear();
-      lastNetworkError = false;
-      micStatus("监听中：请说“小和”", "live");
+      watchForSilence();
+      /* Deliberately does not clear lastNetworkError: the automatic restart that follows a
+         network failure would otherwise reset the status to a healthy "listening" and hide the
+         fault completely. It clears when a result actually arrives. */
+      micStatus(
+        lastNetworkError ? "监听中，但识别服务未响应" : "监听中：请说“小和”",
+        lastNetworkError ? "error" : "live",
+      );
     };
     recognition.onresult = (e) => {
       failures = 0;
       retryDelay = 450;
+      // A delivered result is proof the service is reachable again.
+      lastNetworkError = false;
+      resultSeen = true;
+      clearTimeout(silentTimer);
       for (let i = e.resultIndex; i < e.results.length; i++) {
         const heard = alternatives(e.results[i]);
         const text = heard[0] ?? "";
@@ -129,6 +155,7 @@ export function createSpeech({ $, notice, wake, processText, getPhase }) {
       ) {
         wanted = false;
         clearTimeout(restartTimer);
+        clearTimeout(silentTimer);
         micStatus(
           e.error === "audio-capture"
             ? "未找到可用麦克风"
@@ -141,6 +168,12 @@ export function createSpeech({ $, notice, wake, processText, getPhase }) {
         failures++;
         retryDelay = Math.min(12000, 1000 * 2 ** failures);
         micStatus("语音网络中断，等待重连", "error");
+        // Report it the first time. Waiting for the fifth failure meant the automatic restarts
+        // hid a service that was never reachable behind a healthy-looking status.
+        if (failures === 1)
+          notice(
+            "浏览器识别服务没有响应。语音识别需要把音频发给浏览器厂商的服务，请检查网络后重试，也可以先用下方文字找书。",
+          );
         if (failures >= 5) {
           wanted = false;
           micStatus("语音服务不可达，请点击重试", "error");
@@ -176,9 +209,15 @@ export function createSpeech({ $, notice, wake, processText, getPhase }) {
         notice("麦克风需要 HTTPS 或 localhost 环境。");
         return;
       }
+      // A fresh session: forget the previous run's errors so the silence watchdog can report
+      // again if this attempt also never produces a result.
+      lastNetworkError = false;
+      resultSeen = false;
+      clearTimeout(silentTimer);
       startRecognition();
     } else {
       recognition.abort();
+      clearTimeout(silentTimer);
       micStatus("语音感知已关闭");
     }
   };
@@ -194,6 +233,7 @@ export function createSpeech({ $, notice, wake, processText, getPhase }) {
   window.addEventListener("pagehide", () => {
     wanted = false;
     clearTimeout(restartTimer);
+    clearTimeout(silentTimer);
     recognition?.abort();
     window.speechSynthesis?.cancel();
   });
@@ -203,6 +243,7 @@ export function createSpeech({ $, notice, wake, processText, getPhase }) {
     stop() {
       wanted = false;
       clearTimeout(restartTimer);
+      clearTimeout(silentTimer);
       recognition?.abort();
     },
   };

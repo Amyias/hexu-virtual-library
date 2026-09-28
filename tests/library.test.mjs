@@ -306,6 +306,17 @@ test("real recognizer adapter preserves interim wake, final intent, restart and 
     timers.clear();
     retry();
     assert.equal(recognizer.started, 2);
+    // A network failure has to stay visible. The automatic restart used to reset the status to a
+    // healthy "listening", which hid a speech service that was never answering at all.
+    recognizer.onerror({ error: "network" });
+    assert.match($("micStatus").textContent, /网络中断/);
+    recognizer.onstart();
+    assert.match(
+      $("micStatus").textContent,
+      /未响应/,
+      "the restart must not mask a service that never answered",
+    );
+    assert.equal(voice.getState().wanted, true);
     recognizer.onstart();
     recognizer.onerror({ error: "not-allowed" });
     assert.equal(voice.getState().wanted, false);
