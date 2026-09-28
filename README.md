@@ -44,6 +44,7 @@ npm start
 | `blender/BOTANICAL_REFERENCES.md` | 植物形态参考、生成参数与更新方法 |
 | `blender/SHELVING_REFERENCES.md` | 书架进深标准、图书摆放方式与更新方法 |
 | `blender/MATERIAL_REFERENCES.md` | 地板与书柜的材质来源、UV 尺度与更新方法 |
+| `blender/PENDANT_REFERENCES.md` | 吊灯的型材构造、配色与素材库结论 |
 | `blender/catalog.json` | 320 本书的坐标与芯片载荷（生成物） |
 | `blender/library-preview.png` | Blender 实际渲染的场景预览 |
 | `blender/smart-book-detail.png` | 书本与芯片槽近景渲染 |

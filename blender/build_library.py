@@ -331,11 +331,30 @@ def plant(x,z,scale=1):
 for x,z,s in [(-8.7,5.1,1.2),(8.7,5.1,1.2),(-8.5,-8.9,1.4),(8.5,-8.9,1.4),(-8.7,-2,1),(8.7,-2,1)]:plant(x,z,s)
 
 group('09 Suspended lighting')
+# A linear pendant built as an extruded profile rather than a rounded bar: side rails and a top
+# web in dark bronze, an opal diffuser set up inside them so the rails form a glare lip, brass
+# end caps closing each end, and a gripper where the cable enters. Recessed diffusers behind a
+# lip, and a contrasting end-cap finish, are both standard for this fixture type — see
+# blender/PENDANT_REFERENCES.md for the published fixtures the proportions follow.
+PENDANT_LENGTH=1.35
+PENDANT_WIDTH=.09
+PENDANT_HEIGHT=.11
+PENDANT_CENTRE_Y=3.68
+PENDANT_BOTTOM=PENDANT_CENTRE_Y-PENDANT_HEIGHT/2
+PENDANT_LIP=.014          # how far the diffuser face sits above the rails' lower edge
+bronze=material('Patinated bronze | pendant housing','414c43',.36,1)
+def pendant(x,z):
+    for side in (-1,1):
+        cube('Pendant housing rail',(x+side*(PENDANT_WIDTH/2-.005),PENDANT_CENTRE_Y,z),(.010,PENDANT_HEIGHT,PENDANT_LENGTH),bronze,.002)
+    cube('Pendant housing web',(x,PENDANT_CENTRE_Y+PENDANT_HEIGHT/2-.005,z),(PENDANT_WIDTH,.010,PENDANT_LENGTH),bronze,.002)
+    cube('Pendant diffuser',(x,PENDANT_BOTTOM+PENDANT_LIP+.002,z),(PENDANT_WIDTH-.02,.004,PENDANT_LENGTH-.03),light,.001)
+    for side in (-1,1):
+        cube('Pendant end cap',(x,PENDANT_CENTRE_Y,z+side*(PENDANT_LENGTH/2-.008)),(PENDANT_WIDTH-.004,PENDANT_HEIGHT-.004,.016),brass,.003)
+    cylinder('Pendant cable gripper',(x,PENDANT_CENTRE_Y+PENDANT_HEIGHT/2+.019,z),.014,.045,brass,vertices=20)
+    rod('Suspension cable',(x,4.5,z),(x,PENDANT_CENTRE_Y+PENDANT_HEIGHT/2+.030,z),.005,black)
 for x in [-4.5,-1.5,1.5,4.5]:
     for z in [-6.8,-2.5]:
-        rod('Suspension cable',(x,4.5,z),(x,3.72,z),.006,black)
-        cube('Linear bronze pendant',(x,3.68,z),(.09,.11,1.35),brass,.025)
-        cube('Pendant diffuser',(x,3.618,z),(.06,.012,1.25),light,.006)
+        pendant(x,z)
 
 # Same world-scaled UV treatment for every other oak surface — shelving, frames, furniture.
 # Each gets its own mesh copy so its grain window is independent of its neighbours'.
