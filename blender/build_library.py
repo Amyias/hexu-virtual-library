@@ -4,7 +4,6 @@ Coordinates in helper functions are Three.js X,Y(up),Z; converted at creation.
 No third-party assets or Python dependencies are required.
 """
 import bpy
-import array
 import math
 import random
 import json
@@ -62,30 +61,15 @@ def material(name, h, rough=.6, metallic=0):
     p.inputs['Metallic'].default_value = metallic
     return m
 
-def measured_tint(key,target_hex):
-    """Tint that brings a scanned albedo's average onto `target_hex`.
-
-    The Poly Haven sources are raw, pale scans; the interior is designed around smoked oak.
-    Deriving the multiplier from the scan's own average keeps the tone on target without
-    hand-tuning, and leaves the grain contrast intact — a flat tint on an already low-contrast
-    surface is what makes scanned wood look like painted board."""
-    img=bpy.data.images.load(str(TEX/f'{key}-albedo.jpg'),check_existing=True)
-    count=img.size[0]*img.size[1]*4
-    buf=array.array('f',bytes(count*4))
-    img.pixels.foreach_get(buf)
-    n=img.size[0]*img.size[1]
-    average=[sum(buf[i::4])/n for i in range(3)]
-    target=color(target_hex)[:3]
-    return tuple(min(1.0,max(.05,target[i]/max(average[i],1e-4))) for i in range(3))
-
-def wood_material(name,key,target_hex=None):
+def wood_material(name,key):
     """Principled material driven by <key>-albedo/normal/roughness.jpg from the CC0 set.
 
     Both sources are seamless single surfaces on purpose: the geometry already models its own
     boards, so a texture carrying plank seams would cut a second, conflicting set across them.
-    `target_hex` names the tone this surface should land on; the multiplier is measured off the
-    scan's own average, which leaves the grain contrast intact. Sources and the UV scale
-    reasoning live in blender/MATERIAL_REFERENCES.md."""
+    Neither is tinted. Each scan already sits on the tone this interior wants, and that is
+    worth more than hitting an exact colour: a tint is a multiply, and multiplying an already
+    low-contrast scan is exactly what makes scanned wood read as painted board. Sources and the
+    UV scale reasoning live in blender/MATERIAL_REFERENCES.md."""
     m=material(name,'ad825a')
     nodes=m.node_tree.nodes;links=m.node_tree.links
     p=nodes.get('Principled BSDF')
@@ -95,25 +79,17 @@ def wood_material(name,key,target_hex=None):
         node=nodes.new('ShaderNodeTexImage');node.image=img
         if non_color:img.colorspace_settings.name='Non-Color'
         return node
-    albedo=map_image('albedo',False)
-    if target_hex:
-        mix=nodes.new('ShaderNodeMix');mix.data_type='RGBA';mix.blend_type='MULTIPLY'
-        mix.inputs[0].default_value=1.0
-        mix.inputs[7].default_value=(*measured_tint(key,target_hex),1)
-        links.new(albedo.outputs['Color'],mix.inputs[6])
-        links.new(mix.outputs[2],p.inputs['Base Color'])
-    else:
-        links.new(albedo.outputs['Color'],p.inputs['Base Color'])
+    links.new(map_image('albedo',False).outputs['Color'],p.inputs['Base Color'])
     nmap=nodes.new('ShaderNodeNormalMap')
     links.new(map_image('normal',True).outputs['Color'],nmap.inputs['Color'])
     links.new(nmap.outputs['Normal'],p.inputs['Normal'])
     links.new(map_image('roughness',True).outputs['Color'],p.inputs['Roughness'])
     return m
 
-# The floor keeps its scan's own worn tone; the joinery is brought onto the smoked oak the rest
-# of the interior is designed around.
+# The floor keeps a worn board's own tone; the joinery is a smoked oak veneer. Both land on the
+# interior's palette without a tint, so both keep the full contrast of their scans.
 floor_oak = wood_material('Oak floor | worn board','floor-oak')
-oak = wood_material('Oak joinery | veneer','joinery-oak','9a7248')
+oak = wood_material('Oak joinery | smoked oak','joinery-oak')
 walnut = material('Walnut end grain', '624932', .52)
 stone = material('Warm honed limestone', 'e4dbc7', .75)
 plaster = material('Mineral lime plaster', 'e9e1cf', .87)

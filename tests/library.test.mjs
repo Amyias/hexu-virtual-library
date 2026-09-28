@@ -123,16 +123,16 @@ test("exported GLB contains five shelves, texture, valid buffers and optimized m
     assert.ok(pbr.metallicRoughnessTexture, `${material.name} lost its roughness map`);
     assert.ok(material.normalTexture, `${material.name} lost its normal map`);
   }
-  // The joinery is tinted onto the interior's smoked oak, and glTF can only carry that tint as
-  // baseColorFactor. The floor deliberately keeps its scan's own tone.
-  const joinery = wood.find((m) => m.name.startsWith("Oak joinery"));
-  assert.ok(
-    joinery.pbrMetallicRoughness.baseColorFactor[0] < 0.9,
-    "joinery tint did not reach baseColorFactor",
-  );
-  const floorTint = wood.find((m) => m.name.startsWith("Oak floor")).pbrMetallicRoughness
-    .baseColorFactor ?? [1, 1, 1, 1];
-  assert.ok(floorTint[0] > 0.9, "floor should keep the scan's own tone");
+  // Neither wood is tinted. Each scan already sits on the tone this interior wants, and a tint
+  // is a multiply — which flattens the contrast of an already low-contrast scan and is what
+  // makes scanned wood read as painted board. Both must keep their own tone.
+  for (const material of wood) {
+    const factor = material.pbrMetallicRoughness.baseColorFactor ?? [1, 1, 1, 1];
+    assert.ok(
+      factor.every((channel) => channel > 0.9),
+      `${material.name} should keep its scan's own tone`,
+    );
+  }
   assert.ok(
     json.meshes.length < 180,
     "material-batched rather than thousands of objects",

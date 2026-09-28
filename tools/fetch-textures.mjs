@@ -33,8 +33,8 @@ const SETS = [
     outputs: { Diffuse: "floor-oak-albedo.jpg", nor_gl: "floor-oak-normal.jpg", Rough: "floor-oak-roughness.jpg" },
   },
   {
-    material: "书柜 · 橡木",
-    slug: "red_oak_veneer",
+    material: "书柜 · 烟熏橡木",
+    slug: "black_oak_veneer",
     outputs: { Diffuse: "joinery-oak-albedo.jpg", nor_gl: "joinery-oak-normal.jpg", Rough: "joinery-oak-roughness.jpg" },
   },
 ];
