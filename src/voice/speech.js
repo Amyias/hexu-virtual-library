@@ -1,4 +1,5 @@
 import { findBook, wakeRE } from "./intent.js";
+import { createServerAsr, probeServerAsr } from "./server-asr.js";
 /* Browser recognizer lifecycle, independent of rendering and animation. */
 export function createSpeech({ $, notice, wake, processText, getPhase }) {
   // Real Web Speech API: one live recognizer, interim wake-up, final intent, automatic restart.
@@ -14,7 +15,8 @@ export function createSpeech({ $, notice, wake, processText, getPhase }) {
     interimWakes = new Set(),
     lastNetworkError = false,
     resultSeen = false,
-    silentTimer = null;
+    silentTimer = null,
+    serverAsr = null;
   /* A recogniser can report "listening" and then never deliver a single result, because the
      fault is upstream of this module: no audio is reaching the browser, or the browser vendor's
      speech service is not answering. Both look identical to a healthy session, so say so rather
@@ -197,8 +199,42 @@ export function createSpeech({ $, notice, wake, processText, getPhase }) {
     $("transcript").textContent =
       "请改用支持 Web Speech API 的 Chrome / Edge，或使用文字找书";
   }
+  /* Segment recognition returns no interim results, so the wake word arrives at the end of the
+     utterance instead of mid-sentence. Nothing downstream can tell which transport produced the
+     text, because it dispatches through the same processText. */
+  function startServerAsr() {
+    micStatus("正在连接语音服务");
+    serverAsr.start().then((started) => {
+      if (!started) {
+        wanted = false;
+        micStatus("语音感知已关闭", "off");
+      }
+    });
+  }
+  /* A deployment may serve a local recogniser (tools/asr-server.py). Probing must not block the
+     wiring above: the Web Speech path is bound synchronously either way, so a plain static
+     deployment keeps behaving exactly as it did. */
+  probeServerAsr().then((info) => {
+    if (!info) return;
+    serverAsr = createServerAsr({
+      onText(text) {
+        $("transcript").textContent = "听到：" + text;
+        record(text, text, 1, Boolean(findBook(text)));
+        processText(text, false, false);
+      },
+      onStatus: micStatus,
+      onError(message) {
+        notice(message);
+      },
+    });
+    // Equally, a browser without Web Speech can still be used here, so undo that branch's lock.
+    $("micButton").disabled = false;
+    micStatus("服务端识别已就绪", "off");
+    $("transcript").textContent = "服务端识别已就绪，点击启动语音感知";
+  });
+
   $("micButton").onclick = () => {
-    if (!recognition) return;
+    if (!recognition && !serverAsr) return;
     wanted = !wanted;
     failures = 0;
     retryDelay = 450;
@@ -214,26 +250,38 @@ export function createSpeech({ $, notice, wake, processText, getPhase }) {
       lastNetworkError = false;
       resultSeen = false;
       clearTimeout(silentTimer);
-      startRecognition();
+      if (serverAsr) startServerAsr();
+      else startRecognition();
     } else {
-      recognition.abort();
-      clearTimeout(silentTimer);
-      micStatus("语音感知已关闭");
+      if (serverAsr) {
+        serverAsr.stop();
+        clearTimeout(silentTimer);
+        micStatus("语音感知已关闭");
+      } else {
+        recognition.abort();
+        clearTimeout(silentTimer);
+        micStatus("语音感知已关闭");
+      }
     }
   };
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) {
       clearTimeout(restartTimer);
       if (wanted) {
-        recognition?.abort();
-        micStatus("页面后台，语音暂停");
+        // Both transports stop listening in a background tab, so speech the page was never
+        // asked to hear cannot be transcribed.
+        if (serverAsr) serverAsr.stop();
+        else recognition?.abort();
+        micStatus("页面后台，语音暂停", "off");
       }
-    } else scheduleRecognition();
+    } else if (wanted && serverAsr) startServerAsr();
+    else scheduleRecognition();
   });
   window.addEventListener("pagehide", () => {
     wanted = false;
     clearTimeout(restartTimer);
     clearTimeout(silentTimer);
+    serverAsr?.stop();
     recognition?.abort();
     window.speechSynthesis?.cancel();
   });
@@ -244,6 +292,7 @@ export function createSpeech({ $, notice, wake, processText, getPhase }) {
       wanted = false;
       clearTimeout(restartTimer);
       clearTimeout(silentTimer);
+      serverAsr?.stop();
       recognition?.abort();
     },
   };

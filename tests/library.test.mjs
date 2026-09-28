@@ -4,6 +4,7 @@ import fs from "node:fs";
 import { books } from "../src/data/catalog.js";
 import { findBook, wakeRE } from "../src/voice/intent.js";
 import { createSpeech } from "../src/voice/speech.js";
+import { probeServerAsr } from "../src/voice/server-asr.js";
 
 test("wake aliases and Chinese/English normalization", () => {
   for (const word of ["小和", "小何", "肖和", "小荷", "小禾", "小鹤", "xiao he", "XIAO HE"])
@@ -204,6 +205,13 @@ test("detailed vegetation is exported with UV leaf texture and separate shrub me
   const leafMaterial = gltf.materials.find(m => m.name?.includes('Strelitzia lamina'));
   assert.ok(leafMaterial.pbrMetallicRoughness.baseColorTexture);
   assert.equal(leafMaterial.doubleSided, true);
+});
+
+test("server ASR probe stays inert when no backend is deployed", async () => {
+  // The served-as-a-static-site case must keep using the Web Speech path, so the probe has to
+  // fail quietly rather than throw or leave anything pending. In this process there is no
+  // origin to resolve /asr/ready against, which is exactly the static case.
+  assert.equal(await probeServerAsr(), null);
 });
 
 test("real recognizer adapter preserves interim wake, final intent, restart and permission stop", () => {

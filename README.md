@@ -14,6 +14,8 @@ npm start
 
 首次点击“启动语音感知”并允许麦克风，然后说“小和”或“小和，帮我找三体”。支持同音词、多轮承接、自动重连和关闭监听。Web Speech API 的实际可用性取决于浏览器、权限与语音服务网络；3D 场景及本地文字找书不依赖外部 CDN。语音播报可通过 ♪ 开启。
 
+**识别走哪条通道是自动的**：页面启动时探测 `/asr/ready`，若服务器部署了本地识别模型（见 [DEPLOY.md](./DEPLOY.md)）就用它，否则用浏览器自带的 Web Speech API。之所以需要服务端这条，是因为 Web Speech API 硬绑定到浏览器厂商的云服务、端点不可自定义——在连不上该服务的网络里它只报一个网络错误，永远不返回结果。服务端模式不需要密钥、不按量计费，代价是段式识别没有中间结果，唤醒词晚到句尾。
+
 书名匹配带容错：三字以上的书名差一个字（「时间减史」→《时间简史》）或只说其中一段（「计算机」→《计算机基础》）都能命中，识别器返回的多个候选会一并参与匹配。二字书名只做精确匹配——编辑距离分不出同音与不同音，放开会让「身体」「三国」「沙发」这类常用词误命中，因此「三题」这类错字交由候选列表救回。帮助面板底部的「最近识别记录」会列出听到的原文、实际采用的候选与是否命中，用来分辨是识别错了还是没匹配上。
 
 ## 文件结构
@@ -22,12 +24,14 @@ npm start
 | --- | --- |
 | `DEVELOPMENT.md` | 开发与提交约定、远端仓库与凭据位置，动手前先读 |
 | `AGENTS.md` | 约定要点，供自动化代理读取 |
+| `DEPLOY.md` | 服务器部署与服务端语音识别 |
 | `index.html` | 页面结构、import map、本地依赖入口 |
 | `src/main.js` | 启动与资源加载错误提示 |
 | `src/app.js` | 唤醒、导航、阅读、芯片特写、归还的状态与动画编排 |
 | `src/data/catalog.js` | 320 枚编号芯片馆藏（含 12 本示例书）、位置与检索关键词 |
 | `src/voice/intent.js` | 唤醒词与馆藏匹配 |
 | `src/voice/speech.js` | Web Speech API 生命周期和识别事件 |
+| `src/voice/server-asr.js` | 服务端识别通道：录音、能量断句、上传（后端可用时才启用） |
 | `src/scene/runtime.js` | 相机、光照、阴影、环境反射 |
 | `src/scene/environment.js` | 加载 Blender GLB、悬浮分类标识、书架实例化入口 |
 | `src/scene/smart-books.js` | 320 本书的 GPU 实例化与芯片刻印图集 |
@@ -59,6 +63,7 @@ npm start
 | `public/textures/botanical-leaf.png` | Blender 生成的叶片贴图，同时内嵌于 GLB |
 | `public/vendor/` | Three.js 0.160.1、GLTFLoader、GSAP 3.12.5 等固定依赖 |
 | `tools/serve.mjs` | 无额外依赖的本地静态服务 |
+| `tools/asr-server.py` | 服务器模式：静态站点 + 本地模型识别，单进程 |
 | `tools/fetch-textures.mjs` | 表面贴图的唯一拉取脚本，来源与许可记录在内 |
 | `tools/prepare-smart-books.mjs` | 馆藏清单的唯一生成器，一次写入三份副本 |
 | `tests/library.test.mjs` | 馆藏几何、ASR 事件与 GLB 完整性回归检查 |
