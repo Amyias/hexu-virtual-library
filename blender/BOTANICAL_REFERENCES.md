@@ -1,9 +1,11 @@
 # 植物模型参考与制作说明
 
-本次仅更新室内六盆植物与室外二十六丛灌木。参考图片用于观察形态，不下载或使用第三方摄影图片作为贴图；网格、叶脉纹理均由本项目 Blender 脚本生成。
+本次仅更新室内六盆植物与室外二十六丛灌木。参考图片用于观察形态，不作为贴图使用；叶片网格与叶脉纹理均由本项目 Blender 脚本生成。
 
 - 鹤望兰 Strelitzia nicolai：参考 [Studioplant 叶片近照](https://www.studioplant.com/en/shop/strelitzia-nicolai-1728) 与 [feey 叶脉细节](https://www.feey-pflanzen.de/products/grosse-strelitzie)，提取大叶比例、中央叶脉、斜向侧脉、自然弯曲与边缘裂口。
 - 黄杨 Buxus sempervirens：参考 [乌迪内大学 FLORA 叶片图片](https://mitel.dimi.uniud.it/flora/viewer/index.php?id=2530)，提取小椭圆叶、对生叶序与枝叶分层。模型是适合实时场景的形态近似，不是植物学标本复原。
+
+叶片贴图仍由 `vegetation.py` 按形态程序化生成，不取自素材库——叶脉是这个场景专有的细节，素材库里不存在。地板与书柜的表面贴图则取自 CC0 素材库，规则见 `DEVELOPMENT.md` 的「表面贴图：CC0 素材库可以取用」。本节原先"不下载第三方贴图"的说法已被那条全局规则取代。
 
 ## 模型结构
 

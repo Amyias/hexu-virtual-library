@@ -111,7 +111,28 @@ test("exported GLB contains five shelves, texture, valid buffers and optimized m
   );
   for (let n = 1; n <= 5; n++)
     assert.ok(json.nodes.some((node) => node.name?.startsWith(`Shelf_${n}__`)));
-  assert.ok(json.images.length >= 1, "wood-grain image is embedded");
+  assert.ok(json.images.length >= 6, "both wood texture sets are embedded");
+  // The floor and joinery are separate materials driven by CC0 scans. All three channels have
+  // to survive the export, or the surfaces fall back to flat colour in the browser — the exact
+  // failure the old single stretched grain image had.
+  const wood = json.materials.filter((m) => /^Oak (floor|joinery)/.test(m.name ?? ""));
+  assert.equal(wood.length, 2, "floor and joinery are exported as separate materials");
+  for (const material of wood) {
+    const pbr = material.pbrMetallicRoughness ?? {};
+    assert.ok(pbr.baseColorTexture, `${material.name} lost its albedo`);
+    assert.ok(pbr.metallicRoughnessTexture, `${material.name} lost its roughness map`);
+    assert.ok(material.normalTexture, `${material.name} lost its normal map`);
+  }
+  // The joinery is tinted onto the interior's smoked oak, and glTF can only carry that tint as
+  // baseColorFactor. The floor deliberately keeps its scan's own tone.
+  const joinery = wood.find((m) => m.name.startsWith("Oak joinery"));
+  assert.ok(
+    joinery.pbrMetallicRoughness.baseColorFactor[0] < 0.9,
+    "joinery tint did not reach baseColorFactor",
+  );
+  const floorTint = wood.find((m) => m.name.startsWith("Oak floor")).pbrMetallicRoughness
+    .baseColorFactor ?? [1, 1, 1, 1];
+  assert.ok(floorTint[0] > 0.9, "floor should keep the scan's own tone");
   assert.ok(
     json.meshes.length < 180,
     "material-batched rather than thousands of objects",

@@ -4,6 +4,7 @@ Coordinates in helper functions are Three.js X,Y(up),Z; converted at creation.
 No third-party assets or Python dependencies are required.
 """
 import bpy
+import array
 import math
 import random
 import json
@@ -61,7 +62,58 @@ def material(name, h, rough=.6, metallic=0):
     p.inputs['Metallic'].default_value = metallic
     return m
 
-oak = material('Smoked oak | UV grain', 'ad825a', .48)
+def measured_tint(key,target_hex):
+    """Tint that brings a scanned albedo's average onto `target_hex`.
+
+    The Poly Haven sources are raw, pale scans; the interior is designed around smoked oak.
+    Deriving the multiplier from the scan's own average keeps the tone on target without
+    hand-tuning, and leaves the grain contrast intact — a flat tint on an already low-contrast
+    surface is what makes scanned wood look like painted board."""
+    img=bpy.data.images.load(str(TEX/f'{key}-albedo.jpg'),check_existing=True)
+    count=img.size[0]*img.size[1]*4
+    buf=array.array('f',bytes(count*4))
+    img.pixels.foreach_get(buf)
+    n=img.size[0]*img.size[1]
+    average=[sum(buf[i::4])/n for i in range(3)]
+    target=color(target_hex)[:3]
+    return tuple(min(1.0,max(.05,target[i]/max(average[i],1e-4))) for i in range(3))
+
+def wood_material(name,key,target_hex=None):
+    """Principled material driven by <key>-albedo/normal/roughness.jpg from the CC0 set.
+
+    Both sources are seamless single surfaces on purpose: the geometry already models its own
+    boards, so a texture carrying plank seams would cut a second, conflicting set across them.
+    `target_hex` names the tone this surface should land on; the multiplier is measured off the
+    scan's own average, which leaves the grain contrast intact. Sources and the UV scale
+    reasoning live in blender/MATERIAL_REFERENCES.md."""
+    m=material(name,'ad825a')
+    nodes=m.node_tree.nodes;links=m.node_tree.links
+    p=nodes.get('Principled BSDF')
+    def map_image(suffix,non_color):
+        img=bpy.data.images.load(str(TEX/f'{key}-{suffix}.jpg'),check_existing=True)
+        img.pack()
+        node=nodes.new('ShaderNodeTexImage');node.image=img
+        if non_color:img.colorspace_settings.name='Non-Color'
+        return node
+    albedo=map_image('albedo',False)
+    if target_hex:
+        mix=nodes.new('ShaderNodeMix');mix.data_type='RGBA';mix.blend_type='MULTIPLY'
+        mix.inputs[0].default_value=1.0
+        mix.inputs[7].default_value=(*measured_tint(key,target_hex),1)
+        links.new(albedo.outputs['Color'],mix.inputs[6])
+        links.new(mix.outputs[2],p.inputs['Base Color'])
+    else:
+        links.new(albedo.outputs['Color'],p.inputs['Base Color'])
+    nmap=nodes.new('ShaderNodeNormalMap')
+    links.new(map_image('normal',True).outputs['Color'],nmap.inputs['Color'])
+    links.new(nmap.outputs['Normal'],p.inputs['Normal'])
+    links.new(map_image('roughness',True).outputs['Color'],p.inputs['Roughness'])
+    return m
+
+# The floor keeps its scan's own worn tone; the joinery is brought onto the smoked oak the rest
+# of the interior is designed around.
+floor_oak = wood_material('Oak floor | worn board','floor-oak')
+oak = wood_material('Oak joinery | veneer','joinery-oak','9a7248')
 walnut = material('Walnut end grain', '624932', .52)
 stone = material('Warm honed limestone', 'e4dbc7', .75)
 plaster = material('Mineral lime plaster', 'e9e1cf', .87)
@@ -79,23 +131,9 @@ p.inputs['Emission Color'].default_value=color('ffe2a8')
 p.inputs['Emission Strength'].default_value=2.4
 book_mats=[material('Book cloth '+str(i),h,.85) for i,h in enumerate(['415f56','6d805e','a88252','8c5c47','466477','bbad8e','58516e','687a76','8e985f'])]
 
-# Generate an actual exportable wood-grain image inside Blender (packed in .blend / GLB).
-image = bpy.data.images.new('Oak grain 512', width=512, height=512, alpha=True)
-pixels=[]
-for y in range(512):
-    for x in range(512):
-        bend=math.sin(y*.013)*4+math.sin(y*.035+x*.008)*1.5
-        grain=math.sin((x+bend)*.55)*.026+math.sin((x+bend)*2.7)*.012
-        pore=random.random()*.025
-        pixels.extend((.54+grain+pore,.365+grain+pore,.205+grain+pore,1))
-image.pixels.foreach_set(pixels)
-image.filepath_raw=str(TEX/'oak-grain.png')
-image.file_format='PNG'
-image.save()
-image.pack()
-nodes=oak.node_tree.nodes
-tex=nodes.new('ShaderNodeTexImage');tex.image=image
-oak.node_tree.links.new(tex.outputs['Color'],nodes.get('Principled BSDF').inputs['Base Color'])
+# Wood surfaces now come from the CC0 scans fetched by tools/fetch-textures.mjs, so the
+# procedural grain image this used to bake is gone. The botanical leaf texture is still
+# generated here in vegetation.py, which keeps the scripted-texture path alive.
 
 # Geometry cache retains real bevelled meshes with UVs; linked duplicates are efficient to author.
 cache={}
@@ -144,12 +182,78 @@ def text(name,value,at,size,mat):
     o=bpy.data.objects.new(name,c);current.objects.link(o);o.location=pos(at);o.rotation_euler=(math.pi/2,0,0);o.data.materials.append(mat)
     return o
 
+# --- wood UV mapping -----------------------------------------------------------------------
+# UVs are projected from world coordinates at a fixed physical scale, so the grain is the same
+# size on a 200 mm plank and on an 8 m shelf board. Before this, every object showed the whole
+# texture squeezed across its own dimensions, which stretched the grain 3-8x between the floor
+# and the shelving. The along-grain axis is then stretched far more than the across one: grain
+# runs lengthwise, so stretching it lengthwise is nearly invisible, and it buys repetition
+# length on surfaces far bigger than one texture tile.
+PLANK_WIDTH=.20
+PLANK_COUNTS=(5,6,7)     # planks per column, cycled — different lengths give the bond
+FLOOR_Z_MIN=-10.45
+FLOOR_Z_MAX=8.45
+PLANK_SPAN=FLOOR_Z_MAX-FLOOR_Z_MIN
+PLANK_VARIANTS_PER_LENGTH=8
+UV_ACROSS=.55
+UV_ALONG_STRETCH=.28
+JOINERY_UV_ROTATE=True   # the joinery scan's grain runs along U, boards run along V
+
+def project_uvs(obj,tile):
+    """Cube-project one object's mesh so a single texture tile spans `tile` metres."""
+    bpy.ops.object.select_all(action='DESELECT')
+    obj.select_set(True);bpy.context.view_layer.objects.active=obj
+    bpy.ops.object.mode_set(mode='EDIT');bpy.ops.mesh.select_all(action='SELECT')
+    bpy.ops.uv.cube_project(cube_size=tile,correct_aspect=True)
+    bpy.ops.object.mode_set(mode='OBJECT');obj.select_set(False)
+
+def shift_uvs(mesh,stretch,offset,rotate=False):
+    """Run the grain long, then shift it so neighbouring boards do not share a grain window."""
+    du,dv=offset
+    for loop in mesh.uv_layers.active.data:
+        u,v=loop.uv
+        if rotate:u,v=v,-u
+        loop.uv=(u*stretch+du,v+dv)
+
 group('01 Architecture')
 cube('Floating stone foundation',(0,-.18,-1),(20,.3,19),stone,.10)
 cube('Bronze reveal under floor',(0,-.30,-1),(19.85,.05,18.85),black,.01)
-for x in range(20):
-    for z in range(7):
-        cube('Oak plank',(x-9.5,-.015,z*2.65-8.95+(x%2)*.10),(.992,.045,2.64),oak,.005)
+# Planks at a real width (200 mm, not the old 990 mm slabs). The bond comes from varying the
+# plank length from column to column rather than offsetting whole courses: an offset shifts a
+# column's coverage along the floor and leaves the ends short, and a floor this long cannot
+# absorb that without trimming planks at the boundary, which this script cannot model. Varying
+# the length keeps every column spanning the floor exactly while the butt joints land
+# somewhere different, which is how a real floor breaks its joints.
+def plank_template(length):
+    bpy.ops.mesh.primitive_cube_add(size=1)
+    obj=bpy.context.object
+    obj.dimensions=(PLANK_WIDTH-.008,length,.045)
+    bpy.ops.object.transform_apply(location=False,rotation=False,scale=True)
+    bevel=obj.modifiers.new('Edge rounding','BEVEL')
+    bevel.width=.004;bevel.segments=1
+    bpy.ops.object.modifier_apply(modifier=bevel.name)
+    obj.data.materials.append(floor_oak)
+    project_uvs(obj,UV_ACROSS)
+    return obj
+
+plank_pools={}
+for count in PLANK_COUNTS:
+    template=plank_template(PLANK_SPAN/count)
+    pool=[]
+    for variant in range(PLANK_VARIANTS_PER_LENGTH):
+        mesh=template.data.copy();mesh.name='Oak plank %d/%d'%(count,variant)
+        shift_uvs(mesh,UV_ALONG_STRETCH,(random.uniform(0,1),random.uniform(0,1)))
+        pool.append(mesh)
+    plank_pools[count]=pool
+    bpy.data.objects.remove(template,do_unlink=True)
+for column in range(int(20/PLANK_WIDTH)):
+    count=random.choice(PLANK_COUNTS)
+    length=PLANK_SPAN/count
+    pool=plank_pools[count]
+    for k in range(count):
+        plank=bpy.data.objects.new('Oak plank %03d_%d'%(column,k),pool[(column+k)%len(pool)])
+        plank.location=pos((column*PLANK_WIDTH-10+PLANK_WIDTH/2,-.015,FLOOR_Z_MIN+k*length+length/2))
+        current.objects.link(plank)
 for x in (-9.77,9.77):cube('Perimeter stone border',(x,.015,-1),(.38,.07,18.5),stone,.012)
 cube('Back skirting',(0,.14,-10.2),(20,.28,.34),walnut)
 cube('Rear wall base',(0,.57,-10.3),(20,1.1,.26),plaster,.02)
@@ -257,6 +361,15 @@ for x in [-4.5,-1.5,1.5,4.5]:
         cube('Linear bronze pendant',(x,3.68,z),(.09,.11,1.35),brass,.025)
         cube('Pendant diffuser',(x,3.618,z),(.06,.012,1.25),light,.006)
 
+# Same world-scaled UV treatment for every other oak surface — shelving, frames, furniture.
+# Each gets its own mesh copy so its grain window is independent of its neighbours'.
+for obj in list(bpy.data.objects):
+    if obj.type!='MESH' or not obj.material_slots:continue
+    if obj.material_slots[0].material!=oak:continue
+    obj.data=obj.data.copy()
+    project_uvs(obj,UV_ACROSS)
+    shift_uvs(obj.data,UV_ALONG_STRETCH,(random.uniform(0,1),random.uniform(0,1)),JOINERY_UV_ROTATE)
+
 # Save the fully editable source BEFORE merging static export meshes.
 # The botanical module also replaces the initial blockout when rebuilding from scratch.
 import sys
@@ -325,7 +438,7 @@ triangles=sum(sum(len(p.vertices)-2 for p in o.data.polygons) for o in mesh_obje
 print('EXPORT_AUDIT meshes='+str(len(mesh_objects))+' triangles='+str(triangles),flush=True)
 if triangles>1000000:raise RuntimeError('Unexpected geometry expansion during export')
 bpy.ops.export_scene.gltf(filepath=str(OUT/'hexu-library.glb'),export_format='GLB',use_selection=True,export_yup=True,export_apply=True,export_extras=True,export_animations=False)
-manifest={'generator':bpy.app.version_string,'source':'blender/hexu-library.blend','model':'public/models/hexu-library.glb','shelves':shelf_manifest,'static_books':static_books,'mesh_objects':len(mesh_objects),'triangles':triangles,'bytes':(OUT/'hexu-library.glb').stat().st_size,'texture':'public/textures/oak-grain.png'}
+manifest={'generator':bpy.app.version_string,'source':'blender/hexu-library.blend','model':'public/models/hexu-library.glb','shelves':shelf_manifest,'static_books':static_books,'mesh_objects':len(mesh_objects),'triangles':triangles,'bytes':(OUT/'hexu-library.glb').stat().st_size,'textures':['public/textures/floor-oak-*.jpg','public/textures/joinery-oak-*.jpg','public/textures/botanical-leaf.png'],'texture_source':'Poly Haven (CC0) via tools/fetch-textures.mjs'}
 manifest['interactive_books']=int(scene.get('smart_books_total',0))
 manifest['books_per_side_layer']=int(scene.get('books_per_side_layer',0))
 (OUT/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2),encoding='utf-8')

@@ -43,6 +43,7 @@ npm start
 | `blender/refine_vegetation.py` | 定点更新植物，核验其余模型不变，导出并渲染近景 |
 | `blender/BOTANICAL_REFERENCES.md` | 植物形态参考、生成参数与更新方法 |
 | `blender/SHELVING_REFERENCES.md` | 书架进深标准、图书摆放方式与更新方法 |
+| `blender/MATERIAL_REFERENCES.md` | 地板与书柜的材质来源、UV 尺度与更新方法 |
 | `blender/catalog.json` | 320 本书的坐标与芯片载荷（生成物） |
 | `blender/library-preview.png` | Blender 实际渲染的场景预览 |
 | `blender/smart-book-detail.png` | 书本与芯片槽近景渲染 |
@@ -52,10 +53,12 @@ npm start
 | `public/models/smart-book.glb` | 320 本书共用的硬皮书模板 |
 | `public/models/book-inventory.json` | 馆藏清单副本（与 `blender/catalog.json` 一致） |
 | `public/models/manifest.json` | 导出版本、书架规格、面数、文件大小 |
-| `public/textures/oak-grain.png` | Blender 生成的木纹贴图，同时内嵌于 GLB |
+| `public/textures/floor-oak-*.jpg` | 地板贴图（反照率 / 法线 / 粗糙度），CC0 扫描件 |
+| `public/textures/joinery-oak-*.jpg` | 书柜与木作贴图（同上） |
 | `public/textures/botanical-leaf.png` | Blender 生成的叶片贴图，同时内嵌于 GLB |
 | `public/vendor/` | Three.js 0.160.1、GLTFLoader、GSAP 3.12.5 等固定依赖 |
 | `tools/serve.mjs` | 无额外依赖的本地静态服务 |
+| `tools/fetch-textures.mjs` | 表面贴图的唯一拉取脚本，来源与许可记录在内 |
 | `tools/prepare-smart-books.mjs` | 馆藏清单的唯一生成器，一次写入三份副本 |
 | `tests/library.test.mjs` | 馆藏几何、ASR 事件与 GLB 完整性回归检查 |
 | `archive/prototype-single-file.html` | 原始单文件版本备份 |
@@ -63,7 +66,9 @@ npm start
 
 ## Blender 模型
 
-打开 `blender/hexu-library.blend` 可编辑原始对象：书架按集合 `Shelf_1` 至 `Shelf_5` 组织，另有建筑、前台、阅读家具、绿植、灯具、书籍模板与渲染相机集合。源文件在合并之前保存，网页 GLB 按“集合 + 材质”合并，降低绘制调用数量。环境本身不导出静态藏书——架上 320 本书全部来自 `smart-book.glb` 的实例化；当前导出为 70 个网格、328,642 个三角面、12.53 MiB，精确统计见 `public/models/manifest.json`。毫米级书脊条纹在网页导出时简化倒角，源文件保留完整细节。
+打开 `blender/hexu-library.blend` 可编辑原始对象：书架按集合 `Shelf_1` 至 `Shelf_5` 组织，另有建筑、前台、阅读家具、绿植、灯具、书籍模板与渲染相机集合。源文件在合并之前保存，网页 GLB 按“集合 + 材质”合并，降低绘制调用数量。环境本身不导出静态藏书——架上 320 本书全部来自 `smart-book.glb` 的实例化；当前导出为 70 个网格、340,010 个三角面、17.54 MiB，精确统计见 `public/models/manifest.json`。毫米级书脊条纹在网页导出时简化倒角，源文件保留完整细节。
+
+地板与书柜使用 **CC0 扫描的 PBR 贴图**（反照率 + 法线 + 粗糙度），取自 [Poly Haven](https://polyhaven.com)，由 `tools/fetch-textures.mjs` 拉取并随项目分发。地面为 200 mm 宽的实木板条，板长按列变化以错开对接缝。UV 按世界坐标投影，木纹在不同尺寸的构件上保持同一物理尺度——改前每个物体把整张贴图铺满自身尺寸，8 米层板上的木纹被拉伸到地板的 3 倍。素材来源、UV 取值与已知限制见 `blender/MATERIAL_REFERENCES.md`。
 
 每个书架外围为 8 m 长 × 1 m 宽 × 2 m 高，但每个架面是进深 30 cm 的独立书柜，由一块实体背板与另一面隔开；书立在层板上并靠在背板上。进深取值依据见 `blender/SHELVING_REFERENCES.md`。
 
@@ -116,4 +121,4 @@ npm test
 
 回归测试覆盖五类契约：唤醒词与中英混排归一化、书名匹配的容错与误命中防线、320 本书的坐标与书架结构关系、`hexu-library.glb` 的合并网格与预算、`smart-book.glb` 的铰链与部件命名、三份馆藏清单副本的一致性，以及语音适配器的生命周期（模拟浏览器识别事件，不等同于真人麦克风转录验收）。实际语音测试请在 Chrome/Edge 打开 localhost 后授权执行。界面测试应覆盖：唤醒、找书、向左拖动封面、显示简介、查看芯片、归还后重新找书。
 
-保留依赖文件中的版权及许可头。Three.js 使用 MIT 许可；GSAP 3.12.5 的许可链接保留于 `public/vendor/gsap.min.js` 开头。
+保留依赖文件中的版权及许可头。Three.js 使用 MIT 许可；GSAP 3.12.5 的许可链接保留于 `public/vendor/gsap.min.js` 开头。地板与书柜的贴图来自 Poly Haven，授权为 **CC0（公有领域）**，可自由分发，无需署名；素材标识记录在 `tools/fetch-textures.mjs` 与 `blender/MATERIAL_REFERENCES.md`。
