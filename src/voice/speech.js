@@ -16,7 +16,8 @@ export function createSpeech({ $, notice, wake, processText, getPhase }) {
     lastNetworkError = false,
     resultSeen = false,
     silentTimer = null,
-    serverAsr = null;
+    serverAsr = null,
+    autoKick = null;
   /* A recogniser can report "listening" and then never deliver a single result, because the
      fault is upstream of this module: no audio is reaching the browser, or the browser vendor's
      speech service is not answering. Both look identical to a healthy session, so say so rather
@@ -215,54 +216,103 @@ export function createSpeech({ $, notice, wake, processText, getPhase }) {
      wiring above: the Web Speech path is bound synchronously either way, so a plain static
      deployment keeps behaving exactly as it did. */
   probeServerAsr().then((info) => {
-    if (!info) return;
-    serverAsr = createServerAsr({
-      onText(text) {
-        $("transcript").textContent = "听到：" + text;
-        record(text, text, 1, Boolean(findBook(text)));
-        processText(text, false, false);
-      },
-      onStatus: micStatus,
-      onError(message) {
-        notice(message);
-      },
-    });
-    // Equally, a browser without Web Speech can still be used here, so undo that branch's lock.
-    $("micButton").disabled = false;
-    micStatus("服务端识别已就绪", "off");
-    $("transcript").textContent = "服务端识别已就绪，点击启动语音感知";
+    if (info) {
+      serverAsr = createServerAsr({
+        onText(text) {
+          $("transcript").textContent = "听到：" + text;
+          record(text, text, 1, Boolean(findBook(text)));
+          processText(text, false, false);
+        },
+        onStatus: micStatus,
+        onError(message) {
+          notice(message);
+        },
+      });
+      // Equally, a browser without Web Speech can still be used here, so undo that branch's lock.
+      $("micButton").disabled = false;
+      $("transcript").textContent = "服务端识别已就绪";
+    }
+    // Decided here rather than at load time so the automatic start picks whichever transport
+    // actually turned out to be available.
+    if (voiceWasEnabled()) armAutoStart();
   });
 
-  $("micButton").onclick = () => {
-    if (!recognition && !serverAsr) return;
-    wanted = !wanted;
+  /* Voice cannot be started by a document the user has never touched: granting the microphone
+     permission itself needs a gesture, and no page can bypass that. So that gesture is spent
+     once. The choice is remembered, and every later visit starts listening by itself — measured
+     in a browser, once the permission is granted both getUserMedia and an AudioContext work on
+     a freshly loaded document with no interaction at all, so afterwards this really is
+     click-free. */
+  const VOICE_PREFERENCE = "hexu.voice.enabled";
+  function voiceWasEnabled() {
+    try {
+      return localStorage.getItem(VOICE_PREFERENCE) === "1";
+    } catch {
+      return false; // no storage available (private mode, or the test host)
+    }
+  }
+  function rememberVoice(on) {
+    try {
+      if (on) localStorage.setItem(VOICE_PREFERENCE, "1");
+      else localStorage.removeItem(VOICE_PREFERENCE);
+    } catch {
+      /* Failing to remember only costs a click on the next visit. */
+    }
+  }
+  function live() {
+    return serverAsr ? serverAsr.running : running;
+  }
+  function startSession() {
+    if (!recognition && !serverAsr) return false;
+    if (!window.isSecureContext && location.protocol !== "file:") {
+      notice("麦克风需要 HTTPS 或 localhost 环境。");
+      return false;
+    }
+    wanted = true;
     failures = 0;
     retryDelay = 450;
     clearTimeout(restartTimer);
-    if (wanted) {
-      if (!window.isSecureContext && location.protocol !== "file:") {
-        wanted = false;
-        notice("麦克风需要 HTTPS 或 localhost 环境。");
-        return;
-      }
-      // A fresh session: forget the previous run's errors so the silence watchdog can report
-      // again if this attempt also never produces a result.
-      lastNetworkError = false;
-      resultSeen = false;
-      clearTimeout(silentTimer);
-      if (serverAsr) startServerAsr();
-      else startRecognition();
-    } else {
-      if (serverAsr) {
-        serverAsr.stop();
-        clearTimeout(silentTimer);
-        micStatus("语音感知已关闭");
-      } else {
-        recognition.abort();
-        clearTimeout(silentTimer);
-        micStatus("语音感知已关闭");
-      }
-    }
+    // A fresh session: forget the previous run's errors so the silence watchdog can report
+    // again if this attempt also never produces a result.
+    lastNetworkError = false;
+    resultSeen = false;
+    clearTimeout(silentTimer);
+    if (serverAsr) startServerAsr();
+    else startRecognition();
+    return true;
+  }
+  function stopSession() {
+    wanted = false;
+    disarmAutoStart();
+    if (serverAsr) serverAsr.stop();
+    else recognition?.abort();
+    clearTimeout(silentTimer);
+    micStatus("语音感知已关闭");
+  }
+  function disarmAutoStart() {
+    if (!autoKick) return;
+    document.removeEventListener("pointerdown", autoKick);
+    document.removeEventListener("keydown", autoKick);
+    autoKick = null;
+  }
+  /* Listen without being asked, because the user already asked once. The attempt below succeeds
+     whenever the permission is already granted; if the browser still wants a gesture, the first
+     interaction anywhere supplies it. */
+  function armAutoStart() {
+    micStatus("语音待命：正在恢复收听");
+    autoKick = () => {
+      disarmAutoStart();
+      if (!wanted || !live()) startSession();
+    };
+    document.addEventListener("pointerdown", autoKick);
+    document.addEventListener("keydown", autoKick);
+    startSession();
+  }
+
+  $("micButton").onclick = () => {
+    if (!recognition && !serverAsr) return;
+    if (wanted) stopSession();
+    else if (startSession()) rememberVoice(true);
   };
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) {
@@ -279,6 +329,7 @@ export function createSpeech({ $, notice, wake, processText, getPhase }) {
   });
   window.addEventListener("pagehide", () => {
     wanted = false;
+    disarmAutoStart();
     clearTimeout(restartTimer);
     clearTimeout(silentTimer);
     serverAsr?.stop();
@@ -290,6 +341,7 @@ export function createSpeech({ $, notice, wake, processText, getPhase }) {
     getState: () => ({ wanted, running, recent }),
     stop() {
       wanted = false;
+      disarmAutoStart();
       clearTimeout(restartTimer);
       clearTimeout(silentTimer);
       serverAsr?.stop();
