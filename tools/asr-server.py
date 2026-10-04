@@ -1,28 +1,36 @@
-"""Serve the library and transcribe recorded speech, in one process.
+"""Serve the library, transcribe recorded speech, and optionally parse intent with a model.
 
 Deployment counterpart to tools/serve.mjs. It exists because the browser's own Web Speech API
 is unusable on some networks: the API is hard-wired to the browser vendor's cloud service and
 its endpoint cannot be pointed elsewhere, so recognition starts and then never returns a
 result. Here the page records a segment and posts it, and the transcript comes back from a
-local model — no outbound request is made by this server at all.
+local model.
 
     HEXU_ASR_MODEL_DIR=/opt/.../sherpa-onnx-sense-voice-... python tools/asr-server.py
 
 Routes:
-    GET  /asr/ready   -> {"ready": bool, ...}  the page probes this and only then uses /asr
-    POST /asr         -> 16 kHz mono WAV body, returns {"text": ...}
-    GET  <anything>   -> static file under the project root
+    GET  /asr/ready        -> {"ready": bool, ...}  the page probes this and only then uses /asr
+    POST /asr              -> 16 kHz mono WAV body, returns {"text": ...}
+    GET  /understand/ready -> {"ready": bool, ...}  whether a semantic layer is configured
+    POST /understand       -> {"text": ..., "phase": ...}, returns a parsed intent
+    GET  <anything>        -> static file under the project root
 
-Recogniser usage mirrors a known-good pattern already running on this host; the model files are
-referenced read-only and never copied.
+Recognition and static serving never leave this host. The semantic layer is the one exception,
+and only when it is configured: it posts the transcript and the catalogue to the model service
+named by HEXU_LLM_BASE_URL, whose key is read from the environment per request and never
+written anywhere.
 """
 import io
+import ipaddress
 import json
 import os
 import re
 import sys
 import threading
 import time
+import urllib.error
+import urllib.parse
+import urllib.request
 import wave
 from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
@@ -133,6 +141,179 @@ def transcribe(raw):
         _result_lock.release()
 
 
+# --- semantic layer (optional) ------------------------------------------------
+# Local rules place most requests instantly and for free, so the model is only consulted when
+# they cannot. It is entirely optional: without a key the endpoints report not-ready and the
+# page keeps working on the rules alone.
+LLM_BASE_URL = os.environ.get("HEXU_LLM_BASE_URL", "https://api.deepseek.com").rstrip("/")
+LLM_MODEL = os.environ.get("HEXU_LLM_MODEL", "deepseek-flash")
+LLM_TIMEOUT = float(os.environ.get("HEXU_LLM_TIMEOUT", "12"))
+MAX_JSON_BODY = 4_096
+
+CATALOG_PATH = ROOT / "public" / "models" / "book-inventory.json"
+
+
+def load_catalog():
+    """Ids for validating what the model returns, plus the few books worth naming in the prompt.
+
+    Most of the catalogue is numbered stock whose title *is* its id, so listing those would
+    cost thousands of tokens and teach the model nothing — they are reachable by code, which
+    the local rules already do. Only the books with real titles need describing."""
+    by_id, named = {}, []
+    try:
+        entries = json.loads(CATALOG_PATH.read_text(encoding="utf-8"))
+    except (OSError, ValueError) as error:
+        print(f"  语义层：读取馆藏清单失败（{error}）", flush=True)
+        return by_id, named
+    for entry in entries:
+        book_id = entry.get("bookId")
+        if not book_id:
+            continue
+        by_id[book_id] = entry
+        if not entry.get("placeholder"):
+            named.append(f"{book_id} | {entry.get('title','')} | {entry.get('author','')} | {entry.get('category','')}")
+    return by_id, named
+
+
+CATALOG_BY_ID, CATALOG_NAMED = load_catalog()
+_SYSTEM_PROMPT = None
+
+
+def system_prompt():
+    """Built once. A stable prefix is what lets the provider cache it between calls."""
+    global _SYSTEM_PROMPT
+    if _SYSTEM_PROMPT is None:
+        _SYSTEM_PROMPT = (
+            "你是图书馆的语义解析器。把读者的一句话解析成一个动作，只输出 JSON。\n\n"
+            "action 的取值：\n"
+            "- find：读者想找某本书，必须在 bookId 里给出编号\n"
+            "- return：把正在阅读的书放回书架\n"
+            "- open：翻开当前书的封面\n"
+            "- close：合上当前书的封面\n"
+            "- chip：查看当前书的芯片\n"
+            "- none：与图书馆无关，或无法判断\n\n"
+            "带正式书名的馆藏只有下面这些，bookId 必须从中选择：\n"
+            + "\n".join(CATALOG_NAMED)
+            + f"\n\n其余 {len(CATALOG_BY_ID) - len(CATALOG_NAMED)} 本只有编号（形如 HX-0001），"
+            "没有书名，无法按内容查找；读者直接报编号时由本地规则处理，你不需要管。\n\n"
+            '只输出这个 JSON，不要输出任何其它文字：\n'
+            '{"action": "find|return|open|close|chip|none", "bookId": "HX-0000 或空字符串", '
+            '"say": "不超过 20 字的中文回应"}\n\n'
+            "规则：\n"
+            "- 不确定就用 none，不要猜。\n"
+            "- 读者的说法与上表只是部分相关时，也要选最接近的那一本"
+            "（例如「讲宇宙的那本」对应《时间简史》）。\n"
+            "- action 不是 find 时，bookId 留空字符串。\n"
+        )
+    return _SYSTEM_PROMPT
+
+
+def llm_state():
+    """Readiness and the key, read from the environment at call time and never cached."""
+    key = os.environ.get("HEXU_LLM_API_KEY", "").strip()
+    if not key:
+        return None, {"ready": False, "reason": "HEXU_LLM_API_KEY 未配置", "model": LLM_MODEL}
+    if not CATALOG_NAMED:
+        return None, {"ready": False, "reason": "馆藏清单不可读", "model": LLM_MODEL}
+    return key, {"ready": True, "model": LLM_MODEL, "base_url": LLM_BASE_URL,
+                 "named_books": len(CATALOG_NAMED), "total_books": len(CATALOG_BY_ID)}
+
+
+def validate_endpoint(url):
+    """The address comes from configuration rather than from a request, so there is no SSRF
+    surface here. This still refuses anything but https to a public host, so a mistyped
+    setting cannot quietly point the service at something on the internal network."""
+    parsed = urllib.parse.urlsplit(url)
+    if parsed.scheme != "https":
+        raise ValueError("模型接入地址必须是 https")
+    host = (parsed.hostname or "").strip().rstrip(".")  # "localhost." is still loopback
+    if not host:
+        raise ValueError("模型接入地址缺少主机名")
+    if host == "localhost" or host.endswith((".local", ".internal", ".localhost")):
+        raise ValueError("模型接入地址不能指向本机或内网")
+    try:
+        address = ipaddress.ip_address(host)
+    except ValueError:
+        return
+    if (address.is_loopback or address.is_private or address.is_link_local
+            or address.is_reserved or address.is_multicast or address.is_unspecified):
+        raise ValueError("模型接入地址不能是回环、私有或保留地址")
+
+
+def understand(text, phase):
+    """Map one utterance onto an action. Returns (http_status, payload)."""
+    key, info = llm_state()
+    if key is None:
+        return 503, info
+    text = (text or "").strip()
+    if not text:
+        return 400, {"error": "缺少要解析的文本"}
+    try:
+        validate_endpoint(LLM_BASE_URL)
+    except ValueError as error:
+        return 503, {"error": str(error)}
+    try:
+        # `thinking` defaults to enabled on this API generation. Intent extraction is a
+        # constrained classification, so thinking only adds latency and cost — and it would
+        # also silently ignore `temperature`, which is what keeps the output stable.
+        payload = {
+            "model": LLM_MODEL,
+            "messages": [
+                {"role": "system", "content": system_prompt()},
+                {
+                    "role": "user",
+                    "content": f"当前状态：{'正在阅读一本书' if phase == 'READING' else '待命中'}\n读者说：{text}",
+                },
+            ],
+            "thinking": {"type": "disabled"},
+            "temperature": 0,
+            "max_tokens": 300,
+            "stream": False,
+            # JSON mode requires the prompt above to ask for JSON explicitly, which it does.
+            "response_format": {"type": "json_object"},
+        }
+        request = urllib.request.Request(
+            LLM_BASE_URL + "/chat/completions",
+            data=json.dumps(payload).encode("utf-8"),
+            headers={
+                "Content-Type": "application/json",
+                # The key is used here and nowhere else: not logged, not stored.
+                "Authorization": "Bearer " + key,
+            },
+        )
+        started = time.perf_counter()
+        with urllib.request.urlopen(request, timeout=LLM_TIMEOUT) as response:
+            body = json.loads(response.read().decode("utf-8"))
+    except urllib.error.HTTPError as error:
+        detail = ""
+        try:
+            detail = error.read().decode("utf-8")[:200]
+        except Exception:
+            pass
+        return 502, {"error": f"模型服务返回 {error.code}", "detail": detail}
+    except Exception as error:
+        return 502, {"error": f"无法连接模型服务：{type(error).__name__}"}
+
+    try:
+        content = body["choices"][0]["message"]["content"]
+        parsed = json.loads(re.sub(r"```(?:json)?|```", "", content).strip())
+    except (KeyError, IndexError, ValueError):
+        return 502, {"error": "模型返回的内容无法解析为 JSON"}
+
+    action = parsed.get("action")
+    book_id = (parsed.get("bookId") or "").strip()
+    say = (parsed.get("say") or "").strip()[:60]
+    if action not in ("find", "return", "open", "close", "chip", "none"):
+        return 200, {"action": "none", "say": "", "via": "llm",
+                     "seconds": round(time.perf_counter() - started, 3)}
+    # Never trust the model's target: an id it invented must not reach the scene, where it
+    # would resolve to nothing and break navigation.
+    if action == "find" and book_id not in CATALOG_BY_ID:
+        action, book_id = "none", ""
+    return 200, {"action": action, "bookId": book_id, "say": say, "via": "llm",
+                 "seconds": round(time.perf_counter() - started, 3)}
+
+
 class Handler(SimpleHTTPRequestHandler):
     protocol_version = "HTTP/1.1"
     server_version = "hexu-library"
@@ -166,6 +347,10 @@ class Handler(SimpleHTTPRequestHandler):
         if pathname == "/asr/ready":
             ready, payload = model_state()
             self._send_json(200 if ready else 503, payload)
+            return
+        if pathname == "/understand/ready":
+            key, payload = llm_state()
+            self._send_json(200 if key else 503, payload)
             return
 
         target = self._static_path(pathname)
@@ -220,7 +405,26 @@ class Handler(SimpleHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(body)
 
+    def _post_understand(self):
+        try:
+            length = int(self.headers.get("Content-Length") or 0)
+        except ValueError:
+            length = 0
+        if length <= 0 or length > MAX_JSON_BODY:
+            self._send_json(413, {"error": "请求体超出限制"})
+            return
+        try:
+            body = json.loads(self.rfile.read(length).decode("utf-8"))
+        except (ValueError, UnicodeDecodeError):
+            self._send_json(400, {"error": "请求体不是合法 JSON"})
+            return
+        status, payload = understand(body.get("text"), body.get("phase"))
+        self._send_json(status, payload)
+
     def do_POST(self):
+        if self.path.split("?", 1)[0] == "/understand":
+            self._post_understand()
+            return
         if self.path.split("?", 1)[0] != "/asr":
             self.send_error(404, "Not found")
             return

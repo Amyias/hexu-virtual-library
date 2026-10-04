@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { books, anchors, heights } from "./data/catalog.js";
 import { wakeRE, wakeStripRE, findBook } from "./voice/intent.js";
+import { probeUnderstand, understand } from "./voice/understand.js";
 import { createSpeech } from "./voice/speech.js";
 import { createRuntime } from "./scene/runtime.js";
 import { loadEnvironment } from "./scene/environment.js";
@@ -18,7 +19,8 @@ export async function startLibrary() {
     hinge = null,
     turn = 0,
     drag = null,
-    speakEnabled = false;
+    speakEnabled = false,
+    understandReady = false;
   let noticeTimer, bubbleTimer, wakeTween;
   const navigation = { pulse: 0 };
   function notice(text) {
@@ -100,20 +102,64 @@ export async function startLibrary() {
     bubble("有什么需求吗？", 25000);
     $("voiceTitle").textContent = "我在，请告诉我书名或感兴趣的主题";
   }
+  function present(book, speech) {
+    awakeUntil = 0;
+    const r = response(speech, book);
+    say(speech);
+    navigate(book, r.target);
+    return r;
+  }
+  /* The rules place most requests instantly and for free. What they cannot read — "霍金写的那
+     本", "讲宇宙起源最著名的那本书" — goes to the configured model instead, and if that cannot
+     answer either the reply is exactly what it always was. */
+  async function findViaModel(request) {
+    $("voiceTitle").textContent = "小和正在理解你的意思…";
+    const result = await understand(request, phase);
+    if (phase !== "IDLE") return; // the reader moved on while we were waiting
+    const book =
+      result.action === "find" && result.bookId
+        ? books.find((entry) => entry.bookId === result.bookId)
+        : null;
+    if (book) {
+      present(book, result.say || "好的，为您找到相关书籍，请随我来。");
+      return;
+    }
+    if (["return", "open", "close", "chip"].includes(result.action)) {
+      notice("现在还没有在阅读的书。");
+      return;
+    }
+    if (result.error) notice(result.error);
+    awakeUntil = Date.now() + 25000;
+    const msg = "暂未匹配到馆藏。试试“三体”“计算机基础”或“人工智能”。";
+    response(msg);
+    say(msg);
+  }
   function processText(text, direct = false, wasInterimWake = false) {
     const match = text.match(wakeRE);
     const active = Date.now() < awakeUntil;
     if (!direct && !match && !active) return null;
-    if (phase !== "IDLE") {
-      if (/放回|归还|合上/.test(text) && phase === "READING") returnBook();
-      else if (match || direct)
-        notice("正在陪你阅读，请先将当前书籍放回书架。");
-      return null;
-    }
     const request = text
       .replace(wakeStripRE, "")
       .replace(/你好|您好|在吗|你在吗|嗨|嘿|哈喽|hello/gi, "")
       .replace(/[\s，。！？、,.!?]/g, "");
+    if (phase === "READING") {
+      /* Reading commands are few and regular, so they are answered here and now; going to the
+         model for them would add a second of latency for nothing. 「合上」 used to return the
+         book, which is not what it says — it closes the cover. */
+      if (/放回|归还|还书|收回|拿走/.test(request)) returnBook();
+      else if (/合上|关上|闭合|盖上/.test(request)) {
+        if (chipView) closeChip();
+        else animateTurn(0);
+      } else if (/翻开|打开|摊开|掀开/.test(request)) animateTurn(1);
+      else if (/芯片|标签|身份证/.test(request)) openChip();
+      else if (match || direct)
+        notice("正在陪你阅读，可以让我翻开、合上、看芯片或放回书架。");
+      return null;
+    }
+    if (phase !== "IDLE") {
+      if (match || direct) notice("小和正在取书，请稍候。");
+      return null;
+    }
     if (!request) {
       if (!wasInterimWake) wake();
       const r = response("有什么需求吗？", null, true);
@@ -122,20 +168,20 @@ export async function startLibrary() {
     if (match && !wasInterimWake) wake();
     const b = findBook(request);
     if (!b) {
+      if (understandReady) {
+        findViaModel(request);
+        return null;
+      }
       awakeUntil = Date.now() + 25000;
       const msg = "暂未匹配到馆藏。试试“三体”“计算机基础”或“人工智能”。";
       response(msg);
       say(msg);
       return null;
     }
-    awakeUntil = 0;
-    const speech = match
-      ? "好的，为您找到相关书籍，请随我来。"
-      : "好的，正在为您定位…";
-    const r = response(speech, b);
-    say(speech);
-    navigate(b, r.target);
-    return r;
+    return present(
+      b,
+      match ? "好的，为您找到相关书籍，请随我来。" : "好的，正在为您定位…",
+    );
   }
 
   const canvas = $("scene");
@@ -157,6 +203,14 @@ export async function startLibrary() {
     getPhase: () => phase,
   });
   const factory = createBookFactory(renderer, environment.bookTemplate);
+  /* A model may be configured on the deployment for phrasing the local rules cannot read.
+     Probing is best-effort and silent: without one, every request still goes through the rules,
+     which is why this can never make the app worse. */
+  probeUnderstand().then((info) => {
+    if (!info) return;
+    understandReady = true;
+    notice(`语义解析已就绪（${info.model}），可以用自然语言找书`);
+  });
   let chipView = null;
   function closeChip() {
     if (!chipView) return;
@@ -171,7 +225,7 @@ export async function startLibrary() {
     chipView.quaternion.copy(camera.quaternion);
     chipView.scale.setScalar(readerScale());
   }
-  $('inspectChip').onclick = () => {
+  function openChip() {
     if (phase !== 'READING' || chipView) return;
     drag = null;
     chipView = factory.createChip(selected);
@@ -181,7 +235,8 @@ export async function startLibrary() {
     $('chipId').textContent = selected.chipId;
     $('chipLocation').textContent = `${selected.locationCode} · ${selected.shelf} 号书架 / ${selected.side} 面 / 第 ${selected.layer} 层 / 第 ${selected.slot} 本`;
     document.body.classList.add('inspecting');
-  };
+  }
+  $('inspectChip').onclick = openChip;
   $('closeChip').onclick = closeChip;
   const { orb, coreMaterial, core, glow, rings } = createOrb(scene, home);
   const routeMat = new THREE.LineDashedMaterial({

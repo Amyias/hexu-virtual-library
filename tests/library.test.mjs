@@ -5,6 +5,7 @@ import { books } from "../src/data/catalog.js";
 import { findBook, wakeRE } from "../src/voice/intent.js";
 import { createSpeech } from "../src/voice/speech.js";
 import { probeServerAsr } from "../src/voice/server-asr.js";
+import { probeUnderstand, understand } from "../src/voice/understand.js";
 
 test("wake aliases and Chinese/English normalization", () => {
   for (const word of ["小和", "小何", "肖和", "小荷", "小禾", "小鹤", "xiao he", "XIAO HE"])
@@ -212,6 +213,15 @@ test("server ASR probe stays inert when no backend is deployed", async () => {
   // fail quietly rather than throw or leave anything pending. In this process there is no
   // origin to resolve /asr/ready against, which is exactly the static case.
   assert.equal(await probeServerAsr(), null);
+});
+
+test("semantic probe and call degrade quietly without a configured model", async () => {
+  // Same rule for the model layer: with nothing configured the app must fall back to the local
+  // rules rather than surface an error, and an unresolvable call must come back as "none"
+  // instead of throwing into the dispatcher.
+  assert.equal(await probeUnderstand(), null);
+  const unanswered = await understand("霍金写的那本书", "IDLE");
+  assert.equal(unanswered.action, "none");
 });
 
 test("real recognizer adapter preserves interim wake, final intent, restart and permission stop", () => {

@@ -52,6 +52,58 @@ ssh -i ~/.ssh/rainyun-rcs-Snowy_Brew.pem -L 8090:127.0.0.1:8090 root@64.90.2.91
 
 **服务端不发出任何对外请求**，因此没有 SSRF 面；页面与接口同源同端口，所以不需要 CORS，也只需要开一条隧道。
 
+（唯一例外是下面可选的语义解析层：启用后，仅在本地规则理解不了时向你所配置的模型服务发出请求。）
+
+## 可选的语义解析层
+
+本地规则匹配的是书名与别名，快、免费、离线可用，但读不懂「霍金写的那本」。配一个大语言模型之后，这类说法交给它判断要哪一本。
+
+**默认关闭。** 没有配置密钥时 `/understand/ready` 返回 `ready:false`，页面继续只用本地规则——功能不退化，只是少了理解长尾的能力。
+
+### 配置
+
+| 环境变量 | 默认值 | 说明 |
+| --- | --- | --- |
+| `HEXU_LLM_API_KEY` | 无 | 缺省即关闭整个语义层 |
+| `HEXU_LLM_BASE_URL` | `https://api.deepseek.com` | 仅接受 https，且拒绝回环/私有/保留地址 |
+| `HEXU_LLM_MODEL` | `deepseek-flash` | 换 `deepseek-v4-pro` 可提质，贵 50～70 倍 |
+| `HEXU_LLM_TIMEOUT` | `12` | 秒；超时即退回本地提示 |
+
+密钥放在**仓库之外**、root-only 的文件里，由 systemd 注入：
+
+```bash
+install -d -m 700 /etc/hexu-library
+install -m 600 /dev/null /etc/hexu-library/llm.env
+cat > /etc/hexu-library/llm.env <<'EOF'
+HEXU_LLM_API_KEY=<在下面填入你自己的 key>
+HEXU_LLM_BASE_URL=https://api.deepseek.com
+HEXU_LLM_MODEL=deepseek-flash
+EOF
+chmod 600 /etc/hexu-library/llm.env
+```
+
+然后在 `hexu-library.service` 的 `[Service]` 里加一行 `EnvironmentFile=/etc/hexu-library/llm.env`，`systemctl daemon-reload && systemctl restart hexu-library`。
+
+服务**在每次请求时**从环境变量读取密钥，不缓存、不落盘、不打印；单元文件里只有路径。
+
+### 模型调用方式
+
+按 **OpenAI 兼容格式**，所以换厂商只改 `HEXU_LLM_BASE_URL` 与 `HEXU_LLM_MODEL`，代码不动。当前针对 DeepSeek V4 代际的三个细节：
+
+- `thinking` 默认为 `enabled`，本服务显式传 `{"type":"disabled"}`——意图分类是受限任务，思考只增加延迟与费用，而且**思考模式下 `temperature` 会被静默忽略**，那正是维持输出稳定的手段。
+- `response_format: {"type":"json_object"}` 可用，但文档要求提示词自己写明输出 JSON，提示词里写死了。
+- 输出里返回的 `bookId` **一律在服务端核对是否存在于馆藏清单**，模型编造的编号直接判为 `none`——绝不信任模型给出的目标对象。
+
+提示词只列**12 本有正式书名的书**（加一句说明其余 308 本只有编号、按编号查找由本地规则处理）。这很关键：编号样书的书名就是它的编号，列出来要几千 token 却教不会模型任何东西，而按编号找书本地规则本来就能做。所以提示词只有约 930 字符。
+
+### 费用
+
+每次调用约 950 输入 token（固定的提示词前缀，会被服务商的自动前缀缓存命中）+ 约 40 输出 token。按 DeepSeek 官方价（`deepseek-flash`，缓存命中 $0.003/M、未命中 $0.15/M、输出 $0.6/M）：**缓存命中时约 $0.00005/次**，即使用户每次都未命中也不到 $0.001。按每天几十次估计，每月远低于一元。
+
+### 隐私
+
+启用后，**转写文本与那份书单会发送到 DeepSeek**。音频始终不出服务器（识别在本地完成）。这一条也写在界面帮助里，不让用户意外。
+
 识别核心：
 
 ```python
