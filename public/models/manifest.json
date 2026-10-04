@@ -97,7 +97,7 @@
   "static_books": 0,
   "mesh_objects": 71,
   "triangles": 344074,
-  "bytes": 18471728,
+  "bytes": 6419828,
   "textures": [
     "public/textures/floor-oak-*.jpg",
     "public/textures/joinery-oak-*.jpg",

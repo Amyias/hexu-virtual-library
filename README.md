@@ -63,7 +63,8 @@ npm start
 | `public/textures/floor-oak-*.jpg` | 地板贴图（反照率 / 法线 / 粗糙度），CC0 扫描件 |
 | `public/textures/joinery-oak-*.jpg` | 书柜与木作贴图（同上） |
 | `public/textures/botanical-leaf.png` | Blender 生成的叶片贴图，同时内嵌于 GLB |
-| `public/vendor/` | Three.js 0.160.1、GLTFLoader、GSAP 3.12.5 等固定依赖 |
+| `public/vendor/` | Three.js 0.160.1、GLTFLoader、DRACOLoader、GSAP 3.12.5 等固定依赖 |
+| `public/vendor/draco/` | Draco 解码器（Apache-2.0），环境模型用它解压几何 |
 | `tools/serve.mjs` | 无额外依赖的本地静态服务 |
 | `tools/asr-server.py` | 服务器模式：静态站点 + 本地模型识别，单进程 |
 | `tools/fetch-textures.mjs` | 表面贴图的唯一拉取脚本，来源与许可记录在内 |
@@ -74,7 +75,9 @@ npm start
 
 ## Blender 模型
 
-打开 `blender/hexu-library.blend` 可编辑原始对象：书架按集合 `Shelf_1` 至 `Shelf_5` 组织，另有建筑、前台、阅读家具、绿植、灯具、书籍模板与渲染相机集合。源文件在合并之前保存，网页 GLB 按“集合 + 材质”合并，降低绘制调用数量。环境本身不导出静态藏书——架上 320 本书全部来自 `smart-book.glb` 的实例化；当前导出为 70 个网格、340,010 个三角面、17.54 MiB，精确统计见 `public/models/manifest.json`。毫米级书脊条纹在网页导出时简化倒角，源文件保留完整细节。
+打开 `blender/hexu-library.blend` 可编辑原始对象：书架按集合 `Shelf_1` 至 `Shelf_5` 组织，另有建筑、前台、阅读家具、绿植、灯具、书籍模板与渲染相机集合。源文件在合并之前保存，网页 GLB 按“集合 + 材质”合并，降低绘制调用数量。环境本身不导出静态藏书——架上 320 本书全部来自 `smart-book.glb` 的实例化；当前导出为 71 个网格、344,074 个三角面、**6.12 MiB**，精确统计见 `public/models/manifest.json`。毫米级书脊条纹在网页导出时简化倒角，源文件保留完整细节。
+
+**几何用 Draco 压缩**（`KHR_draco_mesh_compression`，量化取位置 14 / 法线 10 / UV 12 位）。几何原本占文件的 74% 且是 float32，gzip 只能压到 59%；Draco 把它从 12.97 MiB 压到 **1.49 MiB**，且不损失任何视觉细节——比删减几何正确，因为那些面是植物的叶片。解码器 vendored 在 `public/vendor/draco/`，不经 CDN。加载实测（服务器上行 10 Mbps 是瓶颈）：首次约 6 秒，再次打开约 2 秒。
 
 地板与书柜使用 **CC0 扫描的 PBR 贴图**（反照率 + 法线 + 粗糙度），取自 [Poly Haven](https://polyhaven.com)，由 `tools/fetch-textures.mjs` 拉取并随项目分发。地面为 200 mm 宽的实木板条，板长按列变化以错开对接缝；书柜为烟熏橡木。UV 按世界坐标投影，木纹在不同尺寸的构件上保持同一物理尺度——改前每个物体把整张贴图铺满自身尺寸，8 米层板上的木纹被拉伸到地板的 3 倍。两张贴图都不做染色：材质的色调靠选素材解决，染色是乘法，会把扫描件的对比度压平。素材来源、UV 取值与已知限制见 `blender/MATERIAL_REFERENCES.md`。
 
@@ -129,4 +132,4 @@ npm test
 
 回归测试覆盖五类契约：唤醒词与中英混排归一化、书名匹配的容错与误命中防线、320 本书的坐标与书架结构关系、`hexu-library.glb` 的合并网格与预算、`smart-book.glb` 的铰链与部件命名、三份馆藏清单副本的一致性，以及语音适配器的生命周期（模拟浏览器识别事件，不等同于真人麦克风转录验收）。实际语音测试请在 Chrome/Edge 打开 localhost 后授权执行。界面测试应覆盖：唤醒、找书、向左拖动封面、显示简介、查看芯片、归还后重新找书。
 
-保留依赖文件中的版权及许可头。Three.js 使用 MIT 许可；GSAP 3.12.5 的许可链接保留于 `public/vendor/gsap.min.js` 开头。地板与书柜的贴图来自 Poly Haven，授权为 **CC0（公有领域）**，可自由分发，无需署名；素材标识记录在 `tools/fetch-textures.mjs` 与 `blender/MATERIAL_REFERENCES.md`。
+保留依赖文件中的版权及许可头。Three.js 使用 MIT 许可；GSAP 3.12.5 的许可链接保留于 `public/vendor/gsap.min.js` 开头；Draco 解码器使用 Apache-2.0，许可全文见 `public/vendor/DRACO-LICENSE.txt`。地板与书柜的贴图来自 Poly Haven，授权为 **CC0（公有领域）**，可自由分发，无需署名；素材标识记录在 `tools/fetch-textures.mjs` 与 `blender/MATERIAL_REFERENCES.md`。

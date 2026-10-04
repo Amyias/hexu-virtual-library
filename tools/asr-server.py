@@ -177,15 +177,48 @@ class Handler(SimpleHTTPRequestHandler):
         if not target.is_file():
             self.send_error(404, "Not found")
             return
+        self._send_file(target)
+
+    def _send_file(self, target):
+        """Serve a file, revalidating instead of re-sending.
+
+        The model is 18 MiB and the uplink is the bottleneck, so a repeat visit must not
+        transfer it again: an ETag lets the browser revalidate and take a 304. A pre-compressed
+        sibling is used when the client accepts gzip — the deploy step writes those, which keeps
+        this process read-only."""
+        stat = target.stat()
+        etag = '"%d-%d"' % (stat.st_size, int(stat.st_mtime))
+        if self.headers.get("If-None-Match") == etag:
+            self.send_response(304)
+            self.send_header("ETag", etag)
+            self.send_header("Cache-Control", "no-cache")
+            self.end_headers()
+            return
+
+        serving = target
+        encoding = None
+        compressed = target.with_name(target.name + ".gz")
+        accepts_gzip = "gzip" in (self.headers.get("Accept-Encoding") or "")
+        if accepts_gzip and compressed.is_file() and compressed.stat().st_mtime >= stat.st_mtime:
+            serving = compressed
+            encoding = "gzip"
+
         try:
-            body = target.read_bytes()
+            body = serving.read_bytes()
         except OSError:
             self.send_error(500, "Read failed")
             return
-        self._send(200, body, MIME.get(target.suffix, "application/octet-stream"))
-
-    def do_HEAD(self):
-        self.do_GET()
+        self.send_response(200)
+        self.send_header("Content-Type", MIME.get(target.suffix, "application/octet-stream"))
+        self.send_header("Content-Length", str(len(body)))
+        self.send_header("ETag", etag)
+        self.send_header("Cache-Control", "no-cache")
+        self.send_header("X-Content-Type-Options", "nosniff")
+        if encoding:
+            self.send_header("Content-Encoding", encoding)
+            self.send_header("Vary", "Accept-Encoding")
+        self.end_headers()
+        self.wfile.write(body)
 
     def do_POST(self):
         if self.path.split("?", 1)[0] != "/asr":

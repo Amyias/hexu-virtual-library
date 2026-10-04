@@ -1,11 +1,17 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
 import { createShelfBooks } from './smart-books.js';
 
 /** Blender is the sole source of the static environment; no primitive fallback. */
 export async function loadEnvironment(scene, books, progress) {
   const url = new URL("../../public/models/hexu-library.glb", import.meta.url);
   const loader = new GLTFLoader();
+  // The environment model is Draco-compressed; the decoder is vendored next to the other
+  // dependencies, so nothing is fetched from a CDN. The decoder loads lazily, in a worker.
+  const draco = new DRACOLoader();
+  draco.setDecoderPath(new URL("../../public/vendor/draco/", import.meta.url).href);
+  loader.setDRACOLoader(draco);
   const gltf = await loader.loadAsync(url.href, (event) => {
     if (event.total) progress(Math.round((event.loaded / event.total) * 100));
   });

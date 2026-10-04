@@ -101,13 +101,45 @@ stream.result.text
 
 ```bash
 cd /path/to/智能虚拟图书馆
-tar czf - --exclude=node_modules --exclude=.git --exclude=.mimosa --exclude=.zcode \
-  --exclude=__pycache__ --exclude='*.blend1' . \
+tar czf - index.html src public tools DEPLOY.md README.md DEVELOPMENT.md AGENTS.md \
   | ssh -i ~/.ssh/rainyun-rcs-Snowy_Brew.pem root@64.90.2.91 \
       'tar xzf - -C /opt/hexu-library && systemctl restart hexu-library'
 ```
 
-只改了前端资源时不必重启服务（静态文件每次请求现读）。
+**只打包站点需要的路径**，不要用 `tar .` 整目录覆盖：服务器上的 `/opt/hexu-library/models/`（230 MB 识别模型）与 `/opt/hexu-library/venv/` 是服务器侧独有的，虽然 `tar` 解包只增不改不会删掉它们，但限定范围更稳妥。
+
+同步后要重跑预压缩（见下）。只改了前端资源时不必重启服务（静态文件每次请求现读）。
+
+## 加载速度
+
+服务器上行只有 10 Mbps，模型体积直接决定等待时间。三层措施：
+
+### 1. 几何用 Draco 压缩
+
+`build_library.py` 导出时启用 `KHR_draco_mesh_compression`（量化 位置 14 / 法线 10 / UV 12 位）。几何从 12.97 MiB 压到 1.49 MiB，**零视觉损失**——比删减几何正确，因为那些面是植物的叶片。解码器 vendored 在 `public/vendor/draco/`，不经 CDN。
+
+### 2. 预压缩（部署步骤）
+
+`tools/asr-server.py` 会优先返回同名的 `.gz`（当客户端接受 gzip 且 `.gz` 不比原文件旧），**它自己只读不写**，压缩由部署时完成：
+
+```bash
+find /opt/hexu-library -type f \( -name '*.glb' -o -name '*.js' -o -name '*.css' \
+  -o -name '*.html' -o -name '*.json' -o -name '*.jpg' -o -name '*.png' -o -name '*.wasm' \) \
+  -size +32k ! -name '*.gz' -print0 | xargs -0 -r gzip -9 -k -f
+```
+
+改过文件后要重跑，否则旧 `.gz` 会被判为过期而跳过（服务端会比较两者的修改时间）。
+
+### 3. 条件请求（304）
+
+响应带 `ETag` 与 `Cache-Control: no-cache`：浏览器会重新校验，未改动时得到 **304、0 字节**，已下载的 6 MB 不再重传。这一层对"每天打开"的体验影响最大。
+
+### 实测（经隧道，上行 10 Mbps）
+
+| 场景 | 原始 | 仅 gzip | gzip + Draco |
+| --- | --- | --- | --- |
+| 首次加载 | 14.6 s | 10.7 s | **6.4 s** |
+| 再次打开 | 14.6 s | 2.0 s | **约 2 s**（304，0 字节） |
 
 ## 验证
 
