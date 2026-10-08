@@ -176,8 +176,18 @@ def _inspect(site_root, source):
         payload.update(state="up-to-date", reason="已经是最新版本")
         return payload
 
-    # How far behind, and what is in between. An installed commit the local repository does not
-    # know about cannot be compared — that is still worth updating, just without the count.
+    # Whether the repository knows the installed commit at all. This is what "cannot compare"
+    # means — an empty commit range does not, since an install can be *ahead* of the remote
+    # (built from a commit that has not been pushed yet), and that is not a broken comparison.
+    ok, _ = _git(source, ["cat-file", "-e", f"{installed_commit}^{{commit}}"])
+    if not ok:
+        payload.update(
+            state="unknown",
+            reason="已安装的版本不在源码历史里（仓库可能被改写过），建议重新构建一次",
+            can_apply=True,
+        )
+        return payload
+
     behind, commits = 0, []
     ok, count = _git(source, ["rev-list", "--count", f"{installed_commit}..origin/{BRANCH}"])
     if ok and count.isdigit():
@@ -195,14 +205,6 @@ def _inspect(site_root, source):
     if ok and count.isdigit():
         ahead = int(count)
 
-    if not behind and not commits:
-        payload.update(
-            state="update-available",
-            reason="本地仓库与已安装的版本对不上（已安装的提交不在源码历史里），建议重新构建",
-            can_apply=True,
-        )
-        return payload
-
     if ahead:
         payload.update(
             state="ahead",
@@ -210,12 +212,14 @@ def _inspect(site_root, source):
             behind=behind, commits=commits,
         )
         return payload
-
-    payload.update(
-        state="update-available",
-        reason=f"有 {behind} 个新提交" if behind else "有可用的更新",
-        behind=behind, commits=commits, can_apply=True,
-    )
+    if behind or commits:
+        payload.update(
+            state="update-available",
+            reason=f"有 {behind} 个新提交" if behind else "有可用的更新",
+            behind=behind, commits=commits, can_apply=True,
+        )
+        return payload
+    payload.update(state="up-to-date", reason="已经是最新版本")
     return payload
 
 
