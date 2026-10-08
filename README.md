@@ -10,9 +10,11 @@ Blender 精细环境模型 + Three.js 网页交互。此版本已从单文件拆
 node tools/package-local.mjs      # 打包一次，产物在 dist/和序图书馆/
 ```
 
-双击 `dist/和序图书馆/和序图书馆.exe` 即可：它自带站点、本机识别模型（SenseVoice 228 MiB，Apache-2.0）与本机服务，窗口里会打印地址并自动打开浏览器（默认 `http://localhost:8090`）。**识别完全在本机运行，录音不出这台电脑**，也不需要那台香港服务器。约 400 MB，构建与分发细节见 [DEPLOY.md](./DEPLOY.md) 的「本机版打包」。
+双击 `dist/和序图书馆/和序图书馆.exe`，程序**直接打开自己的窗口**，图书馆就在窗口里——没有浏览器标签页，也没有命令行黑框；关掉窗口程序即退出。用的是 Windows 自带的 WebView2（随 Edge 安装），页面、识别模型与 HTTP 服务都在本机。**识别完全在本机运行，录音不出这台电脑**，也不需要那台香港服务器。约 327 MB，构建与窗口细节见 [DEPLOY.md](./DEPLOY.md) 的「本机版打包」。
 
-语义解析（可选，让「霍金写的那本」这类说法也能听懂）在 `http://localhost:8090/settings` 里填写自己的 API 密钥；不填也完全可用，只是规则读不懂的说法会被礼貌拒绝。密钥存在用户目录，不在程序文件夹里。
+麦克风不需要你在窗口里点「允许」：程序替这个页面放行了（WebView2 默认会拒绝麦克风，所以这一步由程序完成，见 `tools/window_host.py`）。真正的开关在页面里——第一次点一下「启动语音感知」，之后每次打开都会自动开始收听，说「小和」即可。想确认窗口里麦克风能不能用，跑 `和序图书馆.exe --check-mic`；想改用系统浏览器，跑 `--browser`。
+
+语义解析（可选，让「霍金写的那本」这类说法也能听懂）在页面里的「本机设置」入口填写自己的 API 密钥；不填也完全可用，只是规则读不懂的说法会被礼貌拒绝。密钥存在用户目录，不在程序文件夹里。
 
 ### 方式二：开发用静态站点
 
@@ -82,7 +84,8 @@ npm start
 | `public/vendor/draco/` | Draco 解码器（Apache-2.0），环境模型用它解压几何 |
 | `tools/serve.mjs` | 无额外依赖的本地静态服务 |
 | `tools/asr-server.py` | 一个进程两种跑法：服务器模式（静态站点 + 本机模型识别），或经 PyInstaller 冻结成本机程序 |
-| `tools/package-local.mjs` | 本机版打包：准备虚拟环境、校验模型、暂存站点并预压缩、调 PyInstaller |
+| `tools/window_host.py` | 打包版的窗口：用 WebView2 承载页面，并替页面放行麦克风（WebView2 默认拒绝） |
+| `tools/package-local.mjs` | 本机版打包：准备虚拟环境、校验模型、暂存站点并预压缩、调 PyInstaller、可选桌面快捷方式 |
 | `tools/hexu-library.spec` | PyInstaller 配方（one-dir，程序名与数据文件清单） |
 | `public/settings.html` | 本机设置页：填写模型密钥、测试连接（仅回环可访问） |
 | `tools/fetch-textures.mjs` | 表面贴图的唯一拉取脚本，来源与许可记录在内 |

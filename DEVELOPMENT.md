@@ -173,6 +173,12 @@ npm test                       # 回归测试
 # 本机版：打包成双击可运行的程序（自带识别模型），产物在 dist/和序图书馆/
 node tools/package-local.mjs           # 或 npm run package:local
 node tools/package-local.mjs --zip     # 另出一个 zip
+node tools/package-local.mjs --no-build --shortcut   # 只放桌面快捷方式，不重打包
+
+# 本机版：从源码直接跑窗口模式（默认是浏览器，--window 才是内嵌窗口）
+.cache/venv/Scripts/python.exe tools/asr-server.py --window
+# 检查内嵌窗口里的麦克风能不能用（结论也写进 %APPDATA%\hexu-library\mic-check.txt）
+.cache/venv/Scripts/python.exe tools/asr-server.py --check-mic
 
 # 全量重建模型：覆盖 .blend / .glb / 贴图 / 预览
 & 'D:\Blender Foundation\Blender 5.2\blender.exe' --background --factory-startup --python-exit-code 1 --python blender/build_library.py
