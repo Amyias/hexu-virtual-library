@@ -225,7 +225,10 @@ journalctl -u hexu-library -n 20 --no-pager
 ```bash
 node tools/package-local.mjs          # 或 npm run package:local
 node tools/package-local.mjs --zip    # 另出一个 zip 便于分发
+node tools/package-local.mjs --shortcut --zip   # 顺带在桌面放一个快捷方式
 ```
+
+`--shortcut` 用 `WScript.Shell` 在桌面（含 OneDrive 重定向后的真实桌面）建一个指向 `和序图书馆.exe` 的 `.lnk`。**它指向 `dist` 里的那个文件**，所以把 `dist` 搬走或删掉就会失效——重新打包时加上 `--shortcut` 再建一次即可。
 
 脚本会：准备 `.cache/venv` 并安装 `pyinstaller==6.22.3` 与 `sherpa-onnx==1.13.8`（本机 Python 3.14 有对应的 win_amd64 轮子，不需要编译器）→ 校验 `.cache/models/` 里的模型 → 把站点复制到 `.cache/stage/site` 并**预压缩 `.gz` 兄弟文件** → 调 PyInstaller → 校验产物 → 写「使用说明.txt」。重复运行会复用已装好的依赖。
 

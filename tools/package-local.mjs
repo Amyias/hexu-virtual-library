@@ -12,7 +12,7 @@ build has to use a virtual environment whose interpreter actually has a sherpa-o
 every one of those is easy to get subtly wrong by hand. Running it again is cheap — the
 environment and dependencies are reused when they are already there.
 
-    node tools/package-local.mjs [--zip] [--skip-deps]
+    node tools/package-local.mjs [--zip] [--shortcut] [--no-build] [--skip-deps]
 
 The model is not in this repository (it is 228 MiB and belongs to nobody's git history). Put it
 at .cache/models/<name>/ first, or point HEXU_ASR_MODEL_DIR at it; without it the script prints
@@ -309,6 +309,79 @@ function writeInstructions() {
   fs.writeFileSync(path.join(appDir, "使用说明.txt"), INSTRUCTIONS, "utf8");
 }
 
+/* Put a shortcut on the desktop, pointing at the program just built.
+
+   Two details here are not obvious:
+
+   - The values travel in a UTF-8 file, not on the PowerShell command line or inside a script
+     file. Windows PowerShell 5.1 decodes a BOM-less script file, and non-ASCII arguments, using
+     the console code page — write a .ps1 containing Chinese as UTF-8 and the strings arrive as
+     mojibake, silently. Keeping the script pure ASCII and reading the Chinese back with
+     `-Encoding UTF8` takes that whole question off the table.
+   - The shortcut is read back and compared with what was asked for. A shortcut is opaque binary;
+     if a name or target lands wrong the only symptom is a broken icon later, so creation and
+     verification happen in the same breath. */
+function desktopShortcut() {
+  const target = path.join(appDir, `${APP}.exe`);
+  if (!fs.existsSync(target)) fail(`找不到程序文件：${target}`);
+  fs.mkdirSync(cache, { recursive: true });
+  const specPath = path.join(cache, "shortcut.json");
+  const reportPath = path.join(cache, "shortcut-report.json");
+  fs.rmSync(reportPath, { force: true });
+  fs.writeFileSync(specPath, JSON.stringify({
+    name: APP,
+    target,
+    workingDirectory: appDir,
+    description: "和序图书馆 · 本机版（自带语音识别）",
+  }), "utf8");
+
+  const script = `
+$ErrorActionPreference = 'Stop'
+$spec = Get-Content -LiteralPath $env:HEXU_SHORTCUT_SPEC -Raw -Encoding UTF8 | ConvertFrom-Json
+$desktop = [Environment]::GetFolderPath('Desktop')
+$link = Join-Path $desktop ($spec.name + '.lnk')
+$shell = New-Object -ComObject WScript.Shell
+$shortcut = $shell.CreateShortcut($link)
+$shortcut.TargetPath = $spec.target
+$shortcut.WorkingDirectory = $spec.workingDirectory
+$shortcut.Description = $spec.description
+$shortcut.Save()
+$check = $shell.CreateShortcut($link)
+$report = [ordered]@{
+  link = $link
+  desktop = $desktop
+  target = $check.TargetPath
+  matches = ($check.TargetPath -eq $spec.target) -and ($check.Description -eq $spec.description)
+  exists = (Test-Path -LiteralPath $link)
+}
+($report | ConvertTo-Json) | Out-File -LiteralPath $env:HEXU_SHORTCUT_REPORT -Encoding UTF8
+`;
+  const result = run("powershell", ["-NoProfile", "-NonInteractive", "-Command", script], {
+    env: { ...process.env, HEXU_SHORTCUT_SPEC: specPath, HEXU_SHORTCUT_REPORT: reportPath },
+  });
+  if (result.error) fail("找不到 PowerShell，无法创建桌面快捷方式。" + result.error.message);
+  let report = null;
+  try {
+    report = JSON.parse(fs.readFileSync(reportPath, "utf8").replace(/^\uFEFF/, ""));
+  } catch {
+    /* fall through to the message below */
+  }
+  fs.rmSync(specPath, { force: true });
+  fs.rmSync(reportPath, { force: true });
+  if (!report) {
+    fail(
+      "创建桌面快捷方式失败：" +
+        (result.stderr || result.stdout || `PowerShell 退出码 ${result.status}`).trim(),
+    );
+  }
+  if (!report.exists || !report.matches || !fs.existsSync(report.link)) {
+    fail(`快捷方式写好了但对不上，请检查桌面：${report.link}\n期望指向 ${target}，实际 ${report.target}`);
+  }
+  log(`快捷方式  ${report.link}`);
+  log(`          → ${report.target}`);
+  log("          （指向的是 dist 里的那个文件，把 dist 搬走就会失效。）");
+}
+
 function zip() {
   const archive = path.join(dist, `${APP}.zip`);
   fs.rmSync(archive, { force: true });
@@ -319,13 +392,19 @@ function zip() {
 }
 
 log("和序图书馆 · 本机版打包");
-const python = ensurePython();
-if (!process.argv.includes("--skip-deps")) ensureDependencies(python);
-checkModel();
-stageSite();
-build(python);
+const noBuild = process.argv.includes("--no-build");
+const python = noBuild ? null : ensurePython();
+if (python && !process.argv.includes("--skip-deps")) ensureDependencies(python);
+if (python) {
+  checkModel();
+  stageSite();
+  build(python);
+} else {
+  log("--no-build：跳过打包，只做收尾（快捷方式 / 压缩包）。");
+}
 verify();
 writeInstructions();
+if (process.argv.includes("--shortcut")) desktopShortcut();
 if (process.argv.includes("--zip")) zip();
 log("");
 log(`完成。把「${APP}」整个文件夹复制到任何地方都能运行。`);

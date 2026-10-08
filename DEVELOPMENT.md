@@ -137,6 +137,14 @@ curl -X PATCH "$API" --data-urlencode "description@/path/to/desc.txt"
 
 `git commit -F -` 配合 heredoc 是安全的（heredoc 不经过 argv），提交信息不会损坏。
 
+### 同类的第二个坑：PowerShell 按 ANSI 解码
+
+Windows PowerShell 5.1 用**控制台代码页**（本机是 GBK）解码两样东西：无 BOM 的 `.ps1` 文件、以及 `-Command` 参数里的非 ASCII。用 UTF-8 写一个含中文的 `.ps1`，里面的中文字符串到达脚本时就已经是乱码，而且**不报错**。
+
+还有一层更容易误判：PowerShell 把中文写到 stdout 时用的是 GBK，Node/Python 按 UTF-8 读就成了 `锟斤拷`（U+FFFD）。**那只是显示坏了，文件可能是好的**——`tools/package-local.mjs` 建桌面快捷方式时就是这样，一度看起来像把文件名写坏了，其实 `.lnk` 完全正确。判断这类问题要看磁盘上的真实字节，别信控制台。
+
+可靠做法（`desktopShortcut()` 用的就是它）：脚本正文保持纯 ASCII，中文值写进一个 UTF-8 文件，脚本用 `Get-Content -Encoding UTF8` 读；需要回传结果时同样写文件，不要走 stdout。
+
 ## 不应提交的内容
 
 `.gitignore` 已排除：
