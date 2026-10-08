@@ -13,7 +13,13 @@ export async function loadEnvironment(scene, books, progress) {
   draco.setDecoderPath(new URL("../../public/vendor/draco/", import.meta.url).href);
   loader.setDRACOLoader(draco);
   const gltf = await loader.loadAsync(url.href, (event) => {
-    if (event.total) progress(Math.round((event.loaded / event.total) * 100));
+    /* The model is served gzip-compressed, and the browser counts `loaded` in decompressed bytes
+       while `total` is the compressed Content-Length (6,419,828 over 6,042,972) — which the page
+       used to announce as "正在加载 Blender 模型 106%". Clamped here rather than at the caller
+       because this pair of numbers exists only here, and the number is a progress report rather
+       than a measurement: the last stretch is the tail of one file arriving, not more than the
+       whole of it. */
+    if (event.total) progress(Math.min(100, Math.round((event.loaded / event.total) * 100)));
   });
   let meshes = 0;
   gltf.scene.name = "BlenderLibrary";
