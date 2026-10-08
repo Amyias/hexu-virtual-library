@@ -179,6 +179,8 @@ node tools/package-local.mjs --no-build --shortcut   # 只放桌面快捷方式�
 .cache/venv/Scripts/python.exe tools/asr-server.py --window
 # 检查内嵌窗口里的麦克风能不能用（结论也写进 %APPDATA%\hexu-library\mic-check.txt）
 .cache/venv/Scripts/python.exe tools/asr-server.py --check-mic
+# 检查 Gitee 上有没有新提交（0 已最新 / 1 有更新 / 2 查不了）
+.cache/venv/Scripts/python.exe tools/asr-server.py --check-update
 
 # 全量重建模型：覆盖 .blend / .glb / 贴图 / 预览
 & 'D:\Blender Foundation\Blender 5.2\blender.exe' --background --factory-startup --python-exit-code 1 --python blender/build_library.py
