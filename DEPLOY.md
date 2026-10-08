@@ -1,6 +1,6 @@
 # 服务器部署（服务端语音识别）
 
-本文件说明如何把项目部署到服务器，并用服务器本地的语音模型做识别。
+本文件说明如何把项目部署到服务器，并用服务器本地的语音模型做识别；末尾的「本机版打包」则说明如何把它做成一个**双击就能跑的本机程序**（自带模型，不需要服务器）。
 
 **静态模式不受影响。** 用 `npm start` 本地打开时行为与从前完全一致——浏览器探测不到后端就沿用 Web Speech API。
 
@@ -17,16 +17,12 @@
 | 主机 | `64.90.2.91`（Ubuntu 24.04，4 vCPU / 8 GB） |
 | 站点目录 | `/opt/hexu-library` |
 | Python 环境 | `/opt/hexu-library/venv`（sherpa-onnx + numpy，独立于其它项目） |
-| 识别模型 | `/opt/hiyori-voice/sherpa-onnx-sense-voice-zh-en-ja-ko-yue-int8-2024-07-17`（**只读引用，未复制**） |
-| 服务 | `hexu-library.service` |
+| 识别模型 | `/opt/hexu-library/models/sherpa-onnx-sense-voice-zh-en-ja-ko-yue-int8-2024-07-17`（约 228 MiB，本项目自己的副本） |
+| 服务 | `hexu-library.service`，`Environment=HEXU_ASR_MODEL_DIR=…` 显式指定模型路径 |
 | 监听 | `127.0.0.1:8090`（仅本机，不对公网开放） |
 | 访问方式 | SSH 隧道 |
 
-### ⚠️ 同一台机器上的另一个项目
-
-服务器上另有 `/opt/hiyori-assistant` 与 `/opt/hiyori-voice`——那是一个**独立的个人助手项目**（含它自己的语音模型与 venv），以及 `/root` 下它的一整套部署脚本。语音模型正是从那里只读借用的。
-
-**不要改动、不要重启、不要升级那两项，也不要删除。** 本项目的部署与它零交集：不同目录、不同端口、不同 venv、不同服务名。
+这台机器上原本还有一个独立的个人助手项目（`/opt/hiyori-assistant`、`/opt/hiyori-voice`），模型曾是从那里只读借用的；**现已按你的要求删除**，识别模型改为本项目自己的副本，放在上面的路径下。
 
 ## 访问
 
@@ -42,13 +38,15 @@ ssh -i ~/.ssh/rainyun-rcs-Snowy_Brew.pem -L 8090:127.0.0.1:8090 root@64.90.2.91
 
 ## 架构
 
-`tools/asr-server.py` 一个进程同时做两件事：
+`tools/asr-server.py` 一个进程同时做几件事：
 
 | 路由 | 作用 |
 | --- | --- |
-| `GET /` 与静态文件 | 提供站点，路径解析后必须落在站点根内，否则 403 |
+| `GET /` 与静态文件 | 提供站点，路径解析后必须落在站点根内，否则 403；支持预压缩 `.gz` 与 ETag/304 |
+| `GET /healthz` | 返回 `{"app": "hexu-library", …}`；第二次启动靠它认出「已经在运行」 |
 | `GET /asr/ready` | 返回模型是否就绪；前端探测它决定用哪条识别通道 |
 | `POST /asr` | 收 16 kHz 单声道 WAV，返回 `{"text": ...}` |
+| `GET /settings` 与 `/settings/state`、`POST /settings/key`、`POST /settings/test` | 本机设置页：填写模型密钥、测试连接。**只允许回环地址访问** |
 
 **服务端不发出任何对外请求**，因此没有 SSRF 面；页面与接口同源同端口，所以不需要 CORS，也只需要开一条隧道。
 
@@ -69,7 +67,9 @@ ssh -i ~/.ssh/rainyun-rcs-Snowy_Brew.pem -L 8090:127.0.0.1:8090 root@64.90.2.91
 | `HEXU_LLM_MODEL` | `deepseek-flash` | 换 `deepseek-v4-pro` 可提质，贵 50～70 倍 |
 | `HEXU_LLM_TIMEOUT` | `12` | 秒；超时即退回本地提示 |
 
-密钥放在**仓库之外**、root-only 的文件里，由 systemd 注入：
+同一组设置也可以放在**用户目录**的配置文件里（本机版走这条路，见下文「本机版打包」）：Windows 是 `%APPDATA%\hexu-library\llm.env`，其它系统是 `~/.config/hexu-library/llm.env`，格式与下面完全一样。**环境变量优先**，所以部署在服务器上的服务不会被某个人 profile 里遗留的文件改写；`/settings/state` 会回一个 `key_source` 字段说明当前生效的是哪一边。
+
+服务器上的密钥放在**仓库之外**、root-only 的文件里，由 systemd 注入：
 
 ```bash
 install -d -m 700 /etc/hexu-library
@@ -84,7 +84,7 @@ chmod 600 /etc/hexu-library/llm.env
 
 然后在 `hexu-library.service` 的 `[Service]` 里加一行 `EnvironmentFile=/etc/hexu-library/llm.env`，`systemctl daemon-reload && systemctl restart hexu-library`。
 
-服务**在每次请求时**从环境变量读取密钥，不缓存、不落盘、不打印；单元文件里只有路径。
+服务**在每次请求时**读取密钥——环境变量或用户目录里的配置文件，不缓存、不落盘（写盘只发生在设置页保存时）、不打印；单元文件里只有路径。错误信息里若出现密钥原文也会在返回前隐去。
 
 ### 模型调用方式
 
@@ -200,7 +200,7 @@ find /opt/hexu-library -type f \( -name '*.glb' -o -name '*.js' -o -name '*.css'
 curl -s http://127.0.0.1:8090/asr/ready
 
 # 用模型自带的样例音频验识别（服务器上执行）
-M=/opt/hiyori-voice/sherpa-onnx-sense-voice-zh-en-ja-ko-yue-int8-2024-07-17
+M=/opt/hexu-library/models/sherpa-onnx-sense-voice-zh-en-ja-ko-yue-int8-2024-07-17
 curl -s -X POST --data-binary @$M/test_wavs/zh.wav http://127.0.0.1:8090/asr
 # 期望：{"text": "开饭时间早上9点至下午5点。", ...}
 
@@ -214,4 +214,64 @@ journalctl -u hexu-library -n 20 --no-pager
 - 服务只监听 `127.0.0.1`，不暴露公网；访问必须经 SSH 隧道（密钥认证）。
 - 单元文件里只有路径与环境变量，**没有任何凭据值**。
 - SSH 密钥只在建立连接时以 `-i` 使用，不读取、不打印、不复制、不写入仓库。
-- 站点目录对服务进程只读即可；服务不写任何文件。
+- 站点目录对服务进程只读即可。**服务本身只在一种情况下写文件**：你在设置页保存密钥时，写到用户目录的配置里（服务器部署用不到这条路，因为环境变量优先）。
+
+## 本机版打包
+
+同一个 `tools/asr-server.py` 有两种跑法：`systemd` 拉起、经隧道访问的那种是服务器模式；**用 PyInstaller 冻结出来的就是一个本机程序**——站点与识别模型都在包里，双击即用，`http://localhost` 本身就是安全上下文，麦克风可用，**不再需要那台香港服务器**。
+
+### 构建
+
+```bash
+node tools/package-local.mjs          # 或 npm run package:local
+node tools/package-local.mjs --zip    # 另出一个 zip 便于分发
+```
+
+脚本会：准备 `.cache/venv` 并安装 `pyinstaller==6.22.3` 与 `sherpa-onnx==1.13.8`（本机 Python 3.14 有对应的 win_amd64 轮子，不需要编译器）→ 校验 `.cache/models/` 里的模型 → 把站点复制到 `.cache/stage/site` 并**预压缩 `.gz` 兄弟文件** → 调 PyInstaller → 校验产物 → 写「使用说明.txt」。重复运行会复用已装好的依赖。
+
+模型不在仓库里（228 MiB，不该进版本库）。首次构建前先取回一次：
+
+```bash
+mkdir -p ".cache/models/sherpa-onnx-sense-voice-zh-en-ja-ko-yue-int8-2024-07-17"
+scp -i ~/.ssh/rainyun-rcs-Snowy_Brew.pem \
+  "root@64.90.2.91:/opt/hexu-library/models/sherpa-onnx-sense-voice-zh-en-ja-ko-yue-int8-2024-07-17/{model.int8.onnx,tokens.txt,LICENSE}" \
+  ".cache/models/sherpa-onnx-sense-voice-zh-en-ja-ko-yue-int8-2024-07-17/"
+```
+
+或用 `HEXU_ASR_MODEL_DIR` 指向别处的模型目录。模型是 Apache-2.0，`LICENSE` 会一起打进包里。
+
+### 产物
+
+```
+dist/和序图书馆/
+  和序图书馆.exe         双击启动：打印地址、自动开浏览器；关窗口即退出
+  _internal/             Python 运行时、依赖、站点、识别模型（.gz 已预压缩）
+  使用说明.txt
+```
+
+约 400 MB（模型占 228 MiB）。**用 one-dir 而不是 one-file**：单文件版每次启动都要把整个归档解压到临时目录，带着 228 MiB 模型时那个等待没人会接受。
+
+### 实测（本机 Windows 11 / Python 3.14.7，2026-10）
+
+| 项 | 实测值 |
+| --- | --- |
+| 产物体积 | **322.6 MB**（`_internal/models/` 229 MB） |
+| 站点 | 原始 9.0 MB → 预压缩 6.3 MB |
+| 从双击到能服务 | **约 1.3 秒**（含加载原生识别库、探测引擎） |
+| 首句识别 | 0.2–0.9 秒（启动时后台预热模型，通常察觉不到冷启动） |
+| 识别准确性检验 | 模型自带 `zh.wav` → `开饭时间早上9点至下午5点。` |
+| 中文安装路径 | 在 `dist\和序图书馆\` 下运行通过（onnxruntime 的已知风险点） |
+| 包内 TLS | 指向 `https://api.deepseek.com` 并用无效密钥，得到 **401**（而非连接错误），说明证书链与系统信任库可用 |
+
+### 冻结模式下的路径
+
+| 环境变量 | 作用 |
+| --- | --- |
+| `HEXU_SITE_ROOT` | 覆盖站点根目录。冻结时默认是包解压出的目录（`sys._MEIPASS`），非冻结时仍是脚本上一级——**不设置就与从前完全一样** |
+| `HEXU_ASR_MODEL_DIR` | 覆盖模型目录。冻结时默认是包内 `models/sense-voice/`；非冻结时 Linux 是 `/opt/hexu-library/models/…`，Windows 是 `.cache/models/…` |
+
+`--port N` 与 `--no-browser` 两个命令行开关供本机版使用；端口被占用时自动改挑空闲端口，若发现**已经在运行的自己**（`/healthz`）则直接打开那一个，而不是报错或起第二个进程。
+
+### 密钥在这条路上的位置
+
+本机版没有 `/etc/hexu-library/llm.env` 那种 root-only 的地方，所以改用**用户自己的**配置文件 `%APPDATA%\hexu-library\llm.env`（由设置页写入，页面从不显示密钥原文，任何接口都不回显）。发行目录里不含任何凭据，整个文件夹可以随意复制、替换、删除。仓库内仍然一个字面量都不许出现——这条约束没有变。

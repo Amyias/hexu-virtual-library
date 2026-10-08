@@ -4,13 +4,25 @@ Blender 精细环境模型 + Three.js 网页交互。此版本已从单文件拆
 
 ## 运行
 
+### 方式一：双击程序（推荐，含语音识别）
+
+```
+node tools/package-local.mjs      # 打包一次，产物在 dist/和序图书馆/
+```
+
+双击 `dist/和序图书馆/和序图书馆.exe` 即可：它自带站点、本机识别模型（SenseVoice 228 MiB，Apache-2.0）与本机服务，窗口里会打印地址并自动打开浏览器（默认 `http://localhost:8090`）。**识别完全在本机运行，录音不出这台电脑**，也不需要那台香港服务器。约 400 MB，构建与分发细节见 [DEPLOY.md](./DEPLOY.md) 的「本机版打包」。
+
+语义解析（可选，让「霍金写的那本」这类说法也能听懂）在 `http://localhost:8090/settings` 里填写自己的 API 密钥；不填也完全可用，只是规则读不懂的说法会被礼貌拒绝。密钥存在用户目录，不在程序文件夹里。
+
+### 方式二：开发用静态站点
+
 已安装 Node.js 18 或更高版本时，在项目目录执行：
 
 ```powershell
 npm start
 ```
 
-打开 `http://localhost:8080`。不需要 `npm install`。不能直接双击 `index.html`：浏览器模块与 GLB 资源需要通过 HTTP 服务加载。
+打开 `http://localhost:8080`。不需要 `npm install`。不能直接双击 `index.html`：浏览器模块与 GLB 资源需要通过 HTTP 服务加载。**这条只提供静态站点，没有本机识别模型**，识别会退回浏览器自带的 Web Speech API（在连不上厂商云服务的网络里不可用）。
 
 首次点击“启动语音感知”并允许麦克风，然后说“小和”或“小和，帮我找三体”。**这一次点击只需一次**：选择会被记住，此后每次打开页面都自动开始收听，直接说「小和」即可。之所以不能做到零点击，是因为浏览器的麦克风授权本身必须由用户手势触发——没有任何网页能绕过这一点；而授权一旦持久化，页面就能在无手势的新文档里自行开麦（已实测）。
 
@@ -69,7 +81,10 @@ npm start
 | `public/vendor/` | Three.js 0.160.1、GLTFLoader、DRACOLoader、GSAP 3.12.5 等固定依赖 |
 | `public/vendor/draco/` | Draco 解码器（Apache-2.0），环境模型用它解压几何 |
 | `tools/serve.mjs` | 无额外依赖的本地静态服务 |
-| `tools/asr-server.py` | 服务器模式：静态站点 + 本地模型识别，单进程 |
+| `tools/asr-server.py` | 一个进程两种跑法：服务器模式（静态站点 + 本机模型识别），或经 PyInstaller 冻结成本机程序 |
+| `tools/package-local.mjs` | 本机版打包：准备虚拟环境、校验模型、暂存站点并预压缩、调 PyInstaller |
+| `tools/hexu-library.spec` | PyInstaller 配方（one-dir，程序名与数据文件清单） |
+| `public/settings.html` | 本机设置页：填写模型密钥、测试连接（仅回环可访问） |
 | `tools/fetch-textures.mjs` | 表面贴图的唯一拉取脚本，来源与许可记录在内 |
 | `tools/prepare-smart-books.mjs` | 馆藏清单的唯一生成器，一次写入三份副本 |
 | `tests/library.test.mjs` | 馆藏几何、ASR 事件与 GLB 完整性回归检查 |

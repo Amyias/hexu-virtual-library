@@ -67,6 +67,20 @@ git push origin master
 - 若某次输出可能包含凭据值，先遮蔽再输出。
 - 不需要凭据的任务（例如日常提交推送走 SSH），不要去读取凭据。
 
+### 边界：谁在什么情况下可以写凭据
+
+上面那条约束的是**这份仓库**，也约束**我**：文件里只许出现变量名与路径。它并不意味着使用者不能在本机保存自己的密钥——否则打包出来的本机程序每次启动都要重新输入。
+
+所以边界划在**仓库之外、由使用者自己经手**：
+
+| 场景 | 谁写入 | 落在哪里 | 是否属于「凭据不写入文件」的例外 |
+| --- | --- | --- | --- |
+| 服务器部署 | 使用者（照 `DEPLOY.md` 的命令） | `/etc/hexu-library/llm.env`，root-only 600 | 否——在仓库外，且不是我写的 |
+| 本机版 | 使用者在 `/settings` 页面自己输入 | `%APPDATA%\hexu-library\llm.env` 或 `~/.config/hexu-library/llm.env` | 否——同上，由使用者触发 |
+| 开发调试 | 使用者设环境变量 | 进程环境 | 否 |
+
+三条不能松的地方：**密钥绝不写进仓库内的任何文件**；**任何 HTTP 接口都不回显密钥原文**（`/settings/state` 只回 `configured` 布尔值与来源）；**我本人不经手密钥值**——设置页那条路径由使用者自己点、程序自己存，我既不读取也不验证其内容，测试时只用明显无效的假值。
+
 ### 推送认证：SSH 密钥
 
 | 项 | 位置 |
@@ -133,6 +147,10 @@ curl -X PATCH "$API" --data-urlencode "description@/path/to/desc.txt"
 | `blender/__pycache__/`、`*.pyc` | Python 字节码 |
 | `blender/*.blend1` | Blender 保存时自动生成的上一版备份 |
 | `.mimosa/` | 本机安全扫描插件的钩子状态，与项目无关 |
+| `.cache/` | 本机版打包的中间物：构建用虚拟环境、228 MiB 识别模型、PyInstaller 工作目录 |
+| `dist/` | 本机版的发行产物（约 400 MB），由 `tools/package-local.mjs` 随时重建 |
+
+前两项由 `tools/package-local.mjs` 生成，不进版本库；进版本库的是**打包脚本、spec 与文档**，所以换一台机器也能重建出同样的程序。
 
 `archive/` 下的 `.blend` 是**有意保留**的版本备份（植物精细化前、芯片体系前），应当提交。
 
@@ -143,6 +161,10 @@ curl -X PATCH "$API" --data-urlencode "description@/path/to/desc.txt"
 ```powershell
 npm start                      # 本地服务，http://localhost:8080
 npm test                       # 回归测试
+
+# 本机版：打包成双击可运行的程序（自带识别模型），产物在 dist/和序图书馆/
+node tools/package-local.mjs           # 或 npm run package:local
+node tools/package-local.mjs --zip     # 另出一个 zip
 
 # 全量重建模型：覆盖 .blend / .glb / 贴图 / 预览
 & 'D:\Blender Foundation\Blender 5.2\blender.exe' --background --factory-startup --python-exit-code 1 --python blender/build_library.py
