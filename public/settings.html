@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#eaece5" />
+    <title>和序 · 本机设置</title>
+    <style>
+      :root {
+        --ink: #243d39;
+        --muted: #788580;
+        --line: #d7ddd5;
+        --green: #376c53;
+        --paper: #f7f8f2;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        padding: 32px 20px 64px;
+        background: #eaece5;
+        color: var(--ink);
+        font:
+          14px/1.7 "Segoe UI",
+          "Microsoft YaHei",
+          sans-serif;
+      }
+      main {
+        max-width: 620px;
+        margin: 0 auto;
+      }
+      h1 {
+        font-size: 20px;
+        margin: 0 0 4px;
+      }
+      .sub {
+        color: var(--muted);
+        margin: 0 0 22px;
+      }
+      section {
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 18px 20px;
+        margin-bottom: 16px;
+      }
+      h2 {
+        font-size: 14px;
+        letter-spacing: 0.04em;
+        margin: 0 0 12px;
+        color: var(--green);
+      }
+      label {
+        display: block;
+        margin: 12px 0 4px;
+        color: var(--muted);
+      }
+      input {
+        width: 100%;
+        padding: 9px 11px;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: #fff;
+        font: inherit;
+        color: inherit;
+      }
+      input:focus-visible {
+        outline: 2px solid #679575;
+        outline-offset: 2px;
+      }
+      .row {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-top: 16px;
+      }
+      button {
+        font: inherit;
+        cursor: pointer;
+        border-radius: 7px;
+        padding: 9px 16px;
+        border: 1px solid var(--line);
+        background: #fff;
+        color: inherit;
+      }
+      button.primary {
+        background: var(--green);
+        border-color: var(--green);
+        color: #f7f8f2;
+      }
+      button:focus-visible {
+        outline: 2px solid #679575;
+        outline-offset: 3px;
+      }
+      dl {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 2px 14px;
+        margin: 0;
+      }
+      dt {
+        color: var(--muted);
+      }
+      dd {
+        margin: 0;
+        overflow-wrap: anywhere;
+      }
+      .state {
+        font-weight: 600;
+      }
+      .state.ok {
+        color: var(--green);
+      }
+      .state.bad {
+        color: #a2503c;
+      }
+      .note {
+        color: var(--muted);
+        font-size: 13px;
+      }
+      code {
+        background: #eff1e9;
+        padding: 1px 5px;
+        border-radius: 4px;
+        font-size: 12.5px;
+      }
+      #message {
+        margin: 12px 0 0;
+        min-height: 1.4em;
+        font-size: 13.5px;
+      }
+      #message.ok {
+        color: var(--green);
+      }
+      #message.bad {
+        color: #a2503c;
+      }
+      a {
+        color: var(--green);
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>本机设置</h1>
+      <p class="sub">
+        这里是程序自己的页面，只在本机可访问。<a href="/">返回图书馆 ↗</a>
+      </p>
+
+      <section>
+        <h2>当前状态</h2>
+        <dl>
+          <dt>语音识别</dt>
+          <dd><span id="asr" class="state">正在检查…</span></dd>
+          <dt>语义解析</dt>
+          <dd><span id="semantic" class="state">正在检查…</span></dd>
+          <dt>密钥来源</dt>
+          <dd id="keySource">—</dd>
+          <dt>设置文件</dt>
+          <dd><code id="configPath">—</code></dd>
+        </dl>
+        <p class="note" id="environmentNote" hidden>
+          这个密钥来自环境变量，优先级高于本页填写的内容；本页保存的值不会生效。
+        </p>
+      </section>
+
+      <section>
+        <h2>大语言模型（语义解析）</h2>
+        <p class="note">
+          不填写也可以正常使用：找书的常见说法由本地规则即时处理。填写之后，规则理解不了的说法
+          （例如「霍金写的那本」）会交给所配置的模型判断。为理解语义，<b>转写文本与馆藏目录</b>
+          会发送给该服务；录音音频始终留在本机。
+        </p>
+        <label for="key">API 密钥</label>
+        <input
+          id="key"
+          type="password"
+          autocomplete="new-password"
+          spellcheck="false"
+          placeholder="未配置"
+        />
+        <label for="baseUrl">接入地址</label>
+        <input id="baseUrl" type="url" spellcheck="false" />
+        <label for="model">模型</label>
+        <input id="model" type="text" spellcheck="false" />
+        <div class="row">
+          <button id="save" class="primary">保存设置</button>
+          <button id="test">保存并测试连接</button>
+          <button id="clear">清除密钥</button>
+        </div>
+        <p id="message" role="status"></p>
+      </section>
+
+      <section>
+        <h2>关于这个文件</h2>
+        <p class="note">
+          密钥写在你自己的用户目录里，不在程序所在的文件夹中 —— 程序本体可以整个替换或删除，
+          密钥不受影响，分发给别人时也不会带走你的密钥。程序从不在任何页面上显示密钥原文，
+          也不会把它写进日志。
+        </p>
+      </section>
+    </main>
+    <script type="module">
+      const $ = (id) => document.getElementById(id);
+      const message = (text, ok) => {
+        $("message").textContent = text;
+        $("message").className = ok ? "ok" : "bad";
+      };
+      const state = (id, text, ok) => {
+        const node = $(id);
+        node.textContent = text;
+        node.className = "state " + (ok ? "ok" : "bad");
+      };
+      const SOURCES = {
+        env: "环境变量（优先级最高）",
+        file: "本页保存的设置文件",
+        default: "未配置",
+      };
+
+      function apply(summary) {
+        $("key").placeholder = summary.configured ? "已配置（留空则不改动）" : "未配置";
+        $("baseUrl").value = summary.base_url ?? "";
+        $("model").value = summary.model ?? "";
+        $("configPath").textContent = summary.path ?? "";
+        $("keySource").textContent = SOURCES[summary.key_source] ?? "—";
+        $("environmentNote").hidden = !summary.key_from_environment;
+        state(
+          "semantic",
+          summary.configured ? "已配置" : "未配置（仅本地规则）",
+          summary.configured,
+        );
+      }
+
+      async function load() {
+        try {
+          const response = await fetch("/settings/state", { cache: "no-store" });
+          if (!response.ok) throw new Error("HTTP " + response.status);
+          apply(await response.json());
+        } catch {
+          state("semantic", "无法读取设置", false);
+        }
+        try {
+          const response = await fetch("/asr/ready", { cache: "no-store" });
+          const info = await response.json();
+          state("asr", response.ok ? "就绪（SenseVoice 本机模型）" : "不可用 —— " + (info.reason ?? ""), response.ok);
+        } catch {
+          state("asr", "无法读取状态", false);
+        }
+      }
+
+      async function post(path, body) {
+        const response = await fetch(path, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body ?? {}),
+        });
+        const payload = await response.json().catch(() => ({}));
+        if (payload.path) apply(payload);
+        return { ok: response.ok && payload.ok !== false, payload };
+      }
+
+      /** The typed key, but only when the reader actually typed one. */
+      function entered() {
+        const key = $("key").value.trim();
+        return key ? { key } : {};
+      }
+
+      async function save() {
+        const fields = {
+          baseUrl: $("baseUrl").value.trim(),
+          model: $("model").value.trim(),
+          ...entered(),
+        };
+        const { ok, payload } = await post("/settings/key", fields);
+        $("key").value = "";
+        message(ok ? payload.message ?? "已保存。" : payload.error ?? "保存失败。", ok);
+      }
+
+      $("save").onclick = save;
+
+      $("test").onclick = async () => {
+        message("正在保存并测试…", true);
+        const fields = {
+          baseUrl: $("baseUrl").value.trim(),
+          model: $("model").value.trim(),
+          ...entered(),
+        };
+        await post("/settings/key", fields);
+        $("key").value = "";
+        const { ok, payload } = await post("/settings/test");
+        message(payload.message ?? (ok ? "连接成功。" : "连接失败。"), ok);
+      };
+
+      $("clear").onclick = async () => {
+        const { ok, payload } = await post("/settings/key", { key: "" });
+        message(ok ? "密钥已清除，语义解析已关闭。" : payload.error ?? "清除失败。", ok);
+      };
+
+      load();
+    </script>
+  </body>
+</html>
