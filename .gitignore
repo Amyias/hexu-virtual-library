@@ -1,6 +1,11 @@
 # 项目无 npm 依赖，npm start 不需要安装；此目录只有工具缓存
 node_modules/
 
+# 本机版的构建材料与产物：构建用虚拟环境、语音识别模型（228 MB）、打包出的程序。
+# 三者都能由 tools/package-local.mjs 重建，不适合进版本库。
+.cache/
+dist/
+
 # Blender 保存时自动生成的上一版备份，以及 Python 字节码
 *.blend1
 __pycache__/
