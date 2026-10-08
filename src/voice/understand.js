@@ -11,7 +11,11 @@ app.js instead. Without a configured model every call here degrades to "no answe
 
 const READY_PATH = "/understand/ready";
 const UNDERSTAND_PATH = "/understand";
-const TIMEOUT_MS = 12000;
+/* Longer than the server's own 12 s budget for the provider (HEXU_LLM_TIMEOUT). Matching it
+   exactly meant the browser aborted at the same instant the server gave up, so the server's
+   honest error — "the key is wrong", "the service returned 502" — was thrown away and replaced
+   by a generic timeout. The extra three seconds let the real answer arrive. */
+const TIMEOUT_MS = 15000;
 
 /** Resolve to the semantic layer's readiness payload, or null when none is configured. */
 export async function probeUnderstand() {
