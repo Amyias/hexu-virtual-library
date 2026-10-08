@@ -719,16 +719,24 @@ class Handler(SimpleHTTPRequestHandler):
 
 
 def parse_argv(argv):
-    """`--port N` and `--no-browser`, nothing else.
+    """The switches this program answers to, and nothing else.
 
-    The packaged program needs the first so a port already in use is the reader's choice rather
-    than a traceback, and the second so a scripted launch stays quiet."""
-    options = {"port": PORT, "browser": True}
+    `--port` so a port already in use is the reader's choice rather than a traceback;
+    `--browser` to use an external browser instead of the built-in window; `--no-browser` to open
+    nothing at all (the deployment and the tests use it); `--check-mic` to report whether the
+    built-in window can reach the microphone and exit."""
+    options = {"port": PORT, "browser": True, "window": None, "check_mic": False}
     index = 0
     while index < len(argv):
         argument = argv[index]
         if argument == "--no-browser":
             options["browser"] = False
+        elif argument == "--browser":
+            options["window"] = False
+        elif argument == "--window":
+            options["window"] = True
+        elif argument == "--check-mic":
+            options["check_mic"] = True
         elif argument == "--port" and index + 1 < len(argv):
             try:
                 options["port"] = int(argv[index + 1])
@@ -787,26 +795,141 @@ def running_instance(host, port):
     return f"http://{local_host(host)}:{port}/"
 
 
+def attach_console():
+    """Give a packaged run back its console, when it was started from one.
+
+    The window build is a GUI binary, so Windows gives it no standard streams at all — and a
+    diagnostic like `--check-mic`, run from a terminal, would print into nothing. Attaching to
+    the parent's console when there is one fixes that and changes nothing when the program is
+    started by double-clicking, where there is no parent console to attach to."""
+    if sys.stdout is not None or os.name != "nt":
+        return
+    try:
+        import ctypes
+
+        if ctypes.windll.kernel32.AttachConsole(-1):  # ATTACH_PARENT_PROCESS
+            # "CONOUT$" is a Windows device name, not a path: this is how a GUI process that has
+            # just attached to its parent's console gets a stream to write to. The name is a
+            # literal with nothing interpolated into it, and Windows does not let a normal file
+            # take a device name's place, so there is nothing here to divert.
+            sys.stdout = open("CONOUT$", "w", encoding="utf-8", buffering=1)
+            sys.stderr = sys.stdout
+    except Exception:
+        pass
+
+
+def note(text):
+    """Say something where the reader can actually see it.
+
+    The packaged build has no console — that is what the window is for — so a message that only
+    went to stdout would vanish exactly when it matters most. With no console it becomes a
+    dialog instead."""
+    print(text, flush=True)
+    if sys.stdout is None and os.name == "nt":
+        try:
+            import ctypes
+
+            ctypes.windll.user32.MessageBoxW(None, text, "和序图书馆", 0x40)
+        except Exception:
+            pass
+
+
+def window_mode(options):
+    """Whether to show the page in the built-in window.
+
+    The packaged program is a program, so that is its default. A plain script — the deployment,
+    or a checkout being worked on — serves and hands the address to a browser, exactly as
+    before. `--window` and `--browser` override either way."""
+    if options["window"] is not None:
+        return options["window"]
+    return frozen() and os.name == "nt"
+
+
+def show_window(url):
+    """Show the page in a native window, or report that none could be shown.
+
+    True means the window was shown and has now been closed — the reader quitting, which is how
+    this program is meant to stop. False means there was nothing to show, so the caller should
+    fall back to something visible rather than leave the reader staring at nothing."""
+    try:
+        import window_host
+    except Exception as error:
+        note(f"内嵌窗口不可用（{type(error).__name__}: {error}）")
+        return False
+    ready, reason = window_host.available()
+    if not ready:
+        note(f"内嵌窗口不可用：{reason}")
+        return False
+    return window_host.run(url)
+
+
+def microphone_check():
+    """Report whether the built-in window can reach the microphone, then exit.
+
+    Worth having as a first-class command: the microphone is the one capability that differs
+    between the browser and the window, WebView2 refuses it unless the host answers the
+    permission request, and the answer here comes from the page itself — so it also covers the
+    secure-origin requirement for a loopback address.
+
+    The verdict is written next to the settings as well as reported, because the window build has
+    no console: started from a terminal the text appears there, and started any other way there
+    would otherwise be nothing to read afterwards."""
+    try:
+        import window_host
+    except Exception as error:
+        note(f"麦克风检测无法进行：缺少内嵌窗口组件（{type(error).__name__}: {error}）")
+        return 1
+    ready, reason = window_host.available()
+    if not ready:
+        note(f"麦克风检测无法进行：{reason}")
+        return 1
+    server = Server((HOST, 0), partial(Handler, directory=str(ROOT)))
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    url = f"http://{local_host(HOST)}:{server.server_address[1]}/"
+    try:
+        ok, message = window_host.microphone_report(url)
+    finally:
+        server.shutdown()
+        server.server_close()
+    verdict = ("麦克风检测通过：" if ok else "麦克风检测未通过：") + message
+    report = CONFIG_PATH.with_name("mic-check.txt")
+    try:
+        report.parent.mkdir(parents=True, exist_ok=True)
+        report.write_text(verdict + "\n", encoding="utf-8")
+        verdict += f"\n（同时写入 {report}）"
+    except OSError:
+        pass
+    note(verdict)
+    return 0 if ok else 1
+
+
 def main():
+    attach_console()
     options = parse_argv(sys.argv[1:])
+
+    if options["check_mic"]:
+        return microphone_check()
 
     existing = running_instance(HOST, options["port"])
     if existing:
-        print(f"和序图书馆已经在运行：{existing}", flush=True)
+        note(f"和序图书馆已经在运行：{existing}")
+        if window_mode(options) and show_window(existing):
+            return 0
         if options["browser"]:
             webbrowser.open(existing)
-        return
+        return 0
 
     try:
         server = Server((HOST, options["port"]), partial(Handler, directory=str(ROOT)))
     except OSError as error:
         if not options["port"]:
-            raise
-        print(f"端口 {options['port']} 无法使用（{error.strerror}），改为自动选择空闲端口。", flush=True)
+            note(f"和序图书馆无法启动：{error}")
+            return 1
+        note(f"端口 {options['port']} 无法使用（{error.strerror}），改为自动选择空闲端口。")
         server = Server((HOST, 0), partial(Handler, directory=str(ROOT)))
 
     address = f"http://{local_host(HOST)}:{server.server_address[1]}/"
-    print(f"和序图书馆 · {address}", flush=True)
+    note(f"和序图书馆 · {address}")
     print(f"  站点根目录 {ROOT}", flush=True)
     ready, info = model_state()
     print(f"  识别模型   {MODEL_DIR}", flush=True)
@@ -815,18 +938,34 @@ def main():
     print(f"  语义解析   {semantic['model']} · {'已配置' if key else '未配置'}"
           f"（在 {address}settings 里填写）", flush=True)
 
-    if options["browser"]:
+    # Serving moves to a background thread so the window loop can own the main thread, which is
+    # where WinForms needs its message loop.
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    threading.Thread(target=warm_model, daemon=True).start()
+
+    if window_mode(options):
+        if show_window(address):
+            server.shutdown()
+            server.server_close()
+            return 0
+        note("无法显示程序窗口，已改用浏览器打开。")
+        if options["browser"]:
+            webbrowser.open(address)
+    elif options["browser"]:
         threading.Thread(
             target=lambda: (time.sleep(0.4), webbrowser.open(address)), daemon=True
         ).start()
-    threading.Thread(target=warm_model, daemon=True).start()
+
     try:
-        server.serve_forever()
+        while True:
+            time.sleep(3600)
     except KeyboardInterrupt:
-        print("\n和序图书馆已停止。", flush=True)
+        note("和序图书馆已停止。")
     finally:
+        server.shutdown()
         server.server_close()
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
