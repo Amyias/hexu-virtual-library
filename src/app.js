@@ -211,6 +211,17 @@ export async function startLibrary() {
     understandReady = true;
     notice(`语义解析已就绪（${info.model}），可以用自然语言找书`);
   });
+  /* One quiet check for a newer version. The answer is cached server-side, nothing here blocks
+     the scene, and an update is the reader's decision — so it is mentioned once, and only when
+     there is something to mention. */
+  fetch("/update/status", { cache: "no-store" })
+    .then((response) => (response.ok ? response.json() : null))
+    .then((info) => {
+      if (info && info.state === "update-available") {
+        notice(`发现新版本（${info.reason}），可在「使用说明」里的本机设置中更新。`);
+      }
+    })
+    .catch(() => {});
   let chipView = null;
   function closeChip() {
     if (!chipView) return;

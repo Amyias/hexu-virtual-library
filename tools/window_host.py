@@ -98,6 +98,24 @@ def run(url, title="和序图书馆", width=1280, height=820):
     return True
 
 
+def close_windows():
+    """Close every window this process opened.
+
+    Needed because the update helper cannot rebuild a program that is still running: the request
+    arrives on a server thread, and closing the window is what makes the window loop return so
+    the program can exit."""
+    try:
+        import webview
+
+        for window in list(getattr(webview, "windows", [])):
+            try:
+                window.destroy()
+            except Exception:
+                pass
+    except Exception:
+        pass
+
+
 #: Runs inside the window and leaves its verdict on `window.__micProbe`, so the caller can read
 #: it back with evaluate_js — an unresolved promise cannot be returned through that boundary.
 #:

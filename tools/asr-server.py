@@ -45,6 +45,8 @@ from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
+import updater
+
 MODEL_NAME = "sherpa-onnx-sense-voice-zh-en-ja-ko-yue-int8-2024-07-17"
 
 
@@ -250,7 +252,7 @@ MAX_JSON_BODY = 4_096
 
 CATALOG_PATH = ROOT / "public" / "models" / "book-inventory.json"
 CONFIG_PATH = config_path()
-SETTINGS_KEYS = ("HEXU_LLM_BASE_URL", "HEXU_LLM_MODEL", "HEXU_LLM_API_KEY")
+SETTINGS_KEYS = ("HEXU_LLM_BASE_URL", "HEXU_LLM_MODEL", "HEXU_LLM_API_KEY", "HEXU_SOURCE_DIR")
 
 
 def load_settings():
@@ -305,7 +307,8 @@ def settings_state():
     resolved, sources = {}, {}
     for name, default in (("HEXU_LLM_BASE_URL", LLM_BASE_URL_DEFAULT),
                           ("HEXU_LLM_MODEL", LLM_MODEL_DEFAULT),
-                          ("HEXU_LLM_API_KEY", "")):
+                          ("HEXU_LLM_API_KEY", ""),
+                          ("HEXU_SOURCE_DIR", "")):
         from_environment = os.environ.get(name, "").strip()
         if from_environment:
             resolved[name], sources[name] = from_environment, "env"
@@ -325,6 +328,7 @@ def settings_summary():
         "model": resolved["HEXU_LLM_MODEL"],
         "key_source": sources["HEXU_LLM_API_KEY"],
         "key_from_environment": sources["HEXU_LLM_API_KEY"] == "env",
+        "source_dir_setting": resolved["HEXU_SOURCE_DIR"],
         "path": str(CONFIG_PATH),
         "asr_ready": model_state()[0],
     }
@@ -556,6 +560,14 @@ class Handler(SimpleHTTPRequestHandler):
             return
         self._send_file(target)
 
+    def _post_update_apply(self):
+        ok, message = updater.start(update_source(), ROOT, os.getpid())
+        self._send_json(200 if ok else 409, {"ok": ok, "message": message})
+        if ok:
+            # The helper waits for this process to disappear before it touches anything, so the
+            # program now closes itself — the reply above has already been written out.
+            threading.Timer(0.7, stop_everything).start()
+
     def _read_json(self):
         """One small JSON body, or None after answering the request itself."""
         try:
@@ -595,6 +607,12 @@ class Handler(SimpleHTTPRequestHandler):
             if not self._loopback_only():
                 return
             self._send_json(200, settings_summary())
+            return
+        if pathname == "/update/status":
+            if not self._loopback_only():
+                return
+            self._send_json(200, updater.status(ROOT, update_source(),
+                                                refresh="refresh=1" in self.path))
             return
 
         target = self._static_path(pathname)
@@ -699,6 +717,11 @@ class Handler(SimpleHTTPRequestHandler):
             else:
                 self._post_settings_test()
             return
+        if pathname == "/update/apply":
+            if not self._loopback_only():
+                return
+            self._post_update_apply()
+            return
         if pathname != "/asr":
             self.send_error(404, "Not found")
             return
@@ -725,7 +748,8 @@ def parse_argv(argv):
     `--browser` to use an external browser instead of the built-in window; `--no-browser` to open
     nothing at all (the deployment and the tests use it); `--check-mic` to report whether the
     built-in window can reach the microphone and exit."""
-    options = {"port": PORT, "browser": True, "window": None, "check_mic": False}
+    options = {"port": PORT, "browser": True, "window": None, "check_mic": False,
+               "check_update": False}
     index = 0
     while index < len(argv):
         argument = argv[index]
@@ -737,6 +761,8 @@ def parse_argv(argv):
             options["window"] = True
         elif argument == "--check-mic":
             options["check_mic"] = True
+        elif argument == "--check-update":
+            options["check_update"] = True
         elif argument == "--port" and index + 1 < len(argv):
             try:
                 options["port"] = int(argv[index + 1])
@@ -816,6 +842,30 @@ def attach_console():
             sys.stderr = sys.stdout
     except Exception:
         pass
+
+
+_stop = threading.Event()
+
+
+def stop_everything():
+    """Let the program end, so an update helper can rebuild it.
+
+    Set from the update request after its reply has been written: the helper waits for this
+    process to disappear before it touches a single file, and closing the window first is what
+    makes the window loop return so main() can finish."""
+    _stop.set()
+    try:
+        import window_host
+
+        window_host.close_windows()
+    except Exception:
+        pass
+
+
+def update_source():
+    """The checkout to update from: what was configured, else where this build was made."""
+    resolved, _ = settings_state()
+    return updater.source_directory(ROOT, resolved.get("HEXU_SOURCE_DIR", ""))
 
 
 def note(text):
@@ -903,12 +953,39 @@ def microphone_check():
     return 0 if ok else 1
 
 
+def update_check():
+    """Report whether Gitee has something newer, then exit.
+
+    0 = already current, 1 = an update is available, 2 = could not be determined. The same three
+    answers the settings page shows, so a script and a reader never disagree."""
+    resolved, _ = settings_state()
+    source = updater.source_directory(ROOT, resolved.get("HEXU_SOURCE_DIR", ""))
+    payload = updater.status(ROOT, source, refresh=True)
+    installed = payload["installed"]
+    lines = [
+        f"已安装   {installed.get('commit') or '（未记录）'}"
+        f"  {installed.get('built_at') or ''}".rstrip(),
+        f"源码目录 {payload['source_dir'] or '（未配置）'}",
+        f"状态     {payload['reason']}",
+    ]
+    for commit in payload.get("commits", [])[:10]:
+        lines.append("         " + commit)
+    note("\n".join(lines))
+    if payload["state"] == "up-to-date":
+        return 0
+    if payload["state"] in ("update-available", "unknown"):
+        return 1
+    return 2
+
+
 def main():
     attach_console()
     options = parse_argv(sys.argv[1:])
 
     if options["check_mic"]:
         return microphone_check()
+    if options["check_update"]:
+        return update_check()
 
     existing = running_instance(HOST, options["port"])
     if existing:
@@ -942,6 +1019,11 @@ def main():
     # where WinForms needs its message loop.
     threading.Thread(target=server.serve_forever, daemon=True).start()
     threading.Thread(target=warm_model, daemon=True).start()
+    # One check shortly after startup, off the critical path: the page asks for the answer when
+    # it loads, and a cached answer is what keeps that a fast request.
+    threading.Thread(
+        target=lambda: (time.sleep(1.5), updater.status(ROOT, update_source())), daemon=True
+    ).start()
 
     if window_mode(options):
         if show_window(address):
@@ -957,8 +1039,7 @@ def main():
         ).start()
 
     try:
-        while True:
-            time.sleep(3600)
+        _stop.wait()
     except KeyboardInterrupt:
         note("和序图书馆已停止。")
     finally:

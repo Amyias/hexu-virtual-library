@@ -172,6 +172,27 @@ function checkModel() {
   log(`识别模型  ${megabytes(size)}  ${modelDir}`);
 }
 
+/** Record what this build was made from, inside the bundle.
+
+ *  The installed program can then say which commit it is, and the updater — which works by
+ *  pulling the source and rebuilding — has a default answer to "where is the checkout". It is
+ *  written as a site file, so the page can read it at /build-info.json too. */
+function writeBuildInfo() {
+  const version = JSON.parse(fs.readFileSync(path.join(root, "package.json"), "utf8")).version;
+  const commit = (run("git", ["-C", root, "rev-parse", "HEAD"]).stdout || "").trim();
+  const branch = (run("git", ["-C", root, "rev-parse", "--abbrev-ref", "HEAD"]).stdout || "").trim();
+  const info = {
+    app: APP,
+    version,
+    commit,
+    branch,
+    built_at: new Date().toISOString(),
+    source_dir: root,
+  };
+  fs.writeFileSync(path.join(stage, "build-info.json"), JSON.stringify(info, null, 2) + "\n", "utf8");
+  log(`版本标记   ${(commit || "(无 git，未记录提交)").slice(0, 12)} · ${info.built_at}`);
+}
+
 function stageSite() {
   fs.rmSync(stage, { recursive: true, force: true });
   for (const relative of SITE_FILES) {
@@ -181,6 +202,7 @@ function stageSite() {
     fs.mkdirSync(path.dirname(destination), { recursive: true });
     fs.cpSync(source, destination, { recursive: true });
   }
+  writeBuildInfo();
 
   let raw = 0;
   let compressed = 0;
