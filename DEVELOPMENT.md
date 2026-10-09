@@ -145,6 +145,16 @@ Windows PowerShell 5.1 用**控制台代码页**（本机是 GBK）解码两样�
 
 可靠做法（`desktopShortcut()` 用的就是它）：脚本正文保持纯 ASCII，中文值写进一个 UTF-8 文件，脚本用 `Get-Content -Encoding UTF8` 读；需要回传结果时同样写文件，不要走 stdout。
 
+## 模型在哪
+
+语音识别模型（228 MiB）**在 `model` 分支上**，不在 `master`：GitHub 单文件上限 100 MiB 装不下，
+所以切成 3 块（`model/README.md` 有完整说明）；Gitee 那边单文件 50 MB、单仓库 500 MB，这些块
+在那边的限制下根本推不上去，因此该分支**只推 GitHub**。
+
+`master` 一切照旧：`model/` 已加进 `.gitignore`，防止工作区里的副本被误提交。打包时若本地没有
+模型，`tools/package-local.mjs` 会用 `git show model:model/...` 从分支取回（不动索引与工作区）、
+校验 SHA-256、拼回 `.cache/models/`。
+
 ## 不应提交的内容
 
 `.gitignore` 已排除：

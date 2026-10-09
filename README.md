@@ -75,6 +75,7 @@ npm start
 | `blender/smart-book-detail.png` | 书本与芯片槽近景渲染 |
 | `blender/chip-detail.png` | 芯片微刻字近景渲染 |
 | `blender/shelf-detail.png` | 书架内景：书立在层板上、靠住背板 |
+| `model/`（在 `model` 分支，不在 master） | 语音识别模型：228 MiB 超过 GitHub 单文件 100 MiB，切成 3 块；打包脚本自动取回并校验 |
 | `public/models/hexu-library.glb` | 网页使用的合并材质环境模型（不含架上藏书） |
 | `public/models/smart-book.glb` | 320 本书共用的硬皮书模板 |
 | `public/models/book-inventory.json` | 馆藏清单副本（与 `blender/catalog.json` 一致） |

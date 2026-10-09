@@ -1,6 +1,10 @@
 # 项目无 npm 依赖，npm start 不需要安装；此目录只有工具缓存
 node_modules/
 
+# 语音识别模型在它自己的 model 分支上（GitHub 单文件限制装不下，见 model/README.md）；
+# 这里排除的是它的工作区副本，免得在 master 上被误提交
+model/
+
 # 本机版的构建材料与产物：构建用虚拟环境、语音识别模型（228 MB）、打包出的程序。
 # 三者都能由 tools/package-local.mjs 重建，不适合进版本库。
 .cache/

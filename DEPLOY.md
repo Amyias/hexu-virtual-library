@@ -232,7 +232,13 @@ node tools/package-local.mjs --shortcut --zip   # 顺带在桌面放一个快捷
 
 脚本会：准备 `.cache/venv` 并安装 `pyinstaller==6.22.3` 与 `sherpa-onnx==1.13.8`（本机 Python 3.14 有对应的 win_amd64 轮子，不需要编译器）→ 校验 `.cache/models/` 里的模型 → 把站点复制到 `.cache/stage/site` 并**预压缩 `.gz` 兄弟文件** → 调 PyInstaller → 校验产物 → 写「使用说明.txt」。重复运行会复用已装好的依赖。
 
-模型不在仓库里（228 MiB，不该进版本库）。首次构建前先取回一次：
+模型**在一个单独的 `model` 分支上**（GitHub），不在 `master`：228 MiB 超过 GitHub 单文件 100 MiB 的硬限制，所以切成 3 块（每块 76.1 MB）放在那里；`master` 保持轻量、与 Gitee 完全一致。本地没有模型时，打包脚本会**自动从那个分支取回、逐块校验 SHA-256、拼回**——分支也没有时才需要手工拷一次：
+
+```
+node tools/package-local.mjs      # 没模型时会先说「从 model 分支取回」，校验通过才继续
+```
+
+也可以手工从部署机器拷（一次性，约 228 MiB）：
 
 ```bash
 mkdir -p ".cache/models/sherpa-onnx-sense-voice-zh-en-ja-ko-yue-int8-2024-07-17"

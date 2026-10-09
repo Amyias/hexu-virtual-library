@@ -21,6 +21,7 @@ import fs from "node:fs";
 import path from "node:path";
 import zlib from "node:zlib";
 import { spawnSync } from "node:child_process";
+import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -32,8 +33,12 @@ const DEPLOY_MODEL_PATH = `/opt/hexu-library/models/${MODEL_NAME}`;
 const cache = path.join(root, ".cache");
 const venv = path.join(cache, "venv");
 const venvPython = path.join(venv, "Scripts", "python.exe");
-const modelDir =
-  process.env.HEXU_ASR_MODEL_DIR || path.join(cache, "models", MODEL_NAME);
+// Resolved to an absolute path: the value is handed to PyInstaller, which resolves relative data
+// paths against the spec file's directory rather than the working directory — a relative
+// HEXU_ASR_MODEL_DIR would otherwise fail with a confusing "unable to find" error.
+const modelDir = path.resolve(
+  process.env.HEXU_ASR_MODEL_DIR || path.join(cache, "models", MODEL_NAME),
+);
 const stage = path.join(cache, "stage", "site");
 const dist = path.join(root, "dist");
 const appDir = path.join(dist, APP);
@@ -157,17 +162,74 @@ function ensureDependencies(python) {
     );
 }
 
+/** Rebuild the model out of the `model` branch when there is no local copy.
+
+ *  The model is 228 MiB and GitHub refuses a single file that large, so it lives on a branch of
+ *  its own, split into parts (model/README.md explains the arrangement). The parts are read with
+ *  `git show`, which leaves master's index and working tree untouched — checking the path out
+ *  would stage 228 MiB for the next commit.
+
+ *  Every part, and then the reassembled file, are checked against model/manifest.json. A model
+ *  that does not match is worse than no model at all: it would package into a program that fails
+ *  on the first utterance, a long way from the cause. */
+function restoreModelFromBranch() {
+  const read = (name, encoding) => {
+    const result = spawnSync("git", ["-C", root, "show", `model:model/${name}`], {
+      encoding,
+      maxBuffer: 512 * 1024 * 1024,
+    });
+    return result.status === 0 && result.stdout ? result.stdout : null;
+  };
+
+  const manifestText = read("manifest.json", "utf8");
+  if (!manifestText) return false;
+  let manifest;
+  try {
+    manifest = JSON.parse(manifestText);
+  } catch {
+    return false;
+  }
+
+  log(`本地没有模型，从 model 分支取回（${manifest.parts.length} 块，共 ${megabytes(manifest.bytes)}）…`);
+  const pieces = [];
+  for (const part of manifest.parts) {
+    const bytes = read(part.name, "buffer");
+    if (!bytes || bytes.length !== part.bytes) {
+      fail(`分块 ${part.name} 取回失败或长度不符，model 分支可能不完整。`);
+    }
+    if (createHash("sha256").update(bytes).digest("hex") !== part.sha256) {
+      fail(`分块 ${part.name} 的 SHA-256 不符，拒绝用它打包。`);
+    }
+    pieces.push(bytes);
+  }
+  const whole = Buffer.concat(pieces);
+  if (whole.length !== manifest.bytes) fail("拼接后的长度与 manifest 不符。");
+  if (createHash("sha256").update(whole).digest("hex") !== manifest.sha256) {
+    fail("拼接后的 SHA-256 与 manifest 不符，拒绝用它打包。");
+  }
+
+  fs.mkdirSync(modelDir, { recursive: true });
+  fs.writeFileSync(path.join(modelDir, manifest.file), whole);
+  for (const extra of ["tokens.txt", "LICENSE"]) {
+    const bytes = read(extra, "buffer");
+    if (bytes) fs.writeFileSync(path.join(modelDir, extra), bytes);
+  }
+  log(`  校验通过（sha256 ${manifest.sha256.slice(0, 16)}…）`);
+  return true;
+}
+
 function checkModel() {
   const missing = ["model.int8.onnx", "tokens.txt"].filter(
     (name) => !fs.existsSync(path.join(modelDir, name)),
   );
-  if (missing.length)
+  if (missing.length && !restoreModelFromBranch()) {
     fail(
       `识别模型不在这里：${modelDir}\n缺少 ${missing.join("、")}\n\n` +
-        "从部署机器取回（一次性，约 228 MiB）：\n" +
+        "它也可以从 model 分支取回（需要在仓库目录里执行）。若那个分支也没有，从部署机器拷一次：\n" +
         `  mkdir -p ".cache/models/${MODEL_NAME}"\n` +
         `  scp -i ~/.ssh/rainyun-rcs-Snowy_Brew.pem "${DEPLOY_HOST}:${DEPLOY_MODEL_PATH}/{model.int8.onnx,tokens.txt,LICENSE}" ".cache/models/${MODEL_NAME}/"\n`,
     );
+  }
   const size = sizeOf(path.join(modelDir, "model.int8.onnx"));
   if (size < 200 * 1024 * 1024) fail(`model.int8.onnx 只有 ${megabytes(size)}，看起来不完整。`);
   log(`识别模型  ${megabytes(size)}  ${modelDir}`);
