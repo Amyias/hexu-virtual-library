@@ -241,6 +241,34 @@ async function publish(version, commit, assets, token) {
   return release.payload?.html_url;
 }
 
+/** The publishing token: the environment first, then the settings file the program keeps it in.
+
+ *  One paste covers both jobs — the same value that lets the program check and install updates
+ *  also lets this script publish them — so the token is stored in one place, the settings page,
+ *  rather than also having to be set as an environment variable. The value is read here and used
+ *  in the requests below; it is never printed, logged or written anywhere. */
+function readToken() {
+  const fromEnvironment = (process.env[TOKEN_VARIABLE] ?? "").trim();
+  if (fromEnvironment) return fromEnvironment;
+
+  const settings = path.join(
+    process.env.APPDATA ?? path.join(process.env.USERPROFILE ?? "", "AppData", "Roaming"),
+    "hexu-library",
+    "llm.env",
+  );
+  try {
+    for (const line of fs.readFileSync(settings, "utf8").splitlines()) {
+      const separator = line.indexOf("=");
+      if (separator > 0 && line.slice(0, separator).trim() === "HEXU_GITHUB_TOKEN") {
+        return line.slice(separator + 1).trim();
+      }
+    }
+  } catch {
+    /* No settings file: the environment was the only chance. */
+  }
+  return "";
+}
+
 const version = JSON.parse(fs.readFileSync(path.join(root, "package.json"), "utf8")).version;
 const prepareOnly = process.argv.includes("--prepare-only");
 
@@ -259,13 +287,13 @@ for (const asset of assets) {
   log(`${asset.label}  ${asset.name}  ${megabytes(fs.statSync(asset.file).size)}  sha256 ${sha256(asset.file).slice(0, 16)}…`);
 }
 
-const token = (process.env[TOKEN_VARIABLE] ?? "").trim();
+const token = readToken();
 if (prepareOnly || !token) {
   if (!prepareOnly) {
     log("");
-    log(`没有找到 ${TOKEN_VARIABLE}，因此只准备好文件、没有发布。`);
-    log("要自动发布，在该环境变量里放一个细粒度 PAT（Contents: Read and write）；");
-    log("或者打开发行版页面，把下面两个文件拖进去：");
+    log("没有找到访问令牌，因此只准备好文件、没有发布。");
+    log("要自动发布，把细粒度 PAT（Contents: Read and write）粘到程序设置页的「访问令牌」一栏，");
+    log("或放在环境变量 " + TOKEN_VARIABLE + " 里；也可以打开发行版页面自己把文件拖进去：");
   }
   for (const asset of assets) log("  " + asset.file);
   log("");
