@@ -1,0 +1,25 @@
+{
+  "model": "sherpa-onnx SenseVoice (zh/en/ja/ko/yue, int8)",
+  "why": "GitHub 单文件上限 100 MiB，模型 228 MiB 装不下，所以切成若干块；tools/package-local.mjs 会自动拼回并核对下面的 sha256。",
+  "file": "model.int8.onnx",
+  "bytes": 239233841,
+  "sha256": "c71f0ce00bec95b07744e116345e33d8cbbe08cef896382cf907bf4b51a2cd51",
+  "part_bytes": 79744614,
+  "parts": [
+    {
+      "name": "model.int8.onnx.001",
+      "bytes": 79744614,
+      "sha256": "92af024f5e5dda980fec6790c0aded988a0dfa13136b0c10da2a2a90844efb98"
+    },
+    {
+      "name": "model.int8.onnx.002",
+      "bytes": 79744614,
+      "sha256": "5e1d0ba368b1ec2b7b195aae17cda98f50e0b540ed9b319bef400d5fd7b552f0"
+    },
+    {
+      "name": "model.int8.onnx.003",
+      "bytes": 79744613,
+      "sha256": "3e7e805076848fbf7d3bc2d17b167592ffdbe673fb80de2a19e9f60c5866ea7c"
+    }
+  ]
+}
