@@ -112,7 +112,13 @@ function archive(version) {
 
   const madeModel = run(
     "tar",
-    ["-c", "-a", "-f", local(model), "-C", local(APP_DIR), path.join("_internal", "models")],
+    [
+      "-c", "-a", "-f", local(model),
+      "-C", local(APP_DIR),
+      // Forward slashes as a literal: path.join would put a Windows backslash in the archive,
+      // and an entry literally named "..\models" lands nowhere useful when unpacked elsewhere.
+      "_internal/models",
+    ],
     { stdio: "inherit" },
   );
   if (madeModel.status !== 0) fail("切模型包失败。");
