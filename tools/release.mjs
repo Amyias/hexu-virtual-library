@@ -192,6 +192,16 @@ async function github(pathname, { method = "GET", token, body, contentType } = {
   return { ok: response.ok, status: response.status, payload };
 }
 
+/** What GitHub actually objected to. A 422 carries an `errors` list naming the field, and hiding
+ *  it turns a one-line fix into a guessing game. */
+function why(result) {
+  const errors = result.payload?.errors;
+  if (Array.isArray(errors) && errors.length) {
+    return errors.map((e) => `${e.resource ?? ""}${e.field ? "." + e.field : ""}: ${e.message ?? JSON.stringify(e)}`).join("；");
+  }
+  return result.payload?.message ?? "";
+}
+
 /** Upload one archive. Streamed rather than buffered: 228 MB in memory for no reason.
  *
  *  Retried, because this network resets connections partway through: measured, roughly one TLS
@@ -260,13 +270,13 @@ async function publish(version, commit, assets, token) {
         prerelease: false,
       }),
     });
-    if (!created.ok) fail(`创建发行版失败：HTTP ${created.status} ${created.payload?.message ?? ""}`);
+    if (!created.ok) fail(`创建发行版失败：HTTP ${created.status} ${why(created)}`);
     release = created;
     log(`已创建发行版 v${version}`);
   } else if (release.ok) {
     log(`发行版 v${version} 已存在，补传缺失的附件。`);
   } else {
-    fail(`读取发行版失败：HTTP ${release.status} ${release.payload?.message ?? ""}`);
+    fail(`读取发行版失败：HTTP ${release.status} ${why(release)}`);
   }
 
   /** Remove a half-written asset of this name, so the next attempt does not collide with it.
