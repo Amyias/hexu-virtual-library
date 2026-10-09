@@ -78,6 +78,10 @@ exe = EXE(
     # see goes into that window, or into a dialog when the program cannot start at all.
     console=False,
     disable_windowed_traceback=False,
+    # The same icon the page declares for its tab: one file, so the taskbar entry, the desktop
+    # shortcut and the window cannot each show something different. Regenerate with
+    # tools/make-icon.py.
+    icon=str(HERE.parent / "public" / "favicon.ico"),
 )
 coll = COLLECT(
     exe,

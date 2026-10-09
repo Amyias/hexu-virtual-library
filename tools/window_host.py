@@ -36,16 +36,24 @@ def available():
     return True, ""
 
 
-def install_microphone_grant():
-    """Answer WebView2's permission request with "allow" for the microphone.
+def install_window_hooks(icon=None):
+    """Wire the window up the way this program wants it, from inside pywebview's init callback.
 
-    Hooked onto pywebview's own init callback rather than onto the window object, because that
-    callback is where the backend already waits for `CoreWebView2` to exist — the event cannot be
-    subscribed any earlier.
+    Two things happen here, and both have to happen at this exact moment:
 
-    Returns True when the hook is in place. Deliberately narrow: only the microphone is granted,
-    and it is granted to this window's page alone. `Handled` stops the request from travelling
-    any further, so nothing can override the answer later.
+    - **The microphone is granted.** WebView2 denies camera and microphone requests unless the
+      host application answers the permission request itself, and it shows no prompt of its own —
+      a page that asks for the microphone simply gets a rejection. This hook answers yes for the
+      microphone, and only the microphone, for this window's page. `Handled` stops the request
+      from travelling any further, so nothing can override the answer later.
+    - **The window gets its icon.** The WinForms form is pywebview's own window object and is only
+      reachable from the backend that creates it, which is why this is done here rather than by
+      passing a parameter to `webview.start`.
+
+    Hooked onto pywebview's init callback rather than onto the window object, because that
+    callback is where `CoreWebView2` first exists — neither subscription can be made any earlier.
+
+    Returns True when the hook is in place.
     """
     try:
         from webview.platforms import edgechromium
@@ -74,17 +82,24 @@ def install_microphone_grant():
             # A window without the grant is still better than no window; the page reports the
             # microphone as unavailable and the reader can be told to use the browser instead.
             pass
+        if icon:
+            try:
+                from System.Drawing import Icon
+
+                self.form.Icon = Icon(str(icon))
+            except Exception:
+                pass  # the executable's own icon still shows in the taskbar
 
     edgechromium.EdgeChrome.on_webview_ready = on_webview_ready
     return True
 
 
-def run(url, title="和序图书馆", width=1280, height=820):
+def run(url, title="和序图书馆", width=1280, height=820, icon=None):
     """Show the page in a window and block until it is closed. Returns True if it opened.
 
     Called on the main thread: the WinForms message loop has to own it.
     """
-    if not install_microphone_grant():
+    if not install_window_hooks(icon):
         return False
     import webview
 
@@ -155,7 +170,7 @@ MIC_PROBE_JS = """
 """
 
 
-def microphone_report(url):
+def microphone_report(url, icon=None):
     """Open the window, ask the page whether it may use the microphone, and report.
 
     The answer comes from the page itself rather than from the permission handler, so it also
@@ -165,7 +180,7 @@ def microphone_report(url):
     ready, reason = available()
     if not ready:
         return False, reason
-    if not install_microphone_grant():
+    if not install_window_hooks(icon):
         return False, "无法为窗口安装麦克风授权（WebView2 互操作组件不可用）"
     import webview
 

@@ -42,6 +42,7 @@ const appDir = path.join(dist, APP);
 const SITE_FILES = [
   "index.html",
   "src",
+  path.join("public", "favicon.ico"),
   path.join("public", "settings.html"),
   path.join("public", "vendor"),
   path.join("public", "models", "hexu-library.glb"),
@@ -276,9 +277,15 @@ function build(python) {
 }
 
 function verify() {
+  // This list is the contract of what the bundle must carry. Every one of these was once
+  // missing from a build for a real reason (a forgotten entry in SITE_FILES above, a data file
+  // PyInstaller did not collect), and a build that fails here is much cheaper than a program
+  // that fails on the reader's machine.
   const required = [
     path.join(appDir, `${APP}.exe`),
     path.join(appDir, "_internal", "index.html"),
+    path.join(appDir, "_internal", "build-info.json"),
+    path.join(appDir, "_internal", "public", "favicon.ico"),
     path.join(appDir, "_internal", "public", "settings.html"),
     path.join(appDir, "_internal", "public", "models", "hexu-library.glb"),
     path.join(appDir, "_internal", "models", "sense-voice", "model.int8.onnx"),

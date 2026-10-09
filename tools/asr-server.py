@@ -895,6 +895,12 @@ def window_mode(options):
     return frozen() and os.name == "nt"
 
 
+def window_icon():
+    """The window's icon, from the site the window is showing."""
+    icon = ROOT / "public" / "favicon.ico"
+    return icon if icon.is_file() else None
+
+
 def show_window(url):
     """Show the page in a native window, or report that none could be shown.
 
@@ -910,7 +916,7 @@ def show_window(url):
     if not ready:
         note(f"内嵌窗口不可用：{reason}")
         return False
-    return window_host.run(url)
+    return window_host.run(url, icon=window_icon())
 
 
 def microphone_check():
@@ -937,7 +943,7 @@ def microphone_check():
     threading.Thread(target=server.serve_forever, daemon=True).start()
     url = f"http://{local_host(HOST)}:{server.server_address[1]}/"
     try:
-        ok, message = window_host.microphone_report(url)
+        ok, message = window_host.microphone_report(url, icon=window_icon())
     finally:
         server.shutdown()
         server.server_close()

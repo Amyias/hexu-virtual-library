@@ -182,6 +182,9 @@ node tools/package-local.mjs --no-build --shortcut   # 只放桌面快捷方式�
 # 检查 Gitee 上有没有新提交（0 已最新 / 1 有更新 / 2 查不了）
 .cache/venv/Scripts/python.exe tools/asr-server.py --check-update
 
+# 重新生成程序图标（页面标签、窗口、exe、桌面快捷方式共用 public/favicon.ico）
+python tools/make-icon.py
+
 # 全量重建模型：覆盖 .blend / .glb / 贴图 / 预览
 & 'D:\Blender Foundation\Blender 5.2\blender.exe' --background --factory-startup --python-exit-code 1 --python blender/build_library.py
 

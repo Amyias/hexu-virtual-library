@@ -272,6 +272,12 @@ if args.PermissionKind == CoreWebView2PermissionKind.Microphone:
 
 **窗口起不来就退回浏览器**：`--browser` 可以主动选择外部浏览器；若 WebView2 组件缺失或初始化失败，程序会打印提示并自动改用系统浏览器打开，而不是留给你一个空窗口。
 
+**图标只有一个文件**：`public/favicon.ico`。页面用它做标签图标，窗口用它做标题栏与任务栏按钮（pywebview 的 WinForms 窗体对象只在后端内部可达，所以是在窗口初始化的回调里设置的），PyInstaller 把它嵌进 exe，桌面快捷方式因此也显示它。改设计就改 `tools/make-icon.py` 再跑一次（颜色从 `src/styles/library.css` 读取，所以不会和界面跑偏）：
+
+```bash
+python tools/make-icon.py      # 需要 Pillow；图标已提交，构建本身不依赖它
+```
+
 ### 命令行开关
 
 | 开关 | 作用 |

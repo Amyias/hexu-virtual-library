@@ -90,7 +90,9 @@ npm start
 | `tools/updater.py` | 更新：查 Gitee 的新提交、生成并启动更新脚本（拉源码 → 重新打包 → 重开） |
 | `tools/package-local.mjs` | 本机版打包：准备虚拟环境、校验模型、暂存站点并预压缩、调 PyInstaller、可选桌面快捷方式 |
 | `tools/hexu-library.spec` | PyInstaller 配方（one-dir，程序名与数据文件清单） |
-| `public/settings.html` | 本机设置页：填写模型密钥、测试连接（仅回环可访问） |
+| `public/settings.html` | 本机设置页：填写模型密钥、测试连接、检查与执行更新（仅回环可访问） |
+| `public/favicon.ico` | 程序图标（多尺寸）：页面标签、程序窗口、exe 与桌面快捷方式共用同一个文件 |
+| `tools/make-icon.py` | 图标生成器：按样式表里的品牌色画实心圆 + 「和」，重复执行安全（需要 Pillow，只有它需要） |
 | `tools/fetch-textures.mjs` | 表面贴图的唯一拉取脚本，来源与许可记录在内 |
 | `tools/prepare-smart-books.mjs` | 馆藏清单的唯一生成器，一次写入三份副本 |
 | `tests/library.test.mjs` | 馆藏几何、ASR 事件与 GLB 完整性回归检查 |
