@@ -77,8 +77,12 @@ function preflight(version) {
 }
 
 /** The two archives. Both unpack at the install root: the program archive is everything except
- *  the model, the model archive is the model under the path it belongs at. */
-function archive(version) {
+ *  the model, the model archive is the model under the path it belongs at.
+ *
+ *  `--no-model` leaves the model archive out entirely. The model never changes between versions,
+ *  and the program already finds it in the newest release that carries one, so uploading 228 MB
+ *  again — with a one-in-five chance of a stalled connection per session — buys nothing. */
+function archive(version, withModel) {
   if (!fs.existsSync(path.join(APP_DIR, `${APP}.exe`))) {
     fail(`先打包：${APP_DIR} 里没有程序。运行 node tools/package-local.mjs`);
   }
@@ -111,6 +115,12 @@ function archive(version) {
   );
   if (madeProgram.status !== 0) fail("切程序包失败。");
 
+  const assets = [{ file: program, name: path.basename(program), label: "程序包（不含模型）" }];
+  if (!withModel) {
+    log("（--no-model：模型包跳过，更新器会从带了模型的那个发行版里取）");
+    return assets;
+  }
+
   const madeModel = run(
     python,
     [
@@ -121,11 +131,8 @@ function archive(version) {
     { stdio: "inherit" },
   );
   if (madeModel.status !== 0) fail("切模型包失败。");
-
-  return [
-    { file: program, name: path.basename(program), label: "程序包（不含模型）" },
-    { file: model, name: path.basename(model), label: "模型包" },
-  ];
+  assets.push({ file: model, name: path.basename(model), label: "模型包" });
+  return assets;
 }
 
 /** The release notes: the commits that are in this version. */
@@ -298,7 +305,7 @@ if (!process.argv.includes("--skip-build")) {
   if (build.status !== 0) fail("打包失败，未发版。");
 }
 
-const assets = archive(version);
+const assets = archive(version, !process.argv.includes("--no-model"));
 for (const asset of assets) {
   log(`${asset.label}  ${asset.name}  ${megabytes(fs.statSync(asset.file).size)}  sha256 ${sha256(asset.file).slice(0, 16)}…`);
 }
