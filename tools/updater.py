@@ -238,13 +238,43 @@ def _inspect(site_root, install_root, token):
         payload.update(state="error", reason=f"发行版 {tag} 里没有程序包附件，无法自动更新")
         return payload
     payload["program_asset"] = program
-    payload["model_asset"] = next((asset for asset in assets if MODEL_ASSET in asset["name"]), None)
+    # Only looked for when a machine actually needs it: the model never changes between versions,
+    # so a release does not have to re-upload 228 MB of it, and the model archive from the newest
+    # release that carries one is the same bytes.
+    payload["model_asset"] = None
+    if payload["needs_model"]:
+        payload["model_asset"] = _model_asset(token, assets)
     payload.update(
         state="update-available",
         can_apply=True,
         reason=f"有新版 {tag}（当前 {current}）",
     )
     return payload
+
+
+def _model_asset(token, assets):
+    """The model archive to use, from this release or from the newest one that carries it.
+
+    The model does not change between versions, so re-uploading 228 MB with every release is waste
+    — and on this network, waste with a one-in-five failure rate. A release therefore only needs a
+    program archive; a machine that lacks the model gets it from whichever release has one."""
+    here = next((asset for asset in assets if MODEL_ASSET in asset["name"]), None)
+    if here:
+        return here
+    try:
+        releases = _api(f"/repos/{REPO}/releases?per_page=20", token)
+    except Exception:
+        return None
+    for release in releases:
+        for asset in release.get("assets", []):
+            if MODEL_ASSET in (asset.get("name") or ""):
+                return {
+                    "name": asset.get("name", ""),
+                    "size": asset.get("size", 0),
+                    "url": asset.get("url", ""),
+                    "digest": asset.get("digest") or "",
+                }
+    return None
 
 
 # --- downloading --------------------------------------------------------------
