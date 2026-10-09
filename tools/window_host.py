@@ -89,185 +89,21 @@ def install_window_hooks(icon=None):
                 self.form.Icon = Icon(str(icon))
             except Exception:
                 pass  # the executable's own icon still shows in the taskbar
-        # Frameless took the resize border away with the caption; this gives it back, from a
-        # worker thread and retried, because the style pywebview applies while showing the window
-        # would otherwise overwrite an earlier attempt.
-        restore_resize_frame(self.form)
 
     edgechromium.EdgeChrome.on_webview_ready = on_webview_ready
     return True
 
 
-def restore_resize_frame(form, attempts=40, interval=0.1):
-    """Give the window back its resize border, which frameless takes away with the caption.
-
-    `FormBorderStyle.None` drops WS_CAPTION and WS_THICKFRAME together, and Windows then answers
-    "client area" for every point of the window: measured, all four edges returned HTCLIENT, so
-    the window could not be resized at all — a window you cannot resize is not a normal program.
-
-    Putting WS_THICKFRAME back is enough. Measured again afterwards: HTBOTTOMRIGHT, HTRIGHT,
-    HTBOTTOM and HTTOP at the edges, HTCLIENT in the middle. Resizing works, and no caption comes
-    back with it.
-
-    Retried until it sticks, and always from a worker thread. A single attempt from the WebView2
-    init callback looked successful and changed nothing: pywebview applies the frameless style
-    while it is still showing the window, so an attempt made too early is quietly undone. Sleeping
-    in the callback would freeze the window for the length of this loop, which is why it is here.
-
-    The other obvious route was tried first and does not work here: leaving the border style
-    alone and calling DwmExtendFrameIntoClientArea with a caption-height top margin. The call
-    reports success (hresult 0) and changes nothing — captures with margins 0, 64 and 200 are
-    pixel-identical, caption included. Recorded so nobody spends that afternoon again.
-    """
-    import ctypes
-    import threading
-    import time
-
-    GWL_STYLE = -16
-    WS_THICKFRAME = 0x00040000
-    SWP_NOMOVE, SWP_NOSIZE, SWP_NOZORDER, SWP_FRAMECHANGED = 0x0002, 0x0001, 0x0004, 0x0020
-
-    def settle():
-        try:
-            # .NET hands back an IntPtr, which int() refuses; ToInt64() is the way through.
-            handle = int(form.Handle.ToInt64())
-            if not handle:
-                print("[frame] window handle not available yet", flush=True)
-                return False
-            for _ in range(attempts):
-                style = ctypes.windll.user32.GetWindowLongW(handle, GWL_STYLE)
-                if style & WS_THICKFRAME:
-                    return True
-                ctypes.windll.user32.SetWindowLongW(handle, GWL_STYLE, style | WS_THICKFRAME)
-                ctypes.windll.user32.SetWindowPos(
-                    handle, 0, 0, 0, 0, 0,
-                    SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED,
-                )
-                time.sleep(interval)
-            print("[frame] resize border could not be restored", flush=True)
-        except Exception as error:
-            print(f"[frame] failed: {type(error).__name__}: {error}", flush=True)
-            return False
-        return False
-
-    threading.Thread(target=settle, daemon=True).start()
-    return True
-
-
-class WindowControls:
-    """The window's own buttons and edges, for a page that has to provide them.
-
-    A frameless window has no title bar, so the page draws one — and that makes moving, resizing,
-    minimising, maximising and closing this program's business instead of the operating system's.
-    Each call goes through pywebview's Window API, which posts to the GUI thread whichever thread
-    asked.
-
-    Whether the window is maximized is followed through pywebview's own events rather than with a
-    flag of our own: the reader can also double-click the title bar or press Win+Up, and the
-    button has to agree with the window afterwards either way.
-    """
-
-    def __init__(self):
-        self._window = None
-        self._maximized = False
-
-    def attach(self, window):
-        """Subscribe to the window's state changes. Returns self, so it reads as one chain."""
-        self._window = window
-        for name, maximized in (("maximized", True), ("restored", False), ("minimized", False)):
-            def track(*_args, _maximized=maximized):
-                self._maximized = _maximized
-
-            setattr(window.events, name, getattr(window.events, name) + track)
-        return self
-
-    # --- the calls the page makes ------------------------------------------
-    def minimize(self):
-        if self._window:
-            self._window.minimize()
-        return True
-
-    def toggle_maximize(self):
-        if not self._window:
-            return False
-        self._window.restore() if self._maximized else self._window.maximize()
-        return True
-
-    def close(self):
-        if self._window:
-            self._window.destroy()
-        return True
-
-    def resize(self, width, height, corner="nw"):
-        """Resize as an edge is dragged. `corner` names the corner that must stay put, which is
-        what makes dragging the left or top edge behave like dragging the left or top edge."""
-        if not self._window:
-            return False
-        from webview.window import FixPoint
-
-        fixed = {
-            "nw": FixPoint.NORTH | FixPoint.WEST,
-            "ne": FixPoint.NORTH | FixPoint.EAST,
-            "sw": FixPoint.SOUTH | FixPoint.WEST,
-            "se": FixPoint.SOUTH | FixPoint.EAST,
-        }.get(str(corner), FixPoint.NORTH | FixPoint.WEST)
-        self._window.resize(max(200, int(width)), max(100, int(height)), fixed)
-        return True
-
-    def move(self, x, y):
-        if self._window:
-            self._window.move(int(x), int(y))
-        return True
-
-    def bounds(self):
-        """The window's position and size, so the page can drag it by the title bar.
-
-        pywebview's own drag region cannot be used for that: it computes the movement as
-        `screenX - clientX`, mixing screen coordinates with window-relative ones, so the window
-        teleports to the pointer on the first movement instead of following it. Dragging a title
-        bar needs the window's own origin, which is what this returns.
-        """
-        if not self._window:
-            return None
-        return {"x": self._window.x, "y": self._window.y,
-                "width": self._window.width, "height": self._window.height}
-
-    def maximized(self):
-        return self._maximized
-
-
-def run(url, title="和序图书馆", width=1280, height=820, icon=None, controls=None,
-        debug_port=None):
+def run(url, title="和序图书馆", width=1280, height=820, icon=None):
     """Show the page in a window and block until it is closed. Returns True if it opened.
 
     Called on the main thread: the WinForms message loop has to own it.
-
-    The window is frameless, so the page's own bar becomes the window's bar — and there is library
-    behind it for glass to refract, where a native title bar had nothing behind it at all. The
-    resize border is put back by restore_resize_frame, so the window still resizes from every edge.
-
-    `easy_drag` is off on purpose: left on, pywebview turns *any* press on the page into a window
-    drag, which would take the camera orbit and the cover drag with it. Dragging is the title
-    bar's job, and the bar says so with pywebview's own `pywebview-drag-region` class.
     """
     if not install_window_hooks(icon):
         return False
     import webview
 
-    if debug_port:
-        # Off unless asked for: this is what lets a test drive the real window (buttons, dragging,
-        # frame rate) instead of the reader having to click things and report back.
-        webview.settings["REMOTE_DEBUGGING_PORT"] = int(debug_port)
-
-    created = webview.create_window(
-        title, url, width=width, height=height, min_size=(880, 620),
-        frameless=True, easy_drag=False, js_api=controls,
-        # Paints the few pixels of resize border, which belong to the frame rather than the page.
-        # Matching the page's own tone keeps that strip from reading as a white rim.
-        background_color="#eaece5",
-    )
-    if controls is not None and created is not None:
-        controls.attach(created)
+    webview.create_window(title, url, width=width, height=height, min_size=(880, 620))
     try:
         # Forcing the backend keeps it off the legacy mshtml renderer, which cannot run the page
         # at all. A missing WebView2 runtime raises here and the caller falls back to a browser.

@@ -1,14 +1,3 @@
-import { createBarGlass } from "./ui/bar-glass.js";
-import { createWindowChrome } from "./ui/window-chrome.js";
-
-// The bar first, and independently of the scene: it is the window's title bar, and it has to be
-// usable — draggable, closable — while the model is still loading.
-const bar = document.getElementById("bar");
-if (bar) {
-  createBarGlass(bar);
-  createWindowChrome({ bar });
-}
-
 // Show a useful boot failure even when a dependency import or GLB fetch fails.
 const loading = document.getElementById("loading");
 if (location.protocol === "file:") {
