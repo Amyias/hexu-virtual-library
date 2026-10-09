@@ -10,7 +10,7 @@ Blender 精细环境模型 + Three.js 网页交互。此版本已从单文件拆
 node tools/package-local.mjs      # 打包一次，产物在 dist/和序图书馆/
 ```
 
-双击 `dist/和序图书馆/和序图书馆.exe`，程序**直接打开自己的窗口**，图书馆就在窗口里——没有浏览器标签页，也没有命令行黑框；关掉窗口程序即退出。用的是 Windows 自带的 WebView2（随 Edge 安装），页面、识别模型与 HTTP 服务都在本机。**识别完全在本机运行，录音不出这台电脑**，也不需要那台香港服务器。约 327 MB，构建与窗口细节见 [DEPLOY.md](./DEPLOY.md) 的「本机版打包」。
+双击 `dist/和序图书馆/和序图书馆.exe`，程序**直接打开自己的窗口**，图书馆就在窗口里——没有浏览器标签页，也没有命令行黑框。窗口最上面那条栏是页面自己画的（窗口无边框），做成了玻璃：背后就是书架，会从栏底那条边缘透过来并被轻微弯折。拖动它移动窗口，右侧三个按钮是最小化 / 最大化 / 关闭；边缘仍然可以正常拖拽缩放。用的是 Windows 自带的 WebView2（随 Edge 安装），页面、识别模型与 HTTP 服务都在本机。**识别完全在本机运行，录音不出这台电脑**，也不需要那台香港服务器。约 327 MB，构建与窗口细节见 [DEPLOY.md](./DEPLOY.md) 的「本机版打包」。
 
 麦克风不需要你在窗口里点「允许」：程序替这个页面放行了（WebView2 默认会拒绝麦克风，所以这一步由程序完成，见 `tools/window_host.py`）。真正的开关在页面里——第一次点一下「启动语音感知」，之后每次打开都会自动开始收听，说「小和」即可。想确认窗口里麦克风能不能用，跑 `和序图书馆.exe --check-mic`；想改用系统浏览器，跑 `--browser`。
 
@@ -58,7 +58,10 @@ npm start
 | `src/scene/smart-books.js` | 320 本书的 GPU 实例化与芯片刻印图集 |
 | `src/scene/orb.js` | 小和流光 Shader、呼吸与唤醒波纹 |
 | `src/reader/book.js` | 绕书脊铰链开合、封面与中文简介纹理、芯片特写模型 |
+| `src/styles/bar.css` | 窗口标题栏（两个页面共用）：玻璃、品牌、窗口按钮 |
 | `src/styles/library.css` | 页面与响应式布局 |
+| `src/ui/bar-glass.js` | 顶栏的玻璃：现画透镜法线图，交给 SVG 位移滤镜做边缘折射 |
+| `src/ui/window-chrome.js` | 窗口按钮与拖动（浏览器里不启用） |
 | `blender/hexu-library.blend` | 可直接在 Blender 编辑的源场景 |
 | `blender/build_library.py` | 可重复执行的建模、导出、渲染脚本 |
 | `blender/export_saved.py` | 从已保存的源模型重新导出，不重建或覆盖源文件 |

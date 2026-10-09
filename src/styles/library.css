@@ -4,6 +4,9 @@
   --line: #d7ddd5;
   --green: #376c53;
   --paper: #f7f8f2;
+  /* The title bar's height. The window has no caption, so this strip is the window's title bar —
+     and everything below it is positioned from this one number. */
+  --bar-height: 54px;
 }
 * {
   box-sizing: border-box;
@@ -43,58 +46,6 @@ summary:focus-visible {
   height: 100%;
   touch-action: none;
 }
-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  padding: 28px 36px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  pointer-events: none;
-}
-header > * {
-  pointer-events: auto;
-}
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 13px;
-}
-.mark {
-  width: 39px;
-  height: 39px;
-  border: 1px solid #829889;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  font-size: 23px;
-}
-.brand strong {
-  font-family: serif;
-  font-size: 22px;
-  letter-spacing: 5px;
-}
-.brand small {
-  display: block;
-  font-size: 9px;
-  letter-spacing: 3px;
-  color: var(--muted);
-}
-.top-right {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-  font-size: 12px;
-}
-.pill {
-  padding: 8px 13px;
-  background: #ffffff90;
-  border: 1px solid #ffffff;
-  border-radius: 30px;
-  backdrop-filter: blur(15px);
-}
 .status-dot {
   display: inline-block;
   width: 7px;
@@ -112,7 +63,7 @@ header > * {
 }
 .intro {
   position: fixed;
-  top: 143px;
+  top: calc(var(--bar-height, 54px) + 37px);
   left: 37px;
   width: 275px;
 }
@@ -157,7 +108,7 @@ header > * {
 .collection {
   position: fixed;
   right: 30px;
-  top: 133px;
+  top: calc(var(--bar-height, 54px) + 27px);
   width: 215px;
   padding: 22px;
   background: #f9faf4d9;
@@ -411,7 +362,7 @@ form button {
 }
 .reader-head {
   position: absolute;
-  top: 105px;
+  top: calc(var(--bar-height, 54px) + 11px);
   width: 100%;
   text-align: center;
 }
@@ -465,8 +416,8 @@ form button {
 }
 details.help {
   position: fixed;
-  right: 35px;
-  top: 82px;
+  right: 30px;
+  top: calc(var(--bar-height, 54px) + 10px);
   z-index: 8;
   font-size: 11px;
 }
@@ -530,7 +481,7 @@ details.help code {
 }
 #notice {
   position: fixed;
-  top: 100px;
+  top: calc(var(--bar-height, 54px) + 14px);
   left: 50%;
   transform: translateX(-50%);
   padding: 10px 18px;
@@ -546,7 +497,7 @@ details.help code {
   .intro {
     width: 210px;
     left: 25px;
-    top: 128px;
+    top: calc(var(--bar-height, 54px) + 26px);
   }
   .intro h1 {
     font-size: 32px;
@@ -568,10 +519,10 @@ details.help code {
 }
 @media (max-width: 700px) {
   header {
-    padding: 20px;
+    padding: 0 6px 0 14px;
   }
   .brand strong {
-    font-size: 19px;
+    font-size: 15px;
   }
   .top-right {
     font-size: 10px;
@@ -580,7 +531,7 @@ details.help code {
     max-width: 175px;
   }
   .intro {
-    top: 111px;
+    top: calc(var(--bar-height, 54px) + 14px);
     width: 180px;
     pointer-events: none;
   }
@@ -603,8 +554,8 @@ details.help code {
     bottom: 205px;
   }
   details.help {
-    right: 22px;
-    top: 75px;
+    right: 18px;
+    top: calc(var(--bar-height, 54px) + 12px);
   }
   .bottom {
     width: calc(100% - 28px);
@@ -614,7 +565,7 @@ details.help code {
     font-size: 8px;
   }
   .reader-head {
-    top: 110px;
+    top: calc(var(--bar-height, 54px) + 12px);
   }
   .reader-bottom {
     bottom: 25px;
@@ -628,12 +579,12 @@ details.help code {
 }
 .top-right .pill:first-child {
   position: fixed;
-  top: 88px;
-  left: 36px;
+  top: calc(var(--bar-height, 54px) + 12px);
+  left: 20px;
   font-size: 11px;
 }
 .reading .top-right .pill:first-child {
-  top: 85px;
+  top: calc(var(--bar-height, 54px) + 10px);
 }
 #reader {
   background: radial-gradient(
@@ -665,20 +616,20 @@ details.help code {
 }
 @media (max-width: 700px) {
   .top-right .pill:first-child {
-    top: 82px;
+    top: calc(var(--bar-height, 54px) + 14px);
     left: 20px;
     max-width: 270px;
     font-size: 10px;
   }
   .intro {
-    top: 126px;
+    top: calc(var(--bar-height, 54px) + 24px);
     width: 245px;
   }
   .intro h1 {
     font-size: 25px;
   }
   .reader-head {
-    top: 122px;
+    top: calc(var(--bar-height, 54px) + 20px);
   }
   .reader-head h2 {
     font-size: 20px;

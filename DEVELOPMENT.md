@@ -179,6 +179,9 @@ node tools/package-local.mjs --no-build --shortcut   # 只放桌面快捷方式�
 .cache/venv/Scripts/python.exe tools/asr-server.py --window
 # 检查内嵌窗口里的麦克风能不能用（结论也写进 %APPDATA%\hexu-library\mic-check.txt）
 .cache/venv/Scripts/python.exe tools/asr-server.py --check-mic
+# 给程序窗口开一个调试端口，测试就能直接驱动真实窗口（点按钮、合成拖动、量帧率）
+.cache/venv/Scripts/python.exe tools/asr-server.py --window --debug-port 9222
+
 # 检查 Gitee 上有没有新提交（0 已最新 / 1 有更新 / 2 查不了）
 .cache/venv/Scripts/python.exe tools/asr-server.py --check-update
 

@@ -272,6 +272,28 @@ if args.PermissionKind == CoreWebView2PermissionKind.Microphone:
 
 **窗口起不来就退回浏览器**：`--browser` 可以主动选择外部浏览器；若 WebView2 组件缺失或初始化失败，程序会打印提示并自动改用系统浏览器打开，而不是留给你一个空窗口。
 
+### 标题栏：由页面自己画
+
+窗口是**无边框**的（`frameless=True`），页面顶部那条栏就是窗口的标题栏。这样做的理由不只是好看：原生标题栏背后什么都没有，玻璃没有可折射的东西；换成页面自己画之后，玻璃背后就是图书馆本身。
+
+无边框会连带丢掉缩放边框（`FormBorderStyle.None` 同时去掉 `WS_CAPTION` 与 `WS_THICKFRAME`）。实测过两条路：
+
+| 做法 | 结果 |
+| --- | --- |
+| 只设无边框 | 四边 `WM_NCHITTEST` 全是 `HTCLIENT` —— **完全无法缩放** |
+| 无边框 + 手工加回 `WS_THICKFRAME` | 边缘回到 `HTRIGHT`/`HTBOTTOM`/`HTTOP`，中间仍是 `HTCLIENT` ✅ **原生缩放可用** |
+| 保留系统边框 + `DwmExtendFrameIntoClientArea` 抬高标题区 | 调用返回成功（hresult 0）但**画面完全不变**，三张不同边距的截图逐像素相同 ❌ |
+
+所以用的是第二条（`restore_resize_frame()`）。它从一个工作线程里**重试到生效为止**：pywebview 在显示窗口的过程中还会再设一次边框样式，早于那一步的调用会被静默覆盖——第一版就是这样"成功"地什么都没做。
+
+**窗口的三个按钮与拖动**由页面负责（`src/ui/window-chrome.js` + 桥上的 `window_host.WindowControls`）：最小化、最大化/还原、关闭，以及按住标题栏拖动。拖动**没有**用 pywebview 的 `pywebview-drag-region`：它按 `screenX - clientX` 算位移（屏幕坐标减窗口内坐标），窗口会先瞬移到光标再跟随。改成从窗口自身位置取偏移，实测拖动 72×36 像素窗口正好移动 71×35。
+
+在浏览器标签里打开同一页面时，按钮不显示（`window.pywebview` 不存在），顶栏照样是玻璃。
+
+### 给程序窗口开调试端口
+
+`--debug-port 9222`（默认关闭）会在 WebView2 上开 CDP，于是测试可以直接驱动**真实窗口**：点按钮、合成拖动、量帧率，不必靠人点。任何 CDP 客户端都能连，本机有一个 `node .cache/cdp.mjs "<表达式>"` 的小工具（在 `.cache/` 里，不进版本库）。
+
 **图标只有一个文件**：`public/favicon.ico`。页面用它做标签图标，窗口用它做标题栏与任务栏按钮（pywebview 的 WinForms 窗体对象只在后端内部可达，所以是在窗口初始化的回调里设置的），PyInstaller 把它嵌进 exe，桌面快捷方式因此也显示它。改设计就改 `tools/make-icon.py` 再跑一次（颜色从 `src/styles/library.css` 读取，所以不会和界面跑偏）：
 
 ```bash

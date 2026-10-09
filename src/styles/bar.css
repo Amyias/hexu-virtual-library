@@ -1,0 +1,172 @@
+/* The window's title bar.
+
+Shared by both pages on purpose: the program window has no caption of its own
+(tools/window_host.py makes it frameless), so whichever page is showing has to draw one — and a
+window whose title bar only exists on some pages cannot be dragged or closed on the others.
+
+Nothing here depends on the library: this is the bar, and src/ui/bar-glass.js + window-chrome.js
+are what make it glass and give it working buttons.
+*/
+:root {
+  --bar-height: 54px;
+  --bar-ink: #243d39;
+  --bar-muted: #788580;
+  --bar-paper: #f7f8f2;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--bar-height);
+  padding: 0 10px 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  /* Above the loading cover on purpose: while the scene is loading, this is the only thing that
+     can still be dragged, minimised or closed. */
+  z-index: 21;
+  border-radius: 0 0 18px 18px;
+  border-bottom: 1px solid #ffffffb0;
+  /* Light enough that what is behind reads through it, present enough for type over both the
+     bright windows and the dark floor. */
+  background: #f7f8f2a6;
+  box-shadow: 0 12px 34px -14px #2c403433;
+  backdrop-filter: blur(3px) saturate(180%) brightness(1.04);
+  font:
+    14px/1.6 "Segoe UI",
+    "Microsoft YaHei",
+    sans-serif;
+  color: var(--bar-ink);
+}
+/* The lensed strip along the bar's bottom edge, created by src/ui/bar-glass.js. Only the band
+   where the library actually passes under the bar pays for the displacement filter; the rest of
+   the bar is an ordinary blur, which costs the compositor nothing. */
+.bar-lens {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 16px;
+  border-radius: 0 0 18px 18px;
+  pointer-events: none;
+}
+/* The two specular touches that make it read as a piece of material rather than a tint: a bright
+   line along the bottom edge, and a soft sheen across the top. */
+header::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, #ffffff2e, #ffffff00 42%),
+    linear-gradient(0deg, #ffffffd0, #ffffff00 3px);
+}
+header > * {
+  pointer-events: auto;
+  position: relative;
+}
+
+/* Sized for a title bar rather than a page header: the mark and both lines of type fit 54 pixels
+   without crowding the bar's own padding. */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+.mark {
+  width: 28px;
+  height: 28px;
+  border: 1px solid #829889;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 17px;
+}
+.brand strong {
+  display: block;
+  font-family: serif;
+  font-size: 16px;
+  letter-spacing: 3px;
+}
+.brand small {
+  display: block;
+  font-size: 8px;
+  letter-spacing: 2px;
+  color: var(--bar-muted);
+}
+.top-right {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 12px;
+}
+.pill {
+  padding: 6px 13px;
+  background: #ffffff90;
+  border: 1px solid #ffffff;
+  border-radius: 30px;
+  backdrop-filter: blur(15px);
+}
+
+.window-buttons {
+  display: none;
+  gap: 2px;
+  align-items: center;
+}
+/* Only where there is a window to control: in a browser tab the page has no caption to draw. */
+.in-app-window .window-buttons {
+  display: flex;
+}
+.window-buttons button {
+  width: 38px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  opacity: 0.7;
+  transition:
+    background 0.15s ease,
+    opacity 0.15s ease;
+}
+.window-buttons button:hover {
+  background: #ffffff8f;
+  opacity: 1;
+}
+.window-buttons .window-close:hover {
+  background: #c4553f;
+  color: #fff8f4;
+}
+.window-buttons .glyph-restore,
+.window-maximized .window-buttons .glyph-maximize {
+  display: none;
+}
+.window-maximized .window-buttons .glyph-restore {
+  display: block;
+}
+
+@media (max-width: 700px) {
+  header {
+    padding: 0 6px 0 14px;
+  }
+  .brand strong {
+    font-size: 15px;
+  }
+  .top-right {
+    font-size: 10px;
+  }
+  .top-right .pill {
+    max-width: 175px;
+  }
+  .window-buttons button {
+    width: 34px;
+  }
+}

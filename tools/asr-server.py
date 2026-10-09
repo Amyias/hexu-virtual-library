@@ -108,6 +108,10 @@ MODEL_DIR = model_dir()
 MODEL_FILE = MODEL_DIR / "model.int8.onnx"
 TOKENS_FILE = MODEL_DIR / "tokens.txt"
 
+#: Height of the page's own title bar, in CSS pixels. The window has no caption of its own, so
+#: this bar is the window's title bar (tools/window_host.py makes the window frameless).
+BAR_HEIGHT = 54
+
 MAX_BODY = 1_500_000        # ~47 s of 16 kHz mono 16-bit PCM, half a megabyte of slack
 MIN_SECONDS = 0.25
 MAX_SECONDS = 45.0
@@ -749,7 +753,7 @@ def parse_argv(argv):
     nothing at all (the deployment and the tests use it); `--check-mic` to report whether the
     built-in window can reach the microphone and exit."""
     options = {"port": PORT, "browser": True, "window": None, "check_mic": False,
-               "check_update": False}
+               "check_update": False, "debug_port": None}
     index = 0
     while index < len(argv):
         argument = argv[index]
@@ -763,6 +767,12 @@ def parse_argv(argv):
             options["check_mic"] = True
         elif argument == "--check-update":
             options["check_update"] = True
+        elif argument == "--debug-port" and index + 1 < len(argv):
+            try:
+                options["debug_port"] = int(argv[index + 1])
+            except ValueError:
+                pass
+            index += 1
         elif argument == "--port" and index + 1 < len(argv):
             try:
                 options["port"] = int(argv[index + 1])
@@ -901,7 +911,7 @@ def window_icon():
     return icon if icon.is_file() else None
 
 
-def show_window(url):
+def show_window(url, options=None):
     """Show the page in a native window, or report that none could be shown.
 
     True means the window was shown and has now been closed — the reader quitting, which is how
@@ -916,7 +926,13 @@ def show_window(url):
     if not ready:
         note(f"内嵌窗口不可用：{reason}")
         return False
-    return window_host.run(url, icon=window_icon())
+    options = options or {}
+    return window_host.run(
+        url,
+        icon=window_icon(),
+        controls=window_host.WindowControls(),
+        debug_port=options.get("debug_port"),
+    )
 
 
 def microphone_check():
@@ -1032,7 +1048,7 @@ def main():
     ).start()
 
     if window_mode(options):
-        if show_window(address):
+        if show_window(address, options):
             server.shutdown()
             server.server_close()
             return 0
