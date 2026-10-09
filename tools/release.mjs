@@ -83,7 +83,24 @@ function preflight(version, assetsOnly) {
 
   const remote = run("git", ["ls-remote", "--tags", "github", `v${version}`]).stdout.trim();
   if (remote) fail(`GitHub 上已经有 v${version} 这个标签了。要往它上面补传附件，加 --assets-only。`);
-  return run("git", ["rev-parse", "HEAD"]).stdout.trim();
+
+  // The release is created from a commit that has to exist on GitHub: the API takes the sha as
+  // `target_commitish`, and a tag cannot be made from a commit the remote has never seen. Asked
+  // for one that was still local, GitHub answered 422 with a message about an invalid tag.
+  const head = run("git", ["rev-parse", "HEAD"]).stdout.trim();
+  const remoteHead = run("git", ["rev-parse", "refs/remotes/github/master"]).stdout.trim() ||
+    run("git", ["ls-remote", "github", "refs/heads/master"]).stdout.trim().split(/\s+/)[0];
+  if (remoteHead && remoteHead !== head) {
+    fail(
+      [
+        "要发布的提交还没推到 GitHub——发行版是从远端那个提交建的：",
+        `  本地   ${head.slice(0, 12)}`,
+        `  远端   ${remoteHead.slice(0, 12)}`,
+        "先 git push github master，再发版。",
+      ].join("\n"),
+    );
+  }
+  return head;
 }
 
 /** The two archives. Both unpack at the install root: the program archive is everything except
