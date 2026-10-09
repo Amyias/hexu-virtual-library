@@ -51,6 +51,10 @@ SPEC_NAME = "update.json"
 _lock = threading.Lock()
 _cache = {"at": 0.0, "payload": None, "token": None}
 _progress = {"state": "idle", "message": ""}
+#: Set when a download finishes or gives up, so a program whose window is closed mid-download can
+#: wait for it instead of taking it down with the process.
+_finished = threading.Event()
+BUSY_STATES = ("downloading", "retrying", "installing")
 
 
 # --- talking to GitHub --------------------------------------------------------
@@ -500,6 +504,13 @@ def begin(site_root, install_root, token, pid, on_ready):
 
 
 def _apply(payload, install_root, token, pid, on_ready):
+    try:
+        _apply_inner(payload, install_root, token, pid, on_ready)
+    finally:
+        _finished.set()
+
+
+def _apply_inner(payload, install_root, token, pid, on_ready):
     directory = work_dir()
     program = payload["program_asset"]
     program_zip = directory / program["name"]
@@ -535,3 +546,13 @@ def _apply(payload, install_root, token, pid, on_ready):
 def progress():
     with _lock:
         return dict(_progress)
+
+
+def busy():
+    """Whether an update is being downloaded or installed right now."""
+    return _progress.get("state") in BUSY_STATES
+
+
+def wait(seconds):
+    """Block until the download settles. Returns True when it finished, False on timeout."""
+    return _finished.wait(seconds)
