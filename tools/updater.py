@@ -96,10 +96,29 @@ def _repository_visible(token):
         return False
 
 
-def _api(path, token):
-    request = urllib.request.Request(API + path, headers=_headers(token, "application/vnd.github+json"))
-    with _opener().open(request, timeout=REQUEST_TIMEOUT) as response:
-        return json.loads(response.read().decode("utf-8"))
+def _api(path, token, attempts=4):
+    """One API call, retried.
+
+    The API itself is small and quick, but this network drops connections: measured, roughly one
+    TLS handshake in five fails, and a fresh connection is the flakiest thing there is. Reporting
+    that as "cannot reach GitHub" makes the reader retry by hand for no reason — and it is exactly
+    what happened the first time this ran end to end. An HTTP error, by contrast, is a real answer
+    from GitHub and is never retried."""
+    last = None
+    for attempt in range(1, attempts + 1):
+        request = urllib.request.Request(
+            API + path, headers=_headers(token, "application/vnd.github+json")
+        )
+        try:
+            with _opener().open(request, timeout=REQUEST_TIMEOUT) as response:
+                return json.loads(response.read().decode("utf-8"))
+        except urllib.error.HTTPError:
+            raise
+        except Exception as error:
+            last = error
+            if attempt < attempts:
+                time.sleep(min(1.5 * attempt, 6))
+    raise last
 
 
 # --- what is installed --------------------------------------------------------
@@ -118,7 +137,9 @@ def version_tuple(text):
 
 
 def has_model(install_root):
-    return (Path(install_root) / MODEL_RELATIVE).is_file()
+    """Whether this install carries the model already — checked before downloading 228 MB of it.
+    A source checkout has no install folder, so it has no model in this sense either."""
+    return bool(install_root) and (Path(install_root) / MODEL_RELATIVE).is_file()
 
 
 # --- status -------------------------------------------------------------------
@@ -142,7 +163,7 @@ def _inspect(site_root, install_root, token):
             "commit": info.get("commit", ""),
             "built_at": info.get("built_at", ""),
         },
-        "install_root": str(install_root),
+        "install_root": str(install_root or ""),
         "latest": None,
         "state": "unknown",
         "reason": "",
@@ -151,6 +172,12 @@ def _inspect(site_root, install_root, token):
         "needs_model": not has_model(install_root),
     }
 
+    if install_root is None:
+        payload.update(
+            state="not-packaged",
+            reason="这是源码运行（未打包），不参与自更新；打包后的程序才会从发行版更新",
+        )
+        return payload
     if not token:
         payload.update(
             state="no-token",
@@ -393,6 +420,8 @@ def begin(site_root, install_root, token, pid, on_ready):
         _progress.clear()
         _progress.update(state="checking", message="正在检查更新…")
 
+    if install_root is None:
+        return False, "这是源码运行（未打包），请用打包后的程序更新"
     payload = status(site_root, install_root, token, refresh=True)
     if not payload.get("can_apply"):
         _progress.update(state="idle", message="")

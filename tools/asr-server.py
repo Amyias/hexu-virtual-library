@@ -872,10 +872,14 @@ def install_root():
     """The folder holding the program itself — what an update replaces.
 
     Not the site root: a packaged build serves from `_internal` inside the program folder, and the
-    thing a release archive overwrites is the folder around it."""
+    thing a release archive overwrites is the folder around it.
+
+    Running from a source checkout there is no such folder. An update there would mirror a release
+    over the repository — robocopy /MIR deletes what the new version does not contain — so a
+    checkout is not updatable at all, and says so instead. Rebuilding is what a checkout does."""
     if frozen():
         return Path(sys.executable).resolve().parent
-    return Path(__file__).resolve().parents[1]
+    return None
 
 
 def user_environment(name):
