@@ -91,6 +91,18 @@ git push origin master
 
 密钥位于用户目录，不在仓库内，也不会被提交。
 
+### API 认证：GitHub 个人访问令牌（发布发行版用）
+
+仅发布 GitHub 发行版时需要；程序在别的机器上检查更新用的是同一类令牌，但**只读**即可。
+
+| 项 | 位置 |
+| --- | --- |
+| 变量名 | `GITHUB_TOKEN` |
+| 所需权限 | 细粒度 PAT，`Contents: Read and write`（发版）；`Contents: Read-only`（只更新） |
+| 存放 | 同 `GITEE_ACCESS_TOKEN`：Windows 用户级环境变量 |
+
+检查是否已配置（不会打印令牌内容）：`test -n "$GITHUB_TOKEN" && echo 已配置 || echo 未配置`
+
 ### API 认证：Gitee 个人访问令牌
 
 仅调用 Gitee REST API（新建仓库、修改仓库描述等）时需要；日常提交推送用不到。
@@ -189,7 +201,10 @@ node tools/package-local.mjs --no-build --shortcut   # 只放桌面快捷方式�
 .cache/venv/Scripts/python.exe tools/asr-server.py --window
 # 检查内嵌窗口里的麦克风能不能用（结论也写进 %APPDATA%\hexu-library\mic-check.txt）
 .cache/venv/Scripts/python.exe tools/asr-server.py --check-mic
-# 检查 Gitee 上有没有新提交（0 已最新 / 1 有更新 / 2 查不了）
+# 发布一个版本（先在 package.json 改版本号并提交；没有令牌时加 --prepare-only 只备包）
+node tools/release.mjs
+
+# 检查有没有新版本（0 已最新 / 1 有更新 / 2 查不了）
 .cache/venv/Scripts/python.exe tools/asr-server.py --check-update
 
 # 重新生成程序图标（页面标签、窗口、exe、桌面快捷方式共用 public/favicon.ico）

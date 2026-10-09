@@ -252,7 +252,7 @@ MAX_JSON_BODY = 4_096
 
 CATALOG_PATH = ROOT / "public" / "models" / "book-inventory.json"
 CONFIG_PATH = config_path()
-SETTINGS_KEYS = ("HEXU_LLM_BASE_URL", "HEXU_LLM_MODEL", "HEXU_LLM_API_KEY", "HEXU_SOURCE_DIR")
+SETTINGS_KEYS = ("HEXU_LLM_BASE_URL", "HEXU_LLM_MODEL", "HEXU_LLM_API_KEY", "HEXU_GITHUB_TOKEN")
 
 
 def load_settings():
@@ -308,7 +308,7 @@ def settings_state():
     for name, default in (("HEXU_LLM_BASE_URL", LLM_BASE_URL_DEFAULT),
                           ("HEXU_LLM_MODEL", LLM_MODEL_DEFAULT),
                           ("HEXU_LLM_API_KEY", ""),
-                          ("HEXU_SOURCE_DIR", "")):
+                          ("HEXU_GITHUB_TOKEN", "")):
         from_environment = os.environ.get(name, "").strip()
         if from_environment:
             resolved[name], sources[name] = from_environment, "env"
@@ -328,7 +328,8 @@ def settings_summary():
         "model": resolved["HEXU_LLM_MODEL"],
         "key_source": sources["HEXU_LLM_API_KEY"],
         "key_from_environment": sources["HEXU_LLM_API_KEY"] == "env",
-        "source_dir_setting": resolved["HEXU_SOURCE_DIR"],
+        "update_token_set": bool(resolved["HEXU_GITHUB_TOKEN"]),
+        "update_token_source": sources["HEXU_GITHUB_TOKEN"],
         "path": str(CONFIG_PATH),
         "asr_ready": model_state()[0],
     }
@@ -561,12 +562,11 @@ class Handler(SimpleHTTPRequestHandler):
         self._send_file(target)
 
     def _post_update_apply(self):
-        ok, message = updater.start(update_source(), ROOT, os.getpid())
+        # The download itself runs in a worker thread so this reply is immediate and the page can
+        # poll /update/progress while 99 MB arrive.
+        ok, message = updater.begin(ROOT, install_root(), update_token(), os.getpid(),
+                                    stop_everything)
         self._send_json(200 if ok else 409, {"ok": ok, "message": message})
-        if ok:
-            # The helper waits for this process to disappear before it touches anything, so the
-            # program now closes itself — the reply above has already been written out.
-            threading.Timer(0.7, stop_everything).start()
 
     def _read_json(self):
         """One small JSON body, or None after answering the request itself."""
@@ -611,8 +611,13 @@ class Handler(SimpleHTTPRequestHandler):
         if pathname == "/update/status":
             if not self._loopback_only():
                 return
-            self._send_json(200, updater.status(ROOT, update_source(),
+            self._send_json(200, updater.status(ROOT, install_root(), update_token(),
                                                 refresh="refresh=1" in self.path))
+            return
+        if pathname == "/update/progress":
+            if not self._loopback_only():
+                return
+            self._send_json(200, updater.progress())
             return
 
         target = self._static_path(pathname)
@@ -676,7 +681,8 @@ class Handler(SimpleHTTPRequestHandler):
             return
         updates = {}
         for field, name in (("key", "HEXU_LLM_API_KEY"), ("baseUrl", "HEXU_LLM_BASE_URL"),
-                            ("model", "HEXU_LLM_MODEL")):
+                            ("model", "HEXU_LLM_MODEL"),
+                            ("updateToken", "HEXU_GITHUB_TOKEN")):
             if field in body:
                 updates[name] = body.get(field)
         save_settings(updates)
@@ -862,10 +868,27 @@ def stop_everything():
         pass
 
 
-def update_source():
-    """The checkout to update from: what was configured, else where this build was made."""
+def install_root():
+    """The folder holding the program itself — what an update replaces.
+
+    Not the site root: a packaged build serves from `_internal` inside the program folder, and the
+    thing a release archive overwrites is the folder around it."""
+    if frozen():
+        return Path(sys.executable).resolve().parent
+    return Path(__file__).resolve().parents[1]
+
+
+def update_token():
+    """The read token the release check needs, per request and never cached.
+
+    The repository is private, so the API cannot be asked without one. `GITHUB_TOKEN` first —
+    the same variable the release tool reads — then the reader's own settings file, which is where
+    a machine that never sees this checkout would put it."""
+    from_environment = os.environ.get("GITHUB_TOKEN", "").strip()
+    if from_environment:
+        return from_environment
     resolved, _ = settings_state()
-    return updater.source_directory(ROOT, resolved.get("HEXU_SOURCE_DIR", ""))
+    return resolved.get("HEXU_GITHUB_TOKEN", "").strip()
 
 
 def note(text):
@@ -960,22 +983,24 @@ def microphone_check():
 
 
 def update_check():
-    """Report whether Gitee has something newer, then exit.
+    """Report whether a newer release exists, then exit.
 
     0 = already current, 1 = an update is available, 2 = could not be determined. The same three
     answers the settings page shows, so a script and a reader never disagree."""
     resolved, _ = settings_state()
-    source = updater.source_directory(ROOT, resolved.get("HEXU_SOURCE_DIR", ""))
-    payload = updater.status(ROOT, source, refresh=True)
+    payload = updater.status(ROOT, install_root(), update_token(), refresh=True)
     installed = payload["installed"]
+    latest = payload.get("latest") or {}
     lines = [
-        f"已安装   {installed.get('commit') or '（未记录）'}"
-        f"  {installed.get('built_at') or ''}".rstrip(),
-        f"源码目录 {payload['source_dir'] or '（未配置）'}",
+        f"已安装   {installed.get('version') or '（未记录）'}"
+        f"  {installed.get('commit', '')[:12]}  {installed.get('built_at') or ''}".rstrip(),
+        f"最新版本 {latest.get('tag') or '（读不到）'}"
+        + (f"  发布于 {latest.get('published_at', '')[:10]}" if latest else ""),
+        f"安装目录 {payload.get('install_root', '')}",
         f"状态     {payload['reason']}",
     ]
-    for commit in payload.get("commits", [])[:10]:
-        lines.append("         " + commit)
+    if latest.get("notes"):
+        lines.extend(["", latest["notes"]])
     note("\n".join(lines))
     if payload["state"] == "up-to-date":
         return 0
@@ -1028,7 +1053,8 @@ def main():
     # One check shortly after startup, off the critical path: the page asks for the answer when
     # it loads, and a cached answer is what keeps that a fast request.
     threading.Thread(
-        target=lambda: (time.sleep(1.5), updater.status(ROOT, update_source())), daemon=True
+        target=lambda: (time.sleep(1.5), updater.status(ROOT, install_root(), update_token())),
+        daemon=True
     ).start()
 
     if window_mode(options):

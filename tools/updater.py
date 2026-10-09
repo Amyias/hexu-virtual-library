@@ -1,275 +1,344 @@
-"""Keep the installed program in step with the Gitee repository.
+"""Keep the installed program in step with the released versions.
 
-The update is a source pull followed by a local rebuild, not a downloaded package, and the
-reason is a hard constraint rather than a preference:
+An update is a download now, not a rebuild. The program asks GitHub for the latest release,
+downloads the program archive, checks it against the digest GitHub publishes, and hands the
+swap to a small helper that unpacks it while the program is closed. Nothing here needs a source
+checkout, git, Node or a compiler: a copy of the program plus a read token is enough, which is
+what makes this work on a machine that only ever received the built folder.
 
-- The repository is private, so an anonymous download is refused outright.
-- A Gitee release attachment may not exceed 100 MB, while the built program is about 327 MB —
-  the speech model alone is 229 MB. It does not fit.
-- The program must not carry a credential, so it cannot authenticate a download of its own.
+Two things about this network shaped the design, both measured rather than assumed:
 
-What is left is the channel this machine already has: the checkout's own git access. Nothing
-secret enters the program, and what gets updated is the whole program — the window, the server
-and the site — because it is rebuilt from the source that was just pulled.
+- The asset host fails roughly one TLS handshake in five, and a 99 MB archive takes about thirty
+  seconds to arrive. A single-attempt download would simply not finish often enough, so the
+  download retries and resumes with a Range request — a resumed attempt costs only the part that
+  is missing.
+- The model is 228 MB and never changes. It therefore travels as its own release asset and is
+  fetched only by a machine that does not have it, keeping routine updates at ~99 MB.
 
-The consequence is stated plainly wherever it matters: a copy of the program without a source
-checkout on the same machine cannot update itself, and says so instead of pretending.
-
-Every git call here is fixed: no argument comes from a request, prompts are disabled (a program
-with no console can never answer one — it would simply hang), and a timeout applies. Windows
-would otherwise flash a console window for each call, so those are suppressed too.
+The repository is private, so the API needs a token. It is passed in per call and never copied,
+cached in a file, or written into a URL — and the redirect handler below makes sure it is not
+sent on to the second host that serves the actual bytes.
 """
+import hashlib
 import json
 import os
+import re
 import subprocess
+import sys
+import tempfile
 import threading
 import time
+import urllib.error
+import urllib.parse
+import urllib.request
 from pathlib import Path
 
-#: The repository this program updates itself from. Checked so a mistyped source directory
-#: cannot make the updater pull from somewhere else entirely.
-EXPECTED_REMOTE = "hexu-virtual-library"
-BRANCH = "master"
-GIT_TIMEOUT = 15
-CACHE_SECONDS = 600
-HELPER_NAME = "update.ps1"
+#: Where releases are published.
+REPO = "Amyias/hexu-virtual-library"
+API = "https://api.github.com"
+#: Asset names carry the version, so they are matched by these fragments.
+PROGRAM_ASSET = "-program.zip"
+MODEL_ASSET = "sense-voice-"
+MODEL_RELATIVE = Path("_internal") / "models" / "sense-voice" / "model.int8.onnx"
 
-#: Suppresses the console window a GUI process would otherwise flash for every git call.
-_NO_WINDOW = getattr(subprocess, "CREATE_NO_WINDOW", 0)
+CACHE_SECONDS = 600
+REQUEST_TIMEOUT = 30
+DOWNLOAD_ATTEMPTS = 6
+WORK_DIR_NAME = "hexu-library-update"
+HELPER_NAME = "update.ps1"
+SPEC_NAME = "update.json"
 
 _lock = threading.Lock()
-_cache = {"at": 0.0, "payload": None}
+_cache = {"at": 0.0, "payload": None, "token": None}
+_progress = {"state": "idle", "message": ""}
 
 
-def installed_version(site_root):
-    """What this build was made from, as recorded by the packaging step."""
+# --- talking to GitHub --------------------------------------------------------
+class _DropTokenBeyondGitHub(urllib.request.HTTPRedirectHandler):
+    """Follow redirects, but do not carry the token to another host.
+
+    A private repository's asset download answers with a redirect to
+    release-assets.githubusercontent.com carrying a signed, expiring URL — the signature is the
+    authentication there, and the token has no business travelling to a second host."""
+
+    def redirect_request(self, request, fp, code, msg, headers, new_url):
+        redirected = super().redirect_request(request, fp, code, msg, headers, new_url)
+        if redirected is not None:
+            host = urllib.parse.urlsplit(new_url).hostname or ""
+            if not host.endswith("github.com"):
+                redirected.remove_header("Authorization")
+        return redirected
+
+
+def _opener():
+    # No proxy handling of our own: a machine-wide proxy setting must not decide whether an update
+    # can be fetched.
+    return urllib.request.build_opener(_DropTokenBeyondGitHub, urllib.request.ProxyHandler({}))
+
+
+def _headers(token, accept):
+    headers = {
+        "Accept": accept,
+        "User-Agent": "hexu-library-updater",
+        "X-GitHub-Api-Version": "2022-11-28",
+    }
+    if token:
+        headers["Authorization"] = "Bearer " + token
+    return headers
+
+
+def _api(path, token):
+    request = urllib.request.Request(API + path, headers=_headers(token, "application/vnd.github+json"))
+    with _opener().open(request, timeout=REQUEST_TIMEOUT) as response:
+        return json.loads(response.read().decode("utf-8"))
+
+
+# --- what is installed --------------------------------------------------------
+def installed(site_root):
+    """What this build was made from, as the packaging step recorded it."""
     try:
         return json.loads((Path(site_root) / "build-info.json").read_text(encoding="utf-8"))
     except (OSError, ValueError):
         return {}
 
 
-def source_directory(site_root, configured=""):
-    """Where the checkout lives: what was configured, else where this build came from.
-
-    A checkout running the server straight from source is itself the source directory, so that
-    case answers for itself. A packaged build serves from its own bundle, which is not a
-    checkout, and falls back to what the packaging step recorded."""
-    if configured.strip():
-        return Path(configured.strip()).expanduser()
-    recorded = installed_version(site_root).get("source_dir")
-    if recorded:
-        return Path(recorded)
-    site_root = Path(site_root)
-    return site_root if (site_root / ".git").is_dir() else None
+def version_tuple(text):
+    """v2.10.0 compares greater than 2.9.0, and anything unparsable compares as oldest."""
+    numbers = re.findall(r"\d+", text or "")
+    return tuple(int(number) for number in numbers[:3]) if numbers else (0,)
 
 
-def _environment():
-    env = dict(os.environ)
-    # Nothing can answer a prompt, and a hang here would look like a frozen program.
-    env["GIT_TERMINAL_PROMPT"] = "0"
-    env["GIT_SSH_COMMAND"] = "ssh -o BatchMode=yes -o ConnectTimeout=10"
-    return env
+def has_model(install_root):
+    return (Path(install_root) / MODEL_RELATIVE).is_file()
 
 
-def _git(source, args, timeout=GIT_TIMEOUT):
-    """Run one git command. Returns (ok, output-or-error)."""
-    try:
-        result = subprocess.run(
-            ["git", "-C", str(source), *args],
-            capture_output=True, text=True, encoding="utf-8", errors="replace",
-            timeout=timeout, env=_environment(), creationflags=_NO_WINDOW,
-        )
-    except FileNotFoundError:
-        return False, "找不到 git，无法检查更新"
-    except subprocess.TimeoutExpired:
-        return False, "git 超时（网络不通或被防火墙拦住）"
-    except Exception as error:
-        return False, f"{type(error).__name__}: {error}"
-    text = (result.stdout or "").strip()
-    error = (result.stderr or "").strip()
-    if result.returncode != 0:
-        return False, error or text or f"git 退出码 {result.returncode}"
-    return True, text
-
-
-def _blocked(source):
-    """Why an update cannot be applied, or None when it can. Ordered by how early it bites."""
-    if source is None:
-        return "没有配置源码目录，无法自更新"
-    if not (source / ".git").is_dir():
-        return f"源码目录不是一个 git 仓库：{source}"
-    ok, remote = _git(source, ["remote", "get-url", "origin"])
-    if not ok:
-        return f"读不到 git 远端：{remote}"
-    if EXPECTED_REMOTE not in remote:
-        return f"源码目录的远端不是本项目：{remote}"
-    return None
-
-
-def status(site_root, source, refresh=False):
-    """Everything the page and `--check-update` need, including a plain-language reason."""
+# --- status -------------------------------------------------------------------
+def status(site_root, install_root, token, refresh=False):
+    """What the settings page and `--check-update` show, including a plain-language reason."""
     with _lock:
         now = time.time()
-        if not refresh and _cache["payload"] and now - _cache["at"] < CACHE_SECONDS:
+        if (not refresh and _cache["payload"] and _cache["token"] == token
+                and now - _cache["at"] < CACHE_SECONDS):
             return _cache["payload"]
-        payload = _inspect(site_root, source)
-        _cache.update(at=now, payload=payload)
+        payload = _inspect(site_root, install_root, token)
+        _cache.update(at=now, payload=payload, token=token)
         return payload
 
 
-def _inspect(site_root, source):
-    installed = installed_version(site_root)
+def _inspect(site_root, install_root, token):
+    info = installed(site_root)
     payload = {
         "installed": {
-            "commit": installed.get("commit", ""),
-            "built_at": installed.get("built_at", ""),
-            "version": installed.get("version", ""),
+            "version": info.get("version", ""),
+            "commit": info.get("commit", ""),
+            "built_at": info.get("built_at", ""),
         },
-        "source_dir": str(source) if source else "",
+        "install_root": str(install_root),
+        "latest": None,
         "state": "unknown",
         "reason": "",
-        "behind": 0,
-        "commits": [],
         "can_apply": False,
+        "needs_token": not bool(token),
+        "needs_model": not has_model(install_root),
     }
 
-    blocked = _blocked(source)
-    if blocked:
-        payload.update(state="no-source", reason=blocked)
-        return payload
-
-    # Untracked files are ignored on purpose: they cannot make --ff-only fail, and git refuses
-    # to overwrite one by itself. What blocks an update is an uncommitted change to a tracked
-    # file, which is what this reports.
-    ok, dirty = _git(source, ["status", "--porcelain", "--untracked-files=no"])
-    if not ok:
-        payload.update(state="error", reason=f"无法读取源码目录状态：{dirty}")
-        return payload
-    payload["dirty"] = bool(dirty)
-
-    ok, error = _git(source, ["fetch", "--quiet", "origin", BRANCH], timeout=25)
-    if not ok:
-        payload.update(state="error", reason=f"无法连接 Gitee：{error}")
-        return payload
-    ok, remote_commit = _git(source, ["rev-parse", f"origin/{BRANCH}"])
-    if not ok:
-        payload.update(state="error", reason=f"读不到远端提交：{remote_commit}")
-        return payload
-    payload["latest_commit"] = remote_commit[:12]
-
-    if payload["dirty"]:
-        payload.update(state="dirty", reason="源码目录有未提交的改动，请先提交或撤销后再更新")
-        return payload
-
-    installed_commit = installed.get("commit", "")
-    if not installed_commit:
-        # A build made where git was unavailable carries no provenance. Rebuilding is the fix,
-        # and it is harmless, so it is offered rather than refused.
+    if not token:
         payload.update(
-            state="unknown",
-            reason="这个构建没有版本标记，无法判断是否最新；重新构建一次即可对齐",
-            can_apply=True,
-        )
-        return payload
-    if installed_commit == remote_commit:
-        payload.update(state="up-to-date", reason="已经是最新版本")
-        return payload
-
-    # Whether the repository knows the installed commit at all. This is what "cannot compare"
-    # means — an empty commit range does not, since an install can be *ahead* of the remote
-    # (built from a commit that has not been pushed yet), and that is not a broken comparison.
-    ok, _ = _git(source, ["cat-file", "-e", f"{installed_commit}^{{commit}}"])
-    if not ok:
-        payload.update(
-            state="unknown",
-            reason="已安装的版本不在源码历史里（仓库可能被改写过），建议重新构建一次",
-            can_apply=True,
+            state="no-token",
+            reason="未配置访问令牌：仓库是私有的，检查与安装更新都需要一个令牌（只读即可）",
         )
         return payload
 
-    behind, commits = 0, []
-    ok, count = _git(source, ["rev-list", "--count", f"{installed_commit}..origin/{BRANCH}"])
-    if ok and count.isdigit():
-        behind = int(count)
-    if behind:
-        ok, log = _git(source, ["log", "--oneline", "--max-count=20",
-                                f"{installed_commit}..origin/{BRANCH}"])
-        if ok:
-            commits = [line.strip() for line in log.splitlines() if line.strip()]
-
-    # Commits the reader made locally would make --ff-only refuse; say so now rather than let
-    # the update spend two minutes and then fail.
-    ahead = 0
-    ok, count = _git(source, ["rev-list", "--count", f"origin/{BRANCH}..HEAD"])
-    if ok and count.isdigit():
-        ahead = int(count)
-
-    if ahead:
-        payload.update(
-            state="ahead",
-            reason=f"源码目录有 {ahead} 个尚未推送的本地提交，先推送或撤销后再更新",
-            behind=behind, commits=commits,
-        )
+    try:
+        release = _api(f"/repos/{REPO}/releases/latest", token)
+    except urllib.error.HTTPError as error:
+        if error.code == 404:
+            # GitHub answers 404 for a private repository the caller cannot see, deliberately, so
+            # it cannot be told apart from one that does not exist. Say both possibilities.
+            payload.update(state="error", reason="GitHub 返回 404：仓库地址不对，或令牌没有权限（私有仓库两种情况都是 404）")
+        elif error.code in (401, 403):
+            payload.update(state="error", reason=f"令牌无效或权限不足（HTTP {error.code}）")
+        else:
+            payload.update(state="error", reason=f"GitHub 返回 HTTP {error.code}")
         return payload
-    if behind or commits:
-        payload.update(
-            state="update-available",
-            reason=f"有 {behind} 个新提交" if behind else "有可用的更新",
-            behind=behind, commits=commits, can_apply=True,
-        )
+    except Exception as error:
+        payload.update(state="error", reason=f"连不上 GitHub（{type(error).__name__}），稍后再试")
         return payload
-    payload.update(state="up-to-date", reason="已经是最新版本")
+
+    tag = release.get("tag_name") or ""
+    assets = [
+        {
+            "name": asset.get("name", ""),
+            "size": asset.get("size", 0),
+            "url": asset.get("url", ""),
+            "digest": asset.get("digest") or "",
+        }
+        for asset in release.get("assets", [])
+    ]
+    payload["latest"] = {
+        "tag": tag,
+        "version": tag.lstrip("v"),
+        "published_at": release.get("published_at", ""),
+        "notes": (release.get("body") or "").strip()[:1600],
+        "assets": assets,
+    }
+
+    current = info.get("version", "")
+    if not current:
+        payload.update(state="unknown", can_apply=True,
+                       reason="这个构建没有版本标记，无法比较版本；安装一次发行版即可对齐")
+        return payload
+    if version_tuple(tag) <= version_tuple(current):
+        payload.update(state="up-to-date", reason=f"已经是最新版本（{current}）")
+        return payload
+
+    program = next((asset for asset in assets if PROGRAM_ASSET in asset["name"]), None)
+    if not program:
+        payload.update(state="error", reason=f"发行版 {tag} 里没有程序包附件，无法自动更新")
+        return payload
+    payload["program_asset"] = program
+    payload["model_asset"] = next((asset for asset in assets if MODEL_ASSET in asset["name"]), None)
+    payload.update(
+        state="update-available",
+        can_apply=True,
+        reason=f"有新版 {tag}（当前 {current}）",
+    )
     return payload
 
 
-#: The update helper. PowerShell so that a UTF-8 file with a BOM is decoded correctly — a .cmd
-#: read in the console code page turns Chinese into mojibake, which is a trap this project has
-#: already been caught by once. Paths come from $PSScriptRoot, so no path literal appears here.
-HELPER = r"""# 和序图书馆 · 更新助手（由程序生成，可以随时删除）
-$ErrorActionPreference = 'Continue'
-$source = Split-Path -Parent $PSScriptRoot
-$exe = Join-Path $source 'dist\和序图书馆\和序图书馆.exe'
-Start-Transcript -Path (Join-Path $PSScriptRoot 'update.log') -Append | Out-Null
-Write-Host ''
-Write-Host '和序图书馆 · 正在更新' -ForegroundColor Green
-Write-Host "源码目录 $source"
-$env:GIT_TERMINAL_PROMPT = '0'
+# --- downloading --------------------------------------------------------------
+def _sha256(path):
+    digest = hashlib.sha256()
+    with open(path, "rb") as handle:
+        for block in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()
 
-# 1. 等程序退出：先请它关闭，十秒后仍在就强制结束
-$program = Get-Process -Id __PID__ -ErrorAction SilentlyContinue
+
+def _fetch_to(asset, target, token, label, offset):
+    """One attempt: stream the asset into `target`, appending when `offset` is non-zero."""
+    request = urllib.request.Request(
+        asset["url"],
+        headers=_headers(token, "application/octet-stream"),
+    )
+    if offset:
+        request.add_header("Range", f"bytes={offset}-")
+    written = offset
+    with _opener().open(request, timeout=REQUEST_TIMEOUT) as response:
+        # A server that ignores the Range header answers 200 with the whole file; honour that by
+        # starting the file over rather than appending to a prefix.
+        mode = "ab" if offset and response.status == 206 else "wb"
+        if mode == "wb":
+            written = 0
+        with open(target, mode) as handle:
+            while True:
+                block = response.read(256 * 1024)
+                if not block:
+                    break
+                handle.write(block)
+                written += len(block)
+                _progress.update(bytes=written, state="downloading", message=f"正在下载{label}")
+    return written
+
+
+def _download(asset, target, token, label):
+    """Fetch one asset, resuming after a break and retrying.
+
+    Roughly one TLS handshake in five fails against the asset host on this network, and a 99 MB
+    transfer is a long enough window to lose one. Retrying is therefore not politeness — it is the
+    only way the download finishes — and a resumed attempt costs only what is missing."""
+    target = Path(target)
+    total = int(asset.get("size") or 0)
+    digest = (asset.get("digest") or "").split(":")[-1] if asset.get("digest") else ""
+    _progress.update(state="downloading", label=label, bytes=0, total=total, message=f"正在下载{label}")
+
+    for attempt in range(1, DOWNLOAD_ATTEMPTS + 1):
+        offset = target.stat().st_size if target.exists() else 0
+        if total and offset > total:
+            target.unlink()
+            offset = 0
+        try:
+            _fetch_to(asset, target, token, label, offset)
+        except Exception as error:
+            _progress.update(
+                state="retrying",
+                message=f"{label} 第 {attempt} 次失败（{type(error).__name__}），重试…",
+            )
+            time.sleep(min(1.5 * attempt, 8))
+            continue
+        if total and target.stat().st_size != total:
+            _progress.update(state="retrying", message=f"{label} 只收到 {target.stat().st_size}/{total} 字节，继续…")
+            time.sleep(1)
+            continue
+        if digest and _sha256(target) != digest:
+            # A wrong file is worse than no file, and it is cheap to notice now.
+            target.unlink()
+            _progress.update(state="retrying", message=f"{label} 校验不符，重新下载…")
+            continue
+        _progress.update(state="downloaded", message=f"{label} 下载完成")
+        return True
+
+    _progress.update(state="failed", message=f"{label} 多次尝试后仍未下载成功")
+    return False
+
+
+# --- swapping in the new version ---------------------------------------------
+#: The helper, in PowerShell because a UTF-8 file with a BOM is decoded correctly: a .cmd read in
+#: the console code page turns Chinese into mojibake, a trap this project has already been caught
+#: by. Every path it needs arrives through update.json rather than the command line, for the same
+#: reason — non-ASCII arguments do not survive PowerShell's own parsing.
+HELPER = r"""# 和序图书馆 · 更新助手（由程序生成，可以删掉）
+$ErrorActionPreference = 'Continue'
+Start-Transcript -Path (Join-Path $PSScriptRoot 'update.log') -Append | Out-Null
+$spec = Get-Content -LiteralPath (Join-Path $PSScriptRoot 'update.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+$install = $spec.install
+Write-Host ''
+Write-Host '和序图书馆 · 正在安装更新' -ForegroundColor Green
+
+# 1. 等程序退出：先请它关闭，十秒后还在就强制结束
+$program = Get-Process -Id $spec.pid -ErrorAction SilentlyContinue
 if ($program) {
   Write-Host '等待程序退出…'
   $null = $program.CloseMainWindow()
   for ($i = 0; $i -lt 20; $i++) {
     Start-Sleep -Milliseconds 500
-    if (-not (Get-Process -Id __PID__ -ErrorAction SilentlyContinue)) { break }
+    if (-not (Get-Process -Id $spec.pid -ErrorAction SilentlyContinue)) { break }
   }
-  if (Get-Process -Id __PID__ -ErrorAction SilentlyContinue) { Stop-Process -Id __PID__ -Force }
+  if (Get-Process -Id $spec.pid -ErrorAction SilentlyContinue) { Stop-Process -Id $spec.pid -Force }
 }
 Start-Sleep -Milliseconds 400
 
-# 2. 拉取更新
-Write-Host '从 Gitee 拉取更新…'
-git -C $source -c 'core.sshCommand=ssh -o BatchMode=yes' pull --ff-only
-if ($LASTEXITCODE -ne 0) {
-  Write-Host '拉取失败，程序保持原样，未做任何改动。' -ForegroundColor Red
+# 2. 解压到暂存目录
+$stage = Join-Path $PSScriptRoot 'stage'
+if (Test-Path -LiteralPath $stage) { Remove-Item -LiteralPath $stage -Recurse -Force }
+Write-Host '解开程序包…'
+Expand-Archive -LiteralPath (Join-Path $PSScriptRoot $spec.programZip) -DestinationPath $stage -Force
+if ($LASTEXITCODE -ne 0 -and -not (Test-Path -LiteralPath $stage)) {
+  Write-Host '解压失败，程序保持原样。' -ForegroundColor Red
   Read-Host '按回车关闭这个窗口'
   exit 1
 }
 
-# 3. 重新打包（约两分钟）
-Write-Host '重新打包，约需两分钟…' -ForegroundColor Cyan
-node (Join-Path $source 'tools\package-local.mjs')
-if ($LASTEXITCODE -ne 0) {
-  Write-Host '打包失败，程序保持原样。' -ForegroundColor Red
+# 3. 覆盖安装目录，模型目录排除在外（它不在程序包里，也不该被动）
+$models = Join-Path $install '_internal\models'
+Write-Host '覆盖程序文件（模型保留原地）…'
+robocopy $stage $install /MIR /XD $models /NFL /NDL /NJH /NJS /NP | Out-Null
+if ($LASTEXITCODE -ge 8) {
+  Write-Host '覆盖文件失败，程序可能不完整。' -ForegroundColor Red
   Read-Host '按回车关闭这个窗口'
   exit 1
 }
 
-# 4. 重新打开
+# 4. 只有缺模型时才装模型包
+if ($spec.modelZip) {
+  Write-Host '安装语音识别模型（约 228 MB，只需一次）…'
+  Expand-Archive -LiteralPath (Join-Path $PSScriptRoot $spec.modelZip) -DestinationPath $install -Force
+}
+Remove-Item -LiteralPath $stage -Recurse -Force -ErrorAction SilentlyContinue
+
+# 5. 重新打开
 Write-Host '更新完成，正在重新打开程序…' -ForegroundColor Green
-Start-Process -FilePath $exe
+Start-Process -FilePath (Join-Path $install '和序图书馆.exe')
 Stop-Transcript | Out-Null
 Write-Host '这个窗口可以关掉了。'
 Start-Sleep -Seconds 4
@@ -277,37 +346,83 @@ exit 0
 """
 
 
-def write_helper(source, pid):
-    """Write the update helper next to the checkout and return its path."""
-    directory = source / ".cache"
+def work_dir():
+    """Where downloads and the helper live. Outside the program folder on purpose: the install
+    directory may be anywhere, and none of this belongs in it."""
+    directory = Path(tempfile.gettempdir()) / WORK_DIR_NAME
     directory.mkdir(parents=True, exist_ok=True)
+    return directory
+
+
+def _write_helper(directory, install_root, program_zip, model_zip, pid):
+    spec = {
+        "install": str(install_root),
+        "programZip": program_zip.name,
+        "modelZip": model_zip.name if model_zip else "",
+        "pid": int(pid),
+    }
+    (directory / SPEC_NAME).write_text(json.dumps(spec, ensure_ascii=False, indent=2), encoding="utf-8-sig")
     helper = directory / HELPER_NAME
-    # utf-8-sig: PowerShell 5.1 decodes a BOM-less script using the console code page and would
-    # turn every Chinese string in it into mojibake — silently.
-    helper.write_text(HELPER.replace("__PID__", str(int(pid))), encoding="utf-8-sig")
+    helper.write_text(HELPER, encoding="utf-8-sig")
     return helper
 
 
-def start(source, site_root, pid):
-    """Launch the update helper in its own console window. Returns (ok, message)."""
-    # Checked again, and freshly: everything that could make the pull fail (no network, a dirty
-    # tree, commits only this machine has) is worth catching before the program closes itself.
-    site = status(site_root, source, refresh=True)
-    if not site.get("can_apply"):
-        return False, site.get("reason") or "当前状态无法更新"
+def begin(site_root, install_root, token, pid, on_ready):
+    """Download in the background, then hand over to the helper. Returns (ok, message).
+
+    Downloading here — inside the running program, with the page able to show progress — is what
+    keeps the machine down for seconds instead of minutes: the helper only has to unpack and
+    relaunch."""
+    with _lock:
+        if _progress.get("state") in ("downloading", "retrying", "installing"):
+            return False, "已经在下载更新了，请稍候。"
+        _progress.clear()
+        _progress.update(state="checking", message="正在检查更新…")
+
+    payload = status(site_root, install_root, token, refresh=True)
+    if not payload.get("can_apply"):
+        _progress.update(state="idle", message="")
+        return False, payload.get("reason") or "当前状态无法更新"
+
+    threading.Thread(
+        target=_apply, args=(payload, install_root, token, pid, on_ready), daemon=True
+    ).start()
+    return True, "正在下载更新，页面会显示进度；下载完成后程序会自动关闭并重新打开。"
+
+
+def _apply(payload, install_root, token, pid, on_ready):
+    directory = work_dir()
+    program = payload["program_asset"]
+    program_zip = directory / program["name"]
     try:
-        helper = write_helper(source, pid)
-    except OSError as error:
-        return False, f"无法写入更新脚本：{error}"
-    try:
+        if not _download(program, program_zip, token, "程序包"):
+            _progress.update(state="failed", message="程序包下载失败，未做任何改动")
+            return
+
+        model_zip = None
+        if payload.get("needs_model") and payload.get("model_asset"):
+            asset = payload["model_asset"]
+            candidate = directory / asset["name"]
+            if _download(asset, candidate, token, "语音识别模型"):
+                model_zip = candidate
+            else:
+                _progress.update(state="failed", message="模型包下载失败，未做任何改动")
+                return
+
+        _progress.update(state="installing", message="下载完成，正在安装…")
+        helper = _write_helper(directory, install_root, program_zip, model_zip, pid)
         subprocess.Popen(
             ["powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", str(helper)],
-            cwd=str(source),
-            # Its own window on purpose: the rebuild takes a couple of minutes and its progress
-            # is the only honest thing to show for it.
+            cwd=str(directory),
             creationflags=getattr(subprocess, "CREATE_NEW_CONSOLE", 0),
             close_fds=True,
         )
+        # The helper waits for this process to disappear before touching a single file.
+        on_ready()
     except Exception as error:
-        return False, f"无法启动更新脚本：{type(error).__name__}: {error}"
-    return True, "程序即将关闭，随后自动拉取并重新打包，完成后会重新打开（约两分钟）。"
+        _progress.update(state="failed", message=f"更新未能完成：{type(error).__name__}: {error}")
+
+
+def progress():
+    with _lock:
+        return dict(_progress)

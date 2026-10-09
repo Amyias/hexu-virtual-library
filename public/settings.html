@@ -126,6 +126,36 @@
         border-radius: 4px;
         font-size: 12.5px;
       }
+      #updateNotes {
+        margin: 8px 0 0;
+        max-height: 190px;
+        overflow: auto;
+        padding: 10px 12px;
+        background: #eff1e9;
+        border-radius: 8px;
+        font-size: 12.5px;
+        line-height: 1.5;
+        white-space: pre-wrap;
+      }
+      #updateProgress {
+        margin: 10px 0 0;
+        font-size: 12.5px;
+        color: var(--muted);
+      }
+      #updateBar {
+        height: 6px;
+        border-radius: 3px;
+        background: #dfe3da;
+        overflow: hidden;
+        margin-bottom: 6px;
+      }
+      #updateBar i {
+        display: block;
+        height: 100%;
+        width: 0;
+        background: var(--green);
+        transition: width 0.2s linear;
+      }
       #message {
         margin: 12px 0 0;
         min-height: 1.4em;
@@ -202,22 +232,35 @@
           <dd><code id="installedCommit">—</code></dd>
           <dt>构建时间</dt>
           <dd id="builtAt">—</dd>
-          <dt>源码目录</dt>
+          <dt>最新版本</dt>
+          <dd id="latestVersion">—</dd>
+          <dt>访问令牌</dt>
           <dd>
-            <input id="sourceDir" type="text" spellcheck="false" placeholder="（未配置）" />
+            <input
+              id="updateToken"
+              type="password"
+              autocomplete="new-password"
+              spellcheck="false"
+              placeholder="未配置"
+            />
           </dd>
         </dl>
         <p class="state" id="updateState">正在检查…</p>
-        <ul id="updateCommits" hidden></ul>
+        <pre id="updateNotes" hidden></pre>
+        <div id="updateProgress" hidden>
+          <div id="updateBar"><i></i></div>
+          <span id="updateProgressText">—</span>
+        </div>
         <div class="row">
           <button id="checkUpdate">检查更新</button>
           <button id="applyUpdate" class="primary">立即更新</button>
         </div>
         <p id="updateMessage" role="status"></p>
         <p class="note">
-          更新是从 Gitee 拉取源码后在本机重新打包：程序会关闭，约两分钟后自动重新打开。
-          程序里不保存任何凭据，用的是这台机器已有的 git 授权；因此<b>把程序拷到没有源码目录的
-          机器上就无法自更新</b>，那种情况下这里会直接说明。
+          更新从 GitHub 发行版下载：程序会关闭几秒，把新版本覆盖上去（<b>语音识别模型原地保留</b>，
+          它不在每次更新里），然后自动重新打开。
+          仓库是私有的，所以这台机器需要一个<b>只读</b>的 GitHub 访问令牌：填在上面这一栏即可，
+          页面从不回显它，日志也不记录。没有令牌时这里会明确提示，不会给出看不懂的错误。
         </p>
       </section>
 
@@ -299,7 +342,7 @@
         const fields = {
           baseUrl: $("baseUrl").value.trim(),
           model: $("model").value.trim(),
-          sourceDir: $("sourceDir").value.trim(),
+          updateToken: $("updateToken").value.trim(),
           ...entered(),
         };
         const { ok, payload } = await post("/settings/key", fields);
@@ -339,18 +382,44 @@
         $("builtAt").textContent = info.installed?.built_at
           ? new Date(info.installed.built_at).toLocaleString()
           : "—";
-        // The resolved directory, not the field: an empty field means "use the build's own".
-        $("sourceDir").placeholder = info.source_dir || "（未配置）";
+        $("latestVersion").textContent = info.latest
+          ? `${info.latest.tag}（${new Date(info.latest.published_at).toLocaleDateString()}）`
+          : "—";
+        // needs_token comes from the status payload itself: true when no token is configured.
+        $("updateToken").placeholder = info.needs_token
+          ? "未配置——仓库是私有的，需要一个只读令牌"
+          : "已配置（留空则不改动）";
+
         state("updateState", info.reason || info.state, info.state === "up-to-date");
-        const list = $("updateCommits");
-        list.textContent = "";
-        for (const line of info.commits || []) {
-          const item = document.createElement("li");
-          item.textContent = line;
-          list.appendChild(item);
-        }
-        list.hidden = !(info.commits || []).length;
+        const notes = $("updateNotes");
+        notes.textContent = info.latest?.notes || "";
+        notes.hidden = !info.latest?.notes;
         $("applyUpdate").disabled = !info.can_apply;
+      }
+
+      /** While 99 MB are arriving, the only honest thing to show is how much has arrived. */
+      async function watchProgress() {
+        const box = $("updateProgress");
+        const bar = $("updateBar").firstElementChild;
+        const text = $("updateProgressText");
+        box.hidden = false;
+        for (;;) {
+          const progress = await fetch("/update/progress", { cache: "no-store" })
+            .then((response) => response.json())
+            .catch(() => ({}));
+          const done = progress.bytes ?? 0;
+          const total = progress.total ?? 0;
+          bar.style.width = total ? Math.min(100, (done / total) * 100) + "%" : "0";
+          text.textContent = total
+            ? `${{ downloading: "正在下载", retrying: "重试中", downloaded: "下载完成", installing: "正在安装", failed: "未成功" }[progress.state] ?? progress.state} ${(done / 1048576).toFixed(1)} / ${(total / 1048576).toFixed(1)} MB`
+            : progress.message || "—";
+          if (["installing", "failed"].includes(progress.state)) {
+            if (progress.state === "installing") text.textContent = "下载完成，正在安装（程序即将关闭）";
+            else updateMessage(progress.message || "更新未成功。", false);
+            return;
+          }
+          await new Promise((resolve) => setTimeout(resolve, 700));
+        }
       }
 
       async function loadUpdate(refresh = false) {
@@ -371,16 +440,13 @@
       };
 
       $("applyUpdate").onclick = async () => {
-        updateMessage("正在准备更新…", true);
+        updateMessage("正在开始下载…", true);
         const response = await fetch("/update/apply", { method: "POST" });
         const payload = await response.json().catch(() => ({}));
         updateMessage(payload.message ?? "更新未能开始。", payload.ok);
         if (payload.ok) {
           document.title = "和序 · 正在更新";
-          updateMessage(
-            (payload.message ?? "") + " 这个页面马上会断开，更新窗口里能看到进度。",
-            true,
-          );
+          watchProgress();
         }
       };
 
