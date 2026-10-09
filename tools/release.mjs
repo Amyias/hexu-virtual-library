@@ -92,13 +92,18 @@ function archive(version) {
     .filter((name) => name !== "_internal");
   entries.push("_internal");
 
+  // Relative paths on purpose: Windows tar reads the colon in "D:\..." as a remote host name and
+  // fails with "Cannot connect to D:". Running from the project root makes the drive letter
+  // unnecessary.
+  const local = (target) => path.relative(root, target);
+
   const madeProgram = run(
     "tar",
     [
-      "-c", "-a", "-f", program,
+      "-c", "-a", "-f", local(program),
       // The model is the one thing left behind; --exclude is matched against the archived names.
       "--exclude", "_internal/models",
-      "-C", APP_DIR,
+      "-C", local(APP_DIR),
       ...entries,
     ],
     { stdio: "inherit" },
@@ -107,7 +112,7 @@ function archive(version) {
 
   const madeModel = run(
     "tar",
-    ["-c", "-a", "-f", model, "-C", APP_DIR, path.join("_internal", "models")],
+    ["-c", "-a", "-f", local(model), "-C", local(APP_DIR), path.join("_internal", "models")],
     { stdio: "inherit" },
   );
   if (madeModel.status !== 0) fail("切模型包失败。");
