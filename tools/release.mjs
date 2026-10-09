@@ -56,8 +56,13 @@ function sha256(file) {
   return createHash("sha256").update(fs.readFileSync(file)).digest("hex");
 }
 
-/** Everything that has to be true before a version can be called a version. */
-function preflight(version) {
+/** Everything that has to be true before a version can be called a version.
+ *
+ *  `--assets-only` relaxes the tag checks: nothing new is being published, an archive is being
+ *  added to a release that already exists — re-uploading the model after a model change, or
+ *  replacing one that turned out to be unusable. The rest still applies: the tree has to be clean,
+ *  because the archive is built from it. */
+function preflight(version, assetsOnly) {
   const branch = run("git", ["rev-parse", "--abbrev-ref", "HEAD"]).stdout.trim();
   if (branch !== "master") fail(`发版要在 master 上，当前在 ${branch}。`);
 
@@ -68,11 +73,16 @@ function preflight(version) {
     );
   }
 
+  if (assetsOnly) {
+    log(`补传附件到已发布的 v${version}`);
+    return run("git", ["rev-parse", "HEAD"]).stdout.trim();
+  }
+
   const local = run("git", ["tag", "-l", `v${version}`]).stdout.trim();
   if (local) fail(`标签 v${version} 已存在。改 package.json 的版本号再发。`);
 
   const remote = run("git", ["ls-remote", "--tags", "github", `v${version}`]).stdout.trim();
-  if (remote) fail(`GitHub 上已经有 v${version} 这个标签了。`);
+  if (remote) fail(`GitHub 上已经有 v${version} 这个标签了。要往它上面补传附件，加 --assets-only。`);
   return run("git", ["rev-parse", "HEAD"]).stdout.trim();
 }
 
@@ -296,7 +306,7 @@ const version = JSON.parse(fs.readFileSync(path.join(root, "package.json"), "utf
 const prepareOnly = process.argv.includes("--prepare-only");
 
 log(`和序图书馆 · 发版 v${version}`);
-const commit = preflight(version);
+const commit = preflight(version, assetsOnly);
 log(`提交       ${commit.slice(0, 12)}`);
 
 if (!process.argv.includes("--skip-build")) {
@@ -305,6 +315,7 @@ if (!process.argv.includes("--skip-build")) {
   if (build.status !== 0) fail("打包失败，未发版。");
 }
 
+const assetsOnly = process.argv.includes("--assets-only");
 const assets = archive(version, !process.argv.includes("--no-model"));
 for (const asset of assets) {
   log(`${asset.label}  ${asset.name}  ${megabytes(fs.statSync(asset.file).size)}  sha256 ${sha256(asset.file).slice(0, 16)}…`);
