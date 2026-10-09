@@ -192,29 +192,56 @@ async function github(pathname, { method = "GET", token, body, contentType } = {
   return { ok: response.ok, status: response.status, payload };
 }
 
-/** Upload one archive. Streamed rather than buffered: 228 MB in memory for no reason. */
-async function upload(uploadUrl, asset, token) {
+/** Upload one archive. Streamed rather than buffered: 228 MB in memory for no reason.
+ *
+ *  Retried, because this network resets connections partway through: measured, roughly one TLS
+ *  handshake in five fails, and a 228 MB upload is a long enough window to lose one — which is
+ *  exactly how the first attempt at re-uploading the model ended (`ECONNRESET` on write, exit 1,
+ *  nothing on the release). A 4xx is GitHub answering and is reported instead of retried; a 5xx or
+ *  a dropped connection is worth another try.
+ *
+ *  GitHub's asset endpoint is not resumable, so an attempt starts over — and a failed attempt can
+ *  leave a half-written asset behind, which makes the next one collide on the name. `cleanup` is
+ *  called before every attempt after the first to remove it. */
+async function upload(uploadUrl, asset, token, cleanup, attempts = 4) {
   const size = fs.statSync(asset.file).size;
-  log(`上传 ${asset.name}（${megabytes(size)}）…`);
   const url = uploadUrl.replace("{?name,label}", "") + `?name=${encodeURIComponent(asset.name)}`;
-  const response = await fetch(url, {
-    method: "POST",
-    headers: {
-      Accept: "application/vnd.github+json",
-      "X-GitHub-Api-Version": "2022-11-28",
-      "User-Agent": "hexu-library-release",
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/zip",
-      "Content-Length": String(size),
-    },
-    body: fs.createReadStream(asset.file),
-    duplex: "half",
-  });
-  const payload = await response.json().catch(() => ({}));
-  if (!response.ok) {
-    fail(`上传 ${asset.name} 失败：HTTP ${response.status} ${payload.message ?? ""}`);
+
+  for (let attempt = 1; attempt <= attempts; attempt++) {
+    if (attempt > 1) {
+      log(`  重试第 ${attempt} 次（共 ${attempts} 次）`);
+      await cleanup(asset.name);
+    }
+    log(`上传 ${asset.name}（${megabytes(size)}）…`);
+    let response;
+    try {
+      response = await fetch(url, {
+        method: "POST",
+        headers: {
+          Accept: "application/vnd.github+json",
+          "X-GitHub-Api-Version": "2022-11-28",
+          "User-Agent": "hexu-library-release",
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/zip",
+          "Content-Length": String(size),
+        },
+        body: fs.createReadStream(asset.file),
+        duplex: "half",
+      });
+    } catch (error) {
+      log(`  连接中断（${error.cause?.code ?? error.message}）`);
+      await new Promise((resolve) => setTimeout(resolve, attempt * 3000));
+      continue;
+    }
+    const payload = await response.json().catch(() => ({}));
+    if (response.ok) return payload;
+    if (response.status < 500) {
+      fail(`上传 ${asset.name} 失败：HTTP ${response.status} ${payload.message ?? ""}`);
+    }
+    log(`  服务器返回 HTTP ${response.status}，稍后重试`);
+    await new Promise((resolve) => setTimeout(resolve, attempt * 3000));
   }
-  return payload;
+  fail(`上传 ${asset.name} 连试 ${attempts} 次都没成功。网络恢复后重跑一次即可（--skip-build --assets-only）。`);
 }
 
 async function publish(version, commit, assets, token) {
@@ -242,6 +269,18 @@ async function publish(version, commit, assets, token) {
     fail(`读取发行版失败：HTTP ${release.status} ${release.payload?.message ?? ""}`);
   }
 
+  /** Remove a half-written asset of this name, so the next attempt does not collide with it.
+   *  A failed upload can leave one behind — GitHub calls it a starter asset. */
+  const cleanup = async (name) => {
+    const current = await github(`/repos/${REPO}/releases/${release.payload.id}/assets`, { token });
+    for (const asset of current.payload ?? []) {
+      if (asset.name === name) {
+        await github(`/repos/${REPO}/releases/assets/${asset.id}`, { method: "DELETE", token });
+        log(`  清掉上一次留下的半成品 ${name}`);
+      }
+    }
+  };
+
   const existing = new Map((release.payload?.assets ?? []).map((a) => [a.name, a]));
   for (const asset of assets) {
     const already = existing.get(asset.name);
@@ -254,7 +293,7 @@ async function publish(version, commit, assets, token) {
       await github(`/repos/${REPO}/releases/assets/${already.id}`, { method: "DELETE", token });
       log(`已删除旧的同名附件 ${asset.name}`);
     }
-    await upload(release.payload.upload_url, asset, token);
+    await upload(release.payload.upload_url, asset, token, cleanup);
   }
   return release.payload?.html_url;
 }
