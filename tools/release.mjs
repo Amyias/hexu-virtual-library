@@ -251,6 +251,21 @@ function readToken() {
   const fromEnvironment = (process.env[TOKEN_VARIABLE] ?? "").trim();
   if (fromEnvironment) return fromEnvironment;
 
+  // The user scope, where setx puts it: this shell's own environment was fixed when the session
+  // started, so a token set afterwards is not in it even though it is set.
+  try {
+    const read = spawnSync(
+      "powershell",
+      ["-NoProfile", "-NonInteractive", "-Command",
+       `[Environment]::GetEnvironmentVariable('${TOKEN_VARIABLE}','User')`],
+      { cwd: root, encoding: "utf8" },
+    );
+    const value = (read.stdout ?? "").trim();
+    if (value) return value;
+  } catch {
+    /* fall through to the settings file */
+  }
+
   const settings = path.join(
     process.env.APPDATA ?? path.join(process.env.USERPROFILE ?? "", "AppData", "Roaming"),
     "hexu-library",

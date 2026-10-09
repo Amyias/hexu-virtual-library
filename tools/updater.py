@@ -87,6 +87,15 @@ def _headers(token, accept):
     return headers
 
 
+def _repository_visible(token):
+    """Whether the token can see the repository at all — used to read a 404 correctly."""
+    try:
+        _api(f"/repos/{REPO}", token)
+        return True
+    except Exception:
+        return False
+
+
 def _api(path, token):
     request = urllib.request.Request(API + path, headers=_headers(token, "application/vnd.github+json"))
     with _opener().open(request, timeout=REQUEST_TIMEOUT) as response:
@@ -153,9 +162,14 @@ def _inspect(site_root, install_root, token):
         release = _api(f"/repos/{REPO}/releases/latest", token)
     except urllib.error.HTTPError as error:
         if error.code == 404:
-            # GitHub answers 404 for a private repository the caller cannot see, deliberately, so
-            # it cannot be told apart from one that does not exist. Say both possibilities.
-            payload.update(state="error", reason="GitHub 返回 404：仓库地址不对，或令牌没有权限（私有仓库两种情况都是 404）")
+            # Three different situations all answer 404 here: the repository does not exist, the
+            # token cannot see it, or it simply has no releases yet. Asking for the repository
+            # itself settles which one it is, so the reader is not told to check a token that
+            # is perfectly fine.
+            if _repository_visible(token):
+                payload.update(state="no-release", reason="这个仓库还没有发布任何发行版")
+            else:
+                payload.update(state="error", reason="GitHub 返回 404：仓库地址不对，或令牌没有权限（私有仓库两种情况都是 404）")
         elif error.code in (401, 403):
             payload.update(state="error", reason=f"令牌无效或权限不足（HTTP {error.code}）")
         else:

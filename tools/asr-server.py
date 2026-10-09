@@ -878,15 +878,33 @@ def install_root():
     return Path(__file__).resolve().parents[1]
 
 
-def update_token():
-    """The read token the release check needs, per request and never cached.
+def user_environment(name):
+    """One variable from the user scope, where `setx` puts it.
 
-    The repository is private, so the API cannot be asked without one. `GITHUB_TOKEN` first —
-    the same variable the release tool reads — then the reader's own settings file, which is where
-    a machine that never sees this checkout would put it."""
-    from_environment = os.environ.get("GITHUB_TOKEN", "").strip()
-    if from_environment:
-        return from_environment
+    A process inherits the environment as it was when it started, so a token added while this
+    program was already running is invisible to it. Reading the variable at its source makes
+    "put it in GITHUB_TOKEN" work whether the program started before or after."""
+    if os.name != "nt":
+        return ""
+    try:
+        import winreg
+
+        with winreg.OpenKey(winreg.HKEY_CURRENT_USER, "Environment") as key:
+            value, _ = winreg.QueryValueEx(key, name)
+        return value if isinstance(value, str) else ""
+    except OSError:
+        return ""
+
+
+def update_token():
+    """The token the release check needs, per request and never cached.
+
+    The repository is private, so the API cannot be asked without one. `GITHUB_TOKEN` first — the
+    same variable the release tool reads — then the reader's own settings file, which is where a
+    machine that never sees this checkout can put it from the settings page."""
+    for candidate in (os.environ.get("GITHUB_TOKEN", ""), user_environment("GITHUB_TOKEN")):
+        if candidate.strip():
+            return candidate.strip()
     resolved, _ = settings_state()
     return resolved.get("HEXU_GITHUB_TOKEN", "").strip()
 
