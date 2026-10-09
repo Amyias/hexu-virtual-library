@@ -379,37 +379,73 @@ if ($program) {
 }
 Start-Sleep -Milliseconds 400
 
-# 2. 解压到暂存目录
+# 2. 解压到暂存目录，并确认真的解出了程序
+#
+#    The check is for the executable, not for the directory: Expand-Archive creates the directory
+#    and then reports success even when it extracts nothing at all, which is exactly what happened
+#    the first time this ran (the archive was a tar with a zip name). An empty staging directory
+#    followed by a mirror is how an install was emptied; the executable is the one thing whose
+#    absence must stop everything.
 $stage = Join-Path $PSScriptRoot 'stage'
 if (Test-Path -LiteralPath $stage) { Remove-Item -LiteralPath $stage -Recurse -Force }
 Write-Host '解开程序包…'
-Expand-Archive -LiteralPath (Join-Path $PSScriptRoot $spec.programZip) -DestinationPath $stage -Force
-if ($LASTEXITCODE -ne 0 -and -not (Test-Path -LiteralPath $stage)) {
-  Write-Host '解压失败，程序保持原样。' -ForegroundColor Red
+try {
+  Expand-Archive -LiteralPath (Join-Path $PSScriptRoot $spec.programZip) -DestinationPath $stage -Force -ErrorAction Stop
+} catch {
+  Write-Host ('解压失败：' + $_.Exception.Message) -ForegroundColor Red
+  Write-Host '程序保持原样，没有改动任何文件。' -ForegroundColor Red
+  Read-Host '按回车关闭这个窗口'
+  exit 1
+}
+if (-not (Test-Path -LiteralPath (Join-Path $stage '和序图书馆.exe'))) {
+  Write-Host '解压出来的是空的，或者在包里的结构不对——不覆盖现有程序。' -ForegroundColor Red
   Read-Host '按回车关闭这个窗口'
   exit 1
 }
 
-# 3. 覆盖安装目录，模型目录排除在外（它不在程序包里，也不该被动）
+# 3. 覆盖安装目录
+#
+#    模型先挪到一边再挪回来，而不是让 robocopy 的 /XD 去排除它：模型不在程序包里，而 /MIR 会
+#    删掉目标里多出来的东西，把 228 MB 的模型交给一个排除规则的语义去保护是不必要的赌博。
+#    同一个卷上改名是瞬时的。
 $models = Join-Path $install '_internal\models'
-Write-Host '覆盖程序文件（模型保留原地）…'
-robocopy $stage $install /MIR /XD $models /NFL /NDL /NJH /NJS /NP | Out-Null
-if ($LASTEXITCODE -ge 8) {
-  Write-Host '覆盖文件失败，程序可能不完整。' -ForegroundColor Red
+$keep = Join-Path $PSScriptRoot 'models-keep'
+Write-Host '覆盖程序文件（模型先挪开，随后放回）…'
+if (Test-Path -LiteralPath $models) {
+  if (Test-Path -LiteralPath $keep) { Remove-Item -LiteralPath $keep -Recurse -Force }
+  Move-Item -LiteralPath $models -Destination $keep -Force
+}
+robocopy $stage $install /MIR /NFL /NDL /NJH /NJS /NP | Out-Null
+$copied = $LASTEXITCODE
+if ($copied -ge 8) {
+  Write-Host '覆盖文件失败。' -ForegroundColor Red
+  if (Test-Path -LiteralPath $keep) { Move-Item -LiteralPath $keep -Destination $models -Force }
   Read-Host '按回车关闭这个窗口'
   exit 1
+}
+if (Test-Path -LiteralPath $keep) {
+  $modelsParent = Join-Path $install '_internal'
+  if (-not (Test-Path -LiteralPath $modelsParent)) { New-Item -ItemType Directory -Path $modelsParent | Out-Null }
+  Move-Item -LiteralPath $keep -Destination $models -Force
 }
 
 # 4. 只有缺模型时才装模型包
 if ($spec.modelZip) {
   Write-Host '安装语音识别模型（约 228 MB，只需一次）…'
   Expand-Archive -LiteralPath (Join-Path $PSScriptRoot $spec.modelZip) -DestinationPath $install -Force
+  if (-not (Test-Path -LiteralPath (Join-Path $models 'sense-voice\model.int8.onnx'))) {
+    Write-Host '模型装完但文件不在预期位置，请手动检查。' -ForegroundColor Red
+  }
 }
 Remove-Item -LiteralPath $stage -Recurse -Force -ErrorAction SilentlyContinue
 
 # 5. 重新打开
-Write-Host '更新完成，正在重新打开程序…' -ForegroundColor Green
-Start-Process -FilePath (Join-Path $install '和序图书馆.exe')
+if (Test-Path -LiteralPath (Join-Path $install '和序图书馆.exe')) {
+  Write-Host '更新完成，正在重新打开程序…' -ForegroundColor Green
+  Start-Process -FilePath (Join-Path $install '和序图书馆.exe')
+} else {
+  Write-Host '安装目录里没有程序，没有重新打开——请手动检查。' -ForegroundColor Red
+}
 Stop-Transcript | Out-Null
 Write-Host '这个窗口可以关掉了。'
 Start-Sleep -Seconds 4

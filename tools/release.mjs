@@ -92,32 +92,31 @@ function archive(version) {
     .filter((name) => name !== "_internal");
   entries.push("_internal");
 
-  // Relative paths on purpose: Windows tar reads the colon in "D:\..." as a remote host name and
-  // fails with "Cannot connect to D:". Running from the project root makes the drive letter
-  // unnecessary.
-  const local = (target) => path.relative(root, target);
+  // Python writes the archives, not tar: `tar -a -f x.zip` produces a plain tar with a zip name
+  // (GNU tar has no zip compressor), which every zip reader refuses while PowerShell's
+  // Expand-Archive "succeeds" by extracting nothing. That is how an install got mirrored over
+  // with emptiness. tools/make-archive.py writes a real zip and reads it back to prove it.
+  const python = fs.existsSync(path.join(root, ".cache", "venv", "Scripts", "python.exe"))
+    ? path.join(root, ".cache", "venv", "Scripts", "python.exe")
+    : "python";
 
   const madeProgram = run(
-    "tar",
+    python,
     [
-      "-c", "-a", "-f", local(program),
-      // The model is the one thing left behind; --exclude is matched against the archived names.
+      path.join("tools", "make-archive.py"), program, APP_DIR, ...entries,
+      // The model is the one thing left behind.
       "--exclude", "_internal/models",
-      "-C", local(APP_DIR),
-      ...entries,
     ],
     { stdio: "inherit" },
   );
   if (madeProgram.status !== 0) fail("切程序包失败。");
 
   const madeModel = run(
-    "tar",
+    python,
     [
-      "-c", "-a", "-f", local(model),
-      "-C", local(APP_DIR),
-      // Forward slashes as a literal: path.join would put a Windows backslash in the archive,
-      // and an entry literally named "..\models" lands nowhere useful when unpacked elsewhere.
-      "_internal/models",
+      path.join("tools", "make-archive.py"), model, APP_DIR, "_internal/models",
+      // Deflating 228 MB of int8 weights saves almost nothing and costs a minute.
+      "--store",
     ],
     { stdio: "inherit" },
   );
@@ -132,8 +131,10 @@ function archive(version) {
 /** The release notes: the commits that are in this version. */
 function notes(version, commit) {
   const log15 = run("git", ["log", "--pretty=format:- %s", "-n", "15"]).stdout.trim();
-  const dirtyCheck = run("git", ["tag", "-l"]).stdout.trim();
-  const first = !dirtyCheck;
+  // The remote's tags, not this checkout's: releases are created through the API, which makes
+  // the tag on GitHub without leaving one here.
+  const tags = run("git", ["ls-remote", "--tags", "github"]).stdout.trim();
+  const first = !tags;
   return [
     first ? `和序图书馆 首个发行版 v${version}` : `和序图书馆 v${version}`,
     "",
