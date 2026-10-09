@@ -225,7 +225,10 @@ function checkModel() {
   if (missing.length && !restoreModelFromBranch()) {
     fail(
       `识别模型不在这里：${modelDir}\n缺少 ${missing.join("、")}\n\n` +
-        "它也可以从 model 分支取回（需要在仓库目录里执行）。若那个分支也没有，从部署机器拷一次：\n" +
+        "它本来会自动从 model 分支取回，但现在也取不到——若这是浅克隆或单分支克隆\n" +
+        "（--depth 1 / --single-branch），那个分支默认不在本地，先取下来：\n" +
+        "  git fetch origin model\n" +
+        "仍然不行的话，从部署机器拷一次：\n" +
         `  mkdir -p ".cache/models/${MODEL_NAME}"\n` +
         `  scp -i ~/.ssh/rainyun-rcs-Snowy_Brew.pem "${DEPLOY_HOST}:${DEPLOY_MODEL_PATH}/{model.int8.onnx,tokens.txt,LICENSE}" ".cache/models/${MODEL_NAME}/"\n`,
     );
