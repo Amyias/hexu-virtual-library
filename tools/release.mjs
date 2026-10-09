@@ -304,6 +304,7 @@ function readToken() {
 
 const version = JSON.parse(fs.readFileSync(path.join(root, "package.json"), "utf8")).version;
 const prepareOnly = process.argv.includes("--prepare-only");
+const assetsOnly = process.argv.includes("--assets-only");
 
 log(`和序图书馆 · 发版 v${version}`);
 const commit = preflight(version, assetsOnly);
@@ -315,7 +316,6 @@ if (!process.argv.includes("--skip-build")) {
   if (build.status !== 0) fail("打包失败，未发版。");
 }
 
-const assetsOnly = process.argv.includes("--assets-only");
 const assets = archive(version, !process.argv.includes("--no-model"));
 for (const asset of assets) {
   log(`${asset.label}  ${asset.name}  ${megabytes(fs.statSync(asset.file).size)}  sha256 ${sha256(asset.file).slice(0, 16)}…`);
