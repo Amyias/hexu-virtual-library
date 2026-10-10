@@ -15,30 +15,31 @@ export function chipTexture(b){
 /** Every visible book uses the same Blender geometry, batched with GPU instancing. */
 export function createShelfBooks(scene,template,books){
   template.updateMatrixWorld(true);
-  // The template's local Y is the book's height (216 mm wide, 306 mm tall, 26 mm deep), so
-  // scaling that one axis varies how tall a volume stands without touching its width — the
-  // chip engraving is a flat quad on the cover, and a width scale would smear it. The pose
-  // origin is the book's centre, which the catalogue places at board top + half its height,
-  // so a scaled book still lands squarely on the board.
-  const poses=books.map(b=>new THREE.Matrix4().compose(new THREE.Vector3(...b.worldPosition),new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,1,0),b.side==='A'?Math.PI/2:-Math.PI/2),new THREE.Vector3(1,b.heightScale??1,1)));
+  // The template's local axes are the volume's own: X runs along the cover's width, Y is its
+  // height, Z its thickness. Volumes stand in different sizes — a shelf of identical slabs
+  // reads as a texture — so each instance carries its own scale, and the catalogue's position
+  // is the centre of that scaled volume, which is what keeps it squarely on the board.
+  const poses=books.map(b=>new THREE.Matrix4().compose(new THREE.Vector3(...b.worldPosition),new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,1,0),b.side==='A'?Math.PI/2:-Math.PI/2),new THREE.Vector3(b.widthScale??1,b.heightScale??1,b.depthScale??1)));
+  const zero=new THREE.Matrix4().makeScale(0,0,0);
   const pools=[];
+  const pool=(mesh,matrices)=>{matrices.forEach((m,i)=>mesh.setMatrixAt(i,m));scene.add(mesh);pools.push({mesh,matrices});};
   template.traverse(part=>{
     if(!part.isMesh)return;
     const material=part.material.clone();
     const cover=/FrontCover|RearBoard|RoundedSpine/.test(part.name);
     if(cover)material.color.set('white');
+    const instances=new THREE.InstancedMesh(part.geometry,material,books.length);
     // Volumes stand inside a bookcase, so the shelf and the board above already cast every
     // shadow a reader can see; a book's own cast shadow falls on the board it stands on and is
     // hidden by the book itself. Dropping it from the shadow pass matters at this scale: 1280
     // volumes across 44 mesh parts were 55k extra instances re-submitted every frame, and
     // removing it took the reference machine from 30.6 to 46.6 fps at a full shelf.
-    const pool=new THREE.InstancedMesh(part.geometry,material,books.length);
-    pool.name='SmartBookInstances_'+part.name;pool.castShadow=false;pool.receiveShadow=true;pool.frustumCulled=false;
-    for(let i=0;i<books.length;i++){
-      pool.setMatrixAt(i,poses[i].clone().multiply(part.matrixWorld));
-      if(cover)pool.setColorAt(i,new THREE.Color(books[i].color));
-    }
-    scene.add(pool);pools.push({pool,local:part.matrixWorld.clone()});
+    instances.name='SmartBookInstances_'+part.name;instances.castShadow=false;instances.receiveShadow=true;instances.frustumCulled=false;
+    const matrices=books.map((b,i)=>{
+      if(cover)instances.setColorAt(i,new THREE.Color(b.color));
+      return poses[i].clone().multiply(part.matrixWorld);
+    });
+    pool(instances,matrices);
   });
   // One 4096x2560 sheet carries every shelf engraving: 1280 books fit it as 32 columns by 40
   // rows, a 128x64 cell each. The chip close-up does not read this sheet (src/reader draws its
@@ -58,15 +59,17 @@ export function createShelfBooks(scene,template,books){
     shader.vertexShader=shader.vertexShader.replace('#include <uv_vertex>',`#include <uv_vertex>\nvMapUv = vMapUv * vec2(1.0/${ATLAS_COLS}.0,1.0/${ATLAS_ROWS}.0) + atlasOffset;`);
   };
   material.customProgramCacheKey=()=> 'smart-chip-atlas-v2';
+  // The engraving keeps its 28 x 14 mm size on every volume: its offset rides the scaled cover
+  // while its own scale cancels the volume's, which would otherwise smear the type on the
+  // narrow and the tall volumes alike.
+  const engraving=books.map(b=>new THREE.Matrix4().makeTranslation(.065*(b.widthScale??1),-.105*(b.heightScale??1),.01195*(b.depthScale??1)).multiply(new THREE.Matrix4().makeScale(1/(b.widthScale??1),1/(b.heightScale??1),1)));
   const labels=new THREE.InstancedMesh(geometry,material,books.length);labels.name='UniqueChipEngravings';labels.frustumCulled=false;
-  const local=new THREE.Matrix4().makeTranslation(.065,-.105,.01195);
-  poses.forEach((pose,i)=>labels.setMatrixAt(i,pose.clone().multiply(local)));scene.add(labels);pools.push({pool:labels,local});
-  const zero=new THREE.Matrix4().makeScale(0,0,0);
+  pool(labels,books.map((b,i)=>poses[i].clone().multiply(engraving[i])));
   const highlight=new THREE.BoxHelper(new THREE.Mesh(new THREE.BoxGeometry(.23,.32,.035)),0xbdecc5);
   highlight.visible=false;scene.add(highlight);
   return {
-    setVisible(b,visible){for(const {pool,local} of pools){pool.setMatrixAt(b.instanceIndex,visible?poses[b.instanceIndex].clone().multiply(local):zero);pool.instanceMatrix.needsUpdate=true;}},
-    highlight(b,on){highlight.visible=on;highlight.position.copy(b.origin);highlight.rotation.y=b.side==='A'?Math.PI/2:-Math.PI/2;highlight.scale.set(1,b.heightScale??1,1);},
+    setVisible(b,visible){for(const {mesh,matrices} of pools){mesh.setMatrixAt(b.instanceIndex,visible?matrices[b.instanceIndex]:zero);mesh.instanceMatrix.needsUpdate=true;}},
+    highlight(b,on){highlight.visible=on;highlight.position.copy(b.origin);highlight.rotation.y=b.side==='A'?Math.PI/2:-Math.PI/2;highlight.scale.set(b.widthScale??1,b.heightScale??1,b.depthScale??1);},
     instancePools:pools.length,
   };
 }

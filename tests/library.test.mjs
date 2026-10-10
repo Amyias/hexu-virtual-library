@@ -37,7 +37,7 @@ test("tolerates a one-character recognition slip without matching unrelated word
     assert.equal(findBook(word), undefined, word + " 不应命中任何馆藏");
 });
 
-test("every catalogued chip rests on its board inside a bay, 8 per bay and 32 per face and layer", () => {
+test("every catalogued volume stands packed in its bay at its own size", () => {
   const input = JSON.parse(
     fs.readFileSync(
       new URL("../blender/catalog.json", import.meta.url),
@@ -45,18 +45,21 @@ test("every catalogued chip rests on its board inside a bay, 8 per bay and 32 pe
     ),
   );
   assert.deepEqual(books, input);
-  // Blender envelope: each shelf is 1m (X) x 2m (Y) x 8m (Z), centred on the anchors.
-  // Each face is a bookcase with a 300 mm deep cavity; slot numbers are a bay-major index
-  // 1..32 and real placement lives in worldPosition.
+  // Blender envelope: each shelf is 1m (X) x 2m (Y) x 8m (Z), centred on the anchors. Each
+  // face is a bookcase with a 300 mm deep cavity; the frame posts divide it into four bays of
+  // eight volumes, and slot numbers are a bay-major index 1..32. Real placement lives in
+  // worldPosition, which is the centre of a volume scaled by its own three sizes.
   const centres = [-6, -3, 0, 3, 6];
   const posts = [-8.75, -6.8, -4.8, -2.8, -0.85];
-  const halfPost = 0.05;
-  const halfBook = 0.216 / 2;
-  const halfHeight = 0.306 / 2;
+  const post = 0.1;
+  const halfPost = post / 2;
+  const clear = 0.004;
+  const width = 0.216; // cover width, the axis a row packs along
+  const height = 0.306;
+  const thickness = 0.0258; // cover to cover, off smart-book.glb
   const boardTops = [0.09, 0.535, 1.035, 1.535];
   const backFace = 0.2; // the face a book leans on, from the shelf centre plane
   const rearBoard = 0.0126; // book root to its rear board, off smart-book.glb
-  const thickness = 0.0258; // book depth, off smart-book.glb
   const slots = new Set();
   const perFace = new Map();
   const perBay = new Map();
@@ -68,34 +71,47 @@ test("every catalogued chip rests on its board inside a bay, 8 per bay and 32 pe
       b.slot >= 1 && b.slot <= 32,
       `${b.bookId} is outside the 32-per-face grid`,
     );
-    // Height varies per book so the wall reads as shelving rather than as a texture. The
-    // catalogue has to carry the factor the renderer scales the template by.
+    // The volumes on a real shelf are not one size — a wall of identical slabs reads as a
+    // texture. These ranges are the shelf's palette, and each end has a physical reason: a
+    // 300 mm cover is already a folio, and the 28 mm chip engraving has to stay inside the
+    // pocket of the narrowest cover.
     assert.ok(
-      b.heightScale >= 0.92 && b.heightScale <= 1.06,
+      b.widthScale * width >= 0.15 && b.widthScale * width <= 0.3,
+      `${b.bookId} is ${(b.widthScale * width * 1000).toFixed(0)} mm wide`,
+    );
+    assert.ok(
+      b.heightScale >= 0.8 && b.heightScale <= 1.1,
       `${b.bookId} has an out-of-range height`,
+    );
+    assert.ok(
+      b.depthScale >= 0.75 && b.depthScale <= 1.55,
+      `${b.bookId} has an out-of-range thickness`,
     );
 
     const [x, y, z] = b.worldPosition;
     const centre = centres[b.shelf - 1];
     const sign = b.side === "A" ? 1 : -1;
-    // The rear board must touch the back panel face, which is what holds the volume up.
+    // The rear board must touch the back panel face, which is what holds the volume up. The
+    // root stands off that face by the volume's own rear-board distance, so a thicker volume
+    // also leans further into the aisle.
     assert.ok(
-      Math.abs(x - sign * rearBoard - (centre + sign * backFace)) < 1e-9,
+      Math.abs(x - sign * rearBoard * b.depthScale - (centre + sign * backFace)) < 1e-9,
       `${b.bookId} does not lean on the back panel`,
     );
     // The volume stands on the board: centre height = board top + half the scaled book.
     assert.ok(
-      Math.abs(y - (boardTops[b.layer - 1] + halfHeight * b.heightScale)) < 1e-6,
+      Math.abs(y - (boardTops[b.layer - 1] + (height * b.heightScale) / 2)) < 1e-6,
       `${b.bookId} does not rest on layer ${b.layer}`,
     );
+    const half = (width * b.widthScale) / 2;
     // Entirely inside its own bookcase, clear of the brass lip and the frame posts.
-    const outerX = x + sign * (thickness - rearBoard);
+    const outerX = x + sign * thickness * b.depthScale;
     const lipX = centre + sign * 0.4955;
     assert.ok(sign * outerX < sign * lipX, `${b.bookId} pokes through the brass lip`);
-    assert.ok(z - halfBook > -8.75 && z + halfBook < -0.85, `${b.bookId} leaves the shelf`);
+    assert.ok(z - half > -8.75 && z + half < -0.85, `${b.bookId} leaves the shelf`);
     for (const post of posts)
       assert.ok(
-        Math.abs(z - post) > halfBook + halfPost,
+        Math.abs(z - post) > half + halfPost,
         `${b.bookId} overlaps the frame post at z=${post}`,
       );
 
@@ -109,22 +125,41 @@ test("every catalogued chip rests on its board inside a bay, 8 per bay and 32 pe
     assert.ok(bay >= 0, `${b.bookId} stands between no two posts`);
     const bayKey = [b.shelf, b.side, b.layer, bay].join(":");
     const row = perBay.get(bayKey) ?? [];
-    row.push(z);
+    row.push({ bookId: b.bookId, z, half, size: [b.widthScale, b.heightScale, b.depthScale] });
     perBay.set(bayKey, row);
   }
   assert.equal(books.length, 1280);
   assert.equal(perFace.size, 5 * 2 * 4);
   for (const [face, zs] of perFace) assert.equal(zs.size, 32, `${face} holds ${zs.size} books`);
-  // Every bay carries a full row: eight books, spaced apart but not scattered. The catalogue
-  // this replaces held two per bay and left the rest of the shelf bare.
+  // Every bay carries a full row: eight volumes standing shoulder to shoulder, started at the
+  // left frame post, with the leftover width left open at the end of the row — the way a real
+  // shelf packs. The catalogue this replaces held two books per bay, evenly spaced apart.
   assert.equal(perBay.size, 5 * 2 * 4 * 4);
-  for (const [bay, zs] of perBay) {
-    assert.equal(zs.length, 8, `${bay} holds ${zs.length} books`);
-    const sorted = [...zs].sort((a, b) => a - b);
-    for (let i = 1; i < sorted.length; i++) {
-      const gap = sorted[i] - sorted[i - 1] - 0.216;
-      assert.ok(gap > 0.004 && gap < 0.05, `${bay} has a ${gap.toFixed(3)} m gap`);
-    }
+  for (const [key, row] of perBay) {
+    assert.equal(row.length, 8, `${key} holds ${row.length} books`);
+    const bay = Number(key.split(":")[3]);
+    const sorted = [...row].sort((a, b) => a.z - b.z);
+    assert.ok(
+      Math.abs(sorted[0].z - sorted[0].half - (posts[bay] + halfPost + clear)) < 5e-4,
+      `${key} does not start at its frame post`,
+    );
+    for (let i = 1; i < sorted.length; i++)
+      assert.ok(
+        Math.abs(sorted[i].z - sorted[i].half - (sorted[i - 1].z + sorted[i - 1].half)) < 5e-4,
+        `${key} leaves a gap between neighbours`,
+      );
+    const span = posts[bay + 1] - posts[bay] - post - 2 * clear;
+    const used = sorted.at(-1).z + sorted.at(-1).half - (sorted[0].z - sorted[0].half);
+    assert.ok(
+      used > span * 0.8 && used <= span + 5e-4,
+      `${key} is ${((used / span) * 100).toFixed(0)}% full`,
+    );
+    // Volumes that came as a set share one size. A shelf where every neighbour differs is
+    // noise, not a shelf.
+    assert.ok(
+      sorted.some((b, i) => i && String(b.size) === String(sorted[i - 1].size)),
+      `${key} has no matched volumes`,
+    );
   }
   // The engravings are one 4096x2560 sheet of 32x40 cells (src/scene/smart-books.js); a book
   // past that budget would sample off the sheet and engrave nothing.

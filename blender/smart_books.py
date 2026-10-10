@@ -84,11 +84,12 @@ def populate():
     for b in inventory:
         bookroot=bpy.data.objects.new('Book_'+b['bookId'],None);shelfbooks.objects.link(bookroot)
         bookroot.location=pos(b['worldPosition']);bookroot.rotation_euler.z=math.pi/2 if b['side']=='A' else -math.pi/2
-        # The catalogue varies each volume's height so the rows read as shelving rather than as
-        # a wall of identical slabs. A book's height lies on its own local Z (the book is
-        # authored upright), and the root sits at the volume's centre, so scaling Z leaves the
-        # book standing on its board and carries the chip engraving with it.
-        bookroot.scale=(1,1,b.get('heightScale',1))
+        # The catalogue gives every volume its own width, height and thickness, the way a real
+        # shelf is stocked. The book is authored upright, so in Blender its own axes are X for
+        # the cover width, Y for the thickness and Z for the height; the root sits at the
+        # volume's centre, so scaling leaves the book standing on its board and carries the
+        # chip engraving with it.
+        bookroot.scale=(b.get('widthScale',1),b.get('depthScale',1),b.get('heightScale',1))
         for k,v in b['chipPayload'].items():bookroot[k]=v
         bookroot['chip_id']=b['chipId']
         if b['color'] not in cover_colors:

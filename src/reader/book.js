@@ -93,19 +93,25 @@ export function createBookFactory(renderer,template) {
   }
   function createBook(b) {
     const root = new THREE.Group();
-    const body=cloneTemplate(b);body.scale.setScalar(1/.15);root.add(body);
+    // The close-up is the same volume that stands on the shelf, at 1/0.15 scale, so it carries
+    // the volume's own width, height and thickness — a book that changed size on being picked
+    // up would give the whole interaction away.
+    const w = b.widthScale ?? 1, h = b.heightScale ?? 1, d = b.depthScale ?? 1;
+    const body=cloneTemplate(b);body.scale.set(w/.15,h/.15,d/.15);root.add(body);
     const hinge=body.getObjectByName('FrontHinge');
     if(!hinge)throw new Error('Blender book hinge missing');
     const coverMesh=body.getObjectByName('FrontCover_top');
-    const page=plane(.204,.29,pageTexture(b));page.position.set(0,0,.0084);body.add(page);
+    const page=plane(.204,.29,pageTexture(b));page.position.set(0,0,.0084*d);body.add(page);
     const c=document.createElement('canvas');c.width=900;c.height=1100;const ctx=c.getContext('2d');
     ctx.fillStyle='#e7dec1';ctx.font='22px sans-serif';ctx.fillText('HE XU / SMART COLLECTION',55,80);
     ctx.font='64px "Microsoft YaHei",sans-serif';const y=wrap(ctx,b.title,55,220,790,90);
     ctx.font='28px "Microsoft YaHei",sans-serif';wrap(ctx,b.author,55,y+70,790,44);
     ctx.strokeStyle='#d8c696';ctx.lineWidth=2;ctx.strokeRect(22,22,856,1056);
     ctx.font='30px monospace';ctx.fillText(b.bookId,55,970);
-    const ink=plane(.198,.197,texture(c));ink.material.transparent=true;ink.position.set(.108,.045,.0023);hinge.add(ink);
-    const label=plane(.028,.014,chipTexture(b));label.position.set(.173,-.105,.00095);hinge.add(label);
+    const ink=plane(.198,.197,texture(c));ink.material.transparent=true;ink.position.set(.108*w,.045*h,.0023*d);hinge.add(ink);
+    // The engraving is the one printed element that keeps its physical size on every cover, so
+    // its scale cancels the volume's while its position rides the cover's.
+    const label=plane(.028,.014,chipTexture(b));label.position.set(.173*w,-.105*h,.00095*d);label.scale.set(1/w,1/h,1);hinge.add(label);
     return { root, hinge, coverMesh };
   }
 

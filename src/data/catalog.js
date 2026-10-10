@@ -8,7 +8,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 1,
-    "color": "#466b60",
+    "color": "#4f7b6e",
     "keys": [
       "HX-0001",
       "HX0001",
@@ -19,11 +19,13 @@ export const books = [
     "chipId": "HX-0001",
     "locationCode": "S1-A-L1-P01",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 0.916,
+    "heightScale": 0.95,
+    "depthScale": 1,
     "worldPosition": [
       -5.7874,
-      0.23382,
-      -8.588
+      0.23535,
+      -8.597073
     ],
     "chipPayload": {
       "book_id": "HX-0001",
@@ -42,7 +44,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 2,
-    "color": "#466b60",
+    "color": "#4f7b6e",
     "keys": [
       "HX-0002",
       "HX0002",
@@ -53,11 +55,13 @@ export const books = [
     "chipId": "HX-0002",
     "locationCode": "S1-A-L1-P02",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 0.916,
+    "heightScale": 0.95,
+    "depthScale": 1,
     "worldPosition": [
       -5.7874,
-      0.24453,
-      -8.355714
+      0.23535,
+      -8.39922
     ],
     "chipPayload": {
       "book_id": "HX-0002",
@@ -76,7 +80,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 3,
-    "color": "#466b60",
+    "color": "#42645a",
     "keys": [
       "HX-0003",
       "HX0003",
@@ -87,11 +91,13 @@ export const books = [
     "chipId": "HX-0003",
     "locationCode": "S1-A-L1-P03",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.0992,
+    "heightScale": 0.8,
+    "depthScale": 1.48,
     "worldPosition": [
-      -5.7874,
-      0.23688,
-      -8.123429
+      -5.781352,
+      0.2124,
+      -8.181581
     ],
     "chipPayload": {
       "book_id": "HX-0003",
@@ -110,7 +116,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 4,
-    "color": "#466b60",
+    "color": "#42645a",
     "keys": [
       "HX-0004",
       "HX0004",
@@ -121,11 +127,13 @@ export const books = [
     "chipId": "HX-0004",
     "locationCode": "S1-A-L1-P04",
     "placeholder": true,
+    "widthScale": 1.1603,
     "heightScale": 1.05,
+    "depthScale": 1.48,
     "worldPosition": [
-      -5.7874,
+      -5.781352,
       0.25065,
-      -7.891143
+      -7.937561
     ],
     "chipPayload": {
       "book_id": "HX-0004",
@@ -144,7 +152,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 5,
-    "color": "#466b60",
+    "color": "#42645a",
     "keys": [
       "HX-0005",
       "HX0005",
@@ -155,11 +163,13 @@ export const books = [
     "chipId": "HX-0005",
     "locationCode": "S1-A-L1-P05",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.1603,
+    "heightScale": 1.05,
+    "depthScale": 1.48,
     "worldPosition": [
-      -5.7874,
-      0.25218,
-      -7.658857
+      -5.781352,
+      0.25065,
+      -7.686947
     ],
     "chipPayload": {
       "book_id": "HX-0005",
@@ -178,7 +188,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 6,
-    "color": "#466b60",
+    "color": "#3d5b52",
     "keys": [
       "HX-0006",
       "HX0006",
@@ -189,11 +199,13 @@ export const books = [
     "chipId": "HX-0006",
     "locationCode": "S1-A-L1-P06",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 0.9771,
+    "heightScale": 1.1,
+    "depthScale": 1.48,
     "worldPosition": [
-      -5.7874,
-      0.23076,
-      -7.426571
+      -5.781352,
+      0.2583,
+      -7.456118
     ],
     "chipPayload": {
       "book_id": "HX-0006",
@@ -212,7 +224,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 7,
-    "color": "#466b60",
+    "color": "#3d5b52",
     "keys": [
       "HX-0007",
       "HX0007",
@@ -223,11 +235,13 @@ export const books = [
     "chipId": "HX-0007",
     "locationCode": "S1-A-L1-P07",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 0.9771,
+    "heightScale": 1.1,
+    "depthScale": 1.48,
     "worldPosition": [
-      -5.7874,
-      0.25218,
-      -7.194286
+      -5.781352,
+      0.2583,
+      -7.245074
     ],
     "chipPayload": {
       "book_id": "HX-0007",
@@ -246,7 +260,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 8,
-    "color": "#466b60",
+    "color": "#4f7b6e",
     "keys": [
       "HX-0008",
       "HX0008",
@@ -257,11 +271,13 @@ export const books = [
     "chipId": "HX-0008",
     "locationCode": "S1-A-L1-P08",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.0992,
+    "heightScale": 0.95,
+    "depthScale": 1.15,
     "worldPosition": [
-      -5.7874,
-      0.24759,
-      -6.962
+      -5.78551,
+      0.23535,
+      -7.02084
     ],
     "chipPayload": {
       "book_id": "HX-0008",
@@ -280,7 +296,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 9,
-    "color": "#466b60",
+    "color": "#4a7266",
     "keys": [
       "HX-0009",
       "HX0009",
@@ -291,11 +307,13 @@ export const books = [
     "chipId": "HX-0009",
     "locationCode": "S1-A-L1-P09",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 0.9847,
+    "heightScale": 0.8,
+    "depthScale": 0.9,
     "worldPosition": [
-      -5.7874,
-      0.23688,
-      -6.638
+      -5.78866,
+      0.2124,
+      -6.639658
     ],
     "chipPayload": {
       "book_id": "HX-0009",
@@ -314,7 +332,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 10,
-    "color": "#466b60",
+    "color": "#4a7266",
     "keys": [
       "HX-0010",
       "HX0010",
@@ -325,11 +343,13 @@ export const books = [
     "chipId": "HX-0010",
     "locationCode": "S1-A-L1-P10",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 0.9847,
+    "heightScale": 0.8,
+    "depthScale": 0.9,
     "worldPosition": [
-      -5.7874,
-      0.24606,
-      -6.398571
+      -5.78866,
+      0.2124,
+      -6.426973
     ],
     "chipPayload": {
       "book_id": "HX-0010",
@@ -348,7 +368,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 11,
-    "color": "#466b60",
+    "color": "#4a7266",
     "keys": [
       "HX-0011",
       "HX0011",
@@ -359,11 +379,13 @@ export const books = [
     "chipId": "HX-0011",
     "locationCode": "S1-A-L1-P11",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 0.9847,
+    "heightScale": 0.8,
+    "depthScale": 0.9,
     "worldPosition": [
-      -5.7874,
-      0.23229,
-      -6.159143
+      -5.78866,
+      0.2124,
+      -6.214288
     ],
     "chipPayload": {
       "book_id": "HX-0011",
@@ -382,7 +404,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 12,
-    "color": "#466b60",
+    "color": "#3d5b52",
     "keys": [
       "HX-0012",
       "HX0012",
@@ -393,11 +415,13 @@ export const books = [
     "chipId": "HX-0012",
     "locationCode": "S1-A-L1-P12",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.2119,
+    "heightScale": 0.9,
+    "depthScale": 0.8,
     "worldPosition": [
-      -5.7874,
-      0.25065,
-      -5.919714
+      -5.78992,
+      0.2277,
+      -5.977062
     ],
     "chipPayload": {
       "book_id": "HX-0012",
@@ -416,7 +440,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 13,
-    "color": "#466b60",
+    "color": "#3d5b52",
     "keys": [
       "HX-0013",
       "HX0013",
@@ -427,11 +451,13 @@ export const books = [
     "chipId": "HX-0013",
     "locationCode": "S1-A-L1-P13",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.2119,
+    "heightScale": 0.9,
+    "depthScale": 0.8,
     "worldPosition": [
-      -5.7874,
-      0.24606,
-      -5.680286
+      -5.78992,
+      0.2277,
+      -5.715296
     ],
     "chipPayload": {
       "book_id": "HX-0013",
@@ -450,7 +476,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 14,
-    "color": "#466b60",
+    "color": "#4f7b6e",
     "keys": [
       "HX-0014",
       "HX0014",
@@ -461,11 +487,13 @@ export const books = [
     "chipId": "HX-0014",
     "locationCode": "S1-A-L1-P14",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.0604,
+    "heightScale": 0.9,
+    "depthScale": 1.3,
     "worldPosition": [
-      -5.7874,
-      0.24453,
-      -5.440857
+      -5.78362,
+      0.2277,
+      -5.46989
     ],
     "chipPayload": {
       "book_id": "HX-0014",
@@ -484,7 +512,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 15,
-    "color": "#466b60",
+    "color": "#518072",
     "keys": [
       "HX-0015",
       "HX0015",
@@ -495,11 +523,13 @@ export const books = [
     "chipId": "HX-0015",
     "locationCode": "S1-A-L1-P15",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.0604,
+    "heightScale": 0.9,
+    "depthScale": 1.15,
     "worldPosition": [
-      -5.7874,
-      0.23229,
-      -5.201429
+      -5.78551,
+      0.2277,
+      -5.240845
     ],
     "chipPayload": {
       "book_id": "HX-0015",
@@ -518,7 +548,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 16,
-    "color": "#466b60",
+    "color": "#518072",
     "keys": [
       "HX-0016",
       "HX0016",
@@ -529,11 +559,13 @@ export const books = [
     "chipId": "HX-0016",
     "locationCode": "S1-A-L1-P16",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.0604,
+    "heightScale": 0.9,
+    "depthScale": 1.15,
     "worldPosition": [
-      -5.7874,
-      0.24606,
-      -4.962
+      -5.78551,
+      0.2277,
+      -5.0118
     ],
     "chipPayload": {
       "book_id": "HX-0016",
@@ -552,7 +584,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 17,
-    "color": "#466b60",
+    "color": "#4a7266",
     "keys": [
       "HX-0017",
       "HX0017",
@@ -563,11 +595,13 @@ export const books = [
     "chipId": "HX-0017",
     "locationCode": "S1-A-L1-P17",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.1831,
+    "heightScale": 0.8,
+    "depthScale": 1,
     "worldPosition": [
       -5.7874,
-      0.24453,
-      -4.638
+      0.2124,
+      -4.618222
     ],
     "chipPayload": {
       "book_id": "HX-0017",
@@ -586,7 +620,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 18,
-    "color": "#466b60",
+    "color": "#406056",
     "keys": [
       "HX-0018",
       "HX0018",
@@ -597,11 +631,13 @@ export const books = [
     "chipId": "HX-0018",
     "locationCode": "S1-A-L1-P18",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.0586,
+    "heightScale": 0.85,
+    "depthScale": 1,
     "worldPosition": [
       -5.7874,
-      0.25218,
-      -4.398571
+      0.22005,
+      -4.376117
     ],
     "chipPayload": {
       "book_id": "HX-0018",
@@ -620,7 +656,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 19,
-    "color": "#466b60",
+    "color": "#406056",
     "keys": [
       "HX-0019",
       "HX0019",
@@ -631,11 +667,13 @@ export const books = [
     "chipId": "HX-0019",
     "locationCode": "S1-A-L1-P19",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.0586,
+    "heightScale": 0.85,
+    "depthScale": 1,
     "worldPosition": [
       -5.7874,
-      0.23229,
-      -4.159143
+      0.22005,
+      -4.147462
     ],
     "chipPayload": {
       "book_id": "HX-0019",
@@ -654,7 +692,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 20,
-    "color": "#466b60",
+    "color": "#476d62",
     "keys": [
       "HX-0020",
       "HX0020",
@@ -665,11 +703,13 @@ export const books = [
     "chipId": "HX-0020",
     "locationCode": "S1-A-L1-P20",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.1831,
+    "heightScale": 0.8,
+    "depthScale": 1.48,
     "worldPosition": [
-      -5.7874,
-      0.23382,
-      -3.919714
+      -5.781352,
+      0.2124,
+      -3.905356
     ],
     "chipPayload": {
       "book_id": "HX-0020",
@@ -688,7 +728,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 21,
-    "color": "#466b60",
+    "color": "#476d62",
     "keys": [
       "HX-0021",
       "HX0021",
@@ -699,11 +739,13 @@ export const books = [
     "chipId": "HX-0021",
     "locationCode": "S1-A-L1-P21",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.1831,
+    "heightScale": 0.8,
+    "depthScale": 1.48,
     "worldPosition": [
-      -5.7874,
-      0.243,
-      -3.680286
+      -5.781352,
+      0.2124,
+      -3.649801
     ],
     "chipPayload": {
       "book_id": "HX-0021",
@@ -722,7 +764,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 22,
-    "color": "#466b60",
+    "color": "#45695e",
     "keys": [
       "HX-0022",
       "HX0022",
@@ -733,11 +775,13 @@ export const books = [
     "chipId": "HX-0022",
     "locationCode": "S1-A-L1-P22",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 0.9963,
+    "heightScale": 1.05,
+    "depthScale": 1.48,
     "worldPosition": [
-      -5.7874,
-      0.23535,
-      -3.440857
+      -5.781352,
+      0.25065,
+      -3.41442
     ],
     "chipPayload": {
       "book_id": "HX-0022",
@@ -756,7 +800,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 23,
-    "color": "#466b60",
+    "color": "#45695e",
     "keys": [
       "HX-0023",
       "HX0023",
@@ -767,11 +811,13 @@ export const books = [
     "chipId": "HX-0023",
     "locationCode": "S1-A-L1-P23",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 0.9963,
+    "heightScale": 1.05,
+    "depthScale": 1.48,
     "worldPosition": [
-      -5.7874,
-      0.23841,
-      -3.201429
+      -5.781352,
+      0.25065,
+      -3.199216
     ],
     "chipPayload": {
       "book_id": "HX-0023",
@@ -790,7 +836,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 24,
-    "color": "#466b60",
+    "color": "#518072",
     "keys": [
       "HX-0024",
       "HX0024",
@@ -801,11 +847,13 @@ export const books = [
     "chipId": "HX-0024",
     "locationCode": "S1-A-L1-P24",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 0.8718,
+    "heightScale": 1,
+    "depthScale": 1,
     "worldPosition": [
       -5.7874,
-      0.24912,
-      -2.962
+      0.243,
+      -2.997461
     ],
     "chipPayload": {
       "book_id": "HX-0024",
@@ -824,7 +872,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 25,
-    "color": "#466b60",
+    "color": "#3d5b52",
     "keys": [
       "计算机基础",
       "电脑",
@@ -838,11 +886,13 @@ export const books = [
     "chipId": "HX-0025",
     "locationCode": "S1-A-L1-P25",
     "placeholder": false,
-    "heightScale": 0.97,
+    "widthScale": 0.9079,
+    "heightScale": 1,
+    "depthScale": 1,
     "worldPosition": [
       -5.7874,
-      0.23841,
-      -2.638
+      0.243,
+      -2.647942
     ],
     "chipPayload": {
       "book_id": "HX-0025",
@@ -861,7 +911,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 26,
-    "color": "#466b60",
+    "color": "#3d5b52",
     "keys": [
       "HX-0026",
       "HX0026",
@@ -872,11 +922,13 @@ export const books = [
     "chipId": "HX-0026",
     "locationCode": "S1-A-L1-P26",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 0.9079,
+    "heightScale": 1,
+    "depthScale": 1,
     "worldPosition": [
       -5.7874,
-      0.24147,
-      -2.405714
+      0.243,
+      -2.451826
     ],
     "chipPayload": {
       "book_id": "HX-0026",
@@ -895,7 +947,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 27,
-    "color": "#466b60",
+    "color": "#4f7b6e",
     "keys": [
       "HX-0027",
       "HX0027",
@@ -906,11 +958,13 @@ export const books = [
     "chipId": "HX-0027",
     "locationCode": "S1-A-L1-P27",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.1175,
+    "heightScale": 0.9,
+    "depthScale": 1,
     "worldPosition": [
       -5.7874,
-      0.24453,
-      -2.173429
+      0.2277,
+      -2.233082
     ],
     "chipPayload": {
       "book_id": "HX-0027",
@@ -929,7 +983,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 28,
-    "color": "#466b60",
+    "color": "#4f7b6e",
     "keys": [
       "HX-0028",
       "HX0028",
@@ -940,11 +994,13 @@ export const books = [
     "chipId": "HX-0028",
     "locationCode": "S1-A-L1-P28",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.1175,
+    "heightScale": 0.9,
+    "depthScale": 1,
     "worldPosition": [
       -5.7874,
-      0.23535,
-      -1.941143
+      0.2277,
+      -1.991708
     ],
     "chipPayload": {
       "book_id": "HX-0028",
@@ -963,7 +1019,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 29,
-    "color": "#466b60",
+    "color": "#4f7b6e",
     "keys": [
       "HX-0029",
       "HX0029",
@@ -974,11 +1030,13 @@ export const books = [
     "chipId": "HX-0029",
     "locationCode": "S1-A-L1-P29",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.1175,
+    "heightScale": 0.9,
+    "depthScale": 1,
     "worldPosition": [
       -5.7874,
-      0.25218,
-      -1.708857
+      0.2277,
+      -1.750335
     ],
     "chipPayload": {
       "book_id": "HX-0029",
@@ -997,7 +1055,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 30,
-    "color": "#466b60",
+    "color": "#45695e",
     "keys": [
       "HX-0030",
       "HX0030",
@@ -1008,11 +1066,13 @@ export const books = [
     "chipId": "HX-0030",
     "locationCode": "S1-A-L1-P30",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.0476,
+    "heightScale": 0.85,
+    "depthScale": 0.9,
     "worldPosition": [
-      -5.7874,
-      0.23688,
-      -1.476571
+      -5.78866,
+      0.22005,
+      -1.516505
     ],
     "chipPayload": {
       "book_id": "HX-0030",
@@ -1031,7 +1091,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 31,
-    "color": "#466b60",
+    "color": "#4f7b6e",
     "keys": [
       "HX-0031",
       "HX0031",
@@ -1042,11 +1102,13 @@ export const books = [
     "chipId": "HX-0031",
     "locationCode": "S1-A-L1-P31",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.1873,
+    "heightScale": 0.8,
+    "depthScale": 1.3,
     "worldPosition": [
-      -5.7874,
-      0.25218,
-      -1.244286
+      -5.78362,
+      0.2124,
+      -1.275131
     ],
     "chipPayload": {
       "book_id": "HX-0031",
@@ -1065,7 +1127,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 32,
-    "color": "#466b60",
+    "color": "#518072",
     "keys": [
       "HX-0032",
       "HX0032",
@@ -1076,11 +1138,13 @@ export const books = [
     "chipId": "HX-0032",
     "locationCode": "S1-A-L1-P32",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 0.9079,
+    "heightScale": 0.9,
+    "depthScale": 1,
     "worldPosition": [
       -5.7874,
-      0.23229,
-      -1.012
+      0.2277,
+      -1.048844
     ],
     "chipPayload": {
       "book_id": "HX-0032",
@@ -1099,7 +1163,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 1,
-    "color": "#466b60",
+    "color": "#476d62",
     "keys": [
       "HX-0033",
       "HX0033",
@@ -1110,11 +1174,13 @@ export const books = [
     "chipId": "HX-0033",
     "locationCode": "S1-A-L2-P01",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.0924,
+    "heightScale": 1.1,
+    "depthScale": 0.9,
     "worldPosition": [
-      -5.7874,
-      0.68953,
-      -8.588
+      -5.78866,
+      0.7033,
+      -8.578024
     ],
     "chipPayload": {
       "book_id": "HX-0033",
@@ -1133,7 +1199,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 2,
-    "color": "#466b60",
+    "color": "#406056",
     "keys": [
       "HX-0034",
       "HX0034",
@@ -1144,11 +1210,13 @@ export const books = [
     "chipId": "HX-0034",
     "locationCode": "S1-A-L2-P02",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.0241,
+    "heightScale": 1,
+    "depthScale": 1,
     "worldPosition": [
       -5.7874,
-      0.68035,
-      -8.355714
+      0.688,
+      -8.349445
     ],
     "chipPayload": {
       "book_id": "HX-0034",
@@ -1167,7 +1235,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 3,
-    "color": "#466b60",
+    "color": "#406056",
     "keys": [
       "HX-0035",
       "HX0035",
@@ -1178,11 +1246,13 @@ export const books = [
     "chipId": "HX-0035",
     "locationCode": "S1-A-L2-P03",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.0241,
+    "heightScale": 1,
+    "depthScale": 1,
     "worldPosition": [
       -5.7874,
-      0.69259,
-      -8.123429
+      0.688,
+      -8.128239
     ],
     "chipPayload": {
       "book_id": "HX-0035",
@@ -1201,7 +1271,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 4,
-    "color": "#466b60",
+    "color": "#4c766a",
     "keys": [
       "HX-0036",
       "HX0036",
@@ -1212,11 +1282,13 @@ export const books = [
     "chipId": "HX-0036",
     "locationCode": "S1-A-L2-P04",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.0924,
+    "heightScale": 1.1,
+    "depthScale": 1,
     "worldPosition": [
       -5.7874,
-      0.688,
-      -7.891143
+      0.7033,
+      -7.89966
     ],
     "chipPayload": {
       "book_id": "HX-0036",
@@ -1235,7 +1307,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 5,
-    "color": "#466b60",
+    "color": "#3a574e",
     "keys": [
       "HX-0037",
       "HX0037",
@@ -1246,11 +1318,13 @@ export const books = [
     "chipId": "HX-0037",
     "locationCode": "S1-A-L2-P05",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.0924,
+    "heightScale": 1,
+    "depthScale": 0.8,
     "worldPosition": [
-      -5.7874,
-      0.68494,
-      -7.658857
+      -5.78992,
+      0.688,
+      -7.663707
     ],
     "chipPayload": {
       "book_id": "HX-0037",
@@ -1269,7 +1343,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 6,
-    "color": "#466b60",
+    "color": "#4c766a",
     "keys": [
       "HX-0038",
       "HX0038",
@@ -1280,11 +1354,13 @@ export const books = [
     "chipId": "HX-0038",
     "locationCode": "S1-A-L2-P06",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.0241,
+    "heightScale": 0.9,
+    "depthScale": 0.9,
     "worldPosition": [
-      -5.7874,
-      0.69718,
-      -7.426571
+      -5.78866,
+      0.6727,
+      -7.435128
     ],
     "chipPayload": {
       "book_id": "HX-0038",
@@ -1303,7 +1379,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 7,
-    "color": "#466b60",
+    "color": "#4c766a",
     "keys": [
       "HX-0039",
       "HX0039",
@@ -1314,11 +1390,13 @@ export const books = [
     "chipId": "HX-0039",
     "locationCode": "S1-A-L2-P07",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.0241,
+    "heightScale": 0.9,
+    "depthScale": 0.9,
     "worldPosition": [
-      -5.7874,
-      0.68953,
-      -7.194286
+      -5.78866,
+      0.6727,
+      -7.213923
     ],
     "chipPayload": {
       "book_id": "HX-0039",
@@ -1337,7 +1415,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 8,
-    "color": "#466b60",
+    "color": "#4c766a",
     "keys": [
       "HX-0040",
       "HX0040",
@@ -1348,11 +1426,13 @@ export const books = [
     "chipId": "HX-0040",
     "locationCode": "S1-A-L2-P08",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.0241,
+    "heightScale": 0.9,
+    "depthScale": 0.9,
     "worldPosition": [
-      -5.7874,
-      0.68494,
-      -6.962
+      -5.78866,
+      0.6727,
+      -6.992717
     ],
     "chipPayload": {
       "book_id": "HX-0040",
@@ -1371,7 +1451,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 9,
-    "color": "#466b60",
+    "color": "#45695e",
     "keys": [
       "HX-0041",
       "HX0041",
@@ -1382,11 +1462,13 @@ export const books = [
     "chipId": "HX-0041",
     "locationCode": "S1-A-L2-P09",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.0046,
+    "heightScale": 0.85,
+    "depthScale": 1,
     "worldPosition": [
       -5.7874,
-      0.68494,
-      -6.638
+      0.66505,
+      -6.637507
     ],
     "chipPayload": {
       "book_id": "HX-0041",
@@ -1405,7 +1487,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 10,
-    "color": "#466b60",
+    "color": "#45695e",
     "keys": [
       "HX-0042",
       "HX0042",
@@ -1416,11 +1498,13 @@ export const books = [
     "chipId": "HX-0042",
     "locationCode": "S1-A-L2-P10",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.0046,
+    "heightScale": 0.85,
+    "depthScale": 1,
     "worldPosition": [
       -5.7874,
-      0.69565,
-      -6.398571
+      0.66505,
+      -6.420521
     ],
     "chipPayload": {
       "book_id": "HX-0042",
@@ -1439,7 +1523,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 11,
-    "color": "#466b60",
+    "color": "#4a7266",
     "keys": [
       "HX-0043",
       "HX0043",
@@ -1450,11 +1534,13 @@ export const books = [
     "chipId": "HX-0043",
     "locationCode": "S1-A-L2-P11",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.1385,
+    "heightScale": 1.05,
+    "depthScale": 1.15,
     "worldPosition": [
-      -5.7874,
-      0.69259,
-      -6.159143
+      -5.78551,
+      0.69565,
+      -6.189069
     ],
     "chipPayload": {
       "book_id": "HX-0043",
@@ -1473,7 +1559,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 12,
-    "color": "#466b60",
+    "color": "#42645a",
     "keys": [
       "HX-0044",
       "HX0044",
@@ -1484,11 +1570,13 @@ export const books = [
     "chipId": "HX-0044",
     "locationCode": "S1-A-L2-P12",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.0046,
+    "heightScale": 1.1,
+    "depthScale": 1.48,
     "worldPosition": [
-      -5.7874,
-      0.67729,
-      -5.919714
+      -5.781352,
+      0.7033,
+      -5.957617
     ],
     "chipPayload": {
       "book_id": "HX-0044",
@@ -1507,7 +1595,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 13,
-    "color": "#466b60",
+    "color": "#42645a",
     "keys": [
       "HX-0045",
       "HX0045",
@@ -1518,11 +1606,13 @@ export const books = [
     "chipId": "HX-0045",
     "locationCode": "S1-A-L2-P13",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.0046,
+    "heightScale": 1.1,
+    "depthScale": 1.48,
     "worldPosition": [
-      -5.7874,
-      0.68494,
-      -5.680286
+      -5.781352,
+      0.7033,
+      -5.74063
     ],
     "chipPayload": {
       "book_id": "HX-0045",
@@ -1541,7 +1631,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 14,
-    "color": "#466b60",
+    "color": "#42645a",
     "keys": [
       "HX-0046",
       "HX0046",
@@ -1552,11 +1642,13 @@ export const books = [
     "chipId": "HX-0046",
     "locationCode": "S1-A-L2-P14",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.0046,
+    "heightScale": 1.1,
+    "depthScale": 1.48,
     "worldPosition": [
-      -5.7874,
-      0.67729,
-      -5.440857
+      -5.781352,
+      0.7033,
+      -5.523644
     ],
     "chipPayload": {
       "book_id": "HX-0046",
@@ -1575,7 +1667,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 15,
-    "color": "#466b60",
+    "color": "#4c766a",
     "keys": [
       "HX-0047",
       "HX0047",
@@ -1586,11 +1678,13 @@ export const books = [
     "chipId": "HX-0047",
     "locationCode": "S1-A-L2-P15",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.2055,
+    "heightScale": 0.9,
+    "depthScale": 1.48,
     "worldPosition": [
-      -5.7874,
-      0.69106,
-      -5.201429
+      -5.781352,
+      0.6727,
+      -5.284959
     ],
     "chipPayload": {
       "book_id": "HX-0047",
@@ -1609,7 +1703,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 16,
-    "color": "#466b60",
+    "color": "#4c766a",
     "keys": [
       "HX-0048",
       "HX0048",
@@ -1620,11 +1714,13 @@ export const books = [
     "chipId": "HX-0048",
     "locationCode": "S1-A-L2-P16",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.2055,
+    "heightScale": 0.9,
+    "depthScale": 1.48,
     "worldPosition": [
-      -5.7874,
-      0.69106,
-      -4.962
+      -5.781352,
+      0.6727,
+      -5.024576
     ],
     "chipPayload": {
       "book_id": "HX-0048",
@@ -1643,7 +1739,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 17,
-    "color": "#466b60",
+    "color": "#3a574e",
     "keys": [
       "HX-0049",
       "HX0049",
@@ -1654,11 +1750,13 @@ export const books = [
     "chipId": "HX-0049",
     "locationCode": "S1-A-L2-P17",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 0.9434,
+    "heightScale": 1,
+    "depthScale": 1.48,
     "worldPosition": [
-      -5.7874,
-      0.68341,
-      -4.638
+      -5.781352,
+      0.688,
+      -4.64411
     ],
     "chipPayload": {
       "book_id": "HX-0049",
@@ -1677,7 +1775,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 18,
-    "color": "#466b60",
+    "color": "#3a574e",
     "keys": [
       "HX-0050",
       "HX0050",
@@ -1688,11 +1786,13 @@ export const books = [
     "chipId": "HX-0050",
     "locationCode": "S1-A-L2-P18",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 0.9434,
+    "heightScale": 1,
+    "depthScale": 1.48,
     "worldPosition": [
-      -5.7874,
-      0.68953,
-      -4.398571
+      -5.781352,
+      0.688,
+      -4.44033
     ],
     "chipPayload": {
       "book_id": "HX-0050",
@@ -1711,7 +1811,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 19,
-    "color": "#466b60",
+    "color": "#3a574e",
     "keys": [
       "HX-0051",
       "HX0051",
@@ -1722,11 +1822,13 @@ export const books = [
     "chipId": "HX-0051",
     "locationCode": "S1-A-L2-P19",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 0.9434,
+    "heightScale": 1,
+    "depthScale": 1.48,
     "worldPosition": [
-      -5.7874,
-      0.69106,
-      -4.159143
+      -5.781352,
+      0.688,
+      -4.23655
     ],
     "chipPayload": {
       "book_id": "HX-0051",
@@ -1745,7 +1847,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 20,
-    "color": "#466b60",
+    "color": "#4c766a",
     "keys": [
       "HX-0052",
       "HX0052",
@@ -1756,11 +1858,13 @@ export const books = [
     "chipId": "HX-0052",
     "locationCode": "S1-A-L2-P20",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.2804,
+    "heightScale": 0.85,
+    "depthScale": 0.9,
     "worldPosition": [
-      -5.7874,
-      0.69565,
-      -3.919714
+      -5.78866,
+      0.66505,
+      -3.996381
     ],
     "chipPayload": {
       "book_id": "HX-0052",
@@ -1779,7 +1883,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 21,
-    "color": "#466b60",
+    "color": "#518072",
     "keys": [
       "HX-0053",
       "HX0053",
@@ -1790,11 +1894,13 @@ export const books = [
     "chipId": "HX-0053",
     "locationCode": "S1-A-L2-P21",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.0782,
+    "heightScale": 1.05,
+    "depthScale": 1.3,
     "worldPosition": [
-      -5.7874,
-      0.688,
-      -3.680286
+      -5.78362,
+      0.69565,
+      -3.741656
     ],
     "chipPayload": {
       "book_id": "HX-0053",
@@ -1813,7 +1919,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 22,
-    "color": "#466b60",
+    "color": "#518072",
     "keys": [
       "HX-0054",
       "HX0054",
@@ -1824,11 +1930,13 @@ export const books = [
     "chipId": "HX-0054",
     "locationCode": "S1-A-L2-P22",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.0782,
+    "heightScale": 1.05,
+    "depthScale": 1.3,
     "worldPosition": [
-      -5.7874,
-      0.68341,
-      -3.440857
+      -5.78362,
+      0.69565,
+      -3.508765
     ],
     "chipPayload": {
       "book_id": "HX-0054",
@@ -1847,7 +1955,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 23,
-    "color": "#466b60",
+    "color": "#476d62",
     "keys": [
       "HX-0055",
       "HX0055",
@@ -1858,11 +1966,13 @@ export const books = [
     "chipId": "HX-0055",
     "locationCode": "S1-A-L2-P23",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.2804,
+    "heightScale": 1,
+    "depthScale": 1.3,
     "worldPosition": [
-      -5.7874,
-      0.69565,
-      -3.201429
+      -5.78362,
+      0.688,
+      -3.25404
     ],
     "chipPayload": {
       "book_id": "HX-0055",
@@ -1881,7 +1991,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 24,
-    "color": "#466b60",
+    "color": "#42645a",
     "keys": [
       "HX-0056",
       "HX0056",
@@ -1892,11 +2002,13 @@ export const books = [
     "chipId": "HX-0056",
     "locationCode": "S1-A-L2-P24",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.0108,
+    "heightScale": 1,
+    "depthScale": 1,
     "worldPosition": [
       -5.7874,
-      0.68494,
-      -2.962
+      0.688,
+      -3.006593
     ],
     "chipPayload": {
       "book_id": "HX-0056",
@@ -1915,7 +2027,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 25,
-    "color": "#466b60",
+    "color": "#45695e",
     "keys": [
       "HX-0057",
       "HX0057",
@@ -1926,11 +2038,13 @@ export const books = [
     "chipId": "HX-0057",
     "locationCode": "S1-A-L2-P25",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 0.9424,
+    "heightScale": 0.9,
+    "depthScale": 1.15,
     "worldPosition": [
-      -5.7874,
-      0.67576,
-      -2.638
+      -5.78551,
+      0.6727,
+      -2.644224
     ],
     "chipPayload": {
       "book_id": "HX-0057",
@@ -1949,7 +2063,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 26,
-    "color": "#466b60",
+    "color": "#45695e",
     "keys": [
       "HX-0058",
       "HX0058",
@@ -1960,11 +2074,13 @@ export const books = [
     "chipId": "HX-0058",
     "locationCode": "S1-A-L2-P26",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 0.9424,
+    "heightScale": 0.9,
+    "depthScale": 1.15,
     "worldPosition": [
-      -5.7874,
-      0.68188,
-      -2.405714
+      -5.78551,
+      0.6727,
+      -2.440671
     ],
     "chipPayload": {
       "book_id": "HX-0058",
@@ -1983,7 +2099,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 27,
-    "color": "#466b60",
+    "color": "#476d62",
     "keys": [
       "HX-0059",
       "HX0059",
@@ -1994,11 +2110,13 @@ export const books = [
     "chipId": "HX-0059",
     "locationCode": "S1-A-L2-P27",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 0.9424,
+    "heightScale": 0.95,
+    "depthScale": 0.8,
     "worldPosition": [
-      -5.7874,
-      0.69106,
-      -2.173429
+      -5.78992,
+      0.68035,
+      -2.237118
     ],
     "chipPayload": {
       "book_id": "HX-0059",
@@ -2017,7 +2135,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 28,
-    "color": "#466b60",
+    "color": "#518072",
     "keys": [
       "HX-0060",
       "HX0060",
@@ -2028,11 +2146,13 @@ export const books = [
     "chipId": "HX-0060",
     "locationCode": "S1-A-L2-P28",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.1937,
+    "heightScale": 0.95,
+    "depthScale": 0.9,
     "worldPosition": [
-      -5.7874,
-      0.69565,
-      -1.941143
+      -5.78866,
+      0.68035,
+      -2.006424
     ],
     "chipPayload": {
       "book_id": "HX-0060",
@@ -2051,7 +2171,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 29,
-    "color": "#466b60",
+    "color": "#476d62",
     "keys": [
       "HX-0061",
       "HX0061",
@@ -2062,11 +2182,13 @@ export const books = [
     "chipId": "HX-0061",
     "locationCode": "S1-A-L2-P29",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.1308,
+    "heightScale": 0.85,
+    "depthScale": 0.8,
     "worldPosition": [
-      -5.7874,
-      0.68494,
-      -1.708857
+      -5.78992,
+      0.66505,
+      -1.755376
     ],
     "chipPayload": {
       "book_id": "HX-0061",
@@ -2085,7 +2207,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 30,
-    "color": "#466b60",
+    "color": "#476d62",
     "keys": [
       "HX-0062",
       "HX0062",
@@ -2096,11 +2218,13 @@ export const books = [
     "chipId": "HX-0062",
     "locationCode": "S1-A-L2-P30",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.1308,
+    "heightScale": 0.85,
+    "depthScale": 0.8,
     "worldPosition": [
-      -5.7874,
-      0.69718,
-      -1.476571
+      -5.78992,
+      0.66505,
+      -1.511112
     ],
     "chipPayload": {
       "book_id": "HX-0062",
@@ -2119,7 +2243,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 31,
-    "color": "#466b60",
+    "color": "#406056",
     "keys": [
       "HX-0063",
       "HX0063",
@@ -2130,11 +2254,13 @@ export const books = [
     "chipId": "HX-0063",
     "locationCode": "S1-A-L2-P31",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.0052,
+    "heightScale": 1.05,
+    "depthScale": 0.8,
     "worldPosition": [
-      -5.7874,
-      0.688,
-      -1.244286
+      -5.78992,
+      0.69565,
+      -1.280419
     ],
     "chipPayload": {
       "book_id": "HX-0063",
@@ -2153,7 +2279,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 32,
-    "color": "#466b60",
+    "color": "#406056",
     "keys": [
       "HX-0064",
       "HX0064",
@@ -2164,11 +2290,13 @@ export const books = [
     "chipId": "HX-0064",
     "locationCode": "S1-A-L2-P32",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.0052,
+    "heightScale": 1.05,
+    "depthScale": 0.8,
     "worldPosition": [
-      -5.7874,
-      0.68188,
-      -1.012
+      -5.78992,
+      0.69565,
+      -1.063296
     ],
     "chipPayload": {
       "book_id": "HX-0064",
@@ -2187,7 +2315,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 1,
-    "color": "#466b60",
+    "color": "#4a7266",
     "keys": [
       "HX-0065",
       "HX0065",
@@ -2198,11 +2326,13 @@ export const books = [
     "chipId": "HX-0065",
     "locationCode": "S1-A-L3-P01",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.0675,
+    "heightScale": 0.8,
+    "depthScale": 1.48,
     "worldPosition": [
-      -5.7874,
-      1.18035,
-      -8.588
+      -5.781352,
+      1.1574,
+      -8.580706
     ],
     "chipPayload": {
       "book_id": "HX-0065",
@@ -2221,7 +2351,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 2,
-    "color": "#466b60",
+    "color": "#4a7266",
     "keys": [
       "HX-0066",
       "HX0066",
@@ -2232,11 +2362,13 @@ export const books = [
     "chipId": "HX-0066",
     "locationCode": "S1-A-L3-P02",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.0675,
+    "heightScale": 0.8,
+    "depthScale": 1.48,
     "worldPosition": [
-      -5.7874,
-      1.18035,
-      -8.355714
+      -5.781352,
+      1.1574,
+      -8.350118
     ],
     "chipPayload": {
       "book_id": "HX-0066",
@@ -2255,7 +2387,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 3,
-    "color": "#466b60",
+    "color": "#3d5b52",
     "keys": [
       "HX-0067",
       "HX0067",
@@ -2266,11 +2398,13 @@ export const books = [
     "chipId": "HX-0067",
     "locationCode": "S1-A-L3-P03",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 0.9964,
+    "heightScale": 0.85,
+    "depthScale": 1.15,
     "worldPosition": [
-      -5.7874,
-      1.188,
-      -8.123429
+      -5.78551,
+      1.16505,
+      -8.127216
     ],
     "chipPayload": {
       "book_id": "HX-0067",
@@ -2289,7 +2423,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 4,
-    "color": "#466b60",
+    "color": "#3d5b52",
     "keys": [
       "HX-0068",
       "HX0068",
@@ -2300,11 +2434,13 @@ export const books = [
     "chipId": "HX-0068",
     "locationCode": "S1-A-L3-P04",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 0.9964,
+    "heightScale": 0.85,
+    "depthScale": 1.15,
     "worldPosition": [
-      -5.7874,
-      1.19412,
-      -7.891143
+      -5.78551,
+      1.16505,
+      -7.912
     ],
     "chipPayload": {
       "book_id": "HX-0068",
@@ -2323,7 +2459,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 5,
-    "color": "#466b60",
+    "color": "#3d5b52",
     "keys": [
       "HX-0069",
       "HX0069",
@@ -2334,11 +2470,13 @@ export const books = [
     "chipId": "HX-0069",
     "locationCode": "S1-A-L3-P05",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 0.9964,
+    "heightScale": 0.85,
+    "depthScale": 1.15,
     "worldPosition": [
-      -5.7874,
-      1.18341,
-      -7.658857
+      -5.78551,
+      1.16505,
+      -7.696784
     ],
     "chipPayload": {
       "book_id": "HX-0069",
@@ -2357,7 +2495,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 6,
-    "color": "#466b60",
+    "color": "#4c766a",
     "keys": [
       "HX-0070",
       "HX0070",
@@ -2368,11 +2506,13 @@ export const books = [
     "chipId": "HX-0070",
     "locationCode": "S1-A-L3-P06",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 0.9964,
+    "heightScale": 1,
+    "depthScale": 1.15,
     "worldPosition": [
-      -5.7874,
-      1.18494,
-      -7.426571
+      -5.78551,
+      1.188,
+      -7.481569
     ],
     "chipPayload": {
       "book_id": "HX-0070",
@@ -2391,7 +2531,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 7,
-    "color": "#466b60",
+    "color": "#3d5b52",
     "keys": [
       "HX-0071",
       "HX0071",
@@ -2402,11 +2542,13 @@ export const books = [
     "chipId": "HX-0071",
     "locationCode": "S1-A-L3-P07",
     "placeholder": true,
+    "widthScale": 1.1387,
     "heightScale": 1,
+    "depthScale": 1.3,
     "worldPosition": [
-      -5.7874,
+      -5.78362,
       1.188,
-      -7.194286
+      -7.250981
     ],
     "chipPayload": {
       "book_id": "HX-0071",
@@ -2425,7 +2567,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 8,
-    "color": "#466b60",
+    "color": "#3d5b52",
     "keys": [
       "HX-0072",
       "HX0072",
@@ -2436,11 +2578,13 @@ export const books = [
     "chipId": "HX-0072",
     "locationCode": "S1-A-L3-P08",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.1387,
+    "heightScale": 1,
+    "depthScale": 1.3,
     "worldPosition": [
-      -5.7874,
-      1.19259,
-      -6.962
+      -5.78362,
+      1.188,
+      -7.00502
     ],
     "chipPayload": {
       "book_id": "HX-0072",
@@ -2459,7 +2603,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 9,
-    "color": "#466b60",
+    "color": "#3d5b52",
     "keys": [
       "HX-0073",
       "HX0073",
@@ -2470,11 +2614,13 @@ export const books = [
     "chipId": "HX-0073",
     "locationCode": "S1-A-L3-P09",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.3597,
+    "heightScale": 0.85,
+    "depthScale": 0.8,
     "worldPosition": [
-      -5.7874,
-      1.18953,
-      -6.638
+      -5.78992,
+      1.16505,
+      -6.59915
     ],
     "chipPayload": {
       "book_id": "HX-0073",
@@ -2493,7 +2639,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 10,
-    "color": "#466b60",
+    "color": "#42645a",
     "keys": [
       "HX-0074",
       "HX0074",
@@ -2504,11 +2650,13 @@ export const books = [
     "chipId": "HX-0074",
     "locationCode": "S1-A-L3-P10",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 0.9303,
+    "heightScale": 0.85,
+    "depthScale": 1.15,
     "worldPosition": [
-      -5.7874,
-      1.18188,
-      -6.398571
+      -5.78551,
+      1.16505,
+      -6.351825
     ],
     "chipPayload": {
       "book_id": "HX-0074",
@@ -2527,7 +2675,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 11,
-    "color": "#466b60",
+    "color": "#42645a",
     "keys": [
       "HX-0075",
       "HX0075",
@@ -2538,11 +2686,13 @@ export const books = [
     "chipId": "HX-0075",
     "locationCode": "S1-A-L3-P11",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 0.9303,
+    "heightScale": 0.85,
+    "depthScale": 1.15,
     "worldPosition": [
-      -5.7874,
-      1.19565,
-      -6.159143
+      -5.78551,
+      1.16505,
+      -6.150873
     ],
     "chipPayload": {
       "book_id": "HX-0075",
@@ -2561,7 +2711,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 12,
-    "color": "#466b60",
+    "color": "#42645a",
     "keys": [
       "HX-0076",
       "HX0076",
@@ -2572,11 +2722,13 @@ export const books = [
     "chipId": "HX-0076",
     "locationCode": "S1-A-L3-P12",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 0.9303,
+    "heightScale": 0.85,
+    "depthScale": 1.15,
     "worldPosition": [
-      -5.7874,
-      1.19259,
-      -5.919714
+      -5.78551,
+      1.16505,
+      -5.949921
     ],
     "chipPayload": {
       "book_id": "HX-0076",
@@ -2595,7 +2747,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 13,
-    "color": "#466b60",
+    "color": "#406056",
     "keys": [
       "HX-0077",
       "HX0077",
@@ -2606,11 +2758,13 @@ export const books = [
     "chipId": "HX-0077",
     "locationCode": "S1-A-L3-P13",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.145,
+    "heightScale": 1.1,
+    "depthScale": 0.9,
     "worldPosition": [
-      -5.7874,
-      1.18494,
-      -5.680286
+      -5.78866,
+      1.2033,
+      -5.725782
     ],
     "chipPayload": {
       "book_id": "HX-0077",
@@ -2629,7 +2783,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 14,
-    "color": "#466b60",
+    "color": "#406056",
     "keys": [
       "HX-0078",
       "HX0078",
@@ -2640,11 +2794,13 @@ export const books = [
     "chipId": "HX-0078",
     "locationCode": "S1-A-L3-P14",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.145,
+    "heightScale": 1.1,
+    "depthScale": 0.9,
     "worldPosition": [
-      -5.7874,
-      1.18953,
-      -5.440857
+      -5.78866,
+      1.2033,
+      -5.478456
     ],
     "chipPayload": {
       "book_id": "HX-0078",
@@ -2663,7 +2819,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 15,
-    "color": "#466b60",
+    "color": "#406056",
     "keys": [
       "HX-0079",
       "HX0079",
@@ -2674,11 +2830,13 @@ export const books = [
     "chipId": "HX-0079",
     "locationCode": "S1-A-L3-P15",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.145,
+    "heightScale": 1.1,
+    "depthScale": 0.9,
     "worldPosition": [
-      -5.7874,
-      1.188,
-      -5.201429
+      -5.78866,
+      1.2033,
+      -5.23113
     ],
     "chipPayload": {
       "book_id": "HX-0079",
@@ -2697,7 +2855,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 16,
-    "color": "#466b60",
+    "color": "#4a7266",
     "keys": [
       "HX-0080",
       "HX0080",
@@ -2708,11 +2866,13 @@ export const books = [
     "chipId": "HX-0080",
     "locationCode": "S1-A-L3-P16",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 0.9303,
+    "heightScale": 1.1,
+    "depthScale": 1,
     "worldPosition": [
       -5.7874,
-      1.17882,
-      -4.962
+      1.2033,
+      -5.006992
     ],
     "chipPayload": {
       "book_id": "HX-0080",
@@ -2731,7 +2891,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 17,
-    "color": "#466b60",
+    "color": "#3d5b52",
     "keys": [
       "HX-0081",
       "HX0081",
@@ -2742,11 +2902,13 @@ export const books = [
     "chipId": "HX-0081",
     "locationCode": "S1-A-L3-P17",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.0244,
+    "heightScale": 0.95,
+    "depthScale": 1.3,
     "worldPosition": [
-      -5.7874,
-      1.19106,
-      -4.638
+      -5.78362,
+      1.18035,
+      -4.635363
     ],
     "chipPayload": {
       "book_id": "HX-0081",
@@ -2765,7 +2927,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 18,
-    "color": "#466b60",
+    "color": "#3d5b52",
     "keys": [
       "HX-0082",
       "HX0082",
@@ -2776,11 +2938,13 @@ export const books = [
     "chipId": "HX-0082",
     "locationCode": "S1-A-L3-P18",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.0244,
+    "heightScale": 0.95,
+    "depthScale": 1.3,
     "worldPosition": [
-      -5.7874,
-      1.17882,
-      -4.398571
+      -5.78362,
+      1.18035,
+      -4.41409
     ],
     "chipPayload": {
       "book_id": "HX-0082",
@@ -2799,7 +2963,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 19,
-    "color": "#466b60",
+    "color": "#3d5b52",
     "keys": [
       "HX-0083",
       "HX0083",
@@ -2810,11 +2974,13 @@ export const books = [
     "chipId": "HX-0083",
     "locationCode": "S1-A-L3-P19",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.0244,
+    "heightScale": 0.95,
+    "depthScale": 1.3,
     "worldPosition": [
-      -5.7874,
-      1.19106,
-      -4.159143
+      -5.78362,
+      1.18035,
+      -4.192816
     ],
     "chipPayload": {
       "book_id": "HX-0083",
@@ -2833,7 +2999,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 20,
-    "color": "#466b60",
+    "color": "#4a7266",
     "keys": [
       "HX-0084",
       "HX0084",
@@ -2844,11 +3010,13 @@ export const books = [
     "chipId": "HX-0084",
     "locationCode": "S1-A-L3-P20",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.0884,
+    "heightScale": 1.05,
+    "depthScale": 0.8,
     "worldPosition": [
-      -5.7874,
-      1.18494,
-      -3.919714
+      -5.78992,
+      1.19565,
+      -3.964628
     ],
     "chipPayload": {
       "book_id": "HX-0084",
@@ -2867,7 +3035,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 21,
-    "color": "#466b60",
+    "color": "#476d62",
     "keys": [
       "HX-0085",
       "HX0085",
@@ -2878,11 +3046,13 @@ export const books = [
     "chipId": "HX-0085",
     "locationCode": "S1-A-L3-P21",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.1525,
+    "heightScale": 1.1,
+    "depthScale": 1.48,
     "worldPosition": [
-      -5.7874,
-      1.19259,
-      -3.680286
+      -5.781352,
+      1.2033,
+      -3.722611
     ],
     "chipPayload": {
       "book_id": "HX-0085",
@@ -2901,7 +3071,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 22,
-    "color": "#466b60",
+    "color": "#476d62",
     "keys": [
       "HX-0086",
       "HX0086",
@@ -2912,11 +3082,13 @@ export const books = [
     "chipId": "HX-0086",
     "locationCode": "S1-A-L3-P22",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.1525,
+    "heightScale": 1.1,
+    "depthScale": 1.48,
     "worldPosition": [
-      -5.7874,
-      1.17576,
-      -3.440857
+      -5.781352,
+      1.2033,
+      -3.473678
     ],
     "chipPayload": {
       "book_id": "HX-0086",
@@ -2935,7 +3107,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 23,
-    "color": "#466b60",
+    "color": "#476d62",
     "keys": [
       "HX-0087",
       "HX0087",
@@ -2946,11 +3118,13 @@ export const books = [
     "chipId": "HX-0087",
     "locationCode": "S1-A-L3-P23",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.1525,
+    "heightScale": 1.1,
+    "depthScale": 1.48,
     "worldPosition": [
-      -5.7874,
-      1.17882,
-      -3.201429
+      -5.781352,
+      1.2033,
+      -3.224745
     ],
     "chipPayload": {
       "book_id": "HX-0087",
@@ -2969,7 +3143,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 24,
-    "color": "#466b60",
+    "color": "#518072",
     "keys": [
       "HX-0088",
       "HX0088",
@@ -2980,11 +3154,13 @@ export const books = [
     "chipId": "HX-0088",
     "locationCode": "S1-A-L3-P24",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 0.9604,
+    "heightScale": 0.95,
+    "depthScale": 1.3,
     "worldPosition": [
-      -5.7874,
-      1.17576,
-      -2.962
+      -5.78362,
+      1.18035,
+      -2.996557
     ],
     "chipPayload": {
       "book_id": "HX-0088",
@@ -3003,7 +3179,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 25,
-    "color": "#466b60",
+    "color": "#518072",
     "keys": [
       "HX-0089",
       "HX0089",
@@ -3014,11 +3190,13 @@ export const books = [
     "chipId": "HX-0089",
     "locationCode": "S1-A-L3-P25",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 0.9873,
+    "heightScale": 1.05,
+    "depthScale": 1.15,
     "worldPosition": [
-      -5.7874,
-      1.188,
-      -2.638
+      -5.78551,
+      1.19565,
+      -2.639367
     ],
     "chipPayload": {
       "book_id": "HX-0089",
@@ -3037,7 +3215,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 26,
-    "color": "#466b60",
+    "color": "#518072",
     "keys": [
       "人工智能",
       "ai",
@@ -3052,11 +3230,13 @@ export const books = [
     "chipId": "HX-0090",
     "locationCode": "S1-A-L3-P26",
     "placeholder": false,
-    "heightScale": 0.95,
+    "widthScale": 0.9873,
+    "heightScale": 1.05,
+    "depthScale": 1.15,
     "worldPosition": [
-      -5.7874,
-      1.18035,
-      -2.405714
+      -5.78551,
+      1.19565,
+      -2.426102
     ],
     "chipPayload": {
       "book_id": "HX-0090",
@@ -3075,7 +3255,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 27,
-    "color": "#466b60",
+    "color": "#518072",
     "keys": [
       "HX-0091",
       "HX0091",
@@ -3086,11 +3266,13 @@ export const books = [
     "chipId": "HX-0091",
     "locationCode": "S1-A-L3-P27",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 0.9873,
+    "heightScale": 1.05,
+    "depthScale": 1.15,
     "worldPosition": [
-      -5.7874,
-      1.18494,
-      -2.173429
+      -5.78551,
+      1.19565,
+      -2.212836
     ],
     "chipPayload": {
       "book_id": "HX-0091",
@@ -3109,7 +3291,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 28,
-    "color": "#466b60",
+    "color": "#4c766a",
     "keys": [
       "HX-0092",
       "HX0092",
@@ -3120,11 +3302,13 @@ export const books = [
     "chipId": "HX-0092",
     "locationCode": "S1-A-L3-P28",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 0.8557,
+    "heightScale": 1.05,
+    "depthScale": 0.9,
     "worldPosition": [
-      -5.7874,
-      1.18035,
-      -1.941143
+      -5.78866,
+      1.19565,
+      -2.013788
     ],
     "chipPayload": {
       "book_id": "HX-0092",
@@ -3143,7 +3327,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 29,
-    "color": "#466b60",
+    "color": "#4c766a",
     "keys": [
       "HX-0093",
       "HX0093",
@@ -3154,11 +3338,13 @@ export const books = [
     "chipId": "HX-0093",
     "locationCode": "S1-A-L3-P29",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 0.8557,
+    "heightScale": 1.05,
+    "depthScale": 0.9,
     "worldPosition": [
-      -5.7874,
-      1.18494,
-      -1.708857
+      -5.78866,
+      1.19565,
+      -1.828958
     ],
     "chipPayload": {
       "book_id": "HX-0093",
@@ -3177,7 +3363,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 30,
-    "color": "#466b60",
+    "color": "#3d5b52",
     "keys": [
       "HX-0094",
       "HX0094",
@@ -3188,11 +3374,13 @@ export const books = [
     "chipId": "HX-0094",
     "locationCode": "S1-A-L3-P30",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.2506,
+    "heightScale": 0.9,
+    "depthScale": 1,
     "worldPosition": [
       -5.7874,
-      1.19718,
-      -1.476571
+      1.1727,
+      -1.601475
     ],
     "chipPayload": {
       "book_id": "HX-0094",
@@ -3211,7 +3399,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 31,
-    "color": "#466b60",
+    "color": "#3d5b52",
     "keys": [
       "HX-0095",
       "HX0095",
@@ -3222,11 +3410,13 @@ export const books = [
     "chipId": "HX-0095",
     "locationCode": "S1-A-L3-P31",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.2506,
+    "heightScale": 0.9,
+    "depthScale": 1,
     "worldPosition": [
       -5.7874,
-      1.19259,
-      -1.244286
+      1.1727,
+      -1.331338
     ],
     "chipPayload": {
       "book_id": "HX-0095",
@@ -3245,7 +3435,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 32,
-    "color": "#466b60",
+    "color": "#476d62",
     "keys": [
       "HX-0096",
       "HX0096",
@@ -3256,11 +3446,13 @@ export const books = [
     "chipId": "HX-0096",
     "locationCode": "S1-A-L3-P32",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.2506,
+    "heightScale": 1.05,
+    "depthScale": 0.9,
     "worldPosition": [
-      -5.7874,
-      1.18953,
-      -1.012
+      -5.78866,
+      1.19565,
+      -1.061202
     ],
     "chipPayload": {
       "book_id": "HX-0096",
@@ -3279,7 +3471,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 1,
-    "color": "#466b60",
+    "color": "#476d62",
     "keys": [
       "HX-0097",
       "HX0097",
@@ -3290,11 +3482,13 @@ export const books = [
     "chipId": "HX-0097",
     "locationCode": "S1-A-L4-P01",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.1943,
+    "heightScale": 0.8,
+    "depthScale": 0.8,
     "worldPosition": [
-      -5.7874,
-      1.688,
-      -8.588
+      -5.78992,
+      1.6574,
+      -8.567011
     ],
     "chipPayload": {
       "book_id": "HX-0097",
@@ -3313,7 +3507,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 2,
-    "color": "#466b60",
+    "color": "#476d62",
     "keys": [
       "HX-0098",
       "HX0098",
@@ -3324,11 +3518,13 @@ export const books = [
     "chipId": "HX-0098",
     "locationCode": "S1-A-L4-P02",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.1943,
+    "heightScale": 0.8,
+    "depthScale": 0.8,
     "worldPosition": [
-      -5.7874,
-      1.69412,
-      -8.355714
+      -5.78992,
+      1.6574,
+      -8.309034
     ],
     "chipPayload": {
       "book_id": "HX-0098",
@@ -3347,7 +3543,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 3,
-    "color": "#466b60",
+    "color": "#476d62",
     "keys": [
       "HX-0099",
       "HX0099",
@@ -3358,11 +3554,13 @@ export const books = [
     "chipId": "HX-0099",
     "locationCode": "S1-A-L4-P03",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.1943,
+    "heightScale": 0.8,
+    "depthScale": 0.8,
     "worldPosition": [
-      -5.7874,
-      1.67576,
-      -8.123429
+      -5.78992,
+      1.6574,
+      -8.051057
     ],
     "chipPayload": {
       "book_id": "HX-0099",
@@ -3381,7 +3579,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 4,
-    "color": "#466b60",
+    "color": "#4a7266",
     "keys": [
       "HX-0100",
       "HX0100",
@@ -3392,11 +3590,13 @@ export const books = [
     "chipId": "HX-0100",
     "locationCode": "S1-A-L4-P04",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 0.9429,
+    "heightScale": 0.85,
+    "depthScale": 1.15,
     "worldPosition": [
-      -5.7874,
-      1.688,
-      -7.891143
+      -5.78551,
+      1.66505,
+      -7.820236
     ],
     "chipPayload": {
       "book_id": "HX-0100",
@@ -3415,7 +3615,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 5,
-    "color": "#466b60",
+    "color": "#42645a",
     "keys": [
       "HX-0101",
       "HX0101",
@@ -3426,11 +3626,13 @@ export const books = [
     "chipId": "HX-0101",
     "locationCode": "S1-A-L4-P05",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.1315,
+    "heightScale": 0.9,
+    "depthScale": 0.8,
     "worldPosition": [
-      -5.7874,
-      1.68188,
-      -7.658857
+      -5.78992,
+      1.6727,
+      -7.596203
     ],
     "chipPayload": {
       "book_id": "HX-0101",
@@ -3449,7 +3651,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 6,
-    "color": "#466b60",
+    "color": "#406056",
     "keys": [
       "HX-0102",
       "HX0102",
@@ -3460,11 +3662,13 @@ export const books = [
     "chipId": "HX-0102",
     "locationCode": "S1-A-L4-P06",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.0058,
+    "heightScale": 1.1,
+    "depthScale": 1.48,
     "worldPosition": [
-      -5.7874,
-      1.67729,
-      -7.426571
+      -5.781352,
+      1.7033,
+      -7.365381
     ],
     "chipPayload": {
       "book_id": "HX-0102",
@@ -3483,7 +3687,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 7,
-    "color": "#466b60",
+    "color": "#518072",
     "keys": [
       "HX-0103",
       "HX0103",
@@ -3494,11 +3698,13 @@ export const books = [
     "chipId": "HX-0103",
     "locationCode": "S1-A-L4-P07",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 0.8172,
+    "heightScale": 1.1,
+    "depthScale": 1.3,
     "worldPosition": [
-      -5.7874,
-      1.69106,
-      -7.194286
+      -5.78362,
+      1.7033,
+      -7.168504
     ],
     "chipPayload": {
       "book_id": "HX-0103",
@@ -3517,7 +3723,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 8,
-    "color": "#466b60",
+    "color": "#518072",
     "keys": [
       "HX-0104",
       "HX0104",
@@ -3528,11 +3734,13 @@ export const books = [
     "chipId": "HX-0104",
     "locationCode": "S1-A-L4-P08",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 0.8172,
+    "heightScale": 1.1,
+    "depthScale": 1.3,
     "worldPosition": [
-      -5.7874,
-      1.688,
-      -6.962
+      -5.78362,
+      1.7033,
+      -6.991993
     ],
     "chipPayload": {
       "book_id": "HX-0104",
@@ -3551,7 +3759,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 9,
-    "color": "#466b60",
+    "color": "#45695e",
     "keys": [
       "HX-0105",
       "HX0105",
@@ -3562,11 +3770,13 @@ export const books = [
     "chipId": "HX-0105",
     "locationCode": "S1-A-L4-P09",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.1295,
+    "heightScale": 1.05,
+    "depthScale": 1,
     "worldPosition": [
       -5.7874,
-      1.67576,
-      -6.638
+      1.69565,
+      -6.624013
     ],
     "chipPayload": {
       "book_id": "HX-0105",
@@ -3585,7 +3795,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 10,
-    "color": "#466b60",
+    "color": "#45695e",
     "keys": [
       "HX-0106",
       "HX0106",
@@ -3596,11 +3806,13 @@ export const books = [
     "chipId": "HX-0106",
     "locationCode": "S1-A-L4-P10",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.1295,
+    "heightScale": 1.05,
+    "depthScale": 1,
     "worldPosition": [
       -5.7874,
-      1.67576,
-      -6.398571
+      1.69565,
+      -6.380038
     ],
     "chipPayload": {
       "book_id": "HX-0106",
@@ -3619,7 +3831,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 11,
-    "color": "#466b60",
+    "color": "#4c766a",
     "keys": [
       "HX-0107",
       "HX0107",
@@ -3630,11 +3842,13 @@ export const books = [
     "chipId": "HX-0107",
     "locationCode": "S1-A-L4-P11",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 0.9966,
+    "heightScale": 0.85,
+    "depthScale": 1,
     "worldPosition": [
       -5.7874,
-      1.68647,
-      -6.159143
+      1.66505,
+      -6.150415
     ],
     "chipPayload": {
       "book_id": "HX-0107",
@@ -3653,7 +3867,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 12,
-    "color": "#466b60",
+    "color": "#4c766a",
     "keys": [
       "HX-0108",
       "HX0108",
@@ -3664,11 +3878,13 @@ export const books = [
     "chipId": "HX-0108",
     "locationCode": "S1-A-L4-P12",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 0.9966,
+    "heightScale": 0.85,
+    "depthScale": 1,
     "worldPosition": [
       -5.7874,
-      1.688,
-      -5.919714
+      1.66505,
+      -5.935143
     ],
     "chipPayload": {
       "book_id": "HX-0108",
@@ -3687,7 +3903,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 13,
-    "color": "#466b60",
+    "color": "#4c766a",
     "keys": [
       "HX-0109",
       "HX0109",
@@ -3698,11 +3914,13 @@ export const books = [
     "chipId": "HX-0109",
     "locationCode": "S1-A-L4-P13",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 0.9966,
+    "heightScale": 0.85,
+    "depthScale": 1,
     "worldPosition": [
       -5.7874,
-      1.67576,
-      -5.680286
+      1.66505,
+      -5.719872
     ],
     "chipPayload": {
       "book_id": "HX-0109",
@@ -3721,7 +3939,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 14,
-    "color": "#466b60",
+    "color": "#4c766a",
     "keys": [
       "HX-0110",
       "HX0110",
@@ -3732,11 +3950,13 @@ export const books = [
     "chipId": "HX-0110",
     "locationCode": "S1-A-L4-P14",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.196,
+    "heightScale": 1.05,
+    "depthScale": 0.9,
     "worldPosition": [
-      -5.7874,
-      1.68647,
-      -5.440857
+      -5.78866,
+      1.69565,
+      -5.483073
     ],
     "chipPayload": {
       "book_id": "HX-0110",
@@ -3755,7 +3975,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 15,
-    "color": "#466b60",
+    "color": "#4c766a",
     "keys": [
       "HX-0111",
       "HX0111",
@@ -3766,11 +3986,13 @@ export const books = [
     "chipId": "HX-0111",
     "locationCode": "S1-A-L4-P15",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.196,
+    "heightScale": 1.05,
+    "depthScale": 0.9,
     "worldPosition": [
-      -5.7874,
-      1.67576,
-      -5.201429
+      -5.78866,
+      1.69565,
+      -5.224747
     ],
     "chipPayload": {
       "book_id": "HX-0111",
@@ -3789,7 +4011,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 16,
-    "color": "#466b60",
+    "color": "#4a7266",
     "keys": [
       "HX-0112",
       "HX0112",
@@ -3800,11 +4022,13 @@ export const books = [
     "chipId": "HX-0112",
     "locationCode": "S1-A-L4-P16",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 0.8637,
+    "heightScale": 0.85,
+    "depthScale": 1.48,
     "worldPosition": [
-      -5.7874,
-      1.68953,
-      -4.962
+      -5.781352,
+      1.66505,
+      -5.002299
     ],
     "chipPayload": {
       "book_id": "HX-0112",
@@ -3823,7 +4047,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 17,
-    "color": "#466b60",
+    "color": "#4f7b6e",
     "keys": [
       "HX-0113",
       "HX0113",
@@ -3834,11 +4058,13 @@ export const books = [
     "chipId": "HX-0113",
     "locationCode": "S1-A-L4-P17",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.0798,
+    "heightScale": 0.85,
+    "depthScale": 0.8,
     "worldPosition": [
-      -5.7874,
-      1.69259,
-      -4.638
+      -5.78992,
+      1.66505,
+      -4.629378
     ],
     "chipPayload": {
       "book_id": "HX-0113",
@@ -3857,7 +4083,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 18,
-    "color": "#466b60",
+    "color": "#4f7b6e",
     "keys": [
       "HX-0114",
       "HX0114",
@@ -3868,11 +4094,13 @@ export const books = [
     "chipId": "HX-0114",
     "locationCode": "S1-A-L4-P18",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.0798,
+    "heightScale": 0.85,
+    "depthScale": 0.8,
     "worldPosition": [
-      -5.7874,
-      1.67729,
-      -4.398571
+      -5.78992,
+      1.66505,
+      -4.396135
     ],
     "chipPayload": {
       "book_id": "HX-0114",
@@ -3891,7 +4119,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 19,
-    "color": "#466b60",
+    "color": "#3a574e",
     "keys": [
       "HX-0115",
       "HX0115",
@@ -3902,11 +4130,13 @@ export const books = [
     "chipId": "HX-0115",
     "locationCode": "S1-A-L4-P19",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 0.9528,
+    "heightScale": 0.9,
+    "depthScale": 1,
     "worldPosition": [
       -5.7874,
-      1.67729,
-      -4.159143
+      1.6727,
+      -4.176612
     ],
     "chipPayload": {
       "book_id": "HX-0115",
@@ -3925,7 +4155,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 20,
-    "color": "#466b60",
+    "color": "#3a574e",
     "keys": [
       "HX-0116",
       "HX0116",
@@ -3936,11 +4166,13 @@ export const books = [
     "chipId": "HX-0116",
     "locationCode": "S1-A-L4-P20",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 0.9528,
+    "heightScale": 0.9,
+    "depthScale": 1,
     "worldPosition": [
       -5.7874,
-      1.68188,
-      -3.919714
+      1.6727,
+      -3.97081
     ],
     "chipPayload": {
       "book_id": "HX-0116",
@@ -3959,7 +4191,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 21,
-    "color": "#466b60",
+    "color": "#4f7b6e",
     "keys": [
       "HX-0117",
       "HX0117",
@@ -3970,11 +4202,13 @@ export const books = [
     "chipId": "HX-0117",
     "locationCode": "S1-A-L4-P21",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.2069,
+    "heightScale": 1,
+    "depthScale": 1.48,
     "worldPosition": [
-      -5.7874,
-      1.69565,
-      -3.680286
+      -5.781352,
+      1.688,
+      -3.737567
     ],
     "chipPayload": {
       "book_id": "HX-0117",
@@ -3993,7 +4227,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 22,
-    "color": "#466b60",
+    "color": "#4f7b6e",
     "keys": [
       "HX-0118",
       "HX0118",
@@ -4004,11 +4238,13 @@ export const books = [
     "chipId": "HX-0118",
     "locationCode": "S1-A-L4-P22",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.2069,
+    "heightScale": 1,
+    "depthScale": 1.48,
     "worldPosition": [
-      -5.7874,
-      1.69106,
-      -3.440857
+      -5.781352,
+      1.688,
+      -3.476883
     ],
     "chipPayload": {
       "book_id": "HX-0118",
@@ -4027,7 +4263,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 23,
-    "color": "#466b60",
+    "color": "#4f7b6e",
     "keys": [
       "HX-0119",
       "HX0119",
@@ -4038,11 +4274,13 @@ export const books = [
     "chipId": "HX-0119",
     "locationCode": "S1-A-L4-P23",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.2069,
+    "heightScale": 1,
+    "depthScale": 1.48,
     "worldPosition": [
-      -5.7874,
-      1.68953,
-      -3.201429
+      -5.781352,
+      1.688,
+      -3.2162
     ],
     "chipPayload": {
       "book_id": "HX-0119",
@@ -4061,7 +4299,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 24,
-    "color": "#466b60",
+    "color": "#42645a",
     "keys": [
       "HX-0120",
       "HX0120",
@@ -4072,11 +4310,13 @@ export const books = [
     "chipId": "HX-0120",
     "locationCode": "S1-A-L4-P24",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 0.8893,
+    "heightScale": 0.85,
+    "depthScale": 1,
     "worldPosition": [
       -5.7874,
-      1.68494,
-      -2.962
+      1.66505,
+      -2.989817
     ],
     "chipPayload": {
       "book_id": "HX-0120",
@@ -4095,7 +4335,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 25,
-    "color": "#466b60",
+    "color": "#45695e",
     "keys": [
       "HX-0121",
       "HX0121",
@@ -4106,11 +4346,13 @@ export const books = [
     "chipId": "HX-0121",
     "locationCode": "S1-A-L4-P25",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.1672,
+    "heightScale": 0.95,
+    "depthScale": 1.48,
     "worldPosition": [
-      -5.7874,
-      1.67882,
-      -2.638
+      -5.781352,
+      1.68035,
+      -2.619946
     ],
     "chipPayload": {
       "book_id": "HX-0121",
@@ -4129,7 +4371,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 26,
-    "color": "#466b60",
+    "color": "#45695e",
     "keys": [
       "HX-0122",
       "HX0122",
@@ -4140,11 +4382,13 @@ export const books = [
     "chipId": "HX-0122",
     "locationCode": "S1-A-L4-P26",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.1672,
+    "heightScale": 0.95,
+    "depthScale": 1.48,
     "worldPosition": [
-      -5.7874,
-      1.68647,
-      -2.405714
+      -5.781352,
+      1.68035,
+      -2.367839
     ],
     "chipPayload": {
       "book_id": "HX-0122",
@@ -4163,7 +4407,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 27,
-    "color": "#466b60",
+    "color": "#476d62",
     "keys": [
       "HX-0123",
       "HX0123",
@@ -4174,11 +4418,13 @@ export const books = [
     "chipId": "HX-0123",
     "locationCode": "S1-A-L4-P27",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 0.9829,
+    "heightScale": 1.1,
+    "depthScale": 0.8,
     "worldPosition": [
-      -5.7874,
-      1.69565,
-      -2.173429
+      -5.78992,
+      1.7033,
+      -2.135635
     ],
     "chipPayload": {
       "book_id": "HX-0123",
@@ -4197,7 +4443,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 28,
-    "color": "#466b60",
+    "color": "#476d62",
     "keys": [
       "HX-0124",
       "HX0124",
@@ -4208,11 +4454,13 @@ export const books = [
     "chipId": "HX-0124",
     "locationCode": "S1-A-L4-P28",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 0.9829,
+    "heightScale": 1.1,
+    "depthScale": 0.8,
     "worldPosition": [
-      -5.7874,
-      1.68953,
-      -1.941143
+      -5.78992,
+      1.7033,
+      -1.923335
     ],
     "chipPayload": {
       "book_id": "HX-0124",
@@ -4231,7 +4479,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 29,
-    "color": "#466b60",
+    "color": "#476d62",
     "keys": [
       "HX-0125",
       "HX0125",
@@ -4242,11 +4490,13 @@ export const books = [
     "chipId": "HX-0125",
     "locationCode": "S1-A-L4-P29",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 0.9829,
+    "heightScale": 1.1,
+    "depthScale": 0.8,
     "worldPosition": [
-      -5.7874,
-      1.67882,
-      -1.708857
+      -5.78992,
+      1.7033,
+      -1.711034
     ],
     "chipPayload": {
       "book_id": "HX-0125",
@@ -4265,7 +4515,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 30,
-    "color": "#466b60",
+    "color": "#4a7266",
     "keys": [
       "HX-0126",
       "HX0126",
@@ -4276,11 +4526,13 @@ export const books = [
     "chipId": "HX-0126",
     "locationCode": "S1-A-L4-P30",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.1672,
+    "heightScale": 0.95,
+    "depthScale": 1.48,
     "worldPosition": [
-      -5.7874,
-      1.69718,
-      -1.476571
+      -5.781352,
+      1.68035,
+      -1.47883
     ],
     "chipPayload": {
       "book_id": "HX-0126",
@@ -4299,7 +4551,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 31,
-    "color": "#466b60",
+    "color": "#4a7266",
     "keys": [
       "HX-0127",
       "HX0127",
@@ -4310,11 +4562,13 @@ export const books = [
     "chipId": "HX-0127",
     "locationCode": "S1-A-L4-P31",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.1672,
+    "heightScale": 0.95,
+    "depthScale": 1.48,
     "worldPosition": [
-      -5.7874,
-      1.68953,
-      -1.244286
+      -5.781352,
+      1.68035,
+      -1.226723
     ],
     "chipPayload": {
       "book_id": "HX-0127",
@@ -4333,7 +4587,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 32,
-    "color": "#466b60",
+    "color": "#406056",
     "keys": [
       "HX-0128",
       "HX0128",
@@ -4344,11 +4598,13 @@ export const books = [
     "chipId": "HX-0128",
     "locationCode": "S1-A-L4-P32",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 0.7986,
+    "heightScale": 0.95,
+    "depthScale": 1,
     "worldPosition": [
       -5.7874,
-      1.67882,
-      -1.012
+      1.68035,
+      -1.014422
     ],
     "chipPayload": {
       "book_id": "HX-0128",
@@ -4367,7 +4623,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 1,
-    "color": "#466b60",
+    "color": "#3d5b52",
     "keys": [
       "HX-0129",
       "HX0129",
@@ -4378,11 +4634,13 @@ export const books = [
     "chipId": "HX-0129",
     "locationCode": "S1-B-L1-P01",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.0521,
+    "heightScale": 0.85,
+    "depthScale": 1.48,
     "worldPosition": [
-      -6.2126,
-      0.24912,
-      -8.588
+      -6.218648,
+      0.22005,
+      -8.582368
     ],
     "chipPayload": {
       "book_id": "HX-0129",
@@ -4401,7 +4659,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 2,
-    "color": "#466b60",
+    "color": "#3d5b52",
     "keys": [
       "HX-0130",
       "HX0130",
@@ -4412,11 +4670,13 @@ export const books = [
     "chipId": "HX-0130",
     "locationCode": "S1-B-L1-P02",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.0521,
+    "heightScale": 0.85,
+    "depthScale": 1.48,
     "worldPosition": [
-      -6.2126,
-      0.25065,
-      -8.355714
+      -6.218648,
+      0.22005,
+      -8.355104
     ],
     "chipPayload": {
       "book_id": "HX-0130",
@@ -4435,7 +4695,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 3,
-    "color": "#466b60",
+    "color": "#45695e",
     "keys": [
       "HX-0131",
       "HX0131",
@@ -4446,11 +4706,13 @@ export const books = [
     "chipId": "HX-0131",
     "locationCode": "S1-B-L1-P03",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 0.9206,
+    "heightScale": 0.95,
+    "depthScale": 1,
     "worldPosition": [
       -6.2126,
-      0.25218,
-      -8.123429
+      0.23535,
+      -8.142044
     ],
     "chipPayload": {
       "book_id": "HX-0131",
@@ -4469,7 +4731,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 4,
-    "color": "#466b60",
+    "color": "#45695e",
     "keys": [
       "HX-0132",
       "HX0132",
@@ -4480,11 +4742,13 @@ export const books = [
     "chipId": "HX-0132",
     "locationCode": "S1-B-L1-P04",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 0.9206,
+    "heightScale": 0.95,
+    "depthScale": 1,
     "worldPosition": [
       -6.2126,
-      0.23229,
-      -7.891143
+      0.23535,
+      -7.943189
     ],
     "chipPayload": {
       "book_id": "HX-0132",
@@ -4503,7 +4767,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 5,
-    "color": "#466b60",
+    "color": "#3d5b52",
     "keys": [
       "HX-0133",
       "HX0133",
@@ -4514,11 +4778,13 @@ export const books = [
     "chipId": "HX-0133",
     "locationCode": "S1-B-L1-P05",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.0521,
+    "heightScale": 0.95,
+    "depthScale": 0.9,
     "worldPosition": [
-      -6.2126,
-      0.23382,
-      -7.658857
+      -6.21134,
+      0.23535,
+      -7.730129
     ],
     "chipPayload": {
       "book_id": "HX-0133",
@@ -4537,7 +4803,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 6,
-    "color": "#466b60",
+    "color": "#3d5b52",
     "keys": [
       "HX-0134",
       "HX0134",
@@ -4548,11 +4814,13 @@ export const books = [
     "chipId": "HX-0134",
     "locationCode": "S1-B-L1-P06",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.0521,
+    "heightScale": 0.95,
+    "depthScale": 0.9,
     "worldPosition": [
-      -6.2126,
-      0.23841,
-      -7.426571
+      -6.21134,
+      0.23535,
+      -7.502865
     ],
     "chipPayload": {
       "book_id": "HX-0134",
@@ -4571,7 +4839,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 7,
-    "color": "#466b60",
+    "color": "#3d5b52",
     "keys": [
       "HX-0135",
       "HX0135",
@@ -4582,11 +4850,13 @@ export const books = [
     "chipId": "HX-0135",
     "locationCode": "S1-B-L1-P07",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.0521,
+    "heightScale": 0.95,
+    "depthScale": 0.9,
     "worldPosition": [
-      -6.2126,
-      0.25065,
-      -7.194286
+      -6.21134,
+      0.23535,
+      -7.275601
     ],
     "chipPayload": {
       "book_id": "HX-0135",
@@ -4605,7 +4875,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 8,
-    "color": "#466b60",
+    "color": "#476d62",
     "keys": [
       "HX-0136",
       "HX0136",
@@ -4616,11 +4886,13 @@ export const books = [
     "chipId": "HX-0136",
     "locationCode": "S1-B-L1-P08",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.1837,
+    "heightScale": 0.95,
+    "depthScale": 1,
     "worldPosition": [
       -6.2126,
-      0.23688,
-      -6.962
+      0.23535,
+      -7.034133
     ],
     "chipPayload": {
       "book_id": "HX-0136",
@@ -4639,7 +4911,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 9,
-    "color": "#466b60",
+    "color": "#406056",
     "keys": [
       "HX-0137",
       "HX0137",
@@ -4650,11 +4922,13 @@ export const books = [
     "chipId": "HX-0137",
     "locationCode": "S1-B-L1-P09",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.0621,
+    "heightScale": 1,
+    "depthScale": 0.8,
     "worldPosition": [
-      -6.2126,
-      0.23535,
-      -6.638
+      -6.21008,
+      0.243,
+      -6.631297
     ],
     "chipPayload": {
       "book_id": "HX-0137",
@@ -4673,7 +4947,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 10,
-    "color": "#466b60",
+    "color": "#406056",
     "keys": [
       "HX-0138",
       "HX0138",
@@ -4684,11 +4958,13 @@ export const books = [
     "chipId": "HX-0138",
     "locationCode": "S1-B-L1-P10",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.1329,
+    "heightScale": 1,
+    "depthScale": 0.9,
     "worldPosition": [
-      -6.2126,
-      0.23994,
-      -6.398571
+      -6.21134,
+      0.243,
+      -6.394244
     ],
     "chipPayload": {
       "book_id": "HX-0138",
@@ -4707,7 +4983,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 11,
-    "color": "#466b60",
+    "color": "#406056",
     "keys": [
       "HX-0139",
       "HX0139",
@@ -4718,11 +4994,13 @@ export const books = [
     "chipId": "HX-0139",
     "locationCode": "S1-B-L1-P11",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.1329,
+    "heightScale": 1,
+    "depthScale": 0.9,
     "worldPosition": [
-      -6.2126,
-      0.24912,
-      -6.159143
+      -6.21134,
+      0.243,
+      -6.149545
     ],
     "chipPayload": {
       "book_id": "HX-0139",
@@ -4741,7 +5019,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 12,
-    "color": "#466b60",
+    "color": "#518072",
     "keys": [
       "HX-0140",
       "HX0140",
@@ -4752,11 +5030,13 @@ export const books = [
     "chipId": "HX-0140",
     "locationCode": "S1-B-L1-P12",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 0.9205,
+    "heightScale": 1,
+    "depthScale": 0.9,
     "worldPosition": [
-      -6.2126,
-      0.23994,
-      -5.919714
+      -6.21134,
+      0.243,
+      -5.927786
     ],
     "chipPayload": {
       "book_id": "HX-0140",
@@ -4775,7 +5055,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 13,
-    "color": "#466b60",
+    "color": "#4a7266",
     "keys": [
       "HX-0141",
       "HX0141",
@@ -4786,11 +5066,13 @@ export const books = [
     "chipId": "HX-0141",
     "locationCode": "S1-B-L1-P13",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 0.9913,
+    "heightScale": 1,
+    "depthScale": 1.15,
     "worldPosition": [
-      -6.2126,
-      0.23994,
-      -5.680286
+      -6.21449,
+      0.243,
+      -5.72132
     ],
     "chipPayload": {
       "book_id": "HX-0141",
@@ -4809,7 +5091,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 14,
-    "color": "#466b60",
+    "color": "#4a7266",
     "keys": [
       "HX-0142",
       "HX0142",
@@ -4820,11 +5102,13 @@ export const books = [
     "chipId": "HX-0142",
     "locationCode": "S1-B-L1-P14",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 0.9913,
+    "heightScale": 1,
+    "depthScale": 1.15,
     "worldPosition": [
-      -6.2126,
-      0.24453,
-      -5.440857
+      -6.21449,
+      0.243,
+      -5.507208
     ],
     "chipPayload": {
       "book_id": "HX-0142",
@@ -4843,7 +5127,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 15,
-    "color": "#466b60",
+    "color": "#4a7266",
     "keys": [
       "HX-0143",
       "HX0143",
@@ -4854,11 +5138,13 @@ export const books = [
     "chipId": "HX-0143",
     "locationCode": "S1-B-L1-P15",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 0.9913,
+    "heightScale": 1,
+    "depthScale": 1.15,
     "worldPosition": [
-      -6.2126,
-      0.24147,
-      -5.201429
+      -6.21449,
+      0.243,
+      -5.293096
     ],
     "chipPayload": {
       "book_id": "HX-0143",
@@ -4877,7 +5163,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 16,
-    "color": "#466b60",
+    "color": "#42645a",
     "keys": [
       "HX-0144",
       "HX0144",
@@ -4888,11 +5174,13 @@ export const books = [
     "chipId": "HX-0144",
     "locationCode": "S1-B-L1-P16",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.2745,
+    "heightScale": 0.9,
+    "depthScale": 1.3,
     "worldPosition": [
-      -6.2126,
-      0.23688,
-      -4.962
+      -6.21638,
+      0.2277,
+      -5.048396
     ],
     "chipPayload": {
       "book_id": "HX-0144",
@@ -4911,7 +5199,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 17,
-    "color": "#466b60",
+    "color": "#406056",
     "keys": [
       "HX-0145",
       "HX0145",
@@ -4922,11 +5210,13 @@ export const books = [
     "chipId": "HX-0145",
     "locationCode": "S1-B-L1-P17",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.0472,
+    "heightScale": 0.8,
+    "depthScale": 1.3,
     "worldPosition": [
-      -6.2126,
-      0.23076,
-      -4.638
+      -6.21638,
+      0.2124,
+      -4.632904
     ],
     "chipPayload": {
       "book_id": "HX-0145",
@@ -4945,7 +5235,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 18,
-    "color": "#466b60",
+    "color": "#406056",
     "keys": [
       "HX-0146",
       "HX0146",
@@ -4956,11 +5246,13 @@ export const books = [
     "chipId": "HX-0146",
     "locationCode": "S1-B-L1-P18",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.0472,
+    "heightScale": 0.8,
+    "depthScale": 1,
     "worldPosition": [
       -6.2126,
-      0.23535,
-      -4.398571
+      0.2124,
+      -4.406713
     ],
     "chipPayload": {
       "book_id": "HX-0146",
@@ -4979,7 +5271,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 19,
-    "color": "#466b60",
+    "color": "#406056",
     "keys": [
       "HX-0147",
       "HX0147",
@@ -4990,11 +5282,13 @@ export const books = [
     "chipId": "HX-0147",
     "locationCode": "S1-B-L1-P19",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.0472,
+    "heightScale": 0.8,
+    "depthScale": 1,
     "worldPosition": [
       -6.2126,
-      0.24759,
-      -4.159143
+      0.2124,
+      -4.180522
     ],
     "chipPayload": {
       "book_id": "HX-0147",
@@ -5013,7 +5307,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 20,
-    "color": "#466b60",
+    "color": "#3a574e",
     "keys": [
       "HX-0148",
       "HX0148",
@@ -5024,11 +5318,13 @@ export const books = [
     "chipId": "HX-0148",
     "locationCode": "S1-B-L1-P20",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 0.9076,
+    "heightScale": 0.9,
+    "depthScale": 1.3,
     "worldPosition": [
-      -6.2126,
-      0.24912,
-      -3.919714
+      -6.21638,
+      0.2277,
+      -3.96941
     ],
     "chipPayload": {
       "book_id": "HX-0148",
@@ -5047,7 +5343,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 21,
-    "color": "#466b60",
+    "color": "#3a574e",
     "keys": [
       "HX-0149",
       "HX0149",
@@ -5058,11 +5354,13 @@ export const books = [
     "chipId": "HX-0149",
     "locationCode": "S1-B-L1-P21",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.3264,
+    "heightScale": 0.95,
+    "depthScale": 1.3,
     "worldPosition": [
-      -6.2126,
-      0.243,
-      -3.680286
+      -6.21638,
+      0.23535,
+      -3.728139
     ],
     "chipPayload": {
       "book_id": "HX-0149",
@@ -5081,7 +5379,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 22,
-    "color": "#466b60",
+    "color": "#3a574e",
     "keys": [
       "HX-0150",
       "HX0150",
@@ -5092,11 +5390,13 @@ export const books = [
     "chipId": "HX-0150",
     "locationCode": "S1-B-L1-P22",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.3264,
+    "heightScale": 0.95,
+    "depthScale": 1.3,
     "worldPosition": [
-      -6.2126,
-      0.24606,
-      -3.440857
+      -6.21638,
+      0.23535,
+      -3.441631
     ],
     "chipPayload": {
       "book_id": "HX-0150",
@@ -5115,7 +5415,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 23,
-    "color": "#466b60",
+    "color": "#476d62",
     "keys": [
       "HX-0151",
       "HX0151",
@@ -5126,11 +5426,13 @@ export const books = [
     "chipId": "HX-0151",
     "locationCode": "S1-B-L1-P23",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 0.9076,
+    "heightScale": 0.9,
+    "depthScale": 0.9,
     "worldPosition": [
-      -6.2126,
-      0.25218,
-      -3.201429
+      -6.21134,
+      0.2277,
+      -3.20036
     ],
     "chipPayload": {
       "book_id": "HX-0151",
@@ -5149,7 +5451,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 24,
-    "color": "#466b60",
+    "color": "#476d62",
     "keys": [
       "HX-0152",
       "HX0152",
@@ -5160,11 +5462,13 @@ export const books = [
     "chipId": "HX-0152",
     "locationCode": "S1-B-L1-P24",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 0.9076,
+    "heightScale": 0.9,
+    "depthScale": 0.9,
     "worldPosition": [
-      -6.2126,
-      0.24453,
-      -2.962
+      -6.21134,
+      0.2277,
+      -3.004328
     ],
     "chipPayload": {
       "book_id": "HX-0152",
@@ -5183,7 +5487,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 25,
-    "color": "#466b60",
+    "color": "#518072",
     "keys": [
       "HX-0153",
       "HX0153",
@@ -5194,11 +5498,13 @@ export const books = [
     "chipId": "HX-0153",
     "locationCode": "S1-B-L1-P25",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.25,
+    "heightScale": 1.1,
+    "depthScale": 0.9,
     "worldPosition": [
-      -6.2126,
-      0.24453,
-      -2.638
+      -6.21134,
+      0.2583,
+      -2.611005
     ],
     "chipPayload": {
       "book_id": "HX-0153",
@@ -5217,7 +5523,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 26,
-    "color": "#466b60",
+    "color": "#476d62",
     "keys": [
       "HX-0154",
       "HX0154",
@@ -5228,11 +5534,13 @@ export const books = [
     "chipId": "HX-0154",
     "locationCode": "S1-B-L1-P26",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.1184,
+    "heightScale": 1,
+    "depthScale": 1.3,
     "worldPosition": [
-      -6.2126,
-      0.23229,
-      -2.405714
+      -6.21638,
+      0.243,
+      -2.355225
     ],
     "chipPayload": {
       "book_id": "HX-0154",
@@ -5251,7 +5559,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 27,
-    "color": "#466b60",
+    "color": "#476d62",
     "keys": [
       "HX-0155",
       "HX0155",
@@ -5262,11 +5570,13 @@ export const books = [
     "chipId": "HX-0155",
     "locationCode": "S1-B-L1-P27",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.1184,
+    "heightScale": 1,
+    "depthScale": 1.3,
     "worldPosition": [
-      -6.2126,
-      0.24912,
-      -2.173429
+      -6.21638,
+      0.243,
+      -2.113655
     ],
     "chipPayload": {
       "book_id": "HX-0155",
@@ -5285,7 +5595,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 28,
-    "color": "#466b60",
+    "color": "#476d62",
     "keys": [
       "HX-0156",
       "HX0156",
@@ -5296,11 +5606,13 @@ export const books = [
     "chipId": "HX-0156",
     "locationCode": "S1-B-L1-P28",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.1184,
+    "heightScale": 1,
+    "depthScale": 1.3,
     "worldPosition": [
-      -6.2126,
-      0.24912,
-      -1.941143
+      -6.21638,
+      0.243,
+      -1.872086
     ],
     "chipPayload": {
       "book_id": "HX-0156",
@@ -5319,7 +5631,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 29,
-    "color": "#466b60",
+    "color": "#4c766a",
     "keys": [
       "HX-0157",
       "HX0157",
@@ -5330,11 +5642,13 @@ export const books = [
     "chipId": "HX-0157",
     "locationCode": "S1-B-L1-P29",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.25,
+    "heightScale": 0.95,
+    "depthScale": 0.8,
     "worldPosition": [
-      -6.2126,
-      0.25218,
-      -1.708857
+      -6.21008,
+      0.23535,
+      -1.616306
     ],
     "chipPayload": {
       "book_id": "HX-0157",
@@ -5353,7 +5667,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 30,
-    "color": "#466b60",
+    "color": "#4f7b6e",
     "keys": [
       "HX-0158",
       "HX0158",
@@ -5364,11 +5678,13 @@ export const books = [
     "chipId": "HX-0158",
     "locationCode": "S1-B-L1-P30",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 0.8552,
+    "heightScale": 1.1,
+    "depthScale": 1.15,
     "worldPosition": [
-      -6.2126,
-      0.243,
-      -1.476571
+      -6.21449,
+      0.2583,
+      -1.388946
     ],
     "chipPayload": {
       "book_id": "HX-0158",
@@ -5387,7 +5703,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 31,
-    "color": "#466b60",
+    "color": "#42645a",
     "keys": [
       "HX-0159",
       "HX0159",
@@ -5398,11 +5714,13 @@ export const books = [
     "chipId": "HX-0159",
     "locationCode": "S1-B-L1-P31",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 0.8552,
+    "heightScale": 1,
+    "depthScale": 1.48,
     "worldPosition": [
-      -6.2126,
-      0.23076,
-      -1.244286
+      -6.218648,
+      0.243,
+      -1.204216
     ],
     "chipPayload": {
       "book_id": "HX-0159",
@@ -5421,7 +5739,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 32,
-    "color": "#466b60",
+    "color": "#42645a",
     "keys": [
       "HX-0160",
       "HX0160",
@@ -5432,11 +5750,13 @@ export const books = [
     "chipId": "HX-0160",
     "locationCode": "S1-B-L1-P32",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 0.8552,
+    "heightScale": 1,
+    "depthScale": 1.48,
     "worldPosition": [
-      -6.2126,
-      0.25218,
-      -1.012
+      -6.218648,
+      0.243,
+      -1.019486
     ],
     "chipPayload": {
       "book_id": "HX-0160",
@@ -5455,7 +5775,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 1,
-    "color": "#466b60",
+    "color": "#518072",
     "keys": [
       "HX-0161",
       "HX0161",
@@ -5466,11 +5786,13 @@ export const books = [
     "chipId": "HX-0161",
     "locationCode": "S1-B-L2-P01",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.0882,
+    "heightScale": 1.1,
+    "depthScale": 1.3,
     "worldPosition": [
-      -6.2126,
-      0.67882,
-      -8.588
+      -6.21638,
+      0.7033,
+      -8.578475
     ],
     "chipPayload": {
       "book_id": "HX-0161",
@@ -5489,7 +5811,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 2,
-    "color": "#466b60",
+    "color": "#518072",
     "keys": [
       "HX-0162",
       "HX0162",
@@ -5500,11 +5822,13 @@ export const books = [
     "chipId": "HX-0162",
     "locationCode": "S1-B-L2-P02",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.0882,
+    "heightScale": 1.1,
+    "depthScale": 1.3,
     "worldPosition": [
-      -6.2126,
-      0.67576,
-      -8.355714
+      -6.21638,
+      0.7033,
+      -8.343425
     ],
     "chipPayload": {
       "book_id": "HX-0162",
@@ -5523,7 +5847,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 3,
-    "color": "#466b60",
+    "color": "#518072",
     "keys": [
       "HX-0163",
       "HX0163",
@@ -5534,11 +5858,13 @@ export const books = [
     "chipId": "HX-0163",
     "locationCode": "S1-B-L2-P03",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.0882,
+    "heightScale": 1.1,
+    "depthScale": 1.3,
     "worldPosition": [
-      -6.2126,
-      0.69259,
-      -8.123429
+      -6.21638,
+      0.7033,
+      -8.108375
     ],
     "chipPayload": {
       "book_id": "HX-0163",
@@ -5557,7 +5883,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 4,
-    "color": "#466b60",
+    "color": "#4c766a",
     "keys": [
       "HX-0164",
       "HX0164",
@@ -5568,11 +5894,13 @@ export const books = [
     "chipId": "HX-0164",
     "locationCode": "S1-B-L2-P04",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 0.9602,
+    "heightScale": 0.95,
+    "depthScale": 1.48,
     "worldPosition": [
-      -6.2126,
-      0.69565,
-      -7.891143
+      -6.218648,
+      0.68035,
+      -7.887151
     ],
     "chipPayload": {
       "book_id": "HX-0164",
@@ -5591,7 +5919,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 5,
-    "color": "#466b60",
+    "color": "#4f7b6e",
     "keys": [
       "HX-0165",
       "HX0165",
@@ -5602,11 +5930,13 @@ export const books = [
     "chipId": "HX-0165",
     "locationCode": "S1-B-L2-P05",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.0882,
+    "heightScale": 0.8,
+    "depthScale": 0.9,
     "worldPosition": [
-      -6.2126,
-      0.69565,
-      -7.658857
+      -6.21134,
+      0.6574,
+      -7.665927
     ],
     "chipPayload": {
       "book_id": "HX-0165",
@@ -5625,7 +5955,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 6,
-    "color": "#466b60",
+    "color": "#4f7b6e",
     "keys": [
       "HX-0166",
       "HX0166",
@@ -5636,11 +5966,13 @@ export const books = [
     "chipId": "HX-0166",
     "locationCode": "S1-B-L2-P06",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.0882,
+    "heightScale": 0.8,
+    "depthScale": 0.9,
     "worldPosition": [
-      -6.2126,
-      0.67576,
-      -7.426571
+      -6.21134,
+      0.6574,
+      -7.430877
     ],
     "chipPayload": {
       "book_id": "HX-0166",
@@ -5659,7 +5991,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 7,
-    "color": "#466b60",
+    "color": "#4f7b6e",
     "keys": [
       "HX-0167",
       "HX0167",
@@ -5670,11 +6002,13 @@ export const books = [
     "chipId": "HX-0167",
     "locationCode": "S1-B-L2-P07",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.0882,
+    "heightScale": 0.8,
+    "depthScale": 0.9,
     "worldPosition": [
-      -6.2126,
-      0.68188,
-      -7.194286
+      -6.21134,
+      0.6574,
+      -7.195827
     ],
     "chipPayload": {
       "book_id": "HX-0167",
@@ -5693,7 +6027,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 8,
-    "color": "#466b60",
+    "color": "#4c766a",
     "keys": [
       "HX-0168",
       "HX0168",
@@ -5704,11 +6038,13 @@ export const books = [
     "chipId": "HX-0168",
     "locationCode": "S1-B-L2-P08",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 0.8962,
+    "heightScale": 0.8,
+    "depthScale": 1,
     "worldPosition": [
       -6.2126,
-      0.688,
-      -6.962
+      0.6574,
+      -6.981517
     ],
     "chipPayload": {
       "book_id": "HX-0168",
@@ -5727,7 +6063,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 9,
-    "color": "#466b60",
+    "color": "#476d62",
     "keys": [
       "HX-0169",
       "HX0169",
@@ -5738,11 +6074,13 @@ export const books = [
     "chipId": "HX-0169",
     "locationCode": "S1-B-L2-P09",
     "placeholder": true,
+    "widthScale": 0.9216,
     "heightScale": 0.95,
+    "depthScale": 1.3,
     "worldPosition": [
-      -6.2126,
+      -6.21638,
       0.68035,
-      -6.638
+      -6.646467
     ],
     "chipPayload": {
       "book_id": "HX-0169",
@@ -5761,7 +6099,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 10,
-    "color": "#466b60",
+    "color": "#476d62",
     "keys": [
       "HX-0170",
       "HX0170",
@@ -5772,11 +6110,13 @@ export const books = [
     "chipId": "HX-0170",
     "locationCode": "S1-B-L2-P10",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 0.9216,
+    "heightScale": 0.95,
+    "depthScale": 1.3,
     "worldPosition": [
-      -6.2126,
-      0.69106,
-      -6.398571
+      -6.21638,
+      0.68035,
+      -6.4474
     ],
     "chipPayload": {
       "book_id": "HX-0170",
@@ -5795,7 +6135,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 11,
-    "color": "#466b60",
+    "color": "#476d62",
     "keys": [
       "HX-0171",
       "HX0171",
@@ -5806,11 +6146,13 @@ export const books = [
     "chipId": "HX-0171",
     "locationCode": "S1-B-L2-P11",
     "placeholder": true,
+    "widthScale": 0.9216,
     "heightScale": 0.95,
+    "depthScale": 1.3,
     "worldPosition": [
-      -6.2126,
+      -6.21638,
       0.68035,
-      -6.159143
+      -6.248333
     ],
     "chipPayload": {
       "book_id": "HX-0171",
@@ -5829,7 +6171,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 12,
-    "color": "#466b60",
+    "color": "#45695e",
     "keys": [
       "HX-0172",
       "HX0172",
@@ -5840,11 +6182,13 @@ export const books = [
     "chipId": "HX-0172",
     "locationCode": "S1-B-L2-P12",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.2508,
+    "heightScale": 1.1,
+    "depthScale": 0.9,
     "worldPosition": [
-      -6.2126,
-      0.688,
-      -5.919714
+      -6.21134,
+      0.7033,
+      -6.013718
     ],
     "chipPayload": {
       "book_id": "HX-0172",
@@ -5863,7 +6207,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 13,
-    "color": "#466b60",
+    "color": "#45695e",
     "keys": [
       "HX-0173",
       "HX0173",
@@ -5874,11 +6218,13 @@ export const books = [
     "chipId": "HX-0173",
     "locationCode": "S1-B-L2-P13",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.2508,
+    "heightScale": 1.1,
+    "depthScale": 0.9,
     "worldPosition": [
-      -6.2126,
-      0.67576,
-      -5.680286
+      -6.21134,
+      0.7033,
+      -5.743556
     ],
     "chipPayload": {
       "book_id": "HX-0173",
@@ -5897,7 +6243,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 14,
-    "color": "#466b60",
+    "color": "#45695e",
     "keys": [
       "HX-0174",
       "HX0174",
@@ -5908,11 +6254,13 @@ export const books = [
     "chipId": "HX-0174",
     "locationCode": "S1-B-L2-P14",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.2508,
+    "heightScale": 0.95,
+    "depthScale": 1,
     "worldPosition": [
       -6.2126,
-      0.69718,
-      -5.440857
+      0.68035,
+      -5.473393
     ],
     "chipPayload": {
       "book_id": "HX-0174",
@@ -5931,7 +6279,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 15,
-    "color": "#466b60",
+    "color": "#4c766a",
     "keys": [
       "HX-0175",
       "HX0175",
@@ -5942,11 +6290,13 @@ export const books = [
     "chipId": "HX-0175",
     "locationCode": "S1-B-L2-P15",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.0533,
+    "heightScale": 0.9,
+    "depthScale": 1,
     "worldPosition": [
       -6.2126,
-      0.688,
-      -5.201429
+      0.6727,
+      -5.224559
     ],
     "chipPayload": {
       "book_id": "HX-0175",
@@ -5965,7 +6315,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 16,
-    "color": "#466b60",
+    "color": "#4c766a",
     "keys": [
       "HX-0176",
       "HX0176",
@@ -5976,11 +6326,13 @@ export const books = [
     "chipId": "HX-0176",
     "locationCode": "S1-B-L2-P16",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.0533,
+    "heightScale": 0.9,
+    "depthScale": 1,
     "worldPosition": [
       -6.2126,
-      0.69565,
-      -4.962
+      0.6727,
+      -4.997054
     ],
     "chipPayload": {
       "book_id": "HX-0176",
@@ -5999,7 +6351,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 17,
-    "color": "#466b60",
+    "color": "#4c766a",
     "keys": [
       "HX-0177",
       "HX0177",
@@ -6010,11 +6362,13 @@ export const books = [
     "chipId": "HX-0177",
     "locationCode": "S1-B-L2-P17",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.1271,
+    "heightScale": 1.1,
+    "depthScale": 1.3,
     "worldPosition": [
-      -6.2126,
-      0.68494,
-      -4.638
+      -6.21638,
+      0.7033,
+      -4.624274
     ],
     "chipPayload": {
       "book_id": "HX-0177",
@@ -6033,7 +6387,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 18,
-    "color": "#466b60",
+    "color": "#4c766a",
     "keys": [
       "HX-0178",
       "HX0178",
@@ -6044,11 +6398,13 @@ export const books = [
     "chipId": "HX-0178",
     "locationCode": "S1-B-L2-P18",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.1271,
+    "heightScale": 1.1,
+    "depthScale": 1.3,
     "worldPosition": [
-      -6.2126,
-      0.68647,
-      -4.398571
+      -6.21638,
+      0.7033,
+      -4.380821
     ],
     "chipPayload": {
       "book_id": "HX-0178",
@@ -6067,7 +6423,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 19,
-    "color": "#466b60",
+    "color": "#4c766a",
     "keys": [
       "HX-0179",
       "HX0179",
@@ -6078,11 +6434,13 @@ export const books = [
     "chipId": "HX-0179",
     "locationCode": "S1-B-L2-P19",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.1271,
+    "heightScale": 1.1,
+    "depthScale": 1.3,
     "worldPosition": [
-      -6.2126,
-      0.67882,
-      -4.159143
+      -6.21638,
+      0.7033,
+      -4.137368
     ],
     "chipPayload": {
       "book_id": "HX-0179",
@@ -6101,7 +6459,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 20,
-    "color": "#466b60",
+    "color": "#4c766a",
     "keys": [
       "HX-0180",
       "HX0180",
@@ -6112,11 +6470,13 @@ export const books = [
     "chipId": "HX-0180",
     "locationCode": "S1-B-L2-P20",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.2022,
+    "heightScale": 0.85,
+    "depthScale": 1,
     "worldPosition": [
       -6.2126,
-      0.69259,
-      -3.919714
+      0.66505,
+      -3.8858
     ],
     "chipPayload": {
       "book_id": "HX-0180",
@@ -6135,7 +6495,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 21,
-    "color": "#466b60",
+    "color": "#4f7b6e",
     "keys": [
       "HX-0181",
       "HX0181",
@@ -6146,11 +6506,13 @@ export const books = [
     "chipId": "HX-0181",
     "locationCode": "S1-B-L2-P21",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.052,
+    "heightScale": 0.85,
+    "depthScale": 1.48,
     "worldPosition": [
-      -6.2126,
-      0.69718,
-      -3.680286
+      -6.218648,
+      0.66505,
+      -3.642347
     ],
     "chipPayload": {
       "book_id": "HX-0181",
@@ -6169,7 +6531,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 22,
-    "color": "#466b60",
+    "color": "#42645a",
     "keys": [
       "HX-0182",
       "HX0182",
@@ -6180,11 +6542,13 @@ export const books = [
     "chipId": "HX-0182",
     "locationCode": "S1-B-L2-P22",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 0.9768,
+    "heightScale": 1.05,
+    "depthScale": 1.3,
     "worldPosition": [
-      -6.2126,
-      0.68953,
-      -3.440857
+      -6.21638,
+      0.69565,
+      -3.423239
     ],
     "chipPayload": {
       "book_id": "HX-0182",
@@ -6203,7 +6567,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 23,
-    "color": "#466b60",
+    "color": "#42645a",
     "keys": [
       "HX-0183",
       "HX0183",
@@ -6214,11 +6578,13 @@ export const books = [
     "chipId": "HX-0183",
     "locationCode": "S1-B-L2-P23",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 0.9768,
+    "heightScale": 1.05,
+    "depthScale": 1.3,
     "worldPosition": [
-      -6.2126,
-      0.67882,
-      -3.201429
+      -6.21638,
+      0.69565,
+      -3.212247
     ],
     "chipPayload": {
       "book_id": "HX-0183",
@@ -6237,7 +6603,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 24,
-    "color": "#466b60",
+    "color": "#42645a",
     "keys": [
       "HX-0184",
       "HX0184",
@@ -6248,11 +6614,13 @@ export const books = [
     "chipId": "HX-0184",
     "locationCode": "S1-B-L2-P24",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 0.9768,
+    "heightScale": 1.05,
+    "depthScale": 1.3,
     "worldPosition": [
-      -6.2126,
-      0.68035,
-      -2.962
+      -6.21638,
+      0.69565,
+      -3.001255
     ],
     "chipPayload": {
       "book_id": "HX-0184",
@@ -6271,7 +6639,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 25,
-    "color": "#466b60",
+    "color": "#4f7b6e",
     "keys": [
       "HX-0185",
       "HX0185",
@@ -6282,11 +6650,13 @@ export const books = [
     "chipId": "HX-0185",
     "locationCode": "S1-B-L2-P25",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 0.8028,
+    "heightScale": 0.95,
+    "depthScale": 0.9,
     "worldPosition": [
-      -6.2126,
-      0.67882,
-      -2.638
+      -6.21134,
+      0.68035,
+      -2.659293
     ],
     "chipPayload": {
       "book_id": "HX-0185",
@@ -6305,7 +6675,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 26,
-    "color": "#466b60",
+    "color": "#476d62",
     "keys": [
       "HX-0186",
       "HX0186",
@@ -6316,11 +6686,13 @@ export const books = [
     "chipId": "HX-0186",
     "locationCode": "S1-B-L2-P26",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.0499,
+    "heightScale": 1.05,
+    "depthScale": 0.8,
     "worldPosition": [
-      -6.2126,
-      0.68647,
-      -2.405714
+      -6.21008,
+      0.69565,
+      -2.4592
     ],
     "chipPayload": {
       "book_id": "HX-0186",
@@ -6339,7 +6711,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 27,
-    "color": "#466b60",
+    "color": "#476d62",
     "keys": [
       "HX-0187",
       "HX0187",
@@ -6350,11 +6722,13 @@ export const books = [
     "chipId": "HX-0187",
     "locationCode": "S1-B-L2-P27",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.0499,
+    "heightScale": 1.05,
+    "depthScale": 0.8,
     "worldPosition": [
-      -6.2126,
-      0.68494,
-      -2.173429
+      -6.21008,
+      0.69565,
+      -2.232427
     ],
     "chipPayload": {
       "book_id": "HX-0187",
@@ -6373,7 +6747,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 28,
-    "color": "#466b60",
+    "color": "#3a574e",
     "keys": [
       "HX-0188",
       "HX0188",
@@ -6384,11 +6758,13 @@ export const books = [
     "chipId": "HX-0188",
     "locationCode": "S1-B-L2-P28",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.1734,
+    "heightScale": 1,
+    "depthScale": 1,
     "worldPosition": [
       -6.2126,
-      0.68647,
-      -1.941143
+      0.688,
+      -1.992316
     ],
     "chipPayload": {
       "book_id": "HX-0188",
@@ -6407,7 +6783,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 29,
-    "color": "#466b60",
+    "color": "#3a574e",
     "keys": [
       "HX-0189",
       "HX0189",
@@ -6418,11 +6794,13 @@ export const books = [
     "chipId": "HX-0189",
     "locationCode": "S1-B-L2-P29",
     "placeholder": true,
+    "widthScale": 1.1734,
     "heightScale": 1,
+    "depthScale": 1,
     "worldPosition": [
       -6.2126,
       0.688,
-      -1.708857
+      -1.738864
     ],
     "chipPayload": {
       "book_id": "HX-0189",
@@ -6441,7 +6819,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 30,
-    "color": "#466b60",
+    "color": "#518072",
     "keys": [
       "HX-0190",
       "HX0190",
@@ -6452,11 +6830,13 @@ export const books = [
     "chipId": "HX-0190",
     "locationCode": "S1-B-L2-P30",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 0.8028,
+    "heightScale": 0.8,
+    "depthScale": 0.8,
     "worldPosition": [
-      -6.2126,
-      0.69565,
-      -1.476571
+      -6.21008,
+      0.6574,
+      -1.525432
     ],
     "chipPayload": {
       "book_id": "HX-0190",
@@ -6475,7 +6855,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 31,
-    "color": "#466b60",
+    "color": "#45695e",
     "keys": [
       "HX-0191",
       "HX0191",
@@ -6486,11 +6866,13 @@ export const books = [
     "chipId": "HX-0191",
     "locationCode": "S1-B-L2-P31",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.1116,
+    "heightScale": 0.9,
+    "depthScale": 1.48,
     "worldPosition": [
-      -6.2126,
-      0.68953,
-      -1.244286
+      -6.218648,
+      0.6727,
+      -1.318669
     ],
     "chipPayload": {
       "book_id": "HX-0191",
@@ -6509,7 +6891,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 32,
-    "color": "#466b60",
+    "color": "#45695e",
     "keys": [
       "HX-0192",
       "HX0192",
@@ -6520,11 +6902,13 @@ export const books = [
     "chipId": "HX-0192",
     "locationCode": "S1-B-L2-P32",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.1116,
+    "heightScale": 0.9,
+    "depthScale": 1.48,
     "worldPosition": [
-      -6.2126,
-      0.68188,
-      -1.012
+      -6.218648,
+      0.6727,
+      -1.078557
     ],
     "chipPayload": {
       "book_id": "HX-0192",
@@ -6543,7 +6927,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 1,
-    "color": "#466b60",
+    "color": "#518072",
     "keys": [
       "HX-0193",
       "HX0193",
@@ -6554,11 +6938,13 @@ export const books = [
     "chipId": "HX-0193",
     "locationCode": "S1-B-L3-P01",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.0507,
+    "heightScale": 0.85,
+    "depthScale": 1.15,
     "worldPosition": [
-      -6.2126,
-      1.17882,
-      -8.588
+      -6.21449,
+      1.16505,
+      -8.582525
     ],
     "chipPayload": {
       "book_id": "HX-0193",
@@ -6577,7 +6963,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 2,
-    "color": "#466b60",
+    "color": "#518072",
     "keys": [
       "HX-0194",
       "HX0194",
@@ -6588,11 +6974,13 @@ export const books = [
     "chipId": "HX-0194",
     "locationCode": "S1-B-L3-P02",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.0507,
+    "heightScale": 0.85,
+    "depthScale": 0.9,
     "worldPosition": [
-      -6.2126,
-      1.19412,
-      -8.355714
+      -6.21134,
+      1.16505,
+      -8.355575
     ],
     "chipPayload": {
       "book_id": "HX-0194",
@@ -6611,7 +6999,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 3,
-    "color": "#466b60",
+    "color": "#518072",
     "keys": [
       "HX-0195",
       "HX0195",
@@ -6622,11 +7010,13 @@ export const books = [
     "chipId": "HX-0195",
     "locationCode": "S1-B-L3-P03",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.0507,
+    "heightScale": 0.85,
+    "depthScale": 0.9,
     "worldPosition": [
-      -6.2126,
-      1.19718,
-      -8.123429
+      -6.21134,
+      1.16505,
+      -8.128624
     ],
     "chipPayload": {
       "book_id": "HX-0195",
@@ -6645,7 +7035,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 4,
-    "color": "#466b60",
+    "color": "#518072",
     "keys": [
       "HX-0196",
       "HX0196",
@@ -6656,11 +7046,13 @@ export const books = [
     "chipId": "HX-0196",
     "locationCode": "S1-B-L3-P04",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.0507,
+    "heightScale": 0.85,
+    "depthScale": 0.9,
     "worldPosition": [
-      -6.2126,
-      1.17729,
-      -7.891143
+      -6.21134,
+      1.16505,
+      -7.901674
     ],
     "chipPayload": {
       "book_id": "HX-0196",
@@ -6679,7 +7071,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 5,
-    "color": "#466b60",
+    "color": "#518072",
     "keys": [
       "HX-0197",
       "HX0197",
@@ -6690,11 +7082,13 @@ export const books = [
     "chipId": "HX-0197",
     "locationCode": "S1-B-L3-P05",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 0.9889,
+    "heightScale": 1.1,
+    "depthScale": 0.8,
     "worldPosition": [
-      -6.2126,
-      1.17576,
-      -7.658857
+      -6.21008,
+      1.2033,
+      -7.681399
     ],
     "chipPayload": {
       "book_id": "HX-0197",
@@ -6713,7 +7107,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 6,
-    "color": "#466b60",
+    "color": "#518072",
     "keys": [
       "HX-0198",
       "HX0198",
@@ -6724,11 +7118,13 @@ export const books = [
     "chipId": "HX-0198",
     "locationCode": "S1-B-L3-P06",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 0.9889,
+    "heightScale": 1.1,
+    "depthScale": 0.8,
     "worldPosition": [
-      -6.2126,
-      1.19259,
-      -7.426571
+      -6.21008,
+      1.2033,
+      -7.467798
     ],
     "chipPayload": {
       "book_id": "HX-0198",
@@ -6747,7 +7143,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 7,
-    "color": "#466b60",
+    "color": "#4f7b6e",
     "keys": [
       "HX-0199",
       "HX0199",
@@ -6758,11 +7154,13 @@ export const books = [
     "chipId": "HX-0199",
     "locationCode": "S1-B-L3-P07",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.1125,
+    "heightScale": 0.8,
+    "depthScale": 1.3,
     "worldPosition": [
-      -6.2126,
-      1.19259,
-      -7.194286
+      -6.21638,
+      1.1574,
+      -7.240848
     ],
     "chipPayload": {
       "book_id": "HX-0199",
@@ -6781,7 +7179,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 8,
-    "color": "#466b60",
+    "color": "#406056",
     "keys": [
       "HX-0200",
       "HX0200",
@@ -6792,11 +7190,13 @@ export const books = [
     "chipId": "HX-0200",
     "locationCode": "S1-B-L3-P08",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.0507,
+    "heightScale": 1.05,
+    "depthScale": 0.9,
     "worldPosition": [
-      -6.2126,
-      1.19718,
-      -6.962
+      -6.21134,
+      1.19565,
+      -7.007223
     ],
     "chipPayload": {
       "book_id": "HX-0200",
@@ -6815,7 +7215,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 9,
-    "color": "#466b60",
+    "color": "#4f7b6e",
     "keys": [
       "HX-0201",
       "HX0201",
@@ -6826,11 +7226,13 @@ export const books = [
     "chipId": "HX-0201",
     "locationCode": "S1-B-L3-P09",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.0676,
+    "heightScale": 1.1,
+    "depthScale": 1.3,
     "worldPosition": [
-      -6.2126,
-      1.19412,
-      -6.638
+      -6.21638,
+      1.2033,
+      -6.6307
     ],
     "chipPayload": {
       "book_id": "HX-0201",
@@ -6849,7 +7251,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 10,
-    "color": "#466b60",
+    "color": "#4f7b6e",
     "keys": [
       "HX-0202",
       "HX0202",
@@ -6860,11 +7262,13 @@ export const books = [
     "chipId": "HX-0202",
     "locationCode": "S1-B-L3-P10",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.0676,
+    "heightScale": 1.1,
+    "depthScale": 1.3,
     "worldPosition": [
-      -6.2126,
-      1.17882,
-      -6.398571
+      -6.21638,
+      1.2033,
+      -6.4001
     ],
     "chipPayload": {
       "book_id": "HX-0202",
@@ -6883,7 +7287,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 11,
-    "color": "#466b60",
+    "color": "#45695e",
     "keys": [
       "HX-0203",
       "HX0203",
@@ -6894,11 +7298,13 @@ export const books = [
     "chipId": "HX-0203",
     "locationCode": "S1-B-L3-P11",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.0676,
+    "heightScale": 0.85,
+    "depthScale": 0.9,
     "worldPosition": [
-      -6.2126,
-      1.18035,
-      -6.159143
+      -6.21134,
+      1.16505,
+      -6.1695
     ],
     "chipPayload": {
       "book_id": "HX-0203",
@@ -6917,7 +7323,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 12,
-    "color": "#466b60",
+    "color": "#45695e",
     "keys": [
       "HX-0204",
       "HX0204",
@@ -6928,11 +7334,13 @@ export const books = [
     "chipId": "HX-0204",
     "locationCode": "S1-B-L3-P12",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.0676,
+    "heightScale": 0.85,
+    "depthScale": 0.9,
     "worldPosition": [
-      -6.2126,
-      1.18647,
-      -5.919714
+      -6.21134,
+      1.16505,
+      -5.9389
     ],
     "chipPayload": {
       "book_id": "HX-0204",
@@ -6951,7 +7359,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 13,
-    "color": "#466b60",
+    "color": "#45695e",
     "keys": [
       "HX-0205",
       "HX0205",
@@ -6962,11 +7370,13 @@ export const books = [
     "chipId": "HX-0205",
     "locationCode": "S1-B-L3-P13",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.0676,
+    "heightScale": 0.85,
+    "depthScale": 0.9,
     "worldPosition": [
-      -6.2126,
-      1.18035,
-      -5.680286
+      -6.21134,
+      1.16505,
+      -5.7083
     ],
     "chipPayload": {
       "book_id": "HX-0205",
@@ -6985,7 +7395,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 14,
-    "color": "#466b60",
+    "color": "#4f7b6e",
     "keys": [
       "HX-0206",
       "HX0206",
@@ -6996,11 +7406,13 @@ export const books = [
     "chipId": "HX-0206",
     "locationCode": "S1-B-L3-P14",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.0676,
+    "heightScale": 1,
+    "depthScale": 1,
     "worldPosition": [
       -6.2126,
-      1.18647,
-      -5.440857
+      1.188,
+      -5.477699
     ],
     "chipPayload": {
       "book_id": "HX-0206",
@@ -7019,7 +7431,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 15,
-    "color": "#466b60",
+    "color": "#4f7b6e",
     "keys": [
       "HX-0207",
       "HX0207",
@@ -7030,11 +7442,13 @@ export const books = [
     "chipId": "HX-0207",
     "locationCode": "S1-B-L3-P15",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.0676,
+    "heightScale": 1,
+    "depthScale": 1,
     "worldPosition": [
       -6.2126,
-      1.19106,
-      -5.201429
+      1.188,
+      -5.247099
     ],
     "chipPayload": {
       "book_id": "HX-0207",
@@ -7053,7 +7467,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 16,
-    "color": "#466b60",
+    "color": "#4f7b6e",
     "keys": [
       "HX-0208",
       "HX0208",
@@ -7064,11 +7478,13 @@ export const books = [
     "chipId": "HX-0208",
     "locationCode": "S1-B-L3-P16",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.0676,
+    "heightScale": 1,
+    "depthScale": 1,
     "worldPosition": [
       -6.2126,
-      1.19412,
-      -4.962
+      1.188,
+      -5.016499
     ],
     "chipPayload": {
       "book_id": "HX-0208",
@@ -7087,7 +7503,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 17,
-    "color": "#466b60",
+    "color": "#42645a",
     "keys": [
       "HX-0209",
       "HX0209",
@@ -7098,11 +7514,13 @@ export const books = [
     "chipId": "HX-0209",
     "locationCode": "S1-B-L3-P17",
     "placeholder": true,
+    "widthScale": 0.8459,
     "heightScale": 0.95,
+    "depthScale": 1.15,
     "worldPosition": [
-      -6.2126,
+      -6.21449,
       1.18035,
-      -4.638
+      -4.654646
     ],
     "chipPayload": {
       "book_id": "HX-0209",
@@ -7121,7 +7539,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 18,
-    "color": "#466b60",
+    "color": "#476d62",
     "keys": [
       "HX-0210",
       "HX0210",
@@ -7132,11 +7550,13 @@ export const books = [
     "chipId": "HX-0210",
     "locationCode": "S1-B-L3-P18",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.0271,
+    "heightScale": 0.8,
+    "depthScale": 0.9,
     "worldPosition": [
-      -6.2126,
-      1.18953,
-      -4.398571
+      -6.21134,
+      1.1574,
+      -4.452362
     ],
     "chipPayload": {
       "book_id": "HX-0210",
@@ -7155,7 +7575,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 19,
-    "color": "#466b60",
+    "color": "#476d62",
     "keys": [
       "HX-0211",
       "HX0211",
@@ -7166,11 +7586,13 @@ export const books = [
     "chipId": "HX-0211",
     "locationCode": "S1-B-L3-P19",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.0271,
+    "heightScale": 0.8,
+    "depthScale": 0.9,
     "worldPosition": [
-      -6.2126,
-      1.18188,
-      -4.159143
+      -6.21134,
+      1.1574,
+      -4.230502
     ],
     "chipPayload": {
       "book_id": "HX-0211",
@@ -7189,7 +7611,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 20,
-    "color": "#466b60",
+    "color": "#4a7266",
     "keys": [
       "HX-0212",
       "HX0212",
@@ -7200,11 +7622,13 @@ export const books = [
     "chipId": "HX-0212",
     "locationCode": "S1-B-L3-P20",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.148,
+    "heightScale": 1.05,
+    "depthScale": 1.3,
     "worldPosition": [
-      -6.2126,
-      1.18341,
-      -3.919714
+      -6.21638,
+      1.19565,
+      -3.995592
     ],
     "chipPayload": {
       "book_id": "HX-0212",
@@ -7223,7 +7647,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 21,
-    "color": "#466b60",
+    "color": "#4a7266",
     "keys": [
       "HX-0213",
       "HX0213",
@@ -7234,11 +7658,13 @@ export const books = [
     "chipId": "HX-0213",
     "locationCode": "S1-B-L3-P21",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.148,
+    "heightScale": 1.05,
+    "depthScale": 1.3,
     "worldPosition": [
-      -6.2126,
-      1.18035,
-      -3.680286
+      -6.21638,
+      1.19565,
+      -3.747631
     ],
     "chipPayload": {
       "book_id": "HX-0213",
@@ -7257,7 +7683,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 22,
-    "color": "#466b60",
+    "color": "#4a7266",
     "keys": [
       "HX-0214",
       "HX0214",
@@ -7268,11 +7694,13 @@ export const books = [
     "chipId": "HX-0214",
     "locationCode": "S1-B-L3-P22",
     "placeholder": true,
+    "widthScale": 1.148,
     "heightScale": 1.05,
+    "depthScale": 1.3,
     "worldPosition": [
-      -6.2126,
+      -6.21638,
       1.19565,
-      -3.440857
+      -3.49967
     ],
     "chipPayload": {
       "book_id": "HX-0214",
@@ -7291,7 +7719,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 23,
-    "color": "#466b60",
+    "color": "#476d62",
     "keys": [
       "HX-0215",
       "HX0215",
@@ -7302,11 +7730,13 @@ export const books = [
     "chipId": "HX-0215",
     "locationCode": "S1-B-L3-P23",
     "placeholder": true,
+    "widthScale": 1.0875,
     "heightScale": 0.95,
+    "depthScale": 1.3,
     "worldPosition": [
-      -6.2126,
+      -6.21638,
       1.18035,
-      -3.201429
+      -3.258234
     ],
     "chipPayload": {
       "book_id": "HX-0215",
@@ -7325,7 +7755,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 24,
-    "color": "#466b60",
+    "color": "#45695e",
     "keys": [
       "HX-0216",
       "HX0216",
@@ -7336,11 +7766,13 @@ export const books = [
     "chipId": "HX-0216",
     "locationCode": "S1-B-L3-P24",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.148,
+    "heightScale": 0.95,
+    "depthScale": 1,
     "worldPosition": [
       -6.2126,
-      1.18494,
-      -2.962
+      1.18035,
+      -3.016798
     ],
     "chipPayload": {
       "book_id": "HX-0216",
@@ -7359,7 +7791,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 25,
-    "color": "#466b60",
+    "color": "#406056",
     "keys": [
       "HX-0217",
       "HX0217",
@@ -7370,11 +7802,13 @@ export const books = [
     "chipId": "HX-0217",
     "locationCode": "S1-B-L3-P25",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.01,
+    "heightScale": 1.1,
+    "depthScale": 0.8,
     "worldPosition": [
-      -6.2126,
-      1.188,
-      -2.638
+      -6.21008,
+      1.2033,
+      -2.636925
     ],
     "chipPayload": {
       "book_id": "HX-0217",
@@ -7393,7 +7827,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 26,
-    "color": "#466b60",
+    "color": "#406056",
     "keys": [
       "HX-0218",
       "HX0218",
@@ -7404,11 +7838,13 @@ export const books = [
     "chipId": "HX-0218",
     "locationCode": "S1-B-L3-P26",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.01,
+    "heightScale": 1.1,
+    "depthScale": 0.8,
     "worldPosition": [
-      -6.2126,
-      1.188,
-      -2.405714
+      -6.21008,
+      1.2033,
+      -2.418775
     ],
     "chipPayload": {
       "book_id": "HX-0218",
@@ -7427,7 +7863,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 27,
-    "color": "#466b60",
+    "color": "#518072",
     "keys": [
       "HX-0219",
       "HX0219",
@@ -7438,11 +7874,13 @@ export const books = [
     "chipId": "HX-0219",
     "locationCode": "S1-B-L3-P27",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.01,
+    "heightScale": 1.05,
+    "depthScale": 1.15,
     "worldPosition": [
-      -6.2126,
-      1.17882,
-      -2.173429
+      -6.21449,
+      1.19565,
+      -2.200625
     ],
     "chipPayload": {
       "book_id": "HX-0219",
@@ -7461,7 +7899,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 28,
-    "color": "#466b60",
+    "color": "#518072",
     "keys": [
       "HX-0220",
       "HX0220",
@@ -7472,11 +7910,13 @@ export const books = [
     "chipId": "HX-0220",
     "locationCode": "S1-B-L3-P28",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.01,
+    "heightScale": 1.05,
+    "depthScale": 1.15,
     "worldPosition": [
-      -6.2126,
-      1.18494,
-      -1.941143
+      -6.21449,
+      1.19565,
+      -1.982474
     ],
     "chipPayload": {
       "book_id": "HX-0220",
@@ -7495,7 +7935,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 29,
-    "color": "#466b60",
+    "color": "#518072",
     "keys": [
       "HX-0221",
       "HX0221",
@@ -7506,11 +7946,13 @@ export const books = [
     "chipId": "HX-0221",
     "locationCode": "S1-B-L3-P29",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.01,
+    "heightScale": 1.05,
+    "depthScale": 1.15,
     "worldPosition": [
-      -6.2126,
-      1.17729,
-      -1.708857
+      -6.21449,
+      1.19565,
+      -1.764324
     ],
     "chipPayload": {
       "book_id": "HX-0221",
@@ -7529,7 +7971,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 30,
-    "color": "#466b60",
+    "color": "#3a574e",
     "keys": [
       "HX-0222",
       "HX0222",
@@ -7540,11 +7982,13 @@ export const books = [
     "chipId": "HX-0222",
     "locationCode": "S1-B-L3-P30",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.0773,
+    "heightScale": 0.8,
+    "depthScale": 0.9,
     "worldPosition": [
-      -6.2126,
-      1.17882,
-      -1.476571
+      -6.21134,
+      1.1574,
+      -1.538902
     ],
     "chipPayload": {
       "book_id": "HX-0222",
@@ -7563,7 +8007,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 31,
-    "color": "#466b60",
+    "color": "#3a574e",
     "keys": [
       "HX-0223",
       "HX0223",
@@ -7574,11 +8018,13 @@ export const books = [
     "chipId": "HX-0223",
     "locationCode": "S1-B-L3-P31",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.0773,
+    "heightScale": 0.8,
+    "depthScale": 0.9,
     "worldPosition": [
-      -6.2126,
-      1.18188,
-      -1.244286
+      -6.21134,
+      1.1574,
+      -1.306209
     ],
     "chipPayload": {
       "book_id": "HX-0223",
@@ -7597,7 +8043,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 32,
-    "color": "#466b60",
+    "color": "#3a574e",
     "keys": [
       "HX-0224",
       "HX0224",
@@ -7608,11 +8054,13 @@ export const books = [
     "chipId": "HX-0224",
     "locationCode": "S1-B-L3-P32",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.0773,
+    "heightScale": 0.8,
+    "depthScale": 0.9,
     "worldPosition": [
-      -6.2126,
-      1.19259,
-      -1.012
+      -6.21134,
+      1.1574,
+      -1.073515
     ],
     "chipPayload": {
       "book_id": "HX-0224",
@@ -7631,7 +8079,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 1,
-    "color": "#466b60",
+    "color": "#4f7b6e",
     "keys": [
       "HX-0225",
       "HX0225",
@@ -7642,11 +8090,13 @@ export const books = [
     "chipId": "HX-0225",
     "locationCode": "S1-B-L4-P01",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.2296,
+    "heightScale": 0.95,
+    "depthScale": 0.9,
     "worldPosition": [
-      -6.2126,
-      1.68953,
-      -8.588
+      -6.21134,
+      1.68035,
+      -8.563206
     ],
     "chipPayload": {
       "book_id": "HX-0225",
@@ -7665,7 +8115,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 2,
-    "color": "#466b60",
+    "color": "#406056",
     "keys": [
       "HX-0226",
       "HX0226",
@@ -7676,11 +8126,13 @@ export const books = [
     "chipId": "HX-0226",
     "locationCode": "S1-B-L4-P02",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.0849,
+    "heightScale": 0.85,
+    "depthScale": 0.9,
     "worldPosition": [
-      -6.2126,
-      1.67882,
-      -8.355714
+      -6.21134,
+      1.66505,
+      -8.31324
     ],
     "chipPayload": {
       "book_id": "HX-0226",
@@ -7699,7 +8151,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 3,
-    "color": "#466b60",
+    "color": "#406056",
     "keys": [
       "HX-0227",
       "HX0227",
@@ -7710,11 +8162,13 @@ export const books = [
     "chipId": "HX-0227",
     "locationCode": "S1-B-L4-P03",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.0849,
+    "heightScale": 0.85,
+    "depthScale": 0.9,
     "worldPosition": [
-      -6.2126,
-      1.67729,
-      -8.123429
+      -6.21134,
+      1.66505,
+      -8.078897
     ],
     "chipPayload": {
       "book_id": "HX-0227",
@@ -7733,7 +8187,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 4,
-    "color": "#466b60",
+    "color": "#406056",
     "keys": [
       "HX-0228",
       "HX0228",
@@ -7744,11 +8198,13 @@ export const books = [
     "chipId": "HX-0228",
     "locationCode": "S1-B-L4-P04",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.0849,
+    "heightScale": 0.85,
+    "depthScale": 0.9,
     "worldPosition": [
-      -6.2126,
-      1.69412,
-      -7.891143
+      -6.21134,
+      1.66505,
+      -7.844554
     ],
     "chipPayload": {
       "book_id": "HX-0228",
@@ -7767,7 +8223,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 5,
-    "color": "#466b60",
+    "color": "#45695e",
     "keys": [
       "HX-0229",
       "HX0229",
@@ -7778,11 +8234,13 @@ export const books = [
     "chipId": "HX-0229",
     "locationCode": "S1-B-L4-P05",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 0.9403,
+    "heightScale": 0.8,
+    "depthScale": 1.15,
     "worldPosition": [
-      -6.2126,
-      1.68341,
-      -7.658857
+      -6.21449,
+      1.6574,
+      -7.625834
     ],
     "chipPayload": {
       "book_id": "HX-0229",
@@ -7801,7 +8259,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 6,
-    "color": "#466b60",
+    "color": "#45695e",
     "keys": [
       "HX-0230",
       "HX0230",
@@ -7812,11 +8270,13 @@ export const books = [
     "chipId": "HX-0230",
     "locationCode": "S1-B-L4-P06",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 0.9403,
+    "heightScale": 0.8,
+    "depthScale": 1.15,
     "worldPosition": [
-      -6.2126,
-      1.67729,
-      -7.426571
+      -6.21449,
+      1.6574,
+      -7.422737
     ],
     "chipPayload": {
       "book_id": "HX-0230",
@@ -7835,7 +8295,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 7,
-    "color": "#466b60",
+    "color": "#3a574e",
     "keys": [
       "HX-0231",
       "HX0231",
@@ -7846,11 +8306,13 @@ export const books = [
     "chipId": "HX-0231",
     "locationCode": "S1-B-L4-P07",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.0126,
+    "heightScale": 1.1,
+    "depthScale": 0.9,
     "worldPosition": [
-      -6.2126,
-      1.68188,
-      -7.194286
+      -6.21134,
+      1.7033,
+      -7.211829
     ],
     "chipPayload": {
       "book_id": "HX-0231",
@@ -7869,7 +8331,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 8,
-    "color": "#466b60",
+    "color": "#3a574e",
     "keys": [
       "HX-0232",
       "HX0232",
@@ -7880,11 +8342,13 @@ export const books = [
     "chipId": "HX-0232",
     "locationCode": "S1-B-L4-P08",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.0126,
+    "heightScale": 1.1,
+    "depthScale": 0.9,
     "worldPosition": [
-      -6.2126,
-      1.69412,
-      -6.962
+      -6.21134,
+      1.7033,
+      -6.993109
     ],
     "chipPayload": {
       "book_id": "HX-0232",
@@ -7903,7 +8367,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 9,
-    "color": "#466b60",
+    "color": "#518072",
     "keys": [
       "HX-0233",
       "HX0233",
@@ -7914,11 +8378,13 @@ export const books = [
     "chipId": "HX-0233",
     "locationCode": "S1-B-L4-P09",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.0611,
+    "heightScale": 1,
+    "depthScale": 1,
     "worldPosition": [
       -6.2126,
-      1.67576,
-      -6.638
+      1.688,
+      -6.631406
     ],
     "chipPayload": {
       "book_id": "HX-0233",
@@ -7937,7 +8403,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 10,
-    "color": "#466b60",
+    "color": "#518072",
     "keys": [
       "HX-0234",
       "HX0234",
@@ -7948,11 +8414,13 @@ export const books = [
     "chipId": "HX-0234",
     "locationCode": "S1-B-L4-P10",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.0611,
+    "heightScale": 1,
+    "depthScale": 1,
     "worldPosition": [
       -6.2126,
-      1.69106,
-      -6.398571
+      1.688,
+      -6.402217
     ],
     "chipPayload": {
       "book_id": "HX-0234",
@@ -7971,7 +8439,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 11,
-    "color": "#466b60",
+    "color": "#518072",
     "keys": [
       "HX-0235",
       "HX0235",
@@ -7982,11 +8450,13 @@ export const books = [
     "chipId": "HX-0235",
     "locationCode": "S1-B-L4-P11",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.0611,
+    "heightScale": 1,
+    "depthScale": 0.8,
     "worldPosition": [
-      -6.2126,
-      1.68341,
-      -6.159143
+      -6.21008,
+      1.688,
+      -6.173028
     ],
     "chipPayload": {
       "book_id": "HX-0235",
@@ -8005,7 +8475,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 12,
-    "color": "#466b60",
+    "color": "#518072",
     "keys": [
       "HX-0236",
       "HX0236",
@@ -8016,11 +8486,13 @@ export const books = [
     "chipId": "HX-0236",
     "locationCode": "S1-B-L4-P12",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.0611,
+    "heightScale": 1,
+    "depthScale": 0.8,
     "worldPosition": [
-      -6.2126,
-      1.69412,
-      -5.919714
+      -6.21008,
+      1.688,
+      -5.943839
     ],
     "chipPayload": {
       "book_id": "HX-0236",
@@ -8039,7 +8511,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 13,
-    "color": "#466b60",
+    "color": "#518072",
     "keys": [
       "HX-0237",
       "HX0237",
@@ -8050,11 +8522,13 @@ export const books = [
     "chipId": "HX-0237",
     "locationCode": "S1-B-L4-P13",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.0611,
+    "heightScale": 1,
+    "depthScale": 0.8,
     "worldPosition": [
-      -6.2126,
-      1.68953,
-      -5.680286
+      -6.21008,
+      1.688,
+      -5.71465
     ],
     "chipPayload": {
       "book_id": "HX-0237",
@@ -8073,7 +8547,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 14,
-    "color": "#466b60",
+    "color": "#45695e",
     "keys": [
       "HX-0238",
       "HX0238",
@@ -8084,11 +8558,13 @@ export const books = [
     "chipId": "HX-0238",
     "locationCode": "S1-B-L4-P14",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 0.9284,
+    "heightScale": 1.05,
+    "depthScale": 1.15,
     "worldPosition": [
-      -6.2126,
-      1.69718,
-      -5.440857
+      -6.21449,
+      1.69565,
+      -5.499785
     ],
     "chipPayload": {
       "book_id": "HX-0238",
@@ -8107,7 +8583,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 15,
-    "color": "#466b60",
+    "color": "#4f7b6e",
     "keys": [
       "HX-0239",
       "HX0239",
@@ -8118,11 +8594,13 @@ export const books = [
     "chipId": "HX-0239",
     "locationCode": "S1-B-L4-P15",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.26,
+    "heightScale": 0.9,
+    "depthScale": 1.48,
     "worldPosition": [
-      -6.2126,
-      1.69106,
-      -5.201429
+      -6.218648,
+      1.6727,
+      -5.263434
     ],
     "chipPayload": {
       "book_id": "HX-0239",
@@ -8141,7 +8619,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 16,
-    "color": "#466b60",
+    "color": "#4f7b6e",
     "keys": [
       "HX-0240",
       "HX0240",
@@ -8152,11 +8630,13 @@ export const books = [
     "chipId": "HX-0240",
     "locationCode": "S1-B-L4-P16",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.1274,
+    "heightScale": 0.8,
+    "depthScale": 0.8,
     "worldPosition": [
-      -6.2126,
-      1.68647,
-      -4.962
+      -6.21008,
+      1.6574,
+      -5.005596
     ],
     "chipPayload": {
       "book_id": "HX-0240",
@@ -8175,7 +8655,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 17,
-    "color": "#466b60",
+    "color": "#4c766a",
     "keys": [
       "HX-0241",
       "HX0241",
@@ -8186,11 +8666,13 @@ export const books = [
     "chipId": "HX-0241",
     "locationCode": "S1-B-L4-P17",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.0053,
+    "heightScale": 0.95,
+    "depthScale": 1.3,
     "worldPosition": [
-      -6.2126,
-      1.67882,
-      -4.638
+      -6.21638,
+      1.68035,
+      -4.637431
     ],
     "chipPayload": {
       "book_id": "HX-0241",
@@ -8209,7 +8691,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 18,
-    "color": "#466b60",
+    "color": "#4c766a",
     "keys": [
       "HX-0242",
       "HX0242",
@@ -8220,11 +8702,13 @@ export const books = [
     "chipId": "HX-0242",
     "locationCode": "S1-B-L4-P18",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.0053,
+    "heightScale": 0.95,
+    "depthScale": 1.3,
     "worldPosition": [
-      -6.2126,
-      1.67882,
-      -4.398571
+      -6.21638,
+      1.68035,
+      -4.420292
     ],
     "chipPayload": {
       "book_id": "HX-0242",
@@ -8243,7 +8727,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 19,
-    "color": "#466b60",
+    "color": "#4c766a",
     "keys": [
       "HX-0243",
       "HX0243",
@@ -8254,11 +8738,13 @@ export const books = [
     "chipId": "HX-0243",
     "locationCode": "S1-B-L4-P19",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.2925,
+    "heightScale": 1.05,
+    "depthScale": 0.9,
     "worldPosition": [
-      -6.2126,
-      1.68035,
-      -4.159143
+      -6.21134,
+      1.69565,
+      -4.172133
     ],
     "chipPayload": {
       "book_id": "HX-0243",
@@ -8277,7 +8763,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 20,
-    "color": "#466b60",
+    "color": "#4c766a",
     "keys": [
       "HX-0244",
       "HX0244",
@@ -8288,11 +8774,13 @@ export const books = [
     "chipId": "HX-0244",
     "locationCode": "S1-B-L4-P20",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.2925,
+    "heightScale": 1.05,
+    "depthScale": 0.9,
     "worldPosition": [
-      -6.2126,
-      1.68341,
-      -3.919714
+      -6.21134,
+      1.69565,
+      -3.892954
     ],
     "chipPayload": {
       "book_id": "HX-0244",
@@ -8311,7 +8799,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 21,
-    "color": "#466b60",
+    "color": "#518072",
     "keys": [
       "HX-0245",
       "HX0245",
@@ -8322,11 +8810,13 @@ export const books = [
     "chipId": "HX-0245",
     "locationCode": "S1-B-L4-P21",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 0.9335,
+    "heightScale": 1.1,
+    "depthScale": 0.8,
     "worldPosition": [
-      -6.2126,
-      1.68647,
-      -3.680286
+      -6.21008,
+      1.7033,
+      -3.652551
     ],
     "chipPayload": {
       "book_id": "HX-0245",
@@ -8345,7 +8835,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 22,
-    "color": "#466b60",
+    "color": "#518072",
     "keys": [
       "HX-0246",
       "HX0246",
@@ -8356,11 +8846,13 @@ export const books = [
     "chipId": "HX-0246",
     "locationCode": "S1-B-L4-P22",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 0.9335,
+    "heightScale": 1.1,
+    "depthScale": 0.8,
     "worldPosition": [
-      -6.2126,
-      1.69106,
-      -3.440857
+      -6.21008,
+      1.7033,
+      -3.450922
     ],
     "chipPayload": {
       "book_id": "HX-0246",
@@ -8379,7 +8871,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 23,
-    "color": "#466b60",
+    "color": "#518072",
     "keys": [
       "HX-0247",
       "HX0247",
@@ -8390,11 +8882,13 @@ export const books = [
     "chipId": "HX-0247",
     "locationCode": "S1-B-L4-P23",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 0.9335,
+    "heightScale": 1.1,
+    "depthScale": 0.8,
     "worldPosition": [
-      -6.2126,
-      1.68035,
-      -3.201429
+      -6.21008,
+      1.7033,
+      -3.249293
     ],
     "chipPayload": {
       "book_id": "HX-0247",
@@ -8413,7 +8907,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 24,
-    "color": "#466b60",
+    "color": "#406056",
     "keys": [
       "HX-0248",
       "HX0248",
@@ -8424,11 +8918,13 @@ export const books = [
     "chipId": "HX-0248",
     "locationCode": "S1-B-L4-P24",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.1489,
+    "heightScale": 0.85,
+    "depthScale": 0.8,
     "worldPosition": [
-      -6.2126,
-      1.67729,
-      -2.962
+      -6.21008,
+      1.66505,
+      -3.024399
     ],
     "chipPayload": {
       "book_id": "HX-0248",
@@ -8447,7 +8943,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 25,
-    "color": "#466b60",
+    "color": "#45695e",
     "keys": [
       "时间简史",
       "物理",
@@ -8462,11 +8958,13 @@ export const books = [
     "chipId": "HX-0249",
     "locationCode": "S1-B-L4-P25",
     "placeholder": false,
-    "heightScale": 0.96,
+    "widthScale": 1.0635,
+    "heightScale": 0.8,
+    "depthScale": 0.8,
     "worldPosition": [
-      -6.2126,
-      1.68188,
-      -2.638
+      -6.21008,
+      1.6574,
+      -2.63114
     ],
     "chipPayload": {
       "book_id": "HX-0249",
@@ -8485,7 +8983,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 26,
-    "color": "#466b60",
+    "color": "#45695e",
     "keys": [
       "HX-0250",
       "HX0250",
@@ -8496,11 +8994,13 @@ export const books = [
     "chipId": "HX-0250",
     "locationCode": "S1-B-L4-P26",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.0635,
+    "heightScale": 0.8,
+    "depthScale": 0.8,
     "worldPosition": [
-      -6.2126,
-      1.68494,
-      -2.405714
+      -6.21008,
+      1.6574,
+      -2.401419
     ],
     "chipPayload": {
       "book_id": "HX-0250",
@@ -8519,7 +9019,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 27,
-    "color": "#466b60",
+    "color": "#518072",
     "keys": [
       "HX-0251",
       "HX0251",
@@ -8530,11 +9030,13 @@ export const books = [
     "chipId": "HX-0251",
     "locationCode": "S1-B-L4-P27",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 0.9454,
+    "heightScale": 1.05,
+    "depthScale": 1.3,
     "worldPosition": [
-      -6.2126,
-      1.69259,
-      -2.173429
+      -6.21638,
+      1.69565,
+      -2.184461
     ],
     "chipPayload": {
       "book_id": "HX-0251",
@@ -8553,7 +9055,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 28,
-    "color": "#466b60",
+    "color": "#4a7266",
     "keys": [
       "HX-0252",
       "HX0252",
@@ -8564,11 +9066,13 @@ export const books = [
     "chipId": "HX-0252",
     "locationCode": "S1-B-L4-P28",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.0044,
+    "heightScale": 0.95,
+    "depthScale": 1.15,
     "worldPosition": [
-      -6.2126,
-      1.68494,
-      -1.941143
+      -6.21449,
+      1.68035,
+      -1.973884
     ],
     "chipPayload": {
       "book_id": "HX-0252",
@@ -8587,7 +9091,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 29,
-    "color": "#466b60",
+    "color": "#4a7266",
     "keys": [
       "HX-0253",
       "HX0253",
@@ -8598,11 +9102,13 @@ export const books = [
     "chipId": "HX-0253",
     "locationCode": "S1-B-L4-P29",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.0044,
+    "heightScale": 0.95,
+    "depthScale": 1.15,
     "worldPosition": [
-      -6.2126,
-      1.69718,
-      -1.708857
+      -6.21449,
+      1.68035,
+      -1.756926
     ],
     "chipPayload": {
       "book_id": "HX-0253",
@@ -8621,7 +9127,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 30,
-    "color": "#466b60",
+    "color": "#3d5b52",
     "keys": [
       "HX-0254",
       "HX0254",
@@ -8632,11 +9138,13 @@ export const books = [
     "chipId": "HX-0254",
     "locationCode": "S1-B-L4-P30",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.1226,
+    "heightScale": 0.8,
+    "depthScale": 1,
     "worldPosition": [
       -6.2126,
-      1.69565,
-      -1.476571
+      1.6574,
+      -1.527206
     ],
     "chipPayload": {
       "book_id": "HX-0254",
@@ -8655,7 +9163,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 31,
-    "color": "#466b60",
+    "color": "#45695e",
     "keys": [
       "HX-0255",
       "HX0255",
@@ -8666,11 +9174,13 @@ export const books = [
     "chipId": "HX-0255",
     "locationCode": "S1-B-L4-P31",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.0635,
+    "heightScale": 1.1,
+    "depthScale": 1.15,
     "worldPosition": [
-      -6.2126,
-      1.68341,
-      -1.244286
+      -6.21449,
+      1.7033,
+      -1.291104
     ],
     "chipPayload": {
       "book_id": "HX-0255",
@@ -8689,7 +9199,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 32,
-    "color": "#466b60",
+    "color": "#476d62",
     "keys": [
       "HX-0256",
       "HX0256",
@@ -8700,11 +9210,13 @@ export const books = [
     "chipId": "HX-0256",
     "locationCode": "S1-B-L4-P32",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.0635,
+    "heightScale": 1.1,
+    "depthScale": 1.15,
     "worldPosition": [
-      -6.2126,
-      1.67729,
-      -1.012
+      -6.21449,
+      1.7033,
+      -1.061384
     ],
     "chipPayload": {
       "book_id": "HX-0256",
@@ -8723,7 +9235,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 1,
-    "color": "#7f6650",
+    "color": "#826851",
     "keys": [
       "HX-0257",
       "HX0257",
@@ -8734,11 +9246,13 @@ export const books = [
     "chipId": "HX-0257",
     "locationCode": "S2-A-L1-P01",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 0.9337,
+    "heightScale": 1,
+    "depthScale": 1.15,
     "worldPosition": [
-      -2.7874,
-      0.25218,
-      -8.588
+      -2.78551,
+      0.243,
+      -8.595165
     ],
     "chipPayload": {
       "book_id": "HX-0257",
@@ -8757,7 +9271,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 2,
-    "color": "#7f6650",
+    "color": "#826851",
     "keys": [
       "HX-0258",
       "HX0258",
@@ -8768,11 +9282,13 @@ export const books = [
     "chipId": "HX-0258",
     "locationCode": "S2-A-L1-P02",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 0.9337,
+    "heightScale": 1,
+    "depthScale": 1.15,
     "worldPosition": [
-      -2.7874,
-      0.24759,
-      -8.355714
+      -2.78551,
+      0.243,
+      -8.393496
     ],
     "chipPayload": {
       "book_id": "HX-0258",
@@ -8791,7 +9307,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 3,
-    "color": "#7f6650",
+    "color": "#826851",
     "keys": [
       "HX-0259",
       "HX0259",
@@ -8802,11 +9318,13 @@ export const books = [
     "chipId": "HX-0259",
     "locationCode": "S2-A-L1-P03",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 0.9337,
+    "heightScale": 1,
+    "depthScale": 1.15,
     "worldPosition": [
-      -2.7874,
-      0.23229,
-      -8.123429
+      -2.78551,
+      0.243,
+      -8.191827
     ],
     "chipPayload": {
       "book_id": "HX-0259",
@@ -8825,7 +9343,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 4,
-    "color": "#7f6650",
+    "color": "#725c49",
     "keys": [
       "HX-0260",
       "HX0260",
@@ -8836,11 +9354,13 @@ export const books = [
     "chipId": "HX-0260",
     "locationCode": "S2-A-L1-P04",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.0773,
+    "heightScale": 0.95,
+    "depthScale": 1,
     "worldPosition": [
       -2.7874,
-      0.25218,
-      -7.891143
+      0.23535,
+      -7.974644
     ],
     "chipPayload": {
       "book_id": "HX-0260",
@@ -8859,7 +9379,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 5,
-    "color": "#7f6650",
+    "color": "#725c49",
     "keys": [
       "HX-0261",
       "HX0261",
@@ -8870,11 +9390,13 @@ export const books = [
     "chipId": "HX-0261",
     "locationCode": "S2-A-L1-P05",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.0773,
+    "heightScale": 0.95,
+    "depthScale": 1,
     "worldPosition": [
       -2.7874,
-      0.243,
-      -7.658857
+      0.23535,
+      -7.741949
     ],
     "chipPayload": {
       "book_id": "HX-0261",
@@ -8893,7 +9415,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 6,
-    "color": "#7f6650",
+    "color": "#725c49",
     "keys": [
       "HX-0262",
       "HX0262",
@@ -8904,11 +9426,13 @@ export const books = [
     "chipId": "HX-0262",
     "locationCode": "S2-A-L1-P06",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.0773,
+    "heightScale": 0.95,
+    "depthScale": 1,
     "worldPosition": [
       -2.7874,
-      0.23229,
-      -7.426571
+      0.23535,
+      -7.509254
     ],
     "chipPayload": {
       "book_id": "HX-0262",
@@ -8927,7 +9451,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 7,
-    "color": "#7f6650",
+    "color": "#92745a",
     "keys": [
       "HX-0263",
       "HX0263",
@@ -8938,11 +9462,13 @@ export const books = [
     "chipId": "HX-0263",
     "locationCode": "S2-A-L1-P07",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.1491,
+    "heightScale": 1.1,
+    "depthScale": 1.48,
     "worldPosition": [
-      -2.7874,
-      0.23076,
-      -7.194286
+      -2.781352,
+      0.2583,
+      -7.268802
     ],
     "chipPayload": {
       "book_id": "HX-0263",
@@ -8961,7 +9487,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 8,
-    "color": "#7f6650",
+    "color": "#92745a",
     "keys": [
       "HX-0264",
       "HX0264",
@@ -8972,11 +9498,13 @@ export const books = [
     "chipId": "HX-0264",
     "locationCode": "S2-A-L1-P08",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.1491,
+    "heightScale": 1.1,
+    "depthScale": 1.48,
     "worldPosition": [
-      -2.7874,
-      0.23688,
-      -6.962
+      -2.781352,
+      0.2583,
+      -7.020593
     ],
     "chipPayload": {
       "book_id": "HX-0264",
@@ -8995,7 +9523,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 9,
-    "color": "#7f6650",
+    "color": "#826851",
     "keys": [
       "HX-0265",
       "HX0265",
@@ -9006,11 +9534,13 @@ export const books = [
     "chipId": "HX-0265",
     "locationCode": "S2-A-L1-P09",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.0684,
+    "heightScale": 0.9,
+    "depthScale": 1.48,
     "worldPosition": [
-      -2.7874,
-      0.25218,
-      -6.638
+      -2.781352,
+      0.2277,
+      -6.630614
     ],
     "chipPayload": {
       "book_id": "HX-0265",
@@ -9029,7 +9559,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 10,
-    "color": "#7f6650",
+    "color": "#826851",
     "keys": [
       "HX-0266",
       "HX0266",
@@ -9040,11 +9570,13 @@ export const books = [
     "chipId": "HX-0266",
     "locationCode": "S2-A-L1-P10",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.0684,
+    "heightScale": 0.9,
+    "depthScale": 1.48,
     "worldPosition": [
-      -2.7874,
-      0.24912,
-      -6.398571
+      -2.781352,
+      0.2277,
+      -6.399841
     ],
     "chipPayload": {
       "book_id": "HX-0266",
@@ -9063,7 +9595,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 11,
-    "color": "#7f6650",
+    "color": "#826851",
     "keys": [
       "HX-0267",
       "HX0267",
@@ -9074,11 +9606,13 @@ export const books = [
     "chipId": "HX-0267",
     "locationCode": "S2-A-L1-P11",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.0684,
+    "heightScale": 0.9,
+    "depthScale": 1.48,
     "worldPosition": [
-      -2.7874,
-      0.23688,
-      -6.159143
+      -2.781352,
+      0.2277,
+      -6.169068
     ],
     "chipPayload": {
       "book_id": "HX-0267",
@@ -9097,7 +9631,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 12,
-    "color": "#7f6650",
+    "color": "#92745a",
     "keys": [
       "HX-0268",
       "HX0268",
@@ -9108,11 +9642,13 @@ export const books = [
     "chipId": "HX-0268",
     "locationCode": "S2-A-L1-P12",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.1352,
+    "heightScale": 0.8,
+    "depthScale": 0.9,
     "worldPosition": [
-      -2.7874,
-      0.23382,
-      -5.919714
+      -2.78866,
+      0.2124,
+      -5.931084
     ],
     "chipPayload": {
       "book_id": "HX-0268",
@@ -9131,7 +9667,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 13,
-    "color": "#7f6650",
+    "color": "#92745a",
     "keys": [
       "HX-0269",
       "HX0269",
@@ -9142,11 +9678,13 @@ export const books = [
     "chipId": "HX-0269",
     "locationCode": "S2-A-L1-P13",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.1352,
+    "heightScale": 0.8,
+    "depthScale": 0.9,
     "worldPosition": [
-      -2.7874,
-      0.24453,
-      -5.680286
+      -2.78866,
+      0.2124,
+      -5.685888
     ],
     "chipPayload": {
       "book_id": "HX-0269",
@@ -9165,7 +9703,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 14,
-    "color": "#7f6650",
+    "color": "#92745a",
     "keys": [
       "HX-0270",
       "HX0270",
@@ -9176,11 +9714,13 @@ export const books = [
     "chipId": "HX-0270",
     "locationCode": "S2-A-L1-P14",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.1352,
+    "heightScale": 0.8,
+    "depthScale": 0.9,
     "worldPosition": [
-      -2.7874,
-      0.24147,
-      -5.440857
+      -2.78866,
+      0.2124,
+      -5.440692
     ],
     "chipPayload": {
       "book_id": "HX-0270",
@@ -9199,7 +9739,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 15,
-    "color": "#7f6650",
+    "color": "#8d7057",
     "keys": [
       "HX-0271",
       "HX0271",
@@ -9210,11 +9750,13 @@ export const books = [
     "chipId": "HX-0271",
     "locationCode": "S2-A-L1-P15",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 0.9348,
+    "heightScale": 1,
+    "depthScale": 0.9,
     "worldPosition": [
-      -2.7874,
-      0.23076,
-      -5.201429
+      -2.78866,
+      0.243,
+      -5.21713
     ],
     "chipPayload": {
       "book_id": "HX-0271",
@@ -9233,7 +9775,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 16,
-    "color": "#7f6650",
+    "color": "#8d7057",
     "keys": [
       "HX-0272",
       "HX0272",
@@ -9244,11 +9786,13 @@ export const books = [
     "chipId": "HX-0272",
     "locationCode": "S2-A-L1-P16",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.0016,
+    "heightScale": 1,
+    "depthScale": 1,
     "worldPosition": [
       -2.7874,
-      0.25218,
-      -4.962
+      0.243,
+      -5.007993
     ],
     "chipPayload": {
       "book_id": "HX-0272",
@@ -9267,7 +9811,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 17,
-    "color": "#7f6650",
+    "color": "#98785d",
     "keys": [
       "HX-0273",
       "HX0273",
@@ -9278,11 +9822,13 @@ export const books = [
     "chipId": "HX-0273",
     "locationCode": "S2-A-L1-P17",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.0623,
+    "heightScale": 0.85,
+    "depthScale": 1,
     "worldPosition": [
       -2.7874,
-      0.24606,
-      -4.638
+      0.22005,
+      -4.631271
     ],
     "chipPayload": {
       "book_id": "HX-0273",
@@ -9301,7 +9847,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 18,
-    "color": "#7f6650",
+    "color": "#98785d",
     "keys": [
       "HX-0274",
       "HX0274",
@@ -9312,11 +9858,13 @@ export const books = [
     "chipId": "HX-0274",
     "locationCode": "S2-A-L1-P18",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.0623,
+    "heightScale": 0.85,
+    "depthScale": 1,
     "worldPosition": [
       -2.7874,
-      0.23076,
-      -4.398571
+      0.22005,
+      -4.401812
     ],
     "chipPayload": {
       "book_id": "HX-0274",
@@ -9335,7 +9883,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 19,
-    "color": "#7f6650",
+    "color": "#98785d",
     "keys": [
       "HX-0275",
       "HX0275",
@@ -9346,11 +9894,13 @@ export const books = [
     "chipId": "HX-0275",
     "locationCode": "S2-A-L1-P19",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.0623,
+    "heightScale": 0.85,
+    "depthScale": 1,
     "worldPosition": [
       -2.7874,
-      0.24912,
-      -4.159143
+      0.22005,
+      -4.172354
     ],
     "chipPayload": {
       "book_id": "HX-0275",
@@ -9369,7 +9919,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 20,
-    "color": "#7f6650",
+    "color": "#77604c",
     "keys": [
       "HX-0276",
       "HX0276",
@@ -9380,11 +9930,13 @@ export const books = [
     "chipId": "HX-0276",
     "locationCode": "S2-A-L1-P20",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 0.9295,
+    "heightScale": 1.05,
+    "depthScale": 1,
     "worldPosition": [
       -2.7874,
-      0.23229,
-      -3.919714
+      0.25065,
+      -3.957237
     ],
     "chipPayload": {
       "book_id": "HX-0276",
@@ -9403,7 +9955,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 21,
-    "color": "#7f6650",
+    "color": "#77604c",
     "keys": [
       "HX-0277",
       "HX0277",
@@ -9414,11 +9966,13 @@ export const books = [
     "chipId": "HX-0277",
     "locationCode": "S2-A-L1-P21",
     "placeholder": true,
+    "widthScale": 0.9295,
     "heightScale": 1.05,
+    "depthScale": 1,
     "worldPosition": [
       -2.7874,
       0.25065,
-      -3.680286
+      -3.756461
     ],
     "chipPayload": {
       "book_id": "HX-0277",
@@ -9437,7 +9991,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 22,
-    "color": "#7f6650",
+    "color": "#77604c",
     "keys": [
       "HX-0278",
       "HX0278",
@@ -9448,11 +10002,13 @@ export const books = [
     "chipId": "HX-0278",
     "locationCode": "S2-A-L1-P22",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 0.9295,
+    "heightScale": 1.05,
+    "depthScale": 1,
     "worldPosition": [
       -2.7874,
-      0.23535,
-      -3.440857
+      0.25065,
+      -3.555685
     ],
     "chipPayload": {
       "book_id": "HX-0278",
@@ -9471,7 +10027,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 23,
-    "color": "#7f6650",
+    "color": "#725c49",
     "keys": [
       "HX-0279",
       "HX0279",
@@ -9482,11 +10038,13 @@ export const books = [
     "chipId": "HX-0279",
     "locationCode": "S2-A-L1-P23",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.2615,
+    "heightScale": 1,
+    "depthScale": 1.3,
     "worldPosition": [
-      -2.7874,
-      0.23841,
-      -3.201429
+      -2.78362,
+      0.243,
+      -3.319056
     ],
     "chipPayload": {
       "book_id": "HX-0279",
@@ -9505,7 +10063,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 24,
-    "color": "#7f6650",
+    "color": "#725c49",
     "keys": [
       "HX-0280",
       "HX0280",
@@ -9516,11 +10074,13 @@ export const books = [
     "chipId": "HX-0280",
     "locationCode": "S2-A-L1-P24",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.2615,
+    "heightScale": 1,
+    "depthScale": 1.3,
     "worldPosition": [
-      -2.7874,
-      0.24606,
-      -2.962
+      -2.78362,
+      0.243,
+      -3.046574
     ],
     "chipPayload": {
       "book_id": "HX-0280",
@@ -9539,7 +10099,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 25,
-    "color": "#7f6650",
+    "color": "#826851",
     "keys": [
       "HX-0281",
       "HX0281",
@@ -9550,11 +10110,13 @@ export const books = [
     "chipId": "HX-0281",
     "locationCode": "S2-A-L1-P25",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 0.9502,
+    "heightScale": 0.85,
+    "depthScale": 0.9,
     "worldPosition": [
-      -2.7874,
-      0.24606,
-      -2.638
+      -2.78866,
+      0.22005,
+      -2.643382
     ],
     "chipPayload": {
       "book_id": "HX-0281",
@@ -9573,7 +10135,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 26,
-    "color": "#7f6650",
+    "color": "#7c644f",
     "keys": [
       "HX-0282",
       "HX0282",
@@ -9584,11 +10146,13 @@ export const books = [
     "chipId": "HX-0282",
     "locationCode": "S2-A-L1-P26",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 0.9502,
+    "heightScale": 1.1,
+    "depthScale": 1.48,
     "worldPosition": [
-      -2.7874,
-      0.24147,
-      -2.405714
+      -2.781352,
+      0.2583,
+      -2.438145
     ],
     "chipPayload": {
       "book_id": "HX-0282",
@@ -9607,7 +10171,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 27,
-    "color": "#7f6650",
+    "color": "#7c644f",
     "keys": [
       "HX-0283",
       "HX0283",
@@ -9618,11 +10182,13 @@ export const books = [
     "chipId": "HX-0283",
     "locationCode": "S2-A-L1-P27",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 0.9502,
+    "heightScale": 1.1,
+    "depthScale": 1.48,
     "worldPosition": [
-      -2.7874,
-      0.243,
-      -2.173429
+      -2.781352,
+      0.2583,
+      -2.232909
     ],
     "chipPayload": {
       "book_id": "HX-0283",
@@ -9641,7 +10207,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 28,
-    "color": "#7f6650",
+    "color": "#7c644f",
     "keys": [
       "HX-0284",
       "HX0284",
@@ -9652,11 +10218,13 @@ export const books = [
     "chipId": "HX-0284",
     "locationCode": "S2-A-L1-P28",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 0.9502,
+    "heightScale": 1.1,
+    "depthScale": 1.48,
     "worldPosition": [
-      -2.7874,
-      0.24606,
-      -1.941143
+      -2.781352,
+      0.2583,
+      -2.027672
     ],
     "chipPayload": {
       "book_id": "HX-0284",
@@ -9675,7 +10243,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 29,
-    "color": "#7f6650",
+    "color": "#92745a",
     "keys": [
       "HX-0285",
       "HX0285",
@@ -9686,11 +10254,13 @@ export const books = [
     "chipId": "HX-0285",
     "locationCode": "S2-A-L1-P29",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.018,
+    "heightScale": 1.05,
+    "depthScale": 1.48,
     "worldPosition": [
-      -2.7874,
-      0.24912,
-      -1.708857
+      -2.781352,
+      0.25065,
+      -1.815106
     ],
     "chipPayload": {
       "book_id": "HX-0285",
@@ -9709,7 +10279,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 30,
-    "color": "#7f6650",
+    "color": "#725c49",
     "keys": [
       "HX-0286",
       "HX0286",
@@ -9720,11 +10290,13 @@ export const books = [
     "chipId": "HX-0286",
     "locationCode": "S2-A-L1-P30",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.1538,
+    "heightScale": 0.95,
+    "depthScale": 1,
     "worldPosition": [
       -2.7874,
-      0.24453,
-      -1.476571
+      0.23535,
+      -1.58055
     ],
     "chipPayload": {
       "book_id": "HX-0286",
@@ -9743,7 +10315,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 31,
-    "color": "#7f6650",
+    "color": "#725c49",
     "keys": [
       "HX-0287",
       "HX0287",
@@ -9754,11 +10326,13 @@ export const books = [
     "chipId": "HX-0287",
     "locationCode": "S2-A-L1-P31",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.1538,
+    "heightScale": 0.95,
+    "depthScale": 1,
     "worldPosition": [
       -2.7874,
-      0.243,
-      -1.244286
+      0.23535,
+      -1.331334
     ],
     "chipPayload": {
       "book_id": "HX-0287",
@@ -9777,7 +10351,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 32,
-    "color": "#7f6650",
+    "color": "#725c49",
     "keys": [
       "HX-0288",
       "HX0288",
@@ -9788,11 +10362,13 @@ export const books = [
     "chipId": "HX-0288",
     "locationCode": "S2-A-L1-P32",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.1538,
+    "heightScale": 0.95,
+    "depthScale": 1,
     "worldPosition": [
       -2.7874,
-      0.24606,
-      -1.012
+      0.23535,
+      -1.082118
     ],
     "chipPayload": {
       "book_id": "HX-0288",
@@ -9811,7 +10387,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 1,
-    "color": "#7f6650",
+    "color": "#826851",
     "keys": [
       "HX-0289",
       "HX0289",
@@ -9822,11 +10398,13 @@ export const books = [
     "chipId": "HX-0289",
     "locationCode": "S2-A-L2-P01",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 0.9161,
+    "heightScale": 0.9,
+    "depthScale": 1.15,
     "worldPosition": [
-      -2.7874,
-      0.68494,
-      -8.588
+      -2.78551,
+      0.6727,
+      -8.597062
     ],
     "chipPayload": {
       "book_id": "HX-0289",
@@ -9845,7 +10423,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 2,
-    "color": "#7f6650",
+    "color": "#92745a",
     "keys": [
       "HX-0290",
       "HX0290",
@@ -9856,11 +10434,13 @@ export const books = [
     "chipId": "HX-0290",
     "locationCode": "S2-A-L2-P02",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.1604,
+    "heightScale": 1,
+    "depthScale": 0.9,
     "worldPosition": [
-      -2.7874,
-      0.69412,
-      -8.355714
+      -2.78866,
+      0.688,
+      -8.372801
     ],
     "chipPayload": {
       "book_id": "HX-0290",
@@ -9879,7 +10459,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 3,
-    "color": "#7f6650",
+    "color": "#92745a",
     "keys": [
       "HX-0291",
       "HX0291",
@@ -9890,11 +10470,13 @@ export const books = [
     "chipId": "HX-0291",
     "locationCode": "S2-A-L2-P03",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.1604,
+    "heightScale": 1,
+    "depthScale": 0.9,
     "worldPosition": [
-      -2.7874,
-      0.67882,
-      -8.123429
+      -2.78866,
+      0.688,
+      -8.122157
     ],
     "chipPayload": {
       "book_id": "HX-0291",
@@ -9913,7 +10495,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 4,
-    "color": "#7f6650",
+    "color": "#92745a",
     "keys": [
       "HX-0292",
       "HX0292",
@@ -9924,11 +10506,13 @@ export const books = [
     "chipId": "HX-0292",
     "locationCode": "S2-A-L2-P04",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.1604,
+    "heightScale": 1,
+    "depthScale": 0.9,
     "worldPosition": [
-      -2.7874,
-      0.68035,
-      -7.891143
+      -2.78866,
+      0.688,
+      -7.871513
     ],
     "chipPayload": {
       "book_id": "HX-0292",
@@ -9947,7 +10531,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 5,
-    "color": "#7f6650",
+    "color": "#77604c",
     "keys": [
       "HX-0293",
       "HX0293",
@@ -9958,11 +10542,13 @@ export const books = [
     "chipId": "HX-0293",
     "locationCode": "S2-A-L2-P05",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 0.9161,
+    "heightScale": 1.1,
+    "depthScale": 0.8,
     "worldPosition": [
-      -2.7874,
-      0.68647,
-      -7.658857
+      -2.78992,
+      0.7033,
+      -7.647253
     ],
     "chipPayload": {
       "book_id": "HX-0293",
@@ -9981,7 +10567,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 6,
-    "color": "#7f6650",
+    "color": "#77604c",
     "keys": [
       "HX-0294",
       "HX0294",
@@ -9992,11 +10578,13 @@ export const books = [
     "chipId": "HX-0294",
     "locationCode": "S2-A-L2-P06",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 0.9161,
+    "heightScale": 1.1,
+    "depthScale": 0.8,
     "worldPosition": [
-      -2.7874,
-      0.67882,
-      -7.426571
+      -2.78992,
+      0.7033,
+      -7.449376
     ],
     "chipPayload": {
       "book_id": "HX-0294",
@@ -10015,7 +10603,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 7,
-    "color": "#7f6650",
+    "color": "#77604c",
     "keys": [
       "HX-0295",
       "HX0295",
@@ -10026,11 +10614,13 @@ export const books = [
     "chipId": "HX-0295",
     "locationCode": "S2-A-L2-P07",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.0382,
+    "heightScale": 1.05,
+    "depthScale": 0.9,
     "worldPosition": [
-      -2.7874,
-      0.69718,
-      -7.194286
+      -2.78866,
+      0.69565,
+      -7.238308
     ],
     "chipPayload": {
       "book_id": "HX-0295",
@@ -10049,7 +10639,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 8,
-    "color": "#7f6650",
+    "color": "#77604c",
     "keys": [
       "HX-0296",
       "HX0296",
@@ -10060,11 +10650,13 @@ export const books = [
     "chipId": "HX-0296",
     "locationCode": "S2-A-L2-P08",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.0382,
+    "heightScale": 1.05,
+    "depthScale": 0.9,
     "worldPosition": [
-      -2.7874,
-      0.68188,
-      -6.962
+      -2.78866,
+      0.69565,
+      -7.014047
     ],
     "chipPayload": {
       "book_id": "HX-0296",
@@ -10083,7 +10675,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 9,
-    "color": "#7f6650",
+    "color": "#725c49",
     "keys": [
       "HX-0297",
       "HX0297",
@@ -10094,11 +10686,13 @@ export const books = [
     "chipId": "HX-0297",
     "locationCode": "S2-A-L2-P09",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 0.9819,
+    "heightScale": 1,
+    "depthScale": 0.8,
     "worldPosition": [
-      -2.7874,
-      0.68647,
-      -6.638
+      -2.78992,
+      0.688,
+      -6.639954
     ],
     "chipPayload": {
       "book_id": "HX-0297",
@@ -10117,7 +10711,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 10,
-    "color": "#7f6650",
+    "color": "#8d7057",
     "keys": [
       "HX-0298",
       "HX0298",
@@ -10128,11 +10722,13 @@ export const books = [
     "chipId": "HX-0298",
     "locationCode": "S2-A-L2-P10",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.2624,
+    "heightScale": 0.8,
+    "depthScale": 1,
     "worldPosition": [
       -2.7874,
-      0.68188,
-      -6.398571
+      0.6574,
+      -6.397564
     ],
     "chipPayload": {
       "book_id": "HX-0298",
@@ -10151,7 +10747,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 11,
-    "color": "#7f6650",
+    "color": "#6c5846",
     "keys": [
       "HX-0299",
       "HX0299",
@@ -10162,11 +10758,13 @@ export const books = [
     "chipId": "HX-0299",
     "locationCode": "S2-A-L2-P11",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.052,
+    "heightScale": 0.95,
+    "depthScale": 1.15,
     "worldPosition": [
-      -2.7874,
-      0.68341,
-      -6.159143
+      -2.78551,
+      0.68035,
+      -6.1476
     ],
     "chipPayload": {
       "book_id": "HX-0299",
@@ -10185,7 +10783,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 12,
-    "color": "#7f6650",
+    "color": "#77604c",
     "keys": [
       "HX-0300",
       "HX0300",
@@ -10196,11 +10794,13 @@ export const books = [
     "chipId": "HX-0300",
     "locationCode": "S2-A-L2-P12",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 0.9118,
+    "heightScale": 1,
+    "depthScale": 1.15,
     "worldPosition": [
-      -2.7874,
-      0.68953,
-      -5.919714
+      -2.78551,
+      0.688,
+      -5.935509
     ],
     "chipPayload": {
       "book_id": "HX-0300",
@@ -10219,7 +10819,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 13,
-    "color": "#7f6650",
+    "color": "#77604c",
     "keys": [
       "HX-0301",
       "HX0301",
@@ -10230,11 +10830,13 @@ export const books = [
     "chipId": "HX-0301",
     "locationCode": "S2-A-L2-P13",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 0.9118,
+    "heightScale": 1,
+    "depthScale": 1.15,
     "worldPosition": [
-      -2.7874,
-      0.68188,
-      -5.680286
+      -2.78551,
+      0.688,
+      -5.738567
     ],
     "chipPayload": {
       "book_id": "HX-0301",
@@ -10253,7 +10855,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 14,
-    "color": "#7f6650",
+    "color": "#77604c",
     "keys": [
       "HX-0302",
       "HX0302",
@@ -10264,11 +10866,13 @@ export const books = [
     "chipId": "HX-0302",
     "locationCode": "S2-A-L2-P14",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.2624,
+    "heightScale": 0.95,
+    "depthScale": 1.48,
     "worldPosition": [
-      -2.7874,
-      0.69718,
-      -5.440857
+      -2.781352,
+      0.68035,
+      -5.503752
     ],
     "chipPayload": {
       "book_id": "HX-0302",
@@ -10287,7 +10891,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 15,
-    "color": "#7f6650",
+    "color": "#77604c",
     "keys": [
       "HX-0303",
       "HX0303",
@@ -10298,11 +10902,13 @@ export const books = [
     "chipId": "HX-0303",
     "locationCode": "S2-A-L2-P15",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.2624,
+    "heightScale": 0.95,
+    "depthScale": 1.48,
     "worldPosition": [
-      -2.7874,
-      0.69718,
-      -5.201429
+      -2.781352,
+      0.68035,
+      -5.231063
     ],
     "chipPayload": {
       "book_id": "HX-0303",
@@ -10321,7 +10927,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 16,
-    "color": "#7f6650",
+    "color": "#6c5846",
     "keys": [
       "HX-0304",
       "HX0304",
@@ -10332,11 +10938,13 @@ export const books = [
     "chipId": "HX-0304",
     "locationCode": "S2-A-L2-P16",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 0.9819,
+    "heightScale": 0.8,
+    "depthScale": 1,
     "worldPosition": [
       -2.7874,
-      0.67882,
-      -4.962
+      0.6574,
+      -4.988673
     ],
     "chipPayload": {
       "book_id": "HX-0304",
@@ -10355,7 +10963,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 17,
-    "color": "#7f6650",
+    "color": "#77604c",
     "keys": [
       "HX-0305",
       "HX0305",
@@ -10366,11 +10974,13 @@ export const books = [
     "chipId": "HX-0305",
     "locationCode": "S2-A-L2-P17",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.2671,
+    "heightScale": 0.95,
+    "depthScale": 1.3,
     "worldPosition": [
-      -2.7874,
-      0.69412,
-      -4.638
+      -2.78362,
+      0.68035,
+      -4.609149
     ],
     "chipPayload": {
       "book_id": "HX-0305",
@@ -10389,7 +10999,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 18,
-    "color": "#7f6650",
+    "color": "#7c644f",
     "keys": [
       "HX-0306",
       "HX0306",
@@ -10400,11 +11010,13 @@ export const books = [
     "chipId": "HX-0306",
     "locationCode": "S2-A-L2-P18",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.056,
+    "heightScale": 1.05,
+    "depthScale": 1.3,
     "worldPosition": [
-      -2.7874,
-      0.688,
-      -4.398571
+      -2.78362,
+      0.69565,
+      -4.358255
     ],
     "chipPayload": {
       "book_id": "HX-0306",
@@ -10423,7 +11035,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 19,
-    "color": "#7f6650",
+    "color": "#7c644f",
     "keys": [
       "HX-0307",
       "HX0307",
@@ -10434,11 +11046,13 @@ export const books = [
     "chipId": "HX-0307",
     "locationCode": "S2-A-L2-P19",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.056,
+    "heightScale": 1.05,
+    "depthScale": 1.3,
     "worldPosition": [
-      -2.7874,
-      0.67729,
-      -4.159143
+      -2.78362,
+      0.69565,
+      -4.130169
     ],
     "chipPayload": {
       "book_id": "HX-0307",
@@ -10457,7 +11071,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 20,
-    "color": "#7f6650",
+    "color": "#8d7057",
     "keys": [
       "HX-0308",
       "HX0308",
@@ -10468,11 +11082,13 @@ export const books = [
     "chipId": "HX-0308",
     "locationCode": "S2-A-L2-P20",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 0.9152,
+    "heightScale": 0.85,
+    "depthScale": 1.3,
     "worldPosition": [
-      -2.7874,
-      0.69718,
-      -3.919714
+      -2.78362,
+      0.66505,
+      -3.91729
     ],
     "chipPayload": {
       "book_id": "HX-0308",
@@ -10491,7 +11107,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 21,
-    "color": "#7f6650",
+    "color": "#8d7057",
     "keys": [
       "HX-0309",
       "HX0309",
@@ -10502,11 +11118,13 @@ export const books = [
     "chipId": "HX-0309",
     "locationCode": "S2-A-L2-P21",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 0.9152,
+    "heightScale": 0.85,
+    "depthScale": 1.3,
     "worldPosition": [
-      -2.7874,
-      0.69718,
-      -3.680286
+      -2.78362,
+      0.66505,
+      -3.719616
     ],
     "chipPayload": {
       "book_id": "HX-0309",
@@ -10525,7 +11143,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 22,
-    "color": "#7f6650",
+    "color": "#8d7057",
     "keys": [
       "HX-0310",
       "HX0310",
@@ -10536,11 +11154,13 @@ export const books = [
     "chipId": "HX-0310",
     "locationCode": "S2-A-L2-P22",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 0.9152,
+    "heightScale": 0.85,
+    "depthScale": 1.3,
     "worldPosition": [
-      -2.7874,
-      0.67882,
-      -3.440857
+      -2.78362,
+      0.66505,
+      -3.521942
     ],
     "chipPayload": {
       "book_id": "HX-0310",
@@ -10559,7 +11179,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 23,
-    "color": "#7f6650",
+    "color": "#92745a",
     "keys": [
       "HX-0311",
       "HX0311",
@@ -10570,11 +11190,13 @@ export const books = [
     "chipId": "HX-0311",
     "locationCode": "S2-A-L2-P23",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.1967,
+    "heightScale": 0.85,
+    "depthScale": 1.15,
     "worldPosition": [
-      -2.7874,
-      0.68341,
-      -3.201429
+      -2.78551,
+      0.66505,
+      -3.293856
     ],
     "chipPayload": {
       "book_id": "HX-0311",
@@ -10593,7 +11215,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 24,
-    "color": "#7f6650",
+    "color": "#92745a",
     "keys": [
       "HX-0312",
       "HX0312",
@@ -10604,11 +11226,13 @@ export const books = [
     "chipId": "HX-0312",
     "locationCode": "S2-A-L2-P24",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.1967,
+    "heightScale": 0.85,
+    "depthScale": 1.15,
     "worldPosition": [
-      -2.7874,
-      0.68035,
-      -2.962
+      -2.78551,
+      0.66505,
+      -3.03536
     ],
     "chipPayload": {
       "book_id": "HX-0312",
@@ -10627,7 +11251,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 25,
-    "color": "#7f6650",
+    "color": "#98785d",
     "keys": [
       "HX-0313",
       "HX0313",
@@ -10638,11 +11262,13 @@ export const books = [
     "chipId": "HX-0313",
     "locationCode": "S2-A-L2-P25",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.2932,
+    "heightScale": 0.95,
+    "depthScale": 1.15,
     "worldPosition": [
-      -2.7874,
-      0.67882,
-      -2.638
+      -2.78551,
+      0.68035,
+      -2.606331
     ],
     "chipPayload": {
       "book_id": "HX-0313",
@@ -10661,7 +11287,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 26,
-    "color": "#7f6650",
+    "color": "#8d7057",
     "keys": [
       "人类简史",
       "历史",
@@ -10676,11 +11302,13 @@ export const books = [
     "chipId": "HX-0314",
     "locationCode": "S2-A-L2-P26",
     "placeholder": false,
-    "heightScale": 1.04,
+    "widthScale": 1.0777,
+    "heightScale": 1.05,
+    "depthScale": 1.3,
     "worldPosition": [
-      -2.7874,
-      0.69412,
-      -2.405714
+      -2.78362,
+      0.69565,
+      -2.350273
     ],
     "chipPayload": {
       "book_id": "HX-0314",
@@ -10699,7 +11327,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 27,
-    "color": "#7f6650",
+    "color": "#876c54",
     "keys": [
       "HX-0315",
       "HX0315",
@@ -10710,11 +11338,13 @@ export const books = [
     "chipId": "HX-0315",
     "locationCode": "S2-A-L2-P27",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.1495,
+    "heightScale": 0.9,
+    "depthScale": 1.15,
     "worldPosition": [
-      -2.7874,
-      0.68953,
-      -2.173429
+      -2.78551,
+      0.6727,
+      -2.109732
     ],
     "chipPayload": {
       "book_id": "HX-0315",
@@ -10733,7 +11363,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 28,
-    "color": "#7f6650",
+    "color": "#675443",
     "keys": [
       "HX-0316",
       "HX0316",
@@ -10744,11 +11374,13 @@ export const books = [
     "chipId": "HX-0316",
     "locationCode": "S2-A-L2-P28",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.0058,
+    "heightScale": 1,
+    "depthScale": 1.3,
     "worldPosition": [
-      -2.7874,
-      0.69718,
-      -1.941143
+      -2.78362,
+      0.688,
+      -1.876951
     ],
     "chipPayload": {
       "book_id": "HX-0316",
@@ -10767,7 +11399,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 29,
-    "color": "#7f6650",
+    "color": "#675443",
     "keys": [
       "HX-0317",
       "HX0317",
@@ -10778,11 +11410,13 @@ export const books = [
     "chipId": "HX-0317",
     "locationCode": "S2-A-L2-P29",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.0058,
+    "heightScale": 1,
+    "depthScale": 1.3,
     "worldPosition": [
-      -2.7874,
-      0.69106,
-      -1.708857
+      -2.78362,
+      0.688,
+      -1.659689
     ],
     "chipPayload": {
       "book_id": "HX-0317",
@@ -10801,7 +11435,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 30,
-    "color": "#7f6650",
+    "color": "#675443",
     "keys": [
       "HX-0318",
       "HX0318",
@@ -10812,11 +11446,13 @@ export const books = [
     "chipId": "HX-0318",
     "locationCode": "S2-A-L2-P30",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.0058,
+    "heightScale": 1,
+    "depthScale": 1.3,
     "worldPosition": [
-      -2.7874,
-      0.68188,
-      -1.476571
+      -2.78362,
+      0.688,
+      -1.442427
     ],
     "chipPayload": {
       "book_id": "HX-0318",
@@ -10835,7 +11471,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 31,
-    "color": "#7f6650",
+    "color": "#98785d",
     "keys": [
       "HX-0319",
       "HX0319",
@@ -10846,11 +11482,13 @@ export const books = [
     "chipId": "HX-0319",
     "locationCode": "S2-A-L2-P31",
     "placeholder": true,
+    "widthScale": 0.934,
     "heightScale": 0.95,
+    "depthScale": 0.9,
     "worldPosition": [
-      -2.7874,
+      -2.78866,
       0.68035,
-      -1.244286
+      -1.232924
     ],
     "chipPayload": {
       "book_id": "HX-0319",
@@ -10869,7 +11507,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 32,
-    "color": "#7f6650",
+    "color": "#98785d",
     "keys": [
       "HX-0320",
       "HX0320",
@@ -10880,11 +11518,13 @@ export const books = [
     "chipId": "HX-0320",
     "locationCode": "S2-A-L2-P32",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 0.934,
+    "heightScale": 0.95,
+    "depthScale": 0.9,
     "worldPosition": [
-      -2.7874,
-      0.688,
-      -1.012
+      -2.78866,
+      0.68035,
+      -1.031181
     ],
     "chipPayload": {
       "book_id": "HX-0320",
@@ -10903,7 +11543,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 1,
-    "color": "#7f6650",
+    "color": "#826851",
     "keys": [
       "HX-0321",
       "HX0321",
@@ -10914,11 +11554,13 @@ export const books = [
     "chipId": "HX-0321",
     "locationCode": "S2-A-L3-P01",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.38,
+    "heightScale": 0.85,
+    "depthScale": 0.9,
     "worldPosition": [
-      -2.7874,
-      1.17882,
-      -8.588
+      -2.78866,
+      1.16505,
+      -8.546957
     ],
     "chipPayload": {
       "book_id": "HX-0321",
@@ -10937,7 +11579,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 2,
-    "color": "#7f6650",
+    "color": "#6c5846",
     "keys": [
       "HX-0322",
       "HX0322",
@@ -10948,11 +11590,13 @@ export const books = [
     "chipId": "HX-0322",
     "locationCode": "S2-A-L3-P02",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 0.9442,
+    "heightScale": 1.1,
+    "depthScale": 1.15,
     "worldPosition": [
-      -2.7874,
-      1.17576,
-      -8.355714
+      -2.78551,
+      1.2033,
+      -8.295936
     ],
     "chipPayload": {
       "book_id": "HX-0322",
@@ -10971,7 +11615,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 3,
-    "color": "#7f6650",
+    "color": "#6c5846",
     "keys": [
       "HX-0323",
       "HX0323",
@@ -10982,11 +11626,13 @@ export const books = [
     "chipId": "HX-0323",
     "locationCode": "S2-A-L3-P03",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 0.9442,
+    "heightScale": 1.1,
+    "depthScale": 1.15,
     "worldPosition": [
-      -2.7874,
-      1.18647,
-      -8.123429
+      -2.78551,
+      1.2033,
+      -8.091982
     ],
     "chipPayload": {
       "book_id": "HX-0323",
@@ -11005,7 +11651,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 4,
-    "color": "#7f6650",
+    "color": "#6c5846",
     "keys": [
       "HX-0324",
       "HX0324",
@@ -11016,11 +11662,13 @@ export const books = [
     "chipId": "HX-0324",
     "locationCode": "S2-A-L3-P04",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 0.9442,
+    "heightScale": 1.1,
+    "depthScale": 1.15,
     "worldPosition": [
-      -2.7874,
-      1.18341,
-      -7.891143
+      -2.78551,
+      1.2033,
+      -7.888028
     ],
     "chipPayload": {
       "book_id": "HX-0324",
@@ -11039,7 +11687,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 5,
-    "color": "#7f6650",
+    "color": "#8d7057",
     "keys": [
       "HX-0325",
       "HX0325",
@@ -11050,11 +11698,13 @@ export const books = [
     "chipId": "HX-0325",
     "locationCode": "S2-A-L3-P05",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.2348,
+    "heightScale": 0.8,
+    "depthScale": 1,
     "worldPosition": [
       -2.7874,
-      1.18647,
-      -7.658857
+      1.1574,
+      -7.652696
     ],
     "chipPayload": {
       "book_id": "HX-0325",
@@ -11073,7 +11723,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 6,
-    "color": "#7f6650",
+    "color": "#725c49",
     "keys": [
       "HX-0326",
       "HX0326",
@@ -11084,11 +11734,13 @@ export const books = [
     "chipId": "HX-0326",
     "locationCode": "S2-A-L3-P06",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 0.9442,
+    "heightScale": 1.1,
+    "depthScale": 1.48,
     "worldPosition": [
-      -2.7874,
-      1.18188,
-      -7.426571
+      -2.781352,
+      1.2033,
+      -7.417364
     ],
     "chipPayload": {
       "book_id": "HX-0326",
@@ -11107,7 +11759,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 7,
-    "color": "#7f6650",
+    "color": "#725c49",
     "keys": [
       "HX-0327",
       "HX0327",
@@ -11118,11 +11770,13 @@ export const books = [
     "chipId": "HX-0327",
     "locationCode": "S2-A-L3-P07",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 0.9442,
+    "heightScale": 1.1,
+    "depthScale": 1.48,
     "worldPosition": [
-      -2.7874,
-      1.18188,
-      -7.194286
+      -2.781352,
+      1.2033,
+      -7.21341
     ],
     "chipPayload": {
       "book_id": "HX-0327",
@@ -11141,7 +11795,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 8,
-    "color": "#7f6650",
+    "color": "#725c49",
     "keys": [
       "HX-0328",
       "HX0328",
@@ -11152,11 +11806,13 @@ export const books = [
     "chipId": "HX-0328",
     "locationCode": "S2-A-L3-P08",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 0.9442,
+    "heightScale": 1.1,
+    "depthScale": 1.48,
     "worldPosition": [
-      -2.7874,
-      1.19106,
-      -6.962
+      -2.781352,
+      1.2033,
+      -7.009456
     ],
     "chipPayload": {
       "book_id": "HX-0328",
@@ -11175,7 +11831,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 9,
-    "color": "#7f6650",
+    "color": "#826851",
     "keys": [
       "HX-0329",
       "HX0329",
@@ -11186,11 +11842,13 @@ export const books = [
     "chipId": "HX-0329",
     "locationCode": "S2-A-L3-P09",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.1156,
+    "heightScale": 0.85,
+    "depthScale": 1.48,
     "worldPosition": [
-      -2.7874,
-      1.18035,
-      -6.638
+      -2.781352,
+      1.16505,
+      -6.625517
     ],
     "chipPayload": {
       "book_id": "HX-0329",
@@ -11209,7 +11867,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 10,
-    "color": "#7f6650",
+    "color": "#826851",
     "keys": [
       "HX-0330",
       "HX0330",
@@ -11220,11 +11878,13 @@ export const books = [
     "chipId": "HX-0330",
     "locationCode": "S2-A-L3-P10",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.1156,
+    "heightScale": 0.85,
+    "depthScale": 1.48,
     "worldPosition": [
-      -2.7874,
-      1.17882,
-      -6.398571
+      -2.781352,
+      1.16505,
+      -6.384552
     ],
     "chipPayload": {
       "book_id": "HX-0330",
@@ -11243,7 +11903,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 11,
-    "color": "#7f6650",
+    "color": "#7c644f",
     "keys": [
       "HX-0331",
       "HX0331",
@@ -11254,11 +11914,13 @@ export const books = [
     "chipId": "HX-0331",
     "locationCode": "S2-A-L3-P11",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.0536,
+    "heightScale": 0.95,
+    "depthScale": 0.9,
     "worldPosition": [
-      -2.7874,
-      1.19106,
-      -6.159143
+      -2.78866,
+      1.18035,
+      -6.15028
     ],
     "chipPayload": {
       "book_id": "HX-0331",
@@ -11277,7 +11939,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 12,
-    "color": "#7f6650",
+    "color": "#675443",
     "keys": [
       "HX-0332",
       "HX0332",
@@ -11288,11 +11950,13 @@ export const books = [
     "chipId": "HX-0332",
     "locationCode": "S2-A-L3-P12",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.1776,
+    "heightScale": 0.8,
+    "depthScale": 0.8,
     "worldPosition": [
-      -2.7874,
-      1.17882,
-      -5.919714
+      -2.78992,
+      1.1574,
+      -5.909314
     ],
     "chipPayload": {
       "book_id": "HX-0332",
@@ -11311,7 +11975,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 13,
-    "color": "#7f6650",
+    "color": "#675443",
     "keys": [
       "HX-0333",
       "HX0333",
@@ -11322,11 +11986,13 @@ export const books = [
     "chipId": "HX-0333",
     "locationCode": "S2-A-L3-P13",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.1776,
+    "heightScale": 0.8,
+    "depthScale": 0.8,
     "worldPosition": [
-      -2.7874,
-      1.19106,
-      -5.680286
+      -2.78992,
+      1.1574,
+      -5.654962
     ],
     "chipPayload": {
       "book_id": "HX-0333",
@@ -11345,7 +12011,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 14,
-    "color": "#7f6650",
+    "color": "#675443",
     "keys": [
       "HX-0334",
       "HX0334",
@@ -11356,11 +12022,13 @@ export const books = [
     "chipId": "HX-0334",
     "locationCode": "S2-A-L3-P14",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.1776,
+    "heightScale": 0.8,
+    "depthScale": 0.8,
     "worldPosition": [
-      -2.7874,
-      1.18188,
-      -5.440857
+      -2.78992,
+      1.1574,
+      -5.400609
     ],
     "chipPayload": {
       "book_id": "HX-0334",
@@ -11379,7 +12047,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 15,
-    "color": "#7f6650",
+    "color": "#6c5846",
     "keys": [
       "HX-0335",
       "HX0335",
@@ -11390,11 +12058,13 @@ export const books = [
     "chipId": "HX-0335",
     "locationCode": "S2-A-L3-P15",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 0.8677,
+    "heightScale": 0.95,
+    "depthScale": 1,
     "worldPosition": [
       -2.7874,
-      1.19718,
-      -5.201429
+      1.18035,
+      -5.179724
     ],
     "chipPayload": {
       "book_id": "HX-0335",
@@ -11413,7 +12083,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 16,
-    "color": "#7f6650",
+    "color": "#6c5846",
     "keys": [
       "HX-0336",
       "HX0336",
@@ -11424,11 +12094,13 @@ export const books = [
     "chipId": "HX-0336",
     "locationCode": "S2-A-L3-P16",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 0.8677,
+    "heightScale": 0.95,
+    "depthScale": 1,
     "worldPosition": [
       -2.7874,
-      1.17576,
-      -4.962
+      1.18035,
+      -4.992307
     ],
     "chipPayload": {
       "book_id": "HX-0336",
@@ -11447,7 +12119,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 17,
-    "color": "#7f6650",
+    "color": "#7c644f",
     "keys": [
       "HX-0337",
       "HX0337",
@@ -11458,11 +12130,13 @@ export const books = [
     "chipId": "HX-0337",
     "locationCode": "S2-A-L3-P17",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.3036,
+    "heightScale": 0.85,
+    "depthScale": 0.8,
     "worldPosition": [
-      -2.7874,
-      1.188,
-      -4.638
+      -2.78992,
+      1.16505,
+      -4.605208
     ],
     "chipPayload": {
       "book_id": "HX-0337",
@@ -11481,7 +12155,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 18,
-    "color": "#7f6650",
+    "color": "#7c644f",
     "keys": [
       "HX-0338",
       "HX0338",
@@ -11492,11 +12166,13 @@ export const books = [
     "chipId": "HX-0338",
     "locationCode": "S2-A-L3-P18",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.3036,
+    "heightScale": 0.85,
+    "depthScale": 0.8,
     "worldPosition": [
-      -2.7874,
-      1.17729,
-      -4.398571
+      -2.78992,
+      1.16505,
+      -4.323623
     ],
     "chipPayload": {
       "book_id": "HX-0338",
@@ -11515,7 +12191,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 19,
-    "color": "#7f6650",
+    "color": "#7c644f",
     "keys": [
       "HX-0339",
       "HX0339",
@@ -11526,11 +12202,13 @@ export const books = [
     "chipId": "HX-0339",
     "locationCode": "S2-A-L3-P19",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 0.892,
+    "heightScale": 0.9,
+    "depthScale": 0.8,
     "worldPosition": [
-      -2.7874,
-      1.18647,
-      -4.159143
+      -2.78992,
+      1.1727,
+      -4.086499
     ],
     "chipPayload": {
       "book_id": "HX-0339",
@@ -11549,7 +12227,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 20,
-    "color": "#7f6650",
+    "color": "#7c644f",
     "keys": [
       "HX-0340",
       "HX0340",
@@ -11560,11 +12238,13 @@ export const books = [
     "chipId": "HX-0340",
     "locationCode": "S2-A-L3-P20",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 0.892,
+    "heightScale": 0.9,
+    "depthScale": 0.8,
     "worldPosition": [
-      -2.7874,
-      1.18188,
-      -3.919714
+      -2.78992,
+      1.1727,
+      -3.893835
     ],
     "chipPayload": {
       "book_id": "HX-0340",
@@ -11583,7 +12263,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 21,
-    "color": "#7f6650",
+    "color": "#876c54",
     "keys": [
       "HX-0341",
       "HX0341",
@@ -11594,11 +12274,13 @@ export const books = [
     "chipId": "HX-0341",
     "locationCode": "S2-A-L3-P21",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.1664,
+    "heightScale": 0.95,
+    "depthScale": 1.3,
     "worldPosition": [
-      -2.7874,
-      1.17882,
-      -3.680286
+      -2.78362,
+      1.18035,
+      -3.671532
     ],
     "chipPayload": {
       "book_id": "HX-0341",
@@ -11617,7 +12299,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 22,
-    "color": "#7f6650",
+    "color": "#876c54",
     "keys": [
       "HX-0342",
       "HX0342",
@@ -11628,11 +12310,13 @@ export const books = [
     "chipId": "HX-0342",
     "locationCode": "S2-A-L3-P22",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.1664,
+    "heightScale": 0.95,
+    "depthScale": 1.3,
     "worldPosition": [
-      -2.7874,
-      1.19718,
-      -3.440857
+      -2.78362,
+      1.18035,
+      -3.419587
     ],
     "chipPayload": {
       "book_id": "HX-0342",
@@ -11651,7 +12335,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 23,
-    "color": "#7f6650",
+    "color": "#725c49",
     "keys": [
       "HX-0343",
       "HX0343",
@@ -11662,11 +12346,13 @@ export const books = [
     "chipId": "HX-0343",
     "locationCode": "S2-A-L3-P23",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 0.9606,
+    "heightScale": 0.95,
+    "depthScale": 0.9,
     "worldPosition": [
-      -2.7874,
-      1.17576,
-      -3.201429
+      -2.78866,
+      1.18035,
+      -3.189873
     ],
     "chipPayload": {
       "book_id": "HX-0343",
@@ -11685,7 +12371,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 24,
-    "color": "#7f6650",
+    "color": "#725c49",
     "keys": [
       "HX-0344",
       "HX0344",
@@ -11696,11 +12382,13 @@ export const books = [
     "chipId": "HX-0344",
     "locationCode": "S2-A-L3-P24",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 0.9606,
+    "heightScale": 0.95,
+    "depthScale": 0.9,
     "worldPosition": [
-      -2.7874,
-      1.19259,
-      -2.962
+      -2.78866,
+      1.18035,
+      -2.98239
     ],
     "chipPayload": {
       "book_id": "HX-0344",
@@ -11719,7 +12407,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 25,
-    "color": "#7f6650",
+    "color": "#92745a",
     "keys": [
       "HX-0345",
       "HX0345",
@@ -11730,11 +12418,13 @@ export const books = [
     "chipId": "HX-0345",
     "locationCode": "S2-A-L3-P25",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.0096,
+    "heightScale": 0.9,
+    "depthScale": 1,
     "worldPosition": [
       -2.7874,
-      1.18494,
-      -2.638
+      1.1727,
+      -2.636964
     ],
     "chipPayload": {
       "book_id": "HX-0345",
@@ -11753,7 +12443,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 26,
-    "color": "#7f6650",
+    "color": "#92745a",
     "keys": [
       "HX-0346",
       "HX0346",
@@ -11764,11 +12454,13 @@ export const books = [
     "chipId": "HX-0346",
     "locationCode": "S2-A-L3-P26",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.0096,
+    "heightScale": 0.9,
+    "depthScale": 1,
     "worldPosition": [
       -2.7874,
-      1.19565,
-      -2.405714
+      1.1727,
+      -2.418893
     ],
     "chipPayload": {
       "book_id": "HX-0346",
@@ -11787,7 +12479,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 27,
-    "color": "#7f6650",
+    "color": "#98785d",
     "keys": [
       "HX-0347",
       "HX0347",
@@ -11798,11 +12490,13 @@ export const books = [
     "chipId": "HX-0347",
     "locationCode": "S2-A-L3-P27",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.1538,
+    "heightScale": 1.1,
+    "depthScale": 1.48,
     "worldPosition": [
-      -2.7874,
-      1.19259,
-      -2.173429
+      -2.781352,
+      1.2033,
+      -2.185245
     ],
     "chipPayload": {
       "book_id": "HX-0347",
@@ -11821,7 +12515,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 28,
-    "color": "#7f6650",
+    "color": "#98785d",
     "keys": [
       "HX-0348",
       "HX0348",
@@ -11832,11 +12526,13 @@ export const books = [
     "chipId": "HX-0348",
     "locationCode": "S2-A-L3-P28",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.1538,
+    "heightScale": 1.1,
+    "depthScale": 1.48,
     "worldPosition": [
-      -2.7874,
-      1.18494,
-      -1.941143
+      -2.781352,
+      1.2033,
+      -1.93602
     ],
     "chipPayload": {
       "book_id": "HX-0348",
@@ -11855,7 +12551,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 29,
-    "color": "#7f6650",
+    "color": "#98785d",
     "keys": [
       "HX-0349",
       "HX0349",
@@ -11866,11 +12562,13 @@ export const books = [
     "chipId": "HX-0349",
     "locationCode": "S2-A-L3-P29",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.1538,
+    "heightScale": 1.1,
+    "depthScale": 1.48,
     "worldPosition": [
-      -2.7874,
-      1.19565,
-      -1.708857
+      -2.781352,
+      1.2033,
+      -1.686796
     ],
     "chipPayload": {
       "book_id": "HX-0349",
@@ -11889,7 +12587,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 30,
-    "color": "#7f6650",
+    "color": "#6c5846",
     "keys": [
       "HX-0350",
       "HX0350",
@@ -11900,11 +12598,13 @@ export const books = [
     "chipId": "HX-0350",
     "locationCode": "S2-A-L3-P30",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 0.9375,
+    "heightScale": 0.8,
+    "depthScale": 1.48,
     "worldPosition": [
-      -2.7874,
-      1.18953,
-      -1.476571
+      -2.781352,
+      1.1574,
+      -1.460936
     ],
     "chipPayload": {
       "book_id": "HX-0350",
@@ -11923,7 +12623,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 31,
-    "color": "#7f6650",
+    "color": "#6c5846",
     "keys": [
       "HX-0351",
       "HX0351",
@@ -11934,11 +12634,13 @@ export const books = [
     "chipId": "HX-0351",
     "locationCode": "S2-A-L3-P31",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 0.9375,
+    "heightScale": 0.8,
+    "depthScale": 1.48,
     "worldPosition": [
-      -2.7874,
-      1.17882,
-      -1.244286
+      -2.781352,
+      1.1574,
+      -1.258441
     ],
     "chipPayload": {
       "book_id": "HX-0351",
@@ -11957,7 +12659,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 32,
-    "color": "#7f6650",
+    "color": "#6c5846",
     "keys": [
       "HX-0352",
       "HX0352",
@@ -11968,11 +12670,13 @@ export const books = [
     "chipId": "HX-0352",
     "locationCode": "S2-A-L3-P32",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 0.9375,
+    "heightScale": 0.8,
+    "depthScale": 1.48,
     "worldPosition": [
-      -2.7874,
-      1.18035,
-      -1.012
+      -2.781352,
+      1.1574,
+      -1.055946
     ],
     "chipPayload": {
       "book_id": "HX-0352",
@@ -11991,7 +12695,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 1,
-    "color": "#7f6650",
+    "color": "#98785d",
     "keys": [
       "HX-0353",
       "HX0353",
@@ -12002,11 +12706,13 @@ export const books = [
     "chipId": "HX-0353",
     "locationCode": "S2-A-L4-P01",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 0.8313,
+    "heightScale": 0.9,
+    "depthScale": 0.8,
     "worldPosition": [
-      -2.7874,
-      1.688,
-      -8.588
+      -2.78992,
+      1.6727,
+      -8.606222
     ],
     "chipPayload": {
       "book_id": "HX-0353",
@@ -12025,7 +12731,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 2,
-    "color": "#7f6650",
+    "color": "#826851",
     "keys": [
       "HX-0354",
       "HX0354",
@@ -12036,11 +12742,13 @@ export const books = [
     "chipId": "HX-0354",
     "locationCode": "S2-A-L4-P02",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.0688,
+    "heightScale": 0.8,
+    "depthScale": 1.48,
     "worldPosition": [
-      -2.7874,
-      1.68953,
-      -8.355714
+      -2.781352,
+      1.6574,
+      -8.401015
     ],
     "chipPayload": {
       "book_id": "HX-0354",
@@ -12059,7 +12767,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 3,
-    "color": "#7f6650",
+    "color": "#826851",
     "keys": [
       "HX-0355",
       "HX0355",
@@ -12070,11 +12778,13 @@ export const books = [
     "chipId": "HX-0355",
     "locationCode": "S2-A-L4-P03",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.0688,
+    "heightScale": 0.8,
+    "depthScale": 1.48,
     "worldPosition": [
-      -2.7874,
-      1.68647,
-      -8.123429
+      -2.781352,
+      1.6574,
+      -8.170157
     ],
     "chipPayload": {
       "book_id": "HX-0355",
@@ -12093,7 +12803,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 4,
-    "color": "#7f6650",
+    "color": "#826851",
     "keys": [
       "HX-0356",
       "HX0356",
@@ -12104,11 +12814,13 @@ export const books = [
     "chipId": "HX-0356",
     "locationCode": "S2-A-L4-P04",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.0688,
+    "heightScale": 0.8,
+    "depthScale": 1.48,
     "worldPosition": [
-      -2.7874,
-      1.69718,
-      -7.891143
+      -2.781352,
+      1.6574,
+      -7.939299
     ],
     "chipPayload": {
       "book_id": "HX-0356",
@@ -12127,7 +12839,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 5,
-    "color": "#7f6650",
+    "color": "#675443",
     "keys": [
       "HX-0357",
       "HX0357",
@@ -12138,11 +12850,13 @@ export const books = [
     "chipId": "HX-0357",
     "locationCode": "S2-A-L4-P05",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.1282,
+    "heightScale": 1.05,
+    "depthScale": 1.48,
     "worldPosition": [
-      -2.7874,
-      1.68494,
-      -7.658857
+      -2.781352,
+      1.69565,
+      -7.702028
     ],
     "chipPayload": {
       "book_id": "HX-0357",
@@ -12161,7 +12875,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 6,
-    "color": "#7f6650",
+    "color": "#675443",
     "keys": [
       "HX-0358",
       "HX0358",
@@ -12172,11 +12886,13 @@ export const books = [
     "chipId": "HX-0358",
     "locationCode": "S2-A-L4-P06",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.1282,
+    "heightScale": 1.05,
+    "depthScale": 1.48,
     "worldPosition": [
-      -2.7874,
-      1.68647,
-      -7.426571
+      -2.781352,
+      1.69565,
+      -7.458345
     ],
     "chipPayload": {
       "book_id": "HX-0358",
@@ -12195,7 +12911,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 7,
-    "color": "#7f6650",
+    "color": "#675443",
     "keys": [
       "HX-0359",
       "HX0359",
@@ -12206,11 +12922,13 @@ export const books = [
     "chipId": "HX-0359",
     "locationCode": "S2-A-L4-P07",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.1282,
+    "heightScale": 1.05,
+    "depthScale": 1.48,
     "worldPosition": [
-      -2.7874,
-      1.68647,
-      -7.194286
+      -2.781352,
+      1.69565,
+      -7.214661
     ],
     "chipPayload": {
       "book_id": "HX-0359",
@@ -12229,7 +12947,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 8,
-    "color": "#7f6650",
+    "color": "#826851",
     "keys": [
       "HX-0360",
       "HX0360",
@@ -12240,11 +12958,13 @@ export const books = [
     "chipId": "HX-0360",
     "locationCode": "S2-A-L4-P08",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 0.8907,
+    "heightScale": 1.05,
+    "depthScale": 1,
     "worldPosition": [
       -2.7874,
-      1.68494,
-      -6.962
+      1.69565,
+      -6.996629
     ],
     "chipPayload": {
       "book_id": "HX-0360",
@@ -12263,7 +12983,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 9,
-    "color": "#7f6650",
+    "color": "#876c54",
     "keys": [
       "HX-0361",
       "HX0361",
@@ -12274,11 +12994,13 @@ export const books = [
     "chipId": "HX-0361",
     "locationCode": "S2-A-L4-P09",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.1265,
+    "heightScale": 0.85,
+    "depthScale": 1.3,
     "worldPosition": [
-      -2.7874,
-      1.68188,
-      -6.638
+      -2.78362,
+      1.66505,
+      -6.624335
     ],
     "chipPayload": {
       "book_id": "HX-0361",
@@ -12297,7 +13019,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 10,
-    "color": "#7f6650",
+    "color": "#6c5846",
     "keys": [
       "HX-0362",
       "HX0362",
@@ -12308,11 +13030,13 @@ export const books = [
     "chipId": "HX-0362",
     "locationCode": "S2-A-L4-P10",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 0.8615,
+    "heightScale": 1.05,
+    "depthScale": 0.9,
     "worldPosition": [
-      -2.7874,
-      1.688,
-      -6.398571
+      -2.78866,
+      1.69565,
+      -6.409631
     ],
     "chipPayload": {
       "book_id": "HX-0362",
@@ -12331,7 +13055,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 11,
-    "color": "#7f6650",
+    "color": "#7c644f",
     "keys": [
       "HX-0363",
       "HX0363",
@@ -12342,11 +13066,13 @@ export const books = [
     "chipId": "HX-0363",
     "locationCode": "S2-A-L4-P11",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.1265,
+    "heightScale": 0.8,
+    "depthScale": 1.15,
     "worldPosition": [
-      -2.7874,
-      1.69565,
-      -6.159143
+      -2.78551,
+      1.6574,
+      -6.194928
     ],
     "chipPayload": {
       "book_id": "HX-0363",
@@ -12365,7 +13091,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 12,
-    "color": "#7f6650",
+    "color": "#98785d",
     "keys": [
       "HX-0364",
       "HX0364",
@@ -12376,11 +13102,13 @@ export const books = [
     "chipId": "HX-0364",
     "locationCode": "S2-A-L4-P12",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 0.8615,
+    "heightScale": 0.85,
+    "depthScale": 0.8,
     "worldPosition": [
-      -2.7874,
-      1.68647,
-      -5.919714
+      -2.78992,
+      1.66505,
+      -5.980225
     ],
     "chipPayload": {
       "book_id": "HX-0364",
@@ -12399,7 +13127,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 13,
-    "color": "#7f6650",
+    "color": "#98785d",
     "keys": [
       "HX-0365",
       "HX0365",
@@ -12410,11 +13138,13 @@ export const books = [
     "chipId": "HX-0365",
     "locationCode": "S2-A-L4-P13",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 0.8615,
+    "heightScale": 0.85,
+    "depthScale": 0.8,
     "worldPosition": [
-      -2.7874,
-      1.69259,
-      -5.680286
+      -2.78992,
+      1.66505,
+      -5.794148
     ],
     "chipPayload": {
       "book_id": "HX-0365",
@@ -12433,7 +13163,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 14,
-    "color": "#7f6650",
+    "color": "#6c5846",
     "keys": [
       "HX-0366",
       "HX0366",
@@ -12444,11 +13174,13 @@ export const books = [
     "chipId": "HX-0366",
     "locationCode": "S2-A-L4-P14",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.2591,
+    "heightScale": 1.05,
+    "depthScale": 1.48,
     "worldPosition": [
-      -2.7874,
-      1.69106,
-      -5.440857
+      -2.781352,
+      1.69565,
+      -5.565131
     ],
     "chipPayload": {
       "book_id": "HX-0366",
@@ -12467,7 +13199,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 15,
-    "color": "#7f6650",
+    "color": "#6c5846",
     "keys": [
       "HX-0367",
       "HX0367",
@@ -12478,11 +13210,13 @@ export const books = [
     "chipId": "HX-0367",
     "locationCode": "S2-A-L4-P15",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.2591,
+    "heightScale": 1.05,
+    "depthScale": 1.48,
     "worldPosition": [
-      -2.7874,
-      1.69259,
-      -5.201429
+      -2.781352,
+      1.69565,
+      -5.293174
     ],
     "chipPayload": {
       "book_id": "HX-0367",
@@ -12501,7 +13235,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 16,
-    "color": "#7f6650",
+    "color": "#6c5846",
     "keys": [
       "HX-0368",
       "HX0368",
@@ -12512,11 +13246,13 @@ export const books = [
     "chipId": "HX-0368",
     "locationCode": "S2-A-L4-P16",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.2591,
+    "heightScale": 1.05,
+    "depthScale": 1.48,
     "worldPosition": [
-      -2.7874,
-      1.67576,
-      -4.962
+      -2.781352,
+      1.69565,
+      -5.021216
     ],
     "chipPayload": {
       "book_id": "HX-0368",
@@ -12535,7 +13271,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 17,
-    "color": "#7f6650",
+    "color": "#92745a",
     "keys": [
       "HX-0369",
       "HX0369",
@@ -12546,11 +13282,13 @@ export const books = [
     "chipId": "HX-0369",
     "locationCode": "S2-A-L4-P17",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.2598,
+    "heightScale": 1,
+    "depthScale": 0.9,
     "worldPosition": [
-      -2.7874,
-      1.68494,
-      -4.638
+      -2.78866,
+      1.688,
+      -4.609943
     ],
     "chipPayload": {
       "book_id": "HX-0369",
@@ -12569,7 +13307,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 18,
-    "color": "#7f6650",
+    "color": "#92745a",
     "keys": [
       "HX-0370",
       "HX0370",
@@ -12580,11 +13318,13 @@ export const books = [
     "chipId": "HX-0370",
     "locationCode": "S2-A-L4-P18",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.2598,
+    "heightScale": 1,
+    "depthScale": 0.9,
     "worldPosition": [
-      -2.7874,
-      1.69412,
-      -4.398571
+      -2.78866,
+      1.688,
+      -4.337828
     ],
     "chipPayload": {
       "book_id": "HX-0370",
@@ -12603,7 +13343,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 19,
-    "color": "#7f6650",
+    "color": "#92745a",
     "keys": [
       "HX-0371",
       "HX0371",
@@ -12614,11 +13354,13 @@ export const books = [
     "chipId": "HX-0371",
     "locationCode": "S2-A-L4-P19",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.2598,
+    "heightScale": 1,
+    "depthScale": 0.9,
     "worldPosition": [
-      -2.7874,
-      1.69259,
-      -4.159143
+      -2.78866,
+      1.688,
+      -4.065713
     ],
     "chipPayload": {
       "book_id": "HX-0371",
@@ -12637,7 +13379,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 20,
-    "color": "#7f6650",
+    "color": "#725c49",
     "keys": [
       "HX-0372",
       "HX0372",
@@ -12648,11 +13390,13 @@ export const books = [
     "chipId": "HX-0372",
     "locationCode": "S2-A-L4-P20",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 0.9946,
+    "heightScale": 1.05,
+    "depthScale": 1.48,
     "worldPosition": [
-      -2.7874,
-      1.69106,
-      -3.919714
+      -2.781352,
+      1.69565,
+      -3.822243
     ],
     "chipPayload": {
       "book_id": "HX-0372",
@@ -12671,7 +13415,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 21,
-    "color": "#7f6650",
+    "color": "#725c49",
     "keys": [
       "HX-0373",
       "HX0373",
@@ -12682,11 +13426,13 @@ export const books = [
     "chipId": "HX-0373",
     "locationCode": "S2-A-L4-P21",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 0.9946,
+    "heightScale": 1.05,
+    "depthScale": 1.48,
     "worldPosition": [
-      -2.7874,
-      1.67576,
-      -3.680286
+      -2.781352,
+      1.69565,
+      -3.607415
     ],
     "chipPayload": {
       "book_id": "HX-0373",
@@ -12705,7 +13451,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 22,
-    "color": "#7f6650",
+    "color": "#876c54",
     "keys": [
       "HX-0374",
       "HX0374",
@@ -12716,11 +13462,13 @@ export const books = [
     "chipId": "HX-0374",
     "locationCode": "S2-A-L4-P22",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 0.9283,
+    "heightScale": 1,
+    "depthScale": 1.48,
     "worldPosition": [
-      -2.7874,
-      1.67729,
-      -3.440857
+      -2.781352,
+      1.688,
+      -3.399749
     ],
     "chipPayload": {
       "book_id": "HX-0374",
@@ -12739,7 +13487,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 23,
-    "color": "#7f6650",
+    "color": "#876c54",
     "keys": [
       "HX-0375",
       "HX0375",
@@ -12750,11 +13498,13 @@ export const books = [
     "chipId": "HX-0375",
     "locationCode": "S2-A-L4-P23",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 0.9283,
+    "heightScale": 1,
+    "depthScale": 1.48,
     "worldPosition": [
-      -2.7874,
-      1.67576,
-      -3.201429
+      -2.781352,
+      1.688,
+      -3.199243
     ],
     "chipPayload": {
       "book_id": "HX-0375",
@@ -12773,7 +13523,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 24,
-    "color": "#7f6650",
+    "color": "#876c54",
     "keys": [
       "HX-0376",
       "HX0376",
@@ -12784,11 +13534,13 @@ export const books = [
     "chipId": "HX-0376",
     "locationCode": "S2-A-L4-P24",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 0.9283,
+    "heightScale": 1,
+    "depthScale": 1.48,
     "worldPosition": [
-      -2.7874,
-      1.68035,
-      -2.962
+      -2.781352,
+      1.688,
+      -2.998738
     ],
     "chipPayload": {
       "book_id": "HX-0376",
@@ -12807,7 +13559,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 25,
-    "color": "#7f6650",
+    "color": "#675443",
     "keys": [
       "HX-0377",
       "HX0377",
@@ -12818,11 +13570,13 @@ export const books = [
     "chipId": "HX-0377",
     "locationCode": "S2-A-L4-P25",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 0.8597,
+    "heightScale": 1.1,
+    "depthScale": 1.48,
     "worldPosition": [
-      -2.7874,
-      1.68341,
-      -2.638
+      -2.781352,
+      1.7033,
+      -2.653152
     ],
     "chipPayload": {
       "book_id": "HX-0377",
@@ -12841,7 +13595,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 26,
-    "color": "#7f6650",
+    "color": "#675443",
     "keys": [
       "HX-0378",
       "HX0378",
@@ -12852,11 +13606,13 @@ export const books = [
     "chipId": "HX-0378",
     "locationCode": "S2-A-L4-P26",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 0.8597,
+    "heightScale": 1.1,
+    "depthScale": 1.48,
     "worldPosition": [
-      -2.7874,
-      1.69259,
-      -2.405714
+      -2.781352,
+      1.7033,
+      -2.467456
     ],
     "chipPayload": {
       "book_id": "HX-0378",
@@ -12875,7 +13631,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 27,
-    "color": "#7f6650",
+    "color": "#675443",
     "keys": [
       "HX-0379",
       "HX0379",
@@ -12886,11 +13642,13 @@ export const books = [
     "chipId": "HX-0379",
     "locationCode": "S2-A-L4-P27",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 0.8597,
+    "heightScale": 1.1,
+    "depthScale": 1.48,
     "worldPosition": [
-      -2.7874,
-      1.68188,
-      -2.173429
+      -2.781352,
+      1.7033,
+      -2.28176
     ],
     "chipPayload": {
       "book_id": "HX-0379",
@@ -12909,7 +13667,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 28,
-    "color": "#7f6650",
+    "color": "#725c49",
     "keys": [
       "HX-0380",
       "HX0380",
@@ -12920,11 +13678,13 @@ export const books = [
     "chipId": "HX-0380",
     "locationCode": "S2-A-L4-P28",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.0581,
+    "heightScale": 1.05,
+    "depthScale": 1.48,
     "worldPosition": [
-      -2.7874,
-      1.67882,
-      -1.941143
+      -2.781352,
+      1.69565,
+      -2.074637
     ],
     "chipPayload": {
       "book_id": "HX-0380",
@@ -12943,7 +13703,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 29,
-    "color": "#7f6650",
+    "color": "#8d7057",
     "keys": [
       "HX-0381",
       "HX0381",
@@ -12954,11 +13714,13 @@ export const books = [
     "chipId": "HX-0381",
     "locationCode": "S2-A-L4-P29",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.1904,
+    "heightScale": 0.9,
+    "depthScale": 0.8,
     "worldPosition": [
-      -2.7874,
-      1.69565,
-      -1.708857
+      -2.78992,
+      1.6727,
+      -1.831804
     ],
     "chipPayload": {
       "book_id": "HX-0381",
@@ -12977,7 +13739,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 30,
-    "color": "#7f6650",
+    "color": "#8d7057",
     "keys": [
       "HX-0382",
       "HX0382",
@@ -12988,11 +13750,13 @@ export const books = [
     "chipId": "HX-0382",
     "locationCode": "S2-A-L4-P30",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.1904,
+    "heightScale": 0.9,
+    "depthScale": 0.8,
     "worldPosition": [
-      -2.7874,
-      1.67576,
-      -1.476571
+      -2.78992,
+      1.6727,
+      -1.574687
     ],
     "chipPayload": {
       "book_id": "HX-0382",
@@ -13011,7 +13775,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 31,
-    "color": "#7f6650",
+    "color": "#77604c",
     "keys": [
       "HX-0383",
       "HX0383",
@@ -13022,11 +13786,13 @@ export const books = [
     "chipId": "HX-0383",
     "locationCode": "S2-A-L4-P31",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.1904,
+    "heightScale": 1.05,
+    "depthScale": 0.9,
     "worldPosition": [
-      -2.7874,
-      1.69259,
-      -1.244286
+      -2.78866,
+      1.69565,
+      -1.317569
     ],
     "chipPayload": {
       "book_id": "HX-0383",
@@ -13045,7 +13811,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 32,
-    "color": "#7f6650",
+    "color": "#77604c",
     "keys": [
       "HX-0384",
       "HX0384",
@@ -13056,11 +13822,13 @@ export const books = [
     "chipId": "HX-0384",
     "locationCode": "S2-A-L4-P32",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.1242,
+    "heightScale": 1.1,
+    "depthScale": 1.3,
     "worldPosition": [
-      -2.7874,
-      1.67729,
-      -1.012
+      -2.78362,
+      1.7033,
+      -1.067594
     ],
     "chipPayload": {
       "book_id": "HX-0384",
@@ -13079,7 +13847,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 1,
-    "color": "#7f6650",
+    "color": "#876c54",
     "keys": [
       "HX-0385",
       "HX0385",
@@ -13090,11 +13858,13 @@ export const books = [
     "chipId": "HX-0385",
     "locationCode": "S2-B-L1-P01",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 0.9788,
+    "heightScale": 1,
+    "depthScale": 1,
     "worldPosition": [
       -3.2126,
-      0.25065,
-      -8.588
+      0.243,
+      -8.59029
     ],
     "chipPayload": {
       "book_id": "HX-0385",
@@ -13113,7 +13883,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 2,
-    "color": "#7f6650",
+    "color": "#876c54",
     "keys": [
       "HX-0386",
       "HX0386",
@@ -13124,11 +13894,13 @@ export const books = [
     "chipId": "HX-0386",
     "locationCode": "S2-B-L1-P02",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 0.9788,
+    "heightScale": 1,
+    "depthScale": 1,
     "worldPosition": [
       -3.2126,
-      0.24606,
-      -8.355714
+      0.243,
+      -8.378871
     ],
     "chipPayload": {
       "book_id": "HX-0386",
@@ -13147,7 +13919,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 3,
-    "color": "#7f6650",
+    "color": "#98785d",
     "keys": [
       "HX-0387",
       "HX0387",
@@ -13158,11 +13930,13 @@ export const books = [
     "chipId": "HX-0387",
     "locationCode": "S2-B-L1-P03",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 0.8564,
+    "heightScale": 0.9,
+    "depthScale": 1.15,
     "worldPosition": [
-      -3.2126,
-      0.23688,
-      -8.123429
+      -3.21449,
+      0.2277,
+      -8.180666
     ],
     "chipPayload": {
       "book_id": "HX-0387",
@@ -13181,7 +13955,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 4,
-    "color": "#7f6650",
+    "color": "#7c644f",
     "keys": [
       "HX-0388",
       "HX0388",
@@ -13192,11 +13966,13 @@ export const books = [
     "chipId": "HX-0388",
     "locationCode": "S2-B-L1-P04",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.1623,
+    "heightScale": 0.95,
+    "depthScale": 1.3,
     "worldPosition": [
-      -3.2126,
-      0.25065,
-      -7.891143
+      -3.21638,
+      0.23535,
+      -7.96264
     ],
     "chipPayload": {
       "book_id": "HX-0388",
@@ -13215,7 +13991,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 5,
-    "color": "#7f6650",
+    "color": "#7c644f",
     "keys": [
       "HX-0389",
       "HX0389",
@@ -13226,11 +14002,13 @@ export const books = [
     "chipId": "HX-0389",
     "locationCode": "S2-B-L1-P05",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.1623,
+    "heightScale": 0.95,
+    "depthScale": 1.3,
     "worldPosition": [
-      -3.2126,
-      0.24912,
-      -7.658857
+      -3.21638,
+      0.23535,
+      -7.711579
     ],
     "chipPayload": {
       "book_id": "HX-0389",
@@ -13249,7 +14027,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 6,
-    "color": "#7f6650",
+    "color": "#725c49",
     "keys": [
       "HX-0390",
       "HX0390",
@@ -13260,11 +14038,13 @@ export const books = [
     "chipId": "HX-0390",
     "locationCode": "S2-B-L1-P06",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 0.9788,
+    "heightScale": 0.8,
+    "depthScale": 1.48,
     "worldPosition": [
-      -3.2126,
-      0.23076,
-      -7.426571
+      -3.218648,
+      0.2124,
+      -7.480339
     ],
     "chipPayload": {
       "book_id": "HX-0390",
@@ -13283,7 +14063,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 7,
-    "color": "#7f6650",
+    "color": "#77604c",
     "keys": [
       "HX-0391",
       "HX0391",
@@ -13294,11 +14074,13 @@ export const books = [
     "chipId": "HX-0391",
     "locationCode": "S2-B-L1-P07",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.1011,
+    "heightScale": 1.05,
+    "depthScale": 1.15,
     "worldPosition": [
-      -3.2126,
-      0.24147,
-      -7.194286
+      -3.21449,
+      0.25065,
+      -7.255706
     ],
     "chipPayload": {
       "book_id": "HX-0391",
@@ -13317,7 +14099,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 8,
-    "color": "#7f6650",
+    "color": "#77604c",
     "keys": [
       "HX-0392",
       "HX0392",
@@ -13328,11 +14110,13 @@ export const books = [
     "chipId": "HX-0392",
     "locationCode": "S2-B-L1-P08",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.1011,
+    "heightScale": 1.05,
+    "depthScale": 1.15,
     "worldPosition": [
-      -3.2126,
-      0.25218,
-      -6.962
+      -3.21449,
+      0.25065,
+      -7.01786
     ],
     "chipPayload": {
       "book_id": "HX-0392",
@@ -13351,7 +14135,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 9,
-    "color": "#7f6650",
+    "color": "#725c49",
     "keys": [
       "HX-0393",
       "HX0393",
@@ -13362,11 +14146,13 @@ export const books = [
     "chipId": "HX-0393",
     "locationCode": "S2-B-L1-P09",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.0502,
+    "heightScale": 0.8,
+    "depthScale": 1.48,
     "worldPosition": [
-      -3.2126,
-      0.23229,
-      -6.638
+      -3.218648,
+      0.2124,
+      -6.632576
     ],
     "chipPayload": {
       "book_id": "HX-0393",
@@ -13385,7 +14171,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 10,
-    "color": "#7f6650",
+    "color": "#675443",
     "keys": [
       "HX-0394",
       "HX0394",
@@ -13396,11 +14182,13 @@ export const books = [
     "chipId": "HX-0394",
     "locationCode": "S2-B-L1-P10",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.0502,
+    "heightScale": 0.85,
+    "depthScale": 1.3,
     "worldPosition": [
-      -3.2126,
-      0.24147,
-      -6.398571
+      -3.21638,
+      0.22005,
+      -6.405728
     ],
     "chipPayload": {
       "book_id": "HX-0394",
@@ -13419,7 +14207,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 11,
-    "color": "#7f6650",
+    "color": "#675443",
     "keys": [
       "HX-0395",
       "HX0395",
@@ -13430,11 +14218,13 @@ export const books = [
     "chipId": "HX-0395",
     "locationCode": "S2-B-L1-P11",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.0502,
+    "heightScale": 0.85,
+    "depthScale": 1.3,
     "worldPosition": [
-      -3.2126,
-      0.243,
-      -6.159143
+      -3.21638,
+      0.22005,
+      -6.17888
     ],
     "chipPayload": {
       "book_id": "HX-0395",
@@ -13453,7 +14243,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 12,
-    "color": "#7f6650",
+    "color": "#876c54",
     "keys": [
       "HX-0396",
       "HX0396",
@@ -13464,11 +14254,13 @@ export const books = [
     "chipId": "HX-0396",
     "locationCode": "S2-B-L1-P12",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 0.9802,
+    "heightScale": 0.9,
+    "depthScale": 1.48,
     "worldPosition": [
-      -3.2126,
-      0.24759,
-      -5.919714
+      -3.218648,
+      0.2277,
+      -5.959593
     ],
     "chipPayload": {
       "book_id": "HX-0396",
@@ -13487,7 +14279,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 13,
-    "color": "#7f6650",
+    "color": "#92745a",
     "keys": [
       "HX-0397",
       "HX0397",
@@ -13498,11 +14290,13 @@ export const books = [
     "chipId": "HX-0397",
     "locationCode": "S2-B-L1-P13",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.1202,
+    "heightScale": 1,
+    "depthScale": 1,
     "worldPosition": [
       -3.2126,
-      0.23994,
-      -5.680286
+      0.243,
+      -5.732745
     ],
     "chipPayload": {
       "book_id": "HX-0397",
@@ -13521,7 +14315,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 14,
-    "color": "#7f6650",
+    "color": "#725c49",
     "keys": [
       "HX-0398",
       "HX0398",
@@ -13532,11 +14326,13 @@ export const books = [
     "chipId": "HX-0398",
     "locationCode": "S2-B-L1-P14",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 0.9802,
+    "heightScale": 1,
+    "depthScale": 1.15,
     "worldPosition": [
-      -3.2126,
-      0.24759,
-      -5.440857
+      -3.21449,
+      0.243,
+      -5.505897
     ],
     "chipPayload": {
       "book_id": "HX-0398",
@@ -13555,7 +14351,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 15,
-    "color": "#7f6650",
+    "color": "#675443",
     "keys": [
       "HX-0399",
       "HX0399",
@@ -13566,11 +14362,13 @@ export const books = [
     "chipId": "HX-0399",
     "locationCode": "S2-B-L1-P15",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.1202,
+    "heightScale": 1.1,
+    "depthScale": 0.9,
     "worldPosition": [
-      -3.2126,
-      0.25218,
-      -5.201429
+      -3.21134,
+      0.2583,
+      -5.279049
     ],
     "chipPayload": {
       "book_id": "HX-0399",
@@ -13589,7 +14387,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 16,
-    "color": "#7f6650",
+    "color": "#92745a",
     "keys": [
       "HX-0400",
       "HX0400",
@@ -13600,11 +14398,13 @@ export const books = [
     "chipId": "HX-0400",
     "locationCode": "S2-B-L1-P16",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.1903,
+    "heightScale": 0.8,
+    "depthScale": 1,
     "worldPosition": [
       -3.2126,
-      0.24759,
-      -4.962
+      0.2124,
+      -5.029516
     ],
     "chipPayload": {
       "book_id": "HX-0400",
@@ -13623,7 +14423,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 17,
-    "color": "#7f6650",
+    "color": "#77604c",
     "keys": [
       "HX-0401",
       "HX0401",
@@ -13634,11 +14434,13 @@ export const books = [
     "chipId": "HX-0401",
     "locationCode": "S2-B-L1-P17",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.0256,
+    "heightScale": 1,
+    "depthScale": 1,
     "worldPosition": [
       -3.2126,
-      0.25218,
-      -4.638
+      0.243,
+      -4.635231
     ],
     "chipPayload": {
       "book_id": "HX-0401",
@@ -13657,7 +14459,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 18,
-    "color": "#7f6650",
+    "color": "#77604c",
     "keys": [
       "HX-0402",
       "HX0402",
@@ -13668,11 +14470,13 @@ export const books = [
     "chipId": "HX-0402",
     "locationCode": "S2-B-L1-P18",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.2179,
+    "heightScale": 1.05,
+    "depthScale": 0.8,
     "worldPosition": [
-      -3.2126,
-      0.23229,
-      -4.398571
+      -3.21008,
+      0.25065,
+      -4.392925
     ],
     "chipPayload": {
       "book_id": "HX-0402",
@@ -13691,7 +14495,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 19,
-    "color": "#7f6650",
+    "color": "#77604c",
     "keys": [
       "HX-0403",
       "HX0403",
@@ -13702,11 +14506,13 @@ export const books = [
     "chipId": "HX-0403",
     "locationCode": "S2-B-L1-P19",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.2179,
+    "heightScale": 1.05,
+    "depthScale": 0.8,
     "worldPosition": [
-      -3.2126,
-      0.23076,
-      -4.159143
+      -3.21008,
+      0.25065,
+      -4.129849
     ],
     "chipPayload": {
       "book_id": "HX-0403",
@@ -13725,7 +14531,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 20,
-    "color": "#7f6650",
+    "color": "#77604c",
     "keys": [
       "HX-0404",
       "HX0404",
@@ -13736,11 +14542,13 @@ export const books = [
     "chipId": "HX-0404",
     "locationCode": "S2-B-L1-P20",
     "placeholder": true,
+    "widthScale": 1.2179,
     "heightScale": 1.05,
+    "depthScale": 0.8,
     "worldPosition": [
-      -3.2126,
+      -3.21008,
       0.25065,
-      -3.919714
+      -3.866774
     ],
     "chipPayload": {
       "book_id": "HX-0404",
@@ -13759,7 +14567,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 21,
-    "color": "#7f6650",
+    "color": "#876c54",
     "keys": [
       "HX-0405",
       "HX0405",
@@ -13770,11 +14578,13 @@ export const books = [
     "chipId": "HX-0405",
     "locationCode": "S2-B-L1-P21",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.0897,
+    "heightScale": 0.95,
+    "depthScale": 0.9,
     "worldPosition": [
-      -3.2126,
-      0.23841,
-      -3.680286
+      -3.21134,
+      0.23535,
+      -3.617545
     ],
     "chipPayload": {
       "book_id": "HX-0405",
@@ -13793,7 +14603,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 22,
-    "color": "#7f6650",
+    "color": "#876c54",
     "keys": [
       "HX-0406",
       "HX0406",
@@ -13804,11 +14614,13 @@ export const books = [
     "chipId": "HX-0406",
     "locationCode": "S2-B-L1-P22",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.0897,
+    "heightScale": 0.95,
+    "depthScale": 0.9,
     "worldPosition": [
-      -3.2126,
-      0.25218,
-      -3.440857
+      -3.21134,
+      0.23535,
+      -3.382161
     ],
     "chipPayload": {
       "book_id": "HX-0406",
@@ -13827,7 +14639,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 23,
-    "color": "#7f6650",
+    "color": "#876c54",
     "keys": [
       "HX-0407",
       "HX0407",
@@ -13838,11 +14650,13 @@ export const books = [
     "chipId": "HX-0407",
     "locationCode": "S2-B-L1-P23",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 0.8333,
+    "heightScale": 1,
+    "depthScale": 1.15,
     "worldPosition": [
-      -3.2126,
-      0.25065,
-      -3.201429
+      -3.21449,
+      0.243,
+      -3.17447
     ],
     "chipPayload": {
       "book_id": "HX-0407",
@@ -13861,7 +14675,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 24,
-    "color": "#7f6650",
+    "color": "#876c54",
     "keys": [
       "HX-0408",
       "HX0408",
@@ -13872,11 +14686,13 @@ export const books = [
     "chipId": "HX-0408",
     "locationCode": "S2-B-L1-P24",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 0.8333,
+    "heightScale": 1,
+    "depthScale": 1.15,
     "worldPosition": [
-      -3.2126,
-      0.25065,
-      -2.962
+      -3.21449,
+      0.243,
+      -2.994471
     ],
     "chipPayload": {
       "book_id": "HX-0408",
@@ -13895,7 +14711,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 25,
-    "color": "#7f6650",
+    "color": "#98785d",
     "keys": [
       "HX-0409",
       "HX0409",
@@ -13906,11 +14722,13 @@ export const books = [
     "chipId": "HX-0409",
     "locationCode": "S2-B-L1-P25",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 0.8219,
+    "heightScale": 1.05,
+    "depthScale": 0.8,
     "worldPosition": [
-      -3.2126,
-      0.23994,
-      -2.638
+      -3.21008,
+      0.25065,
+      -2.657236
     ],
     "chipPayload": {
       "book_id": "HX-0409",
@@ -13929,7 +14747,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 26,
-    "color": "#7f6650",
+    "color": "#675443",
     "keys": [
       "HX-0410",
       "HX0410",
@@ -13940,11 +14758,13 @@ export const books = [
     "chipId": "HX-0410",
     "locationCode": "S2-B-L1-P26",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 0.9483,
+    "heightScale": 0.95,
+    "depthScale": 0.8,
     "worldPosition": [
-      -3.2126,
-      0.24147,
-      -2.405714
+      -3.21008,
+      0.23535,
+      -2.466051
     ],
     "chipPayload": {
       "book_id": "HX-0410",
@@ -13963,7 +14783,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 27,
-    "color": "#7f6650",
+    "color": "#8d7057",
     "keys": [
       "HX-0411",
       "HX0411",
@@ -13974,11 +14794,13 @@ export const books = [
     "chipId": "HX-0411",
     "locationCode": "S2-B-L1-P27",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.2012,
+    "heightScale": 0.85,
+    "depthScale": 0.9,
     "worldPosition": [
-      -3.2126,
-      0.24606,
-      -2.173429
+      -3.21134,
+      0.22005,
+      -2.233898
     ],
     "chipPayload": {
       "book_id": "HX-0411",
@@ -13997,7 +14819,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 28,
-    "color": "#7f6650",
+    "color": "#8d7057",
     "keys": [
       "HX-0412",
       "HX0412",
@@ -14008,11 +14830,13 @@ export const books = [
     "chipId": "HX-0412",
     "locationCode": "S2-B-L1-P28",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.2012,
+    "heightScale": 0.85,
+    "depthScale": 0.9,
     "worldPosition": [
-      -3.2126,
-      0.23535,
-      -1.941143
+      -3.21134,
+      0.22005,
+      -1.974433
     ],
     "chipPayload": {
       "book_id": "HX-0412",
@@ -14031,7 +14855,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 29,
-    "color": "#7f6650",
+    "color": "#8d7057",
     "keys": [
       "HX-0413",
       "HX0413",
@@ -14042,11 +14866,13 @@ export const books = [
     "chipId": "HX-0413",
     "locationCode": "S2-B-L1-P29",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.2012,
+    "heightScale": 0.85,
+    "depthScale": 0.9,
     "worldPosition": [
-      -3.2126,
-      0.243,
-      -1.708857
+      -3.21134,
+      0.22005,
+      -1.714968
     ],
     "chipPayload": {
       "book_id": "HX-0413",
@@ -14065,7 +14891,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 30,
-    "color": "#7f6650",
+    "color": "#876c54",
     "keys": [
       "HX-0414",
       "HX0414",
@@ -14076,11 +14902,13 @@ export const books = [
     "chipId": "HX-0414",
     "locationCode": "S2-B-L1-P30",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.0748,
+    "heightScale": 0.8,
+    "depthScale": 1.48,
     "worldPosition": [
-      -3.2126,
-      0.23688,
-      -1.476571
+      -3.218648,
+      0.2124,
+      -1.469158
     ],
     "chipPayload": {
       "book_id": "HX-0414",
@@ -14099,7 +14927,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 31,
-    "color": "#7f6650",
+    "color": "#876c54",
     "keys": [
       "HX-0415",
       "HX0415",
@@ -14110,11 +14938,13 @@ export const books = [
     "chipId": "HX-0415",
     "locationCode": "S2-B-L1-P31",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.0748,
+    "heightScale": 0.8,
+    "depthScale": 1.48,
     "worldPosition": [
-      -3.2126,
-      0.24759,
-      -1.244286
+      -3.218648,
+      0.2124,
+      -1.237005
     ],
     "chipPayload": {
       "book_id": "HX-0415",
@@ -14133,7 +14963,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 32,
-    "color": "#7f6650",
+    "color": "#7c644f",
     "keys": [
       "HX-0416",
       "HX0416",
@@ -14144,11 +14974,13 @@ export const books = [
     "chipId": "HX-0416",
     "locationCode": "S2-B-L1-P32",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 0.8851,
+    "heightScale": 1.1,
+    "depthScale": 1.3,
     "worldPosition": [
-      -3.2126,
-      0.23841,
-      -1.012
+      -3.21638,
+      0.2583,
+      -1.025337
     ],
     "chipPayload": {
       "book_id": "HX-0416",
@@ -14167,7 +14999,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 1,
-    "color": "#7f6650",
+    "color": "#98785d",
     "keys": [
       "HX-0417",
       "HX0417",
@@ -14178,11 +15010,13 @@ export const books = [
     "chipId": "HX-0417",
     "locationCode": "S2-B-L2-P01",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.3385,
+    "heightScale": 1.1,
+    "depthScale": 1.48,
     "worldPosition": [
-      -3.2126,
-      0.68035,
-      -8.588
+      -3.218648,
+      0.7033,
+      -8.551445
     ],
     "chipPayload": {
       "book_id": "HX-0417",
@@ -14201,7 +15035,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 2,
-    "color": "#7f6650",
+    "color": "#98785d",
     "keys": [
       "HX-0418",
       "HX0418",
@@ -14212,11 +15046,13 @@ export const books = [
     "chipId": "HX-0418",
     "locationCode": "S2-B-L2-P02",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.3385,
+    "heightScale": 1.1,
+    "depthScale": 1.48,
     "worldPosition": [
-      -3.2126,
-      0.68494,
-      -8.355714
+      -3.218648,
+      0.7033,
+      -8.262335
     ],
     "chipPayload": {
       "book_id": "HX-0418",
@@ -14235,7 +15071,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 3,
-    "color": "#7f6650",
+    "color": "#92745a",
     "keys": [
       "HX-0419",
       "HX0419",
@@ -14246,11 +15082,13 @@ export const books = [
     "chipId": "HX-0419",
     "locationCode": "S2-B-L2-P03",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 0.9862,
+    "heightScale": 0.9,
+    "depthScale": 1.48,
     "worldPosition": [
-      -3.2126,
-      0.68341,
-      -8.123429
+      -3.218648,
+      0.6727,
+      -8.011266
     ],
     "chipPayload": {
       "book_id": "HX-0419",
@@ -14269,7 +15107,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 4,
-    "color": "#7f6650",
+    "color": "#92745a",
     "keys": [
       "HX-0420",
       "HX0420",
@@ -14280,11 +15118,13 @@ export const books = [
     "chipId": "HX-0420",
     "locationCode": "S2-B-L2-P04",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 0.9862,
+    "heightScale": 0.9,
+    "depthScale": 1.48,
     "worldPosition": [
-      -3.2126,
-      0.69412,
-      -7.891143
+      -3.218648,
+      0.6727,
+      -7.798237
     ],
     "chipPayload": {
       "book_id": "HX-0420",
@@ -14303,7 +15143,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 5,
-    "color": "#7f6650",
+    "color": "#92745a",
     "keys": [
       "HX-0421",
       "HX0421",
@@ -14314,11 +15154,13 @@ export const books = [
     "chipId": "HX-0421",
     "locationCode": "S2-B-L2-P05",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 0.9862,
+    "heightScale": 0.9,
+    "depthScale": 1.48,
     "worldPosition": [
-      -3.2126,
-      0.67576,
-      -7.658857
+      -3.218648,
+      0.6727,
+      -7.585209
     ],
     "chipPayload": {
       "book_id": "HX-0421",
@@ -14337,7 +15179,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 6,
-    "color": "#7f6650",
+    "color": "#92745a",
     "keys": [
       "HX-0422",
       "HX0422",
@@ -14348,11 +15190,13 @@ export const books = [
     "chipId": "HX-0422",
     "locationCode": "S2-B-L2-P06",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 0.9158,
+    "heightScale": 0.95,
+    "depthScale": 1.3,
     "worldPosition": [
-      -3.2126,
-      0.67729,
-      -7.426571
+      -3.21638,
+      0.68035,
+      -7.379788
     ],
     "chipPayload": {
       "book_id": "HX-0422",
@@ -14371,7 +15215,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 7,
-    "color": "#7f6650",
+    "color": "#92745a",
     "keys": [
       "HX-0423",
       "HX0423",
@@ -14382,11 +15226,13 @@ export const books = [
     "chipId": "HX-0423",
     "locationCode": "S2-B-L2-P07",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 0.9158,
+    "heightScale": 0.95,
+    "depthScale": 1.3,
     "worldPosition": [
-      -3.2126,
-      0.68188,
-      -7.194286
+      -3.21638,
+      0.68035,
+      -7.181976
     ],
     "chipPayload": {
       "book_id": "HX-0423",
@@ -14405,7 +15251,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 8,
-    "color": "#7f6650",
+    "color": "#92745a",
     "keys": [
       "HX-0424",
       "HX0424",
@@ -14416,11 +15262,13 @@ export const books = [
     "chipId": "HX-0424",
     "locationCode": "S2-B-L2-P08",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 0.9158,
+    "heightScale": 0.95,
+    "depthScale": 1.3,
     "worldPosition": [
-      -3.2126,
-      0.69718,
-      -6.962
+      -3.21638,
+      0.68035,
+      -6.984164
     ],
     "chipPayload": {
       "book_id": "HX-0424",
@@ -14439,7 +15287,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 9,
-    "color": "#7f6650",
+    "color": "#725c49",
     "keys": [
       "HX-0425",
       "HX0425",
@@ -14450,11 +15298,13 @@ export const books = [
     "chipId": "HX-0425",
     "locationCode": "S2-B-L2-P09",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.1717,
+    "heightScale": 0.85,
+    "depthScale": 1.3,
     "worldPosition": [
-      -3.2126,
-      0.69106,
-      -6.638
+      -3.21638,
+      0.66505,
+      -6.619453
     ],
     "chipPayload": {
       "book_id": "HX-0425",
@@ -14473,7 +15323,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 10,
-    "color": "#7f6650",
+    "color": "#725c49",
     "keys": [
       "HX-0426",
       "HX0426",
@@ -14484,11 +15334,13 @@ export const books = [
     "chipId": "HX-0426",
     "locationCode": "S2-B-L2-P10",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.1717,
+    "heightScale": 0.85,
+    "depthScale": 1.3,
     "worldPosition": [
-      -3.2126,
-      0.68341,
-      -6.398571
+      -3.21638,
+      0.66505,
+      -6.36636
     ],
     "chipPayload": {
       "book_id": "HX-0426",
@@ -14507,7 +15359,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 11,
-    "color": "#7f6650",
+    "color": "#92745a",
     "keys": [
       "HX-0427",
       "HX0427",
@@ -14518,11 +15370,13 @@ export const books = [
     "chipId": "HX-0427",
     "locationCode": "S2-B-L2-P11",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.0339,
+    "heightScale": 0.95,
+    "depthScale": 1,
     "worldPosition": [
       -3.2126,
-      0.68953,
-      -6.159143
+      0.68035,
+      -6.128154
     ],
     "chipPayload": {
       "book_id": "HX-0427",
@@ -14541,7 +15395,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 12,
-    "color": "#7f6650",
+    "color": "#92745a",
     "keys": [
       "HX-0428",
       "HX0428",
@@ -14552,11 +15406,13 @@ export const books = [
     "chipId": "HX-0428",
     "locationCode": "S2-B-L2-P12",
     "placeholder": true,
+    "widthScale": 1.0339,
     "heightScale": 0.95,
+    "depthScale": 1,
     "worldPosition": [
       -3.2126,
       0.68035,
-      -5.919714
+      -5.904836
     ],
     "chipPayload": {
       "book_id": "HX-0428",
@@ -14575,7 +15431,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 13,
-    "color": "#7f6650",
+    "color": "#826851",
     "keys": [
       "HX-0429",
       "HX0429",
@@ -14586,11 +15442,13 @@ export const books = [
     "chipId": "HX-0429",
     "locationCode": "S2-B-L2-P13",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.1717,
+    "heightScale": 1,
+    "depthScale": 1.48,
     "worldPosition": [
-      -3.2126,
-      0.69106,
-      -5.680286
+      -3.218648,
+      0.688,
+      -5.666631
     ],
     "chipPayload": {
       "book_id": "HX-0429",
@@ -14609,7 +15467,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 14,
-    "color": "#7f6650",
+    "color": "#826851",
     "keys": [
       "HX-0430",
       "HX0430",
@@ -14620,11 +15478,13 @@ export const books = [
     "chipId": "HX-0430",
     "locationCode": "S2-B-L2-P14",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.1717,
+    "heightScale": 1,
+    "depthScale": 1.48,
     "worldPosition": [
-      -3.2126,
-      0.69565,
-      -5.440857
+      -3.218648,
+      0.688,
+      -5.413537
     ],
     "chipPayload": {
       "book_id": "HX-0430",
@@ -14643,7 +15503,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 15,
-    "color": "#7f6650",
+    "color": "#98785d",
     "keys": [
       "HX-0431",
       "HX0431",
@@ -14654,11 +15514,13 @@ export const books = [
     "chipId": "HX-0431",
     "locationCode": "S2-B-L2-P15",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 0.896,
+    "heightScale": 1,
+    "depthScale": 1.48,
     "worldPosition": [
-      -3.2126,
-      0.69718,
-      -5.201429
+      -3.218648,
+      0.688,
+      -5.19022
     ],
     "chipPayload": {
       "book_id": "HX-0431",
@@ -14677,7 +15539,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 16,
-    "color": "#7f6650",
+    "color": "#98785d",
     "keys": [
       "HX-0432",
       "HX0432",
@@ -14688,11 +15550,13 @@ export const books = [
     "chipId": "HX-0432",
     "locationCode": "S2-B-L2-P16",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 0.896,
+    "heightScale": 1,
+    "depthScale": 1.48,
     "worldPosition": [
-      -3.2126,
-      0.69259,
-      -4.962
+      -3.218648,
+      0.688,
+      -4.996678
     ],
     "chipPayload": {
       "book_id": "HX-0432",
@@ -14711,7 +15575,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 17,
-    "color": "#7f6650",
+    "color": "#8d7057",
     "keys": [
       "HX-0433",
       "HX0433",
@@ -14722,11 +15586,13 @@ export const books = [
     "chipId": "HX-0433",
     "locationCode": "S2-B-L2-P17",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.0252,
+    "heightScale": 0.9,
+    "depthScale": 1,
     "worldPosition": [
       -3.2126,
-      0.68341,
-      -4.638
+      0.6727,
+      -4.635277
     ],
     "chipPayload": {
       "book_id": "HX-0433",
@@ -14745,7 +15611,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 18,
-    "color": "#7f6650",
+    "color": "#8d7057",
     "keys": [
       "HX-0434",
       "HX0434",
@@ -14756,11 +15622,13 @@ export const books = [
     "chipId": "HX-0434",
     "locationCode": "S2-B-L2-P18",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.0252,
+    "heightScale": 0.9,
+    "depthScale": 1,
     "worldPosition": [
       -3.2126,
-      0.68188,
-      -4.398571
+      0.6727,
+      -4.413831
     ],
     "chipPayload": {
       "book_id": "HX-0434",
@@ -14779,7 +15647,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 19,
-    "color": "#7f6650",
+    "color": "#92745a",
     "keys": [
       "HX-0435",
       "HX0435",
@@ -14790,11 +15658,13 @@ export const books = [
     "chipId": "HX-0435",
     "locationCode": "S2-B-L2-P19",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.1717,
+    "heightScale": 1,
+    "depthScale": 1.15,
     "worldPosition": [
-      -3.2126,
-      0.69565,
-      -4.159143
+      -3.21449,
+      0.688,
+      -4.176567
     ],
     "chipPayload": {
       "book_id": "HX-0435",
@@ -14813,7 +15683,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 20,
-    "color": "#7f6650",
+    "color": "#92745a",
     "keys": [
       "HX-0436",
       "HX0436",
@@ -14824,11 +15694,13 @@ export const books = [
     "chipId": "HX-0436",
     "locationCode": "S2-B-L2-P20",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.1717,
+    "heightScale": 1,
+    "depthScale": 1.15,
     "worldPosition": [
-      -3.2126,
-      0.69565,
-      -3.919714
+      -3.21449,
+      0.688,
+      -3.923485
     ],
     "chipPayload": {
       "book_id": "HX-0436",
@@ -14847,7 +15719,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 21,
-    "color": "#7f6650",
+    "color": "#92745a",
     "keys": [
       "HX-0437",
       "HX0437",
@@ -14858,11 +15730,13 @@ export const books = [
     "chipId": "HX-0437",
     "locationCode": "S2-B-L2-P21",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.1717,
+    "heightScale": 1,
+    "depthScale": 1.15,
     "worldPosition": [
-      -3.2126,
-      0.69565,
-      -3.680286
+      -3.21449,
+      0.688,
+      -3.670404
     ],
     "chipPayload": {
       "book_id": "HX-0437",
@@ -14881,7 +15755,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 22,
-    "color": "#7f6650",
+    "color": "#98785d",
     "keys": [
       "HX-0438",
       "HX0438",
@@ -14892,11 +15766,13 @@ export const books = [
     "chipId": "HX-0438",
     "locationCode": "S2-B-L2-P22",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.0984,
+    "heightScale": 1.1,
+    "depthScale": 0.8,
     "worldPosition": [
-      -3.2126,
-      0.688,
-      -3.440857
+      -3.21008,
+      0.7033,
+      -3.425231
     ],
     "chipPayload": {
       "book_id": "HX-0438",
@@ -14915,7 +15791,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 23,
-    "color": "#7f6650",
+    "color": "#675443",
     "keys": [
       "HX-0439",
       "HX0439",
@@ -14926,11 +15802,13 @@ export const books = [
     "chipId": "HX-0439",
     "locationCode": "S2-B-L2-P23",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 0.952,
+    "heightScale": 0.9,
+    "depthScale": 1.15,
     "worldPosition": [
-      -3.2126,
-      0.68494,
-      -3.201429
+      -3.21449,
+      0.6727,
+      -3.203785
     ],
     "chipPayload": {
       "book_id": "HX-0439",
@@ -14949,7 +15827,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 24,
-    "color": "#7f6650",
+    "color": "#675443",
     "keys": [
       "HX-0440",
       "HX0440",
@@ -14960,11 +15838,13 @@ export const books = [
     "chipId": "HX-0440",
     "locationCode": "S2-B-L2-P24",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 0.952,
+    "heightScale": 0.9,
+    "depthScale": 1.15,
     "worldPosition": [
-      -3.2126,
-      0.68188,
-      -2.962
+      -3.21449,
+      0.6727,
+      -2.998156
     ],
     "chipPayload": {
       "book_id": "HX-0440",
@@ -14983,7 +15863,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 25,
-    "color": "#7f6650",
+    "color": "#8d7057",
     "keys": [
       "HX-0441",
       "HX0441",
@@ -14994,11 +15874,13 @@ export const books = [
     "chipId": "HX-0441",
     "locationCode": "S2-B-L2-P25",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 0.9536,
+    "heightScale": 0.8,
+    "depthScale": 1.15,
     "worldPosition": [
-      -3.2126,
-      0.69412,
-      -2.638
+      -3.21449,
+      0.6574,
+      -2.64301
     ],
     "chipPayload": {
       "book_id": "HX-0441",
@@ -15017,7 +15899,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 26,
-    "color": "#7f6650",
+    "color": "#8d7057",
     "keys": [
       "HX-0442",
       "HX0442",
@@ -15028,11 +15910,13 @@ export const books = [
     "chipId": "HX-0442",
     "locationCode": "S2-B-L2-P26",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 0.9536,
+    "heightScale": 0.8,
+    "depthScale": 1.15,
     "worldPosition": [
-      -3.2126,
-      0.67576,
-      -2.405714
+      -3.21449,
+      0.6574,
+      -2.437031
     ],
     "chipPayload": {
       "book_id": "HX-0442",
@@ -15051,7 +15935,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 27,
-    "color": "#7f6650",
+    "color": "#7c644f",
     "keys": [
       "HX-0443",
       "HX0443",
@@ -15062,11 +15946,13 @@ export const books = [
     "chipId": "HX-0443",
     "locationCode": "S2-B-L2-P27",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.1324,
+    "heightScale": 0.85,
+    "depthScale": 1.3,
     "worldPosition": [
-      -3.2126,
-      0.69259,
-      -2.173429
+      -3.21638,
+      0.66505,
+      -2.211741
     ],
     "chipPayload": {
       "book_id": "HX-0443",
@@ -15085,7 +15971,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 28,
-    "color": "#7f6650",
+    "color": "#7c644f",
     "keys": [
       "HX-0444",
       "HX0444",
@@ -15096,11 +15982,13 @@ export const books = [
     "chipId": "HX-0444",
     "locationCode": "S2-B-L2-P28",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.1324,
+    "heightScale": 0.85,
+    "depthScale": 1.3,
     "worldPosition": [
-      -3.2126,
-      0.68647,
-      -1.941143
+      -3.21638,
+      0.66505,
+      -1.96714
     ],
     "chipPayload": {
       "book_id": "HX-0444",
@@ -15119,7 +16007,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 29,
-    "color": "#7f6650",
+    "color": "#7c644f",
     "keys": [
       "HX-0445",
       "HX0445",
@@ -15130,11 +16018,13 @@ export const books = [
     "chipId": "HX-0445",
     "locationCode": "S2-B-L2-P29",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.1324,
+    "heightScale": 0.85,
+    "depthScale": 1.3,
     "worldPosition": [
-      -3.2126,
-      0.69412,
-      -1.708857
+      -3.21638,
+      0.66505,
+      -1.722539
     ],
     "chipPayload": {
       "book_id": "HX-0445",
@@ -15153,7 +16043,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 30,
-    "color": "#7f6650",
+    "color": "#92745a",
     "keys": [
       "HX-0446",
       "HX0446",
@@ -15164,11 +16054,13 @@ export const books = [
     "chipId": "HX-0446",
     "locationCode": "S2-B-L2-P30",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.0132,
+    "heightScale": 1.05,
+    "depthScale": 1.48,
     "worldPosition": [
-      -3.2126,
-      0.68035,
-      -1.476571
+      -3.218648,
+      0.69565,
+      -1.490812
     ],
     "chipPayload": {
       "book_id": "HX-0446",
@@ -15187,7 +16079,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 31,
-    "color": "#7f6650",
+    "color": "#92745a",
     "keys": [
       "HX-0447",
       "HX0447",
@@ -15198,11 +16090,13 @@ export const books = [
     "chipId": "HX-0447",
     "locationCode": "S2-B-L2-P31",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.0132,
+    "heightScale": 1.05,
+    "depthScale": 1.48,
     "worldPosition": [
-      -3.2126,
-      0.67729,
-      -1.244286
+      -3.218648,
+      0.69565,
+      -1.271959
     ],
     "chipPayload": {
       "book_id": "HX-0447",
@@ -15221,7 +16115,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 32,
-    "color": "#7f6650",
+    "color": "#92745a",
     "keys": [
       "HX-0448",
       "HX0448",
@@ -15232,11 +16126,13 @@ export const books = [
     "chipId": "HX-0448",
     "locationCode": "S2-B-L2-P32",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.0132,
+    "heightScale": 1.05,
+    "depthScale": 1.48,
     "worldPosition": [
-      -3.2126,
-      0.68341,
-      -1.012
+      -3.218648,
+      0.69565,
+      -1.053106
     ],
     "chipPayload": {
       "book_id": "HX-0448",
@@ -15255,7 +16151,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 1,
-    "color": "#7f6650",
+    "color": "#98785d",
     "keys": [
       "HX-0449",
       "HX0449",
@@ -15266,11 +16162,13 @@ export const books = [
     "chipId": "HX-0449",
     "locationCode": "S2-B-L3-P01",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 0.9323,
+    "heightScale": 1.05,
+    "depthScale": 0.9,
     "worldPosition": [
-      -3.2126,
-      1.19718,
-      -8.588
+      -3.21134,
+      1.19565,
+      -8.595311
     ],
     "chipPayload": {
       "book_id": "HX-0449",
@@ -15289,7 +16187,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 2,
-    "color": "#7f6650",
+    "color": "#8d7057",
     "keys": [
       "HX-0450",
       "HX0450",
@@ -15300,11 +16198,13 @@ export const books = [
     "chipId": "HX-0450",
     "locationCode": "S2-B-L3-P02",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.1809,
+    "heightScale": 1.05,
+    "depthScale": 1.3,
     "worldPosition": [
-      -3.2126,
-      1.18647,
-      -8.355714
+      -3.21638,
+      1.19565,
+      -8.367084
     ],
     "chipPayload": {
       "book_id": "HX-0450",
@@ -15323,7 +16223,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 3,
-    "color": "#7f6650",
+    "color": "#8d7057",
     "keys": [
       "HX-0451",
       "HX0451",
@@ -15334,11 +16234,13 @@ export const books = [
     "chipId": "HX-0451",
     "locationCode": "S2-B-L3-P03",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.1809,
+    "heightScale": 1.05,
+    "depthScale": 1.3,
     "worldPosition": [
-      -3.2126,
-      1.18647,
-      -8.123429
+      -3.21638,
+      1.19565,
+      -8.112006
     ],
     "chipPayload": {
       "book_id": "HX-0451",
@@ -15357,7 +16259,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 4,
-    "color": "#7f6650",
+    "color": "#8d7057",
     "keys": [
       "HX-0452",
       "HX0452",
@@ -15368,11 +16270,13 @@ export const books = [
     "chipId": "HX-0452",
     "locationCode": "S2-B-L3-P04",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.1809,
+    "heightScale": 1.05,
+    "depthScale": 1.3,
     "worldPosition": [
-      -3.2126,
-      1.18494,
-      -7.891143
+      -3.21638,
+      1.19565,
+      -7.856928
     ],
     "chipPayload": {
       "book_id": "HX-0452",
@@ -15391,7 +16295,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 5,
-    "color": "#7f6650",
+    "color": "#92745a",
     "keys": [
       "HX-0453",
       "HX0453",
@@ -15402,11 +16306,13 @@ export const books = [
     "chipId": "HX-0453",
     "locationCode": "S2-B-L3-P05",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.1809,
+    "heightScale": 1.1,
+    "depthScale": 1.3,
     "worldPosition": [
-      -3.2126,
-      1.18953,
-      -7.658857
+      -3.21638,
+      1.2033,
+      -7.60185
     ],
     "chipPayload": {
       "book_id": "HX-0453",
@@ -15425,7 +16331,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 6,
-    "color": "#7f6650",
+    "color": "#77604c",
     "keys": [
       "HX-0454",
       "HX0454",
@@ -15436,11 +16342,13 @@ export const books = [
     "chipId": "HX-0454",
     "locationCode": "S2-B-L3-P06",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 0.9323,
+    "heightScale": 0.9,
+    "depthScale": 1.48,
     "worldPosition": [
-      -3.2126,
-      1.18341,
-      -7.426571
+      -3.218648,
+      1.1727,
+      -7.373622
     ],
     "chipPayload": {
       "book_id": "HX-0454",
@@ -15459,7 +16367,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 7,
-    "color": "#7f6650",
+    "color": "#826851",
     "keys": [
       "HX-0455",
       "HX0455",
@@ -15470,11 +16378,13 @@ export const books = [
     "chipId": "HX-0455",
     "locationCode": "S2-B-L3-P07",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 0.8701,
+    "heightScale": 0.95,
+    "depthScale": 0.8,
     "worldPosition": [
-      -3.2126,
-      1.18341,
-      -7.194286
+      -3.21008,
+      1.18035,
+      -7.178957
     ],
     "chipPayload": {
       "book_id": "HX-0455",
@@ -15493,7 +16403,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 8,
-    "color": "#7f6650",
+    "color": "#826851",
     "keys": [
       "HX-0456",
       "HX0456",
@@ -15504,11 +16414,13 @@ export const books = [
     "chipId": "HX-0456",
     "locationCode": "S2-B-L3-P08",
     "placeholder": true,
+    "widthScale": 0.8701,
     "heightScale": 0.95,
+    "depthScale": 0.8,
     "worldPosition": [
-      -3.2126,
+      -3.21008,
       1.18035,
-      -6.962
+      -6.991005
     ],
     "chipPayload": {
       "book_id": "HX-0456",
@@ -15527,7 +16439,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 9,
-    "color": "#7f6650",
+    "color": "#98785d",
     "keys": [
       "HX-0457",
       "HX0457",
@@ -15538,11 +16450,13 @@ export const books = [
     "chipId": "HX-0457",
     "locationCode": "S2-B-L3-P09",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.0229,
+    "heightScale": 0.85,
+    "depthScale": 1,
     "worldPosition": [
       -3.2126,
-      1.18494,
-      -6.638
+      1.16505,
+      -6.635525
     ],
     "chipPayload": {
       "book_id": "HX-0457",
@@ -15561,7 +16475,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 10,
-    "color": "#7f6650",
+    "color": "#98785d",
     "keys": [
       "HX-0458",
       "HX0458",
@@ -15572,11 +16486,13 @@ export const books = [
     "chipId": "HX-0458",
     "locationCode": "S2-B-L3-P10",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.0229,
+    "heightScale": 0.85,
+    "depthScale": 1,
     "worldPosition": [
       -3.2126,
-      1.17576,
-      -6.398571
+      1.16505,
+      -6.414576
     ],
     "chipPayload": {
       "book_id": "HX-0458",
@@ -15595,7 +16511,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 11,
-    "color": "#7f6650",
+    "color": "#98785d",
     "keys": [
       "HX-0459",
       "HX0459",
@@ -15606,11 +16522,13 @@ export const books = [
     "chipId": "HX-0459",
     "locationCode": "S2-B-L3-P11",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.0229,
+    "heightScale": 0.85,
+    "depthScale": 1,
     "worldPosition": [
       -3.2126,
-      1.19718,
-      -6.159143
+      1.16505,
+      -6.193627
     ],
     "chipPayload": {
       "book_id": "HX-0459",
@@ -15629,7 +16547,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 12,
-    "color": "#7f6650",
+    "color": "#8d7057",
     "keys": [
       "HX-0460",
       "HX0460",
@@ -15640,11 +16558,13 @@ export const books = [
     "chipId": "HX-0460",
     "locationCode": "S2-B-L3-P12",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.1508,
+    "heightScale": 0.9,
+    "depthScale": 0.8,
     "worldPosition": [
-      -3.2126,
-      1.188,
-      -5.919714
+      -3.21008,
+      1.1727,
+      -5.958868
     ],
     "chipPayload": {
       "book_id": "HX-0460",
@@ -15663,7 +16583,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 13,
-    "color": "#7f6650",
+    "color": "#8d7057",
     "keys": [
       "HX-0461",
       "HX0461",
@@ -15674,11 +16594,13 @@ export const books = [
     "chipId": "HX-0461",
     "locationCode": "S2-B-L3-P13",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.1508,
+    "heightScale": 0.9,
+    "depthScale": 0.8,
     "worldPosition": [
-      -3.2126,
-      1.17576,
-      -5.680286
+      -3.21008,
+      1.1727,
+      -5.7103
     ],
     "chipPayload": {
       "book_id": "HX-0461",
@@ -15697,7 +16619,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 14,
-    "color": "#7f6650",
+    "color": "#8d7057",
     "keys": [
       "HX-0462",
       "HX0462",
@@ -15708,11 +16630,13 @@ export const books = [
     "chipId": "HX-0462",
     "locationCode": "S2-B-L3-P14",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.1508,
+    "heightScale": 0.9,
+    "depthScale": 0.8,
     "worldPosition": [
-      -3.2126,
-      1.18035,
-      -5.440857
+      -3.21008,
+      1.1727,
+      -5.461732
     ],
     "chipPayload": {
       "book_id": "HX-0462",
@@ -15731,7 +16655,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 15,
-    "color": "#7f6650",
+    "color": "#876c54",
     "keys": [
       "HX-0463",
       "HX0463",
@@ -15742,11 +16666,13 @@ export const books = [
     "chipId": "HX-0463",
     "locationCode": "S2-B-L3-P15",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.2147,
+    "heightScale": 1.1,
+    "depthScale": 1.15,
     "worldPosition": [
-      -3.2126,
-      1.17576,
-      -5.201429
+      -3.21449,
+      1.2033,
+      -5.206259
     ],
     "chipPayload": {
       "book_id": "HX-0463",
@@ -15765,7 +16691,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 16,
-    "color": "#7f6650",
+    "color": "#725c49",
     "keys": [
       "HX-0464",
       "HX0464",
@@ -15776,11 +16702,13 @@ export const books = [
     "chipId": "HX-0464",
     "locationCode": "S2-B-L3-P16",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 0.8311,
+    "heightScale": 0.85,
+    "depthScale": 1,
     "worldPosition": [
       -3.2126,
-      1.19412,
-      -4.962
+      1.16505,
+      -4.98531
     ],
     "chipPayload": {
       "book_id": "HX-0464",
@@ -15799,7 +16727,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 17,
-    "color": "#7f6650",
+    "color": "#826851",
     "keys": [
       "HX-0465",
       "HX0465",
@@ -15810,11 +16738,13 @@ export const books = [
     "chipId": "HX-0465",
     "locationCode": "S2-B-L3-P17",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.0773,
+    "heightScale": 0.95,
+    "depthScale": 1.15,
     "worldPosition": [
-      -3.2126,
-      1.19412,
-      -4.638
+      -3.21449,
+      1.18035,
+      -4.629653
     ],
     "chipPayload": {
       "book_id": "HX-0465",
@@ -15833,7 +16763,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 18,
-    "color": "#7f6650",
+    "color": "#826851",
     "keys": [
       "HX-0466",
       "HX0466",
@@ -15844,11 +16774,13 @@ export const books = [
     "chipId": "HX-0466",
     "locationCode": "S2-B-L3-P18",
     "placeholder": true,
+    "widthScale": 1.0773,
     "heightScale": 0.95,
+    "depthScale": 1.15,
     "worldPosition": [
-      -3.2126,
+      -3.21449,
       1.18035,
-      -4.398571
+      -4.396958
     ],
     "chipPayload": {
       "book_id": "HX-0466",
@@ -15867,7 +16799,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 19,
-    "color": "#7f6650",
+    "color": "#98785d",
     "keys": [
       "HX-0467",
       "HX0467",
@@ -15878,11 +16810,13 @@ export const books = [
     "chipId": "HX-0467",
     "locationCode": "S2-B-L3-P19",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.0773,
+    "heightScale": 1,
+    "depthScale": 0.9,
     "worldPosition": [
-      -3.2126,
-      1.18188,
-      -4.159143
+      -3.21134,
+      1.188,
+      -4.164263
     ],
     "chipPayload": {
       "book_id": "HX-0467",
@@ -15901,7 +16835,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 20,
-    "color": "#7f6650",
+    "color": "#98785d",
     "keys": [
       "HX-0468",
       "HX0468",
@@ -15912,11 +16846,13 @@ export const books = [
     "chipId": "HX-0468",
     "locationCode": "S2-B-L3-P20",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.0773,
+    "heightScale": 1,
+    "depthScale": 0.9,
     "worldPosition": [
-      -3.2126,
-      1.18647,
-      -3.919714
+      -3.21134,
+      1.188,
+      -3.931568
     ],
     "chipPayload": {
       "book_id": "HX-0468",
@@ -15935,7 +16871,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 21,
-    "color": "#7f6650",
+    "color": "#98785d",
     "keys": [
       "HX-0469",
       "HX0469",
@@ -15946,11 +16882,13 @@ export const books = [
     "chipId": "HX-0469",
     "locationCode": "S2-B-L3-P21",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.0773,
+    "heightScale": 1,
+    "depthScale": 0.9,
     "worldPosition": [
-      -3.2126,
-      1.18035,
-      -3.680286
+      -3.21134,
+      1.188,
+      -3.698873
     ],
     "chipPayload": {
       "book_id": "HX-0469",
@@ -15969,7 +16907,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 22,
-    "color": "#7f6650",
+    "color": "#826851",
     "keys": [
       "HX-0470",
       "HX0470",
@@ -15980,11 +16918,13 @@ export const books = [
     "chipId": "HX-0470",
     "locationCode": "S2-B-L3-P22",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.1407,
+    "heightScale": 0.95,
+    "depthScale": 1.15,
     "worldPosition": [
-      -3.2126,
-      1.18188,
-      -3.440857
+      -3.21449,
+      1.18035,
+      -3.459334
     ],
     "chipPayload": {
       "book_id": "HX-0470",
@@ -16003,7 +16943,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 23,
-    "color": "#7f6650",
+    "color": "#826851",
     "keys": [
       "HX-0471",
       "HX0471",
@@ -16014,11 +16954,13 @@ export const books = [
     "chipId": "HX-0471",
     "locationCode": "S2-B-L3-P23",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.1407,
+    "heightScale": 0.95,
+    "depthScale": 1.15,
     "worldPosition": [
-      -3.2126,
-      1.188,
-      -3.201429
+      -3.21449,
+      1.18035,
+      -3.212951
     ],
     "chipPayload": {
       "book_id": "HX-0471",
@@ -16037,7 +16979,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 24,
-    "color": "#7f6650",
+    "color": "#6c5846",
     "keys": [
       "HX-0472",
       "HX0472",
@@ -16048,11 +16990,13 @@ export const books = [
     "chipId": "HX-0472",
     "locationCode": "S2-B-L3-P24",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 0.8872,
+    "heightScale": 0.8,
+    "depthScale": 1.3,
     "worldPosition": [
-      -3.2126,
-      1.17576,
-      -2.962
+      -3.21638,
+      1.1574,
+      -2.993944
     ],
     "chipPayload": {
       "book_id": "HX-0472",
@@ -16071,7 +17015,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 25,
-    "color": "#7f6650",
+    "color": "#92745a",
     "keys": [
       "小王子",
       "文学",
@@ -16086,11 +17030,13 @@ export const books = [
     "chipId": "HX-0473",
     "locationCode": "S2-B-L3-P25",
     "placeholder": false,
-    "heightScale": 1.04,
+    "widthScale": 1.1515,
+    "heightScale": 1.1,
+    "depthScale": 0.9,
     "worldPosition": [
-      -3.2126,
-      1.19412,
-      -2.638
+      -3.21134,
+      1.2033,
+      -2.621638
     ],
     "chipPayload": {
       "book_id": "HX-0473",
@@ -16109,7 +17055,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 26,
-    "color": "#7f6650",
+    "color": "#92745a",
     "keys": [
       "HX-0474",
       "HX0474",
@@ -16120,11 +17066,13 @@ export const books = [
     "chipId": "HX-0474",
     "locationCode": "S2-B-L3-P26",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.1515,
+    "heightScale": 1.1,
+    "depthScale": 0.9,
     "worldPosition": [
-      -3.2126,
-      1.19106,
-      -2.405714
+      -3.21134,
+      1.2033,
+      -2.372915
     ],
     "chipPayload": {
       "book_id": "HX-0474",
@@ -16143,7 +17091,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 27,
-    "color": "#7f6650",
+    "color": "#6c5846",
     "keys": [
       "HX-0475",
       "HX0475",
@@ -16154,11 +17102,13 @@ export const books = [
     "chipId": "HX-0475",
     "locationCode": "S2-B-L3-P27",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.1515,
+    "heightScale": 1,
+    "depthScale": 1.15,
     "worldPosition": [
-      -3.2126,
-      1.17882,
-      -2.173429
+      -3.21449,
+      1.188,
+      -2.124191
     ],
     "chipPayload": {
       "book_id": "HX-0475",
@@ -16177,7 +17127,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 28,
-    "color": "#7f6650",
+    "color": "#77604c",
     "keys": [
       "HX-0476",
       "HX0476",
@@ -16188,11 +17138,13 @@ export const books = [
     "chipId": "HX-0476",
     "locationCode": "S2-B-L3-P28",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 0.8806,
+    "heightScale": 1.1,
+    "depthScale": 0.8,
     "worldPosition": [
-      -3.2126,
-      1.18647,
-      -1.941143
+      -3.21008,
+      1.2033,
+      -1.904729
     ],
     "chipPayload": {
       "book_id": "HX-0476",
@@ -16211,7 +17163,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 29,
-    "color": "#7f6650",
+    "color": "#77604c",
     "keys": [
       "HX-0477",
       "HX0477",
@@ -16222,11 +17174,13 @@ export const books = [
     "chipId": "HX-0477",
     "locationCode": "S2-B-L3-P29",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 0.8806,
+    "heightScale": 1.1,
+    "depthScale": 0.8,
     "worldPosition": [
-      -3.2126,
-      1.18494,
-      -1.708857
+      -3.21008,
+      1.2033,
+      -1.714528
     ],
     "chipPayload": {
       "book_id": "HX-0477",
@@ -16245,7 +17199,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 30,
-    "color": "#7f6650",
+    "color": "#77604c",
     "keys": [
       "HX-0478",
       "HX0478",
@@ -16256,11 +17210,13 @@ export const books = [
     "chipId": "HX-0478",
     "locationCode": "S2-B-L3-P30",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 0.8806,
+    "heightScale": 1.1,
+    "depthScale": 0.8,
     "worldPosition": [
-      -3.2126,
-      1.19259,
-      -1.476571
+      -3.21008,
+      1.2033,
+      -1.524328
     ],
     "chipPayload": {
       "book_id": "HX-0478",
@@ -16279,7 +17235,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 31,
-    "color": "#7f6650",
+    "color": "#8d7057",
     "keys": [
       "HX-0479",
       "HX0479",
@@ -16290,11 +17246,13 @@ export const books = [
     "chipId": "HX-0479",
     "locationCode": "S2-B-L3-P31",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 0.9483,
+    "heightScale": 0.9,
+    "depthScale": 0.9,
     "worldPosition": [
-      -3.2126,
-      1.188,
-      -1.244286
+      -3.21134,
+      1.1727,
+      -1.326812
     ],
     "chipPayload": {
       "book_id": "HX-0479",
@@ -16313,7 +17271,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 32,
-    "color": "#7f6650",
+    "color": "#725c49",
     "keys": [
       "HX-0480",
       "HX0480",
@@ -16324,11 +17282,13 @@ export const books = [
     "chipId": "HX-0480",
     "locationCode": "S2-B-L3-P32",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.287,
+    "heightScale": 0.85,
+    "depthScale": 1,
     "worldPosition": [
       -3.2126,
-      1.18188,
-      -1.012
+      1.16505,
+      -1.085404
     ],
     "chipPayload": {
       "book_id": "HX-0480",
@@ -16347,7 +17307,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 1,
-    "color": "#7f6650",
+    "color": "#725c49",
     "keys": [
       "HX-0481",
       "HX0481",
@@ -16358,11 +17318,13 @@ export const books = [
     "chipId": "HX-0481",
     "locationCode": "S2-B-L4-P01",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.0922,
+    "heightScale": 1,
+    "depthScale": 0.9,
     "worldPosition": [
-      -3.2126,
-      1.69412,
-      -8.588
+      -3.21134,
+      1.688,
+      -8.578046
     ],
     "chipPayload": {
       "book_id": "HX-0481",
@@ -16381,7 +17343,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 2,
-    "color": "#7f6650",
+    "color": "#876c54",
     "keys": [
       "HX-0482",
       "HX0482",
@@ -16392,11 +17354,13 @@ export const books = [
     "chipId": "HX-0482",
     "locationCode": "S2-B-L4-P02",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 0.8874,
+    "heightScale": 0.9,
+    "depthScale": 1.3,
     "worldPosition": [
-      -3.2126,
-      1.68341,
-      -8.355714
+      -3.21638,
+      1.6727,
+      -8.364253
     ],
     "chipPayload": {
       "book_id": "HX-0482",
@@ -16415,7 +17379,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 3,
-    "color": "#7f6650",
+    "color": "#876c54",
     "keys": [
       "HX-0483",
       "HX0483",
@@ -16426,11 +17390,13 @@ export const books = [
     "chipId": "HX-0483",
     "locationCode": "S2-B-L4-P03",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 0.8874,
+    "heightScale": 0.9,
+    "depthScale": 1.3,
     "worldPosition": [
-      -3.2126,
-      1.69106,
-      -8.123429
+      -3.21638,
+      1.6727,
+      -8.172577
     ],
     "chipPayload": {
       "book_id": "HX-0483",
@@ -16449,7 +17415,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 4,
-    "color": "#7f6650",
+    "color": "#876c54",
     "keys": [
       "HX-0484",
       "HX0484",
@@ -16460,11 +17426,13 @@ export const books = [
     "chipId": "HX-0484",
     "locationCode": "S2-B-L4-P04",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 0.8874,
+    "heightScale": 0.9,
+    "depthScale": 1.3,
     "worldPosition": [
-      -3.2126,
-      1.69718,
-      -7.891143
+      -3.21638,
+      1.6727,
+      -7.980901
     ],
     "chipPayload": {
       "book_id": "HX-0484",
@@ -16483,7 +17451,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 5,
-    "color": "#7f6650",
+    "color": "#876c54",
     "keys": [
       "HX-0485",
       "HX0485",
@@ -16494,11 +17462,13 @@ export const books = [
     "chipId": "HX-0485",
     "locationCode": "S2-B-L4-P05",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.297,
+    "heightScale": 1,
+    "depthScale": 1.48,
     "worldPosition": [
-      -3.2126,
-      1.69106,
-      -7.658857
+      -3.218648,
+      1.688,
+      -7.744993
     ],
     "chipPayload": {
       "book_id": "HX-0485",
@@ -16517,7 +17487,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 6,
-    "color": "#7f6650",
+    "color": "#6c5846",
     "keys": [
       "HX-0486",
       "HX0486",
@@ -16528,11 +17498,13 @@ export const books = [
     "chipId": "HX-0486",
     "locationCode": "S2-B-L4-P06",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 0.8874,
+    "heightScale": 1.1,
+    "depthScale": 0.8,
     "worldPosition": [
-      -3.2126,
-      1.68188,
-      -7.426571
+      -3.21008,
+      1.7033,
+      -7.509084
     ],
     "chipPayload": {
       "book_id": "HX-0486",
@@ -16551,7 +17523,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 7,
-    "color": "#7f6650",
+    "color": "#826851",
     "keys": [
       "HX-0487",
       "HX0487",
@@ -16562,11 +17534,13 @@ export const books = [
     "chipId": "HX-0487",
     "locationCode": "S2-B-L4-P07",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.2287,
+    "heightScale": 1.05,
+    "depthScale": 1,
     "worldPosition": [
       -3.2126,
-      1.69106,
-      -7.194286
+      1.69565,
+      -7.280547
     ],
     "chipPayload": {
       "book_id": "HX-0487",
@@ -16585,7 +17559,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 8,
-    "color": "#7f6650",
+    "color": "#826851",
     "keys": [
       "HX-0488",
       "HX0488",
@@ -16596,11 +17570,13 @@ export const books = [
     "chipId": "HX-0488",
     "locationCode": "S2-B-L4-P08",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.2287,
+    "heightScale": 1.05,
+    "depthScale": 1,
     "worldPosition": [
       -3.2126,
-      1.68494,
-      -6.962
+      1.69565,
+      -7.01515
     ],
     "chipPayload": {
       "book_id": "HX-0488",
@@ -16619,7 +17595,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 9,
-    "color": "#7f6650",
+    "color": "#876c54",
     "keys": [
       "HX-0489",
       "HX0489",
@@ -16630,11 +17606,13 @@ export const books = [
     "chipId": "HX-0489",
     "locationCode": "S2-B-L4-P09",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.2003,
+    "heightScale": 0.9,
+    "depthScale": 1,
     "worldPosition": [
       -3.2126,
-      1.67729,
-      -6.638
+      1.6727,
+      -6.61637
     ],
     "chipPayload": {
       "book_id": "HX-0489",
@@ -16653,7 +17631,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 10,
-    "color": "#7f6650",
+    "color": "#876c54",
     "keys": [
       "HX-0490",
       "HX0490",
@@ -16664,11 +17642,13 @@ export const books = [
     "chipId": "HX-0490",
     "locationCode": "S2-B-L4-P10",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.2003,
+    "heightScale": 0.9,
+    "depthScale": 1,
     "worldPosition": [
       -3.2126,
-      1.688,
-      -6.398571
+      1.6727,
+      -6.357109
     ],
     "chipPayload": {
       "book_id": "HX-0490",
@@ -16687,7 +17667,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 11,
-    "color": "#7f6650",
+    "color": "#876c54",
     "keys": [
       "HX-0491",
       "HX0491",
@@ -16698,11 +17678,13 @@ export const books = [
     "chipId": "HX-0491",
     "locationCode": "S2-B-L4-P11",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.2003,
+    "heightScale": 0.9,
+    "depthScale": 1,
     "worldPosition": [
       -3.2126,
-      1.69718,
-      -6.159143
+      1.6727,
+      -6.097849
     ],
     "chipPayload": {
       "book_id": "HX-0491",
@@ -16721,7 +17703,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 12,
-    "color": "#7f6650",
+    "color": "#7c644f",
     "keys": [
       "HX-0492",
       "HX0492",
@@ -16732,11 +17714,13 @@ export const books = [
     "chipId": "HX-0492",
     "locationCode": "S2-B-L4-P12",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.1336,
+    "heightScale": 0.85,
+    "depthScale": 1.48,
     "worldPosition": [
-      -3.2126,
-      1.69106,
-      -5.919714
+      -3.218648,
+      1.66505,
+      -5.84579
     ],
     "chipPayload": {
       "book_id": "HX-0492",
@@ -16755,7 +17739,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 13,
-    "color": "#7f6650",
+    "color": "#77604c",
     "keys": [
       "HX-0493",
       "HX0493",
@@ -16766,11 +17750,13 @@ export const books = [
     "chipId": "HX-0493",
     "locationCode": "S2-B-L4-P13",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 0.9336,
+    "heightScale": 0.8,
+    "depthScale": 1.15,
     "worldPosition": [
-      -3.2126,
-      1.68953,
-      -5.680286
+      -3.21449,
+      1.6574,
+      -5.622538
     ],
     "chipPayload": {
       "book_id": "HX-0493",
@@ -16789,7 +17775,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 14,
-    "color": "#7f6650",
+    "color": "#77604c",
     "keys": [
       "HX-0494",
       "HX0494",
@@ -16800,11 +17786,13 @@ export const books = [
     "chipId": "HX-0494",
     "locationCode": "S2-B-L4-P14",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 0.9336,
+    "heightScale": 0.8,
+    "depthScale": 1.15,
     "worldPosition": [
-      -3.2126,
-      1.68494,
-      -5.440857
+      -3.21449,
+      1.6574,
+      -5.42089
     ],
     "chipPayload": {
       "book_id": "HX-0494",
@@ -16823,7 +17811,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 15,
-    "color": "#7f6650",
+    "color": "#77604c",
     "keys": [
       "HX-0495",
       "HX0495",
@@ -16834,11 +17822,13 @@ export const books = [
     "chipId": "HX-0495",
     "locationCode": "S2-B-L4-P15",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 0.9336,
+    "heightScale": 0.8,
+    "depthScale": 1.15,
     "worldPosition": [
-      -3.2126,
-      1.68647,
-      -5.201429
+      -3.21449,
+      1.6574,
+      -5.219243
     ],
     "chipPayload": {
       "book_id": "HX-0495",
@@ -16857,7 +17847,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 16,
-    "color": "#7f6650",
+    "color": "#876c54",
     "keys": [
       "HX-0496",
       "HX0496",
@@ -16868,11 +17858,13 @@ export const books = [
     "chipId": "HX-0496",
     "locationCode": "S2-B-L4-P16",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.0669,
+    "heightScale": 0.85,
+    "depthScale": 0.9,
     "worldPosition": [
-      -3.2126,
-      1.69106,
-      -4.962
+      -3.21134,
+      1.66505,
+      -5.003193
     ],
     "chipPayload": {
       "book_id": "HX-0496",
@@ -16891,7 +17883,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 17,
-    "color": "#7f6650",
+    "color": "#92745a",
     "keys": [
       "HX-0497",
       "HX0497",
@@ -16902,11 +17894,13 @@ export const books = [
     "chipId": "HX-0497",
     "locationCode": "S2-B-L4-P17",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 0.9667,
+    "heightScale": 1.05,
+    "depthScale": 1.15,
     "worldPosition": [
-      -3.2126,
-      1.68188,
-      -4.638
+      -3.21449,
+      1.69565,
+      -4.641601
     ],
     "chipPayload": {
       "book_id": "HX-0497",
@@ -16925,7 +17919,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 18,
-    "color": "#7f6650",
+    "color": "#92745a",
     "keys": [
       "HX-0498",
       "HX0498",
@@ -16936,11 +17930,13 @@ export const books = [
     "chipId": "HX-0498",
     "locationCode": "S2-B-L4-P18",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 0.9667,
+    "heightScale": 1.05,
+    "depthScale": 1.15,
     "worldPosition": [
-      -3.2126,
-      1.69259,
-      -4.398571
+      -3.21449,
+      1.69565,
+      -4.432802
     ],
     "chipPayload": {
       "book_id": "HX-0498",
@@ -16959,7 +17955,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 19,
-    "color": "#7f6650",
+    "color": "#92745a",
     "keys": [
       "HX-0499",
       "HX0499",
@@ -16970,11 +17966,13 @@ export const books = [
     "chipId": "HX-0499",
     "locationCode": "S2-B-L4-P19",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 0.9667,
+    "heightScale": 1.05,
+    "depthScale": 1.15,
     "worldPosition": [
-      -3.2126,
-      1.69412,
-      -4.159143
+      -3.21449,
+      1.69565,
+      -4.224003
     ],
     "chipPayload": {
       "book_id": "HX-0499",
@@ -16993,7 +17991,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 20,
-    "color": "#7f6650",
+    "color": "#725c49",
     "keys": [
       "HX-0500",
       "HX0500",
@@ -17004,11 +18002,13 @@ export const books = [
     "chipId": "HX-0500",
     "locationCode": "S2-B-L4-P20",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.1154,
+    "heightScale": 0.85,
+    "depthScale": 1.15,
     "worldPosition": [
-      -3.2126,
-      1.68647,
-      -3.919714
+      -3.21449,
+      1.66505,
+      -3.999142
     ],
     "chipPayload": {
       "book_id": "HX-0500",
@@ -17027,7 +18027,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 21,
-    "color": "#7f6650",
+    "color": "#7c644f",
     "keys": [
       "HX-0501",
       "HX0501",
@@ -17038,11 +18038,13 @@ export const books = [
     "chipId": "HX-0501",
     "locationCode": "S2-B-L4-P21",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.1154,
+    "heightScale": 1,
+    "depthScale": 1.3,
     "worldPosition": [
-      -3.2126,
-      1.68494,
-      -3.680286
+      -3.21638,
+      1.688,
+      -3.75822
     ],
     "chipPayload": {
       "book_id": "HX-0501",
@@ -17061,7 +18063,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 22,
-    "color": "#7f6650",
+    "color": "#7c644f",
     "keys": [
       "HX-0502",
       "HX0502",
@@ -17072,11 +18074,13 @@ export const books = [
     "chipId": "HX-0502",
     "locationCode": "S2-B-L4-P22",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.1154,
+    "heightScale": 1,
+    "depthScale": 1.3,
     "worldPosition": [
-      -3.2126,
-      1.69412,
-      -3.440857
+      -3.21638,
+      1.688,
+      -3.517298
     ],
     "chipPayload": {
       "book_id": "HX-0502",
@@ -17095,7 +18099,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 23,
-    "color": "#7f6650",
+    "color": "#7c644f",
     "keys": [
       "HX-0503",
       "HX0503",
@@ -17106,11 +18110,13 @@ export const books = [
     "chipId": "HX-0503",
     "locationCode": "S2-B-L4-P23",
     "placeholder": true,
+    "widthScale": 1.1154,
     "heightScale": 1,
+    "depthScale": 1.3,
     "worldPosition": [
-      -3.2126,
+      -3.21638,
       1.688,
-      -3.201429
+      -3.276376
     ],
     "chipPayload": {
       "book_id": "HX-0503",
@@ -17129,7 +18135,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 24,
-    "color": "#7f6650",
+    "color": "#92745a",
     "keys": [
       "HX-0504",
       "HX0504",
@@ -17140,11 +18146,13 @@ export const books = [
     "chipId": "HX-0504",
     "locationCode": "S2-B-L4-P24",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.1897,
+    "heightScale": 0.8,
+    "depthScale": 1,
     "worldPosition": [
       -3.2126,
-      1.69412,
-      -2.962
+      1.6574,
+      -3.027424
     ],
     "chipPayload": {
       "book_id": "HX-0504",
@@ -17163,7 +18171,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 25,
-    "color": "#7f6650",
+    "color": "#876c54",
     "keys": [
       "HX-0505",
       "HX0505",
@@ -17174,11 +18182,13 @@ export const books = [
     "chipId": "HX-0505",
     "locationCode": "S2-B-L4-P25",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.0606,
+    "heightScale": 1.05,
+    "depthScale": 1,
     "worldPosition": [
       -3.2126,
-      1.69412,
-      -2.638
+      1.69565,
+      -2.631454
     ],
     "chipPayload": {
       "book_id": "HX-0505",
@@ -17197,7 +18207,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 26,
-    "color": "#7f6650",
+    "color": "#6c5846",
     "keys": [
       "HX-0506",
       "HX0506",
@@ -17208,11 +18218,13 @@ export const books = [
     "chipId": "HX-0506",
     "locationCode": "S2-B-L4-P26",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.123,
+    "heightScale": 1.05,
+    "depthScale": 1.15,
     "worldPosition": [
-      -3.2126,
-      1.68647,
-      -2.405714
+      -3.21449,
+      1.69565,
+      -2.395624
     ],
     "chipPayload": {
       "book_id": "HX-0506",
@@ -17231,7 +18243,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 27,
-    "color": "#7f6650",
+    "color": "#6c5846",
     "keys": [
       "HX-0507",
       "HX0507",
@@ -17242,11 +18254,13 @@ export const books = [
     "chipId": "HX-0507",
     "locationCode": "S2-B-L4-P27",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.0606,
+    "heightScale": 0.95,
+    "depthScale": 0.9,
     "worldPosition": [
-      -3.2126,
-      1.67882,
-      -2.173429
+      -3.21134,
+      1.68035,
+      -2.159793
     ],
     "chipPayload": {
       "book_id": "HX-0507",
@@ -17265,7 +18279,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 28,
-    "color": "#7f6650",
+    "color": "#6c5846",
     "keys": [
       "HX-0508",
       "HX0508",
@@ -17276,11 +18290,13 @@ export const books = [
     "chipId": "HX-0508",
     "locationCode": "S2-B-L4-P28",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.0606,
+    "heightScale": 0.95,
+    "depthScale": 0.9,
     "worldPosition": [
-      -3.2126,
-      1.68647,
-      -1.941143
+      -3.21134,
+      1.68035,
+      -1.930701
     ],
     "chipPayload": {
       "book_id": "HX-0508",
@@ -17299,7 +18315,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 29,
-    "color": "#7f6650",
+    "color": "#725c49",
     "keys": [
       "HX-0509",
       "HX0509",
@@ -17310,11 +18326,13 @@ export const books = [
     "chipId": "HX-0509",
     "locationCode": "S2-B-L4-P29",
     "placeholder": true,
+    "widthScale": 1.0606,
     "heightScale": 1,
+    "depthScale": 0.9,
     "worldPosition": [
-      -3.2126,
+      -3.21134,
       1.688,
-      -1.708857
+      -1.701609
     ],
     "chipPayload": {
       "book_id": "HX-0509",
@@ -17333,7 +18351,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 30,
-    "color": "#7f6650",
+    "color": "#725c49",
     "keys": [
       "HX-0510",
       "HX0510",
@@ -17344,11 +18362,13 @@ export const books = [
     "chipId": "HX-0510",
     "locationCode": "S2-B-L4-P30",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.0606,
+    "heightScale": 1,
+    "depthScale": 0.9,
     "worldPosition": [
-      -3.2126,
-      1.69718,
-      -1.476571
+      -3.21134,
+      1.688,
+      -1.472517
     ],
     "chipPayload": {
       "book_id": "HX-0510",
@@ -17367,7 +18387,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 31,
-    "color": "#7f6650",
+    "color": "#725c49",
     "keys": [
       "HX-0511",
       "HX0511",
@@ -17378,11 +18398,13 @@ export const books = [
     "chipId": "HX-0511",
     "locationCode": "S2-B-L4-P31",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.0606,
+    "heightScale": 1,
+    "depthScale": 0.9,
     "worldPosition": [
-      -3.2126,
-      1.67729,
-      -1.244286
+      -3.21134,
+      1.688,
+      -1.243425
     ],
     "chipPayload": {
       "book_id": "HX-0511",
@@ -17401,7 +18423,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 32,
-    "color": "#7f6650",
+    "color": "#6c5846",
     "keys": [
       "HX-0512",
       "HX0512",
@@ -17412,11 +18434,13 @@ export const books = [
     "chipId": "HX-0512",
     "locationCode": "S2-B-L4-P32",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 0.9358,
+    "heightScale": 0.95,
+    "depthScale": 0.9,
     "worldPosition": [
-      -3.2126,
-      1.69565,
-      -1.012
+      -3.21134,
+      1.68035,
+      -1.027808
     ],
     "chipPayload": {
       "book_id": "HX-0512",
@@ -17435,7 +18459,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 1,
-    "color": "#536c7d",
+    "color": "#556e80",
     "keys": [
       "HX-0513",
       "HX0513",
@@ -17446,11 +18470,13 @@ export const books = [
     "chipId": "HX-0513",
     "locationCode": "S3-A-L1-P01",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.09,
+    "heightScale": 0.85,
+    "depthScale": 1.3,
     "worldPosition": [
-      0.2126,
-      0.25065,
-      -8.588
+      0.21638000000000002,
+      0.22005,
+      -8.578277
     ],
     "chipPayload": {
       "book_id": "HX-0513",
@@ -17469,7 +18495,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 2,
-    "color": "#536c7d",
+    "color": "#516a7a",
     "keys": [
       "HX-0514",
       "HX0514",
@@ -17480,11 +18506,13 @@ export const books = [
     "chipId": "HX-0514",
     "locationCode": "S3-A-L1-P02",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.09,
+    "heightScale": 0.85,
+    "depthScale": 0.8,
     "worldPosition": [
-      0.2126,
-      0.24912,
-      -8.355714
+      0.21008000000000002,
+      0.22005,
+      -8.342831
     ],
     "chipPayload": {
       "book_id": "HX-0514",
@@ -17503,7 +18531,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 3,
-    "color": "#536c7d",
+    "color": "#516a7a",
     "keys": [
       "HX-0515",
       "HX0515",
@@ -17514,11 +18542,13 @@ export const books = [
     "chipId": "HX-0515",
     "locationCode": "S3-A-L1-P03",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.09,
+    "heightScale": 0.85,
+    "depthScale": 0.8,
     "worldPosition": [
-      0.2126,
-      0.25065,
-      -8.123429
+      0.21008000000000002,
+      0.22005,
+      -8.107385
     ],
     "chipPayload": {
       "book_id": "HX-0515",
@@ -17537,7 +18567,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 4,
-    "color": "#536c7d",
+    "color": "#516a7a",
     "keys": [
       "HX-0516",
       "HX0516",
@@ -17548,11 +18578,13 @@ export const books = [
     "chipId": "HX-0516",
     "locationCode": "S3-A-L1-P04",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.09,
+    "heightScale": 0.85,
+    "depthScale": 0.8,
     "worldPosition": [
-      0.2126,
-      0.23382,
-      -7.891143
+      0.21008000000000002,
+      0.22005,
+      -7.871939
     ],
     "chipPayload": {
       "book_id": "HX-0516",
@@ -17571,7 +18603,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 5,
-    "color": "#536c7d",
+    "color": "#587385",
     "keys": [
       "HX-0517",
       "HX0517",
@@ -17582,11 +18614,13 @@ export const books = [
     "chipId": "HX-0517",
     "locationCode": "S3-A-L1-P05",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 0.9753,
+    "heightScale": 0.85,
+    "depthScale": 1.48,
     "worldPosition": [
-      0.2126,
-      0.243,
-      -7.658857
+      0.218648,
+      0.22005,
+      -7.648886
     ],
     "chipPayload": {
       "book_id": "HX-0517",
@@ -17605,7 +18639,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 6,
-    "color": "#536c7d",
+    "color": "#587385",
     "keys": [
       "HX-0518",
       "HX0518",
@@ -17616,11 +18650,13 @@ export const books = [
     "chipId": "HX-0518",
     "locationCode": "S3-A-L1-P06",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 0.9753,
+    "heightScale": 0.85,
+    "depthScale": 1.48,
     "worldPosition": [
-      0.2126,
-      0.243,
-      -7.426571
+      0.218648,
+      0.22005,
+      -7.438223
     ],
     "chipPayload": {
       "book_id": "HX-0518",
@@ -17639,7 +18675,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 7,
-    "color": "#536c7d",
+    "color": "#556e80",
     "keys": [
       "HX-0519",
       "HX0519",
@@ -17650,11 +18686,13 @@ export const books = [
     "chipId": "HX-0519",
     "locationCode": "S3-A-L1-P07",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.0327,
+    "heightScale": 1,
+    "depthScale": 0.9,
     "worldPosition": [
-      0.2126,
-      0.24606,
-      -7.194286
+      0.21134,
+      0.243,
+      -7.221365
     ],
     "chipPayload": {
       "book_id": "HX-0519",
@@ -17673,7 +18711,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 8,
-    "color": "#536c7d",
+    "color": "#556e80",
     "keys": [
       "HX-0520",
       "HX0520",
@@ -17684,11 +18722,13 @@ export const books = [
     "chipId": "HX-0520",
     "locationCode": "S3-A-L1-P08",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.0327,
+    "heightScale": 1,
+    "depthScale": 0.9,
     "worldPosition": [
-      0.2126,
-      0.23535,
-      -6.962
+      0.21134,
+      0.243,
+      -6.998311
     ],
     "chipPayload": {
       "book_id": "HX-0520",
@@ -17707,7 +18747,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 9,
-    "color": "#536c7d",
+    "color": "#516a7a",
     "keys": [
       "HX-0521",
       "HX0521",
@@ -17718,11 +18758,13 @@ export const books = [
     "chipId": "HX-0521",
     "locationCode": "S3-A-L1-P09",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.0468,
+    "heightScale": 0.9,
+    "depthScale": 0.8,
     "worldPosition": [
-      0.2126,
-      0.23382,
-      -6.638
+      0.21008000000000002,
+      0.2277,
+      -6.632947
     ],
     "chipPayload": {
       "book_id": "HX-0521",
@@ -17741,7 +18783,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 10,
-    "color": "#536c7d",
+    "color": "#4e6575",
     "keys": [
       "HX-0522",
       "HX0522",
@@ -17752,11 +18794,13 @@ export const books = [
     "chipId": "HX-0522",
     "locationCode": "S3-A-L1-P10",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.1084,
+    "heightScale": 0.9,
+    "depthScale": 0.8,
     "worldPosition": [
-      0.2126,
-      0.23535,
-      -6.398571
+      0.21008000000000002,
+      0.2277,
+      -6.400191
     ],
     "chipPayload": {
       "book_id": "HX-0522",
@@ -17775,7 +18819,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 11,
-    "color": "#536c7d",
+    "color": "#4e6575",
     "keys": [
       "HX-0523",
       "HX0523",
@@ -17786,11 +18830,13 @@ export const books = [
     "chipId": "HX-0523",
     "locationCode": "S3-A-L1-P11",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.1084,
+    "heightScale": 0.9,
+    "depthScale": 0.8,
     "worldPosition": [
-      0.2126,
-      0.23994,
-      -6.159143
+      0.21008000000000002,
+      0.2277,
+      -6.160785
     ],
     "chipPayload": {
       "book_id": "HX-0523",
@@ -17809,7 +18855,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 12,
-    "color": "#536c7d",
+    "color": "#4e6575",
     "keys": [
       "HX-0524",
       "HX0524",
@@ -17820,11 +18866,13 @@ export const books = [
     "chipId": "HX-0524",
     "locationCode": "S3-A-L1-P12",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.1084,
+    "heightScale": 0.9,
+    "depthScale": 0.8,
     "worldPosition": [
-      0.2126,
-      0.25065,
-      -5.919714
+      0.21008000000000002,
+      0.2277,
+      -5.92138
     ],
     "chipPayload": {
       "book_id": "HX-0524",
@@ -17843,7 +18891,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 13,
-    "color": "#536c7d",
+    "color": "#556e80",
     "keys": [
       "HX-0525",
       "HX0525",
@@ -17854,11 +18902,13 @@ export const books = [
     "chipId": "HX-0525",
     "locationCode": "S3-A-L1-P13",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.1084,
+    "heightScale": 0.8,
+    "depthScale": 1,
     "worldPosition": [
       0.2126,
-      0.23535,
-      -5.680286
+      0.2124,
+      -5.681974
     ],
     "chipPayload": {
       "book_id": "HX-0525",
@@ -17877,7 +18927,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 14,
-    "color": "#536c7d",
+    "color": "#556e80",
     "keys": [
       "HX-0526",
       "HX0526",
@@ -17888,11 +18938,13 @@ export const books = [
     "chipId": "HX-0526",
     "locationCode": "S3-A-L1-P14",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.1084,
+    "heightScale": 0.8,
+    "depthScale": 1,
     "worldPosition": [
       0.2126,
-      0.23076,
-      -5.440857
+      0.2124,
+      -5.442568
     ],
     "chipPayload": {
       "book_id": "HX-0526",
@@ -17911,7 +18963,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 15,
-    "color": "#536c7d",
+    "color": "#556e80",
     "keys": [
       "HX-0527",
       "HX0527",
@@ -17922,11 +18974,13 @@ export const books = [
     "chipId": "HX-0527",
     "locationCode": "S3-A-L1-P15",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.1084,
+    "heightScale": 0.8,
+    "depthScale": 1,
     "worldPosition": [
       0.2126,
-      0.25218,
-      -5.201429
+      0.2124,
+      -5.203162
     ],
     "chipPayload": {
       "book_id": "HX-0527",
@@ -17945,7 +18999,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 16,
-    "color": "#536c7d",
+    "color": "#485d6b",
     "keys": [
       "HX-0528",
       "HX0528",
@@ -17956,11 +19010,13 @@ export const books = [
     "chipId": "HX-0528",
     "locationCode": "S3-A-L1-P16",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 0.8005,
+    "heightScale": 1.1,
+    "depthScale": 1.15,
     "worldPosition": [
-      0.2126,
-      0.243,
-      -4.962
+      0.21449000000000001,
+      0.2583,
+      -4.997007
     ],
     "chipPayload": {
       "book_id": "HX-0528",
@@ -17979,7 +19035,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 17,
-    "color": "#536c7d",
+    "color": "#608095",
     "keys": [
       "HX-0529",
       "HX0529",
@@ -17990,11 +19046,13 @@ export const books = [
     "chipId": "HX-0529",
     "locationCode": "S3-A-L1-P17",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.1748,
+    "heightScale": 1,
+    "depthScale": 1,
     "worldPosition": [
       0.2126,
-      0.24912,
-      -4.638
+      0.243,
+      -4.619127
     ],
     "chipPayload": {
       "book_id": "HX-0529",
@@ -18013,7 +19071,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 18,
-    "color": "#536c7d",
+    "color": "#516a7a",
     "keys": [
       "HX-0530",
       "HX0530",
@@ -18024,11 +19082,13 @@ export const books = [
     "chipId": "HX-0530",
     "locationCode": "S3-A-L1-P18",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 0.9674,
+    "heightScale": 1,
+    "depthScale": 1.3,
     "worldPosition": [
-      0.2126,
-      0.23229,
-      -4.398571
+      0.21638000000000002,
+      0.243,
+      -4.38777
     ],
     "chipPayload": {
       "book_id": "HX-0530",
@@ -18047,7 +19107,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 19,
-    "color": "#536c7d",
+    "color": "#5e7b90",
     "keys": [
       "HX-0531",
       "HX0531",
@@ -18058,11 +19118,13 @@ export const books = [
     "chipId": "HX-0531",
     "locationCode": "S3-A-L1-P19",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 0.8983,
+    "heightScale": 1.1,
+    "depthScale": 1.15,
     "worldPosition": [
-      0.2126,
-      0.23535,
-      -4.159143
+      0.21449000000000001,
+      0.2583,
+      -4.186265
     ],
     "chipPayload": {
       "book_id": "HX-0531",
@@ -18081,7 +19143,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 20,
-    "color": "#536c7d",
+    "color": "#5e7b90",
     "keys": [
       "HX-0532",
       "HX0532",
@@ -18092,11 +19154,13 @@ export const books = [
     "chipId": "HX-0532",
     "locationCode": "S3-A-L1-P20",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 0.8983,
+    "heightScale": 1.1,
+    "depthScale": 1.15,
     "worldPosition": [
-      0.2126,
-      0.23229,
-      -3.919714
+      0.21449000000000001,
+      0.2583,
+      -3.992224
     ],
     "chipPayload": {
       "book_id": "HX-0532",
@@ -18115,7 +19179,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 21,
-    "color": "#536c7d",
+    "color": "#587385",
     "keys": [
       "HX-0533",
       "HX0533",
@@ -18126,11 +19190,13 @@ export const books = [
     "chipId": "HX-0533",
     "locationCode": "S3-A-L1-P21",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.1748,
+    "heightScale": 0.9,
+    "depthScale": 1.15,
     "worldPosition": [
-      0.2126,
-      0.23076,
-      -3.680286
+      0.21449000000000001,
+      0.2277,
+      -3.76833
     ],
     "chipPayload": {
       "book_id": "HX-0533",
@@ -18149,7 +19215,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 22,
-    "color": "#536c7d",
+    "color": "#587385",
     "keys": [
       "HX-0534",
       "HX0534",
@@ -18160,11 +19226,13 @@ export const books = [
     "chipId": "HX-0534",
     "locationCode": "S3-A-L1-P22",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.1748,
+    "heightScale": 0.9,
+    "depthScale": 1.15,
     "worldPosition": [
-      0.2126,
-      0.243,
-      -3.440857
+      0.21449000000000001,
+      0.2277,
+      -3.514583
     ],
     "chipPayload": {
       "book_id": "HX-0534",
@@ -18183,7 +19251,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 23,
-    "color": "#536c7d",
+    "color": "#4b6170",
     "keys": [
       "HX-0535",
       "HX0535",
@@ -18194,11 +19262,13 @@ export const books = [
     "chipId": "HX-0535",
     "locationCode": "S3-A-L1-P23",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.1056,
+    "heightScale": 0.9,
+    "depthScale": 1,
     "worldPosition": [
       0.2126,
-      0.25065,
-      -3.201429
+      0.2277,
+      -3.2683
     ],
     "chipPayload": {
       "book_id": "HX-0535",
@@ -18217,7 +19287,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 24,
-    "color": "#536c7d",
+    "color": "#4b6170",
     "keys": [
       "HX-0536",
       "HX0536",
@@ -18228,11 +19298,13 @@ export const books = [
     "chipId": "HX-0536",
     "locationCode": "S3-A-L1-P24",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.1056,
+    "heightScale": 0.9,
+    "depthScale": 1,
     "worldPosition": [
       0.2126,
-      0.25065,
-      -2.962
+      0.2277,
+      -3.02948
     ],
     "chipPayload": {
       "book_id": "HX-0536",
@@ -18251,7 +19323,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 25,
-    "color": "#536c7d",
+    "color": "#556e80",
     "keys": [
       "HX-0537",
       "HX0537",
@@ -18262,11 +19334,13 @@ export const books = [
     "chipId": "HX-0537",
     "locationCode": "S3-A-L1-P25",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 0.9433,
+    "heightScale": 1.05,
+    "depthScale": 1.48,
     "worldPosition": [
-      0.2126,
-      0.24912,
-      -2.638
+      0.218648,
+      0.25065,
+      -2.644126
     ],
     "chipPayload": {
       "book_id": "HX-0537",
@@ -18285,7 +19359,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 26,
-    "color": "#536c7d",
+    "color": "#556e80",
     "keys": [
       "HX-0538",
       "HX0538",
@@ -18296,11 +19370,13 @@ export const books = [
     "chipId": "HX-0538",
     "locationCode": "S3-A-L1-P26",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 0.9433,
+    "heightScale": 1.05,
+    "depthScale": 1.48,
     "worldPosition": [
-      0.2126,
-      0.243,
-      -2.405714
+      0.218648,
+      0.25065,
+      -2.440377
     ],
     "chipPayload": {
       "book_id": "HX-0538",
@@ -18319,7 +19395,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 27,
-    "color": "#536c7d",
+    "color": "#556e80",
     "keys": [
       "HX-0539",
       "HX0539",
@@ -18330,11 +19406,13 @@ export const books = [
     "chipId": "HX-0539",
     "locationCode": "S3-A-L1-P27",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 0.9433,
+    "heightScale": 1.05,
+    "depthScale": 1.48,
     "worldPosition": [
-      0.2126,
-      0.23535,
-      -2.173429
+      0.218648,
+      0.25065,
+      -2.236629
     ],
     "chipPayload": {
       "book_id": "HX-0539",
@@ -18353,7 +19431,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 28,
-    "color": "#536c7d",
+    "color": "#516a7a",
     "keys": [
       "HX-0540",
       "HX0540",
@@ -18364,11 +19442,13 @@ export const books = [
     "chipId": "HX-0540",
     "locationCode": "S3-A-L1-P28",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.1948,
+    "heightScale": 1.05,
+    "depthScale": 0.8,
     "worldPosition": [
-      0.2126,
-      0.25218,
-      -1.941143
+      0.21008000000000002,
+      0.25065,
+      -2.005714
     ],
     "chipPayload": {
       "book_id": "HX-0540",
@@ -18387,7 +19467,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 29,
-    "color": "#536c7d",
+    "color": "#516a7a",
     "keys": [
       "HX-0541",
       "HX0541",
@@ -18398,11 +19478,13 @@ export const books = [
     "chipId": "HX-0541",
     "locationCode": "S3-A-L1-P29",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.1948,
+    "heightScale": 1.05,
+    "depthScale": 0.8,
     "worldPosition": [
-      0.2126,
-      0.24147,
-      -1.708857
+      0.21008000000000002,
+      0.25065,
+      -1.747633
     ],
     "chipPayload": {
       "book_id": "HX-0541",
@@ -18421,7 +19503,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 30,
-    "color": "#536c7d",
+    "color": "#516a7a",
     "keys": [
       "HX-0542",
       "HX0542",
@@ -18432,11 +19514,13 @@ export const books = [
     "chipId": "HX-0542",
     "locationCode": "S3-A-L1-P30",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.1948,
+    "heightScale": 1.05,
+    "depthScale": 0.8,
     "worldPosition": [
-      0.2126,
-      0.23076,
-      -1.476571
+      0.21008000000000002,
+      0.25065,
+      -1.489551
     ],
     "chipPayload": {
       "book_id": "HX-0542",
@@ -18455,7 +19539,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 31,
-    "color": "#536c7d",
+    "color": "#4b6170",
     "keys": [
       "HX-0543",
       "HX0543",
@@ -18466,11 +19550,13 @@ export const books = [
     "chipId": "HX-0543",
     "locationCode": "S3-A-L1-P31",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 0.9433,
+    "heightScale": 0.9,
+    "depthScale": 1.15,
     "worldPosition": [
-      0.2126,
-      0.23688,
-      -1.244286
+      0.21449000000000001,
+      0.2277,
+      -1.258637
     ],
     "chipPayload": {
       "book_id": "HX-0543",
@@ -18489,7 +19575,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 32,
-    "color": "#536c7d",
+    "color": "#4b6170",
     "keys": [
       "HX-0544",
       "HX0544",
@@ -18500,11 +19586,13 @@ export const books = [
     "chipId": "HX-0544",
     "locationCode": "S3-A-L1-P32",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 0.9433,
+    "heightScale": 1.1,
+    "depthScale": 1.3,
     "worldPosition": [
-      0.2126,
-      0.24453,
-      -1.012
+      0.21638000000000002,
+      0.2583,
+      -1.054888
     ],
     "chipPayload": {
       "book_id": "HX-0544",
@@ -18523,7 +19611,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 1,
-    "color": "#536c7d",
+    "color": "#5b778a",
     "keys": [
       "HX-0545",
       "HX0545",
@@ -18534,11 +19622,13 @@ export const books = [
     "chipId": "HX-0545",
     "locationCode": "S3-A-L2-P01",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.2702,
+    "heightScale": 0.85,
+    "depthScale": 1.3,
     "worldPosition": [
-      0.2126,
-      0.69718,
-      -8.588
+      0.21638000000000002,
+      0.66505,
+      -8.558815
     ],
     "chipPayload": {
       "book_id": "HX-0545",
@@ -18557,7 +19647,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 2,
-    "color": "#536c7d",
+    "color": "#5b778a",
     "keys": [
       "HX-0546",
       "HX0546",
@@ -18568,11 +19658,13 @@ export const books = [
     "chipId": "HX-0546",
     "locationCode": "S3-A-L2-P02",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.2702,
+    "heightScale": 0.85,
+    "depthScale": 1.3,
     "worldPosition": [
-      0.2126,
-      0.68647,
-      -8.355714
+      0.21638000000000002,
+      0.66505,
+      -8.284446
     ],
     "chipPayload": {
       "book_id": "HX-0546",
@@ -18591,7 +19683,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 3,
-    "color": "#536c7d",
+    "color": "#5b778a",
     "keys": [
       "HX-0547",
       "HX0547",
@@ -18602,11 +19694,13 @@ export const books = [
     "chipId": "HX-0547",
     "locationCode": "S3-A-L2-P03",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.2702,
+    "heightScale": 0.85,
+    "depthScale": 1.3,
     "worldPosition": [
-      0.2126,
-      0.67729,
-      -8.123429
+      0.21638000000000002,
+      0.66505,
+      -8.010077
     ],
     "chipPayload": {
       "book_id": "HX-0547",
@@ -18625,7 +19719,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 4,
-    "color": "#536c7d",
+    "color": "#608095",
     "keys": [
       "HX-0548",
       "HX0548",
@@ -18636,11 +19730,13 @@ export const books = [
     "chipId": "HX-0548",
     "locationCode": "S3-A-L2-P04",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 0.8691,
+    "heightScale": 0.8,
+    "depthScale": 1,
     "worldPosition": [
       0.2126,
-      0.67576,
-      -7.891143
+      0.6574,
+      -7.779029
     ],
     "chipPayload": {
       "book_id": "HX-0548",
@@ -18659,7 +19755,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 5,
-    "color": "#536c7d",
+    "color": "#608095",
     "keys": [
       "HX-0549",
       "HX0549",
@@ -18670,11 +19766,13 @@ export const books = [
     "chipId": "HX-0549",
     "locationCode": "S3-A-L2-P05",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 0.8691,
+    "heightScale": 0.8,
+    "depthScale": 1,
     "worldPosition": [
       0.2126,
-      0.69718,
-      -7.658857
+      0.6574,
+      -7.591302
     ],
     "chipPayload": {
       "book_id": "HX-0549",
@@ -18693,7 +19791,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 6,
-    "color": "#536c7d",
+    "color": "#4b6170",
     "keys": [
       "HX-0550",
       "HX0550",
@@ -18704,11 +19802,13 @@ export const books = [
     "chipId": "HX-0550",
     "locationCode": "S3-A-L2-P06",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 0.936,
+    "heightScale": 1.05,
+    "depthScale": 0.9,
     "worldPosition": [
-      0.2126,
-      0.68188,
-      -7.426571
+      0.21134,
+      0.69565,
+      -7.396356
     ],
     "chipPayload": {
       "book_id": "HX-0550",
@@ -18727,7 +19827,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 7,
-    "color": "#536c7d",
+    "color": "#4b6170",
     "keys": [
       "HX-0551",
       "HX0551",
@@ -18738,11 +19838,13 @@ export const books = [
     "chipId": "HX-0551",
     "locationCode": "S3-A-L2-P07",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 0.936,
+    "heightScale": 1.05,
+    "depthScale": 0.9,
     "worldPosition": [
-      0.2126,
-      0.68647,
-      -7.194286
+      0.21134,
+      0.69565,
+      -7.194189
     ],
     "chipPayload": {
       "book_id": "HX-0551",
@@ -18761,7 +19863,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 8,
-    "color": "#536c7d",
+    "color": "#4b6170",
     "keys": [
       "HX-0552",
       "HX0552",
@@ -18772,11 +19874,13 @@ export const books = [
     "chipId": "HX-0552",
     "locationCode": "S3-A-L2-P08",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 0.936,
+    "heightScale": 1.05,
+    "depthScale": 0.9,
     "worldPosition": [
-      0.2126,
-      0.69259,
-      -6.962
+      0.21134,
+      0.69565,
+      -6.992022
     ],
     "chipPayload": {
       "book_id": "HX-0552",
@@ -18795,7 +19899,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 9,
-    "color": "#536c7d",
+    "color": "#4e6575",
     "keys": [
       "HX-0553",
       "HX0553",
@@ -18806,11 +19910,13 @@ export const books = [
     "chipId": "HX-0553",
     "locationCode": "S3-A-L2-P09",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.1901,
+    "heightScale": 1.05,
+    "depthScale": 1.3,
     "worldPosition": [
-      0.2126,
-      0.68953,
-      -6.638
+      0.21638000000000002,
+      0.69565,
+      -6.617471
     ],
     "chipPayload": {
       "book_id": "HX-0553",
@@ -18829,7 +19935,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 10,
-    "color": "#536c7d",
+    "color": "#4b6170",
     "keys": [
       "HX-0554",
       "HX0554",
@@ -18840,11 +19946,13 @@ export const books = [
     "chipId": "HX-0554",
     "locationCode": "S3-A-L2-P10",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.1901,
+    "heightScale": 1.05,
+    "depthScale": 1.15,
     "worldPosition": [
-      0.2126,
-      0.688,
-      -6.398571
+      0.21449000000000001,
+      0.69565,
+      -6.360412
     ],
     "chipPayload": {
       "book_id": "HX-0554",
@@ -18863,7 +19971,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 11,
-    "color": "#536c7d",
+    "color": "#4b6170",
     "keys": [
       "HX-0555",
       "HX0555",
@@ -18874,11 +19982,13 @@ export const books = [
     "chipId": "HX-0555",
     "locationCode": "S3-A-L2-P11",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.1901,
+    "heightScale": 1.05,
+    "depthScale": 1.15,
     "worldPosition": [
-      0.2126,
-      0.69412,
-      -6.159143
+      0.21449000000000001,
+      0.69565,
+      -6.103353
     ],
     "chipPayload": {
       "book_id": "HX-0555",
@@ -18897,7 +20007,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 12,
-    "color": "#536c7d",
+    "color": "#4b6170",
     "keys": [
       "HX-0556",
       "HX0556",
@@ -18908,11 +20018,13 @@ export const books = [
     "chipId": "HX-0556",
     "locationCode": "S3-A-L2-P12",
     "placeholder": true,
+    "widthScale": 1.1901,
     "heightScale": 1.05,
+    "depthScale": 1.15,
     "worldPosition": [
-      0.2126,
+      0.21449000000000001,
       0.69565,
-      -5.919714
+      -5.846294
     ],
     "chipPayload": {
       "book_id": "HX-0556",
@@ -18931,7 +20043,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 13,
-    "color": "#536c7d",
+    "color": "#5e7b90",
     "keys": [
       "HX-0557",
       "HX0557",
@@ -18942,11 +20054,13 @@ export const books = [
     "chipId": "HX-0557",
     "locationCode": "S3-A-L2-P13",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.0579,
+    "heightScale": 1.05,
+    "depthScale": 1.15,
     "worldPosition": [
-      0.2126,
-      0.68188,
-      -5.680286
+      0.21449000000000001,
+      0.69565,
+      -5.603517
     ],
     "chipPayload": {
       "book_id": "HX-0557",
@@ -18965,7 +20079,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 14,
-    "color": "#536c7d",
+    "color": "#485d6b",
     "keys": [
       "HX-0558",
       "HX0558",
@@ -18976,11 +20090,13 @@ export const books = [
     "chipId": "HX-0558",
     "locationCode": "S3-A-L2-P14",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 0.8595,
+    "heightScale": 1,
+    "depthScale": 1.48,
     "worldPosition": [
-      0.2126,
-      0.68035,
-      -5.440857
+      0.218648,
+      0.688,
+      -5.396442
     ],
     "chipPayload": {
       "book_id": "HX-0558",
@@ -18999,7 +20115,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 15,
-    "color": "#536c7d",
+    "color": "#455865",
     "keys": [
       "HX-0559",
       "HX0559",
@@ -19010,11 +20126,13 @@ export const books = [
     "chipId": "HX-0559",
     "locationCode": "S3-A-L2-P15",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 0.9256,
+    "heightScale": 0.9,
+    "depthScale": 0.9,
     "worldPosition": [
-      0.2126,
-      0.68494,
-      -5.201429
+      0.21134,
+      0.6727,
+      -5.203648
     ],
     "chipPayload": {
       "book_id": "HX-0559",
@@ -19033,7 +20151,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 16,
-    "color": "#536c7d",
+    "color": "#587385",
     "keys": [
       "HX-0560",
       "HX0560",
@@ -19044,11 +20162,13 @@ export const books = [
     "chipId": "HX-0560",
     "locationCode": "S3-A-L2-P16",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 0.9917,
+    "heightScale": 0.8,
+    "depthScale": 1.3,
     "worldPosition": [
-      0.2126,
-      0.69106,
-      -4.962
+      0.21638000000000002,
+      0.6574,
+      -4.996573
     ],
     "chipPayload": {
       "book_id": "HX-0560",
@@ -19067,7 +20187,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 17,
-    "color": "#536c7d",
+    "color": "#455865",
     "keys": [
       "HX-0561",
       "HX0561",
@@ -19078,11 +20198,13 @@ export const books = [
     "chipId": "HX-0561",
     "locationCode": "S3-A-L2-P17",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.1284,
+    "heightScale": 0.9,
+    "depthScale": 1,
     "worldPosition": [
       0.2126,
-      0.69565,
-      -4.638
+      0.6727,
+      -4.624131
     ],
     "chipPayload": {
       "book_id": "HX-0561",
@@ -19101,7 +20223,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 18,
-    "color": "#536c7d",
+    "color": "#455865",
     "keys": [
       "HX-0562",
       "HX0562",
@@ -19112,11 +20234,13 @@ export const books = [
     "chipId": "HX-0562",
     "locationCode": "S3-A-L2-P18",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.1284,
+    "heightScale": 0.9,
+    "depthScale": 1,
     "worldPosition": [
       0.2126,
-      0.68647,
-      -4.398571
+      0.6727,
+      -4.380394
     ],
     "chipPayload": {
       "book_id": "HX-0562",
@@ -19135,7 +20259,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 19,
-    "color": "#536c7d",
+    "color": "#455865",
     "keys": [
       "HX-0563",
       "HX0563",
@@ -19146,11 +20270,13 @@ export const books = [
     "chipId": "HX-0563",
     "locationCode": "S3-A-L2-P19",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.1284,
+    "heightScale": 0.9,
+    "depthScale": 1,
     "worldPosition": [
       0.2126,
-      0.68188,
-      -4.159143
+      0.6727,
+      -4.136657
     ],
     "chipPayload": {
       "book_id": "HX-0563",
@@ -19169,7 +20295,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 20,
-    "color": "#536c7d",
+    "color": "#5e7b90",
     "keys": [
       "HX-0564",
       "HX0564",
@@ -19180,11 +20306,13 @@ export const books = [
     "chipId": "HX-0564",
     "locationCode": "S3-A-L2-P20",
     "placeholder": true,
+    "widthScale": 0.9168,
     "heightScale": 0.95,
+    "depthScale": 1.15,
     "worldPosition": [
-      0.2126,
+      0.21449000000000001,
       0.68035,
-      -3.919714
+      -3.91577
     ],
     "chipPayload": {
       "book_id": "HX-0564",
@@ -19203,7 +20331,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 21,
-    "color": "#536c7d",
+    "color": "#5e7b90",
     "keys": [
       "HX-0565",
       "HX0565",
@@ -19214,11 +20342,13 @@ export const books = [
     "chipId": "HX-0565",
     "locationCode": "S3-A-L2-P21",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 0.9168,
+    "heightScale": 0.95,
+    "depthScale": 1.15,
     "worldPosition": [
-      0.2126,
-      0.688,
-      -3.680286
+      0.21449000000000001,
+      0.68035,
+      -3.717734
     ],
     "chipPayload": {
       "book_id": "HX-0565",
@@ -19237,7 +20367,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 22,
-    "color": "#536c7d",
+    "color": "#4e6575",
     "keys": [
       "HX-0566",
       "HX0566",
@@ -19248,11 +20378,13 @@ export const books = [
     "chipId": "HX-0566",
     "locationCode": "S3-A-L2-P22",
     "placeholder": true,
+    "widthScale": 1.0579,
     "heightScale": 1,
+    "depthScale": 0.9,
     "worldPosition": [
-      0.2126,
+      0.21134,
       0.688,
-      -3.440857
+      -3.504464
     ],
     "chipPayload": {
       "book_id": "HX-0566",
@@ -19271,7 +20403,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 23,
-    "color": "#536c7d",
+    "color": "#5e7b90",
     "keys": [
       "HX-0567",
       "HX0567",
@@ -19282,11 +20414,13 @@ export const books = [
     "chipId": "HX-0567",
     "locationCode": "S3-A-L2-P23",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 0.9874,
+    "heightScale": 0.85,
+    "depthScale": 1.48,
     "worldPosition": [
-      0.2126,
-      0.67576,
-      -3.201429
+      0.218648,
+      0.66505,
+      -3.283577
     ],
     "chipPayload": {
       "book_id": "HX-0567",
@@ -19305,7 +20439,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 24,
-    "color": "#536c7d",
+    "color": "#4b6170",
     "keys": [
       "HX-0568",
       "HX0568",
@@ -19316,11 +20450,13 @@ export const books = [
     "chipId": "HX-0568",
     "locationCode": "S3-A-L2-P24",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.34,
+    "heightScale": 1,
+    "depthScale": 1.3,
     "worldPosition": [
-      0.2126,
-      0.68647,
-      -2.962
+      0.21638000000000002,
+      0.688,
+      -3.032223
     ],
     "chipPayload": {
       "book_id": "HX-0568",
@@ -19339,7 +20475,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 25,
-    "color": "#536c7d",
+    "color": "#587385",
     "keys": [
       "HX-0569",
       "HX0569",
@@ -19350,11 +20486,13 @@ export const books = [
     "chipId": "HX-0569",
     "locationCode": "S3-A-L2-P25",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 0.9116,
+    "heightScale": 1.1,
+    "depthScale": 0.9,
     "worldPosition": [
-      0.2126,
-      0.67576,
-      -2.638
+      0.21134,
+      0.7033,
+      -2.647544
     ],
     "chipPayload": {
       "book_id": "HX-0569",
@@ -19373,7 +20511,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 26,
-    "color": "#536c7d",
+    "color": "#587385",
     "keys": [
       "经济",
       "金融",
@@ -19388,11 +20526,13 @@ export const books = [
     "chipId": "HX-0570",
     "locationCode": "S3-A-L2-P26",
     "placeholder": false,
-    "heightScale": 0.97,
+    "widthScale": 0.9116,
+    "heightScale": 1.1,
+    "depthScale": 0.9,
     "worldPosition": [
-      0.2126,
-      0.68341,
-      -2.405714
+      0.21134,
+      0.7033,
+      -2.450631
     ],
     "chipPayload": {
       "book_id": "HX-0570",
@@ -19411,7 +20551,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 27,
-    "color": "#536c7d",
+    "color": "#4b6170",
     "keys": [
       "HX-0571",
       "HX0571",
@@ -19422,11 +20562,13 @@ export const books = [
     "chipId": "HX-0571",
     "locationCode": "S3-A-L2-P27",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 0.9116,
+    "heightScale": 0.9,
+    "depthScale": 0.8,
     "worldPosition": [
-      0.2126,
-      0.68647,
-      -2.173429
+      0.21008000000000002,
+      0.6727,
+      -2.253718
     ],
     "chipPayload": {
       "book_id": "HX-0571",
@@ -19445,7 +20587,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 28,
-    "color": "#536c7d",
+    "color": "#4b6170",
     "keys": [
       "HX-0572",
       "HX0572",
@@ -19456,11 +20598,13 @@ export const books = [
     "chipId": "HX-0572",
     "locationCode": "S3-A-L2-P28",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 0.9116,
+    "heightScale": 0.9,
+    "depthScale": 0.8,
     "worldPosition": [
-      0.2126,
-      0.67729,
-      -1.941143
+      0.21008000000000002,
+      0.6727,
+      -2.056805
     ],
     "chipPayload": {
       "book_id": "HX-0572",
@@ -19479,7 +20623,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 29,
-    "color": "#536c7d",
+    "color": "#516a7a",
     "keys": [
       "HX-0573",
       "HX0573",
@@ -19490,11 +20634,13 @@ export const books = [
     "chipId": "HX-0573",
     "locationCode": "S3-A-L2-P29",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.3324,
+    "heightScale": 0.85,
+    "depthScale": 0.9,
     "worldPosition": [
-      0.2126,
-      0.688,
-      -1.708857
+      0.21134,
+      0.66505,
+      -1.814451
     ],
     "chipPayload": {
       "book_id": "HX-0573",
@@ -19513,7 +20659,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 30,
-    "color": "#536c7d",
+    "color": "#516a7a",
     "keys": [
       "HX-0574",
       "HX0574",
@@ -19524,11 +20670,13 @@ export const books = [
     "chipId": "HX-0574",
     "locationCode": "S3-A-L2-P30",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.0519,
+    "heightScale": 0.95,
+    "depthScale": 0.9,
     "worldPosition": [
-      0.2126,
-      0.68647,
-      -1.476571
+      0.21134,
+      0.68035,
+      -1.55695
     ],
     "chipPayload": {
       "book_id": "HX-0574",
@@ -19547,7 +20695,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 31,
-    "color": "#536c7d",
+    "color": "#516a7a",
     "keys": [
       "HX-0575",
       "HX0575",
@@ -19558,11 +20706,13 @@ export const books = [
     "chipId": "HX-0575",
     "locationCode": "S3-A-L2-P31",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.0519,
+    "heightScale": 0.95,
+    "depthScale": 0.9,
     "worldPosition": [
-      0.2126,
-      0.68494,
-      -1.244286
+      0.21134,
+      0.68035,
+      -1.329743
     ],
     "chipPayload": {
       "book_id": "HX-0575",
@@ -19581,7 +20731,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 32,
-    "color": "#536c7d",
+    "color": "#485d6b",
     "keys": [
       "HX-0576",
       "HX0576",
@@ -19592,11 +20742,13 @@ export const books = [
     "chipId": "HX-0576",
     "locationCode": "S3-A-L2-P32",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.2623,
+    "heightScale": 0.9,
+    "depthScale": 0.9,
     "worldPosition": [
-      0.2126,
-      0.688,
-      -1.012
+      0.21134,
+      0.6727,
+      -1.079815
     ],
     "chipPayload": {
       "book_id": "HX-0576",
@@ -19615,7 +20767,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 1,
-    "color": "#536c7d",
+    "color": "#587385",
     "keys": [
       "HX-0577",
       "HX0577",
@@ -19626,11 +20778,13 @@ export const books = [
     "chipId": "HX-0577",
     "locationCode": "S3-A-L3-P01",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.0026,
+    "heightScale": 0.9,
+    "depthScale": 0.9,
     "worldPosition": [
-      0.2126,
-      1.19412,
-      -8.588
+      0.21134,
+      1.1727,
+      -8.587719
     ],
     "chipPayload": {
       "book_id": "HX-0577",
@@ -19649,7 +20803,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 2,
-    "color": "#536c7d",
+    "color": "#587385",
     "keys": [
       "HX-0578",
       "HX0578",
@@ -19660,11 +20814,13 @@ export const books = [
     "chipId": "HX-0578",
     "locationCode": "S3-A-L3-P02",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.0026,
+    "heightScale": 0.9,
+    "depthScale": 0.9,
     "worldPosition": [
-      0.2126,
-      1.17882,
-      -8.355714
+      0.21134,
+      1.1727,
+      -8.371158
     ],
     "chipPayload": {
       "book_id": "HX-0578",
@@ -19683,7 +20839,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 3,
-    "color": "#536c7d",
+    "color": "#587385",
     "keys": [
       "HX-0579",
       "HX0579",
@@ -19694,11 +20850,13 @@ export const books = [
     "chipId": "HX-0579",
     "locationCode": "S3-A-L3-P03",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.0026,
+    "heightScale": 0.9,
+    "depthScale": 0.9,
     "worldPosition": [
-      0.2126,
-      1.17576,
-      -8.123429
+      0.21134,
+      1.1727,
+      -8.154596
     ],
     "chipPayload": {
       "book_id": "HX-0579",
@@ -19717,7 +20875,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 4,
-    "color": "#536c7d",
+    "color": "#4b6170",
     "keys": [
       "HX-0580",
       "HX0580",
@@ -19728,11 +20886,13 @@ export const books = [
     "chipId": "HX-0580",
     "locationCode": "S3-A-L3-P04",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.0694,
+    "heightScale": 0.85,
+    "depthScale": 0.8,
     "worldPosition": [
-      0.2126,
-      1.18647,
-      -7.891143
+      0.21008000000000002,
+      1.16505,
+      -7.930816
     ],
     "chipPayload": {
       "book_id": "HX-0580",
@@ -19751,7 +20911,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 5,
-    "color": "#536c7d",
+    "color": "#4b6170",
     "keys": [
       "HX-0581",
       "HX0581",
@@ -19762,11 +20922,13 @@ export const books = [
     "chipId": "HX-0581",
     "locationCode": "S3-A-L3-P05",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.0694,
+    "heightScale": 0.85,
+    "depthScale": 0.8,
     "worldPosition": [
-      0.2126,
-      1.19718,
-      -7.658857
+      0.21008000000000002,
+      1.16505,
+      -7.699817
     ],
     "chipPayload": {
       "book_id": "HX-0581",
@@ -19785,7 +20947,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 6,
-    "color": "#536c7d",
+    "color": "#4b6170",
     "keys": [
       "HX-0582",
       "HX0582",
@@ -19796,11 +20958,13 @@ export const books = [
     "chipId": "HX-0582",
     "locationCode": "S3-A-L3-P06",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.0694,
+    "heightScale": 0.85,
+    "depthScale": 0.8,
     "worldPosition": [
-      0.2126,
-      1.18647,
-      -7.426571
+      0.21008000000000002,
+      1.16505,
+      -7.468818
     ],
     "chipPayload": {
       "book_id": "HX-0582",
@@ -19819,7 +20983,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 7,
-    "color": "#536c7d",
+    "color": "#4e6575",
     "keys": [
       "HX-0583",
       "HX0583",
@@ -19830,11 +20994,13 @@ export const books = [
     "chipId": "HX-0583",
     "locationCode": "S3-A-L3-P07",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.2031,
+    "heightScale": 0.95,
+    "depthScale": 1.3,
     "worldPosition": [
-      0.2126,
-      1.18647,
-      -7.194286
+      0.21638000000000002,
+      1.18035,
+      -7.223381
     ],
     "chipPayload": {
       "book_id": "HX-0583",
@@ -19853,7 +21019,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 8,
-    "color": "#536c7d",
+    "color": "#4e6575",
     "keys": [
       "HX-0584",
       "HX0584",
@@ -19864,11 +21030,13 @@ export const books = [
     "chipId": "HX-0584",
     "locationCode": "S3-A-L3-P08",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 0.8689,
+    "heightScale": 0.85,
+    "depthScale": 1.15,
     "worldPosition": [
-      0.2126,
-      1.18035,
-      -6.962
+      0.21449000000000001,
+      1.16505,
+      -6.999601
     ],
     "chipPayload": {
       "book_id": "HX-0584",
@@ -19887,7 +21055,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 9,
-    "color": "#536c7d",
+    "color": "#587385",
     "keys": [
       "HX-0585",
       "HX0585",
@@ -19898,11 +21066,13 @@ export const books = [
     "chipId": "HX-0585",
     "locationCode": "S3-A-L3-P09",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 0.9239,
+    "heightScale": 0.95,
+    "depthScale": 1,
     "worldPosition": [
       0.2126,
-      1.188,
-      -6.638
+      1.18035,
+      -6.646221
     ],
     "chipPayload": {
       "book_id": "HX-0585",
@@ -19921,7 +21091,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 10,
-    "color": "#536c7d",
+    "color": "#587385",
     "keys": [
       "HX-0586",
       "HX0586",
@@ -19932,11 +21102,13 @@ export const books = [
     "chipId": "HX-0586",
     "locationCode": "S3-A-L3-P10",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 0.9239,
+    "heightScale": 0.95,
+    "depthScale": 1,
     "worldPosition": [
       0.2126,
-      1.18188,
-      -6.398571
+      1.18035,
+      -6.446662
     ],
     "chipPayload": {
       "book_id": "HX-0586",
@@ -19955,7 +21127,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 11,
-    "color": "#536c7d",
+    "color": "#4b6170",
     "keys": [
       "HX-0587",
       "HX0587",
@@ -19966,11 +21138,13 @@ export const books = [
     "chipId": "HX-0587",
     "locationCode": "S3-A-L3-P11",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 0.9899,
+    "heightScale": 1,
+    "depthScale": 1.15,
     "worldPosition": [
-      0.2126,
-      1.17576,
-      -6.159143
+      0.21449000000000001,
+      1.188,
+      -6.239977
     ],
     "chipPayload": {
       "book_id": "HX-0587",
@@ -19989,7 +21163,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 12,
-    "color": "#536c7d",
+    "color": "#485d6b",
     "keys": [
       "HX-0588",
       "HX0588",
@@ -20000,11 +21174,13 @@ export const books = [
     "chipId": "HX-0588",
     "locationCode": "S3-A-L3-P12",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 0.9899,
+    "heightScale": 1.05,
+    "depthScale": 0.9,
     "worldPosition": [
-      0.2126,
-      1.17576,
-      -5.919714
+      0.21134,
+      1.19565,
+      -6.026164
     ],
     "chipPayload": {
       "book_id": "HX-0588",
@@ -20023,7 +21199,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 13,
-    "color": "#536c7d",
+    "color": "#587385",
     "keys": [
       "HX-0589",
       "HX0589",
@@ -20034,11 +21210,13 @@ export const books = [
     "chipId": "HX-0589",
     "locationCode": "S3-A-L3-P13",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.1878,
+    "heightScale": 0.9,
+    "depthScale": 0.9,
     "worldPosition": [
-      0.2126,
-      1.19259,
-      -5.680286
+      0.21134,
+      1.1727,
+      -5.79097
     ],
     "chipPayload": {
       "book_id": "HX-0589",
@@ -20057,7 +21235,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 14,
-    "color": "#536c7d",
+    "color": "#4b6170",
     "keys": [
       "HX-0590",
       "HX0590",
@@ -20068,11 +21246,13 @@ export const books = [
     "chipId": "HX-0590",
     "locationCode": "S3-A-L3-P14",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.2538,
+    "heightScale": 0.85,
+    "depthScale": 0.9,
     "worldPosition": [
-      0.2126,
-      1.18953,
-      -5.440857
+      0.21134,
+      1.16505,
+      -5.527268
     ],
     "chipPayload": {
       "book_id": "HX-0590",
@@ -20091,7 +21271,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 15,
-    "color": "#536c7d",
+    "color": "#4b6170",
     "keys": [
       "HX-0591",
       "HX0591",
@@ -20102,11 +21282,13 @@ export const books = [
     "chipId": "HX-0591",
     "locationCode": "S3-A-L3-P15",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.2538,
+    "heightScale": 0.85,
+    "depthScale": 0.9,
     "worldPosition": [
-      0.2126,
-      1.18647,
-      -5.201429
+      0.21134,
+      1.16505,
+      -5.256438
     ],
     "chipPayload": {
       "book_id": "HX-0591",
@@ -20125,7 +21307,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 16,
-    "color": "#536c7d",
+    "color": "#5e7b90",
     "keys": [
       "HX-0592",
       "HX0592",
@@ -20136,11 +21318,13 @@ export const books = [
     "chipId": "HX-0592",
     "locationCode": "S3-A-L3-P16",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.0559,
+    "heightScale": 0.95,
+    "depthScale": 1.15,
     "worldPosition": [
-      0.2126,
-      1.18953,
-      -4.962
+      0.21449000000000001,
+      1.18035,
+      -5.00699
     ],
     "chipPayload": {
       "book_id": "HX-0592",
@@ -20159,7 +21343,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 17,
-    "color": "#536c7d",
+    "color": "#4b6170",
     "keys": [
       "HX-0593",
       "HX0593",
@@ -20170,11 +21354,13 @@ export const books = [
     "chipId": "HX-0593",
     "locationCode": "S3-A-L3-P17",
     "placeholder": true,
+    "widthScale": 1.2294,
     "heightScale": 1.05,
+    "depthScale": 1.3,
     "worldPosition": [
-      0.2126,
+      0.21638000000000002,
       1.19565,
-      -4.638
+      -4.613229
     ],
     "chipPayload": {
       "book_id": "HX-0593",
@@ -20193,7 +21379,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 18,
-    "color": "#536c7d",
+    "color": "#4b6170",
     "keys": [
       "HX-0594",
       "HX0594",
@@ -20204,11 +21390,13 @@ export const books = [
     "chipId": "HX-0594",
     "locationCode": "S3-A-L3-P18",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.2294,
+    "heightScale": 1.05,
+    "depthScale": 1.3,
     "worldPosition": [
-      0.2126,
-      1.19106,
-      -4.398571
+      0.21638000000000002,
+      1.19565,
+      -4.347687
     ],
     "chipPayload": {
       "book_id": "HX-0594",
@@ -20227,7 +21415,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 19,
-    "color": "#536c7d",
+    "color": "#4b6170",
     "keys": [
       "HX-0595",
       "HX0595",
@@ -20238,11 +21426,13 @@ export const books = [
     "chipId": "HX-0595",
     "locationCode": "S3-A-L3-P19",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.2294,
+    "heightScale": 1.05,
+    "depthScale": 1.3,
     "worldPosition": [
-      0.2126,
-      1.17882,
-      -4.159143
+      0.21638000000000002,
+      1.19565,
+      -4.082144
     ],
     "chipPayload": {
       "book_id": "HX-0595",
@@ -20261,7 +21451,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 20,
-    "color": "#536c7d",
+    "color": "#556e80",
     "keys": [
       "HX-0596",
       "HX0596",
@@ -20272,11 +21462,13 @@ export const books = [
     "chipId": "HX-0596",
     "locationCode": "S3-A-L3-P20",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.0124,
+    "heightScale": 0.8,
+    "depthScale": 1,
     "worldPosition": [
       0.2126,
-      1.18647,
-      -3.919714
+      1.1574,
+      -3.840032
     ],
     "chipPayload": {
       "book_id": "HX-0596",
@@ -20295,7 +21487,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 21,
-    "color": "#536c7d",
+    "color": "#556e80",
     "keys": [
       "HX-0597",
       "HX0597",
@@ -20306,11 +21498,13 @@ export const books = [
     "chipId": "HX-0597",
     "locationCode": "S3-A-L3-P21",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.0124,
+    "heightScale": 0.8,
+    "depthScale": 1,
     "worldPosition": [
       0.2126,
-      1.18188,
-      -3.680286
+      1.1574,
+      -3.62135
     ],
     "chipPayload": {
       "book_id": "HX-0597",
@@ -20329,7 +21523,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 22,
-    "color": "#536c7d",
+    "color": "#4b6170",
     "keys": [
       "HX-0598",
       "HX0598",
@@ -20340,11 +21534,13 @@ export const books = [
     "chipId": "HX-0598",
     "locationCode": "S3-A-L3-P22",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 0.9401,
+    "heightScale": 0.9,
+    "depthScale": 1.48,
     "worldPosition": [
-      0.2126,
-      1.17729,
-      -3.440857
+      0.218648,
+      1.1727,
+      -3.410478
     ],
     "chipPayload": {
       "book_id": "HX-0598",
@@ -20363,7 +21559,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 23,
-    "color": "#536c7d",
+    "color": "#4b6170",
     "keys": [
       "HX-0599",
       "HX0599",
@@ -20374,11 +21570,13 @@ export const books = [
     "chipId": "HX-0599",
     "locationCode": "S3-A-L3-P23",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 0.9401,
+    "heightScale": 0.9,
+    "depthScale": 1.48,
     "worldPosition": [
-      0.2126,
-      1.18035,
-      -3.201429
+      0.218648,
+      1.1727,
+      -3.207417
     ],
     "chipPayload": {
       "book_id": "HX-0599",
@@ -20397,7 +21595,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 24,
-    "color": "#536c7d",
+    "color": "#4b6170",
     "keys": [
       "HX-0600",
       "HX0600",
@@ -20408,11 +21606,13 @@ export const books = [
     "chipId": "HX-0600",
     "locationCode": "S3-A-L3-P24",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 0.9401,
+    "heightScale": 0.9,
+    "depthScale": 1.48,
     "worldPosition": [
-      0.2126,
-      1.18341,
-      -2.962
+      0.218648,
+      1.1727,
+      -3.004355
     ],
     "chipPayload": {
       "book_id": "HX-0600",
@@ -20431,7 +21631,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 25,
-    "color": "#536c7d",
+    "color": "#455865",
     "keys": [
       "HX-0601",
       "HX0601",
@@ -20442,11 +21642,13 @@ export const books = [
     "chipId": "HX-0601",
     "locationCode": "S3-A-L3-P25",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 0.8644,
+    "heightScale": 1,
+    "depthScale": 1.48,
     "worldPosition": [
-      0.2126,
-      1.19412,
-      -2.638
+      0.218648,
+      1.188,
+      -2.65265
     ],
     "chipPayload": {
       "book_id": "HX-0601",
@@ -20465,7 +21667,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 26,
-    "color": "#536c7d",
+    "color": "#455865",
     "keys": [
       "HX-0602",
       "HX0602",
@@ -20476,11 +21678,13 @@ export const books = [
     "chipId": "HX-0602",
     "locationCode": "S3-A-L3-P26",
     "placeholder": true,
+    "widthScale": 0.8644,
     "heightScale": 1,
+    "depthScale": 1.48,
     "worldPosition": [
-      0.2126,
+      0.218648,
       1.188,
-      -2.405714
+      -2.46595
     ],
     "chipPayload": {
       "book_id": "HX-0602",
@@ -20499,7 +21703,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 27,
-    "color": "#536c7d",
+    "color": "#455865",
     "keys": [
       "HX-0603",
       "HX0603",
@@ -20510,11 +21714,13 @@ export const books = [
     "chipId": "HX-0603",
     "locationCode": "S3-A-L3-P27",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 0.8644,
+    "heightScale": 1,
+    "depthScale": 1.48,
     "worldPosition": [
-      0.2126,
-      1.19565,
-      -2.173429
+      0.218648,
+      1.188,
+      -2.279249
     ],
     "chipPayload": {
       "book_id": "HX-0603",
@@ -20533,7 +21739,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 28,
-    "color": "#536c7d",
+    "color": "#556e80",
     "keys": [
       "HX-0604",
       "HX0604",
@@ -20544,11 +21750,13 @@ export const books = [
     "chipId": "HX-0604",
     "locationCode": "S3-A-L3-P28",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.1731,
+    "heightScale": 0.95,
+    "depthScale": 1,
     "worldPosition": [
       0.2126,
-      1.18494,
-      -1.941143
+      1.18035,
+      -2.05921
     ],
     "chipPayload": {
       "book_id": "HX-0604",
@@ -20567,7 +21775,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 29,
-    "color": "#536c7d",
+    "color": "#556e80",
     "keys": [
       "HX-0605",
       "HX0605",
@@ -20578,11 +21786,13 @@ export const books = [
     "chipId": "HX-0605",
     "locationCode": "S3-A-L3-P29",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.1731,
+    "heightScale": 0.95,
+    "depthScale": 1,
     "worldPosition": [
       0.2126,
-      1.17576,
-      -1.708857
+      1.18035,
+      -1.805831
     ],
     "chipPayload": {
       "book_id": "HX-0605",
@@ -20601,7 +21811,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 30,
-    "color": "#536c7d",
+    "color": "#556e80",
     "keys": [
       "HX-0606",
       "HX0606",
@@ -20612,11 +21822,13 @@ export const books = [
     "chipId": "HX-0606",
     "locationCode": "S3-A-L3-P30",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.1731,
+    "heightScale": 0.95,
+    "depthScale": 1,
     "worldPosition": [
       0.2126,
-      1.17576,
-      -1.476571
+      1.18035,
+      -1.552452
     ],
     "chipPayload": {
       "book_id": "HX-0606",
@@ -20635,7 +21847,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 31,
-    "color": "#536c7d",
+    "color": "#608095",
     "keys": [
       "HX-0607",
       "HX0607",
@@ -20646,11 +21858,13 @@ export const books = [
     "chipId": "HX-0607",
     "locationCode": "S3-A-L3-P31",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.1113,
+    "heightScale": 0.9,
+    "depthScale": 1.48,
     "worldPosition": [
-      0.2126,
-      1.19412,
-      -1.244286
+      0.218648,
+      1.1727,
+      -1.305741
     ],
     "chipPayload": {
       "book_id": "HX-0607",
@@ -20669,7 +21883,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 32,
-    "color": "#536c7d",
+    "color": "#608095",
     "keys": [
       "HX-0608",
       "HX0608",
@@ -20680,11 +21894,13 @@ export const books = [
     "chipId": "HX-0608",
     "locationCode": "S3-A-L3-P32",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.1731,
+    "heightScale": 0.8,
+    "depthScale": 1.15,
     "worldPosition": [
-      0.2126,
-      1.19106,
-      -1.012
+      0.21449000000000001,
+      1.1574,
+      -1.05903
     ],
     "chipPayload": {
       "book_id": "HX-0608",
@@ -20703,7 +21919,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 1,
-    "color": "#536c7d",
+    "color": "#485d6b",
     "keys": [
       "HX-0609",
       "HX0609",
@@ -20714,11 +21930,13 @@ export const books = [
     "chipId": "HX-0609",
     "locationCode": "S3-A-L4-P01",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.0417,
+    "heightScale": 0.9,
+    "depthScale": 1.15,
     "worldPosition": [
-      0.2126,
-      1.67576,
-      -8.588
+      0.21449000000000001,
+      1.6727,
+      -8.583497
     ],
     "chipPayload": {
       "book_id": "HX-0609",
@@ -20737,7 +21955,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 2,
-    "color": "#536c7d",
+    "color": "#485d6b",
     "keys": [
       "HX-0610",
       "HX0610",
@@ -20748,11 +21966,13 @@ export const books = [
     "chipId": "HX-0610",
     "locationCode": "S3-A-L4-P02",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.0417,
+    "heightScale": 0.9,
+    "depthScale": 1.15,
     "worldPosition": [
-      0.2126,
-      1.69259,
-      -8.355714
+      0.21449000000000001,
+      1.6727,
+      -8.358492
     ],
     "chipPayload": {
       "book_id": "HX-0610",
@@ -20771,7 +21991,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 3,
-    "color": "#536c7d",
+    "color": "#485d6b",
     "keys": [
       "HX-0611",
       "HX0611",
@@ -20782,11 +22002,13 @@ export const books = [
     "chipId": "HX-0611",
     "locationCode": "S3-A-L4-P03",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.0417,
+    "heightScale": 0.9,
+    "depthScale": 1.15,
     "worldPosition": [
-      0.2126,
-      1.688,
-      -8.123429
+      0.21449000000000001,
+      1.6727,
+      -8.133486
     ],
     "chipPayload": {
       "book_id": "HX-0611",
@@ -20805,7 +22027,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 4,
-    "color": "#536c7d",
+    "color": "#587385",
     "keys": [
       "HX-0612",
       "HX0612",
@@ -20816,11 +22038,13 @@ export const books = [
     "chipId": "HX-0612",
     "locationCode": "S3-A-L4-P04",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.1068,
+    "heightScale": 0.9,
+    "depthScale": 1,
     "worldPosition": [
       0.2126,
-      1.68188,
-      -7.891143
+      1.6727,
+      -7.901449
     ],
     "chipPayload": {
       "book_id": "HX-0612",
@@ -20839,7 +22063,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 5,
-    "color": "#536c7d",
+    "color": "#485d6b",
     "keys": [
       "HX-0613",
       "HX0613",
@@ -20850,11 +22074,13 @@ export const books = [
     "chipId": "HX-0613",
     "locationCode": "S3-A-L4-P05",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 0.9115,
+    "heightScale": 1,
+    "depthScale": 1.48,
     "worldPosition": [
-      0.2126,
-      1.67576,
-      -7.658857
+      0.218648,
+      1.688,
+      -7.683475
     ],
     "chipPayload": {
       "book_id": "HX-0613",
@@ -20873,7 +22099,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 6,
-    "color": "#536c7d",
+    "color": "#5b778a",
     "keys": [
       "HX-0614",
       "HX0614",
@@ -20884,11 +22110,13 @@ export const books = [
     "chipId": "HX-0614",
     "locationCode": "S3-A-L4-P06",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 0.8464,
+    "heightScale": 0.85,
+    "depthScale": 1.48,
     "worldPosition": [
-      0.2126,
-      1.69412,
-      -7.426571
+      0.218648,
+      1.66505,
+      -7.493626
     ],
     "chipPayload": {
       "book_id": "HX-0614",
@@ -20907,7 +22135,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 7,
-    "color": "#536c7d",
+    "color": "#4b6170",
     "keys": [
       "HX-0615",
       "HX0615",
@@ -20918,11 +22146,13 @@ export const books = [
     "chipId": "HX-0615",
     "locationCode": "S3-A-L4-P07",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.1719,
+    "heightScale": 0.9,
+    "depthScale": 1.3,
     "worldPosition": [
-      0.2126,
-      1.68494,
-      -7.194286
+      0.21638000000000002,
+      1.6727,
+      -7.275652
     ],
     "chipPayload": {
       "book_id": "HX-0615",
@@ -20941,7 +22171,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 8,
-    "color": "#536c7d",
+    "color": "#485d6b",
     "keys": [
       "HX-0616",
       "HX0616",
@@ -20952,11 +22182,13 @@ export const books = [
     "chipId": "HX-0616",
     "locationCode": "S3-A-L4-P08",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.237,
+    "heightScale": 1,
+    "depthScale": 1,
     "worldPosition": [
       0.2126,
-      1.67729,
-      -6.962
+      1.688,
+      -7.015489
     ],
     "chipPayload": {
       "book_id": "HX-0616",
@@ -20975,7 +22207,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 9,
-    "color": "#536c7d",
+    "color": "#5b778a",
     "keys": [
       "HX-0617",
       "HX0617",
@@ -20986,11 +22218,13 @@ export const books = [
     "chipId": "HX-0617",
     "locationCode": "S3-A-L4-P09",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 0.9259,
+    "heightScale": 1,
+    "depthScale": 0.9,
     "worldPosition": [
-      0.2126,
-      1.68647,
-      -6.638
+      0.21134,
+      1.688,
+      -6.646007
     ],
     "chipPayload": {
       "book_id": "HX-0617",
@@ -21009,7 +22243,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 10,
-    "color": "#536c7d",
+    "color": "#5b778a",
     "keys": [
       "HX-0618",
       "HX0618",
@@ -21020,11 +22254,13 @@ export const books = [
     "chipId": "HX-0618",
     "locationCode": "S3-A-L4-P10",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 0.9259,
+    "heightScale": 1,
+    "depthScale": 0.9,
     "worldPosition": [
-      0.2126,
-      1.69718,
-      -6.398571
+      0.21134,
+      1.688,
+      -6.44602
     ],
     "chipPayload": {
       "book_id": "HX-0618",
@@ -21043,7 +22279,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 11,
-    "color": "#536c7d",
+    "color": "#5e7b90",
     "keys": [
       "HX-0619",
       "HX0619",
@@ -21054,11 +22290,13 @@ export const books = [
     "chipId": "HX-0619",
     "locationCode": "S3-A-L4-P11",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 0.9971,
+    "heightScale": 1.1,
+    "depthScale": 1.48,
     "worldPosition": [
-      0.2126,
-      1.68647,
-      -6.159143
+      0.218648,
+      1.7033,
+      -6.238341
     ],
     "chipPayload": {
       "book_id": "HX-0619",
@@ -21077,7 +22315,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 12,
-    "color": "#536c7d",
+    "color": "#608095",
     "keys": [
       "HX-0620",
       "HX0620",
@@ -21088,11 +22326,13 @@ export const books = [
     "chipId": "HX-0620",
     "locationCode": "S3-A-L4-P12",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.1395,
+    "heightScale": 0.9,
+    "depthScale": 1.48,
     "worldPosition": [
-      0.2126,
-      1.688,
-      -5.919714
+      0.218648,
+      1.6727,
+      -6.007587
     ],
     "chipPayload": {
       "book_id": "HX-0620",
@@ -21111,7 +22351,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 13,
-    "color": "#536c7d",
+    "color": "#608095",
     "keys": [
       "HX-0621",
       "HX0621",
@@ -21122,11 +22362,13 @@ export const books = [
     "chipId": "HX-0621",
     "locationCode": "S3-A-L4-P13",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.1395,
+    "heightScale": 0.9,
+    "depthScale": 1.48,
     "worldPosition": [
-      0.2126,
-      1.69106,
-      -5.680286
+      0.218648,
+      1.6727,
+      -5.76145
     ],
     "chipPayload": {
       "book_id": "HX-0621",
@@ -21145,7 +22387,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 14,
-    "color": "#536c7d",
+    "color": "#5e7b90",
     "keys": [
       "HX-0622",
       "HX0622",
@@ -21156,11 +22398,13 @@ export const books = [
     "chipId": "HX-0622",
     "locationCode": "S3-A-L4-P14",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.1395,
+    "heightScale": 0.85,
+    "depthScale": 0.8,
     "worldPosition": [
-      0.2126,
-      1.69565,
-      -5.440857
+      0.21008000000000002,
+      1.66505,
+      -5.515312
     ],
     "chipPayload": {
       "book_id": "HX-0622",
@@ -21179,7 +22423,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 15,
-    "color": "#536c7d",
+    "color": "#5e7b90",
     "keys": [
       "HX-0623",
       "HX0623",
@@ -21190,11 +22434,13 @@ export const books = [
     "chipId": "HX-0623",
     "locationCode": "S3-A-L4-P15",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.1395,
+    "heightScale": 0.85,
+    "depthScale": 0.8,
     "worldPosition": [
-      0.2126,
-      1.69412,
-      -5.201429
+      0.21008000000000002,
+      1.66505,
+      -5.269175
     ],
     "chipPayload": {
       "book_id": "HX-0623",
@@ -21213,7 +22459,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 16,
-    "color": "#536c7d",
+    "color": "#5e7b90",
     "keys": [
       "HX-0624",
       "HX0624",
@@ -21224,11 +22470,13 @@ export const books = [
     "chipId": "HX-0624",
     "locationCode": "S3-A-L4-P16",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.1395,
+    "heightScale": 0.85,
+    "depthScale": 0.8,
     "worldPosition": [
-      0.2126,
-      1.68188,
-      -4.962
+      0.21008000000000002,
+      1.66505,
+      -5.023037
     ],
     "chipPayload": {
       "book_id": "HX-0624",
@@ -21247,7 +22495,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 17,
-    "color": "#536c7d",
+    "color": "#608095",
     "keys": [
       "HX-0625",
       "HX0625",
@@ -21258,11 +22506,13 @@ export const books = [
     "chipId": "HX-0625",
     "locationCode": "S3-A-L4-P17",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 0.9875,
+    "heightScale": 0.85,
+    "depthScale": 0.8,
     "worldPosition": [
-      0.2126,
-      1.69718,
-      -4.638
+      0.21008000000000002,
+      1.66505,
+      -4.639345
     ],
     "chipPayload": {
       "book_id": "HX-0625",
@@ -21281,7 +22531,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 18,
-    "color": "#536c7d",
+    "color": "#608095",
     "keys": [
       "HX-0626",
       "HX0626",
@@ -21292,11 +22542,13 @@ export const books = [
     "chipId": "HX-0626",
     "locationCode": "S3-A-L4-P18",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 0.9875,
+    "heightScale": 0.85,
+    "depthScale": 0.8,
     "worldPosition": [
-      0.2126,
-      1.67729,
-      -4.398571
+      0.21008000000000002,
+      1.66505,
+      -4.426034
     ],
     "chipPayload": {
       "book_id": "HX-0626",
@@ -21315,7 +22567,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 19,
-    "color": "#536c7d",
+    "color": "#587385",
     "keys": [
       "HX-0627",
       "HX0627",
@@ -21326,11 +22578,13 @@ export const books = [
     "chipId": "HX-0627",
     "locationCode": "S3-A-L4-P19",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.1992,
+    "heightScale": 0.8,
+    "depthScale": 1.15,
     "worldPosition": [
-      0.2126,
-      1.68341,
-      -4.159143
+      0.21449000000000001,
+      1.6574,
+      -4.189869
     ],
     "chipPayload": {
       "book_id": "HX-0627",
@@ -21349,7 +22603,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 20,
-    "color": "#536c7d",
+    "color": "#5b778a",
     "keys": [
       "HX-0628",
       "HX0628",
@@ -21360,11 +22614,13 @@ export const books = [
     "chipId": "HX-0628",
     "locationCode": "S3-A-L4-P20",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 0.9875,
+    "heightScale": 1,
+    "depthScale": 1.48,
     "worldPosition": [
-      0.2126,
-      1.69259,
-      -3.919714
+      0.218648,
+      1.688,
+      -3.953703
     ],
     "chipPayload": {
       "book_id": "HX-0628",
@@ -21383,7 +22639,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 21,
-    "color": "#536c7d",
+    "color": "#5b778a",
     "keys": [
       "HX-0629",
       "HX0629",
@@ -21394,11 +22650,13 @@ export const books = [
     "chipId": "HX-0629",
     "locationCode": "S3-A-L4-P21",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 0.9875,
+    "heightScale": 1,
+    "depthScale": 1.48,
     "worldPosition": [
-      0.2126,
-      1.69259,
-      -3.680286
+      0.218648,
+      1.688,
+      -3.740392
     ],
     "chipPayload": {
       "book_id": "HX-0629",
@@ -21417,7 +22675,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 22,
-    "color": "#536c7d",
+    "color": "#5b778a",
     "keys": [
       "HX-0630",
       "HX0630",
@@ -21428,11 +22686,13 @@ export const books = [
     "chipId": "HX-0630",
     "locationCode": "S3-A-L4-P22",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 0.9875,
+    "heightScale": 1,
+    "depthScale": 1.48,
     "worldPosition": [
-      0.2126,
-      1.68341,
-      -3.440857
+      0.218648,
+      1.688,
+      -3.527082
     ],
     "chipPayload": {
       "book_id": "HX-0630",
@@ -21451,7 +22711,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 23,
-    "color": "#536c7d",
+    "color": "#516a7a",
     "keys": [
       "HX-0631",
       "HX0631",
@@ -21462,11 +22722,13 @@ export const books = [
     "chipId": "HX-0631",
     "locationCode": "S3-A-L4-P23",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.1992,
+    "heightScale": 0.8,
+    "depthScale": 1.3,
     "worldPosition": [
-      0.2126,
-      1.67729,
-      -3.201429
+      0.21638000000000002,
+      1.6574,
+      -3.290916
     ],
     "chipPayload": {
       "book_id": "HX-0631",
@@ -21485,7 +22747,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 24,
-    "color": "#536c7d",
+    "color": "#516a7a",
     "keys": [
       "HX-0632",
       "HX0632",
@@ -21496,11 +22758,13 @@ export const books = [
     "chipId": "HX-0632",
     "locationCode": "S3-A-L4-P24",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.1992,
+    "heightScale": 0.8,
+    "depthScale": 1.3,
     "worldPosition": [
-      0.2126,
-      1.67882,
-      -2.962
+      0.21638000000000002,
+      1.6574,
+      -3.031896
     ],
     "chipPayload": {
       "book_id": "HX-0632",
@@ -21519,7 +22783,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 25,
-    "color": "#536c7d",
+    "color": "#455865",
     "keys": [
       "HX-0633",
       "HX0633",
@@ -21530,11 +22794,13 @@ export const books = [
     "chipId": "HX-0633",
     "locationCode": "S3-A-L4-P25",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.0577,
+    "heightScale": 1.1,
+    "depthScale": 1.48,
     "worldPosition": [
-      0.2126,
-      1.68953,
-      -2.638
+      0.218648,
+      1.7033,
+      -2.631769
     ],
     "chipPayload": {
       "book_id": "HX-0633",
@@ -21553,7 +22819,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 26,
-    "color": "#536c7d",
+    "color": "#455865",
     "keys": [
       "HX-0634",
       "HX0634",
@@ -21564,11 +22830,13 @@ export const books = [
     "chipId": "HX-0634",
     "locationCode": "S3-A-L4-P26",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.0577,
+    "heightScale": 1.1,
+    "depthScale": 1.48,
     "worldPosition": [
-      0.2126,
-      1.68341,
-      -2.405714
+      0.218648,
+      1.7033,
+      -2.403307
     ],
     "chipPayload": {
       "book_id": "HX-0634",
@@ -21587,7 +22855,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 27,
-    "color": "#536c7d",
+    "color": "#455865",
     "keys": [
       "HX-0635",
       "HX0635",
@@ -21598,11 +22866,13 @@ export const books = [
     "chipId": "HX-0635",
     "locationCode": "S3-A-L4-P27",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.0577,
+    "heightScale": 1.1,
+    "depthScale": 1.48,
     "worldPosition": [
-      0.2126,
-      1.69259,
-      -2.173429
+      0.218648,
+      1.7033,
+      -2.174846
     ],
     "chipPayload": {
       "book_id": "HX-0635",
@@ -21621,7 +22891,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 28,
-    "color": "#536c7d",
+    "color": "#4b6170",
     "keys": [
       "HX-0636",
       "HX0636",
@@ -21632,11 +22902,13 @@ export const books = [
     "chipId": "HX-0636",
     "locationCode": "S3-A-L4-P28",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 0.9821,
+    "heightScale": 1.1,
+    "depthScale": 1.15,
     "worldPosition": [
-      0.2126,
-      1.67729,
-      -1.941143
+      0.21449000000000001,
+      1.7033,
+      -1.954543
     ],
     "chipPayload": {
       "book_id": "HX-0636",
@@ -21655,7 +22927,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 29,
-    "color": "#536c7d",
+    "color": "#4b6170",
     "keys": [
       "HX-0637",
       "HX0637",
@@ -21666,11 +22938,13 @@ export const books = [
     "chipId": "HX-0637",
     "locationCode": "S3-A-L4-P29",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 0.9821,
+    "heightScale": 1.1,
+    "depthScale": 1.15,
     "worldPosition": [
-      0.2126,
-      1.68188,
-      -1.708857
+      0.21449000000000001,
+      1.7033,
+      -1.7424
     ],
     "chipPayload": {
       "book_id": "HX-0637",
@@ -21689,7 +22963,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 30,
-    "color": "#536c7d",
+    "color": "#556e80",
     "keys": [
       "HX-0638",
       "HX0638",
@@ -21700,11 +22974,13 @@ export const books = [
     "chipId": "HX-0638",
     "locationCode": "S3-A-L4-P30",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.0577,
+    "heightScale": 0.9,
+    "depthScale": 1.3,
     "worldPosition": [
-      0.2126,
-      1.67729,
-      -1.476571
+      0.21638000000000002,
+      1.6727,
+      -1.522098
     ],
     "chipPayload": {
       "book_id": "HX-0638",
@@ -21723,7 +22999,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 31,
-    "color": "#536c7d",
+    "color": "#556e80",
     "keys": [
       "HX-0639",
       "HX0639",
@@ -21734,11 +23010,13 @@ export const books = [
     "chipId": "HX-0639",
     "locationCode": "S3-A-L4-P31",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.0577,
+    "heightScale": 0.9,
+    "depthScale": 1.3,
     "worldPosition": [
-      0.2126,
-      1.69565,
-      -1.244286
+      0.21638000000000002,
+      1.6727,
+      -1.293636
     ],
     "chipPayload": {
       "book_id": "HX-0639",
@@ -21757,7 +23035,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 32,
-    "color": "#536c7d",
+    "color": "#556e80",
     "keys": [
       "HX-0640",
       "HX0640",
@@ -21768,11 +23046,13 @@ export const books = [
     "chipId": "HX-0640",
     "locationCode": "S3-A-L4-P32",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.0577,
+    "heightScale": 0.9,
+    "depthScale": 1.3,
     "worldPosition": [
-      0.2126,
-      1.68341,
-      -1.012
+      0.21638000000000002,
+      1.6727,
+      -1.065174
     ],
     "chipPayload": {
       "book_id": "HX-0640",
@@ -21791,7 +23071,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 1,
-    "color": "#536c7d",
+    "color": "#5e7b90",
     "keys": [
       "HX-0641",
       "HX0641",
@@ -21802,11 +23082,13 @@ export const books = [
     "chipId": "HX-0641",
     "locationCode": "S3-B-L1-P01",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.0361,
+    "heightScale": 1.1,
+    "depthScale": 1,
     "worldPosition": [
       -0.2126,
-      0.23076,
-      -8.588
+      0.2583,
+      -8.584103
     ],
     "chipPayload": {
       "book_id": "HX-0641",
@@ -21825,7 +23107,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 2,
-    "color": "#536c7d",
+    "color": "#5e7b90",
     "keys": [
       "HX-0642",
       "HX0642",
@@ -21836,11 +23118,13 @@ export const books = [
     "chipId": "HX-0642",
     "locationCode": "S3-B-L1-P02",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.0361,
+    "heightScale": 1.1,
+    "depthScale": 1,
     "worldPosition": [
       -0.2126,
-      0.24606,
-      -8.355714
+      0.2583,
+      -8.36031
     ],
     "chipPayload": {
       "book_id": "HX-0642",
@@ -21859,7 +23143,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 3,
-    "color": "#536c7d",
+    "color": "#587385",
     "keys": [
       "HX-0643",
       "HX0643",
@@ -21870,11 +23154,13 @@ export const books = [
     "chipId": "HX-0643",
     "locationCode": "S3-B-L1-P03",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 0.9713,
+    "heightScale": 0.95,
+    "depthScale": 1,
     "worldPosition": [
       -0.2126,
-      0.24147,
-      -8.123429
+      0.23535,
+      -8.14351
     ],
     "chipPayload": {
       "book_id": "HX-0643",
@@ -21893,7 +23179,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 4,
-    "color": "#536c7d",
+    "color": "#587385",
     "keys": [
       "HX-0644",
       "HX0644",
@@ -21904,11 +23190,13 @@ export const books = [
     "chipId": "HX-0644",
     "locationCode": "S3-B-L1-P04",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 0.9713,
+    "heightScale": 0.95,
+    "depthScale": 1,
     "worldPosition": [
       -0.2126,
-      0.23382,
-      -7.891143
+      0.23535,
+      -7.933703
     ],
     "chipPayload": {
       "book_id": "HX-0644",
@@ -21927,7 +23215,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 5,
-    "color": "#536c7d",
+    "color": "#5b778a",
     "keys": [
       "HX-0645",
       "HX0645",
@@ -21938,11 +23226,13 @@ export const books = [
     "chipId": "HX-0645",
     "locationCode": "S3-B-L1-P05",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 0.9713,
+    "heightScale": 1.05,
+    "depthScale": 1.3,
     "worldPosition": [
-      -0.2126,
-      0.23382,
-      -7.658857
+      -0.21638000000000002,
+      0.25065,
+      -7.723897
     ],
     "chipPayload": {
       "book_id": "HX-0645",
@@ -21961,7 +23251,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 6,
-    "color": "#536c7d",
+    "color": "#485d6b",
     "keys": [
       "HX-0646",
       "HX0646",
@@ -21972,11 +23262,13 @@ export const books = [
     "chipId": "HX-0646",
     "locationCode": "S3-B-L1-P06",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.1008,
+    "heightScale": 0.85,
+    "depthScale": 1.15,
     "worldPosition": [
-      -0.2126,
-      0.243,
-      -7.426571
+      -0.21449000000000001,
+      0.22005,
+      -7.500103
     ],
     "chipPayload": {
       "book_id": "HX-0646",
@@ -21995,7 +23287,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 7,
-    "color": "#536c7d",
+    "color": "#485d6b",
     "keys": [
       "HX-0647",
       "HX0647",
@@ -22006,11 +23298,13 @@ export const books = [
     "chipId": "HX-0647",
     "locationCode": "S3-B-L1-P07",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.1008,
+    "heightScale": 0.85,
+    "depthScale": 1.15,
     "worldPosition": [
-      -0.2126,
-      0.23535,
-      -7.194286
+      -0.21449000000000001,
+      0.22005,
+      -7.262322
     ],
     "chipPayload": {
       "book_id": "HX-0647",
@@ -22029,7 +23323,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 8,
-    "color": "#536c7d",
+    "color": "#485d6b",
     "keys": [
       "HX-0648",
       "HX0648",
@@ -22040,11 +23334,13 @@ export const books = [
     "chipId": "HX-0648",
     "locationCode": "S3-B-L1-P08",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.1008,
+    "heightScale": 0.85,
+    "depthScale": 1.15,
     "worldPosition": [
-      -0.2126,
-      0.23994,
-      -6.962
+      -0.21449000000000001,
+      0.22005,
+      -7.024542
     ],
     "chipPayload": {
       "book_id": "HX-0648",
@@ -22063,7 +23359,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 9,
-    "color": "#536c7d",
+    "color": "#4b6170",
     "keys": [
       "HX-0649",
       "HX0649",
@@ -22074,11 +23370,13 @@ export const books = [
     "chipId": "HX-0649",
     "locationCode": "S3-B-L1-P09",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.1321,
+    "heightScale": 1.1,
+    "depthScale": 1.48,
     "worldPosition": [
-      -0.2126,
-      0.23688,
-      -6.638
+      -0.218648,
+      0.2583,
+      -6.623736
     ],
     "chipPayload": {
       "book_id": "HX-0649",
@@ -22097,7 +23395,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 10,
-    "color": "#536c7d",
+    "color": "#5e7b90",
     "keys": [
       "HX-0650",
       "HX0650",
@@ -22108,11 +23406,13 @@ export const books = [
     "chipId": "HX-0650",
     "locationCode": "S3-B-L1-P10",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.0655,
+    "heightScale": 0.85,
+    "depthScale": 0.9,
     "worldPosition": [
-      -0.2126,
-      0.243,
-      -6.398571
+      -0.21134,
+      0.22005,
+      -6.386399
     ],
     "chipPayload": {
       "book_id": "HX-0650",
@@ -22131,7 +23431,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 11,
-    "color": "#536c7d",
+    "color": "#455865",
     "keys": [
       "HX-0651",
       "HX0651",
@@ -22142,11 +23442,13 @@ export const books = [
     "chipId": "HX-0651",
     "locationCode": "S3-B-L1-P11",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.0655,
+    "heightScale": 1.1,
+    "depthScale": 0.8,
     "worldPosition": [
-      -0.2126,
-      0.23382,
-      -6.159143
+      -0.21008000000000002,
+      0.2583,
+      -6.156254
     ],
     "chipPayload": {
       "book_id": "HX-0651",
@@ -22165,7 +23467,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 12,
-    "color": "#536c7d",
+    "color": "#455865",
     "keys": [
       "HX-0652",
       "HX0652",
@@ -22176,11 +23478,13 @@ export const books = [
     "chipId": "HX-0652",
     "locationCode": "S3-B-L1-P12",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.0655,
+    "heightScale": 1.1,
+    "depthScale": 0.8,
     "worldPosition": [
-      -0.2126,
-      0.23076,
-      -5.919714
+      -0.21008000000000002,
+      0.2583,
+      -5.92611
     ],
     "chipPayload": {
       "book_id": "HX-0652",
@@ -22199,7 +23503,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 13,
-    "color": "#536c7d",
+    "color": "#455865",
     "keys": [
       "HX-0653",
       "HX0653",
@@ -22210,11 +23514,13 @@ export const books = [
     "chipId": "HX-0653",
     "locationCode": "S3-B-L1-P13",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.0655,
+    "heightScale": 1.1,
+    "depthScale": 0.8,
     "worldPosition": [
-      -0.2126,
-      0.24606,
-      -5.680286
+      -0.21008000000000002,
+      0.2583,
+      -5.695965
     ],
     "chipPayload": {
       "book_id": "HX-0653",
@@ -22233,7 +23539,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 14,
-    "color": "#536c7d",
+    "color": "#455865",
     "keys": [
       "HX-0654",
       "HX0654",
@@ -22244,11 +23550,13 @@ export const books = [
     "chipId": "HX-0654",
     "locationCode": "S3-B-L1-P14",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.0655,
+    "heightScale": 1.05,
+    "depthScale": 1.15,
     "worldPosition": [
-      -0.2126,
-      0.24606,
-      -5.440857
+      -0.21449000000000001,
+      0.25065,
+      -5.46582
     ],
     "chipPayload": {
       "book_id": "HX-0654",
@@ -22267,7 +23575,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 15,
-    "color": "#536c7d",
+    "color": "#455865",
     "keys": [
       "HX-0655",
       "HX0655",
@@ -22278,11 +23586,13 @@ export const books = [
     "chipId": "HX-0655",
     "locationCode": "S3-B-L1-P15",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.0655,
+    "heightScale": 1.05,
+    "depthScale": 1.15,
     "worldPosition": [
-      -0.2126,
-      0.25218,
-      -5.201429
+      -0.21449000000000001,
+      0.25065,
+      -5.235675
     ],
     "chipPayload": {
       "book_id": "HX-0655",
@@ -22301,7 +23611,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 16,
-    "color": "#536c7d",
+    "color": "#455865",
     "keys": [
       "HX-0656",
       "HX0656",
@@ -22312,11 +23622,13 @@ export const books = [
     "chipId": "HX-0656",
     "locationCode": "S3-B-L1-P16",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.0655,
+    "heightScale": 1.05,
+    "depthScale": 1.15,
     "worldPosition": [
-      -0.2126,
-      0.24147,
-      -4.962
+      -0.21449000000000001,
+      0.25065,
+      -5.005531
     ],
     "chipPayload": {
       "book_id": "HX-0656",
@@ -22335,7 +23647,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 17,
-    "color": "#536c7d",
+    "color": "#608095",
     "keys": [
       "HX-0657",
       "HX0657",
@@ -22346,11 +23658,13 @@ export const books = [
     "chipId": "HX-0657",
     "locationCode": "S3-B-L1-P17",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.0798,
+    "heightScale": 1,
+    "depthScale": 0.8,
     "worldPosition": [
-      -0.2126,
-      0.23994,
-      -4.638
+      -0.21008000000000002,
+      0.243,
+      -4.629386
     ],
     "chipPayload": {
       "book_id": "HX-0657",
@@ -22369,7 +23683,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 18,
-    "color": "#536c7d",
+    "color": "#516a7a",
     "keys": [
       "HX-0658",
       "HX0658",
@@ -22380,11 +23694,13 @@ export const books = [
     "chipId": "HX-0658",
     "locationCode": "S3-B-L1-P18",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.0123,
+    "heightScale": 1.1,
+    "depthScale": 1,
     "worldPosition": [
       -0.2126,
-      0.23535,
-      -4.398571
+      0.2583,
+      -4.403447
     ],
     "chipPayload": {
       "book_id": "HX-0658",
@@ -22403,7 +23719,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 19,
-    "color": "#536c7d",
+    "color": "#516a7a",
     "keys": [
       "HX-0659",
       "HX0659",
@@ -22414,11 +23730,13 @@ export const books = [
     "chipId": "HX-0659",
     "locationCode": "S3-B-L1-P19",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.0123,
+    "heightScale": 1.1,
+    "depthScale": 1,
     "worldPosition": [
       -0.2126,
-      0.23688,
-      -4.159143
+      0.2583,
+      -4.184797
     ],
     "chipPayload": {
       "book_id": "HX-0659",
@@ -22437,7 +23755,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 20,
-    "color": "#536c7d",
+    "color": "#608095",
     "keys": [
       "HX-0660",
       "HX0660",
@@ -22448,11 +23766,13 @@ export const books = [
     "chipId": "HX-0660",
     "locationCode": "S3-B-L1-P20",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.2147,
+    "heightScale": 1,
+    "depthScale": 1,
     "worldPosition": [
       -0.2126,
-      0.23994,
-      -3.919714
+      0.243,
+      -3.944281
     ],
     "chipPayload": {
       "book_id": "HX-0660",
@@ -22471,7 +23791,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 21,
-    "color": "#536c7d",
+    "color": "#608095",
     "keys": [
       "HX-0661",
       "HX0661",
@@ -22482,11 +23802,13 @@ export const books = [
     "chipId": "HX-0661",
     "locationCode": "S3-B-L1-P21",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.2147,
+    "heightScale": 1,
+    "depthScale": 1,
     "worldPosition": [
       -0.2126,
-      0.23841,
-      -3.680286
+      0.243,
+      -3.6819
     ],
     "chipPayload": {
       "book_id": "HX-0661",
@@ -22505,7 +23827,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 22,
-    "color": "#536c7d",
+    "color": "#608095",
     "keys": [
       "HX-0662",
       "HX0662",
@@ -22516,11 +23838,13 @@ export const books = [
     "chipId": "HX-0662",
     "locationCode": "S3-B-L1-P22",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.2147,
+    "heightScale": 1,
+    "depthScale": 1,
     "worldPosition": [
       -0.2126,
-      0.23382,
-      -3.440857
+      0.243,
+      -3.419519
     ],
     "chipPayload": {
       "book_id": "HX-0662",
@@ -22539,7 +23863,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 23,
-    "color": "#536c7d",
+    "color": "#4e6575",
     "keys": [
       "HX-0663",
       "HX0663",
@@ -22550,11 +23874,13 @@ export const books = [
     "chipId": "HX-0663",
     "locationCode": "S3-B-L1-P23",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 0.9448,
+    "heightScale": 1,
+    "depthScale": 0.8,
     "worldPosition": [
-      -0.2126,
-      0.24147,
-      -3.201429
+      -0.21008000000000002,
+      0.243,
+      -3.186292
     ],
     "chipPayload": {
       "book_id": "HX-0663",
@@ -22573,7 +23899,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 24,
-    "color": "#536c7d",
+    "color": "#4e6575",
     "keys": [
       "HX-0664",
       "HX0664",
@@ -22584,11 +23910,13 @@ export const books = [
     "chipId": "HX-0664",
     "locationCode": "S3-B-L1-P24",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 0.9448,
+    "heightScale": 1,
+    "depthScale": 0.8,
     "worldPosition": [
-      -0.2126,
-      0.24759,
-      -2.962
+      -0.21008000000000002,
+      0.243,
+      -2.982218
     ],
     "chipPayload": {
       "book_id": "HX-0664",
@@ -22607,7 +23935,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 25,
-    "color": "#536c7d",
+    "color": "#5e7b90",
     "keys": [
       "HX-0665",
       "HX0665",
@@ -22618,11 +23946,13 @@ export const books = [
     "chipId": "HX-0665",
     "locationCode": "S3-B-L1-P25",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.0886,
+    "heightScale": 1.1,
+    "depthScale": 1,
     "worldPosition": [
       -0.2126,
-      0.24453,
-      -2.638
+      0.2583,
+      -2.628427
     ],
     "chipPayload": {
       "book_id": "HX-0665",
@@ -22641,7 +23971,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 26,
-    "color": "#536c7d",
+    "color": "#5e7b90",
     "keys": [
       "HX-0666",
       "HX0666",
@@ -22652,11 +23982,13 @@ export const books = [
     "chipId": "HX-0666",
     "locationCode": "S3-B-L1-P26",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.0886,
+    "heightScale": 1.1,
+    "depthScale": 1,
     "worldPosition": [
       -0.2126,
-      0.23688,
-      -2.405714
+      0.2583,
+      -2.393281
     ],
     "chipPayload": {
       "book_id": "HX-0666",
@@ -22675,7 +24007,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 27,
-    "color": "#536c7d",
+    "color": "#5e7b90",
     "keys": [
       "HX-0667",
       "HX0667",
@@ -22686,11 +24018,13 @@ export const books = [
     "chipId": "HX-0667",
     "locationCode": "S3-B-L1-P27",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.0282,
+    "heightScale": 0.95,
+    "depthScale": 1.15,
     "worldPosition": [
-      -0.2126,
-      0.23841,
-      -2.173429
+      -0.21449000000000001,
+      0.23535,
+      -2.164667
     ],
     "chipPayload": {
       "book_id": "HX-0667",
@@ -22709,7 +24043,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 28,
-    "color": "#536c7d",
+    "color": "#5e7b90",
     "keys": [
       "HX-0668",
       "HX0668",
@@ -22720,11 +24054,13 @@ export const books = [
     "chipId": "HX-0668",
     "locationCode": "S3-B-L1-P28",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.0282,
+    "heightScale": 0.95,
+    "depthScale": 1.15,
     "worldPosition": [
-      -0.2126,
-      0.24912,
-      -1.941143
+      -0.21449000000000001,
+      0.23535,
+      -1.942584
     ],
     "chipPayload": {
       "book_id": "HX-0668",
@@ -22743,7 +24079,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 29,
-    "color": "#536c7d",
+    "color": "#5e7b90",
     "keys": [
       "HX-0669",
       "HX0669",
@@ -22754,11 +24090,13 @@ export const books = [
     "chipId": "HX-0669",
     "locationCode": "S3-B-L1-P29",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.0282,
+    "heightScale": 0.95,
+    "depthScale": 1.15,
     "worldPosition": [
-      -0.2126,
-      0.23382,
-      -1.708857
+      -0.21449000000000001,
+      0.23535,
+      -1.720502
     ],
     "chipPayload": {
       "book_id": "HX-0669",
@@ -22777,7 +24115,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 30,
-    "color": "#536c7d",
+    "color": "#5b778a",
     "keys": [
       "HX-0670",
       "HX0670",
@@ -22788,11 +24126,13 @@ export const books = [
     "chipId": "HX-0670",
     "locationCode": "S3-B-L1-P30",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.0282,
+    "heightScale": 1.05,
+    "depthScale": 0.8,
     "worldPosition": [
-      -0.2126,
-      0.24912,
-      -1.476571
+      -0.21008000000000002,
+      0.25065,
+      -1.498419
     ],
     "chipPayload": {
       "book_id": "HX-0670",
@@ -22811,7 +24151,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 31,
-    "color": "#536c7d",
+    "color": "#5b778a",
     "keys": [
       "HX-0671",
       "HX0671",
@@ -22822,11 +24162,13 @@ export const books = [
     "chipId": "HX-0671",
     "locationCode": "S3-B-L1-P31",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.0282,
+    "heightScale": 1.05,
+    "depthScale": 0.8,
     "worldPosition": [
-      -0.2126,
-      0.23229,
-      -1.244286
+      -0.21008000000000002,
+      0.25065,
+      -1.276337
     ],
     "chipPayload": {
       "book_id": "HX-0671",
@@ -22845,7 +24187,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 32,
-    "color": "#536c7d",
+    "color": "#516a7a",
     "keys": [
       "HX-0672",
       "HX0672",
@@ -22856,11 +24198,13 @@ export const books = [
     "chipId": "HX-0672",
     "locationCode": "S3-B-L1-P32",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.0282,
+    "heightScale": 1.1,
+    "depthScale": 1.48,
     "worldPosition": [
-      -0.2126,
-      0.24606,
-      -1.012
+      -0.218648,
+      0.2583,
+      -1.054254
     ],
     "chipPayload": {
       "book_id": "HX-0672",
@@ -22879,7 +24223,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 1,
-    "color": "#536c7d",
+    "color": "#516a7a",
     "keys": [
       "HX-0673",
       "HX0673",
@@ -22890,11 +24234,13 @@ export const books = [
     "chipId": "HX-0673",
     "locationCode": "S3-B-L2-P01",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.053,
+    "heightScale": 0.9,
+    "depthScale": 1.48,
     "worldPosition": [
-      -0.2126,
-      0.69106,
-      -8.588
+      -0.218648,
+      0.6727,
+      -8.582279
     ],
     "chipPayload": {
       "book_id": "HX-0673",
@@ -22913,7 +24259,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 2,
-    "color": "#536c7d",
+    "color": "#516a7a",
     "keys": [
       "HX-0674",
       "HX0674",
@@ -22924,11 +24270,13 @@ export const books = [
     "chipId": "HX-0674",
     "locationCode": "S3-B-L2-P02",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.053,
+    "heightScale": 0.9,
+    "depthScale": 1.48,
     "worldPosition": [
-      -0.2126,
-      0.67882,
-      -8.355714
+      -0.218648,
+      0.6727,
+      -8.354836
     ],
     "chipPayload": {
       "book_id": "HX-0674",
@@ -22947,7 +24295,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 3,
-    "color": "#536c7d",
+    "color": "#516a7a",
     "keys": [
       "HX-0675",
       "HX0675",
@@ -22958,11 +24306,13 @@ export const books = [
     "chipId": "HX-0675",
     "locationCode": "S3-B-L2-P03",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.053,
+    "heightScale": 0.9,
+    "depthScale": 1.48,
     "worldPosition": [
-      -0.2126,
-      0.67576,
-      -8.123429
+      -0.218648,
+      0.6727,
+      -8.127393
     ],
     "chipPayload": {
       "book_id": "HX-0675",
@@ -22981,7 +24331,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 4,
-    "color": "#536c7d",
+    "color": "#4e6575",
     "keys": [
       "HX-0676",
       "HX0676",
@@ -22992,11 +24342,13 @@ export const books = [
     "chipId": "HX-0676",
     "locationCode": "S3-B-L2-P04",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 0.8672,
+    "heightScale": 1,
+    "depthScale": 1.48,
     "worldPosition": [
-      -0.2126,
-      0.69106,
-      -7.891143
+      -0.218648,
+      0.688,
+      -7.920018
     ],
     "chipPayload": {
       "book_id": "HX-0676",
@@ -23015,7 +24367,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 5,
-    "color": "#536c7d",
+    "color": "#4e6575",
     "keys": [
       "HX-0677",
       "HX0677",
@@ -23026,11 +24378,13 @@ export const books = [
     "chipId": "HX-0677",
     "locationCode": "S3-B-L2-P05",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 0.8672,
+    "heightScale": 1,
+    "depthScale": 1.48,
     "worldPosition": [
-      -0.2126,
-      0.69259,
-      -7.658857
+      -0.218648,
+      0.688,
+      -7.732712
     ],
     "chipPayload": {
       "book_id": "HX-0677",
@@ -23049,7 +24403,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 6,
-    "color": "#536c7d",
+    "color": "#587385",
     "keys": [
       "HX-0678",
       "HX0678",
@@ -23060,11 +24414,13 @@ export const books = [
     "chipId": "HX-0678",
     "locationCode": "S3-B-L2-P06",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.1769,
+    "heightScale": 0.85,
+    "depthScale": 0.9,
     "worldPosition": [
-      -0.2126,
-      0.68647,
-      -7.426571
+      -0.21134,
+      0.66505,
+      -7.511959
     ],
     "chipPayload": {
       "book_id": "HX-0678",
@@ -23083,7 +24439,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 7,
-    "color": "#536c7d",
+    "color": "#587385",
     "keys": [
       "HX-0679",
       "HX0679",
@@ -23094,11 +24450,13 @@ export const books = [
     "chipId": "HX-0679",
     "locationCode": "S3-B-L2-P07",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.1769,
+    "heightScale": 0.85,
+    "depthScale": 0.9,
     "worldPosition": [
-      -0.2126,
-      0.68494,
-      -7.194286
+      -0.21134,
+      0.66505,
+      -7.257758
     ],
     "chipPayload": {
       "book_id": "HX-0679",
@@ -23117,7 +24475,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 8,
-    "color": "#536c7d",
+    "color": "#587385",
     "keys": [
       "HX-0680",
       "HX0680",
@@ -23128,11 +24486,13 @@ export const books = [
     "chipId": "HX-0680",
     "locationCode": "S3-B-L2-P08",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.053,
+    "heightScale": 0.9,
+    "depthScale": 0.9,
     "worldPosition": [
-      -0.2126,
-      0.68953,
-      -6.962
+      -0.21134,
+      0.6727,
+      -7.016936
     ],
     "chipPayload": {
       "book_id": "HX-0680",
@@ -23151,7 +24511,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 9,
-    "color": "#536c7d",
+    "color": "#556e80",
     "keys": [
       "HX-0681",
       "HX0681",
@@ -23162,11 +24522,13 @@ export const books = [
     "chipId": "HX-0681",
     "locationCode": "S3-B-L2-P09",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 0.9662,
+    "heightScale": 1.1,
+    "depthScale": 0.9,
     "worldPosition": [
-      -0.2126,
-      0.69106,
-      -6.638
+      -0.21134,
+      0.7033,
+      -6.641649
     ],
     "chipPayload": {
       "book_id": "HX-0681",
@@ -23185,7 +24547,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 10,
-    "color": "#536c7d",
+    "color": "#556e80",
     "keys": [
       "HX-0682",
       "HX0682",
@@ -23196,11 +24558,13 @@ export const books = [
     "chipId": "HX-0682",
     "locationCode": "S3-B-L2-P10",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 0.9662,
+    "heightScale": 1.1,
+    "depthScale": 0.9,
     "worldPosition": [
-      -0.2126,
-      0.68341,
-      -6.398571
+      -0.21134,
+      0.7033,
+      -6.432946
     ],
     "chipPayload": {
       "book_id": "HX-0682",
@@ -23219,7 +24583,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 11,
-    "color": "#536c7d",
+    "color": "#4e6575",
     "keys": [
       "HX-0683",
       "HX0683",
@@ -23230,11 +24594,13 @@ export const books = [
     "chipId": "HX-0683",
     "locationCode": "S3-B-L2-P11",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.1474,
+    "heightScale": 0.8,
+    "depthScale": 1.15,
     "worldPosition": [
-      -0.2126,
-      0.69718,
-      -6.159143
+      -0.21449000000000001,
+      0.6574,
+      -6.204677
     ],
     "chipPayload": {
       "book_id": "HX-0683",
@@ -23253,7 +24619,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 12,
-    "color": "#536c7d",
+    "color": "#4e6575",
     "keys": [
       "HX-0684",
       "HX0684",
@@ -23264,11 +24630,13 @@ export const books = [
     "chipId": "HX-0684",
     "locationCode": "S3-B-L2-P12",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.1474,
+    "heightScale": 0.8,
+    "depthScale": 1.15,
     "worldPosition": [
-      -0.2126,
-      0.68341,
-      -5.919714
+      -0.21449000000000001,
+      0.6574,
+      -5.956843
     ],
     "chipPayload": {
       "book_id": "HX-0684",
@@ -23287,7 +24655,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 13,
-    "color": "#536c7d",
+    "color": "#4e6575",
     "keys": [
       "HX-0685",
       "HX0685",
@@ -23298,11 +24666,13 @@ export const books = [
     "chipId": "HX-0685",
     "locationCode": "S3-B-L2-P13",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.1474,
+    "heightScale": 0.8,
+    "depthScale": 1.15,
     "worldPosition": [
-      -0.2126,
-      0.69106,
-      -5.680286
+      -0.21449000000000001,
+      0.6574,
+      -5.709008
     ],
     "chipPayload": {
       "book_id": "HX-0685",
@@ -23321,7 +24691,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 14,
-    "color": "#536c7d",
+    "color": "#455865",
     "keys": [
       "HX-0686",
       "HX0686",
@@ -23332,11 +24702,13 @@ export const books = [
     "chipId": "HX-0686",
     "locationCode": "S3-B-L2-P14",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.087,
+    "heightScale": 0.8,
+    "depthScale": 1.3,
     "worldPosition": [
-      -0.2126,
-      0.68035,
-      -5.440857
+      -0.21638000000000002,
+      0.6574,
+      -5.467695
     ],
     "chipPayload": {
       "book_id": "HX-0686",
@@ -23355,7 +24727,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 15,
-    "color": "#536c7d",
+    "color": "#455865",
     "keys": [
       "HX-0687",
       "HX0687",
@@ -23366,11 +24738,13 @@ export const books = [
     "chipId": "HX-0687",
     "locationCode": "S3-B-L2-P15",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.087,
+    "heightScale": 0.8,
+    "depthScale": 1.3,
     "worldPosition": [
-      -0.2126,
-      0.68341,
-      -5.201429
+      -0.21638000000000002,
+      0.6574,
+      -5.232905
     ],
     "chipPayload": {
       "book_id": "HX-0687",
@@ -23389,7 +24763,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 16,
-    "color": "#536c7d",
+    "color": "#455865",
     "keys": [
       "HX-0688",
       "HX0688",
@@ -23400,11 +24774,13 @@ export const books = [
     "chipId": "HX-0688",
     "locationCode": "S3-B-L2-P16",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.087,
+    "heightScale": 0.8,
+    "depthScale": 1.3,
     "worldPosition": [
-      -0.2126,
-      0.69259,
-      -4.962
+      -0.21638000000000002,
+      0.6574,
+      -4.998114
     ],
     "chipPayload": {
       "book_id": "HX-0688",
@@ -23423,7 +24799,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 17,
-    "color": "#536c7d",
+    "color": "#608095",
     "keys": [
       "HX-0689",
       "HX0689",
@@ -23434,11 +24810,13 @@ export const books = [
     "chipId": "HX-0689",
     "locationCode": "S3-B-L2-P17",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.0865,
+    "heightScale": 0.95,
+    "depthScale": 1.3,
     "worldPosition": [
-      -0.2126,
-      0.69565,
-      -4.638
+      -0.21638000000000002,
+      0.68035,
+      -4.628655
     ],
     "chipPayload": {
       "book_id": "HX-0689",
@@ -23457,7 +24835,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 18,
-    "color": "#536c7d",
+    "color": "#608095",
     "keys": [
       "HX-0690",
       "HX0690",
@@ -23468,11 +24846,13 @@ export const books = [
     "chipId": "HX-0690",
     "locationCode": "S3-B-L2-P18",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.0865,
+    "heightScale": 0.95,
+    "depthScale": 1.3,
     "worldPosition": [
-      -0.2126,
-      0.688,
-      -4.398571
+      -0.21638000000000002,
+      0.68035,
+      -4.393965
     ],
     "chipPayload": {
       "book_id": "HX-0690",
@@ -23491,7 +24871,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 19,
-    "color": "#536c7d",
+    "color": "#608095",
     "keys": [
       "HX-0691",
       "HX0691",
@@ -23502,11 +24882,13 @@ export const books = [
     "chipId": "HX-0691",
     "locationCode": "S3-B-L2-P19",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.0865,
+    "heightScale": 0.95,
+    "depthScale": 1.3,
     "worldPosition": [
-      -0.2126,
-      0.68494,
-      -4.159143
+      -0.21638000000000002,
+      0.68035,
+      -4.159276
     ],
     "chipPayload": {
       "book_id": "HX-0691",
@@ -23525,7 +24907,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 20,
-    "color": "#536c7d",
+    "color": "#5b778a",
     "keys": [
       "HX-0692",
       "HX0692",
@@ -23536,11 +24918,13 @@ export const books = [
     "chipId": "HX-0692",
     "locationCode": "S3-B-L2-P20",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.0865,
+    "heightScale": 0.9,
+    "depthScale": 0.9,
     "worldPosition": [
-      -0.2126,
-      0.68647,
-      -3.919714
+      -0.21134,
+      0.6727,
+      -3.924586
     ],
     "chipPayload": {
       "book_id": "HX-0692",
@@ -23559,7 +24943,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 21,
-    "color": "#536c7d",
+    "color": "#587385",
     "keys": [
       "HX-0693",
       "HX0693",
@@ -23570,11 +24954,13 @@ export const books = [
     "chipId": "HX-0693",
     "locationCode": "S3-B-L2-P21",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.0865,
+    "heightScale": 0.85,
+    "depthScale": 1.48,
     "worldPosition": [
-      -0.2126,
-      0.69259,
-      -3.680286
+      -0.218648,
+      0.66505,
+      -3.689896
     ],
     "chipPayload": {
       "book_id": "HX-0693",
@@ -23593,7 +24979,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 22,
-    "color": "#536c7d",
+    "color": "#587385",
     "keys": [
       "HX-0694",
       "HX0694",
@@ -23604,11 +24990,13 @@ export const books = [
     "chipId": "HX-0694",
     "locationCode": "S3-B-L2-P22",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.0865,
+    "heightScale": 0.85,
+    "depthScale": 1.48,
     "worldPosition": [
-      -0.2126,
-      0.69259,
-      -3.440857
+      -0.218648,
+      0.66505,
+      -3.455207
     ],
     "chipPayload": {
       "book_id": "HX-0694",
@@ -23627,7 +25015,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 23,
-    "color": "#536c7d",
+    "color": "#608095",
     "keys": [
       "HX-0695",
       "HX0695",
@@ -23638,11 +25026,13 @@ export const books = [
     "chipId": "HX-0695",
     "locationCode": "S3-B-L2-P23",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.0293,
+    "heightScale": 1.1,
+    "depthScale": 1.15,
     "worldPosition": [
-      -0.2126,
-      0.67576,
-      -3.201429
+      -0.21449000000000001,
+      0.7033,
+      -3.226693
     ],
     "chipPayload": {
       "book_id": "HX-0695",
@@ -23661,7 +25051,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 24,
-    "color": "#536c7d",
+    "color": "#608095",
     "keys": [
       "HX-0696",
       "HX0696",
@@ -23672,11 +25062,13 @@ export const books = [
     "chipId": "HX-0696",
     "locationCode": "S3-B-L2-P24",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.0293,
+    "heightScale": 1.1,
+    "depthScale": 1.15,
     "worldPosition": [
-      -0.2126,
-      0.68035,
-      -2.962
+      -0.21449000000000001,
+      0.7033,
+      -3.004355
     ],
     "chipPayload": {
       "book_id": "HX-0696",
@@ -23695,7 +25087,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 25,
-    "color": "#536c7d",
+    "color": "#485d6b",
     "keys": [
       "HX-0697",
       "HX0697",
@@ -23706,11 +25098,13 @@ export const books = [
     "chipId": "HX-0697",
     "locationCode": "S3-B-L2-P25",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 0.9089,
+    "heightScale": 1,
+    "depthScale": 1.15,
     "worldPosition": [
-      -0.2126,
-      0.69106,
-      -2.638
+      -0.21449000000000001,
+      0.688,
+      -2.647837
     ],
     "chipPayload": {
       "book_id": "HX-0697",
@@ -23729,7 +25123,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 26,
-    "color": "#536c7d",
+    "color": "#485d6b",
     "keys": [
       "HX-0698",
       "HX0698",
@@ -23740,11 +25134,13 @@ export const books = [
     "chipId": "HX-0698",
     "locationCode": "S3-B-L2-P26",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 0.9089,
+    "heightScale": 1,
+    "depthScale": 1.15,
     "worldPosition": [
-      -0.2126,
-      0.68494,
-      -2.405714
+      -0.21449000000000001,
+      0.688,
+      -2.451512
     ],
     "chipPayload": {
       "book_id": "HX-0698",
@@ -23763,7 +25159,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 27,
-    "color": "#536c7d",
+    "color": "#485d6b",
     "keys": [
       "HX-0699",
       "HX0699",
@@ -23774,11 +25170,13 @@ export const books = [
     "chipId": "HX-0699",
     "locationCode": "S3-B-L2-P27",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.1686,
+    "heightScale": 0.8,
+    "depthScale": 1.3,
     "worldPosition": [
-      -0.2126,
-      0.69259,
-      -2.173429
+      -0.21638000000000002,
+      0.6574,
+      -2.22714
     ],
     "chipPayload": {
       "book_id": "HX-0699",
@@ -23797,7 +25195,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 28,
-    "color": "#536c7d",
+    "color": "#485d6b",
     "keys": [
       "HX-0700",
       "HX0700",
@@ -23808,11 +25206,13 @@ export const books = [
     "chipId": "HX-0700",
     "locationCode": "S3-B-L2-P28",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.1686,
+    "heightScale": 0.8,
+    "depthScale": 1.3,
     "worldPosition": [
-      -0.2126,
-      0.69106,
-      -1.941143
+      -0.21638000000000002,
+      0.6574,
+      -1.974722
     ],
     "chipPayload": {
       "book_id": "HX-0700",
@@ -23831,7 +25231,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 29,
-    "color": "#536c7d",
+    "color": "#516a7a",
     "keys": [
       "HX-0701",
       "HX0701",
@@ -23842,11 +25242,13 @@ export const books = [
     "chipId": "HX-0701",
     "locationCode": "S3-B-L2-P29",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 0.9089,
+    "heightScale": 1.1,
+    "depthScale": 0.8,
     "worldPosition": [
-      -0.2126,
-      0.69259,
-      -1.708857
+      -0.21008000000000002,
+      0.7033,
+      -1.75035
     ],
     "chipPayload": {
       "book_id": "HX-0701",
@@ -23865,7 +25267,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 30,
-    "color": "#536c7d",
+    "color": "#516a7a",
     "keys": [
       "HX-0702",
       "HX0702",
@@ -23876,11 +25278,13 @@ export const books = [
     "chipId": "HX-0702",
     "locationCode": "S3-B-L2-P30",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 0.9089,
+    "heightScale": 1.1,
+    "depthScale": 0.8,
     "worldPosition": [
-      -0.2126,
-      0.69565,
-      -1.476571
+      -0.21008000000000002,
+      0.7033,
+      -1.554025
     ],
     "chipPayload": {
       "book_id": "HX-0702",
@@ -23899,7 +25303,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 31,
-    "color": "#536c7d",
+    "color": "#485d6b",
     "keys": [
       "HX-0703",
       "HX0703",
@@ -23910,11 +25314,13 @@ export const books = [
     "chipId": "HX-0703",
     "locationCode": "S3-B-L2-P31",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.1686,
+    "heightScale": 0.85,
+    "depthScale": 1.3,
     "worldPosition": [
-      -0.2126,
-      0.688,
-      -1.244286
+      -0.21638000000000002,
+      0.66505,
+      -1.329653
     ],
     "chipPayload": {
       "book_id": "HX-0703",
@@ -23933,7 +25339,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 32,
-    "color": "#536c7d",
+    "color": "#485d6b",
     "keys": [
       "HX-0704",
       "HX0704",
@@ -23944,11 +25350,13 @@ export const books = [
     "chipId": "HX-0704",
     "locationCode": "S3-B-L2-P32",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.1686,
+    "heightScale": 0.85,
+    "depthScale": 1.3,
     "worldPosition": [
-      -0.2126,
-      0.68341,
-      -1.012
+      -0.21638000000000002,
+      0.66505,
+      -1.077234
     ],
     "chipPayload": {
       "book_id": "HX-0704",
@@ -23967,7 +25375,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 1,
-    "color": "#536c7d",
+    "color": "#485d6b",
     "keys": [
       "HX-0705",
       "HX0705",
@@ -23978,11 +25386,13 @@ export const books = [
     "chipId": "HX-0705",
     "locationCode": "S3-B-L3-P01",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.0896,
+    "heightScale": 0.8,
+    "depthScale": 1.3,
     "worldPosition": [
-      -0.2126,
-      1.18341,
-      -8.588
+      -0.21638000000000002,
+      1.1574,
+      -8.578324
     ],
     "chipPayload": {
       "book_id": "HX-0705",
@@ -24001,7 +25411,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 2,
-    "color": "#536c7d",
+    "color": "#485d6b",
     "keys": [
       "HX-0706",
       "HX0706",
@@ -24012,11 +25422,13 @@ export const books = [
     "chipId": "HX-0706",
     "locationCode": "S3-B-L3-P02",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.0896,
+    "heightScale": 0.8,
+    "depthScale": 1.3,
     "worldPosition": [
-      -0.2126,
-      1.18188,
-      -8.355714
+      -0.21638000000000002,
+      1.1574,
+      -8.342973
     ],
     "chipPayload": {
       "book_id": "HX-0706",
@@ -24035,7 +25447,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 3,
-    "color": "#536c7d",
+    "color": "#485d6b",
     "keys": [
       "HX-0707",
       "HX0707",
@@ -24046,11 +25458,13 @@ export const books = [
     "chipId": "HX-0707",
     "locationCode": "S3-B-L3-P03",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.0896,
+    "heightScale": 0.8,
+    "depthScale": 1.3,
     "worldPosition": [
-      -0.2126,
-      1.19565,
-      -8.123429
+      -0.21638000000000002,
+      1.1574,
+      -8.107621
     ],
     "chipPayload": {
       "book_id": "HX-0707",
@@ -24069,7 +25483,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 4,
-    "color": "#536c7d",
+    "color": "#4e6575",
     "keys": [
       "HX-0708",
       "HX0708",
@@ -24080,11 +25494,13 @@ export const books = [
     "chipId": "HX-0708",
     "locationCode": "S3-B-L3-P04",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.0291,
+    "heightScale": 0.85,
+    "depthScale": 1.3,
     "worldPosition": [
-      -0.2126,
-      1.17882,
-      -7.891143
+      -0.21638000000000002,
+      1.16505,
+      -7.878807
     ],
     "chipPayload": {
       "book_id": "HX-0708",
@@ -24103,7 +25519,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 5,
-    "color": "#536c7d",
+    "color": "#4e6575",
     "keys": [
       "HX-0709",
       "HX0709",
@@ -24114,11 +25530,13 @@ export const books = [
     "chipId": "HX-0709",
     "locationCode": "S3-B-L3-P05",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.0291,
+    "heightScale": 0.85,
+    "depthScale": 1.3,
     "worldPosition": [
-      -0.2126,
-      1.17576,
-      -7.658857
+      -0.21638000000000002,
+      1.16505,
+      -7.656531
     ],
     "chipPayload": {
       "book_id": "HX-0709",
@@ -24137,7 +25555,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 6,
-    "color": "#536c7d",
+    "color": "#4e6575",
     "keys": [
       "HX-0710",
       "HX0710",
@@ -24148,11 +25566,13 @@ export const books = [
     "chipId": "HX-0710",
     "locationCode": "S3-B-L3-P06",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.0291,
+    "heightScale": 0.85,
+    "depthScale": 1.3,
     "worldPosition": [
-      -0.2126,
-      1.18035,
-      -7.426571
+      -0.21638000000000002,
+      1.16505,
+      -7.434254
     ],
     "chipPayload": {
       "book_id": "HX-0710",
@@ -24171,7 +25591,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 7,
-    "color": "#536c7d",
+    "color": "#556e80",
     "keys": [
       "HX-0711",
       "HX0711",
@@ -24182,11 +25602,13 @@ export const books = [
     "chipId": "HX-0711",
     "locationCode": "S3-B-L3-P07",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.0291,
+    "heightScale": 1.05,
+    "depthScale": 0.8,
     "worldPosition": [
-      -0.2126,
-      1.18647,
-      -7.194286
+      -0.21008000000000002,
+      1.19565,
+      -7.211978
     ],
     "chipPayload": {
       "book_id": "HX-0711",
@@ -24205,7 +25627,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 8,
-    "color": "#536c7d",
+    "color": "#485d6b",
     "keys": [
       "HX-0712",
       "HX0712",
@@ -24216,11 +25638,13 @@ export const books = [
     "chipId": "HX-0712",
     "locationCode": "S3-B-L3-P08",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.0291,
+    "heightScale": 1.1,
+    "depthScale": 0.8,
     "worldPosition": [
-      -0.2126,
-      1.19565,
-      -6.962
+      -0.21008000000000002,
+      1.2033,
+      -6.989701
     ],
     "chipPayload": {
       "book_id": "HX-0712",
@@ -24239,7 +25663,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 9,
-    "color": "#536c7d",
+    "color": "#516a7a",
     "keys": [
       "HX-0713",
       "HX0713",
@@ -24250,11 +25674,13 @@ export const books = [
     "chipId": "HX-0713",
     "locationCode": "S3-B-L3-P09",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.1687,
+    "heightScale": 1.1,
+    "depthScale": 1.48,
     "worldPosition": [
-      -0.2126,
-      1.17729,
-      -6.638
+      -0.218648,
+      1.2033,
+      -6.619776
     ],
     "chipPayload": {
       "book_id": "HX-0713",
@@ -24273,7 +25699,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 10,
-    "color": "#536c7d",
+    "color": "#556e80",
     "keys": [
       "HX-0714",
       "HX0714",
@@ -24284,11 +25710,13 @@ export const books = [
     "chipId": "HX-0714",
     "locationCode": "S3-B-L3-P10",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.1,
+    "heightScale": 1.1,
+    "depthScale": 1.3,
     "worldPosition": [
-      -0.2126,
-      1.188,
-      -6.398571
+      -0.21638000000000002,
+      1.2033,
+      -6.374754
     ],
     "chipPayload": {
       "book_id": "HX-0714",
@@ -24307,7 +25735,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 11,
-    "color": "#536c7d",
+    "color": "#556e80",
     "keys": [
       "HX-0715",
       "HX0715",
@@ -24318,11 +25746,13 @@ export const books = [
     "chipId": "HX-0715",
     "locationCode": "S3-B-L3-P11",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.1,
+    "heightScale": 1.1,
+    "depthScale": 1.3,
     "worldPosition": [
-      -0.2126,
-      1.17576,
-      -6.159143
+      -0.21638000000000002,
+      1.2033,
+      -6.137157
     ],
     "chipPayload": {
       "book_id": "HX-0715",
@@ -24341,7 +25771,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 12,
-    "color": "#536c7d",
+    "color": "#5b778a",
     "keys": [
       "HX-0716",
       "HX0716",
@@ -24352,11 +25782,13 @@ export const books = [
     "chipId": "HX-0716",
     "locationCode": "S3-B-L3-P12",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.0312,
+    "heightScale": 1.1,
+    "depthScale": 1.3,
     "worldPosition": [
-      -0.2126,
-      1.18341,
-      -5.919714
+      -0.21638000000000002,
+      1.2033,
+      -5.906985
     ],
     "chipPayload": {
       "book_id": "HX-0716",
@@ -24375,7 +25807,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 13,
-    "color": "#536c7d",
+    "color": "#5b778a",
     "keys": [
       "HX-0717",
       "HX0717",
@@ -24386,11 +25818,13 @@ export const books = [
     "chipId": "HX-0717",
     "locationCode": "S3-B-L3-P13",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.0312,
+    "heightScale": 1.1,
+    "depthScale": 1.3,
     "worldPosition": [
-      -0.2126,
-      1.19718,
-      -5.680286
+      -0.21638000000000002,
+      1.2033,
+      -5.684237
     ],
     "chipPayload": {
       "book_id": "HX-0717",
@@ -24409,7 +25843,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 14,
-    "color": "#536c7d",
+    "color": "#5b778a",
     "keys": [
       "HX-0718",
       "HX0718",
@@ -24420,11 +25854,13 @@ export const books = [
     "chipId": "HX-0718",
     "locationCode": "S3-B-L3-P14",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.0312,
+    "heightScale": 1.1,
+    "depthScale": 1.3,
     "worldPosition": [
-      -0.2126,
-      1.19106,
-      -5.440857
+      -0.21638000000000002,
+      1.2033,
+      -5.46149
     ],
     "chipPayload": {
       "book_id": "HX-0718",
@@ -24443,7 +25879,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 15,
-    "color": "#536c7d",
+    "color": "#485d6b",
     "keys": [
       "HX-0719",
       "HX0719",
@@ -24454,11 +25890,13 @@ export const books = [
     "chipId": "HX-0719",
     "locationCode": "S3-B-L3-P15",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.0312,
+    "heightScale": 0.95,
+    "depthScale": 0.8,
     "worldPosition": [
-      -0.2126,
-      1.18341,
-      -5.201429
+      -0.21008000000000002,
+      1.18035,
+      -5.238742
     ],
     "chipPayload": {
       "book_id": "HX-0719",
@@ -24477,7 +25915,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 16,
-    "color": "#536c7d",
+    "color": "#485d6b",
     "keys": [
       "HX-0720",
       "HX0720",
@@ -24488,11 +25926,13 @@ export const books = [
     "chipId": "HX-0720",
     "locationCode": "S3-B-L3-P16",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.0312,
+    "heightScale": 0.95,
+    "depthScale": 0.8,
     "worldPosition": [
-      -0.2126,
-      1.17882,
-      -4.962
+      -0.21008000000000002,
+      1.18035,
+      -5.015995
     ],
     "chipPayload": {
       "book_id": "HX-0720",
@@ -24511,7 +25951,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 17,
-    "color": "#536c7d",
+    "color": "#608095",
     "keys": [
       "HX-0721",
       "HX0721",
@@ -24522,11 +25962,13 @@ export const books = [
     "chipId": "HX-0721",
     "locationCode": "S3-B-L3-P17",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 0.8463,
+    "heightScale": 0.85,
+    "depthScale": 1,
     "worldPosition": [
       -0.2126,
-      1.18341,
-      -4.638
+      1.16505,
+      -4.654598
     ],
     "chipPayload": {
       "book_id": "HX-0721",
@@ -24545,7 +25987,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 18,
-    "color": "#536c7d",
+    "color": "#608095",
     "keys": [
       "HX-0722",
       "HX0722",
@@ -24556,11 +25998,13 @@ export const books = [
     "chipId": "HX-0722",
     "locationCode": "S3-B-L3-P18",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 0.8463,
+    "heightScale": 0.85,
+    "depthScale": 1,
     "worldPosition": [
       -0.2126,
-      1.17882,
-      -4.398571
+      1.16505,
+      -4.471795
     ],
     "chipPayload": {
       "book_id": "HX-0722",
@@ -24579,7 +26023,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 19,
-    "color": "#536c7d",
+    "color": "#455865",
     "keys": [
       "HX-0723",
       "HX0723",
@@ -24590,11 +26034,13 @@ export const books = [
     "chipId": "HX-0723",
     "locationCode": "S3-B-L3-P19",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.2369,
+    "heightScale": 1,
+    "depthScale": 1.15,
     "worldPosition": [
-      -0.2126,
-      1.19718,
-      -4.159143
+      -0.21449000000000001,
+      1.188,
+      -4.246806
     ],
     "chipPayload": {
       "book_id": "HX-0723",
@@ -24613,7 +26059,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 20,
-    "color": "#536c7d",
+    "color": "#455865",
     "keys": [
       "HX-0724",
       "HX0724",
@@ -24624,11 +26070,13 @@ export const books = [
     "chipId": "HX-0724",
     "locationCode": "S3-B-L3-P20",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.2369,
+    "heightScale": 1,
+    "depthScale": 1.15,
     "worldPosition": [
-      -0.2126,
-      1.17729,
-      -3.919714
+      -0.21449000000000001,
+      1.188,
+      -3.979631
     ],
     "chipPayload": {
       "book_id": "HX-0724",
@@ -24647,7 +26095,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 21,
-    "color": "#536c7d",
+    "color": "#5b778a",
     "keys": [
       "HX-0725",
       "HX0725",
@@ -24658,11 +26106,13 @@ export const books = [
     "chipId": "HX-0725",
     "locationCode": "S3-B-L3-P21",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.1067,
+    "heightScale": 0.95,
+    "depthScale": 1.48,
     "worldPosition": [
-      -0.2126,
-      1.17576,
-      -3.680286
+      -0.218648,
+      1.18035,
+      -3.726518
     ],
     "chipPayload": {
       "book_id": "HX-0725",
@@ -24681,7 +26131,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 22,
-    "color": "#536c7d",
+    "color": "#4e6575",
     "keys": [
       "HX-0726",
       "HX0726",
@@ -24692,11 +26142,13 @@ export const books = [
     "chipId": "HX-0726",
     "locationCode": "S3-B-L3-P22",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.1718,
+    "heightScale": 1,
+    "depthScale": 1.15,
     "worldPosition": [
-      -0.2126,
-      1.17576,
-      -3.440857
+      -0.21449000000000001,
+      1.188,
+      -3.480437
     ],
     "chipPayload": {
       "book_id": "HX-0726",
@@ -24715,7 +26167,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 23,
-    "color": "#536c7d",
+    "color": "#516a7a",
     "keys": [
       "HX-0727",
       "HX0727",
@@ -24726,11 +26178,13 @@ export const books = [
     "chipId": "HX-0727",
     "locationCode": "S3-B-L3-P23",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.0416,
+    "heightScale": 0.8,
+    "depthScale": 0.8,
     "worldPosition": [
-      -0.2126,
-      1.18035,
-      -3.201429
+      -0.21008000000000002,
+      1.1574,
+      -3.241386
     ],
     "chipPayload": {
       "book_id": "HX-0727",
@@ -24749,7 +26203,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 24,
-    "color": "#536c7d",
+    "color": "#516a7a",
     "keys": [
       "HX-0728",
       "HX0728",
@@ -24760,11 +26214,13 @@ export const books = [
     "chipId": "HX-0728",
     "locationCode": "S3-B-L3-P24",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.0416,
+    "heightScale": 0.8,
+    "depthScale": 0.8,
     "worldPosition": [
-      -0.2126,
-      1.18188,
-      -2.962
+      -0.21008000000000002,
+      1.1574,
+      -3.016397
     ],
     "chipPayload": {
       "book_id": "HX-0728",
@@ -24783,7 +26239,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 25,
-    "color": "#536c7d",
+    "color": "#587385",
     "keys": [
       "思考",
       "心理",
@@ -24798,11 +26254,13 @@ export const books = [
     "chipId": "HX-0729",
     "locationCode": "S3-B-L3-P25",
     "placeholder": false,
-    "heightScale": 1.05,
+    "widthScale": 0.9802,
+    "heightScale": 0.9,
+    "depthScale": 1.48,
     "worldPosition": [
-      -0.2126,
-      1.19565,
-      -2.638
+      -0.218648,
+      1.1727,
+      -2.640138
     ],
     "chipPayload": {
       "book_id": "HX-0729",
@@ -24821,7 +26279,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 26,
-    "color": "#536c7d",
+    "color": "#587385",
     "keys": [
       "HX-0730",
       "HX0730",
@@ -24832,11 +26290,13 @@ export const books = [
     "chipId": "HX-0730",
     "locationCode": "S3-B-L3-P26",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 0.9802,
+    "heightScale": 0.9,
+    "depthScale": 1.48,
     "worldPosition": [
-      -0.2126,
-      1.188,
-      -2.405714
+      -0.218648,
+      1.1727,
+      -2.428415
     ],
     "chipPayload": {
       "book_id": "HX-0730",
@@ -24855,7 +26315,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 27,
-    "color": "#536c7d",
+    "color": "#587385",
     "keys": [
       "HX-0731",
       "HX0731",
@@ -24866,11 +26326,13 @@ export const books = [
     "chipId": "HX-0731",
     "locationCode": "S3-B-L3-P27",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.3303,
+    "heightScale": 0.85,
+    "depthScale": 1.3,
     "worldPosition": [
-      -0.2126,
-      1.19412,
-      -2.173429
+      -0.21638000000000002,
+      1.16505,
+      -2.178884
     ],
     "chipPayload": {
       "book_id": "HX-0731",
@@ -24889,7 +26351,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 28,
-    "color": "#536c7d",
+    "color": "#587385",
     "keys": [
       "HX-0732",
       "HX0732",
@@ -24900,11 +26362,13 @@ export const books = [
     "chipId": "HX-0732",
     "locationCode": "S3-B-L3-P28",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.3303,
+    "heightScale": 0.85,
+    "depthScale": 1.3,
     "worldPosition": [
-      -0.2126,
-      1.19106,
-      -1.941143
+      -0.21638000000000002,
+      1.16505,
+      -1.891546
     ],
     "chipPayload": {
       "book_id": "HX-0732",
@@ -24923,7 +26387,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 29,
-    "color": "#536c7d",
+    "color": "#4e6575",
     "keys": [
       "HX-0733",
       "HX0733",
@@ -24934,11 +26398,13 @@ export const books = [
     "chipId": "HX-0733",
     "locationCode": "S3-B-L3-P29",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 0.9802,
+    "heightScale": 1,
+    "depthScale": 1.3,
     "worldPosition": [
-      -0.2126,
-      1.18647,
-      -1.708857
+      -0.21638000000000002,
+      1.188,
+      -1.642015
     ],
     "chipPayload": {
       "book_id": "HX-0733",
@@ -24957,7 +26423,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 30,
-    "color": "#536c7d",
+    "color": "#4e6575",
     "keys": [
       "HX-0734",
       "HX0734",
@@ -24968,11 +26434,13 @@ export const books = [
     "chipId": "HX-0734",
     "locationCode": "S3-B-L3-P30",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 0.9802,
+    "heightScale": 1,
+    "depthScale": 1.3,
     "worldPosition": [
-      -0.2126,
-      1.18188,
-      -1.476571
+      -0.21638000000000002,
+      1.188,
+      -1.430291
     ],
     "chipPayload": {
       "book_id": "HX-0734",
@@ -24991,7 +26459,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 31,
-    "color": "#536c7d",
+    "color": "#485d6b",
     "keys": [
       "HX-0735",
       "HX0735",
@@ -25002,11 +26470,13 @@ export const books = [
     "chipId": "HX-0735",
     "locationCode": "S3-B-L3-P31",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 0.9102,
+    "heightScale": 1.05,
+    "depthScale": 1.3,
     "worldPosition": [
-      -0.2126,
-      1.18035,
-      -1.244286
+      -0.21638000000000002,
+      1.19565,
+      -1.22613
     ],
     "chipPayload": {
       "book_id": "HX-0735",
@@ -25025,7 +26495,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 32,
-    "color": "#536c7d",
+    "color": "#485d6b",
     "keys": [
       "HX-0736",
       "HX0736",
@@ -25036,11 +26506,13 @@ export const books = [
     "chipId": "HX-0736",
     "locationCode": "S3-B-L3-P32",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 0.9102,
+    "heightScale": 1.05,
+    "depthScale": 1.3,
     "worldPosition": [
-      -0.2126,
-      1.19718,
-      -1.012
+      -0.21638000000000002,
+      1.19565,
+      -1.029529
     ],
     "chipPayload": {
       "book_id": "HX-0736",
@@ -25059,7 +26531,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 1,
-    "color": "#536c7d",
+    "color": "#587385",
     "keys": [
       "HX-0737",
       "HX0737",
@@ -25070,11 +26542,13 @@ export const books = [
     "chipId": "HX-0737",
     "locationCode": "S3-B-L4-P01",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.037,
+    "heightScale": 1.05,
+    "depthScale": 0.8,
     "worldPosition": [
-      -0.2126,
-      1.69259,
-      -8.588
+      -0.21008000000000002,
+      1.69565,
+      -8.584005
     ],
     "chipPayload": {
       "book_id": "HX-0737",
@@ -25093,7 +26567,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 2,
-    "color": "#536c7d",
+    "color": "#485d6b",
     "keys": [
       "HX-0738",
       "HX0738",
@@ -25104,11 +26578,13 @@ export const books = [
     "chipId": "HX-0738",
     "locationCode": "S3-B-L4-P02",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.159,
+    "heightScale": 0.85,
+    "depthScale": 0.8,
     "worldPosition": [
-      -0.2126,
-      1.69106,
-      -8.355714
+      -0.21008000000000002,
+      1.66505,
+      -8.34684
     ],
     "chipPayload": {
       "book_id": "HX-0738",
@@ -25127,7 +26603,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 3,
-    "color": "#536c7d",
+    "color": "#485d6b",
     "keys": [
       "HX-0739",
       "HX0739",
@@ -25138,11 +26614,13 @@ export const books = [
     "chipId": "HX-0739",
     "locationCode": "S3-B-L4-P03",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.159,
+    "heightScale": 0.85,
+    "depthScale": 0.8,
     "worldPosition": [
-      -0.2126,
-      1.68953,
-      -8.123429
+      -0.21008000000000002,
+      1.66505,
+      -8.096499
     ],
     "chipPayload": {
       "book_id": "HX-0739",
@@ -25161,7 +26639,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 4,
-    "color": "#536c7d",
+    "color": "#485d6b",
     "keys": [
       "HX-0740",
       "HX0740",
@@ -25172,11 +26650,13 @@ export const books = [
     "chipId": "HX-0740",
     "locationCode": "S3-B-L4-P04",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.159,
+    "heightScale": 0.85,
+    "depthScale": 0.8,
     "worldPosition": [
-      -0.2126,
-      1.68341,
-      -7.891143
+      -0.21008000000000002,
+      1.66505,
+      -7.846158
     ],
     "chipPayload": {
       "book_id": "HX-0740",
@@ -25195,7 +26675,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 5,
-    "color": "#536c7d",
+    "color": "#5b778a",
     "keys": [
       "HX-0741",
       "HX0741",
@@ -25206,11 +26686,13 @@ export const books = [
     "chipId": "HX-0741",
     "locationCode": "S3-B-L4-P05",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 0.793,
+    "heightScale": 1.1,
+    "depthScale": 1.48,
     "worldPosition": [
-      -0.2126,
-      1.67882,
-      -7.658857
+      -0.218648,
+      1.7033,
+      -7.635345
     ],
     "chipPayload": {
       "book_id": "HX-0741",
@@ -25229,7 +26711,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 6,
-    "color": "#536c7d",
+    "color": "#5b778a",
     "keys": [
       "HX-0742",
       "HX0742",
@@ -25240,11 +26722,13 @@ export const books = [
     "chipId": "HX-0742",
     "locationCode": "S3-B-L4-P06",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 0.793,
+    "heightScale": 1.1,
+    "depthScale": 1.48,
     "worldPosition": [
-      -0.2126,
-      1.69259,
-      -7.426571
+      -0.218648,
+      1.7033,
+      -7.464059
     ],
     "chipPayload": {
       "book_id": "HX-0742",
@@ -25263,7 +26747,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 7,
-    "color": "#536c7d",
+    "color": "#4b6170",
     "keys": [
       "HX-0743",
       "HX0743",
@@ -25274,11 +26758,13 @@ export const books = [
     "chipId": "HX-0743",
     "locationCode": "S3-B-L4-P07",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.159,
+    "heightScale": 0.8,
+    "depthScale": 1.48,
     "worldPosition": [
-      -0.2126,
-      1.67729,
-      -7.194286
+      -0.218648,
+      1.6574,
+      -7.253246
     ],
     "chipPayload": {
       "book_id": "HX-0743",
@@ -25297,7 +26783,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 8,
-    "color": "#536c7d",
+    "color": "#4b6170",
     "keys": [
       "HX-0744",
       "HX0744",
@@ -25308,11 +26794,13 @@ export const books = [
     "chipId": "HX-0744",
     "locationCode": "S3-B-L4-P08",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.159,
+    "heightScale": 0.8,
+    "depthScale": 1.48,
     "worldPosition": [
-      -0.2126,
-      1.69718,
-      -6.962
+      -0.218648,
+      1.6574,
+      -7.002905
     ],
     "chipPayload": {
       "book_id": "HX-0744",
@@ -25331,7 +26819,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 9,
-    "color": "#536c7d",
+    "color": "#485d6b",
     "keys": [
       "HX-0745",
       "HX0745",
@@ -25342,11 +26830,13 @@ export const books = [
     "chipId": "HX-0745",
     "locationCode": "S3-B-L4-P09",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.2061,
+    "heightScale": 1.05,
+    "depthScale": 1.15,
     "worldPosition": [
-      -0.2126,
-      1.68188,
-      -6.638
+      -0.21449000000000001,
+      1.69565,
+      -6.615739
     ],
     "chipPayload": {
       "book_id": "HX-0745",
@@ -25365,7 +26855,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 10,
-    "color": "#536c7d",
+    "color": "#485d6b",
     "keys": [
       "HX-0746",
       "HX0746",
@@ -25376,11 +26866,13 @@ export const books = [
     "chipId": "HX-0746",
     "locationCode": "S3-B-L4-P10",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.2061,
+    "heightScale": 1.05,
+    "depthScale": 1.15,
     "worldPosition": [
-      -0.2126,
-      1.69106,
-      -6.398571
+      -0.21449000000000001,
+      1.69565,
+      -6.355218
     ],
     "chipPayload": {
       "book_id": "HX-0746",
@@ -25399,7 +26891,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 11,
-    "color": "#536c7d",
+    "color": "#4e6575",
     "keys": [
       "HX-0747",
       "HX0747",
@@ -25410,11 +26902,13 @@ export const books = [
     "chipId": "HX-0747",
     "locationCode": "S3-B-L4-P11",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.1391,
+    "heightScale": 0.95,
+    "depthScale": 0.8,
     "worldPosition": [
-      -0.2126,
-      1.67729,
-      -6.159143
+      -0.21008000000000002,
+      1.68035,
+      -6.101933
     ],
     "chipPayload": {
       "book_id": "HX-0747",
@@ -25433,7 +26927,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 12,
-    "color": "#536c7d",
+    "color": "#4e6575",
     "keys": [
       "HX-0748",
       "HX0748",
@@ -25444,11 +26938,13 @@ export const books = [
     "chipId": "HX-0748",
     "locationCode": "S3-B-L4-P12",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.1391,
+    "heightScale": 0.95,
+    "depthScale": 0.8,
     "worldPosition": [
-      -0.2126,
-      1.68647,
-      -5.919714
+      -0.21008000000000002,
+      1.68035,
+      -5.855885
     ],
     "chipPayload": {
       "book_id": "HX-0748",
@@ -25467,7 +26963,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 13,
-    "color": "#536c7d",
+    "color": "#5e7b90",
     "keys": [
       "HX-0749",
       "HX0749",
@@ -25478,11 +26974,13 @@ export const books = [
     "chipId": "HX-0749",
     "locationCode": "S3-B-L4-P13",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.0051,
+    "heightScale": 1.1,
+    "depthScale": 1,
     "worldPosition": [
       -0.2126,
-      1.68035,
-      -5.680286
+      1.7033,
+      -5.62431
     ],
     "chipPayload": {
       "book_id": "HX-0749",
@@ -25501,7 +26999,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 14,
-    "color": "#536c7d",
+    "color": "#5e7b90",
     "keys": [
       "HX-0750",
       "HX0750",
@@ -25512,11 +27010,13 @@ export const books = [
     "chipId": "HX-0750",
     "locationCode": "S3-B-L4-P14",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.0051,
+    "heightScale": 1.1,
+    "depthScale": 1,
     "worldPosition": [
       -0.2126,
-      1.69259,
-      -5.440857
+      1.7033,
+      -5.407209
     ],
     "chipPayload": {
       "book_id": "HX-0750",
@@ -25535,7 +27035,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 15,
-    "color": "#536c7d",
+    "color": "#5e7b90",
     "keys": [
       "HX-0751",
       "HX0751",
@@ -25546,11 +27046,13 @@ export const books = [
     "chipId": "HX-0751",
     "locationCode": "S3-B-L4-P15",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.0051,
+    "heightScale": 1.1,
+    "depthScale": 1,
     "worldPosition": [
       -0.2126,
-      1.68953,
-      -5.201429
+      1.7033,
+      -5.190108
     ],
     "chipPayload": {
       "book_id": "HX-0751",
@@ -25569,7 +27071,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 16,
-    "color": "#536c7d",
+    "color": "#608095",
     "keys": [
       "HX-0752",
       "HX0752",
@@ -25580,11 +27082,13 @@ export const books = [
     "chipId": "HX-0752",
     "locationCode": "S3-B-L4-P16",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 0.8711,
+    "heightScale": 1.05,
+    "depthScale": 1,
     "worldPosition": [
       -0.2126,
-      1.68953,
-      -4.962
+      1.69565,
+      -4.98748
     ],
     "chipPayload": {
       "book_id": "HX-0752",
@@ -25603,7 +27107,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 17,
-    "color": "#536c7d",
+    "color": "#608095",
     "keys": [
       "HX-0753",
       "HX0753",
@@ -25614,11 +27118,13 @@ export const books = [
     "chipId": "HX-0753",
     "locationCode": "S3-B-L4-P17",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.2581,
+    "heightScale": 1.1,
+    "depthScale": 1,
     "worldPosition": [
       -0.2126,
-      1.69565,
-      -4.638
+      1.7033,
+      -4.610126
     ],
     "chipPayload": {
       "book_id": "HX-0753",
@@ -25637,7 +27143,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 18,
-    "color": "#536c7d",
+    "color": "#608095",
     "keys": [
       "HX-0754",
       "HX0754",
@@ -25648,11 +27154,13 @@ export const books = [
     "chipId": "HX-0754",
     "locationCode": "S3-B-L4-P18",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.2581,
+    "heightScale": 1.1,
+    "depthScale": 1,
     "worldPosition": [
       -0.2126,
-      1.69259,
-      -4.398571
+      1.7033,
+      -4.338378
     ],
     "chipPayload": {
       "book_id": "HX-0754",
@@ -25671,7 +27179,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 19,
-    "color": "#536c7d",
+    "color": "#4e6575",
     "keys": [
       "HX-0755",
       "HX0755",
@@ -25682,11 +27190,13 @@ export const books = [
     "chipId": "HX-0755",
     "locationCode": "S3-B-L4-P19",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.1257,
+    "heightScale": 0.85,
+    "depthScale": 1.3,
     "worldPosition": [
-      -0.2126,
-      1.68494,
-      -4.159143
+      -0.21638000000000002,
+      1.66505,
+      -4.080933
     ],
     "chipPayload": {
       "book_id": "HX-0755",
@@ -25705,7 +27215,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 20,
-    "color": "#536c7d",
+    "color": "#608095",
     "keys": [
       "HX-0756",
       "HX0756",
@@ -25716,11 +27226,13 @@ export const books = [
     "chipId": "HX-0756",
     "locationCode": "S3-B-L4-P20",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 0.927,
+    "heightScale": 1.1,
+    "depthScale": 0.9,
     "worldPosition": [
-      -0.2126,
-      1.69412,
-      -3.919714
+      -0.21134,
+      1.7033,
+      -3.859244
     ],
     "chipPayload": {
       "book_id": "HX-0756",
@@ -25739,7 +27251,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 21,
-    "color": "#536c7d",
+    "color": "#608095",
     "keys": [
       "HX-0757",
       "HX0757",
@@ -25750,11 +27262,13 @@ export const books = [
     "chipId": "HX-0757",
     "locationCode": "S3-B-L4-P21",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 0.927,
+    "heightScale": 1.1,
+    "depthScale": 0.9,
     "worldPosition": [
-      -0.2126,
-      1.68647,
-      -3.680286
+      -0.21134,
+      1.7033,
+      -3.659009
     ],
     "chipPayload": {
       "book_id": "HX-0757",
@@ -25773,7 +27287,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 22,
-    "color": "#536c7d",
+    "color": "#608095",
     "keys": [
       "HX-0758",
       "HX0758",
@@ -25784,11 +27298,13 @@ export const books = [
     "chipId": "HX-0758",
     "locationCode": "S3-B-L4-P22",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 0.927,
+    "heightScale": 1.1,
+    "depthScale": 0.9,
     "worldPosition": [
-      -0.2126,
-      1.67576,
-      -3.440857
+      -0.21134,
+      1.7033,
+      -3.458774
     ],
     "chipPayload": {
       "book_id": "HX-0758",
@@ -25807,7 +27323,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 23,
-    "color": "#536c7d",
+    "color": "#516a7a",
     "keys": [
       "HX-0759",
       "HX0759",
@@ -25818,11 +27334,13 @@ export const books = [
     "chipId": "HX-0759",
     "locationCode": "S3-B-L4-P23",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.0594,
+    "heightScale": 0.85,
+    "depthScale": 1.3,
     "worldPosition": [
-      -0.2126,
-      1.688,
-      -3.201429
+      -0.21638000000000002,
+      1.66505,
+      -3.244236
     ],
     "chipPayload": {
       "book_id": "HX-0759",
@@ -25841,7 +27359,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 24,
-    "color": "#536c7d",
+    "color": "#455865",
     "keys": [
       "HX-0760",
       "HX0760",
@@ -25852,11 +27370,13 @@ export const books = [
     "chipId": "HX-0760",
     "locationCode": "S3-B-L4-P24",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.1257,
+    "heightScale": 0.95,
+    "depthScale": 1.15,
     "worldPosition": [
-      -0.2126,
-      1.68188,
-      -2.962
+      -0.21449000000000001,
+      1.68035,
+      -3.008245
     ],
     "chipPayload": {
       "book_id": "HX-0760",
@@ -25875,7 +27395,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 25,
-    "color": "#536c7d",
+    "color": "#516a7a",
     "keys": [
       "HX-0761",
       "HX0761",
@@ -25886,11 +27406,13 @@ export const books = [
     "chipId": "HX-0761",
     "locationCode": "S3-B-L4-P25",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.0194,
+    "heightScale": 0.8,
+    "depthScale": 0.8,
     "worldPosition": [
-      -0.2126,
-      1.69259,
-      -2.638
+      -0.21008000000000002,
+      1.6574,
+      -2.635904
     ],
     "chipPayload": {
       "book_id": "HX-0761",
@@ -25909,7 +27431,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 26,
-    "color": "#536c7d",
+    "color": "#516a7a",
     "keys": [
       "HX-0762",
       "HX0762",
@@ -25920,11 +27442,13 @@ export const books = [
     "chipId": "HX-0762",
     "locationCode": "S3-B-L4-P26",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.0194,
+    "heightScale": 0.8,
+    "depthScale": 0.8,
     "worldPosition": [
-      -0.2126,
-      1.68494,
-      -2.405714
+      -0.21008000000000002,
+      1.6574,
+      -2.415713
     ],
     "chipPayload": {
       "book_id": "HX-0762",
@@ -25943,7 +27467,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 27,
-    "color": "#536c7d",
+    "color": "#485d6b",
     "keys": [
       "HX-0763",
       "HX0763",
@@ -25954,11 +27478,13 @@ export const books = [
     "chipId": "HX-0763",
     "locationCode": "S3-B-L4-P27",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.0194,
+    "heightScale": 0.8,
+    "depthScale": 1,
     "worldPosition": [
       -0.2126,
-      1.68341,
-      -2.173429
+      1.6574,
+      -2.195521
     ],
     "chipPayload": {
       "book_id": "HX-0763",
@@ -25977,7 +27503,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 28,
-    "color": "#536c7d",
+    "color": "#485d6b",
     "keys": [
       "HX-0764",
       "HX0764",
@@ -25988,11 +27514,13 @@ export const books = [
     "chipId": "HX-0764",
     "locationCode": "S3-B-L4-P28",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.0194,
+    "heightScale": 0.8,
+    "depthScale": 1,
     "worldPosition": [
       -0.2126,
-      1.67882,
-      -1.941143
+      1.6574,
+      -1.975329
     ],
     "chipPayload": {
       "book_id": "HX-0764",
@@ -26011,7 +27539,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 29,
-    "color": "#536c7d",
+    "color": "#485d6b",
     "keys": [
       "HX-0765",
       "HX0765",
@@ -26022,11 +27550,13 @@ export const books = [
     "chipId": "HX-0765",
     "locationCode": "S3-B-L4-P29",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.0194,
+    "heightScale": 0.8,
+    "depthScale": 1,
     "worldPosition": [
       -0.2126,
-      1.69718,
-      -1.708857
+      1.6574,
+      -1.755138
     ],
     "chipPayload": {
       "book_id": "HX-0765",
@@ -26045,7 +27575,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 30,
-    "color": "#536c7d",
+    "color": "#485d6b",
     "keys": [
       "HX-0766",
       "HX0766",
@@ -26056,11 +27586,13 @@ export const books = [
     "chipId": "HX-0766",
     "locationCode": "S3-B-L4-P30",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.3835,
+    "heightScale": 0.85,
+    "depthScale": 1.3,
     "worldPosition": [
-      -0.2126,
-      1.69106,
-      -1.476571
+      -0.21638000000000002,
+      1.66505,
+      -1.495626
     ],
     "chipPayload": {
       "book_id": "HX-0766",
@@ -26079,7 +27611,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 31,
-    "color": "#536c7d",
+    "color": "#587385",
     "keys": [
       "HX-0767",
       "HX0767",
@@ -26090,11 +27622,13 @@ export const books = [
     "chipId": "HX-0767",
     "locationCode": "S3-B-L4-P31",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 0.9466,
+    "heightScale": 0.95,
+    "depthScale": 1.3,
     "worldPosition": [
-      -0.2126,
-      1.688,
-      -1.244286
+      -0.21638000000000002,
+      1.68035,
+      -1.243979
     ],
     "chipPayload": {
       "book_id": "HX-0767",
@@ -26113,7 +27647,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 32,
-    "color": "#536c7d",
+    "color": "#455865",
     "keys": [
       "HX-0768",
       "HX0768",
@@ -26124,11 +27658,13 @@ export const books = [
     "chipId": "HX-0768",
     "locationCode": "S3-B-L4-P32",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 0.9466,
+    "heightScale": 0.8,
+    "depthScale": 1,
     "worldPosition": [
       -0.2126,
-      1.688,
-      -1.012
+      1.6574,
+      -1.039515
     ],
     "chipPayload": {
       "book_id": "HX-0768",
@@ -26147,7 +27683,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 1,
-    "color": "#886554",
+    "color": "#916b58",
     "keys": [
       "HX-0769",
       "HX0769",
@@ -26158,11 +27694,13 @@ export const books = [
     "chipId": "HX-0769",
     "locationCode": "S4-A-L1-P01",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.0138,
+    "heightScale": 0.9,
+    "depthScale": 0.8,
     "worldPosition": [
-      3.2126,
-      0.23229,
-      -8.588
+      3.21008,
+      0.2277,
+      -8.586506
     ],
     "chipPayload": {
       "book_id": "HX-0769",
@@ -26181,7 +27719,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 2,
-    "color": "#886554",
+    "color": "#916b58",
     "keys": [
       "HX-0770",
       "HX0770",
@@ -26192,11 +27730,13 @@ export const books = [
     "chipId": "HX-0770",
     "locationCode": "S4-A-L1-P02",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.0138,
+    "heightScale": 0.9,
+    "depthScale": 0.8,
     "worldPosition": [
-      3.2126,
-      0.25218,
-      -8.355714
+      3.21008,
+      0.2277,
+      -8.367519
     ],
     "chipPayload": {
       "book_id": "HX-0770",
@@ -26215,7 +27755,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 3,
-    "color": "#886554",
+    "color": "#9c735e",
     "keys": [
       "HX-0771",
       "HX0771",
@@ -26226,11 +27766,13 @@ export const books = [
     "chipId": "HX-0771",
     "locationCode": "S4-A-L1-P03",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.0138,
+    "heightScale": 0.95,
+    "depthScale": 0.8,
     "worldPosition": [
-      3.2126,
-      0.23382,
-      -8.123429
+      3.21008,
+      0.23535,
+      -8.148532
     ],
     "chipPayload": {
       "book_id": "HX-0771",
@@ -26249,7 +27791,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 4,
-    "color": "#886554",
+    "color": "#9c735e",
     "keys": [
       "HX-0772",
       "HX0772",
@@ -26260,11 +27802,13 @@ export const books = [
     "chipId": "HX-0772",
     "locationCode": "S4-A-L1-P04",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.0138,
+    "heightScale": 0.95,
+    "depthScale": 0.8,
     "worldPosition": [
-      3.2126,
-      0.23994,
-      -7.891143
+      3.21008,
+      0.23535,
+      -7.929545
     ],
     "chipPayload": {
       "book_id": "HX-0772",
@@ -26283,7 +27827,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 5,
-    "color": "#886554",
+    "color": "#9c735e",
     "keys": [
       "HX-0773",
       "HX0773",
@@ -26294,11 +27838,13 @@ export const books = [
     "chipId": "HX-0773",
     "locationCode": "S4-A-L1-P05",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.0138,
+    "heightScale": 0.95,
+    "depthScale": 0.8,
     "worldPosition": [
-      3.2126,
-      0.23994,
-      -7.658857
+      3.21008,
+      0.23535,
+      -7.710557
     ],
     "chipPayload": {
       "book_id": "HX-0773",
@@ -26317,7 +27863,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 6,
-    "color": "#886554",
+    "color": "#7a5b4c",
     "keys": [
       "HX-0774",
       "HX0774",
@@ -26328,11 +27874,13 @@ export const books = [
     "chipId": "HX-0774",
     "locationCode": "S4-A-L1-P06",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.0735,
+    "heightScale": 1.1,
+    "depthScale": 0.9,
     "worldPosition": [
-      3.2126,
-      0.243,
-      -7.426571
+      3.21134,
+      0.2583,
+      -7.485129
     ],
     "chipPayload": {
       "book_id": "HX-0774",
@@ -26351,7 +27899,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 7,
-    "color": "#886554",
+    "color": "#7a5b4c",
     "keys": [
       "HX-0775",
       "HX0775",
@@ -26362,11 +27910,13 @@ export const books = [
     "chipId": "HX-0775",
     "locationCode": "S4-A-L1-P07",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.0735,
+    "heightScale": 1.1,
+    "depthScale": 0.9,
     "worldPosition": [
-      3.2126,
-      0.23535,
-      -7.194286
+      3.21134,
+      0.2583,
+      -7.25326
     ],
     "chipPayload": {
       "book_id": "HX-0775",
@@ -26385,7 +27935,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 8,
-    "color": "#886554",
+    "color": "#a17762",
     "keys": [
       "HX-0776",
       "HX0776",
@@ -26396,11 +27946,13 @@ export const books = [
     "chipId": "HX-0776",
     "locationCode": "S4-A-L1-P08",
     "placeholder": true,
+    "widthScale": 1.0735,
     "heightScale": 1.05,
+    "depthScale": 1,
     "worldPosition": [
       3.2126,
       0.25065,
-      -6.962
+      -7.021391
     ],
     "chipPayload": {
       "book_id": "HX-0776",
@@ -26419,7 +27971,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 9,
-    "color": "#886554",
+    "color": "#7a5b4c",
     "keys": [
       "HX-0777",
       "HX0777",
@@ -26430,11 +27982,13 @@ export const books = [
     "chipId": "HX-0777",
     "locationCode": "S4-A-L1-P09",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.1798,
+    "heightScale": 1.05,
+    "depthScale": 0.8,
     "worldPosition": [
-      3.2126,
-      0.24759,
-      -6.638
+      3.21008,
+      0.25065,
+      -6.618584
     ],
     "chipPayload": {
       "book_id": "HX-0777",
@@ -26453,7 +28007,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 10,
-    "color": "#886554",
+    "color": "#7a5b4c",
     "keys": [
       "HX-0778",
       "HX0778",
@@ -26464,11 +28018,13 @@ export const books = [
     "chipId": "HX-0778",
     "locationCode": "S4-A-L1-P10",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.1798,
+    "heightScale": 1.05,
+    "depthScale": 0.8,
     "worldPosition": [
-      3.2126,
-      0.23841,
-      -6.398571
+      3.21008,
+      0.25065,
+      -6.363751
     ],
     "chipPayload": {
       "book_id": "HX-0778",
@@ -26487,7 +28043,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 11,
-    "color": "#886554",
+    "color": "#7a5b4c",
     "keys": [
       "HX-0779",
       "HX0779",
@@ -26498,11 +28054,13 @@ export const books = [
     "chipId": "HX-0779",
     "locationCode": "S4-A-L1-P11",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.1798,
+    "heightScale": 1.05,
+    "depthScale": 0.8,
     "worldPosition": [
-      3.2126,
-      0.24606,
-      -6.159143
+      3.21008,
+      0.25065,
+      -6.108918
     ],
     "chipPayload": {
       "book_id": "HX-0779",
@@ -26521,7 +28079,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 12,
-    "color": "#886554",
+    "color": "#7f5f4f",
     "keys": [
       "HX-0780",
       "HX0780",
@@ -26532,11 +28090,13 @@ export const books = [
     "chipId": "HX-0780",
     "locationCode": "S4-A-L1-P12",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.1177,
+    "heightScale": 0.95,
+    "depthScale": 1,
     "worldPosition": [
       3.2126,
-      0.25065,
-      -5.919714
+      0.23535,
+      -5.860791
     ],
     "chipPayload": {
       "book_id": "HX-0780",
@@ -26555,7 +28115,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 13,
-    "color": "#886554",
+    "color": "#7f5f4f",
     "keys": [
       "HX-0781",
       "HX0781",
@@ -26566,11 +28126,13 @@ export const books = [
     "chipId": "HX-0781",
     "locationCode": "S4-A-L1-P13",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.1177,
+    "heightScale": 0.95,
+    "depthScale": 1,
     "worldPosition": [
       3.2126,
-      0.23076,
-      -5.680286
+      0.23535,
+      -5.61937
     ],
     "chipPayload": {
       "book_id": "HX-0781",
@@ -26589,7 +28151,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 14,
-    "color": "#886554",
+    "color": "#7f5f4f",
     "keys": [
       "HX-0782",
       "HX0782",
@@ -26600,11 +28162,13 @@ export const books = [
     "chipId": "HX-0782",
     "locationCode": "S4-A-L1-P14",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.1177,
+    "heightScale": 0.95,
+    "depthScale": 1,
     "worldPosition": [
       3.2126,
-      0.24759,
-      -5.440857
+      0.23535,
+      -5.377949
     ],
     "chipPayload": {
       "book_id": "HX-0782",
@@ -26623,7 +28187,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 15,
-    "color": "#886554",
+    "color": "#6e5346",
     "keys": [
       "HX-0783",
       "HX0783",
@@ -26634,11 +28198,13 @@ export const books = [
     "chipId": "HX-0783",
     "locationCode": "S4-A-L1-P15",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 0.8693,
+    "heightScale": 0.9,
+    "depthScale": 0.8,
     "worldPosition": [
-      3.2126,
-      0.23535,
-      -5.201429
+      3.21008,
+      0.2277,
+      -5.163353
     ],
     "chipPayload": {
       "book_id": "HX-0783",
@@ -26657,7 +28223,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 16,
-    "color": "#886554",
+    "color": "#6e5346",
     "keys": [
       "HX-0784",
       "HX0784",
@@ -26668,11 +28234,13 @@ export const books = [
     "chipId": "HX-0784",
     "locationCode": "S4-A-L1-P16",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 0.8693,
+    "heightScale": 0.9,
+    "depthScale": 0.8,
     "worldPosition": [
-      3.2126,
-      0.23382,
-      -4.962
+      3.21008,
+      0.2277,
+      -4.975581
     ],
     "chipPayload": {
       "book_id": "HX-0784",
@@ -26691,7 +28259,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 17,
-    "color": "#886554",
+    "color": "#a17762",
     "keys": [
       "HX-0785",
       "HX0785",
@@ -26702,11 +28270,13 @@ export const books = [
     "chipId": "HX-0785",
     "locationCode": "S4-A-L1-P17",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.2835,
+    "heightScale": 0.95,
+    "depthScale": 1,
     "worldPosition": [
       3.2126,
-      0.24759,
-      -4.638
+      0.23535,
+      -4.607387
     ],
     "chipPayload": {
       "book_id": "HX-0785",
@@ -26725,7 +28295,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 18,
-    "color": "#886554",
+    "color": "#a17762",
     "keys": [
       "HX-0786",
       "HX0786",
@@ -26736,11 +28306,13 @@ export const books = [
     "chipId": "HX-0786",
     "locationCode": "S4-A-L1-P18",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.2835,
+    "heightScale": 0.95,
+    "depthScale": 1,
     "worldPosition": [
       3.2126,
-      0.23229,
-      -4.398571
+      0.23535,
+      -4.33016
     ],
     "chipPayload": {
       "book_id": "HX-0786",
@@ -26759,7 +28331,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 19,
-    "color": "#886554",
+    "color": "#a17762",
     "keys": [
       "HX-0787",
       "HX0787",
@@ -26770,11 +28342,13 @@ export const books = [
     "chipId": "HX-0787",
     "locationCode": "S4-A-L1-P19",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.1409,
+    "heightScale": 1.1,
+    "depthScale": 1.3,
     "worldPosition": [
-      3.2126,
-      0.24759,
-      -4.159143
+      3.21638,
+      0.2583,
+      -4.068335
     ],
     "chipPayload": {
       "book_id": "HX-0787",
@@ -26793,7 +28367,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 20,
-    "color": "#886554",
+    "color": "#7a5b4c",
     "keys": [
       "HX-0788",
       "HX0788",
@@ -26804,11 +28378,13 @@ export const books = [
     "chipId": "HX-0788",
     "locationCode": "S4-A-L1-P20",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 0.9982,
+    "heightScale": 1,
+    "depthScale": 0.9,
     "worldPosition": [
-      3.2126,
-      0.24147,
-      -3.919714
+      3.21134,
+      0.243,
+      -3.837313
     ],
     "chipPayload": {
       "book_id": "HX-0788",
@@ -26827,7 +28403,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 21,
-    "color": "#886554",
+    "color": "#7a5b4c",
     "keys": [
       "HX-0789",
       "HX0789",
@@ -26838,11 +28414,13 @@ export const books = [
     "chipId": "HX-0789",
     "locationCode": "S4-A-L1-P21",
     "placeholder": true,
+    "widthScale": 0.9982,
     "heightScale": 1,
+    "depthScale": 0.9,
     "worldPosition": [
-      3.2126,
+      3.21134,
       0.243,
-      -3.680286
+      -3.621692
     ],
     "chipPayload": {
       "book_id": "HX-0789",
@@ -26861,7 +28439,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 22,
-    "color": "#886554",
+    "color": "#7a5b4c",
     "keys": [
       "HX-0790",
       "HX0790",
@@ -26872,11 +28450,13 @@ export const books = [
     "chipId": "HX-0790",
     "locationCode": "S4-A-L1-P22",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 0.9982,
+    "heightScale": 1,
+    "depthScale": 0.9,
     "worldPosition": [
-      3.2126,
-      0.24606,
-      -3.440857
+      3.21134,
+      0.243,
+      -3.406071
     ],
     "chipPayload": {
       "book_id": "HX-0790",
@@ -26895,7 +28475,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 23,
-    "color": "#886554",
+    "color": "#8b6756",
     "keys": [
       "HX-0791",
       "HX0791",
@@ -26906,11 +28486,13 @@ export const books = [
     "chipId": "HX-0791",
     "locationCode": "S4-A-L1-P23",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 0.9269,
+    "heightScale": 0.8,
+    "depthScale": 0.8,
     "worldPosition": [
-      3.2126,
-      0.23229,
-      -3.201429
+      3.21008,
+      0.2124,
+      -3.198151
     ],
     "chipPayload": {
       "book_id": "HX-0791",
@@ -26929,7 +28511,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 24,
-    "color": "#886554",
+    "color": "#8b6756",
     "keys": [
       "HX-0792",
       "HX0792",
@@ -26940,11 +28522,13 @@ export const books = [
     "chipId": "HX-0792",
     "locationCode": "S4-A-L1-P24",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 0.9269,
+    "heightScale": 0.8,
+    "depthScale": 0.8,
     "worldPosition": [
-      3.2126,
-      0.24453,
-      -2.962
+      3.21008,
+      0.2124,
+      -2.997932
     ],
     "chipPayload": {
       "book_id": "HX-0792",
@@ -26963,7 +28547,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 25,
-    "color": "#886554",
+    "color": "#856352",
     "keys": [
       "HX-0793",
       "HX0793",
@@ -26974,11 +28558,13 @@ export const books = [
     "chipId": "HX-0793",
     "locationCode": "S4-A-L1-P25",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 0.9426,
+    "heightScale": 0.8,
+    "depthScale": 1,
     "worldPosition": [
       3.2126,
-      0.25065,
-      -2.638
+      0.2124,
+      -2.644198
     ],
     "chipPayload": {
       "book_id": "HX-0793",
@@ -26997,7 +28583,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 26,
-    "color": "#886554",
+    "color": "#745749",
     "keys": [
       "HX-0794",
       "HX0794",
@@ -27008,11 +28594,13 @@ export const books = [
     "chipId": "HX-0794",
     "locationCode": "S4-A-L1-P26",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.1194,
+    "heightScale": 0.8,
+    "depthScale": 1.3,
     "worldPosition": [
-      3.2126,
-      0.23841,
-      -2.405714
+      3.21638,
+      0.2124,
+      -2.421506
     ],
     "chipPayload": {
       "book_id": "HX-0794",
@@ -27031,7 +28619,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 27,
-    "color": "#886554",
+    "color": "#745749",
     "keys": [
       "HX-0795",
       "HX0795",
@@ -27042,11 +28630,13 @@ export const books = [
     "chipId": "HX-0795",
     "locationCode": "S4-A-L1-P27",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.1194,
+    "heightScale": 0.8,
+    "depthScale": 1.3,
     "worldPosition": [
-      3.2126,
-      0.23076,
-      -2.173429
+      3.21638,
+      0.2124,
+      -2.179725
     ],
     "chipPayload": {
       "book_id": "HX-0795",
@@ -27065,7 +28655,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 28,
-    "color": "#886554",
+    "color": "#745749",
     "keys": [
       "HX-0796",
       "HX0796",
@@ -27076,11 +28666,13 @@ export const books = [
     "chipId": "HX-0796",
     "locationCode": "S4-A-L1-P28",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.1194,
+    "heightScale": 0.8,
+    "depthScale": 1.3,
     "worldPosition": [
-      3.2126,
-      0.23382,
-      -1.941143
+      3.21638,
+      0.2124,
+      -1.937945
     ],
     "chipPayload": {
       "book_id": "HX-0796",
@@ -27099,7 +28691,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 29,
-    "color": "#886554",
+    "color": "#916b58",
     "keys": [
       "HX-0797",
       "HX0797",
@@ -27110,11 +28702,13 @@ export const books = [
     "chipId": "HX-0797",
     "locationCode": "S4-A-L1-P29",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 0.9426,
+    "heightScale": 0.85,
+    "depthScale": 1.15,
     "worldPosition": [
-      3.2126,
-      0.23841,
-      -1.708857
+      3.21449,
+      0.22005,
+      -1.715253
     ],
     "chipPayload": {
       "book_id": "HX-0797",
@@ -27133,7 +28727,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 30,
-    "color": "#886554",
+    "color": "#7f5f4f",
     "keys": [
       "HX-0798",
       "HX0798",
@@ -27144,11 +28738,13 @@ export const books = [
     "chipId": "HX-0798",
     "locationCode": "S4-A-L1-P30",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.1194,
+    "heightScale": 0.9,
+    "depthScale": 1.3,
     "worldPosition": [
-      3.2126,
-      0.24759,
-      -1.476571
+      3.21638,
+      0.2277,
+      -1.492561
     ],
     "chipPayload": {
       "book_id": "HX-0798",
@@ -27167,7 +28763,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 31,
-    "color": "#886554",
+    "color": "#7f5f4f",
     "keys": [
       "HX-0799",
       "HX0799",
@@ -27178,11 +28774,13 @@ export const books = [
     "chipId": "HX-0799",
     "locationCode": "S4-A-L1-P31",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.1194,
+    "heightScale": 0.9,
+    "depthScale": 1.3,
     "worldPosition": [
-      3.2126,
-      0.23076,
-      -1.244286
+      3.21638,
+      0.2277,
+      -1.250781
     ],
     "chipPayload": {
       "book_id": "HX-0799",
@@ -27201,7 +28799,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 32,
-    "color": "#886554",
+    "color": "#856352",
     "keys": [
       "HX-0800",
       "HX0800",
@@ -27212,11 +28810,13 @@ export const books = [
     "chipId": "HX-0800",
     "locationCode": "S4-A-L1-P32",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 0.9426,
+    "heightScale": 1,
+    "depthScale": 0.9,
     "worldPosition": [
-      3.2126,
-      0.25218,
-      -1.012
+      3.21134,
+      0.243,
+      -1.028089
     ],
     "chipPayload": {
       "book_id": "HX-0800",
@@ -27235,7 +28835,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 1,
-    "color": "#886554",
+    "color": "#a17762",
     "keys": [
       "HX-0801",
       "HX0801",
@@ -27246,11 +28846,13 @@ export const books = [
     "chipId": "HX-0801",
     "locationCode": "S4-A-L2-P01",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.0749,
+    "heightScale": 1.1,
+    "depthScale": 0.8,
     "worldPosition": [
-      3.2126,
-      0.68188,
-      -8.588
+      3.21008,
+      0.7033,
+      -8.57991
     ],
     "chipPayload": {
       "book_id": "HX-0801",
@@ -27269,7 +28871,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 2,
-    "color": "#886554",
+    "color": "#a17762",
     "keys": [
       "HX-0802",
       "HX0802",
@@ -27280,11 +28882,13 @@ export const books = [
     "chipId": "HX-0802",
     "locationCode": "S4-A-L2-P02",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.0749,
+    "heightScale": 1.1,
+    "depthScale": 0.8,
     "worldPosition": [
-      3.2126,
-      0.68035,
-      -8.355714
+      3.21008,
+      0.7033,
+      -8.347729
     ],
     "chipPayload": {
       "book_id": "HX-0802",
@@ -27303,7 +28907,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 3,
-    "color": "#886554",
+    "color": "#a17762",
     "keys": [
       "HX-0803",
       "HX0803",
@@ -27314,11 +28918,13 @@ export const books = [
     "chipId": "HX-0803",
     "locationCode": "S4-A-L2-P03",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.0077,
+    "heightScale": 0.9,
+    "depthScale": 1.3,
     "worldPosition": [
-      3.2126,
-      0.69259,
-      -8.123429
+      3.21638,
+      0.6727,
+      -8.122804
     ],
     "chipPayload": {
       "book_id": "HX-0803",
@@ -27337,7 +28943,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 4,
-    "color": "#886554",
+    "color": "#a17762",
     "keys": [
       "HX-0804",
       "HX0804",
@@ -27348,11 +28954,13 @@ export const books = [
     "chipId": "HX-0804",
     "locationCode": "S4-A-L2-P04",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.0077,
+    "heightScale": 0.9,
+    "depthScale": 1.3,
     "worldPosition": [
-      3.2126,
-      0.68647,
-      -7.891143
+      3.21638,
+      0.6727,
+      -7.905134
     ],
     "chipPayload": {
       "book_id": "HX-0804",
@@ -27371,7 +28979,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 5,
-    "color": "#886554",
+    "color": "#a17762",
     "keys": [
       "HX-0805",
       "HX0805",
@@ -27382,11 +28990,13 @@ export const books = [
     "chipId": "HX-0805",
     "locationCode": "S4-A-L2-P05",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.0077,
+    "heightScale": 0.9,
+    "depthScale": 1.3,
     "worldPosition": [
-      3.2126,
-      0.69106,
-      -7.658857
+      3.21638,
+      0.6727,
+      -7.687465
     ],
     "chipPayload": {
       "book_id": "HX-0805",
@@ -27405,7 +29015,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 6,
-    "color": "#886554",
+    "color": "#7a5b4c",
     "keys": [
       "HX-0806",
       "HX0806",
@@ -27416,11 +29026,13 @@ export const books = [
     "chipId": "HX-0806",
     "locationCode": "S4-A-L2-P06",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 0.9405,
+    "heightScale": 1.1,
+    "depthScale": 1.15,
     "worldPosition": [
-      3.2126,
-      0.69259,
-      -7.426571
+      3.21449,
+      0.7033,
+      -7.477051
     ],
     "chipPayload": {
       "book_id": "HX-0806",
@@ -27439,7 +29051,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 7,
-    "color": "#886554",
+    "color": "#9c735e",
     "keys": [
       "HX-0807",
       "HX0807",
@@ -27450,11 +29062,13 @@ export const books = [
     "chipId": "HX-0807",
     "locationCode": "S4-A-L2-P07",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.1421,
+    "heightScale": 0.8,
+    "depthScale": 0.9,
     "worldPosition": [
-      3.2126,
-      0.69259,
-      -7.194286
+      3.21134,
+      0.6574,
+      -7.252126
     ],
     "chipPayload": {
       "book_id": "HX-0807",
@@ -27473,7 +29087,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 8,
-    "color": "#886554",
+    "color": "#9c735e",
     "keys": [
       "HX-0808",
       "HX0808",
@@ -27484,11 +29098,13 @@ export const books = [
     "chipId": "HX-0808",
     "locationCode": "S4-A-L2-P08",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.1421,
+    "heightScale": 0.8,
+    "depthScale": 0.9,
     "worldPosition": [
-      3.2126,
-      0.68953,
-      -6.962
+      3.21134,
+      0.6574,
+      -7.005434
     ],
     "chipPayload": {
       "book_id": "HX-0808",
@@ -27507,7 +29123,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 9,
-    "color": "#886554",
+    "color": "#976f5b",
     "keys": [
       "HX-0809",
       "HX0809",
@@ -27518,11 +29134,13 @@ export const books = [
     "chipId": "HX-0809",
     "locationCode": "S4-A-L2-P09",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.0219,
+    "heightScale": 1.1,
+    "depthScale": 1,
     "worldPosition": [
       3.2126,
-      0.67729,
-      -6.638
+      0.7033,
+      -6.635638
     ],
     "chipPayload": {
       "book_id": "HX-0809",
@@ -27541,7 +29159,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 10,
-    "color": "#886554",
+    "color": "#976f5b",
     "keys": [
       "HX-0810",
       "HX0810",
@@ -27552,11 +29170,13 @@ export const books = [
     "chipId": "HX-0810",
     "locationCode": "S4-A-L2-P10",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.0219,
+    "heightScale": 1.1,
+    "depthScale": 1,
     "worldPosition": [
       3.2126,
-      0.67576,
-      -6.398571
+      0.7033,
+      -6.414913
     ],
     "chipPayload": {
       "book_id": "HX-0810",
@@ -27575,7 +29195,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 11,
-    "color": "#886554",
+    "color": "#a17762",
     "keys": [
       "HX-0811",
       "HX0811",
@@ -27586,11 +29206,13 @@ export const books = [
     "chipId": "HX-0811",
     "locationCode": "S4-A-L2-P11",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 0.8941,
+    "heightScale": 0.85,
+    "depthScale": 1,
     "worldPosition": [
       3.2126,
-      0.68341,
-      -6.159143
+      0.66505,
+      -6.207983
     ],
     "chipPayload": {
       "book_id": "HX-0811",
@@ -27609,7 +29231,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 12,
-    "color": "#886554",
+    "color": "#9c735e",
     "keys": [
       "HX-0812",
       "HX0812",
@@ -27620,11 +29242,13 @@ export const books = [
     "chipId": "HX-0812",
     "locationCode": "S4-A-L2-P12",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.0857,
+    "heightScale": 0.85,
+    "depthScale": 1.48,
     "worldPosition": [
-      3.2126,
-      0.68341,
-      -5.919714
+      3.218648,
+      0.66505,
+      -5.994156
     ],
     "chipPayload": {
       "book_id": "HX-0812",
@@ -27643,7 +29267,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 13,
-    "color": "#886554",
+    "color": "#9c735e",
     "keys": [
       "HX-0813",
       "HX0813",
@@ -27654,11 +29278,13 @@ export const books = [
     "chipId": "HX-0813",
     "locationCode": "S4-A-L2-P13",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.0857,
+    "heightScale": 0.85,
+    "depthScale": 1.48,
     "worldPosition": [
-      3.2126,
-      0.69106,
-      -5.680286
+      3.218648,
+      0.66505,
+      -5.759636
     ],
     "chipPayload": {
       "book_id": "HX-0813",
@@ -27677,7 +29303,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 14,
-    "color": "#886554",
+    "color": "#9c735e",
     "keys": [
       "HX-0814",
       "HX0814",
@@ -27688,11 +29314,13 @@ export const books = [
     "chipId": "HX-0814",
     "locationCode": "S4-A-L2-P14",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.0857,
+    "heightScale": 0.85,
+    "depthScale": 1.48,
     "worldPosition": [
-      3.2126,
-      0.688,
-      -5.440857
+      3.218648,
+      0.66505,
+      -5.525116
     ],
     "chipPayload": {
       "book_id": "HX-0814",
@@ -27711,7 +29339,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 15,
-    "color": "#886554",
+    "color": "#a17762",
     "keys": [
       "HX-0815",
       "HX0815",
@@ -27722,11 +29350,13 @@ export const books = [
     "chipId": "HX-0815",
     "locationCode": "S4-A-L2-P15",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.2135,
+    "heightScale": 1.1,
+    "depthScale": 1.48,
     "worldPosition": [
-      3.2126,
-      0.69718,
-      -5.201429
+      3.218648,
+      0.7033,
+      -5.276801
     ],
     "chipPayload": {
       "book_id": "HX-0815",
@@ -27745,7 +29375,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 16,
-    "color": "#886554",
+    "color": "#a17762",
     "keys": [
       "HX-0816",
       "HX0816",
@@ -27756,11 +29386,13 @@ export const books = [
     "chipId": "HX-0816",
     "locationCode": "S4-A-L2-P16",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.2135,
+    "heightScale": 1.1,
+    "depthScale": 1.48,
     "worldPosition": [
-      3.2126,
-      0.68953,
-      -4.962
+      3.218648,
+      0.7033,
+      -5.01469
     ],
     "chipPayload": {
       "book_id": "HX-0816",
@@ -27779,7 +29411,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 17,
-    "color": "#886554",
+    "color": "#6e5346",
     "keys": [
       "HX-0817",
       "HX0817",
@@ -27790,11 +29422,13 @@ export const books = [
     "chipId": "HX-0817",
     "locationCode": "S4-A-L2-P17",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.0059,
+    "heightScale": 0.95,
+    "depthScale": 1.3,
     "worldPosition": [
-      3.2126,
-      0.69565,
-      -4.638
+      3.21638,
+      0.68035,
+      -4.637359
     ],
     "chipPayload": {
       "book_id": "HX-0817",
@@ -27813,7 +29447,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 18,
-    "color": "#886554",
+    "color": "#916b58",
     "keys": [
       "HX-0818",
       "HX0818",
@@ -27824,11 +29458,13 @@ export const books = [
     "chipId": "HX-0818",
     "locationCode": "S4-A-L2-P18",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 0.9389,
+    "heightScale": 1,
+    "depthScale": 0.8,
     "worldPosition": [
-      3.2126,
-      0.67729,
-      -4.398571
+      3.21008,
+      0.688,
+      -4.427319
     ],
     "chipPayload": {
       "book_id": "HX-0818",
@@ -27847,7 +29483,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 19,
-    "color": "#886554",
+    "color": "#8b6756",
     "keys": [
       "HX-0819",
       "HX0819",
@@ -27858,11 +29494,13 @@ export const books = [
     "chipId": "HX-0819",
     "locationCode": "S4-A-L2-P19",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.2742,
+    "heightScale": 0.8,
+    "depthScale": 1.48,
     "worldPosition": [
-      3.2126,
-      0.69565,
-      -4.159143
+      3.218648,
+      0.6574,
+      -4.188309
     ],
     "chipPayload": {
       "book_id": "HX-0819",
@@ -27881,7 +29519,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 20,
-    "color": "#886554",
+    "color": "#8b6756",
     "keys": [
       "HX-0820",
       "HX0820",
@@ -27892,11 +29530,13 @@ export const books = [
     "chipId": "HX-0820",
     "locationCode": "S4-A-L2-P20",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.2742,
+    "heightScale": 0.8,
+    "depthScale": 1.48,
     "worldPosition": [
-      3.2126,
-      0.69259,
-      -3.919714
+      3.218648,
+      0.6574,
+      -3.913085
     ],
     "chipPayload": {
       "book_id": "HX-0820",
@@ -27915,7 +29555,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 21,
-    "color": "#886554",
+    "color": "#8b6756",
     "keys": [
       "HX-0821",
       "HX0821",
@@ -27926,11 +29566,13 @@ export const books = [
     "chipId": "HX-0821",
     "locationCode": "S4-A-L2-P21",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.2742,
+    "heightScale": 0.8,
+    "depthScale": 1.48,
     "worldPosition": [
-      3.2126,
-      0.67882,
-      -3.680286
+      3.218648,
+      0.6574,
+      -3.637861
     ],
     "chipPayload": {
       "book_id": "HX-0821",
@@ -27949,7 +29591,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 22,
-    "color": "#886554",
+    "color": "#8b6756",
     "keys": [
       "HX-0822",
       "HX0822",
@@ -27960,11 +29602,13 @@ export const books = [
     "chipId": "HX-0822",
     "locationCode": "S4-A-L2-P22",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.073,
+    "heightScale": 0.9,
+    "depthScale": 1.15,
     "worldPosition": [
-      3.2126,
-      0.69565,
-      -3.440857
+      3.21449,
+      0.6727,
+      -3.384365
     ],
     "chipPayload": {
       "book_id": "HX-0822",
@@ -27983,7 +29627,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 23,
-    "color": "#886554",
+    "color": "#8b6756",
     "keys": [
       "HX-0823",
       "HX0823",
@@ -27994,11 +29638,13 @@ export const books = [
     "chipId": "HX-0823",
     "locationCode": "S4-A-L2-P23",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 0.8718,
+    "heightScale": 0.9,
+    "depthScale": 1.48,
     "worldPosition": [
-      3.2126,
-      0.69412,
-      -3.201429
+      3.218648,
+      0.6727,
+      -3.174325
     ],
     "chipPayload": {
       "book_id": "HX-0823",
@@ -28017,7 +29663,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 24,
-    "color": "#886554",
+    "color": "#8b6756",
     "keys": [
       "HX-0824",
       "HX0824",
@@ -28028,11 +29674,13 @@ export const books = [
     "chipId": "HX-0824",
     "locationCode": "S4-A-L2-P24",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 0.8718,
+    "heightScale": 0.9,
+    "depthScale": 1.48,
     "worldPosition": [
-      3.2126,
-      0.68494,
-      -2.962
+      3.218648,
+      0.6727,
+      -2.986014
     ],
     "chipPayload": {
       "book_id": "HX-0824",
@@ -28051,7 +29699,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 25,
-    "color": "#886554",
+    "color": "#976f5b",
     "keys": [
       "HX-0825",
       "HX0825",
@@ -28062,11 +29710,13 @@ export const books = [
     "chipId": "HX-0825",
     "locationCode": "S4-A-L2-P25",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.0232,
+    "heightScale": 1.05,
+    "depthScale": 1.15,
     "worldPosition": [
-      3.2126,
-      0.67882,
-      -2.638
+      3.21449,
+      0.69565,
+      -2.635493
     ],
     "chipPayload": {
       "book_id": "HX-0825",
@@ -28085,7 +29735,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 26,
-    "color": "#886554",
+    "color": "#976f5b",
     "keys": [
       "设计",
       "艺术",
@@ -28100,11 +29750,13 @@ export const books = [
     "chipId": "HX-0826",
     "locationCode": "S4-A-L2-P26",
     "placeholder": false,
-    "heightScale": 0.99,
+    "widthScale": 1.0232,
+    "heightScale": 1.05,
+    "depthScale": 1.15,
     "worldPosition": [
-      3.2126,
-      0.68647,
-      -2.405714
+      3.21449,
+      0.69565,
+      -2.414478
     ],
     "chipPayload": {
       "book_id": "HX-0826",
@@ -28123,7 +29775,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 27,
-    "color": "#886554",
+    "color": "#976f5b",
     "keys": [
       "HX-0827",
       "HX0827",
@@ -28134,11 +29786,13 @@ export const books = [
     "chipId": "HX-0827",
     "locationCode": "S4-A-L2-P27",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.1436,
+    "heightScale": 1.1,
+    "depthScale": 1,
     "worldPosition": [
       3.2126,
-      0.68341,
-      -2.173429
+      0.7033,
+      -2.180463
     ],
     "chipPayload": {
       "book_id": "HX-0827",
@@ -28157,7 +29811,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 28,
-    "color": "#886554",
+    "color": "#a17762",
     "keys": [
       "HX-0828",
       "HX0828",
@@ -28168,11 +29822,13 @@ export const books = [
     "chipId": "HX-0828",
     "locationCode": "S4-A-L2-P28",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.1436,
+    "heightScale": 0.9,
+    "depthScale": 1.15,
     "worldPosition": [
-      3.2126,
-      0.68953,
-      -1.941143
+      3.21449,
+      0.6727,
+      -1.933446
     ],
     "chipPayload": {
       "book_id": "HX-0828",
@@ -28191,7 +29847,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 29,
-    "color": "#886554",
+    "color": "#6e5346",
     "keys": [
       "HX-0829",
       "HX0829",
@@ -28202,11 +29858,13 @@ export const books = [
     "chipId": "HX-0829",
     "locationCode": "S4-A-L2-P29",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.0232,
+    "heightScale": 0.8,
+    "depthScale": 1.15,
     "worldPosition": [
-      3.2126,
-      0.69259,
-      -1.708857
+      3.21449,
+      0.6574,
+      -1.699431
     ],
     "chipPayload": {
       "book_id": "HX-0829",
@@ -28225,7 +29883,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 30,
-    "color": "#886554",
+    "color": "#6e5346",
     "keys": [
       "HX-0830",
       "HX0830",
@@ -28236,11 +29894,13 @@ export const books = [
     "chipId": "HX-0830",
     "locationCode": "S4-A-L2-P30",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.0232,
+    "heightScale": 0.8,
+    "depthScale": 1.15,
     "worldPosition": [
-      3.2126,
-      0.68647,
-      -1.476571
+      3.21449,
+      0.6574,
+      -1.478416
     ],
     "chipPayload": {
       "book_id": "HX-0830",
@@ -28259,7 +29919,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 31,
-    "color": "#886554",
+    "color": "#6e5346",
     "keys": [
       "HX-0831",
       "HX0831",
@@ -28270,11 +29930,13 @@ export const books = [
     "chipId": "HX-0831",
     "locationCode": "S4-A-L2-P31",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.0232,
+    "heightScale": 0.8,
+    "depthScale": 1.15,
     "worldPosition": [
-      3.2126,
-      0.69565,
-      -1.244286
+      3.21449,
+      0.6574,
+      -1.257402
     ],
     "chipPayload": {
       "book_id": "HX-0831",
@@ -28293,7 +29955,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 32,
-    "color": "#886554",
+    "color": "#745749",
     "keys": [
       "HX-0832",
       "HX0832",
@@ -28304,11 +29966,13 @@ export const books = [
     "chipId": "HX-0832",
     "locationCode": "S4-A-L2-P32",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 0.963,
+    "heightScale": 0.9,
+    "depthScale": 1.3,
     "worldPosition": [
-      3.2126,
-      0.68341,
-      -1.012
+      3.21638,
+      0.6727,
+      -1.042887
     ],
     "chipPayload": {
       "book_id": "HX-0832",
@@ -28327,7 +29991,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 1,
-    "color": "#886554",
+    "color": "#7f5f4f",
     "keys": [
       "HX-0833",
       "HX0833",
@@ -28338,11 +30002,13 @@ export const books = [
     "chipId": "HX-0833",
     "locationCode": "S4-A-L3-P01",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.0553,
+    "heightScale": 1.05,
+    "depthScale": 1.48,
     "worldPosition": [
-      3.2126,
-      1.18035,
-      -8.588
+      3.218648,
+      1.19565,
+      -8.582029
     ],
     "chipPayload": {
       "book_id": "HX-0833",
@@ -28361,7 +30027,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 2,
-    "color": "#886554",
+    "color": "#7f5f4f",
     "keys": [
       "HX-0834",
       "HX0834",
@@ -28372,11 +30038,13 @@ export const books = [
     "chipId": "HX-0834",
     "locationCode": "S4-A-L3-P02",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.0553,
+    "heightScale": 1.05,
+    "depthScale": 1.48,
     "worldPosition": [
-      3.2126,
-      1.18341,
-      -8.355714
+      3.218648,
+      1.19565,
+      -8.354086
     ],
     "chipPayload": {
       "book_id": "HX-0834",
@@ -28395,7 +30063,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 3,
-    "color": "#886554",
+    "color": "#916b58",
     "keys": [
       "HX-0835",
       "HX0835",
@@ -28406,11 +30074,13 @@ export const books = [
     "chipId": "HX-0835",
     "locationCode": "S4-A-L3-P03",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.1174,
+    "heightScale": 1.05,
+    "depthScale": 0.8,
     "worldPosition": [
-      3.2126,
-      1.188,
-      -8.123429
+      3.21008,
+      1.19565,
+      -8.119439
     ],
     "chipPayload": {
       "book_id": "HX-0835",
@@ -28429,7 +30099,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 4,
-    "color": "#886554",
+    "color": "#916b58",
     "keys": [
       "HX-0836",
       "HX0836",
@@ -28440,11 +30110,13 @@ export const books = [
     "chipId": "HX-0836",
     "locationCode": "S4-A-L3-P04",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.1174,
+    "heightScale": 1.05,
+    "depthScale": 0.8,
     "worldPosition": [
-      3.2126,
-      1.19259,
-      -7.891143
+      3.21008,
+      1.19565,
+      -7.878087
     ],
     "chipPayload": {
       "book_id": "HX-0836",
@@ -28463,7 +30135,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 5,
-    "color": "#886554",
+    "color": "#a17762",
     "keys": [
       "HX-0837",
       "HX0837",
@@ -28474,11 +30146,13 @@ export const books = [
     "chipId": "HX-0837",
     "locationCode": "S4-A-L3-P05",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.1794,
+    "heightScale": 0.9,
+    "depthScale": 1.15,
     "worldPosition": [
-      3.2126,
-      1.18341,
-      -7.658857
+      3.21449,
+      1.1727,
+      -7.630032
     ],
     "chipPayload": {
       "book_id": "HX-0837",
@@ -28497,7 +30171,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 6,
-    "color": "#886554",
+    "color": "#856352",
     "keys": [
       "HX-0838",
       "HX0838",
@@ -28508,11 +30182,13 @@ export const books = [
     "chipId": "HX-0838",
     "locationCode": "S4-A-L3-P06",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 0.807,
+    "heightScale": 0.8,
+    "depthScale": 1,
     "worldPosition": [
       3.2126,
-      1.18035,
-      -7.426571
+      1.1574,
+      -7.415498
     ],
     "chipPayload": {
       "book_id": "HX-0838",
@@ -28531,7 +30207,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 7,
-    "color": "#886554",
+    "color": "#745749",
     "keys": [
       "HX-0839",
       "HX0839",
@@ -28542,11 +30218,13 @@ export const books = [
     "chipId": "HX-0839",
     "locationCode": "S4-A-L3-P07",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 0.807,
+    "heightScale": 0.9,
+    "depthScale": 1.48,
     "worldPosition": [
-      3.2126,
-      1.18035,
-      -7.194286
+      3.218648,
+      1.1727,
+      -7.241188
     ],
     "chipPayload": {
       "book_id": "HX-0839",
@@ -28565,7 +30243,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 8,
-    "color": "#886554",
+    "color": "#7f5f4f",
     "keys": [
       "HX-0840",
       "HX0840",
@@ -28576,11 +30254,13 @@ export const books = [
     "chipId": "HX-0840",
     "locationCode": "S4-A-L3-P08",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.1794,
+    "heightScale": 1.1,
+    "depthScale": 1.3,
     "worldPosition": [
-      3.2126,
-      1.188,
-      -6.962
+      3.21638,
+      1.2033,
+      -7.026654
     ],
     "chipPayload": {
       "book_id": "HX-0840",
@@ -28599,7 +30279,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 9,
-    "color": "#886554",
+    "color": "#7f5f4f",
     "keys": [
       "HX-0841",
       "HX0841",
@@ -28610,11 +30290,13 @@ export const books = [
     "chipId": "HX-0841",
     "locationCode": "S4-A-L3-P09",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.3228,
+    "heightScale": 0.8,
+    "depthScale": 1.3,
     "worldPosition": [
-      3.2126,
-      1.19718,
-      -6.638
+      3.21638,
+      1.1574,
+      -6.603134
     ],
     "chipPayload": {
       "book_id": "HX-0841",
@@ -28633,7 +30315,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 10,
-    "color": "#886554",
+    "color": "#745749",
     "keys": [
       "HX-0842",
       "HX0842",
@@ -28644,11 +30326,13 @@ export const books = [
     "chipId": "HX-0842",
     "locationCode": "S4-A-L3-P10",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.1836,
+    "heightScale": 0.85,
+    "depthScale": 1.3,
     "worldPosition": [
-      3.2126,
-      1.19259,
-      -6.398571
+      3.21638,
+      1.16505,
+      -6.33244
     ],
     "chipPayload": {
       "book_id": "HX-0842",
@@ -28667,7 +30351,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 11,
-    "color": "#886554",
+    "color": "#745749",
     "keys": [
       "HX-0843",
       "HX0843",
@@ -28678,11 +30362,13 @@ export const books = [
     "chipId": "HX-0843",
     "locationCode": "S4-A-L3-P11",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 0.9747,
+    "heightScale": 1.1,
+    "depthScale": 1.15,
     "worldPosition": [
-      3.2126,
-      1.19565,
-      -6.159143
+      3.21449,
+      1.2033,
+      -6.099343
     ],
     "chipPayload": {
       "book_id": "HX-0843",
@@ -28701,7 +30387,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 12,
-    "color": "#886554",
+    "color": "#745749",
     "keys": [
       "HX-0844",
       "HX0844",
@@ -28712,11 +30398,13 @@ export const books = [
     "chipId": "HX-0844",
     "locationCode": "S4-A-L3-P12",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 0.9747,
+    "heightScale": 0.8,
+    "depthScale": 1.15,
     "worldPosition": [
-      3.2126,
-      1.18035,
-      -5.919714
+      3.21449,
+      1.1574,
+      -5.888803
     ],
     "chipPayload": {
       "book_id": "HX-0844",
@@ -28735,7 +30423,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 13,
-    "color": "#886554",
+    "color": "#745749",
     "keys": [
       "HX-0845",
       "HX0845",
@@ -28746,11 +30434,13 @@ export const books = [
     "chipId": "HX-0845",
     "locationCode": "S4-A-L3-P13",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 0.9747,
+    "heightScale": 0.8,
+    "depthScale": 1.15,
     "worldPosition": [
-      3.2126,
-      1.19718,
-      -5.680286
+      3.21449,
+      1.1574,
+      -5.678264
     ],
     "chipPayload": {
       "book_id": "HX-0845",
@@ -28769,7 +30459,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 14,
-    "color": "#886554",
+    "color": "#745749",
     "keys": [
       "HX-0846",
       "HX0846",
@@ -28780,11 +30470,13 @@ export const books = [
     "chipId": "HX-0846",
     "locationCode": "S4-A-L3-P14",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 0.9747,
+    "heightScale": 0.8,
+    "depthScale": 1.15,
     "worldPosition": [
-      3.2126,
-      1.18647,
-      -5.440857
+      3.21449,
+      1.1574,
+      -5.467724
     ],
     "chipPayload": {
       "book_id": "HX-0846",
@@ -28803,7 +30495,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 15,
-    "color": "#886554",
+    "color": "#6e5346",
     "keys": [
       "HX-0847",
       "HX0847",
@@ -28814,11 +30506,13 @@ export const books = [
     "chipId": "HX-0847",
     "locationCode": "S4-A-L3-P15",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.114,
+    "heightScale": 0.85,
+    "depthScale": 1.48,
     "worldPosition": [
-      3.2126,
-      1.17882,
-      -5.201429
+      3.218648,
+      1.16505,
+      -5.242146
     ],
     "chipPayload": {
       "book_id": "HX-0847",
@@ -28837,7 +30531,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 16,
-    "color": "#886554",
+    "color": "#6e5346",
     "keys": [
       "HX-0848",
       "HX0848",
@@ -28848,11 +30542,13 @@ export const books = [
     "chipId": "HX-0848",
     "locationCode": "S4-A-L3-P16",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.114,
+    "heightScale": 0.85,
+    "depthScale": 1.48,
     "worldPosition": [
-      3.2126,
-      1.19718,
-      -4.962
+      3.218648,
+      1.16505,
+      -5.001529
     ],
     "chipPayload": {
       "book_id": "HX-0848",
@@ -28871,7 +30567,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 17,
-    "color": "#886554",
+    "color": "#916b58",
     "keys": [
       "HX-0849",
       "HX0849",
@@ -28882,11 +30578,13 @@ export const books = [
     "chipId": "HX-0849",
     "locationCode": "S4-A-L3-P17",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.179,
+    "heightScale": 1.1,
+    "depthScale": 1,
     "worldPosition": [
       3.2126,
-      1.18647,
-      -4.638
+      1.2033,
+      -4.618666
     ],
     "chipPayload": {
       "book_id": "HX-0849",
@@ -28905,7 +30603,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 18,
-    "color": "#886554",
+    "color": "#916b58",
     "keys": [
       "HX-0850",
       "HX0850",
@@ -28916,11 +30614,13 @@ export const books = [
     "chipId": "HX-0850",
     "locationCode": "S4-A-L3-P18",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.179,
+    "heightScale": 1.1,
+    "depthScale": 1,
     "worldPosition": [
       3.2126,
-      1.18188,
-      -4.398571
+      1.2033,
+      -4.363999
     ],
     "chipPayload": {
       "book_id": "HX-0850",
@@ -28939,7 +30639,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 19,
-    "color": "#886554",
+    "color": "#8b6756",
     "keys": [
       "HX-0851",
       "HX0851",
@@ -28950,11 +30650,13 @@ export const books = [
     "chipId": "HX-0851",
     "locationCode": "S4-A-L3-P19",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 0.8687,
+    "heightScale": 0.85,
+    "depthScale": 0.9,
     "worldPosition": [
-      3.2126,
-      1.17576,
-      -4.159143
+      3.21134,
+      1.16505,
+      -4.142841
     ],
     "chipPayload": {
       "book_id": "HX-0851",
@@ -28973,7 +30675,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 20,
-    "color": "#886554",
+    "color": "#6e5346",
     "keys": [
       "HX-0852",
       "HX0852",
@@ -28984,11 +30686,13 @@ export const books = [
     "chipId": "HX-0852",
     "locationCode": "S4-A-L3-P20",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.179,
+    "heightScale": 1,
+    "depthScale": 1.3,
     "worldPosition": [
-      3.2126,
-      1.19565,
-      -3.919714
+      3.21638,
+      1.188,
+      -3.921682
     ],
     "chipPayload": {
       "book_id": "HX-0852",
@@ -29007,7 +30711,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 21,
-    "color": "#886554",
+    "color": "#6e5346",
     "keys": [
       "HX-0853",
       "HX0853",
@@ -29018,11 +30722,13 @@ export const books = [
     "chipId": "HX-0853",
     "locationCode": "S4-A-L3-P21",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.179,
+    "heightScale": 1,
+    "depthScale": 1.3,
     "worldPosition": [
-      3.2126,
-      1.19412,
-      -3.680286
+      3.21638,
+      1.188,
+      -3.667015
     ],
     "chipPayload": {
       "book_id": "HX-0853",
@@ -29041,7 +30747,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 22,
-    "color": "#886554",
+    "color": "#6e5346",
     "keys": [
       "HX-0854",
       "HX0854",
@@ -29052,11 +30758,13 @@ export const books = [
     "chipId": "HX-0854",
     "locationCode": "S4-A-L3-P22",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.179,
+    "heightScale": 1,
+    "depthScale": 1.3,
     "worldPosition": [
-      3.2126,
-      1.17576,
-      -3.440857
+      3.21638,
+      1.188,
+      -3.412348
     ],
     "chipPayload": {
       "book_id": "HX-0854",
@@ -29075,7 +30783,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 23,
-    "color": "#886554",
+    "color": "#a17762",
     "keys": [
       "HX-0855",
       "HX0855",
@@ -29086,11 +30794,13 @@ export const books = [
     "chipId": "HX-0855",
     "locationCode": "S4-A-L3-P23",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 0.8687,
+    "heightScale": 1.05,
+    "depthScale": 1,
     "worldPosition": [
       3.2126,
-      1.19106,
-      -3.201429
+      1.19565,
+      -3.19119
     ],
     "chipPayload": {
       "book_id": "HX-0855",
@@ -29109,7 +30819,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 24,
-    "color": "#886554",
+    "color": "#a17762",
     "keys": [
       "HX-0856",
       "HX0856",
@@ -29120,11 +30830,13 @@ export const books = [
     "chipId": "HX-0856",
     "locationCode": "S4-A-L3-P24",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 0.8687,
+    "heightScale": 1.05,
+    "depthScale": 1,
     "worldPosition": [
       3.2126,
-      1.19259,
-      -2.962
+      1.19565,
+      -3.00354
     ],
     "chipPayload": {
       "book_id": "HX-0856",
@@ -29143,7 +30855,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 25,
-    "color": "#886554",
+    "color": "#7f5f4f",
     "keys": [
       "HX-0857",
       "HX0857",
@@ -29154,11 +30866,13 @@ export const books = [
     "chipId": "HX-0857",
     "locationCode": "S4-A-L3-P25",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.0742,
+    "heightScale": 1.1,
+    "depthScale": 0.8,
     "worldPosition": [
-      3.2126,
-      1.18494,
-      -2.638
+      3.21008,
+      1.2033,
+      -2.629983
     ],
     "chipPayload": {
       "book_id": "HX-0857",
@@ -29177,7 +30891,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 26,
-    "color": "#886554",
+    "color": "#7f5f4f",
     "keys": [
       "HX-0858",
       "HX0858",
@@ -29188,11 +30902,13 @@ export const books = [
     "chipId": "HX-0858",
     "locationCode": "S4-A-L3-P26",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.0742,
+    "heightScale": 1.1,
+    "depthScale": 0.8,
     "worldPosition": [
-      3.2126,
-      1.18035,
-      -2.405714
+      3.21008,
+      1.2033,
+      -2.39795
     ],
     "chipPayload": {
       "book_id": "HX-0858",
@@ -29211,7 +30927,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 27,
-    "color": "#886554",
+    "color": "#7f5f4f",
     "keys": [
       "HX-0859",
       "HX0859",
@@ -29222,11 +30938,13 @@ export const books = [
     "chipId": "HX-0859",
     "locationCode": "S4-A-L3-P27",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.0742,
+    "heightScale": 1.1,
+    "depthScale": 0.8,
     "worldPosition": [
-      3.2126,
-      1.19412,
-      -2.173429
+      3.21008,
+      1.2033,
+      -2.165917
     ],
     "chipPayload": {
       "book_id": "HX-0859",
@@ -29245,7 +30963,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 28,
-    "color": "#886554",
+    "color": "#a17762",
     "keys": [
       "HX-0860",
       "HX0860",
@@ -29256,11 +30974,13 @@ export const books = [
     "chipId": "HX-0860",
     "locationCode": "S4-A-L3-P28",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 0.8847,
+    "heightScale": 0.95,
+    "depthScale": 1.48,
     "worldPosition": [
-      3.2126,
-      1.19106,
-      -1.941143
+      3.218648,
+      1.18035,
+      -1.954358
     ],
     "chipPayload": {
       "book_id": "HX-0860",
@@ -29279,7 +30999,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 29,
-    "color": "#886554",
+    "color": "#a17762",
     "keys": [
       "HX-0861",
       "HX0861",
@@ -29290,11 +31010,13 @@ export const books = [
     "chipId": "HX-0861",
     "locationCode": "S4-A-L3-P29",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 0.8847,
+    "heightScale": 0.95,
+    "depthScale": 1.48,
     "worldPosition": [
-      3.2126,
-      1.19106,
-      -1.708857
+      3.218648,
+      1.18035,
+      -1.763272
     ],
     "chipPayload": {
       "book_id": "HX-0861",
@@ -29313,7 +31035,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 30,
-    "color": "#886554",
+    "color": "#a17762",
     "keys": [
       "HX-0862",
       "HX0862",
@@ -29324,11 +31046,13 @@ export const books = [
     "chipId": "HX-0862",
     "locationCode": "S4-A-L3-P30",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 0.8847,
+    "heightScale": 0.95,
+    "depthScale": 1.48,
     "worldPosition": [
-      3.2126,
-      1.18647,
-      -1.476571
+      3.218648,
+      1.18035,
+      -1.572186
     ],
     "chipPayload": {
       "book_id": "HX-0862",
@@ -29347,7 +31071,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 31,
-    "color": "#886554",
+    "color": "#a17762",
     "keys": [
       "HX-0863",
       "HX0863",
@@ -29358,11 +31082,13 @@ export const books = [
     "chipId": "HX-0863",
     "locationCode": "S4-A-L3-P31",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.2006,
+    "heightScale": 1.1,
+    "depthScale": 1.48,
     "worldPosition": [
-      3.2126,
-      1.18494,
-      -1.244286
+      3.218648,
+      1.2033,
+      -1.346977
     ],
     "chipPayload": {
       "book_id": "HX-0863",
@@ -29381,7 +31107,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 32,
-    "color": "#886554",
+    "color": "#916b58",
     "keys": [
       "HX-0864",
       "HX0864",
@@ -29392,11 +31118,13 @@ export const books = [
     "chipId": "HX-0864",
     "locationCode": "S4-A-L3-P32",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.2006,
+    "heightScale": 0.95,
+    "depthScale": 1.48,
     "worldPosition": [
-      3.2126,
-      1.18953,
-      -1.012
+      3.218648,
+      1.18035,
+      -1.087646
     ],
     "chipPayload": {
       "book_id": "HX-0864",
@@ -29415,7 +31143,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 1,
-    "color": "#886554",
+    "color": "#976f5b",
     "keys": [
       "HX-0865",
       "HX0865",
@@ -29426,11 +31154,13 @@ export const books = [
     "chipId": "HX-0865",
     "locationCode": "S4-A-L4-P01",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 0.9805,
+    "heightScale": 1.1,
+    "depthScale": 1.48,
     "worldPosition": [
-      3.2126,
-      1.688,
-      -8.588
+      3.218648,
+      1.7033,
+      -8.590102
     ],
     "chipPayload": {
       "book_id": "HX-0865",
@@ -29449,7 +31179,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 2,
-    "color": "#886554",
+    "color": "#976f5b",
     "keys": [
       "HX-0866",
       "HX0866",
@@ -29460,11 +31190,13 @@ export const books = [
     "chipId": "HX-0866",
     "locationCode": "S4-A-L4-P02",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 0.9805,
+    "heightScale": 1.1,
+    "depthScale": 1.48,
     "worldPosition": [
-      3.2126,
-      1.68647,
-      -8.355714
+      3.218648,
+      1.7033,
+      -8.378306
     ],
     "chipPayload": {
       "book_id": "HX-0866",
@@ -29483,7 +31215,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 3,
-    "color": "#886554",
+    "color": "#976f5b",
     "keys": [
       "HX-0867",
       "HX0867",
@@ -29494,11 +31226,13 @@ export const books = [
     "chipId": "HX-0867",
     "locationCode": "S4-A-L4-P03",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 0.9805,
+    "heightScale": 1.1,
+    "depthScale": 1.48,
     "worldPosition": [
-      3.2126,
-      1.68647,
-      -8.123429
+      3.218648,
+      1.7033,
+      -8.16651
     ],
     "chipPayload": {
       "book_id": "HX-0867",
@@ -29517,7 +31251,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 4,
-    "color": "#886554",
+    "color": "#a17762",
     "keys": [
       "HX-0868",
       "HX0868",
@@ -29528,11 +31262,13 @@ export const books = [
     "chipId": "HX-0868",
     "locationCode": "S4-A-L4-P04",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.1314,
+    "heightScale": 0.95,
+    "depthScale": 1.3,
     "worldPosition": [
-      3.2126,
-      1.69565,
-      -7.891143
+      3.21638,
+      1.68035,
+      -7.938422
     ],
     "chipPayload": {
       "book_id": "HX-0868",
@@ -29551,7 +31287,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 5,
-    "color": "#886554",
+    "color": "#745749",
     "keys": [
       "HX-0869",
       "HX0869",
@@ -29562,11 +31298,13 @@ export const books = [
     "chipId": "HX-0869",
     "locationCode": "S4-A-L4-P05",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.056,
+    "heightScale": 0.8,
+    "depthScale": 0.8,
     "worldPosition": [
-      3.2126,
-      1.69565,
-      -7.658857
+      3.21008,
+      1.6574,
+      -7.702188
     ],
     "chipPayload": {
       "book_id": "HX-0869",
@@ -29585,7 +31323,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 6,
-    "color": "#886554",
+    "color": "#745749",
     "keys": [
       "HX-0870",
       "HX0870",
@@ -29596,11 +31334,13 @@ export const books = [
     "chipId": "HX-0870",
     "locationCode": "S4-A-L4-P06",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.056,
+    "heightScale": 0.8,
+    "depthScale": 0.8,
     "worldPosition": [
-      3.2126,
-      1.67729,
-      -7.426571
+      3.21008,
+      1.6574,
+      -7.4741
     ],
     "chipPayload": {
       "book_id": "HX-0870",
@@ -29619,7 +31359,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 7,
-    "color": "#886554",
+    "color": "#745749",
     "keys": [
       "HX-0871",
       "HX0871",
@@ -29630,11 +31370,13 @@ export const books = [
     "chipId": "HX-0871",
     "locationCode": "S4-A-L4-P07",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.056,
+    "heightScale": 0.8,
+    "depthScale": 0.8,
     "worldPosition": [
-      3.2126,
-      1.688,
-      -7.194286
+      3.21008,
+      1.6574,
+      -7.246012
     ],
     "chipPayload": {
       "book_id": "HX-0871",
@@ -29653,7 +31395,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 8,
-    "color": "#886554",
+    "color": "#6e5346",
     "keys": [
       "HX-0872",
       "HX0872",
@@ -29664,11 +31406,13 @@ export const books = [
     "chipId": "HX-0872",
     "locationCode": "S4-A-L4-P08",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.1314,
+    "heightScale": 0.95,
+    "depthScale": 1,
     "worldPosition": [
       3.2126,
-      1.68188,
-      -6.962
+      1.68035,
+      -7.009777
     ],
     "chipPayload": {
       "book_id": "HX-0872",
@@ -29687,7 +31431,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 9,
-    "color": "#886554",
+    "color": "#8b6756",
     "keys": [
       "HX-0873",
       "HX0873",
@@ -29698,11 +31442,13 @@ export const books = [
     "chipId": "HX-0873",
     "locationCode": "S4-A-L4-P09",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.1375,
+    "heightScale": 1,
+    "depthScale": 0.8,
     "worldPosition": [
-      3.2126,
-      1.69106,
-      -6.638
+      3.21008,
+      1.688,
+      -6.623154
     ],
     "chipPayload": {
       "book_id": "HX-0873",
@@ -29721,7 +31467,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 10,
-    "color": "#886554",
+    "color": "#745749",
     "keys": [
       "HX-0874",
       "HX0874",
@@ -29732,11 +31478,13 @@ export const books = [
     "chipId": "HX-0874",
     "locationCode": "S4-A-L4-P10",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 0.8847,
+    "heightScale": 1.1,
+    "depthScale": 1.3,
     "worldPosition": [
-      3.2126,
-      1.69412,
-      -6.398571
+      3.21638,
+      1.7033,
+      -6.404761
     ],
     "chipPayload": {
       "book_id": "HX-0874",
@@ -29755,7 +31503,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 11,
-    "color": "#886554",
+    "color": "#745749",
     "keys": [
       "HX-0875",
       "HX0875",
@@ -29766,11 +31514,13 @@ export const books = [
     "chipId": "HX-0875",
     "locationCode": "S4-A-L4-P11",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 0.8847,
+    "heightScale": 1.1,
+    "depthScale": 1.3,
     "worldPosition": [
-      3.2126,
-      1.69259,
-      -6.159143
+      3.21638,
+      1.7033,
+      -6.213668
     ],
     "chipPayload": {
       "book_id": "HX-0875",
@@ -29789,7 +31539,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 12,
-    "color": "#886554",
+    "color": "#745749",
     "keys": [
       "HX-0876",
       "HX0876",
@@ -29800,11 +31550,13 @@ export const books = [
     "chipId": "HX-0876",
     "locationCode": "S4-A-L4-P12",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 0.8847,
+    "heightScale": 1.1,
+    "depthScale": 1.3,
     "worldPosition": [
-      3.2126,
-      1.688,
-      -5.919714
+      3.21638,
+      1.7033,
+      -6.022574
     ],
     "chipPayload": {
       "book_id": "HX-0876",
@@ -29823,7 +31575,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 13,
-    "color": "#886554",
+    "color": "#856352",
     "keys": [
       "HX-0877",
       "HX0877",
@@ -29834,11 +31586,13 @@ export const books = [
     "chipId": "HX-0877",
     "locationCode": "S4-A-L4-P13",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.2007,
+    "heightScale": 1,
+    "depthScale": 1.48,
     "worldPosition": [
-      3.2126,
-      1.69565,
-      -5.680286
+      3.218648,
+      1.688,
+      -5.797357
     ],
     "chipPayload": {
       "book_id": "HX-0877",
@@ -29857,7 +31611,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 14,
-    "color": "#886554",
+    "color": "#856352",
     "keys": [
       "HX-0878",
       "HX0878",
@@ -29868,11 +31622,13 @@ export const books = [
     "chipId": "HX-0878",
     "locationCode": "S4-A-L4-P14",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.2007,
+    "heightScale": 1,
+    "depthScale": 1.48,
     "worldPosition": [
-      3.2126,
-      1.68647,
-      -5.440857
+      3.218648,
+      1.688,
+      -5.538015
     ],
     "chipPayload": {
       "book_id": "HX-0878",
@@ -29891,7 +31647,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 15,
-    "color": "#886554",
+    "color": "#856352",
     "keys": [
       "HX-0879",
       "HX0879",
@@ -29902,11 +31658,13 @@ export const books = [
     "chipId": "HX-0879",
     "locationCode": "S4-A-L4-P15",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.2007,
+    "heightScale": 1,
+    "depthScale": 1.48,
     "worldPosition": [
-      3.2126,
-      1.68035,
-      -5.201429
+      3.218648,
+      1.688,
+      -5.278674
     ],
     "chipPayload": {
       "book_id": "HX-0879",
@@ -29925,7 +31683,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 16,
-    "color": "#886554",
+    "color": "#916b58",
     "keys": [
       "HX-0880",
       "HX0880",
@@ -29936,11 +31694,13 @@ export const books = [
     "chipId": "HX-0880",
     "locationCode": "S4-A-L4-P16",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.1375,
+    "heightScale": 0.9,
+    "depthScale": 0.9,
     "worldPosition": [
-      3.2126,
-      1.68341,
-      -4.962
+      3.21134,
+      1.6727,
+      -5.026157
     ],
     "chipPayload": {
       "book_id": "HX-0880",
@@ -29959,7 +31719,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 17,
-    "color": "#886554",
+    "color": "#9c735e",
     "keys": [
       "HX-0881",
       "HX0881",
@@ -29970,11 +31730,13 @@ export const books = [
     "chipId": "HX-0881",
     "locationCode": "S4-A-L4-P17",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.021,
+    "heightScale": 0.9,
+    "depthScale": 1.15,
     "worldPosition": [
-      3.2126,
-      1.69412,
-      -4.638
+      3.21449,
+      1.6727,
+      -4.635732
     ],
     "chipPayload": {
       "book_id": "HX-0881",
@@ -29993,7 +31755,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 18,
-    "color": "#886554",
+    "color": "#9c735e",
     "keys": [
       "HX-0882",
       "HX0882",
@@ -30004,11 +31766,13 @@ export const books = [
     "chipId": "HX-0882",
     "locationCode": "S4-A-L4-P18",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.021,
+    "heightScale": 0.9,
+    "depthScale": 1.15,
     "worldPosition": [
-      3.2126,
-      1.68647,
-      -4.398571
+      3.21449,
+      1.6727,
+      -4.415196
     ],
     "chipPayload": {
       "book_id": "HX-0882",
@@ -30027,7 +31791,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 19,
-    "color": "#886554",
+    "color": "#9c735e",
     "keys": [
       "HX-0883",
       "HX0883",
@@ -30038,11 +31802,13 @@ export const books = [
     "chipId": "HX-0883",
     "locationCode": "S4-A-L4-P19",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.021,
+    "heightScale": 0.9,
+    "depthScale": 1.15,
     "worldPosition": [
-      3.2126,
-      1.67882,
-      -4.159143
+      3.21449,
+      1.6727,
+      -4.194661
     ],
     "chipPayload": {
       "book_id": "HX-0883",
@@ -30061,7 +31827,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 20,
-    "color": "#886554",
+    "color": "#976f5b",
     "keys": [
       "HX-0884",
       "HX0884",
@@ -30072,11 +31838,13 @@ export const books = [
     "chipId": "HX-0884",
     "locationCode": "S4-A-L4-P20",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 0.9481,
+    "heightScale": 0.85,
+    "depthScale": 1.48,
     "worldPosition": [
-      3.2126,
-      1.688,
-      -3.919714
+      3.218648,
+      1.66505,
+      -3.982001
     ],
     "chipPayload": {
       "book_id": "HX-0884",
@@ -30095,7 +31863,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 21,
-    "color": "#886554",
+    "color": "#976f5b",
     "keys": [
       "HX-0885",
       "HX0885",
@@ -30106,11 +31874,13 @@ export const books = [
     "chipId": "HX-0885",
     "locationCode": "S4-A-L4-P21",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 0.9481,
+    "heightScale": 0.85,
+    "depthScale": 1.48,
     "worldPosition": [
-      3.2126,
-      1.68953,
-      -3.680286
+      3.218648,
+      1.66505,
+      -3.777218
     ],
     "chipPayload": {
       "book_id": "HX-0885",
@@ -30129,7 +31899,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 22,
-    "color": "#886554",
+    "color": "#a17762",
     "keys": [
       "HX-0886",
       "HX0886",
@@ -30140,11 +31910,13 @@ export const books = [
     "chipId": "HX-0886",
     "locationCode": "S4-A-L4-P22",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.3127,
+    "heightScale": 0.9,
+    "depthScale": 0.8,
     "worldPosition": [
-      3.2126,
-      1.68341,
-      -3.440857
+      3.21008,
+      1.6727,
+      -3.533053
     ],
     "chipPayload": {
       "book_id": "HX-0886",
@@ -30163,7 +31935,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 23,
-    "color": "#886554",
+    "color": "#a17762",
     "keys": [
       "HX-0887",
       "HX0887",
@@ -30174,11 +31946,13 @@ export const books = [
     "chipId": "HX-0887",
     "locationCode": "S4-A-L4-P23",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.3127,
+    "heightScale": 0.9,
+    "depthScale": 0.8,
     "worldPosition": [
-      3.2126,
-      1.69259,
-      -3.201429
+      3.21008,
+      1.6727,
+      -3.249507
     ],
     "chipPayload": {
       "book_id": "HX-0887",
@@ -30197,7 +31971,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 24,
-    "color": "#886554",
+    "color": "#7a5b4c",
     "keys": [
       "HX-0888",
       "HX0888",
@@ -30208,11 +31982,13 @@ export const books = [
     "chipId": "HX-0888",
     "locationCode": "S4-A-L4-P24",
     "placeholder": true,
+    "widthScale": 0.9481,
     "heightScale": 1.05,
+    "depthScale": 0.9,
     "worldPosition": [
-      3.2126,
+      3.21134,
       1.69565,
-      -2.962
+      -3.005343
     ],
     "chipPayload": {
       "book_id": "HX-0888",
@@ -30231,7 +32007,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 25,
-    "color": "#886554",
+    "color": "#8b6756",
     "keys": [
       "HX-0889",
       "HX0889",
@@ -30242,11 +32018,13 @@ export const books = [
     "chipId": "HX-0889",
     "locationCode": "S4-A-L4-P25",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.0371,
+    "heightScale": 1,
+    "depthScale": 1.48,
     "worldPosition": [
-      3.2126,
-      1.68188,
-      -2.638
+      3.218648,
+      1.688,
+      -2.633993
     ],
     "chipPayload": {
       "book_id": "HX-0889",
@@ -30265,7 +32043,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 26,
-    "color": "#886554",
+    "color": "#8b6756",
     "keys": [
       "HX-0890",
       "HX0890",
@@ -30276,11 +32054,13 @@ export const books = [
     "chipId": "HX-0890",
     "locationCode": "S4-A-L4-P26",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.0371,
+    "heightScale": 1,
+    "depthScale": 1.48,
     "worldPosition": [
-      3.2126,
-      1.68953,
-      -2.405714
+      3.218648,
+      1.688,
+      -2.409979
     ],
     "chipPayload": {
       "book_id": "HX-0890",
@@ -30299,7 +32079,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 27,
-    "color": "#886554",
+    "color": "#8b6756",
     "keys": [
       "HX-0891",
       "HX0891",
@@ -30310,11 +32090,13 @@ export const books = [
     "chipId": "HX-0891",
     "locationCode": "S4-A-L4-P27",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.0371,
+    "heightScale": 1,
+    "depthScale": 0.9,
     "worldPosition": [
-      3.2126,
-      1.69412,
-      -2.173429
+      3.21134,
+      1.688,
+      -2.185965
     ],
     "chipPayload": {
       "book_id": "HX-0891",
@@ -30333,7 +32115,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 28,
-    "color": "#886554",
+    "color": "#8b6756",
     "keys": [
       "HX-0892",
       "HX0892",
@@ -30344,11 +32126,13 @@ export const books = [
     "chipId": "HX-0892",
     "locationCode": "S4-A-L4-P28",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.0371,
+    "heightScale": 1,
+    "depthScale": 0.9,
     "worldPosition": [
-      3.2126,
-      1.69106,
-      -1.941143
+      3.21134,
+      1.688,
+      -1.961951
     ],
     "chipPayload": {
       "book_id": "HX-0892",
@@ -30367,7 +32151,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 29,
-    "color": "#886554",
+    "color": "#856352",
     "keys": [
       "HX-0893",
       "HX0893",
@@ -30378,11 +32162,13 @@ export const books = [
     "chipId": "HX-0893",
     "locationCode": "S4-A-L4-P29",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.0371,
+    "heightScale": 0.85,
+    "depthScale": 0.9,
     "worldPosition": [
-      3.2126,
-      1.69718,
-      -1.708857
+      3.21134,
+      1.66505,
+      -1.737937
     ],
     "chipPayload": {
       "book_id": "HX-0893",
@@ -30401,7 +32187,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 30,
-    "color": "#886554",
+    "color": "#856352",
     "keys": [
       "HX-0894",
       "HX0894",
@@ -30412,11 +32198,13 @@ export const books = [
     "chipId": "HX-0894",
     "locationCode": "S4-A-L4-P30",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.0371,
+    "heightScale": 0.85,
+    "depthScale": 0.9,
     "worldPosition": [
-      3.2126,
-      1.68341,
-      -1.476571
+      3.21134,
+      1.66505,
+      -1.513923
     ],
     "chipPayload": {
       "book_id": "HX-0894",
@@ -30435,7 +32223,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 31,
-    "color": "#886554",
+    "color": "#976f5b",
     "keys": [
       "HX-0895",
       "HX0895",
@@ -30446,11 +32234,13 @@ export const books = [
     "chipId": "HX-0895",
     "locationCode": "S4-A-L4-P31",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.0947,
+    "heightScale": 1,
+    "depthScale": 0.9,
     "worldPosition": [
-      3.2126,
-      1.68035,
-      -1.244286
+      3.21134,
+      1.688,
+      -1.283686
     ],
     "chipPayload": {
       "book_id": "HX-0895",
@@ -30469,7 +32259,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 32,
-    "color": "#886554",
+    "color": "#976f5b",
     "keys": [
       "HX-0896",
       "HX0896",
@@ -30480,11 +32270,13 @@ export const books = [
     "chipId": "HX-0896",
     "locationCode": "S4-A-L4-P32",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.0947,
+    "heightScale": 1,
+    "depthScale": 0.9,
     "worldPosition": [
-      3.2126,
-      1.68341,
-      -1.012
+      3.21134,
+      1.688,
+      -1.047227
     ],
     "chipPayload": {
       "book_id": "HX-0896",
@@ -30503,7 +32295,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 1,
-    "color": "#886554",
+    "color": "#6e5346",
     "keys": [
       "HX-0897",
       "HX0897",
@@ -30514,11 +32306,13 @@ export const books = [
     "chipId": "HX-0897",
     "locationCode": "S4-B-L1-P01",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.0621,
+    "heightScale": 0.9,
+    "depthScale": 0.9,
     "worldPosition": [
-      2.7874,
-      0.25065,
-      -8.588
+      2.78866,
+      0.2277,
+      -8.581293
     ],
     "chipPayload": {
       "book_id": "HX-0897",
@@ -30537,7 +32331,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 2,
-    "color": "#886554",
+    "color": "#6e5346",
     "keys": [
       "HX-0898",
       "HX0898",
@@ -30548,11 +32342,13 @@ export const books = [
     "chipId": "HX-0898",
     "locationCode": "S4-B-L1-P02",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.0621,
+    "heightScale": 0.9,
+    "depthScale": 0.9,
     "worldPosition": [
-      2.7874,
-      0.24912,
-      -8.355714
+      2.78866,
+      0.2277,
+      -8.35188
     ],
     "chipPayload": {
       "book_id": "HX-0898",
@@ -30571,7 +32367,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 3,
-    "color": "#886554",
+    "color": "#6e5346",
     "keys": [
       "HX-0899",
       "HX0899",
@@ -30582,11 +32378,13 @@ export const books = [
     "chipId": "HX-0899",
     "locationCode": "S4-B-L1-P03",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.0621,
+    "heightScale": 0.9,
+    "depthScale": 0.9,
     "worldPosition": [
-      2.7874,
-      0.23076,
-      -8.123429
+      2.78866,
+      0.2277,
+      -8.122467
     ],
     "chipPayload": {
       "book_id": "HX-0899",
@@ -30605,7 +32403,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 4,
-    "color": "#886554",
+    "color": "#a17762",
     "keys": [
       "HX-0900",
       "HX0900",
@@ -30616,11 +32414,13 @@ export const books = [
     "chipId": "HX-0900",
     "locationCode": "S4-B-L1-P04",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.0621,
+    "heightScale": 0.95,
+    "depthScale": 1.3,
     "worldPosition": [
-      2.7874,
-      0.24453,
-      -7.891143
+      2.78362,
+      0.23535,
+      -7.893054
     ],
     "chipPayload": {
       "book_id": "HX-0900",
@@ -30639,7 +32439,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 5,
-    "color": "#886554",
+    "color": "#a17762",
     "keys": [
       "HX-0901",
       "HX0901",
@@ -30650,11 +32450,13 @@ export const books = [
     "chipId": "HX-0901",
     "locationCode": "S4-B-L1-P05",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.0621,
+    "heightScale": 0.95,
+    "depthScale": 1.3,
     "worldPosition": [
-      2.7874,
-      0.25218,
-      -7.658857
+      2.78362,
+      0.23535,
+      -7.663641
     ],
     "chipPayload": {
       "book_id": "HX-0901",
@@ -30673,7 +32475,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 6,
-    "color": "#886554",
+    "color": "#7a5b4c",
     "keys": [
       "HX-0902",
       "HX0902",
@@ -30684,11 +32486,13 @@ export const books = [
     "chipId": "HX-0902",
     "locationCode": "S4-B-L1-P06",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 0.863,
+    "heightScale": 0.8,
+    "depthScale": 1,
     "worldPosition": [
       2.7874,
-      0.24606,
-      -7.426571
+      0.2124,
+      -7.455736
     ],
     "chipPayload": {
       "book_id": "HX-0902",
@@ -30707,7 +32511,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 7,
-    "color": "#886554",
+    "color": "#6e5346",
     "keys": [
       "HX-0903",
       "HX0903",
@@ -30718,11 +32522,13 @@ export const books = [
     "chipId": "HX-0903",
     "locationCode": "S4-B-L1-P07",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 0.9957,
+    "heightScale": 0.9,
+    "depthScale": 1,
     "worldPosition": [
       2.7874,
-      0.24759,
-      -7.194286
+      0.2277,
+      -7.254999
     ],
     "chipPayload": {
       "book_id": "HX-0903",
@@ -30741,7 +32547,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 8,
-    "color": "#886554",
+    "color": "#745749",
     "keys": [
       "HX-0904",
       "HX0904",
@@ -30752,11 +32558,13 @@ export const books = [
     "chipId": "HX-0904",
     "locationCode": "S4-B-L1-P08",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.1949,
+    "heightScale": 0.85,
+    "depthScale": 0.8,
     "worldPosition": [
-      2.7874,
-      0.24759,
-      -6.962
+      2.78992,
+      0.22005,
+      -7.018417
     ],
     "chipPayload": {
       "book_id": "HX-0904",
@@ -30775,7 +32583,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 9,
-    "color": "#886554",
+    "color": "#856352",
     "keys": [
       "HX-0905",
       "HX0905",
@@ -30786,11 +32594,13 @@ export const books = [
     "chipId": "HX-0905",
     "locationCode": "S4-B-L1-P09",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.0624,
+    "heightScale": 1.05,
+    "depthScale": 1.3,
     "worldPosition": [
-      2.7874,
-      0.23076,
-      -6.638
+      2.78362,
+      0.25065,
+      -6.631265
     ],
     "chipPayload": {
       "book_id": "HX-0905",
@@ -30809,7 +32619,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 10,
-    "color": "#886554",
+    "color": "#856352",
     "keys": [
       "HX-0906",
       "HX0906",
@@ -30820,11 +32630,13 @@ export const books = [
     "chipId": "HX-0906",
     "locationCode": "S4-B-L1-P10",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.0624,
+    "heightScale": 1.05,
+    "depthScale": 1.3,
     "worldPosition": [
-      2.7874,
-      0.23229,
-      -6.398571
+      2.78362,
+      0.25065,
+      -6.401796
     ],
     "chipPayload": {
       "book_id": "HX-0906",
@@ -30843,7 +32655,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 11,
-    "color": "#886554",
+    "color": "#856352",
     "keys": [
       "HX-0907",
       "HX0907",
@@ -30854,11 +32666,13 @@ export const books = [
     "chipId": "HX-0907",
     "locationCode": "S4-B-L1-P11",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.0624,
+    "heightScale": 1.05,
+    "depthScale": 1.3,
     "worldPosition": [
-      2.7874,
-      0.23841,
-      -6.159143
+      2.78362,
+      0.25065,
+      -6.172326
     ],
     "chipPayload": {
       "book_id": "HX-0907",
@@ -30877,7 +32691,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 12,
-    "color": "#886554",
+    "color": "#916b58",
     "keys": [
       "HX-0908",
       "HX0908",
@@ -30888,11 +32702,13 @@ export const books = [
     "chipId": "HX-0908",
     "locationCode": "S4-B-L1-P12",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.2616,
+    "heightScale": 1.05,
+    "depthScale": 1.15,
     "worldPosition": [
-      2.7874,
-      0.23382,
-      -5.919714
+      2.78551,
+      0.25065,
+      -5.921344
     ],
     "chipPayload": {
       "book_id": "HX-0908",
@@ -30911,7 +32727,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 13,
-    "color": "#886554",
+    "color": "#916b58",
     "keys": [
       "HX-0909",
       "HX0909",
@@ -30922,11 +32738,13 @@ export const books = [
     "chipId": "HX-0909",
     "locationCode": "S4-B-L1-P13",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.2616,
+    "heightScale": 1.05,
+    "depthScale": 1.15,
     "worldPosition": [
-      2.7874,
-      0.24912,
-      -5.680286
+      2.78551,
+      0.25065,
+      -5.648849
     ],
     "chipPayload": {
       "book_id": "HX-0909",
@@ -30945,7 +32763,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 14,
-    "color": "#886554",
+    "color": "#a17762",
     "keys": [
       "HX-0910",
       "HX0910",
@@ -30956,11 +32774,13 @@ export const books = [
     "chipId": "HX-0910",
     "locationCode": "S4-B-L1-P14",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 0.9296,
+    "heightScale": 1,
+    "depthScale": 1.3,
     "worldPosition": [
-      2.7874,
-      0.24453,
-      -5.440857
+      2.78362,
+      0.243,
+      -5.412208
     ],
     "chipPayload": {
       "book_id": "HX-0910",
@@ -30979,7 +32799,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 15,
-    "color": "#886554",
+    "color": "#a17762",
     "keys": [
       "HX-0911",
       "HX0911",
@@ -30990,11 +32810,13 @@ export const books = [
     "chipId": "HX-0911",
     "locationCode": "S4-B-L1-P15",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 0.9296,
+    "heightScale": 1,
+    "depthScale": 1.3,
     "worldPosition": [
-      2.7874,
-      0.23229,
-      -5.201429
+      2.78362,
+      0.243,
+      -5.211422
     ],
     "chipPayload": {
       "book_id": "HX-0911",
@@ -31013,7 +32835,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 16,
-    "color": "#886554",
+    "color": "#a17762",
     "keys": [
       "HX-0912",
       "HX0912",
@@ -31024,11 +32846,13 @@ export const books = [
     "chipId": "HX-0912",
     "locationCode": "S4-B-L1-P16",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 0.9296,
+    "heightScale": 1,
+    "depthScale": 1.3,
     "worldPosition": [
-      2.7874,
-      0.23994,
-      -4.962
+      2.78362,
+      0.243,
+      -5.010636
     ],
     "chipPayload": {
       "book_id": "HX-0912",
@@ -31047,7 +32871,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 17,
-    "color": "#886554",
+    "color": "#916b58",
     "keys": [
       "HX-0913",
       "HX0913",
@@ -31058,11 +32882,13 @@ export const books = [
     "chipId": "HX-0913",
     "locationCode": "S4-B-L1-P17",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.1622,
+    "heightScale": 0.9,
+    "depthScale": 0.9,
     "worldPosition": [
-      2.7874,
-      0.23841,
-      -4.638
+      2.78866,
+      0.2277,
+      -4.620478
     ],
     "chipPayload": {
       "book_id": "HX-0913",
@@ -31081,7 +32907,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 18,
-    "color": "#886554",
+    "color": "#916b58",
     "keys": [
       "HX-0914",
       "HX0914",
@@ -31092,11 +32918,13 @@ export const books = [
     "chipId": "HX-0914",
     "locationCode": "S4-B-L1-P18",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.1622,
+    "heightScale": 0.9,
+    "depthScale": 0.9,
     "worldPosition": [
-      2.7874,
-      0.243,
-      -4.398571
+      2.78866,
+      0.2277,
+      -4.369434
     ],
     "chipPayload": {
       "book_id": "HX-0914",
@@ -31115,7 +32943,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 19,
-    "color": "#886554",
+    "color": "#916b58",
     "keys": [
       "HX-0915",
       "HX0915",
@@ -31126,11 +32954,13 @@ export const books = [
     "chipId": "HX-0915",
     "locationCode": "S4-B-L1-P19",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.1622,
+    "heightScale": 0.9,
+    "depthScale": 0.9,
     "worldPosition": [
-      2.7874,
-      0.24606,
-      -4.159143
+      2.78866,
+      0.2277,
+      -4.11839
     ],
     "chipPayload": {
       "book_id": "HX-0915",
@@ -31149,7 +32979,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 20,
-    "color": "#886554",
+    "color": "#7f5f4f",
     "keys": [
       "HX-0916",
       "HX0916",
@@ -31160,11 +32990,13 @@ export const books = [
     "chipId": "HX-0916",
     "locationCode": "S4-B-L1-P20",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.0331,
+    "heightScale": 0.9,
+    "depthScale": 1.48,
     "worldPosition": [
-      2.7874,
-      0.23841,
-      -3.919714
+      2.781352,
+      0.2277,
+      -3.881292
     ],
     "chipPayload": {
       "book_id": "HX-0916",
@@ -31183,7 +33015,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 21,
-    "color": "#886554",
+    "color": "#7f5f4f",
     "keys": [
       "HX-0917",
       "HX0917",
@@ -31194,11 +33026,13 @@ export const books = [
     "chipId": "HX-0917",
     "locationCode": "S4-B-L1-P21",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.0331,
+    "heightScale": 0.9,
+    "depthScale": 1.48,
     "worldPosition": [
-      2.7874,
-      0.24606,
-      -3.680286
+      2.781352,
+      0.2277,
+      -3.658142
     ],
     "chipPayload": {
       "book_id": "HX-0917",
@@ -31217,7 +33051,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 22,
-    "color": "#886554",
+    "color": "#7f5f4f",
     "keys": [
       "HX-0918",
       "HX0918",
@@ -31228,11 +33062,13 @@ export const books = [
     "chipId": "HX-0918",
     "locationCode": "S4-B-L1-P22",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.0331,
+    "heightScale": 0.9,
+    "depthScale": 1.48,
     "worldPosition": [
-      2.7874,
-      0.24759,
-      -3.440857
+      2.781352,
+      0.2277,
+      -3.434992
     ],
     "chipPayload": {
       "book_id": "HX-0918",
@@ -31251,7 +33087,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 23,
-    "color": "#886554",
+    "color": "#6e5346",
     "keys": [
       "HX-0919",
       "HX0919",
@@ -31262,11 +33098,13 @@ export const books = [
     "chipId": "HX-0919",
     "locationCode": "S4-B-L1-P23",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 0.8394,
+    "heightScale": 0.9,
+    "depthScale": 1,
     "worldPosition": [
       2.7874,
-      0.23229,
-      -3.201429
+      0.2277,
+      -3.232762
     ],
     "chipPayload": {
       "book_id": "HX-0919",
@@ -31285,7 +33123,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 24,
-    "color": "#886554",
+    "color": "#9c735e",
     "keys": [
       "HX-0920",
       "HX0920",
@@ -31296,11 +33134,13 @@ export const books = [
     "chipId": "HX-0920",
     "locationCode": "S4-B-L1-P24",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.0977,
+    "heightScale": 1,
+    "depthScale": 0.8,
     "worldPosition": [
-      2.7874,
-      0.25218,
-      -2.962
+      2.78992,
+      0.243,
+      -3.023558
     ],
     "chipPayload": {
       "book_id": "HX-0920",
@@ -31319,7 +33159,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 25,
-    "color": "#886554",
+    "color": "#8b6756",
     "keys": [
       "音乐",
       "戏剧",
@@ -31332,11 +33172,13 @@ export const books = [
     "chipId": "HX-0921",
     "locationCode": "S4-B-L1-P25",
     "placeholder": false,
-    "heightScale": 0.95,
+    "widthScale": 0.9768,
+    "heightScale": 0.9,
+    "depthScale": 1,
     "worldPosition": [
       2.7874,
-      0.23535,
-      -2.638
+      0.2277,
+      -2.640507
     ],
     "chipPayload": {
       "book_id": "HX-0921",
@@ -31355,7 +33197,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 26,
-    "color": "#886554",
+    "color": "#7a5b4c",
     "keys": [
       "HX-0922",
       "HX0922",
@@ -31366,11 +33208,13 @@ export const books = [
     "chipId": "HX-0922",
     "locationCode": "S4-B-L1-P26",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.1599,
+    "heightScale": 1,
+    "depthScale": 0.9,
     "worldPosition": [
-      2.7874,
-      0.25218,
-      -2.405714
+      2.78866,
+      0.243,
+      -2.409741
     ],
     "chipPayload": {
       "book_id": "HX-0922",
@@ -31389,7 +33233,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 27,
-    "color": "#886554",
+    "color": "#7a5b4c",
     "keys": [
       "HX-0923",
       "HX0923",
@@ -31400,11 +33244,13 @@ export const books = [
     "chipId": "HX-0923",
     "locationCode": "S4-B-L1-P27",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.1599,
+    "heightScale": 1,
+    "depthScale": 0.9,
     "worldPosition": [
-      2.7874,
-      0.23229,
-      -2.173429
+      2.78866,
+      0.243,
+      -2.159195
     ],
     "chipPayload": {
       "book_id": "HX-0923",
@@ -31423,7 +33269,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 28,
-    "color": "#886554",
+    "color": "#7a5b4c",
     "keys": [
       "HX-0924",
       "HX0924",
@@ -31434,11 +33280,13 @@ export const books = [
     "chipId": "HX-0924",
     "locationCode": "S4-B-L1-P28",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.1599,
+    "heightScale": 1,
+    "depthScale": 0.9,
     "worldPosition": [
-      2.7874,
-      0.25218,
-      -1.941143
+      2.78866,
+      0.243,
+      -1.908649
     ],
     "chipPayload": {
       "book_id": "HX-0924",
@@ -31457,7 +33305,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 29,
-    "color": "#886554",
+    "color": "#6e5346",
     "keys": [
       "HX-0925",
       "HX0925",
@@ -31468,11 +33316,13 @@ export const books = [
     "chipId": "HX-0925",
     "locationCode": "S4-B-L1-P29",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 0.8547,
+    "heightScale": 1,
+    "depthScale": 0.9,
     "worldPosition": [
-      2.7874,
-      0.24912,
-      -1.708857
+      2.78866,
+      0.243,
+      -1.69107
     ],
     "chipPayload": {
       "book_id": "HX-0925",
@@ -31491,7 +33341,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 30,
-    "color": "#886554",
+    "color": "#8b6756",
     "keys": [
       "HX-0926",
       "HX0926",
@@ -31502,11 +33352,13 @@ export const books = [
     "chipId": "HX-0926",
     "locationCode": "S4-B-L1-P30",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 0.9768,
+    "heightScale": 1,
+    "depthScale": 1.48,
     "worldPosition": [
-      2.7874,
-      0.23841,
-      -1.476571
+      2.781352,
+      0.243,
+      -1.493271
     ],
     "chipPayload": {
       "book_id": "HX-0926",
@@ -31525,7 +33377,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 31,
-    "color": "#886554",
+    "color": "#8b6756",
     "keys": [
       "HX-0927",
       "HX0927",
@@ -31536,11 +33388,13 @@ export const books = [
     "chipId": "HX-0927",
     "locationCode": "S4-B-L1-P31",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 0.9768,
+    "heightScale": 1,
+    "depthScale": 1.48,
     "worldPosition": [
-      2.7874,
-      0.23841,
-      -1.244286
+      2.781352,
+      0.243,
+      -1.282285
     ],
     "chipPayload": {
       "book_id": "HX-0927",
@@ -31559,7 +33413,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 32,
-    "color": "#886554",
+    "color": "#916b58",
     "keys": [
       "HX-0928",
       "HX0928",
@@ -31570,11 +33424,13 @@ export const books = [
     "chipId": "HX-0928",
     "locationCode": "S4-B-L1-P32",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.0989,
+    "heightScale": 1,
+    "depthScale": 1,
     "worldPosition": [
       2.7874,
-      0.23688,
-      -1.012
+      0.243,
+      -1.058112
     ],
     "chipPayload": {
       "book_id": "HX-0928",
@@ -31593,7 +33449,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 1,
-    "color": "#886554",
+    "color": "#856352",
     "keys": [
       "HX-0929",
       "HX0929",
@@ -31604,11 +33460,13 @@ export const books = [
     "chipId": "HX-0929",
     "locationCode": "S4-B-L2-P01",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.1474,
+    "heightScale": 1,
+    "depthScale": 0.8,
     "worldPosition": [
-      2.7874,
-      0.68341,
-      -8.588
+      2.78992,
+      0.688,
+      -8.572079
     ],
     "chipPayload": {
       "book_id": "HX-0929",
@@ -31627,7 +33485,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 2,
-    "color": "#886554",
+    "color": "#856352",
     "keys": [
       "HX-0930",
       "HX0930",
@@ -31638,11 +33496,13 @@ export const books = [
     "chipId": "HX-0930",
     "locationCode": "S4-B-L2-P02",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.1474,
+    "heightScale": 1,
+    "depthScale": 0.8,
     "worldPosition": [
-      2.7874,
-      0.69565,
-      -8.355714
+      2.78992,
+      0.688,
+      -8.324236
     ],
     "chipPayload": {
       "book_id": "HX-0930",
@@ -31661,7 +33521,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 3,
-    "color": "#886554",
+    "color": "#7f5f4f",
     "keys": [
       "HX-0931",
       "HX0931",
@@ -31672,11 +33532,13 @@ export const books = [
     "chipId": "HX-0931",
     "locationCode": "S4-B-L2-P03",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 0.9562,
+    "heightScale": 1.05,
+    "depthScale": 1,
     "worldPosition": [
       2.7874,
-      0.688,
-      -8.123429
+      0.69565,
+      -8.097047
     ],
     "chipPayload": {
       "book_id": "HX-0931",
@@ -31695,7 +33557,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 4,
-    "color": "#886554",
+    "color": "#7f5f4f",
     "keys": [
       "HX-0932",
       "HX0932",
@@ -31706,11 +33568,13 @@ export const books = [
     "chipId": "HX-0932",
     "locationCode": "S4-B-L2-P04",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 0.9562,
+    "heightScale": 1.05,
+    "depthScale": 1,
     "worldPosition": [
       2.7874,
-      0.68647,
-      -7.891143
+      0.69565,
+      -7.890511
     ],
     "chipPayload": {
       "book_id": "HX-0932",
@@ -31729,7 +33593,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 5,
-    "color": "#886554",
+    "color": "#7f5f4f",
     "keys": [
       "HX-0933",
       "HX0933",
@@ -31740,11 +33604,13 @@ export const books = [
     "chipId": "HX-0933",
     "locationCode": "S4-B-L2-P05",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 0.9562,
+    "heightScale": 1.05,
+    "depthScale": 1,
     "worldPosition": [
       2.7874,
-      0.67576,
-      -7.658857
+      0.69565,
+      -7.683976
     ],
     "chipPayload": {
       "book_id": "HX-0933",
@@ -31763,7 +33629,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 6,
-    "color": "#886554",
+    "color": "#a17762",
     "keys": [
       "HX-0934",
       "HX0934",
@@ -31774,11 +33640,13 @@ export const books = [
     "chipId": "HX-0934",
     "locationCode": "S4-B-L2-P06",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.0837,
+    "heightScale": 1.05,
+    "depthScale": 1.3,
     "worldPosition": [
-      2.7874,
-      0.67882,
-      -7.426571
+      2.78362,
+      0.69565,
+      -7.463671
     ],
     "chipPayload": {
       "book_id": "HX-0934",
@@ -31797,7 +33665,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 7,
-    "color": "#886554",
+    "color": "#976f5b",
     "keys": [
       "HX-0935",
       "HX0935",
@@ -31808,11 +33676,13 @@ export const books = [
     "chipId": "HX-0935",
     "locationCode": "S4-B-L2-P07",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 0.8924,
+    "heightScale": 0.85,
+    "depthScale": 0.9,
     "worldPosition": [
-      2.7874,
-      0.67882,
-      -7.194286
+      2.78866,
+      0.66505,
+      -7.250251
     ],
     "chipPayload": {
       "book_id": "HX-0935",
@@ -31831,7 +33701,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 8,
-    "color": "#886554",
+    "color": "#745749",
     "keys": [
       "HX-0936",
       "HX0936",
@@ -31842,11 +33712,13 @@ export const books = [
     "chipId": "HX-0936",
     "locationCode": "S4-B-L2-P08",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.1474,
+    "heightScale": 0.95,
+    "depthScale": 0.9,
     "worldPosition": [
-      2.7874,
-      0.68188,
-      -6.962
+      2.78866,
+      0.68035,
+      -7.029946
     ],
     "chipPayload": {
       "book_id": "HX-0936",
@@ -31865,7 +33737,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 9,
-    "color": "#886554",
+    "color": "#a17762",
     "keys": [
       "HX-0937",
       "HX0937",
@@ -31876,11 +33748,13 @@ export const books = [
     "chipId": "HX-0937",
     "locationCode": "S4-B-L2-P09",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.0953,
+    "heightScale": 0.9,
+    "depthScale": 0.8,
     "worldPosition": [
-      2.7874,
-      0.67576,
-      -6.638
+      2.78992,
+      0.6727,
+      -6.627703
     ],
     "chipPayload": {
       "book_id": "HX-0937",
@@ -31899,7 +33773,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 10,
-    "color": "#886554",
+    "color": "#a17762",
     "keys": [
       "HX-0938",
       "HX0938",
@@ -31910,11 +33784,13 @@ export const books = [
     "chipId": "HX-0938",
     "locationCode": "S4-B-L2-P10",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.0953,
+    "heightScale": 0.9,
+    "depthScale": 0.8,
     "worldPosition": [
-      2.7874,
-      0.68035,
-      -6.398571
+      2.78992,
+      0.6727,
+      -6.39111
     ],
     "chipPayload": {
       "book_id": "HX-0938",
@@ -31933,7 +33809,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 11,
-    "color": "#886554",
+    "color": "#a17762",
     "keys": [
       "HX-0939",
       "HX0939",
@@ -31944,11 +33820,13 @@ export const books = [
     "chipId": "HX-0939",
     "locationCode": "S4-B-L2-P11",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.0953,
+    "heightScale": 0.9,
+    "depthScale": 0.8,
     "worldPosition": [
-      2.7874,
-      0.68494,
-      -6.159143
+      2.78992,
+      0.6727,
+      -6.154516
     ],
     "chipPayload": {
       "book_id": "HX-0939",
@@ -31967,7 +33845,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 12,
-    "color": "#886554",
+    "color": "#7a5b4c",
     "keys": [
       "HX-0940",
       "HX0940",
@@ -31978,11 +33856,13 @@ export const books = [
     "chipId": "HX-0940",
     "locationCode": "S4-B-L2-P12",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 0.98,
+    "heightScale": 0.8,
+    "depthScale": 0.9,
     "worldPosition": [
-      2.7874,
-      0.67576,
-      -5.919714
+      2.78866,
+      0.6574,
+      -5.930375
     ],
     "chipPayload": {
       "book_id": "HX-0940",
@@ -32001,7 +33881,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 13,
-    "color": "#886554",
+    "color": "#7a5b4c",
     "keys": [
       "HX-0941",
       "HX0941",
@@ -32012,11 +33892,13 @@ export const books = [
     "chipId": "HX-0941",
     "locationCode": "S4-B-L2-P13",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 0.98,
+    "heightScale": 0.8,
+    "depthScale": 0.9,
     "worldPosition": [
-      2.7874,
-      0.68188,
-      -5.680286
+      2.78866,
+      0.6574,
+      -5.718686
     ],
     "chipPayload": {
       "book_id": "HX-0941",
@@ -32035,7 +33917,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 14,
-    "color": "#886554",
+    "color": "#a17762",
     "keys": [
       "HX-0942",
       "HX0942",
@@ -32046,11 +33928,13 @@ export const books = [
     "chipId": "HX-0942",
     "locationCode": "S4-B-L2-P14",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.0953,
+    "heightScale": 0.85,
+    "depthScale": 1.15,
     "worldPosition": [
-      2.7874,
-      0.68494,
-      -5.440857
+      2.78551,
+      0.66505,
+      -5.494545
     ],
     "chipPayload": {
       "book_id": "HX-0942",
@@ -32069,7 +33953,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 15,
-    "color": "#886554",
+    "color": "#a17762",
     "keys": [
       "HX-0943",
       "HX0943",
@@ -32080,11 +33964,13 @@ export const books = [
     "chipId": "HX-0943",
     "locationCode": "S4-B-L2-P15",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.0953,
+    "heightScale": 0.85,
+    "depthScale": 1.15,
     "worldPosition": [
-      2.7874,
-      0.68188,
-      -5.201429
+      2.78551,
+      0.66505,
+      -5.257951
     ],
     "chipPayload": {
       "book_id": "HX-0943",
@@ -32103,7 +33989,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 16,
-    "color": "#886554",
+    "color": "#6e5346",
     "keys": [
       "HX-0944",
       "HX0944",
@@ -32114,11 +34000,13 @@ export const books = [
     "chipId": "HX-0944",
     "locationCode": "S4-B-L2-P16",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.0953,
+    "heightScale": 0.8,
+    "depthScale": 1.48,
     "worldPosition": [
-      2.7874,
-      0.69259,
-      -4.962
+      2.781352,
+      0.6574,
+      -5.021358
     ],
     "chipPayload": {
       "book_id": "HX-0944",
@@ -32137,7 +34025,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 17,
-    "color": "#886554",
+    "color": "#856352",
     "keys": [
       "HX-0945",
       "HX0945",
@@ -32148,11 +34036,13 @@ export const books = [
     "chipId": "HX-0945",
     "locationCode": "S4-B-L2-P17",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 0.9917,
+    "heightScale": 0.95,
+    "depthScale": 0.8,
     "worldPosition": [
-      2.7874,
-      0.68341,
-      -4.638
+      2.78992,
+      0.68035,
+      -4.638901
     ],
     "chipPayload": {
       "book_id": "HX-0945",
@@ -32171,7 +34061,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 18,
-    "color": "#886554",
+    "color": "#976f5b",
     "keys": [
       "HX-0946",
       "HX0946",
@@ -32182,11 +34072,13 @@ export const books = [
     "chipId": "HX-0946",
     "locationCode": "S4-B-L2-P18",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 0.9917,
+    "heightScale": 1.05,
+    "depthScale": 0.9,
     "worldPosition": [
-      2.7874,
-      0.68647,
-      -4.398571
+      2.78866,
+      0.69565,
+      -4.424702
     ],
     "chipPayload": {
       "book_id": "HX-0946",
@@ -32205,7 +34097,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 19,
-    "color": "#886554",
+    "color": "#976f5b",
     "keys": [
       "HX-0947",
       "HX0947",
@@ -32216,11 +34108,13 @@ export const books = [
     "chipId": "HX-0947",
     "locationCode": "S4-B-L2-P19",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 0.9917,
+    "heightScale": 1.05,
+    "depthScale": 0.9,
     "worldPosition": [
-      2.7874,
-      0.68341,
-      -4.159143
+      2.78866,
+      0.69565,
+      -4.210503
     ],
     "chipPayload": {
       "book_id": "HX-0947",
@@ -32239,7 +34133,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 20,
-    "color": "#886554",
+    "color": "#976f5b",
     "keys": [
       "HX-0948",
       "HX0948",
@@ -32250,11 +34144,13 @@ export const books = [
     "chipId": "HX-0948",
     "locationCode": "S4-B-L2-P20",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 0.9917,
+    "heightScale": 1.05,
+    "depthScale": 0.9,
     "worldPosition": [
-      2.7874,
-      0.68341,
-      -3.919714
+      2.78866,
+      0.69565,
+      -3.996304
     ],
     "chipPayload": {
       "book_id": "HX-0948",
@@ -32273,7 +34169,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 21,
-    "color": "#886554",
+    "color": "#7f5f4f",
     "keys": [
       "HX-0949",
       "HX0949",
@@ -32284,11 +34180,13 @@ export const books = [
     "chipId": "HX-0949",
     "locationCode": "S4-B-L2-P21",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.3458,
+    "heightScale": 0.95,
+    "depthScale": 1.15,
     "worldPosition": [
-      2.7874,
-      0.68647,
-      -3.680286
+      2.78551,
+      0.68035,
+      -3.743855
     ],
     "chipPayload": {
       "book_id": "HX-0949",
@@ -32307,7 +34205,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 22,
-    "color": "#886554",
+    "color": "#7f5f4f",
     "keys": [
       "HX-0950",
       "HX0950",
@@ -32318,11 +34216,13 @@ export const books = [
     "chipId": "HX-0950",
     "locationCode": "S4-B-L2-P22",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.3458,
+    "heightScale": 0.95,
+    "depthScale": 1.15,
     "worldPosition": [
-      2.7874,
-      0.68647,
-      -3.440857
+      2.78551,
+      0.68035,
+      -3.453156
     ],
     "chipPayload": {
       "book_id": "HX-0950",
@@ -32341,7 +34241,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 23,
-    "color": "#886554",
+    "color": "#745749",
     "keys": [
       "HX-0951",
       "HX0951",
@@ -32352,11 +34252,13 @@ export const books = [
     "chipId": "HX-0951",
     "locationCode": "S4-B-L2-P23",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 0.9917,
+    "heightScale": 1.1,
+    "depthScale": 0.8,
     "worldPosition": [
-      2.7874,
-      0.68035,
-      -3.201429
+      2.78992,
+      0.7033,
+      -3.200708
     ],
     "chipPayload": {
       "book_id": "HX-0951",
@@ -32375,7 +34277,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 24,
-    "color": "#886554",
+    "color": "#745749",
     "keys": [
       "HX-0952",
       "HX0952",
@@ -32386,11 +34288,13 @@ export const books = [
     "chipId": "HX-0952",
     "locationCode": "S4-B-L2-P24",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 0.9917,
+    "heightScale": 1.1,
+    "depthScale": 0.8,
     "worldPosition": [
-      2.7874,
-      0.69259,
-      -2.962
+      2.78992,
+      0.7033,
+      -2.986509
     ],
     "chipPayload": {
       "book_id": "HX-0952",
@@ -32409,7 +34313,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 25,
-    "color": "#886554",
+    "color": "#9c735e",
     "keys": [
       "HX-0953",
       "HX0953",
@@ -32420,11 +34324,13 @@ export const books = [
     "chipId": "HX-0953",
     "locationCode": "S4-B-L2-P25",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.0413,
+    "heightScale": 0.85,
+    "depthScale": 0.8,
     "worldPosition": [
-      2.7874,
-      0.69565,
-      -2.638
+      2.78992,
+      0.66505,
+      -2.63354
     ],
     "chipPayload": {
       "book_id": "HX-0953",
@@ -32443,7 +34349,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 26,
-    "color": "#886554",
+    "color": "#9c735e",
     "keys": [
       "HX-0954",
       "HX0954",
@@ -32454,11 +34360,13 @@ export const books = [
     "chipId": "HX-0954",
     "locationCode": "S4-B-L2-P26",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.0413,
+    "heightScale": 0.85,
+    "depthScale": 0.8,
     "worldPosition": [
-      2.7874,
-      0.68647,
-      -2.405714
+      2.78992,
+      0.66505,
+      -2.40862
     ],
     "chipPayload": {
       "book_id": "HX-0954",
@@ -32477,7 +34385,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 27,
-    "color": "#886554",
+    "color": "#976f5b",
     "keys": [
       "HX-0955",
       "HX0955",
@@ -32488,11 +34396,13 @@ export const books = [
     "chipId": "HX-0955",
     "locationCode": "S4-B-L2-P27",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.0413,
+    "heightScale": 0.9,
+    "depthScale": 1,
     "worldPosition": [
       2.7874,
-      0.67729,
-      -2.173429
+      0.6727,
+      -2.183701
     ],
     "chipPayload": {
       "book_id": "HX-0955",
@@ -32511,7 +34421,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 28,
-    "color": "#886554",
+    "color": "#976f5b",
     "keys": [
       "HX-0956",
       "HX0956",
@@ -32522,11 +34432,13 @@ export const books = [
     "chipId": "HX-0956",
     "locationCode": "S4-B-L2-P28",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.0413,
+    "heightScale": 0.9,
+    "depthScale": 1,
     "worldPosition": [
       2.7874,
-      0.68494,
-      -1.941143
+      0.6727,
+      -1.958781
     ],
     "chipPayload": {
       "book_id": "HX-0956",
@@ -32545,7 +34457,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 29,
-    "color": "#886554",
+    "color": "#976f5b",
     "keys": [
       "HX-0957",
       "HX0957",
@@ -32556,11 +34468,13 @@ export const books = [
     "chipId": "HX-0957",
     "locationCode": "S4-B-L2-P29",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.0413,
+    "heightScale": 0.9,
+    "depthScale": 1,
     "worldPosition": [
       2.7874,
-      0.69718,
-      -1.708857
+      0.6727,
+      -1.733861
     ],
     "chipPayload": {
       "book_id": "HX-0957",
@@ -32579,7 +34493,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 30,
-    "color": "#886554",
+    "color": "#7f5f4f",
     "keys": [
       "HX-0958",
       "HX0958",
@@ -32590,11 +34504,13 @@ export const books = [
     "chipId": "HX-0958",
     "locationCode": "S4-B-L2-P30",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 0.98,
+    "heightScale": 1,
+    "depthScale": 1.48,
     "worldPosition": [
-      2.7874,
-      0.67729,
-      -1.476571
+      2.781352,
+      0.688,
+      -1.515557
     ],
     "chipPayload": {
       "book_id": "HX-0958",
@@ -32613,7 +34529,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 31,
-    "color": "#886554",
+    "color": "#7f5f4f",
     "keys": [
       "HX-0959",
       "HX0959",
@@ -32624,11 +34540,13 @@ export const books = [
     "chipId": "HX-0959",
     "locationCode": "S4-B-L2-P31",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 0.98,
+    "heightScale": 1,
+    "depthScale": 1.48,
     "worldPosition": [
-      2.7874,
-      0.68188,
-      -1.244286
+      2.781352,
+      0.688,
+      -1.303868
     ],
     "chipPayload": {
       "book_id": "HX-0959",
@@ -32647,7 +34565,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 32,
-    "color": "#886554",
+    "color": "#976f5b",
     "keys": [
       "HX-0960",
       "HX0960",
@@ -32658,11 +34576,13 @@ export const books = [
     "chipId": "HX-0960",
     "locationCode": "S4-B-L2-P32",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.1638,
+    "heightScale": 0.9,
+    "depthScale": 0.9,
     "worldPosition": [
-      2.7874,
-      0.68035,
-      -1.012
+      2.78866,
+      0.6727,
+      -1.072333
     ],
     "chipPayload": {
       "book_id": "HX-0960",
@@ -32681,7 +34601,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 1,
-    "color": "#886554",
+    "color": "#976f5b",
     "keys": [
       "HX-0961",
       "HX0961",
@@ -32692,11 +34612,13 @@ export const books = [
     "chipId": "HX-0961",
     "locationCode": "S4-B-L3-P01",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.0526,
+    "heightScale": 0.9,
+    "depthScale": 1,
     "worldPosition": [
       2.7874,
-      1.19106,
-      -8.588
+      1.1727,
+      -8.582315
     ],
     "chipPayload": {
       "book_id": "HX-0961",
@@ -32715,7 +34637,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 2,
-    "color": "#886554",
+    "color": "#8b6756",
     "keys": [
       "HX-0962",
       "HX0962",
@@ -32726,11 +34648,13 @@ export const books = [
     "chipId": "HX-0962",
     "locationCode": "S4-B-L3-P02",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.1146,
+    "heightScale": 1.1,
+    "depthScale": 0.8,
     "worldPosition": [
-      2.7874,
-      1.18953,
-      -8.355714
+      2.78992,
+      1.2033,
+      -8.348257
     ],
     "chipPayload": {
       "book_id": "HX-0962",
@@ -32749,7 +34673,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 3,
-    "color": "#886554",
+    "color": "#8b6756",
     "keys": [
       "HX-0963",
       "HX0963",
@@ -32760,11 +34684,13 @@ export const books = [
     "chipId": "HX-0963",
     "locationCode": "S4-B-L3-P03",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.1146,
+    "heightScale": 1.1,
+    "depthScale": 0.8,
     "worldPosition": [
-      2.7874,
-      1.17882,
-      -8.123429
+      2.78992,
+      1.2033,
+      -8.107512
     ],
     "chipPayload": {
       "book_id": "HX-0963",
@@ -32783,7 +34709,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 4,
-    "color": "#886554",
+    "color": "#745749",
     "keys": [
       "HX-0964",
       "HX0964",
@@ -32794,11 +34720,13 @@ export const books = [
     "chipId": "HX-0964",
     "locationCode": "S4-B-L3-P04",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.1146,
+    "heightScale": 1.1,
+    "depthScale": 1.15,
     "worldPosition": [
-      2.7874,
-      1.19565,
-      -7.891143
+      2.78551,
+      1.2033,
+      -7.866767
     ],
     "chipPayload": {
       "book_id": "HX-0964",
@@ -32817,7 +34745,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 5,
-    "color": "#886554",
+    "color": "#745749",
     "keys": [
       "HX-0965",
       "HX0965",
@@ -32828,11 +34756,13 @@ export const books = [
     "chipId": "HX-0965",
     "locationCode": "S4-B-L3-P05",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.1146,
+    "heightScale": 1.1,
+    "depthScale": 1.15,
     "worldPosition": [
-      2.7874,
-      1.19565,
-      -7.658857
+      2.78551,
+      1.2033,
+      -7.626022
     ],
     "chipPayload": {
       "book_id": "HX-0965",
@@ -32851,7 +34781,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 6,
-    "color": "#886554",
+    "color": "#856352",
     "keys": [
       "HX-0966",
       "HX0966",
@@ -32862,11 +34792,13 @@ export const books = [
     "chipId": "HX-0966",
     "locationCode": "S4-B-L3-P06",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 0.9288,
+    "heightScale": 0.8,
+    "depthScale": 1.3,
     "worldPosition": [
-      2.7874,
-      1.18494,
-      -7.426571
+      2.78362,
+      1.1574,
+      -7.405339
     ],
     "chipPayload": {
       "book_id": "HX-0966",
@@ -32885,7 +34817,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 7,
-    "color": "#886554",
+    "color": "#976f5b",
     "keys": [
       "HX-0967",
       "HX0967",
@@ -32896,11 +34828,13 @@ export const books = [
     "chipId": "HX-0967",
     "locationCode": "S4-B-L3-P07",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 0.9907,
+    "heightScale": 1.05,
+    "depthScale": 1.3,
     "worldPosition": [
-      2.7874,
-      1.19106,
-      -7.194286
+      2.78362,
+      1.19565,
+      -7.19803
     ],
     "chipPayload": {
       "book_id": "HX-0967",
@@ -32919,7 +34853,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 8,
-    "color": "#886554",
+    "color": "#976f5b",
     "keys": [
       "HX-0968",
       "HX0968",
@@ -32930,11 +34864,13 @@ export const books = [
     "chipId": "HX-0968",
     "locationCode": "S4-B-L3-P08",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 0.9907,
+    "heightScale": 1.05,
+    "depthScale": 1.3,
     "worldPosition": [
-      2.7874,
-      1.19718,
-      -6.962
+      2.78362,
+      1.19565,
+      -6.984035
     ],
     "chipPayload": {
       "book_id": "HX-0968",
@@ -32953,7 +34889,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 9,
-    "color": "#886554",
+    "color": "#6e5346",
     "keys": [
       "HX-0969",
       "HX0969",
@@ -32964,11 +34900,13 @@ export const books = [
     "chipId": "HX-0969",
     "locationCode": "S4-B-L3-P09",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.2852,
+    "heightScale": 0.95,
+    "depthScale": 1.48,
     "worldPosition": [
-      2.7874,
-      1.18953,
-      -6.638
+      2.781352,
+      1.18035,
+      -6.607196
     ],
     "chipPayload": {
       "book_id": "HX-0969",
@@ -32987,7 +34925,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 10,
-    "color": "#886554",
+    "color": "#7a5b4c",
     "keys": [
       "HX-0970",
       "HX0970",
@@ -32998,11 +34936,13 @@ export const books = [
     "chipId": "HX-0970",
     "locationCode": "S4-B-L3-P10",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.2138,
+    "heightScale": 0.95,
+    "depthScale": 0.8,
     "worldPosition": [
-      2.7874,
-      1.18188,
-      -6.398571
+      2.78992,
+      1.18035,
+      -6.337298
     ],
     "chipPayload": {
       "book_id": "HX-0970",
@@ -33021,7 +34961,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 11,
-    "color": "#886554",
+    "color": "#7a5b4c",
     "keys": [
       "HX-0971",
       "HX0971",
@@ -33032,11 +34972,13 @@ export const books = [
     "chipId": "HX-0971",
     "locationCode": "S4-B-L3-P11",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.2138,
+    "heightScale": 0.95,
+    "depthScale": 0.8,
     "worldPosition": [
-      2.7874,
-      1.19412,
-      -6.159143
+      2.78992,
+      1.18035,
+      -6.075112
     ],
     "chipPayload": {
       "book_id": "HX-0971",
@@ -33055,7 +34997,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 12,
-    "color": "#886554",
+    "color": "#745749",
     "keys": [
       "HX-0972",
       "HX0972",
@@ -33066,11 +35008,13 @@ export const books = [
     "chipId": "HX-0972",
     "locationCode": "S4-B-L3-P12",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 0.9996,
+    "heightScale": 1,
+    "depthScale": 1.15,
     "worldPosition": [
-      2.7874,
-      1.19412,
-      -5.919714
+      2.78551,
+      1.188,
+      -5.83606
     ],
     "chipPayload": {
       "book_id": "HX-0972",
@@ -33089,7 +35033,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 13,
-    "color": "#886554",
+    "color": "#745749",
     "keys": [
       "HX-0973",
       "HX0973",
@@ -33100,11 +35044,13 @@ export const books = [
     "chipId": "HX-0973",
     "locationCode": "S4-B-L3-P13",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 0.9996,
+    "heightScale": 1,
+    "depthScale": 1.15,
     "worldPosition": [
-      2.7874,
-      1.18188,
-      -5.680286
+      2.78551,
+      1.188,
+      -5.620142
     ],
     "chipPayload": {
       "book_id": "HX-0973",
@@ -33123,7 +35069,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 14,
-    "color": "#886554",
+    "color": "#7a5b4c",
     "keys": [
       "HX-0974",
       "HX0974",
@@ -33134,11 +35080,13 @@ export const books = [
     "chipId": "HX-0974",
     "locationCode": "S4-B-L3-P14",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.071,
+    "heightScale": 0.85,
+    "depthScale": 1,
     "worldPosition": [
       2.7874,
-      1.18953,
-      -5.440857
+      1.16505,
+      -5.396512
     ],
     "chipPayload": {
       "book_id": "HX-0974",
@@ -33157,7 +35105,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 15,
-    "color": "#886554",
+    "color": "#856352",
     "keys": [
       "HX-0975",
       "HX0975",
@@ -33168,11 +35116,13 @@ export const books = [
     "chipId": "HX-0975",
     "locationCode": "S4-B-L3-P15",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 0.9282,
+    "heightScale": 0.85,
+    "depthScale": 1,
     "worldPosition": [
       2.7874,
-      1.19106,
-      -5.201429
+      1.16505,
+      -5.180594
     ],
     "chipPayload": {
       "book_id": "HX-0975",
@@ -33191,7 +35141,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 16,
-    "color": "#886554",
+    "color": "#856352",
     "keys": [
       "HX-0976",
       "HX0976",
@@ -33202,11 +35152,13 @@ export const books = [
     "chipId": "HX-0976",
     "locationCode": "S4-B-L3-P16",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 0.9282,
+    "heightScale": 0.85,
+    "depthScale": 1,
     "worldPosition": [
       2.7874,
-      1.17882,
-      -4.962
+      1.16505,
+      -4.980099
     ],
     "chipPayload": {
       "book_id": "HX-0976",
@@ -33225,7 +35177,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 17,
-    "color": "#886554",
+    "color": "#9c735e",
     "keys": [
       "HX-0977",
       "HX0977",
@@ -33236,11 +35188,13 @@ export const books = [
     "chipId": "HX-0977",
     "locationCode": "S4-B-L3-P17",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.2342,
+    "heightScale": 0.9,
+    "depthScale": 1,
     "worldPosition": [
       2.7874,
-      1.19565,
-      -4.638
+      1.1727,
+      -4.612707
     ],
     "chipPayload": {
       "book_id": "HX-0977",
@@ -33259,7 +35213,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 18,
-    "color": "#886554",
+    "color": "#6e5346",
     "keys": [
       "HX-0978",
       "HX0978",
@@ -33270,11 +35224,13 @@ export const books = [
     "chipId": "HX-0978",
     "locationCode": "S4-B-L3-P18",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 0.9438,
+    "heightScale": 0.95,
+    "depthScale": 1.15,
     "worldPosition": [
-      2.7874,
-      1.18494,
-      -4.398571
+      2.78551,
+      1.18035,
+      -4.377484
     ],
     "chipPayload": {
       "book_id": "HX-0978",
@@ -33293,7 +35249,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 19,
-    "color": "#886554",
+    "color": "#8b6756",
     "keys": [
       "HX-0979",
       "HX0979",
@@ -33304,11 +35260,13 @@ export const books = [
     "chipId": "HX-0979",
     "locationCode": "S4-B-L3-P19",
     "placeholder": true,
+    "widthScale": 1.0164,
     "heightScale": 1.05,
+    "depthScale": 0.9,
     "worldPosition": [
-      2.7874,
+      2.78866,
       1.19565,
-      -4.159143
+      -4.165783
     ],
     "chipPayload": {
       "book_id": "HX-0979",
@@ -33327,7 +35285,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 20,
-    "color": "#886554",
+    "color": "#8b6756",
     "keys": [
       "HX-0980",
       "HX0980",
@@ -33338,11 +35296,13 @@ export const books = [
     "chipId": "HX-0980",
     "locationCode": "S4-B-L3-P20",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.0164,
+    "heightScale": 1.05,
+    "depthScale": 0.9,
     "worldPosition": [
-      2.7874,
-      1.18647,
-      -3.919714
+      2.78866,
+      1.19565,
+      -3.946242
     ],
     "chipPayload": {
       "book_id": "HX-0980",
@@ -33361,7 +35321,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 21,
-    "color": "#886554",
+    "color": "#a17762",
     "keys": [
       "HX-0981",
       "HX0981",
@@ -33372,11 +35332,13 @@ export const books = [
     "chipId": "HX-0981",
     "locationCode": "S4-B-L3-P21",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.089,
+    "heightScale": 1.05,
+    "depthScale": 1.15,
     "worldPosition": [
-      2.7874,
-      1.18035,
-      -3.680286
+      2.78551,
+      1.19565,
+      -3.718859
     ],
     "chipPayload": {
       "book_id": "HX-0981",
@@ -33395,7 +35357,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 22,
-    "color": "#886554",
+    "color": "#a17762",
     "keys": [
       "HX-0982",
       "HX0982",
@@ -33406,11 +35368,13 @@ export const books = [
     "chipId": "HX-0982",
     "locationCode": "S4-B-L3-P22",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.089,
+    "heightScale": 1.05,
+    "depthScale": 1.15,
     "worldPosition": [
-      2.7874,
-      1.19106,
-      -3.440857
+      2.78551,
+      1.19565,
+      -3.483636
     ],
     "chipPayload": {
       "book_id": "HX-0982",
@@ -33429,7 +35393,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 23,
-    "color": "#886554",
+    "color": "#a17762",
     "keys": [
       "HX-0983",
       "HX0983",
@@ -33440,11 +35404,13 @@ export const books = [
     "chipId": "HX-0983",
     "locationCode": "S4-B-L3-P23",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.089,
+    "heightScale": 1.05,
+    "depthScale": 1.15,
     "worldPosition": [
-      2.7874,
-      1.18188,
-      -3.201429
+      2.78551,
+      1.19565,
+      -3.248413
     ],
     "chipPayload": {
       "book_id": "HX-0983",
@@ -33463,7 +35429,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 24,
-    "color": "#886554",
+    "color": "#856352",
     "keys": [
       "HX-0984",
       "HX0984",
@@ -33474,11 +35440,13 @@ export const books = [
     "chipId": "HX-0984",
     "locationCode": "S4-B-L3-P24",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.089,
+    "heightScale": 0.8,
+    "depthScale": 1.15,
     "worldPosition": [
-      2.7874,
-      1.17576,
-      -2.962
+      2.78551,
+      1.1574,
+      -3.01319
     ],
     "chipPayload": {
       "book_id": "HX-0984",
@@ -33497,7 +35465,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 25,
-    "color": "#886554",
+    "color": "#6e5346",
     "keys": [
       "HX-0985",
       "HX0985",
@@ -33508,11 +35476,13 @@ export const books = [
     "chipId": "HX-0985",
     "locationCode": "S4-B-L3-P25",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.1396,
+    "heightScale": 0.85,
+    "depthScale": 1.48,
     "worldPosition": [
-      2.7874,
-      1.18494,
-      -2.638
+      2.781352,
+      1.16505,
+      -2.622928
     ],
     "chipPayload": {
       "book_id": "HX-0985",
@@ -33531,7 +35501,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 26,
-    "color": "#886554",
+    "color": "#6e5346",
     "keys": [
       "HX-0986",
       "HX0986",
@@ -33542,11 +35512,13 @@ export const books = [
     "chipId": "HX-0986",
     "locationCode": "S4-B-L3-P26",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.1396,
+    "heightScale": 0.85,
+    "depthScale": 1.48,
     "worldPosition": [
-      2.7874,
-      1.18647,
-      -2.405714
+      2.781352,
+      1.16505,
+      -2.376783
     ],
     "chipPayload": {
       "book_id": "HX-0986",
@@ -33565,7 +35537,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 27,
-    "color": "#886554",
+    "color": "#7a5b4c",
     "keys": [
       "HX-0987",
       "HX0987",
@@ -33576,11 +35548,13 @@ export const books = [
     "chipId": "HX-0987",
     "locationCode": "S4-B-L3-P27",
     "placeholder": true,
+    "widthScale": 0.9971,
     "heightScale": 1,
+    "depthScale": 0.9,
     "worldPosition": [
-      2.7874,
+      2.78866,
       1.188,
-      -2.173429
+      -2.146022
     ],
     "chipPayload": {
       "book_id": "HX-0987",
@@ -33599,7 +35573,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 28,
-    "color": "#886554",
+    "color": "#7a5b4c",
     "keys": [
       "HX-0988",
       "HX0988",
@@ -33610,11 +35584,13 @@ export const books = [
     "chipId": "HX-0988",
     "locationCode": "S4-B-L3-P28",
     "placeholder": true,
+    "widthScale": 0.9971,
     "heightScale": 1,
+    "depthScale": 0.9,
     "worldPosition": [
-      2.7874,
+      2.78866,
       1.188,
-      -1.941143
+      -1.930646
     ],
     "chipPayload": {
       "book_id": "HX-0988",
@@ -33633,7 +35609,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 29,
-    "color": "#886554",
+    "color": "#7f5f4f",
     "keys": [
       "HX-0989",
       "HX0989",
@@ -33644,11 +35620,13 @@ export const books = [
     "chipId": "HX-0989",
     "locationCode": "S4-B-L3-P29",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 0.9259,
+    "heightScale": 1,
+    "depthScale": 1.48,
     "worldPosition": [
-      2.7874,
-      1.19259,
-      -1.708857
+      2.781352,
+      1.188,
+      -1.722961
     ],
     "chipPayload": {
       "book_id": "HX-0989",
@@ -33667,7 +35645,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 30,
-    "color": "#886554",
+    "color": "#7f5f4f",
     "keys": [
       "HX-0990",
       "HX0990",
@@ -33678,11 +35656,13 @@ export const books = [
     "chipId": "HX-0990",
     "locationCode": "S4-B-L3-P30",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 0.9259,
+    "heightScale": 1,
+    "depthScale": 1.48,
     "worldPosition": [
-      2.7874,
-      1.17729,
-      -1.476571
+      2.781352,
+      1.188,
+      -1.522968
     ],
     "chipPayload": {
       "book_id": "HX-0990",
@@ -33701,7 +35681,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 31,
-    "color": "#886554",
+    "color": "#7f5f4f",
     "keys": [
       "HX-0991",
       "HX0991",
@@ -33712,11 +35692,13 @@ export const books = [
     "chipId": "HX-0991",
     "locationCode": "S4-B-L3-P31",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 0.9259,
+    "heightScale": 1,
+    "depthScale": 1.48,
     "worldPosition": [
-      2.7874,
-      1.18494,
-      -1.244286
+      2.781352,
+      1.188,
+      -1.322976
     ],
     "chipPayload": {
       "book_id": "HX-0991",
@@ -33735,7 +35717,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 32,
-    "color": "#886554",
+    "color": "#9c735e",
     "keys": [
       "HX-0992",
       "HX0992",
@@ -33746,11 +35728,13 @@ export const books = [
     "chipId": "HX-0992",
     "locationCode": "S4-B-L3-P32",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.282,
+    "heightScale": 0.95,
+    "depthScale": 1.15,
     "worldPosition": [
-      2.7874,
-      1.18953,
-      -1.012
+      2.78551,
+      1.18035,
+      -1.084523
     ],
     "chipPayload": {
       "book_id": "HX-0992",
@@ -33769,7 +35753,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 1,
-    "color": "#886554",
+    "color": "#745749",
     "keys": [
       "HX-0993",
       "HX0993",
@@ -33780,11 +35764,13 @@ export const books = [
     "chipId": "HX-0993",
     "locationCode": "S4-B-L4-P01",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 0.9503,
+    "heightScale": 0.9,
+    "depthScale": 1.3,
     "worldPosition": [
-      2.7874,
-      1.688,
-      -8.588
+      2.78362,
+      1.6727,
+      -8.593368
     ],
     "chipPayload": {
       "book_id": "HX-0993",
@@ -33803,7 +35789,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 2,
-    "color": "#886554",
+    "color": "#745749",
     "keys": [
       "HX-0994",
       "HX0994",
@@ -33814,11 +35800,13 @@ export const books = [
     "chipId": "HX-0994",
     "locationCode": "S4-B-L4-P02",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 0.9503,
+    "heightScale": 0.9,
+    "depthScale": 1.3,
     "worldPosition": [
-      2.7874,
-      1.69106,
-      -8.355714
+      2.78362,
+      1.6727,
+      -8.388103
     ],
     "chipPayload": {
       "book_id": "HX-0994",
@@ -33837,7 +35825,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 3,
-    "color": "#886554",
+    "color": "#745749",
     "keys": [
       "HX-0995",
       "HX0995",
@@ -33848,11 +35836,13 @@ export const books = [
     "chipId": "HX-0995",
     "locationCode": "S4-B-L4-P03",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 0.9503,
+    "heightScale": 0.9,
+    "depthScale": 1.3,
     "worldPosition": [
-      2.7874,
-      1.68494,
-      -8.123429
+      2.78362,
+      1.6727,
+      -8.182838
     ],
     "chipPayload": {
       "book_id": "HX-0995",
@@ -33871,7 +35861,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 4,
-    "color": "#886554",
+    "color": "#9c735e",
     "keys": [
       "HX-0996",
       "HX0996",
@@ -33882,11 +35872,13 @@ export const books = [
     "chipId": "HX-0996",
     "locationCode": "S4-B-L4-P04",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.1404,
+    "heightScale": 1.05,
+    "depthScale": 0.8,
     "worldPosition": [
-      2.7874,
-      1.69259,
-      -7.891143
+      2.78992,
+      1.69565,
+      -7.957046
     ],
     "chipPayload": {
       "book_id": "HX-0996",
@@ -33905,7 +35897,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 5,
-    "color": "#886554",
+    "color": "#9c735e",
     "keys": [
       "HX-0997",
       "HX0997",
@@ -33916,11 +35908,13 @@ export const books = [
     "chipId": "HX-0997",
     "locationCode": "S4-B-L4-P05",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.1404,
+    "heightScale": 1.05,
+    "depthScale": 0.8,
     "worldPosition": [
-      2.7874,
-      1.68188,
-      -7.658857
+      2.78992,
+      1.69565,
+      -7.710728
     ],
     "chipPayload": {
       "book_id": "HX-0997",
@@ -33939,7 +35933,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 6,
-    "color": "#886554",
+    "color": "#8b6756",
     "keys": [
       "HX-0998",
       "HX0998",
@@ -33950,11 +35944,13 @@ export const books = [
     "chipId": "HX-0998",
     "locationCode": "S4-B-L4-P06",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.0137,
+    "heightScale": 1,
+    "depthScale": 0.9,
     "worldPosition": [
-      2.7874,
-      1.67576,
-      -7.426571
+      2.78866,
+      1.688,
+      -7.478095
     ],
     "chipPayload": {
       "book_id": "HX-0998",
@@ -33973,7 +35969,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 7,
-    "color": "#886554",
+    "color": "#8b6756",
     "keys": [
       "HX-0999",
       "HX0999",
@@ -33984,11 +35980,13 @@ export const books = [
     "chipId": "HX-0999",
     "locationCode": "S4-B-L4-P07",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.0137,
+    "heightScale": 1,
+    "depthScale": 0.9,
     "worldPosition": [
-      2.7874,
-      1.67576,
-      -7.194286
+      2.78866,
+      1.688,
+      -7.259145
     ],
     "chipPayload": {
       "book_id": "HX-0999",
@@ -34007,7 +36005,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 8,
-    "color": "#886554",
+    "color": "#9c735e",
     "keys": [
       "HX-1000",
       "HX1000",
@@ -34018,11 +36016,13 @@ export const books = [
     "chipId": "HX-1000",
     "locationCode": "S4-B-L4-P08",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.1404,
+    "heightScale": 0.8,
+    "depthScale": 1.15,
     "worldPosition": [
-      2.7874,
-      1.68953,
-      -6.962
+      2.78551,
+      1.6574,
+      -7.026512
     ],
     "chipPayload": {
       "book_id": "HX-1000",
@@ -34041,7 +36041,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 9,
-    "color": "#886554",
+    "color": "#7f5f4f",
     "keys": [
       "HX-1001",
       "HX1001",
@@ -34052,11 +36052,13 @@ export const books = [
     "chipId": "HX-1001",
     "locationCode": "S4-B-L4-P09",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.0209,
+    "heightScale": 1.1,
+    "depthScale": 1.15,
     "worldPosition": [
-      2.7874,
-      1.69259,
-      -6.638
+      2.78551,
+      1.7033,
+      -6.635744
     ],
     "chipPayload": {
       "book_id": "HX-1001",
@@ -34075,7 +36077,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 10,
-    "color": "#886554",
+    "color": "#7f5f4f",
     "keys": [
       "HX-1002",
       "HX1002",
@@ -34086,11 +36088,13 @@ export const books = [
     "chipId": "HX-1002",
     "locationCode": "S4-B-L4-P10",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.0209,
+    "heightScale": 1.1,
+    "depthScale": 1.15,
     "worldPosition": [
-      2.7874,
-      1.67576,
-      -6.398571
+      2.78551,
+      1.7033,
+      -6.415231
     ],
     "chipPayload": {
       "book_id": "HX-1002",
@@ -34109,7 +36113,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 11,
-    "color": "#886554",
+    "color": "#6e5346",
     "keys": [
       "HX-1003",
       "HX1003",
@@ -34120,11 +36124,13 @@ export const books = [
     "chipId": "HX-1003",
     "locationCode": "S4-B-L4-P11",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.2123,
+    "heightScale": 1,
+    "depthScale": 1.15,
     "worldPosition": [
-      2.7874,
-      1.69412,
-      -6.159143
+      2.78551,
+      1.688,
+      -6.174044
     ],
     "chipPayload": {
       "book_id": "HX-1003",
@@ -34143,7 +36149,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 12,
-    "color": "#886554",
+    "color": "#745749",
     "keys": [
       "HX-1004",
       "HX1004",
@@ -34154,11 +36160,13 @@ export const books = [
     "chipId": "HX-1004",
     "locationCode": "S4-B-L4-P12",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.1485,
+    "heightScale": 1.1,
+    "depthScale": 0.8,
     "worldPosition": [
-      2.7874,
-      1.67729,
-      -5.919714
+      2.78992,
+      1.7033,
+      -5.919076
     ],
     "chipPayload": {
       "book_id": "HX-1004",
@@ -34177,7 +36185,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 13,
-    "color": "#886554",
+    "color": "#745749",
     "keys": [
       "HX-1005",
       "HX1005",
@@ -34188,11 +36196,13 @@ export const books = [
     "chipId": "HX-1005",
     "locationCode": "S4-B-L4-P13",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.1485,
+    "heightScale": 1.1,
+    "depthScale": 0.8,
     "worldPosition": [
-      2.7874,
-      1.69412,
-      -5.680286
+      2.78992,
+      1.7033,
+      -5.670999
     ],
     "chipPayload": {
       "book_id": "HX-1005",
@@ -34211,7 +36221,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 14,
-    "color": "#886554",
+    "color": "#8b6756",
     "keys": [
       "HX-1006",
       "HX1006",
@@ -34222,11 +36232,13 @@ export const books = [
     "chipId": "HX-1006",
     "locationCode": "S4-B-L4-P14",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 0.9571,
+    "heightScale": 1.05,
+    "depthScale": 0.9,
     "worldPosition": [
-      2.7874,
-      1.69412,
-      -5.440857
+      2.78866,
+      1.69565,
+      -5.443595
     ],
     "chipPayload": {
       "book_id": "HX-1006",
@@ -34245,7 +36257,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 15,
-    "color": "#886554",
+    "color": "#7a5b4c",
     "keys": [
       "HX-1007",
       "HX1007",
@@ -34256,11 +36268,13 @@ export const books = [
     "chipId": "HX-1007",
     "locationCode": "S4-B-L4-P15",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.0209,
+    "heightScale": 1,
+    "depthScale": 1.3,
     "worldPosition": [
-      2.7874,
-      1.69412,
-      -5.201429
+      2.78362,
+      1.688,
+      -5.229973
     ],
     "chipPayload": {
       "book_id": "HX-1007",
@@ -34279,7 +36293,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 16,
-    "color": "#886554",
+    "color": "#7a5b4c",
     "keys": [
       "HX-1008",
       "HX1008",
@@ -34290,11 +36304,13 @@ export const books = [
     "chipId": "HX-1008",
     "locationCode": "S4-B-L4-P16",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.0209,
+    "heightScale": 1,
+    "depthScale": 1.3,
     "worldPosition": [
-      2.7874,
-      1.68647,
-      -4.962
+      2.78362,
+      1.688,
+      -5.00946
     ],
     "chipPayload": {
       "book_id": "HX-1008",
@@ -34313,7 +36329,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 17,
-    "color": "#886554",
+    "color": "#9c735e",
     "keys": [
       "HX-1009",
       "HX1009",
@@ -34324,11 +36340,13 @@ export const books = [
     "chipId": "HX-1009",
     "locationCode": "S4-B-L4-P17",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.0917,
+    "heightScale": 0.85,
+    "depthScale": 0.8,
     "worldPosition": [
-      2.7874,
-      1.67729,
-      -4.638
+      2.78992,
+      1.66505,
+      -4.628101
     ],
     "chipPayload": {
       "book_id": "HX-1009",
@@ -34347,7 +36365,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 18,
-    "color": "#886554",
+    "color": "#9c735e",
     "keys": [
       "HX-1010",
       "HX1010",
@@ -34358,11 +36376,13 @@ export const books = [
     "chipId": "HX-1010",
     "locationCode": "S4-B-L4-P18",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.0917,
+    "heightScale": 0.85,
+    "depthScale": 0.8,
     "worldPosition": [
-      2.7874,
-      1.68035,
-      -4.398571
+      2.78992,
+      1.66505,
+      -4.392303
     ],
     "chipPayload": {
       "book_id": "HX-1010",
@@ -34381,7 +36401,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 19,
-    "color": "#886554",
+    "color": "#9c735e",
     "keys": [
       "HX-1011",
       "HX1011",
@@ -34392,11 +36412,13 @@ export const books = [
     "chipId": "HX-1011",
     "locationCode": "S4-B-L4-P19",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.0917,
+    "heightScale": 0.85,
+    "depthScale": 0.8,
     "worldPosition": [
-      2.7874,
-      1.68494,
-      -4.159143
+      2.78992,
+      1.66505,
+      -4.156506
     ],
     "chipPayload": {
       "book_id": "HX-1011",
@@ -34415,7 +36437,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 20,
-    "color": "#886554",
+    "color": "#976f5b",
     "keys": [
       "HX-1012",
       "HX1012",
@@ -34426,11 +36448,13 @@ export const books = [
     "chipId": "HX-1012",
     "locationCode": "S4-B-L4-P20",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.0917,
+    "heightScale": 0.95,
+    "depthScale": 0.9,
     "worldPosition": [
-      2.7874,
-      1.69565,
-      -3.919714
+      2.78866,
+      1.68035,
+      -3.920708
     ],
     "chipPayload": {
       "book_id": "HX-1012",
@@ -34449,7 +36473,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 21,
-    "color": "#886554",
+    "color": "#976f5b",
     "keys": [
       "HX-1013",
       "HX1013",
@@ -34460,11 +36484,13 @@ export const books = [
     "chipId": "HX-1013",
     "locationCode": "S4-B-L4-P21",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.0917,
+    "heightScale": 0.95,
+    "depthScale": 0.9,
     "worldPosition": [
-      2.7874,
-      1.688,
-      -3.680286
+      2.78866,
+      1.68035,
+      -3.68491
     ],
     "chipPayload": {
       "book_id": "HX-1013",
@@ -34483,7 +36509,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 22,
-    "color": "#886554",
+    "color": "#976f5b",
     "keys": [
       "HX-1014",
       "HX1014",
@@ -34494,11 +36520,13 @@ export const books = [
     "chipId": "HX-1014",
     "locationCode": "S4-B-L4-P22",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.0917,
+    "heightScale": 0.95,
+    "depthScale": 0.9,
     "worldPosition": [
-      2.7874,
-      1.68953,
-      -3.440857
+      2.78866,
+      1.68035,
+      -3.449113
     ],
     "chipPayload": {
       "book_id": "HX-1014",
@@ -34517,7 +36545,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 23,
-    "color": "#886554",
+    "color": "#a17762",
     "keys": [
       "HX-1015",
       "HX1015",
@@ -34528,11 +36556,13 @@ export const books = [
     "chipId": "HX-1015",
     "locationCode": "S4-B-L4-P23",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.0137,
+    "heightScale": 1.1,
+    "depthScale": 1,
     "worldPosition": [
       2.7874,
-      1.68341,
-      -3.201429
+      1.7033,
+      -3.221736
     ],
     "chipPayload": {
       "book_id": "HX-1015",
@@ -34551,7 +36581,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 24,
-    "color": "#886554",
+    "color": "#a17762",
     "keys": [
       "HX-1016",
       "HX1016",
@@ -34562,11 +36592,13 @@ export const books = [
     "chipId": "HX-1016",
     "locationCode": "S4-B-L4-P24",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.0137,
+    "heightScale": 1.1,
+    "depthScale": 1,
     "worldPosition": [
       2.7874,
-      1.68647,
-      -2.962
+      1.7033,
+      -3.002781
     ],
     "chipPayload": {
       "book_id": "HX-1016",
@@ -34585,7 +36617,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 25,
-    "color": "#886554",
+    "color": "#856352",
     "keys": [
       "HX-1017",
       "HX1017",
@@ -34596,11 +36628,13 @@ export const books = [
     "chipId": "HX-1017",
     "locationCode": "S4-B-L4-P25",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 0.9674,
+    "heightScale": 1.05,
+    "depthScale": 0.8,
     "worldPosition": [
-      2.7874,
-      1.68035,
-      -2.638
+      2.78992,
+      1.69565,
+      -2.641523
     ],
     "chipPayload": {
       "book_id": "HX-1017",
@@ -34619,7 +36653,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 26,
-    "color": "#886554",
+    "color": "#8b6756",
     "keys": [
       "HX-1018",
       "HX1018",
@@ -34630,11 +36664,13 @@ export const books = [
     "chipId": "HX-1018",
     "locationCode": "S4-B-L4-P26",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.0883,
+    "heightScale": 0.9,
+    "depthScale": 1.48,
     "worldPosition": [
-      2.7874,
-      1.68647,
-      -2.405714
+      2.781352,
+      1.6727,
+      -2.419509
     ],
     "chipPayload": {
       "book_id": "HX-1018",
@@ -34653,7 +36689,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 27,
-    "color": "#886554",
+    "color": "#8b6756",
     "keys": [
       "HX-1019",
       "HX1019",
@@ -34664,11 +36700,13 @@ export const books = [
     "chipId": "HX-1019",
     "locationCode": "S4-B-L4-P27",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.0883,
+    "heightScale": 0.9,
+    "depthScale": 1.48,
     "worldPosition": [
-      2.7874,
-      1.68494,
-      -2.173429
+      2.781352,
+      1.6727,
+      -2.184436
     ],
     "chipPayload": {
       "book_id": "HX-1019",
@@ -34687,7 +36725,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 28,
-    "color": "#886554",
+    "color": "#6e5346",
     "keys": [
       "HX-1020",
       "HX1020",
@@ -34698,11 +36736,13 @@ export const books = [
     "chipId": "HX-1020",
     "locationCode": "S4-B-L4-P28",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.0883,
+    "heightScale": 1.1,
+    "depthScale": 1.3,
     "worldPosition": [
-      2.7874,
-      1.68035,
-      -1.941143
+      2.78362,
+      1.7033,
+      -1.949363
     ],
     "chipPayload": {
       "book_id": "HX-1020",
@@ -34721,7 +36761,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 29,
-    "color": "#886554",
+    "color": "#6e5346",
     "keys": [
       "HX-1021",
       "HX1021",
@@ -34732,11 +36772,13 @@ export const books = [
     "chipId": "HX-1021",
     "locationCode": "S4-B-L4-P29",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.0883,
+    "heightScale": 1.1,
+    "depthScale": 1.3,
     "worldPosition": [
-      2.7874,
-      1.68953,
-      -1.708857
+      2.78362,
+      1.7033,
+      -1.714289
     ],
     "chipPayload": {
       "book_id": "HX-1021",
@@ -34755,7 +36797,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 30,
-    "color": "#886554",
+    "color": "#9c735e",
     "keys": [
       "HX-1022",
       "HX1022",
@@ -34766,11 +36808,13 @@ export const books = [
     "chipId": "HX-1022",
     "locationCode": "S4-B-L4-P30",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.0278,
+    "heightScale": 1.05,
+    "depthScale": 0.8,
     "worldPosition": [
-      2.7874,
-      1.69718,
-      -1.476571
+      2.78992,
+      1.69565,
+      -1.485746
     ],
     "chipPayload": {
       "book_id": "HX-1022",
@@ -34789,7 +36833,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 31,
-    "color": "#886554",
+    "color": "#9c735e",
     "keys": [
       "HX-1023",
       "HX1023",
@@ -34800,11 +36844,13 @@ export const books = [
     "chipId": "HX-1023",
     "locationCode": "S4-B-L4-P31",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.0278,
+    "heightScale": 1.05,
+    "depthScale": 0.8,
     "worldPosition": [
-      2.7874,
-      1.67882,
-      -1.244286
+      2.78992,
+      1.69565,
+      -1.263732
     ],
     "chipPayload": {
       "book_id": "HX-1023",
@@ -34823,7 +36869,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 32,
-    "color": "#886554",
+    "color": "#9c735e",
     "keys": [
       "HX-1024",
       "HX1024",
@@ -34834,11 +36880,13 @@ export const books = [
     "chipId": "HX-1024",
     "locationCode": "S4-B-L4-P32",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.0278,
+    "heightScale": 1.05,
+    "depthScale": 0.8,
     "worldPosition": [
-      2.7874,
-      1.68647,
-      -1.012
+      2.78992,
+      1.69565,
+      -1.041718
     ],
     "chipPayload": {
       "book_id": "HX-1024",
@@ -34857,7 +36905,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 1,
-    "color": "#596879",
+    "color": "#687b90",
     "keys": [
       "HX-1025",
       "HX1025",
@@ -34868,11 +36916,13 @@ export const books = [
     "chipId": "HX-1025",
     "locationCode": "S5-A-L1-P01",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.1209,
+    "heightScale": 1,
+    "depthScale": 1.48,
     "worldPosition": [
-      6.2126,
-      0.24759,
-      -8.588
+      6.218648,
+      0.243,
+      -8.574943
     ],
     "chipPayload": {
       "book_id": "HX-1025",
@@ -34891,7 +36941,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 2,
-    "color": "#596879",
+    "color": "#687b90",
     "keys": [
       "HX-1026",
       "HX1026",
@@ -34902,11 +36952,13 @@ export const books = [
     "chipId": "HX-1026",
     "locationCode": "S5-A-L1-P02",
     "placeholder": true,
+    "widthScale": 1.1209,
     "heightScale": 1,
+    "depthScale": 1.48,
     "worldPosition": [
-      6.2126,
+      6.218648,
       0.243,
-      -8.355714
+      -8.33283
     ],
     "chipPayload": {
       "book_id": "HX-1026",
@@ -34925,7 +36977,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 3,
-    "color": "#596879",
+    "color": "#687b90",
     "keys": [
       "HX-1027",
       "HX1027",
@@ -34936,11 +36988,13 @@ export const books = [
     "chipId": "HX-1027",
     "locationCode": "S5-A-L1-P03",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.1209,
+    "heightScale": 1,
+    "depthScale": 1.48,
     "worldPosition": [
-      6.2126,
-      0.24147,
-      -8.123429
+      6.218648,
+      0.243,
+      -8.090717
     ],
     "chipPayload": {
       "book_id": "HX-1027",
@@ -34959,7 +37013,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 4,
-    "color": "#596879",
+    "color": "#5e6e81",
     "keys": [
       "HX-1028",
       "HX1028",
@@ -34970,11 +37024,13 @@ export const books = [
     "chipId": "HX-1028",
     "locationCode": "S5-A-L1-P04",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 0.9714,
+    "heightScale": 0.95,
+    "depthScale": 1,
     "worldPosition": [
       6.2126,
-      0.23841,
-      -7.891143
+      0.23535,
+      -7.864744
     ],
     "chipPayload": {
       "book_id": "HX-1028",
@@ -34993,7 +37049,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 5,
-    "color": "#596879",
+    "color": "#515e6c",
     "keys": [
       "HX-1029",
       "HX1029",
@@ -35004,11 +37060,13 @@ export const books = [
     "chipId": "HX-1029",
     "locationCode": "S5-A-L1-P05",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.0462,
+    "heightScale": 0.8,
+    "depthScale": 0.9,
     "worldPosition": [
-      6.2126,
-      0.23994,
-      -7.658857
+      6.21134,
+      0.2124,
+      -7.646842
     ],
     "chipPayload": {
       "book_id": "HX-1029",
@@ -35027,7 +37085,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 6,
-    "color": "#596879",
+    "color": "#515e6c",
     "keys": [
       "HX-1030",
       "HX1030",
@@ -35038,11 +37096,13 @@ export const books = [
     "chipId": "HX-1030",
     "locationCode": "S5-A-L1-P06",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 0.9714,
+    "heightScale": 0.8,
+    "depthScale": 1.48,
     "worldPosition": [
-      6.2126,
-      0.25065,
-      -7.426571
+      6.218648,
+      0.2124,
+      -7.42894
     ],
     "chipPayload": {
       "book_id": "HX-1030",
@@ -35061,7 +37121,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 7,
-    "color": "#596879",
+    "color": "#4a5562",
     "keys": [
       "HX-1031",
       "HX1031",
@@ -35072,11 +37132,13 @@ export const books = [
     "chipId": "HX-1031",
     "locationCode": "S5-A-L1-P07",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 0.9714,
+    "heightScale": 1.1,
+    "depthScale": 1,
     "worldPosition": [
       6.2126,
-      0.243,
-      -7.194286
+      0.2583,
+      -7.219109
     ],
     "chipPayload": {
       "book_id": "HX-1031",
@@ -35095,7 +37157,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 8,
-    "color": "#596879",
+    "color": "#4a5562",
     "keys": [
       "HX-1032",
       "HX1032",
@@ -35106,11 +37168,13 @@ export const books = [
     "chipId": "HX-1032",
     "locationCode": "S5-A-L1-P08",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 0.9714,
+    "heightScale": 1.1,
+    "depthScale": 1,
     "worldPosition": [
       6.2126,
-      0.23382,
-      -6.962
+      0.2583,
+      -7.009277
     ],
     "chipPayload": {
       "book_id": "HX-1032",
@@ -35129,7 +37193,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 9,
-    "color": "#596879",
+    "color": "#576676",
     "keys": [
       "HX-1033",
       "HX1033",
@@ -35140,11 +37204,13 @@ export const books = [
     "chipId": "HX-1033",
     "locationCode": "S5-A-L1-P09",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.0353,
+    "heightScale": 0.85,
+    "depthScale": 1.3,
     "worldPosition": [
-      6.2126,
-      0.24912,
-      -6.638
+      6.21638,
+      0.22005,
+      -6.634193
     ],
     "chipPayload": {
       "book_id": "HX-1033",
@@ -35163,7 +37229,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 10,
-    "color": "#596879",
+    "color": "#5b6a7c",
     "keys": [
       "HX-1034",
       "HX1034",
@@ -35174,11 +37240,13 @@ export const books = [
     "chipId": "HX-1034",
     "locationCode": "S5-A-L1-P10",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.1092,
+    "heightScale": 1.1,
+    "depthScale": 0.8,
     "worldPosition": [
-      6.2126,
-      0.24912,
-      -6.398571
+      6.21008,
+      0.2583,
+      -6.402592
     ],
     "chipPayload": {
       "book_id": "HX-1034",
@@ -35197,7 +37265,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 11,
-    "color": "#596879",
+    "color": "#515e6c",
     "keys": [
       "HX-1035",
       "HX1035",
@@ -35208,11 +37276,13 @@ export const books = [
     "chipId": "HX-1035",
     "locationCode": "S5-A-L1-P11",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.2571,
+    "heightScale": 1.1,
+    "depthScale": 1.3,
     "worldPosition": [
-      6.2126,
-      0.24606,
-      -6.159143
+      6.21638,
+      0.2583,
+      -6.147032
     ],
     "chipPayload": {
       "book_id": "HX-1035",
@@ -35231,7 +37301,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 12,
-    "color": "#596879",
+    "color": "#515e6c",
     "keys": [
       "HX-1036",
       "HX1036",
@@ -35242,11 +37312,13 @@ export const books = [
     "chipId": "HX-1036",
     "locationCode": "S5-A-L1-P12",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.2571,
+    "heightScale": 1.1,
+    "depthScale": 1.3,
     "worldPosition": [
-      6.2126,
-      0.23841,
-      -5.919714
+      6.21638,
+      0.2583,
+      -5.875499
     ],
     "chipPayload": {
       "book_id": "HX-1036",
@@ -35265,7 +37337,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 13,
-    "color": "#596879",
+    "color": "#515e6c",
     "keys": [
       "HX-1037",
       "HX1037",
@@ -35276,11 +37348,13 @@ export const books = [
     "chipId": "HX-1037",
     "locationCode": "S5-A-L1-P13",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 0.9613,
+    "heightScale": 0.95,
+    "depthScale": 1.3,
     "worldPosition": [
-      6.2126,
-      0.23382,
-      -5.680286
+      6.21638,
+      0.23535,
+      -5.635912
     ],
     "chipPayload": {
       "book_id": "HX-1037",
@@ -35299,7 +37373,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 14,
-    "color": "#596879",
+    "color": "#5b6a7c",
     "keys": [
       "HX-1038",
       "HX1038",
@@ -35310,11 +37384,13 @@ export const books = [
     "chipId": "HX-1038",
     "locationCode": "S5-A-L1-P14",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 0.9613,
+    "heightScale": 0.85,
+    "depthScale": 1.48,
     "worldPosition": [
-      6.2126,
-      0.24912,
-      -5.440857
+      6.218648,
+      0.22005,
+      -5.42827
     ],
     "chipPayload": {
       "book_id": "HX-1038",
@@ -35333,7 +37409,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 15,
-    "color": "#596879",
+    "color": "#5b6a7c",
     "keys": [
       "HX-1039",
       "HX1039",
@@ -35344,11 +37420,13 @@ export const books = [
     "chipId": "HX-1039",
     "locationCode": "S5-A-L1-P15",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 0.9613,
+    "heightScale": 0.85,
+    "depthScale": 1.48,
     "worldPosition": [
-      6.2126,
-      0.24453,
-      -5.201429
+      6.218648,
+      0.22005,
+      -5.220628
     ],
     "chipPayload": {
       "book_id": "HX-1039",
@@ -35367,7 +37445,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 16,
-    "color": "#596879",
+    "color": "#515e6c",
     "keys": [
       "HX-1040",
       "HX1040",
@@ -35378,11 +37456,13 @@ export const books = [
     "chipId": "HX-1040",
     "locationCode": "S5-A-L1-P16",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.0353,
+    "heightScale": 1.1,
+    "depthScale": 1.3,
     "worldPosition": [
-      6.2126,
-      0.23535,
-      -4.962
+      6.21638,
+      0.2583,
+      -5.004999
     ],
     "chipPayload": {
       "book_id": "HX-1040",
@@ -35401,7 +37481,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 17,
-    "color": "#596879",
+    "color": "#65778b",
     "keys": [
       "HX-1041",
       "HX1041",
@@ -35412,11 +37492,13 @@ export const books = [
     "chipId": "HX-1041",
     "locationCode": "S5-A-L1-P17",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.2653,
+    "heightScale": 0.9,
+    "depthScale": 1.15,
     "worldPosition": [
-      6.2126,
-      0.24606,
-      -4.638
+      6.21449,
+      0.2277,
+      -4.609347
     ],
     "chipPayload": {
       "book_id": "HX-1041",
@@ -35435,7 +37517,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 18,
-    "color": "#596879",
+    "color": "#65778b",
     "keys": [
       "HX-1042",
       "HX1042",
@@ -35446,11 +37528,13 @@ export const books = [
     "chipId": "HX-1042",
     "locationCode": "S5-A-L1-P18",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.2653,
+    "heightScale": 0.9,
+    "depthScale": 1.15,
     "worldPosition": [
-      6.2126,
-      0.243,
-      -4.398571
+      6.21449,
+      0.2277,
+      -4.336041
     ],
     "chipPayload": {
       "book_id": "HX-1042",
@@ -35469,7 +37553,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 19,
-    "color": "#596879",
+    "color": "#515e6c",
     "keys": [
       "HX-1043",
       "HX1043",
@@ -35480,11 +37564,13 @@ export const books = [
     "chipId": "HX-1043",
     "locationCode": "S5-A-L1-P19",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 0.9138,
+    "heightScale": 0.9,
+    "depthScale": 1.48,
     "worldPosition": [
-      6.2126,
-      0.23994,
-      -4.159143
+      6.218648,
+      0.2277,
+      -4.100694
     ],
     "chipPayload": {
       "book_id": "HX-1043",
@@ -35503,7 +37589,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 20,
-    "color": "#596879",
+    "color": "#65778b",
     "keys": [
       "HX-1044",
       "HX1044",
@@ -35514,11 +37600,13 @@ export const books = [
     "chipId": "HX-1044",
     "locationCode": "S5-A-L1-P20",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.0544,
+    "heightScale": 0.9,
+    "depthScale": 0.8,
     "worldPosition": [
-      6.2126,
-      0.23688,
-      -3.919714
+      6.21008,
+      0.2277,
+      -3.888123
     ],
     "chipPayload": {
       "book_id": "HX-1044",
@@ -35537,7 +37625,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 21,
-    "color": "#596879",
+    "color": "#65778b",
     "keys": [
       "HX-1045",
       "HX1045",
@@ -35548,11 +37636,13 @@ export const books = [
     "chipId": "HX-1045",
     "locationCode": "S5-A-L1-P21",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 0.9841,
+    "heightScale": 1.05,
+    "depthScale": 1.48,
     "worldPosition": [
-      6.2126,
-      0.23382,
-      -3.680286
+      6.218648,
+      0.25065,
+      -3.667959
     ],
     "chipPayload": {
       "book_id": "HX-1045",
@@ -35571,7 +37661,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 22,
-    "color": "#596879",
+    "color": "#65778b",
     "keys": [
       "HX-1046",
       "HX1046",
@@ -35582,11 +37672,13 @@ export const books = [
     "chipId": "HX-1046",
     "locationCode": "S5-A-L1-P22",
     "placeholder": true,
+    "widthScale": 0.9841,
     "heightScale": 1.05,
+    "depthScale": 1.48,
     "worldPosition": [
-      6.2126,
+      6.218648,
       0.25065,
-      -3.440857
+      -3.455388
     ],
     "chipPayload": {
       "book_id": "HX-1046",
@@ -35605,7 +37697,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 23,
-    "color": "#596879",
+    "color": "#65778b",
     "keys": [
       "HX-1047",
       "HX1047",
@@ -35616,11 +37708,13 @@ export const books = [
     "chipId": "HX-1047",
     "locationCode": "S5-A-L1-P23",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 0.9841,
+    "heightScale": 1.05,
+    "depthScale": 1.48,
     "worldPosition": [
-      6.2126,
-      0.24759,
-      -3.201429
+      6.218648,
+      0.25065,
+      -3.242816
     ],
     "chipPayload": {
       "book_id": "HX-1047",
@@ -35639,7 +37733,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 24,
-    "color": "#596879",
+    "color": "#617286",
     "keys": [
       "HX-1048",
       "HX1048",
@@ -35650,11 +37744,13 @@ export const books = [
     "chipId": "HX-1048",
     "locationCode": "S5-A-L1-P24",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.195,
+    "heightScale": 1,
+    "depthScale": 0.9,
     "worldPosition": [
-      6.2126,
-      0.23994,
-      -2.962
+      6.21134,
+      0.243,
+      -3.007469
     ],
     "chipPayload": {
       "book_id": "HX-1048",
@@ -35673,7 +37769,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 25,
-    "color": "#596879",
+    "color": "#5b6a7c",
     "keys": [
       "HX-1049",
       "HX1049",
@@ -35684,11 +37780,13 @@ export const books = [
     "chipId": "HX-1049",
     "locationCode": "S5-A-L1-P25",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.0012,
+    "heightScale": 1.05,
+    "depthScale": 1.3,
     "worldPosition": [
-      6.2126,
-      0.24147,
-      -2.638
+      6.21638,
+      0.25065,
+      -2.63787
     ],
     "chipPayload": {
       "book_id": "HX-1049",
@@ -35707,7 +37805,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 26,
-    "color": "#596879",
+    "color": "#5b6a7c",
     "keys": [
       "HX-1050",
       "HX1050",
@@ -35718,11 +37816,13 @@ export const books = [
     "chipId": "HX-1050",
     "locationCode": "S5-A-L1-P26",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.0012,
+    "heightScale": 1.05,
+    "depthScale": 1.3,
     "worldPosition": [
-      6.2126,
-      0.24147,
-      -2.405714
+      6.21638,
+      0.25065,
+      -2.421611
     ],
     "chipPayload": {
       "book_id": "HX-1050",
@@ -35741,7 +37841,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 27,
-    "color": "#596879",
+    "color": "#576676",
     "keys": [
       "HX-1051",
       "HX1051",
@@ -35752,11 +37852,13 @@ export const books = [
     "chipId": "HX-1051",
     "locationCode": "S5-A-L1-P27",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.0012,
+    "heightScale": 0.85,
+    "depthScale": 1.48,
     "worldPosition": [
-      6.2126,
-      0.23994,
-      -2.173429
+      6.218648,
+      0.22005,
+      -2.205352
     ],
     "chipPayload": {
       "book_id": "HX-1051",
@@ -35775,7 +37877,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 28,
-    "color": "#596879",
+    "color": "#576676",
     "keys": [
       "HX-1052",
       "HX1052",
@@ -35786,11 +37888,13 @@ export const books = [
     "chipId": "HX-1052",
     "locationCode": "S5-A-L1-P28",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.0012,
+    "heightScale": 0.85,
+    "depthScale": 1.48,
     "worldPosition": [
-      6.2126,
-      0.25065,
-      -1.941143
+      6.218648,
+      0.22005,
+      -1.989093
     ],
     "chipPayload": {
       "book_id": "HX-1052",
@@ -35809,7 +37913,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 29,
-    "color": "#596879",
+    "color": "#576676",
     "keys": [
       "HX-1053",
       "HX1053",
@@ -35820,11 +37924,13 @@ export const books = [
     "chipId": "HX-1053",
     "locationCode": "S5-A-L1-P29",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.1347,
+    "heightScale": 0.85,
+    "depthScale": 1.15,
     "worldPosition": [
-      6.2126,
-      0.23076,
-      -1.708857
+      6.21449,
+      0.22005,
+      -1.758417
     ],
     "chipPayload": {
       "book_id": "HX-1053",
@@ -35843,7 +37949,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 30,
-    "color": "#596879",
+    "color": "#576676",
     "keys": [
       "HX-1054",
       "HX1054",
@@ -35854,11 +37960,13 @@ export const books = [
     "chipId": "HX-1054",
     "locationCode": "S5-A-L1-P30",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.1347,
+    "heightScale": 0.85,
+    "depthScale": 1.15,
     "worldPosition": [
-      6.2126,
-      0.23841,
-      -1.476571
+      6.21449,
+      0.22005,
+      -1.513323
     ],
     "chipPayload": {
       "book_id": "HX-1054",
@@ -35877,7 +37985,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 31,
-    "color": "#596879",
+    "color": "#576676",
     "keys": [
       "HX-1055",
       "HX1055",
@@ -35888,11 +37996,13 @@ export const books = [
     "chipId": "HX-1055",
     "locationCode": "S5-A-L1-P31",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.0679,
+    "heightScale": 0.8,
+    "depthScale": 1,
     "worldPosition": [
       6.2126,
-      0.243,
-      -1.244286
+      0.2124,
+      -1.275438
     ],
     "chipPayload": {
       "book_id": "HX-1055",
@@ -35911,7 +38021,7 @@ export const books = [
     "side": "A",
     "layer": 1,
     "slot": 32,
-    "color": "#596879",
+    "color": "#617286",
     "keys": [
       "HX-1056",
       "HX1056",
@@ -35922,11 +38032,13 @@ export const books = [
     "chipId": "HX-1056",
     "locationCode": "S5-A-L1-P32",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.0012,
+    "heightScale": 0.9,
+    "depthScale": 1.48,
     "worldPosition": [
-      6.2126,
-      0.23076,
-      -1.012
+      6.218648,
+      0.2277,
+      -1.051971
     ],
     "chipPayload": {
       "book_id": "HX-1056",
@@ -35945,7 +38057,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 1,
-    "color": "#596879",
+    "color": "#65778b",
     "keys": [
       "HX-1057",
       "HX1057",
@@ -35956,11 +38068,13 @@ export const books = [
     "chipId": "HX-1057",
     "locationCode": "S5-A-L2-P01",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 0.9478,
+    "heightScale": 0.9,
+    "depthScale": 1.15,
     "worldPosition": [
-      6.2126,
-      0.67882,
-      -8.588
+      6.21449,
+      0.6727,
+      -8.593637
     ],
     "chipPayload": {
       "book_id": "HX-1057",
@@ -35979,7 +38093,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 2,
-    "color": "#596879",
+    "color": "#65778b",
     "keys": [
       "HX-1058",
       "HX1058",
@@ -35990,11 +38104,13 @@ export const books = [
     "chipId": "HX-1058",
     "locationCode": "S5-A-L2-P02",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 0.9478,
+    "heightScale": 0.9,
+    "depthScale": 1.15,
     "worldPosition": [
-      6.2126,
-      0.68188,
-      -8.355714
+      6.21449,
+      0.6727,
+      -8.38891
     ],
     "chipPayload": {
       "book_id": "HX-1058",
@@ -36013,7 +38129,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 3,
-    "color": "#596879",
+    "color": "#5b6a7c",
     "keys": [
       "HX-1059",
       "HX1059",
@@ -36024,11 +38140,13 @@ export const books = [
     "chipId": "HX-1059",
     "locationCode": "S5-A-L2-P03",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.0742,
+    "heightScale": 0.8,
+    "depthScale": 0.9,
     "worldPosition": [
-      6.2126,
-      0.68647,
-      -8.123429
+      6.21134,
+      0.6574,
+      -8.170536
     ],
     "chipPayload": {
       "book_id": "HX-1059",
@@ -36047,7 +38165,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 4,
-    "color": "#596879",
+    "color": "#5b6a7c",
     "keys": [
       "HX-1060",
       "HX1060",
@@ -36058,11 +38176,13 @@ export const books = [
     "chipId": "HX-1060",
     "locationCode": "S5-A-L2-P04",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.0742,
+    "heightScale": 0.8,
+    "depthScale": 0.9,
     "worldPosition": [
-      6.2126,
-      0.688,
-      -7.891143
+      6.21134,
+      0.6574,
+      -7.938513
     ],
     "chipPayload": {
       "book_id": "HX-1060",
@@ -36081,7 +38201,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 5,
-    "color": "#596879",
+    "color": "#5b6a7c",
     "keys": [
       "HX-1061",
       "HX1061",
@@ -36092,11 +38212,13 @@ export const books = [
     "chipId": "HX-1061",
     "locationCode": "S5-A-L2-P05",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.0742,
+    "heightScale": 0.8,
+    "depthScale": 0.9,
     "worldPosition": [
-      6.2126,
-      0.68341,
-      -7.658857
+      6.21134,
+      0.6574,
+      -7.706489
     ],
     "chipPayload": {
       "book_id": "HX-1061",
@@ -36115,7 +38237,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 6,
-    "color": "#596879",
+    "color": "#4d5967",
     "keys": [
       "HX-1062",
       "HX1062",
@@ -36126,11 +38248,13 @@ export const books = [
     "chipId": "HX-1062",
     "locationCode": "S5-A-L2-P06",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 0.9478,
+    "heightScale": 1.05,
+    "depthScale": 1.48,
     "worldPosition": [
-      6.2126,
-      0.69106,
-      -7.426571
+      6.218648,
+      0.69565,
+      -7.488115
     ],
     "chipPayload": {
       "book_id": "HX-1062",
@@ -36149,7 +38273,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 7,
-    "color": "#596879",
+    "color": "#4d5967",
     "keys": [
       "HX-1063",
       "HX1063",
@@ -36160,11 +38284,13 @@ export const books = [
     "chipId": "HX-1063",
     "locationCode": "S5-A-L2-P07",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.0742,
+    "heightScale": 1.05,
+    "depthScale": 0.9,
     "worldPosition": [
-      6.2126,
-      0.67729,
-      -7.194286
+      6.21134,
+      0.69565,
+      -7.26974
     ],
     "chipPayload": {
       "book_id": "HX-1063",
@@ -36183,7 +38309,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 8,
-    "color": "#596879",
+    "color": "#4d5967",
     "keys": [
       "HX-1064",
       "HX1064",
@@ -36194,11 +38320,13 @@ export const books = [
     "chipId": "HX-1064",
     "locationCode": "S5-A-L2-P08",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.1374,
+    "heightScale": 1.05,
+    "depthScale": 1,
     "worldPosition": [
       6.2126,
-      0.68953,
-      -6.962
+      0.69565,
+      -7.030892
     ],
     "chipPayload": {
       "book_id": "HX-1064",
@@ -36217,7 +38345,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 9,
-    "color": "#596879",
+    "color": "#65778b",
     "keys": [
       "HX-1065",
       "HX1065",
@@ -36228,11 +38356,13 @@ export const books = [
     "chipId": "HX-1065",
     "locationCode": "S5-A-L2-P09",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.1371,
+    "heightScale": 0.85,
+    "depthScale": 0.9,
     "worldPosition": [
-      6.2126,
-      0.68647,
-      -6.638
+      6.21134,
+      0.66505,
+      -6.623189
     ],
     "chipPayload": {
       "book_id": "HX-1065",
@@ -36251,7 +38381,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 10,
-    "color": "#596879",
+    "color": "#4a5562",
     "keys": [
       "HX-1066",
       "HX1066",
@@ -36262,11 +38392,13 @@ export const books = [
     "chipId": "HX-1066",
     "locationCode": "S5-A-L2-P10",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.1371,
+    "heightScale": 0.85,
+    "depthScale": 1.3,
     "worldPosition": [
-      6.2126,
-      0.69412,
-      -6.398571
+      6.21638,
+      0.66505,
+      -6.377568
     ],
     "chipPayload": {
       "book_id": "HX-1066",
@@ -36285,7 +38417,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 11,
-    "color": "#596879",
+    "color": "#5e6e81",
     "keys": [
       "HX-1067",
       "HX1067",
@@ -36296,11 +38428,13 @@ export const books = [
     "chipId": "HX-1067",
     "locationCode": "S5-A-L2-P11",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 0.8844,
+    "heightScale": 1.1,
+    "depthScale": 0.9,
     "worldPosition": [
-      6.2126,
-      0.68494,
-      -6.159143
+      6.21134,
+      0.7033,
+      -6.159237
     ],
     "chipPayload": {
       "book_id": "HX-1067",
@@ -36319,7 +38453,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 12,
-    "color": "#596879",
+    "color": "#65778b",
     "keys": [
       "HX-1068",
       "HX1068",
@@ -36330,11 +38464,13 @@ export const books = [
     "chipId": "HX-1068",
     "locationCode": "S5-A-L2-P12",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.1371,
+    "heightScale": 1.05,
+    "depthScale": 1.48,
     "worldPosition": [
-      6.2126,
-      0.69412,
-      -5.919714
+      6.218648,
+      0.69565,
+      -5.940907
     ],
     "chipPayload": {
       "book_id": "HX-1068",
@@ -36353,7 +38489,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 13,
-    "color": "#596879",
+    "color": "#576676",
     "keys": [
       "HX-1069",
       "HX1069",
@@ -36364,11 +38500,13 @@ export const books = [
     "chipId": "HX-1069",
     "locationCode": "S5-A-L2-P13",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.0108,
+    "heightScale": 0.9,
+    "depthScale": 0.8,
     "worldPosition": [
-      6.2126,
-      0.68035,
-      -5.680286
+      6.21008,
+      0.6727,
+      -5.708931
     ],
     "chipPayload": {
       "book_id": "HX-1069",
@@ -36387,7 +38525,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 14,
-    "color": "#596879",
+    "color": "#4a5562",
     "keys": [
       "HX-1070",
       "HX1070",
@@ -36398,11 +38536,13 @@ export const books = [
     "chipId": "HX-1070",
     "locationCode": "S5-A-L2-P14",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 0.8213,
+    "heightScale": 0.85,
+    "depthScale": 1.3,
     "worldPosition": [
-      6.2126,
-      0.68953,
-      -5.440857
+      6.21638,
+      0.66505,
+      -5.511069
     ],
     "chipPayload": {
       "book_id": "HX-1070",
@@ -36421,7 +38561,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 15,
-    "color": "#596879",
+    "color": "#4a5562",
     "keys": [
       "HX-1071",
       "HX1071",
@@ -36432,11 +38572,13 @@ export const books = [
     "chipId": "HX-1071",
     "locationCode": "S5-A-L2-P15",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.2003,
+    "heightScale": 0.9,
+    "depthScale": 1.48,
     "worldPosition": [
-      6.2126,
-      0.69565,
-      -5.201429
+      6.218648,
+      0.6727,
+      -5.292739
     ],
     "chipPayload": {
       "book_id": "HX-1071",
@@ -36455,7 +38597,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 16,
-    "color": "#596879",
+    "color": "#4a5562",
     "keys": [
       "HX-1072",
       "HX1072",
@@ -36466,11 +38608,13 @@ export const books = [
     "chipId": "HX-1072",
     "locationCode": "S5-A-L2-P16",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.2003,
+    "heightScale": 0.9,
+    "depthScale": 1.48,
     "worldPosition": [
-      6.2126,
-      0.67729,
-      -4.962
+      6.218648,
+      0.6727,
+      -5.033471
     ],
     "chipPayload": {
       "book_id": "HX-1072",
@@ -36489,7 +38633,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 17,
-    "color": "#596879",
+    "color": "#4a5562",
     "keys": [
       "HX-1073",
       "HX1073",
@@ -36500,11 +38644,13 @@ export const books = [
     "chipId": "HX-1073",
     "locationCode": "S5-A-L2-P17",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 0.8673,
+    "heightScale": 0.85,
+    "depthScale": 0.9,
     "worldPosition": [
-      6.2126,
-      0.68188,
-      -4.638
+      6.21134,
+      0.66505,
+      -4.652334
     ],
     "chipPayload": {
       "book_id": "HX-1073",
@@ -36523,7 +38669,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 18,
-    "color": "#596879",
+    "color": "#4a5562",
     "keys": [
       "HX-1074",
       "HX1074",
@@ -36534,11 +38680,13 @@ export const books = [
     "chipId": "HX-1074",
     "locationCode": "S5-A-L2-P18",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 0.8673,
+    "heightScale": 0.85,
+    "depthScale": 0.9,
     "worldPosition": [
-      6.2126,
-      0.67576,
-      -4.398571
+      6.21134,
+      0.66505,
+      -4.465001
     ],
     "chipPayload": {
       "book_id": "HX-1074",
@@ -36557,7 +38705,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 19,
-    "color": "#596879",
+    "color": "#5b6a7c",
     "keys": [
       "HX-1075",
       "HX1075",
@@ -36568,11 +38716,13 @@ export const books = [
     "chipId": "HX-1075",
     "locationCode": "S5-A-L2-P19",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.177,
+    "heightScale": 0.8,
+    "depthScale": 1,
     "worldPosition": [
       6.2126,
-      0.68035,
-      -4.159143
+      0.6574,
+      -4.244217
     ],
     "chipPayload": {
       "book_id": "HX-1075",
@@ -36591,7 +38741,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 20,
-    "color": "#596879",
+    "color": "#5b6a7c",
     "keys": [
       "HX-1076",
       "HX1076",
@@ -36602,11 +38752,13 @@ export const books = [
     "chipId": "HX-1076",
     "locationCode": "S5-A-L2-P20",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.177,
+    "heightScale": 0.8,
+    "depthScale": 1,
     "worldPosition": [
       6.2126,
-      0.68494,
-      -3.919714
+      0.6574,
+      -3.98998
     ],
     "chipPayload": {
       "book_id": "HX-1076",
@@ -36625,7 +38777,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 21,
-    "color": "#596879",
+    "color": "#5b6a7c",
     "keys": [
       "HX-1077",
       "HX1077",
@@ -36636,11 +38788,13 @@ export const books = [
     "chipId": "HX-1077",
     "locationCode": "S5-A-L2-P21",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.177,
+    "heightScale": 0.8,
+    "depthScale": 1,
     "worldPosition": [
       6.2126,
-      0.69565,
-      -3.680286
+      0.6574,
+      -3.735743
     ],
     "chipPayload": {
       "book_id": "HX-1077",
@@ -36659,7 +38813,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 22,
-    "color": "#596879",
+    "color": "#5e6e81",
     "keys": [
       "HX-1078",
       "HX1078",
@@ -36670,11 +38824,13 @@ export const books = [
     "chipId": "HX-1078",
     "locationCode": "S5-A-L2-P22",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.0531,
+    "heightScale": 1.05,
+    "depthScale": 1.15,
     "worldPosition": [
-      6.2126,
-      0.68188,
-      -3.440857
+      6.21449,
+      0.69565,
+      -3.494887
     ],
     "chipPayload": {
       "book_id": "HX-1078",
@@ -36693,7 +38849,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 23,
-    "color": "#596879",
+    "color": "#617286",
     "keys": [
       "HX-1079",
       "HX1079",
@@ -36704,11 +38860,13 @@ export const books = [
     "chipId": "HX-1079",
     "locationCode": "S5-A-L2-P23",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.1151,
+    "heightScale": 0.85,
+    "depthScale": 1.3,
     "worldPosition": [
-      6.2126,
-      0.68953,
-      -3.201429
+      6.21638,
+      0.66505,
+      -3.260721
     ],
     "chipPayload": {
       "book_id": "HX-1079",
@@ -36727,7 +38885,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 24,
-    "color": "#596879",
+    "color": "#617286",
     "keys": [
       "HX-1080",
       "HX1080",
@@ -36738,11 +38896,13 @@ export const books = [
     "chipId": "HX-1080",
     "locationCode": "S5-A-L2-P24",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.1151,
+    "heightScale": 0.85,
+    "depthScale": 1.3,
     "worldPosition": [
-      6.2126,
-      0.68188,
-      -2.962
+      6.21638,
+      0.66505,
+      -3.019865
     ],
     "chipPayload": {
       "book_id": "HX-1080",
@@ -36761,7 +38921,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 25,
-    "color": "#596879",
+    "color": "#65778b",
     "keys": [
       "HX-1081",
       "HX1081",
@@ -36772,11 +38932,13 @@ export const books = [
     "chipId": "HX-1081",
     "locationCode": "S5-A-L2-P25",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.0962,
+    "heightScale": 1.1,
+    "depthScale": 1,
     "worldPosition": [
       6.2126,
-      0.67882,
-      -2.638
+      0.7033,
+      -2.627611
     ],
     "chipPayload": {
       "book_id": "HX-1081",
@@ -36795,7 +38957,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 26,
-    "color": "#596879",
+    "color": "#65778b",
     "keys": [
       "HX-1082",
       "HX1082",
@@ -36806,11 +38968,13 @@ export const books = [
     "chipId": "HX-1082",
     "locationCode": "S5-A-L2-P26",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.0962,
+    "heightScale": 1.1,
+    "depthScale": 1,
     "worldPosition": [
       6.2126,
-      0.69106,
-      -2.405714
+      0.7033,
+      -2.390833
     ],
     "chipPayload": {
       "book_id": "HX-1082",
@@ -36829,7 +38993,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 27,
-    "color": "#596879",
+    "color": "#4d5967",
     "keys": [
       "HX-1083",
       "HX1083",
@@ -36840,11 +39004,13 @@ export const books = [
     "chipId": "HX-1083",
     "locationCode": "S5-A-L2-P27",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 0.8907,
+    "heightScale": 0.95,
+    "depthScale": 1.3,
     "worldPosition": [
-      6.2126,
-      0.69412,
-      -2.173429
+      6.21638,
+      0.68035,
+      -2.176252
     ],
     "chipPayload": {
       "book_id": "HX-1083",
@@ -36863,7 +39029,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 28,
-    "color": "#596879",
+    "color": "#4d5967",
     "keys": [
       "HX-1084",
       "HX1084",
@@ -36874,11 +39040,13 @@ export const books = [
     "chipId": "HX-1084",
     "locationCode": "S5-A-L2-P28",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 0.8907,
+    "heightScale": 0.95,
+    "depthScale": 1.3,
     "worldPosition": [
-      6.2126,
-      0.69565,
-      -1.941143
+      6.21638,
+      0.68035,
+      -1.98387
     ],
     "chipPayload": {
       "book_id": "HX-1084",
@@ -36897,7 +39065,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 29,
-    "color": "#596879",
+    "color": "#4d5967",
     "keys": [
       "HX-1085",
       "HX1085",
@@ -36908,11 +39076,13 @@ export const books = [
     "chipId": "HX-1085",
     "locationCode": "S5-A-L2-P29",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 0.8907,
+    "heightScale": 0.95,
+    "depthScale": 1.3,
     "worldPosition": [
-      6.2126,
-      0.68188,
-      -1.708857
+      6.21638,
+      0.68035,
+      -1.791488
     ],
     "chipPayload": {
       "book_id": "HX-1085",
@@ -36931,7 +39101,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 30,
-    "color": "#596879",
+    "color": "#5b6a7c",
     "keys": [
       "HX-1086",
       "HX1086",
@@ -36942,11 +39112,13 @@ export const books = [
     "chipId": "HX-1086",
     "locationCode": "S5-A-L2-P30",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.1647,
+    "heightScale": 0.9,
+    "depthScale": 1,
     "worldPosition": [
       6.2126,
-      0.68494,
-      -1.476571
+      0.6727,
+      -1.569508
     ],
     "chipPayload": {
       "book_id": "HX-1086",
@@ -36965,7 +39137,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 31,
-    "color": "#596879",
+    "color": "#4d5967",
     "keys": [
       "HX-1087",
       "HX1087",
@@ -36976,11 +39148,13 @@ export const books = [
     "chipId": "HX-1087",
     "locationCode": "S5-A-L2-P31",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.1647,
+    "heightScale": 0.8,
+    "depthScale": 1.15,
     "worldPosition": [
-      6.2126,
-      0.69259,
-      -1.244286
+      6.21449,
+      0.6574,
+      -1.317931
     ],
     "chipPayload": {
       "book_id": "HX-1087",
@@ -36999,7 +39173,7 @@ export const books = [
     "side": "A",
     "layer": 2,
     "slot": 32,
-    "color": "#596879",
+    "color": "#4d5967",
     "keys": [
       "HX-1088",
       "HX1088",
@@ -37010,11 +39184,13 @@ export const books = [
     "chipId": "HX-1088",
     "locationCode": "S5-A-L2-P32",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.1647,
+    "heightScale": 0.8,
+    "depthScale": 1.15,
     "worldPosition": [
-      6.2126,
-      0.69718,
-      -1.012
+      6.21449,
+      0.6574,
+      -1.066354
     ],
     "chipPayload": {
       "book_id": "HX-1088",
@@ -37033,7 +39209,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 1,
-    "color": "#596879",
+    "color": "#4d5967",
     "keys": [
       "HX-1089",
       "HX1089",
@@ -37044,11 +39220,13 @@ export const books = [
     "chipId": "HX-1089",
     "locationCode": "S5-A-L3-P01",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.0422,
+    "heightScale": 0.95,
+    "depthScale": 0.9,
     "worldPosition": [
-      6.2126,
-      1.18953,
-      -8.588
+      6.21134,
+      1.18035,
+      -8.583441
     ],
     "chipPayload": {
       "book_id": "HX-1089",
@@ -37067,7 +39245,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 2,
-    "color": "#596879",
+    "color": "#5b6a7c",
     "keys": [
       "HX-1090",
       "HX1090",
@@ -37078,11 +39256,13 @@ export const books = [
     "chipId": "HX-1090",
     "locationCode": "S5-A-L3-P02",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.1074,
+    "heightScale": 0.95,
+    "depthScale": 0.8,
     "worldPosition": [
-      6.2126,
-      1.19259,
-      -8.355714
+      6.21008,
+      1.18035,
+      -8.351287
     ],
     "chipPayload": {
       "book_id": "HX-1090",
@@ -37101,7 +39281,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 3,
-    "color": "#596879",
+    "color": "#5b6a7c",
     "keys": [
       "HX-1091",
       "HX1091",
@@ -37112,11 +39292,13 @@ export const books = [
     "chipId": "HX-1091",
     "locationCode": "S5-A-L3-P03",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.1074,
+    "heightScale": 0.95,
+    "depthScale": 0.8,
     "worldPosition": [
-      6.2126,
-      1.19412,
-      -8.123429
+      6.21008,
+      1.18035,
+      -8.112098
     ],
     "chipPayload": {
       "book_id": "HX-1091",
@@ -37135,7 +39317,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 4,
-    "color": "#596879",
+    "color": "#576676",
     "keys": [
       "HX-1092",
       "HX1092",
@@ -37146,11 +39328,13 @@ export const books = [
     "chipId": "HX-1092",
     "locationCode": "S5-A-L3-P04",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.1074,
+    "heightScale": 1.05,
+    "depthScale": 0.8,
     "worldPosition": [
-      6.2126,
-      1.19106,
-      -7.891143
+      6.21008,
+      1.19565,
+      -7.87291
     ],
     "chipPayload": {
       "book_id": "HX-1092",
@@ -37169,7 +39353,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 5,
-    "color": "#596879",
+    "color": "#576676",
     "keys": [
       "HX-1093",
       "HX1093",
@@ -37180,11 +39364,13 @@ export const books = [
     "chipId": "HX-1093",
     "locationCode": "S5-A-L3-P05",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.1074,
+    "heightScale": 1.05,
+    "depthScale": 0.8,
     "worldPosition": [
-      6.2126,
-      1.18953,
-      -7.658857
+      6.21008,
+      1.19565,
+      -7.633721
     ],
     "chipPayload": {
       "book_id": "HX-1093",
@@ -37203,7 +39389,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 6,
-    "color": "#596879",
+    "color": "#576676",
     "keys": [
       "HX-1094",
       "HX1094",
@@ -37214,11 +39400,13 @@ export const books = [
     "chipId": "HX-1094",
     "locationCode": "S5-A-L3-P06",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.0422,
+    "heightScale": 1.1,
+    "depthScale": 0.9,
     "worldPosition": [
-      6.2126,
-      1.18035,
-      -7.426571
+      6.21134,
+      1.2033,
+      -7.401568
     ],
     "chipPayload": {
       "book_id": "HX-1094",
@@ -37237,7 +39425,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 7,
-    "color": "#596879",
+    "color": "#576676",
     "keys": [
       "HX-1095",
       "HX1095",
@@ -37248,11 +39436,13 @@ export const books = [
     "chipId": "HX-1095",
     "locationCode": "S5-A-L3-P07",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.0422,
+    "heightScale": 1.1,
+    "depthScale": 0.9,
     "worldPosition": [
-      6.2126,
-      1.17576,
-      -7.194286
+      6.21134,
+      1.2033,
+      -7.176449
     ],
     "chipPayload": {
       "book_id": "HX-1095",
@@ -37271,7 +39461,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 8,
-    "color": "#596879",
+    "color": "#65778b",
     "keys": [
       "HX-1096",
       "HX1096",
@@ -37282,11 +39472,13 @@ export const books = [
     "chipId": "HX-1096",
     "locationCode": "S5-A-L3-P08",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 0.8468,
+    "heightScale": 0.8,
+    "depthScale": 1.48,
     "worldPosition": [
-      6.2126,
-      1.19259,
-      -6.962
+      6.218648,
+      1.1574,
+      -6.972435
     ],
     "chipPayload": {
       "book_id": "HX-1096",
@@ -37305,7 +39497,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 9,
-    "color": "#596879",
+    "color": "#5b6a7c",
     "keys": [
       "HX-1097",
       "HX1097",
@@ -37316,11 +39508,13 @@ export const books = [
     "chipId": "HX-1097",
     "locationCode": "S5-A-L3-P09",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.1134,
+    "heightScale": 0.85,
+    "depthScale": 0.8,
     "worldPosition": [
-      6.2126,
-      1.19718,
-      -6.638
+      6.21008,
+      1.16505,
+      -6.625752
     ],
     "chipPayload": {
       "book_id": "HX-1097",
@@ -37339,7 +39533,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 10,
-    "color": "#596879",
+    "color": "#5b6a7c",
     "keys": [
       "HX-1098",
       "HX1098",
@@ -37350,11 +39544,13 @@ export const books = [
     "chipId": "HX-1098",
     "locationCode": "S5-A-L3-P10",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.1134,
+    "heightScale": 0.85,
+    "depthScale": 0.8,
     "worldPosition": [
-      6.2126,
-      1.18341,
-      -6.398571
+      6.21008,
+      1.16505,
+      -6.385256
     ],
     "chipPayload": {
       "book_id": "HX-1098",
@@ -37373,7 +39569,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 11,
-    "color": "#596879",
+    "color": "#5b6a7c",
     "keys": [
       "HX-1099",
       "HX1099",
@@ -37384,11 +39580,13 @@ export const books = [
     "chipId": "HX-1099",
     "locationCode": "S5-A-L3-P11",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.1134,
+    "heightScale": 0.85,
+    "depthScale": 0.8,
     "worldPosition": [
-      6.2126,
-      1.17729,
-      -6.159143
+      6.21008,
+      1.16505,
+      -6.14476
     ],
     "chipPayload": {
       "book_id": "HX-1099",
@@ -37407,7 +39605,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 12,
-    "color": "#596879",
+    "color": "#515e6c",
     "keys": [
       "HX-1100",
       "HX1100",
@@ -37418,11 +39616,13 @@ export const books = [
     "chipId": "HX-1100",
     "locationCode": "S5-A-L3-P12",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.1789,
+    "heightScale": 1.1,
+    "depthScale": 1.48,
     "worldPosition": [
-      6.2126,
-      1.19718,
-      -5.919714
+      6.218648,
+      1.2033,
+      -5.897191
     ],
     "chipPayload": {
       "book_id": "HX-1100",
@@ -37441,7 +39641,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 13,
-    "color": "#596879",
+    "color": "#515e6c",
     "keys": [
       "HX-1101",
       "HX1101",
@@ -37452,11 +39652,13 @@ export const books = [
     "chipId": "HX-1101",
     "locationCode": "S5-A-L3-P13",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.1789,
+    "heightScale": 1.1,
+    "depthScale": 1.48,
     "worldPosition": [
-      6.2126,
-      1.188,
-      -5.680286
+      6.218648,
+      1.2033,
+      -5.642548
     ],
     "chipPayload": {
       "book_id": "HX-1101",
@@ -37475,7 +39677,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 14,
-    "color": "#596879",
+    "color": "#687b90",
     "keys": [
       "HX-1102",
       "HX1102",
@@ -37486,11 +39688,13 @@ export const books = [
     "chipId": "HX-1102",
     "locationCode": "S5-A-L3-P14",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 0.9824,
+    "heightScale": 1.1,
+    "depthScale": 1.48,
     "worldPosition": [
-      6.2126,
-      1.19565,
-      -5.440857
+      6.218648,
+      1.2033,
+      -5.409126
     ],
     "chipPayload": {
       "book_id": "HX-1102",
@@ -37509,7 +39713,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 15,
-    "color": "#596879",
+    "color": "#687b90",
     "keys": [
       "HX-1103",
       "HX1103",
@@ -37520,11 +39724,13 @@ export const books = [
     "chipId": "HX-1103",
     "locationCode": "S5-A-L3-P15",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 0.9824,
+    "heightScale": 1.1,
+    "depthScale": 1.48,
     "worldPosition": [
-      6.2126,
-      1.17882,
-      -5.201429
+      6.218648,
+      1.2033,
+      -5.196924
     ],
     "chipPayload": {
       "book_id": "HX-1103",
@@ -37543,7 +39749,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 16,
-    "color": "#596879",
+    "color": "#687b90",
     "keys": [
       "HX-1104",
       "HX1104",
@@ -37554,11 +39760,13 @@ export const books = [
     "chipId": "HX-1104",
     "locationCode": "S5-A-L3-P16",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 0.9824,
+    "heightScale": 1.1,
+    "depthScale": 1.48,
     "worldPosition": [
-      6.2126,
-      1.19106,
-      -4.962
+      6.218648,
+      1.2033,
+      -4.984722
     ],
     "chipPayload": {
       "book_id": "HX-1104",
@@ -37577,7 +39785,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 17,
-    "color": "#596879",
+    "color": "#65778b",
     "keys": [
       "HX-1105",
       "HX1105",
@@ -37588,11 +39796,13 @@ export const books = [
     "chipId": "HX-1105",
     "locationCode": "S5-A-L3-P17",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 0.9634,
+    "heightScale": 0.9,
+    "depthScale": 0.8,
     "worldPosition": [
-      6.2126,
-      1.188,
-      -4.638
+      6.21008,
+      1.1727,
+      -4.64195
     ],
     "chipPayload": {
       "book_id": "HX-1105",
@@ -37611,7 +39821,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 18,
-    "color": "#596879",
+    "color": "#65778b",
     "keys": [
       "HX-1106",
       "HX1106",
@@ -37622,11 +39832,13 @@ export const books = [
     "chipId": "HX-1106",
     "locationCode": "S5-A-L3-P18",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 0.9634,
+    "heightScale": 0.9,
+    "depthScale": 0.8,
     "worldPosition": [
-      6.2126,
-      1.18953,
-      -4.398571
+      6.21008,
+      1.1727,
+      -4.433851
     ],
     "chipPayload": {
       "book_id": "HX-1106",
@@ -37645,7 +39857,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 19,
-    "color": "#596879",
+    "color": "#65778b",
     "keys": [
       "HX-1107",
       "HX1107",
@@ -37656,11 +39868,13 @@ export const books = [
     "chipId": "HX-1107",
     "locationCode": "S5-A-L3-P19",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 0.9634,
+    "heightScale": 0.9,
+    "depthScale": 0.8,
     "worldPosition": [
-      6.2126,
-      1.18953,
-      -4.159143
+      6.21008,
+      1.1727,
+      -4.225752
     ],
     "chipPayload": {
       "book_id": "HX-1107",
@@ -37679,7 +39893,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 20,
-    "color": "#596879",
+    "color": "#617286",
     "keys": [
       "HX-1108",
       "HX1108",
@@ -37690,11 +39904,13 @@ export const books = [
     "chipId": "HX-1108",
     "locationCode": "S5-A-L3-P20",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.2599,
+    "heightScale": 1.05,
+    "depthScale": 1.48,
     "worldPosition": [
-      6.2126,
-      1.18188,
-      -3.919714
+      6.218648,
+      1.19565,
+      -3.985637
     ],
     "chipPayload": {
       "book_id": "HX-1108",
@@ -37713,7 +39929,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 21,
-    "color": "#596879",
+    "color": "#617286",
     "keys": [
       "HX-1109",
       "HX1109",
@@ -37724,11 +39940,13 @@ export const books = [
     "chipId": "HX-1109",
     "locationCode": "S5-A-L3-P21",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.2599,
+    "heightScale": 1.05,
+    "depthScale": 1.48,
     "worldPosition": [
-      6.2126,
-      1.17882,
-      -3.680286
+      6.218648,
+      1.19565,
+      -3.713507
     ],
     "chipPayload": {
       "book_id": "HX-1109",
@@ -37747,7 +39965,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 22,
-    "color": "#596879",
+    "color": "#515e6c",
     "keys": [
       "HX-1110",
       "HX1110",
@@ -37758,11 +39976,13 @@ export const books = [
     "chipId": "HX-1110",
     "locationCode": "S5-A-L3-P22",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.0375,
+    "heightScale": 0.85,
+    "depthScale": 1.15,
     "worldPosition": [
-      6.2126,
-      1.188,
-      -3.440857
+      6.21449,
+      1.16505,
+      -3.465389
     ],
     "chipPayload": {
       "book_id": "HX-1110",
@@ -37781,7 +40001,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 23,
-    "color": "#596879",
+    "color": "#515e6c",
     "keys": [
       "HX-1111",
       "HX1111",
@@ -37792,11 +40012,13 @@ export const books = [
     "chipId": "HX-1111",
     "locationCode": "S5-A-L3-P23",
     "placeholder": true,
+    "widthScale": 1.0375,
     "heightScale": 0.95,
+    "depthScale": 1.48,
     "worldPosition": [
-      6.2126,
+      6.218648,
       1.18035,
-      -3.201429
+      -3.241282
     ],
     "chipPayload": {
       "book_id": "HX-1111",
@@ -37815,7 +40037,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 24,
-    "color": "#596879",
+    "color": "#515e6c",
     "keys": [
       "HX-1112",
       "HX1112",
@@ -37826,11 +40048,13 @@ export const books = [
     "chipId": "HX-1112",
     "locationCode": "S5-A-L3-P24",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.0375,
+    "heightScale": 0.95,
+    "depthScale": 1.48,
     "worldPosition": [
-      6.2126,
-      1.18647,
-      -2.962
+      6.218648,
+      1.18035,
+      -3.017175
     ],
     "chipPayload": {
       "book_id": "HX-1112",
@@ -37849,7 +40073,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 25,
-    "color": "#596879",
+    "color": "#617286",
     "keys": [
       "HX-1113",
       "HX1113",
@@ -37860,11 +40084,13 @@ export const books = [
     "chipId": "HX-1113",
     "locationCode": "S5-A-L3-P25",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.0626,
+    "heightScale": 1.1,
+    "depthScale": 0.8,
     "worldPosition": [
-      6.2126,
-      1.18188,
-      -2.638
+      6.21008,
+      1.2033,
+      -2.631235
     ],
     "chipPayload": {
       "book_id": "HX-1113",
@@ -37883,7 +40109,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 26,
-    "color": "#596879",
+    "color": "#617286",
     "keys": [
       "三体",
       "3体",
@@ -37899,11 +40125,13 @@ export const books = [
     "chipId": "HX-1114",
     "locationCode": "S5-A-L3-P26",
     "placeholder": false,
-    "heightScale": 0.98,
+    "widthScale": 1.0626,
+    "heightScale": 1.1,
+    "depthScale": 0.8,
     "worldPosition": [
-      6.2126,
-      1.18494,
-      -2.405714
+      6.21008,
+      1.2033,
+      -2.401706
     ],
     "chipPayload": {
       "book_id": "HX-1114",
@@ -37922,7 +40150,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 27,
-    "color": "#596879",
+    "color": "#65778b",
     "keys": [
       "HX-1115",
       "HX1115",
@@ -37933,11 +40161,13 @@ export const books = [
     "chipId": "HX-1115",
     "locationCode": "S5-A-L3-P27",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.0001,
+    "heightScale": 1,
+    "depthScale": 1.15,
     "worldPosition": [
-      6.2126,
-      1.18494,
-      -2.173429
+      6.21449,
+      1.188,
+      -2.178927
     ],
     "chipPayload": {
       "book_id": "HX-1115",
@@ -37956,7 +40186,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 28,
-    "color": "#596879",
+    "color": "#65778b",
     "keys": [
       "HX-1116",
       "HX1116",
@@ -37967,11 +40197,13 @@ export const books = [
     "chipId": "HX-1116",
     "locationCode": "S5-A-L3-P28",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.0001,
+    "heightScale": 1,
+    "depthScale": 1.15,
     "worldPosition": [
-      6.2126,
-      1.19718,
-      -1.941143
+      6.21449,
+      1.188,
+      -1.9629
     ],
     "chipPayload": {
       "book_id": "HX-1116",
@@ -37990,7 +40222,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 29,
-    "color": "#596879",
+    "color": "#65778b",
     "keys": [
       "HX-1117",
       "HX1117",
@@ -38001,11 +40233,13 @@ export const books = [
     "chipId": "HX-1117",
     "locationCode": "S5-A-L3-P29",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.0001,
+    "heightScale": 1,
+    "depthScale": 1.15,
     "worldPosition": [
-      6.2126,
-      1.19718,
-      -1.708857
+      6.21449,
+      1.188,
+      -1.746872
     ],
     "chipPayload": {
       "book_id": "HX-1117",
@@ -38024,7 +40258,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 30,
-    "color": "#596879",
+    "color": "#4d5967",
     "keys": [
       "HX-1118",
       "HX1118",
@@ -38035,11 +40269,13 @@ export const books = [
     "chipId": "HX-1118",
     "locationCode": "S5-A-L3-P30",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.0626,
+    "heightScale": 1.05,
+    "depthScale": 1.3,
     "worldPosition": [
-      6.2126,
-      1.18953,
-      -1.476571
+      6.21638,
+      1.19565,
+      -1.524093
     ],
     "chipPayload": {
       "book_id": "HX-1118",
@@ -38058,7 +40294,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 31,
-    "color": "#596879",
+    "color": "#4d5967",
     "keys": [
       "HX-1119",
       "HX1119",
@@ -38069,11 +40305,13 @@ export const books = [
     "chipId": "HX-1119",
     "locationCode": "S5-A-L3-P31",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.0626,
+    "heightScale": 1.05,
+    "depthScale": 1.3,
     "worldPosition": [
-      6.2126,
-      1.19259,
-      -1.244286
+      6.21638,
+      1.19565,
+      -1.294564
     ],
     "chipPayload": {
       "book_id": "HX-1119",
@@ -38092,7 +40330,7 @@ export const books = [
     "side": "A",
     "layer": 3,
     "slot": 32,
-    "color": "#596879",
+    "color": "#4d5967",
     "keys": [
       "HX-1120",
       "HX1120",
@@ -38103,11 +40341,13 @@ export const books = [
     "chipId": "HX-1120",
     "locationCode": "S5-A-L3-P32",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.0626,
+    "heightScale": 1.05,
+    "depthScale": 1.3,
     "worldPosition": [
-      6.2126,
-      1.18188,
-      -1.012
+      6.21638,
+      1.19565,
+      -1.065034
     ],
     "chipPayload": {
       "book_id": "HX-1120",
@@ -38126,7 +40366,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 1,
-    "color": "#596879",
+    "color": "#65778b",
     "keys": [
       "HX-1121",
       "HX1121",
@@ -38137,11 +40377,13 @@ export const books = [
     "chipId": "HX-1121",
     "locationCode": "S5-A-L4-P01",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.1185,
+    "heightScale": 0.9,
+    "depthScale": 1,
     "worldPosition": [
       6.2126,
-      1.69565,
-      -8.588
+      1.6727,
+      -8.575201
     ],
     "chipPayload": {
       "book_id": "HX-1121",
@@ -38160,7 +40402,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 2,
-    "color": "#596879",
+    "color": "#65778b",
     "keys": [
       "HX-1122",
       "HX1122",
@@ -38171,11 +40413,13 @@ export const books = [
     "chipId": "HX-1122",
     "locationCode": "S5-A-L4-P02",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.1185,
+    "heightScale": 0.9,
+    "depthScale": 1,
     "worldPosition": [
       6.2126,
-      1.67729,
-      -8.355714
+      1.6727,
+      -8.333602
     ],
     "chipPayload": {
       "book_id": "HX-1122",
@@ -38194,7 +40438,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 3,
-    "color": "#596879",
+    "color": "#4a5562",
     "keys": [
       "HX-1123",
       "HX1123",
@@ -38205,11 +40449,13 @@ export const books = [
     "chipId": "HX-1123",
     "locationCode": "S5-A-L4-P03",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 0.9088,
+    "heightScale": 0.9,
+    "depthScale": 1.48,
     "worldPosition": [
-      6.2126,
-      1.67882,
-      -8.123429
+      6.218648,
+      1.6727,
+      -8.114653
     ],
     "chipPayload": {
       "book_id": "HX-1123",
@@ -38228,7 +40474,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 4,
-    "color": "#596879",
+    "color": "#4a5562",
     "keys": [
       "HX-1124",
       "HX1124",
@@ -38239,11 +40485,13 @@ export const books = [
     "chipId": "HX-1124",
     "locationCode": "S5-A-L4-P04",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 0.9088,
+    "heightScale": 0.9,
+    "depthScale": 1.48,
     "worldPosition": [
-      6.2126,
-      1.68953,
-      -7.891143
+      6.218648,
+      1.6727,
+      -7.918354
     ],
     "chipPayload": {
       "book_id": "HX-1124",
@@ -38262,7 +40510,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 5,
-    "color": "#596879",
+    "color": "#4a5562",
     "keys": [
       "HX-1125",
       "HX1125",
@@ -38273,11 +40521,13 @@ export const books = [
     "chipId": "HX-1125",
     "locationCode": "S5-A-L4-P05",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 0.9088,
+    "heightScale": 0.9,
+    "depthScale": 1.48,
     "worldPosition": [
-      6.2126,
-      1.67882,
-      -7.658857
+      6.218648,
+      1.6727,
+      -7.722055
     ],
     "chipPayload": {
       "book_id": "HX-1125",
@@ -38296,7 +40546,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 6,
-    "color": "#596879",
+    "color": "#546271",
     "keys": [
       "HX-1126",
       "HX1126",
@@ -38307,11 +40557,13 @@ export const books = [
     "chipId": "HX-1126",
     "locationCode": "S5-A-L4-P06",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.0486,
+    "heightScale": 1.1,
+    "depthScale": 0.8,
     "worldPosition": [
-      6.2126,
-      1.67882,
-      -7.426571
+      6.21008,
+      1.7033,
+      -7.510656
     ],
     "chipPayload": {
       "book_id": "HX-1126",
@@ -38330,7 +40582,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 7,
-    "color": "#596879",
+    "color": "#546271",
     "keys": [
       "HX-1127",
       "HX1127",
@@ -38341,11 +40593,13 @@ export const books = [
     "chipId": "HX-1127",
     "locationCode": "S5-A-L4-P07",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.0486,
+    "heightScale": 1.1,
+    "depthScale": 0.8,
     "worldPosition": [
-      6.2126,
-      1.68035,
-      -7.194286
+      6.21008,
+      1.7033,
+      -7.284157
     ],
     "chipPayload": {
       "book_id": "HX-1127",
@@ -38364,7 +40618,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 8,
-    "color": "#596879",
+    "color": "#515e6c",
     "keys": [
       "HX-1128",
       "HX1128",
@@ -38375,11 +40629,13 @@ export const books = [
     "chipId": "HX-1128",
     "locationCode": "S5-A-L4-P08",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.3282,
+    "heightScale": 1.1,
+    "depthScale": 0.8,
     "worldPosition": [
-      6.2126,
-      1.69565,
-      -6.962
+      6.21008,
+      1.7033,
+      -7.027458
     ],
     "chipPayload": {
       "book_id": "HX-1128",
@@ -38398,7 +40654,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 9,
-    "color": "#596879",
+    "color": "#515e6c",
     "keys": [
       "HX-1129",
       "HX1129",
@@ -38409,11 +40665,13 @@ export const books = [
     "chipId": "HX-1129",
     "locationCode": "S5-A-L4-P09",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.0569,
+    "heightScale": 0.8,
+    "depthScale": 1.3,
     "worldPosition": [
-      6.2126,
-      1.67729,
-      -6.638
+      6.21638,
+      1.6574,
+      -6.631854
     ],
     "chipPayload": {
       "book_id": "HX-1129",
@@ -38432,7 +40690,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 10,
-    "color": "#596879",
+    "color": "#515e6c",
     "keys": [
       "HX-1130",
       "HX1130",
@@ -38443,11 +40701,13 @@ export const books = [
     "chipId": "HX-1130",
     "locationCode": "S5-A-L4-P10",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.0569,
+    "heightScale": 0.8,
+    "depthScale": 1.3,
     "worldPosition": [
-      6.2126,
-      1.69259,
-      -6.398571
+      6.21638,
+      1.6574,
+      -6.403562
     ],
     "chipPayload": {
       "book_id": "HX-1130",
@@ -38466,7 +40726,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 11,
-    "color": "#596879",
+    "color": "#515e6c",
     "keys": [
       "HX-1131",
       "HX1131",
@@ -38477,11 +40737,13 @@ export const books = [
     "chipId": "HX-1131",
     "locationCode": "S5-A-L4-P11",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.0569,
+    "heightScale": 0.8,
+    "depthScale": 1.3,
     "worldPosition": [
-      6.2126,
-      1.68953,
-      -6.159143
+      6.21638,
+      1.6574,
+      -6.17527
     ],
     "chipPayload": {
       "book_id": "HX-1131",
@@ -38500,7 +40762,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 12,
-    "color": "#596879",
+    "color": "#4a5562",
     "keys": [
       "HX-1132",
       "HX1132",
@@ -38511,11 +40773,13 @@ export const books = [
     "chipId": "HX-1132",
     "locationCode": "S5-A-L4-P12",
     "placeholder": true,
+    "widthScale": 1.0569,
     "heightScale": 1,
+    "depthScale": 1.3,
     "worldPosition": [
-      6.2126,
+      6.21638,
       1.688,
-      -5.919714
+      -5.946978
     ],
     "chipPayload": {
       "book_id": "HX-1132",
@@ -38534,7 +40798,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 13,
-    "color": "#596879",
+    "color": "#546271",
     "keys": [
       "HX-1133",
       "HX1133",
@@ -38545,11 +40809,13 @@ export const books = [
     "chipId": "HX-1133",
     "locationCode": "S5-A-L4-P13",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.1274,
+    "heightScale": 1.05,
+    "depthScale": 1.3,
     "worldPosition": [
-      6.2126,
-      1.68341,
-      -5.680286
+      6.21638,
+      1.69565,
+      -5.711076
     ],
     "chipPayload": {
       "book_id": "HX-1133",
@@ -38568,7 +40834,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 14,
-    "color": "#596879",
+    "color": "#546271",
     "keys": [
       "HX-1134",
       "HX1134",
@@ -38579,11 +40845,13 @@ export const books = [
     "chipId": "HX-1134",
     "locationCode": "S5-A-L4-P14",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.1274,
+    "heightScale": 1.05,
+    "depthScale": 1.3,
     "worldPosition": [
-      6.2126,
-      1.688,
-      -5.440857
+      6.21638,
+      1.69565,
+      -5.467565
     ],
     "chipPayload": {
       "book_id": "HX-1134",
@@ -38602,7 +40870,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 15,
-    "color": "#596879",
+    "color": "#687b90",
     "keys": [
       "HX-1135",
       "HX1135",
@@ -38613,11 +40881,13 @@ export const books = [
     "chipId": "HX-1135",
     "locationCode": "S5-A-L4-P15",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.1978,
+    "heightScale": 1.1,
+    "depthScale": 0.8,
     "worldPosition": [
-      6.2126,
-      1.69259,
-      -5.201429
+      6.21008,
+      1.7033,
+      -5.216443
     ],
     "chipPayload": {
       "book_id": "HX-1135",
@@ -38636,7 +40906,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 16,
-    "color": "#596879",
+    "color": "#65778b",
     "keys": [
       "HX-1136",
       "HX1136",
@@ -38647,11 +40917,13 @@ export const books = [
     "chipId": "HX-1136",
     "locationCode": "S5-A-L4-P16",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 0.916,
+    "heightScale": 0.9,
+    "depthScale": 0.8,
     "worldPosition": [
-      6.2126,
-      1.67576,
-      -4.962
+      6.21008,
+      1.6727,
+      -4.988151
     ],
     "chipPayload": {
       "book_id": "HX-1136",
@@ -38670,7 +40942,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 17,
-    "color": "#596879",
+    "color": "#4a5562",
     "keys": [
       "HX-1137",
       "HX1137",
@@ -38681,11 +40953,13 @@ export const books = [
     "chipId": "HX-1137",
     "locationCode": "S5-A-L4-P17",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.0389,
+    "heightScale": 1.05,
+    "depthScale": 1.3,
     "worldPosition": [
-      6.2126,
-      1.67576,
-      -4.638
+      6.21638,
+      1.69565,
+      -4.633797
     ],
     "chipPayload": {
       "book_id": "HX-1137",
@@ -38704,7 +40978,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 18,
-    "color": "#596879",
+    "color": "#4a5562",
     "keys": [
       "HX-1138",
       "HX1138",
@@ -38715,11 +40989,13 @@ export const books = [
     "chipId": "HX-1138",
     "locationCode": "S5-A-L4-P18",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.0389,
+    "heightScale": 1.05,
+    "depthScale": 1.3,
     "worldPosition": [
-      6.2126,
-      1.69718,
-      -4.398571
+      6.21638,
+      1.69565,
+      -4.409392
     ],
     "chipPayload": {
       "book_id": "HX-1138",
@@ -38738,7 +41014,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 19,
-    "color": "#596879",
+    "color": "#515e6c",
     "keys": [
       "HX-1139",
       "HX1139",
@@ -38749,11 +41025,13 @@ export const books = [
     "chipId": "HX-1139",
     "locationCode": "S5-A-L4-P19",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 0.909,
+    "heightScale": 1.1,
+    "depthScale": 1.15,
     "worldPosition": [
-      6.2126,
-      1.69106,
-      -4.159143
+      6.21449,
+      1.7033,
+      -4.199013
     ],
     "chipPayload": {
       "book_id": "HX-1139",
@@ -38772,7 +41050,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 20,
-    "color": "#596879",
+    "color": "#546271",
     "keys": [
       "HX-1140",
       "HX1140",
@@ -38783,11 +41061,13 @@ export const books = [
     "chipId": "HX-1140",
     "locationCode": "S5-A-L4-P20",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.1038,
+    "heightScale": 0.8,
+    "depthScale": 1.15,
     "worldPosition": [
-      6.2126,
-      1.67576,
-      -3.919714
+      6.21449,
+      1.6574,
+      -3.98162
     ],
     "chipPayload": {
       "book_id": "HX-1140",
@@ -38806,7 +41086,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 21,
-    "color": "#596879",
+    "color": "#546271",
     "keys": [
       "HX-1141",
       "HX1141",
@@ -38817,11 +41097,13 @@ export const books = [
     "chipId": "HX-1141",
     "locationCode": "S5-A-L4-P21",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.1038,
+    "heightScale": 0.8,
+    "depthScale": 1.15,
     "worldPosition": [
-      6.2126,
-      1.68035,
-      -3.680286
+      6.21449,
+      1.6574,
+      -3.74319
     ],
     "chipPayload": {
       "book_id": "HX-1141",
@@ -38840,7 +41122,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 22,
-    "color": "#596879",
+    "color": "#546271",
     "keys": [
       "HX-1142",
       "HX1142",
@@ -38851,11 +41133,13 @@ export const books = [
     "chipId": "HX-1142",
     "locationCode": "S5-A-L4-P22",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.1038,
+    "heightScale": 0.8,
+    "depthScale": 1.15,
     "worldPosition": [
-      6.2126,
-      1.67576,
-      -3.440857
+      6.21449,
+      1.6574,
+      -3.50476
     ],
     "chipPayload": {
       "book_id": "HX-1142",
@@ -38874,7 +41158,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 23,
-    "color": "#596879",
+    "color": "#5e6e81",
     "keys": [
       "HX-1143",
       "HX1143",
@@ -38885,11 +41169,13 @@ export const books = [
     "chipId": "HX-1143",
     "locationCode": "S5-A-L4-P23",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.1038,
+    "heightScale": 1.05,
+    "depthScale": 0.9,
     "worldPosition": [
-      6.2126,
-      1.68494,
-      -3.201429
+      6.21134,
+      1.69565,
+      -3.266329
     ],
     "chipPayload": {
       "book_id": "HX-1143",
@@ -38908,7 +41194,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 24,
-    "color": "#596879",
+    "color": "#5e6e81",
     "keys": [
       "HX-1144",
       "HX1144",
@@ -38919,11 +41205,13 @@ export const books = [
     "chipId": "HX-1144",
     "locationCode": "S5-A-L4-P24",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.1038,
+    "heightScale": 1.05,
+    "depthScale": 0.9,
     "worldPosition": [
-      6.2126,
-      1.69106,
-      -2.962
+      6.21134,
+      1.69565,
+      -3.027899
     ],
     "chipPayload": {
       "book_id": "HX-1144",
@@ -38942,7 +41230,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 25,
-    "color": "#596879",
+    "color": "#5b6a7c",
     "keys": [
       "HX-1145",
       "HX1145",
@@ -38953,11 +41241,13 @@ export const books = [
     "chipId": "HX-1145",
     "locationCode": "S5-A-L4-P25",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.0718,
+    "heightScale": 1.05,
+    "depthScale": 1,
     "worldPosition": [
       6.2126,
-      1.68035,
-      -2.638
+      1.69565,
+      -2.630242
     ],
     "chipPayload": {
       "book_id": "HX-1145",
@@ -38976,7 +41266,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 26,
-    "color": "#596879",
+    "color": "#576676",
     "keys": [
       "沙丘",
       "HX-1146",
@@ -38988,11 +41278,13 @@ export const books = [
     "chipId": "HX-1146",
     "locationCode": "S5-A-L4-P26",
     "placeholder": false,
-    "heightScale": 0.92,
+    "widthScale": 1.2728,
+    "heightScale": 0.95,
+    "depthScale": 1.3,
     "worldPosition": [
-      6.2126,
-      1.67576,
-      -2.405714
+      6.21638,
+      1.68035,
+      -2.37702
     ],
     "chipPayload": {
       "book_id": "HX-1146",
@@ -39011,7 +41303,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 27,
-    "color": "#596879",
+    "color": "#687b90",
     "keys": [
       "HX-1147",
       "HX1147",
@@ -39022,11 +41314,13 @@ export const books = [
     "chipId": "HX-1147",
     "locationCode": "S5-A-L4-P27",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 0.9379,
+    "heightScale": 0.8,
+    "depthScale": 0.8,
     "worldPosition": [
-      6.2126,
-      1.67882,
-      -2.173429
+      6.21008,
+      1.6574,
+      -2.138268
     ],
     "chipPayload": {
       "book_id": "HX-1147",
@@ -39045,7 +41339,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 28,
-    "color": "#596879",
+    "color": "#687b90",
     "keys": [
       "HX-1148",
       "HX1148",
@@ -39056,11 +41350,13 @@ export const books = [
     "chipId": "HX-1148",
     "locationCode": "S5-A-L4-P28",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 0.9379,
+    "heightScale": 0.8,
+    "depthScale": 0.8,
     "worldPosition": [
-      6.2126,
-      1.68035,
-      -1.941143
+      6.21008,
+      1.6574,
+      -1.935691
     ],
     "chipPayload": {
       "book_id": "HX-1148",
@@ -39079,7 +41375,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 29,
-    "color": "#596879",
+    "color": "#687b90",
     "keys": [
       "HX-1149",
       "HX1149",
@@ -39090,11 +41386,13 @@ export const books = [
     "chipId": "HX-1149",
     "locationCode": "S5-A-L4-P29",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.0718,
+    "heightScale": 1.1,
+    "depthScale": 0.8,
     "worldPosition": [
-      6.2126,
-      1.68494,
-      -1.708857
+      6.21008,
+      1.7033,
+      -1.718644
     ],
     "chipPayload": {
       "book_id": "HX-1149",
@@ -39113,7 +41411,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 30,
-    "color": "#596879",
+    "color": "#546271",
     "keys": [
       "HX-1150",
       "HX1150",
@@ -39124,11 +41422,13 @@ export const books = [
     "chipId": "HX-1150",
     "locationCode": "S5-A-L4-P30",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.0718,
+    "heightScale": 1,
+    "depthScale": 1,
     "worldPosition": [
       6.2126,
-      1.68953,
-      -1.476571
+      1.688,
+      -1.487127
     ],
     "chipPayload": {
       "book_id": "HX-1150",
@@ -39147,7 +41447,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 31,
-    "color": "#596879",
+    "color": "#4d5967",
     "keys": [
       "HX-1151",
       "HX1151",
@@ -39158,11 +41458,13 @@ export const books = [
     "chipId": "HX-1151",
     "locationCode": "S5-A-L4-P31",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 0.9379,
+    "heightScale": 0.95,
+    "depthScale": 0.8,
     "worldPosition": [
-      6.2126,
-      1.69259,
-      -1.244286
+      6.21008,
+      1.68035,
+      -1.27008
     ],
     "chipPayload": {
       "book_id": "HX-1151",
@@ -39181,7 +41483,7 @@ export const books = [
     "side": "A",
     "layer": 4,
     "slot": 32,
-    "color": "#596879",
+    "color": "#576676",
     "keys": [
       "HX-1152",
       "HX1152",
@@ -39192,11 +41494,13 @@ export const books = [
     "chipId": "HX-1152",
     "locationCode": "S5-A-L4-P32",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.0048,
+    "heightScale": 1.05,
+    "depthScale": 1.48,
     "worldPosition": [
-      6.2126,
-      1.68647,
-      -1.012
+      6.218648,
+      1.69565,
+      -1.060268
     ],
     "chipPayload": {
       "book_id": "HX-1152",
@@ -39215,7 +41519,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 1,
-    "color": "#596879",
+    "color": "#515e6c",
     "keys": [
       "HX-1153",
       "HX1153",
@@ -39226,11 +41530,13 @@ export const books = [
     "chipId": "HX-1153",
     "locationCode": "S5-B-L1-P01",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.2765,
+    "heightScale": 1.1,
+    "depthScale": 1,
     "worldPosition": [
       5.7874,
-      0.25065,
-      -8.588
+      0.2583,
+      -8.558136
     ],
     "chipPayload": {
       "book_id": "HX-1153",
@@ -39249,7 +41555,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 2,
-    "color": "#596879",
+    "color": "#515e6c",
     "keys": [
       "HX-1154",
       "HX1154",
@@ -39260,11 +41566,13 @@ export const books = [
     "chipId": "HX-1154",
     "locationCode": "S5-B-L1-P02",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.2765,
+    "heightScale": 1.1,
+    "depthScale": 1,
     "worldPosition": [
       5.7874,
-      0.24606,
-      -8.355714
+      0.2583,
+      -8.282409
     ],
     "chipPayload": {
       "book_id": "HX-1154",
@@ -39283,7 +41591,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 3,
-    "color": "#596879",
+    "color": "#4d5967",
     "keys": [
       "HX-1155",
       "HX1155",
@@ -39294,11 +41602,13 @@ export const books = [
     "chipId": "HX-1155",
     "locationCode": "S5-B-L1-P03",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 0.9219,
+    "heightScale": 1.1,
+    "depthScale": 0.8,
     "worldPosition": [
-      5.7874,
-      0.23382,
-      -8.123429
+      5.78992,
+      0.2583,
+      -8.044978
     ],
     "chipPayload": {
       "book_id": "HX-1155",
@@ -39317,7 +41627,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 4,
-    "color": "#596879",
+    "color": "#4d5967",
     "keys": [
       "HX-1156",
       "HX1156",
@@ -39328,11 +41638,13 @@ export const books = [
     "chipId": "HX-1156",
     "locationCode": "S5-B-L1-P04",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 0.9219,
+    "heightScale": 1.1,
+    "depthScale": 0.8,
     "worldPosition": [
-      5.7874,
-      0.23535,
-      -7.891143
+      5.78992,
+      0.2583,
+      -7.845841
     ],
     "chipPayload": {
       "book_id": "HX-1156",
@@ -39351,7 +41663,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 5,
-    "color": "#596879",
+    "color": "#687b90",
     "keys": [
       "HX-1157",
       "HX1157",
@@ -39362,11 +41674,13 @@ export const books = [
     "chipId": "HX-1157",
     "locationCode": "S5-B-L1-P05",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 0.9928,
+    "heightScale": 0.85,
+    "depthScale": 0.8,
     "worldPosition": [
-      5.7874,
-      0.23229,
-      -7.658857
+      5.78992,
+      0.22005,
+      -7.639046
     ],
     "chipPayload": {
       "book_id": "HX-1157",
@@ -39385,7 +41699,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 6,
-    "color": "#596879",
+    "color": "#687b90",
     "keys": [
       "HX-1158",
       "HX1158",
@@ -39396,11 +41710,13 @@ export const books = [
     "chipId": "HX-1158",
     "locationCode": "S5-B-L1-P06",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 0.9928,
+    "heightScale": 0.85,
+    "depthScale": 0.8,
     "worldPosition": [
-      5.7874,
-      0.24606,
-      -7.426571
+      5.78992,
+      0.22005,
+      -7.424591
     ],
     "chipPayload": {
       "book_id": "HX-1158",
@@ -39419,7 +41735,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 7,
-    "color": "#596879",
+    "color": "#4d5967",
     "keys": [
       "HX-1159",
       "HX1159",
@@ -39430,11 +41746,13 @@ export const books = [
     "chipId": "HX-1159",
     "locationCode": "S5-B-L1-P07",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 0.9928,
+    "heightScale": 1.1,
+    "depthScale": 0.8,
     "worldPosition": [
-      5.7874,
-      0.24147,
-      -7.194286
+      5.78992,
+      0.2583,
+      -7.210137
     ],
     "chipPayload": {
       "book_id": "HX-1159",
@@ -39453,7 +41771,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 8,
-    "color": "#596879",
+    "color": "#4d5967",
     "keys": [
       "HX-1160",
       "HX1160",
@@ -39464,11 +41782,13 @@ export const books = [
     "chipId": "HX-1160",
     "locationCode": "S5-B-L1-P08",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 0.9928,
+    "heightScale": 1,
+    "depthScale": 0.8,
     "worldPosition": [
-      5.7874,
-      0.24759,
-      -6.962
+      5.78992,
+      0.243,
+      -6.995683
     ],
     "chipPayload": {
       "book_id": "HX-1160",
@@ -39487,7 +41807,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 9,
-    "color": "#596879",
+    "color": "#546271",
     "keys": [
       "HX-1161",
       "HX1161",
@@ -39498,11 +41818,13 @@ export const books = [
     "chipId": "HX-1161",
     "locationCode": "S5-B-L1-P09",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.1254,
+    "heightScale": 1,
+    "depthScale": 1.15,
     "worldPosition": [
-      5.7874,
-      0.23382,
-      -6.638
+      5.78551,
+      0.243,
+      -6.624456
     ],
     "chipPayload": {
       "book_id": "HX-1161",
@@ -39521,7 +41843,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 10,
-    "color": "#596879",
+    "color": "#576676",
     "keys": [
       "HX-1162",
       "HX1162",
@@ -39532,11 +41854,13 @@ export const books = [
     "chipId": "HX-1162",
     "locationCode": "S5-B-L1-P10",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.0629,
+    "heightScale": 0.9,
+    "depthScale": 1.48,
     "worldPosition": [
-      5.7874,
-      0.243,
-      -6.398571
+      5.781352,
+      0.2277,
+      -6.388121
     ],
     "chipPayload": {
       "book_id": "HX-1162",
@@ -39555,7 +41879,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 11,
-    "color": "#596879",
+    "color": "#4d5967",
     "keys": [
       "HX-1163",
       "HX1163",
@@ -39566,11 +41890,13 @@ export const books = [
     "chipId": "HX-1163",
     "locationCode": "S5-B-L1-P11",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 0.8128,
+    "heightScale": 1.05,
+    "depthScale": 1,
     "worldPosition": [
       5.7874,
-      0.23688,
-      -6.159143
+      0.25065,
+      -6.185548
     ],
     "chipPayload": {
       "book_id": "HX-1163",
@@ -39589,7 +41915,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 12,
-    "color": "#596879",
+    "color": "#515e6c",
     "keys": [
       "HX-1164",
       "HX1164",
@@ -39600,11 +41926,13 @@ export const books = [
     "chipId": "HX-1164",
     "locationCode": "S5-B-L1-P12",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.0629,
+    "heightScale": 0.85,
+    "depthScale": 1.3,
     "worldPosition": [
-      5.7874,
-      0.24759,
-      -5.919714
+      5.78362,
+      0.22005,
+      -5.982974
     ],
     "chipPayload": {
       "book_id": "HX-1164",
@@ -39623,7 +41951,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 13,
-    "color": "#596879",
+    "color": "#546271",
     "keys": [
       "HX-1165",
       "HX1165",
@@ -39634,11 +41962,13 @@ export const books = [
     "chipId": "HX-1165",
     "locationCode": "S5-B-L1-P13",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.1254,
+    "heightScale": 1,
+    "depthScale": 0.9,
     "worldPosition": [
-      5.7874,
-      0.23229,
-      -5.680286
+      5.78866,
+      0.243,
+      -5.746639
     ],
     "chipPayload": {
       "book_id": "HX-1165",
@@ -39657,7 +41987,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 14,
-    "color": "#596879",
+    "color": "#546271",
     "keys": [
       "HX-1166",
       "HX1166",
@@ -39668,11 +41998,13 @@ export const books = [
     "chipId": "HX-1166",
     "locationCode": "S5-B-L1-P14",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.1254,
+    "heightScale": 1,
+    "depthScale": 0.9,
     "worldPosition": [
-      5.7874,
-      0.23994,
-      -5.440857
+      5.78866,
+      0.243,
+      -5.503551
     ],
     "chipPayload": {
       "book_id": "HX-1166",
@@ -39691,7 +42023,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 15,
-    "color": "#596879",
+    "color": "#546271",
     "keys": [
       "HX-1167",
       "HX1167",
@@ -39702,11 +42034,13 @@ export const books = [
     "chipId": "HX-1167",
     "locationCode": "S5-B-L1-P15",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.1254,
+    "heightScale": 1,
+    "depthScale": 0.9,
     "worldPosition": [
-      5.7874,
-      0.25218,
-      -5.201429
+      5.78866,
+      0.243,
+      -5.260463
     ],
     "chipPayload": {
       "book_id": "HX-1167",
@@ -39725,7 +42059,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 16,
-    "color": "#596879",
+    "color": "#617286",
     "keys": [
       "HX-1168",
       "HX1168",
@@ -39736,11 +42070,13 @@ export const books = [
     "chipId": "HX-1168",
     "locationCode": "S5-B-L1-P16",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.1254,
+    "heightScale": 1.05,
+    "depthScale": 0.8,
     "worldPosition": [
-      5.7874,
-      0.24453,
-      -4.962
+      5.78992,
+      0.25065,
+      -5.017375
     ],
     "chipPayload": {
       "book_id": "HX-1168",
@@ -39759,7 +42095,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 17,
-    "color": "#596879",
+    "color": "#617286",
     "keys": [
       "HX-1169",
       "HX1169",
@@ -39770,11 +42106,13 @@ export const books = [
     "chipId": "HX-1169",
     "locationCode": "S5-B-L1-P17",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.1306,
+    "heightScale": 1.05,
+    "depthScale": 0.8,
     "worldPosition": [
-      5.7874,
-      0.23994,
-      -4.638
+      5.78992,
+      0.25065,
+      -4.623901
     ],
     "chipPayload": {
       "book_id": "HX-1169",
@@ -39793,7 +42131,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 18,
-    "color": "#596879",
+    "color": "#617286",
     "keys": [
       "HX-1170",
       "HX1170",
@@ -39804,11 +42142,13 @@ export const books = [
     "chipId": "HX-1170",
     "locationCode": "S5-B-L1-P18",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.1306,
+    "heightScale": 1.05,
+    "depthScale": 0.8,
     "worldPosition": [
-      5.7874,
-      0.24453,
-      -4.398571
+      5.78992,
+      0.25065,
+      -4.379702
     ],
     "chipPayload": {
       "book_id": "HX-1170",
@@ -39827,7 +42167,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 19,
-    "color": "#596879",
+    "color": "#687b90",
     "keys": [
       "HX-1171",
       "HX1171",
@@ -39838,11 +42178,13 @@ export const books = [
     "chipId": "HX-1171",
     "locationCode": "S5-B-L1-P19",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.0599,
+    "heightScale": 0.95,
+    "depthScale": 1.15,
     "worldPosition": [
-      5.7874,
-      0.23229,
-      -4.159143
+      5.78551,
+      0.23535,
+      -4.143134
     ],
     "chipPayload": {
       "book_id": "HX-1171",
@@ -39861,7 +42203,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 20,
-    "color": "#596879",
+    "color": "#617286",
     "keys": [
       "HX-1172",
       "HX1172",
@@ -39872,11 +42214,13 @@ export const books = [
     "chipId": "HX-1172",
     "locationCode": "S5-B-L1-P20",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.2719,
+    "heightScale": 0.8,
+    "depthScale": 0.8,
     "worldPosition": [
-      5.7874,
-      0.23841,
-      -3.919714
+      5.78992,
+      0.2124,
+      -3.891304
     ],
     "chipPayload": {
       "book_id": "HX-1172",
@@ -39895,7 +42239,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 21,
-    "color": "#596879",
+    "color": "#617286",
     "keys": [
       "HX-1173",
       "HX1173",
@@ -39906,11 +42250,13 @@ export const books = [
     "chipId": "HX-1173",
     "locationCode": "S5-B-L1-P21",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.2719,
+    "heightScale": 0.8,
+    "depthScale": 0.8,
     "worldPosition": [
-      5.7874,
-      0.23841,
-      -3.680286
+      5.78992,
+      0.2124,
+      -3.61658
     ],
     "chipPayload": {
       "book_id": "HX-1173",
@@ -39929,7 +42275,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 22,
-    "color": "#596879",
+    "color": "#5e6e81",
     "keys": [
       "HX-1174",
       "HX1174",
@@ -39940,11 +42286,13 @@ export const books = [
     "chipId": "HX-1174",
     "locationCode": "S5-B-L1-P22",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 0.9186,
+    "heightScale": 0.85,
+    "depthScale": 1.15,
     "worldPosition": [
-      5.7874,
-      0.23994,
-      -3.440857
+      5.78551,
+      0.22005,
+      -3.380012
     ],
     "chipPayload": {
       "book_id": "HX-1174",
@@ -39963,7 +42311,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 23,
-    "color": "#596879",
+    "color": "#5e6e81",
     "keys": [
       "HX-1175",
       "HX1175",
@@ -39974,11 +42322,13 @@ export const books = [
     "chipId": "HX-1175",
     "locationCode": "S5-B-L1-P23",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 0.9186,
+    "heightScale": 0.85,
+    "depthScale": 1.15,
     "worldPosition": [
-      5.7874,
-      0.23994,
-      -3.201429
+      5.78551,
+      0.22005,
+      -3.181601
     ],
     "chipPayload": {
       "book_id": "HX-1175",
@@ -39997,7 +42347,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 24,
-    "color": "#596879",
+    "color": "#5e6e81",
     "keys": [
       "HX-1176",
       "HX1176",
@@ -40008,11 +42358,13 @@ export const books = [
     "chipId": "HX-1176",
     "locationCode": "S5-B-L1-P24",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 0.9186,
+    "heightScale": 0.85,
+    "depthScale": 1.15,
     "worldPosition": [
-      5.7874,
-      0.24453,
-      -2.962
+      5.78551,
+      0.22005,
+      -2.983189
     ],
     "chipPayload": {
       "book_id": "HX-1176",
@@ -40031,7 +42383,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 25,
-    "color": "#596879",
+    "color": "#687b90",
     "keys": [
       "百科",
       "工具",
@@ -40045,11 +42397,13 @@ export const books = [
     "chipId": "HX-1177",
     "locationCode": "S5-B-L1-P25",
     "placeholder": false,
-    "heightScale": 1.05,
+    "widthScale": 1.2752,
+    "heightScale": 0.85,
+    "depthScale": 1.48,
     "worldPosition": [
-      5.7874,
-      0.25065,
-      -2.638
+      5.781352,
+      0.22005,
+      -2.608279
     ],
     "chipPayload": {
       "book_id": "HX-1177",
@@ -40068,7 +42422,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 26,
-    "color": "#596879",
+    "color": "#4a5562",
     "keys": [
       "HX-1178",
       "HX1178",
@@ -40079,11 +42433,13 @@ export const books = [
     "chipId": "HX-1178",
     "locationCode": "S5-B-L1-P26",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 0.8725,
+    "heightScale": 0.95,
+    "depthScale": 0.8,
     "worldPosition": [
-      5.7874,
-      0.24606,
-      -2.405714
+      5.78992,
+      0.23535,
+      -2.376327
     ],
     "chipPayload": {
       "book_id": "HX-1178",
@@ -40102,7 +42458,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 27,
-    "color": "#596879",
+    "color": "#65778b",
     "keys": [
       "HX-1179",
       "HX1179",
@@ -40113,11 +42469,13 @@ export const books = [
     "chipId": "HX-1179",
     "locationCode": "S5-B-L1-P27",
     "placeholder": true,
+    "widthScale": 1.2081,
     "heightScale": 1.05,
+    "depthScale": 0.9,
     "worldPosition": [
-      5.7874,
+      5.78866,
       0.25065,
-      -2.173429
+      -2.151624
     ],
     "chipPayload": {
       "book_id": "HX-1179",
@@ -40136,7 +42494,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 28,
-    "color": "#596879",
+    "color": "#65778b",
     "keys": [
       "HX-1180",
       "HX1180",
@@ -40147,11 +42505,13 @@ export const books = [
     "chipId": "HX-1180",
     "locationCode": "S5-B-L1-P28",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.2081,
+    "heightScale": 1.05,
+    "depthScale": 0.9,
     "worldPosition": [
-      5.7874,
-      0.23382,
-      -1.941143
+      5.78866,
+      0.25065,
+      -1.890679
     ],
     "chipPayload": {
       "book_id": "HX-1180",
@@ -40170,7 +42530,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 29,
-    "color": "#596879",
+    "color": "#65778b",
     "keys": [
       "HX-1181",
       "HX1181",
@@ -40181,11 +42541,13 @@ export const books = [
     "chipId": "HX-1181",
     "locationCode": "S5-B-L1-P29",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.2081,
+    "heightScale": 1.05,
+    "depthScale": 0.9,
     "worldPosition": [
-      5.7874,
-      0.23229,
-      -1.708857
+      5.78866,
+      0.25065,
+      -1.629734
     ],
     "chipPayload": {
       "book_id": "HX-1181",
@@ -40204,7 +42566,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 30,
-    "color": "#596879",
+    "color": "#5e6e81",
     "keys": [
       "HX-1182",
       "HX1182",
@@ -40215,11 +42577,13 @@ export const books = [
     "chipId": "HX-1182",
     "locationCode": "S5-B-L1-P30",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 0.8725,
+    "heightScale": 0.85,
+    "depthScale": 0.8,
     "worldPosition": [
-      5.7874,
-      0.23994,
-      -1.476571
+      5.78992,
+      0.22005,
+      -1.405031
     ],
     "chipPayload": {
       "book_id": "HX-1182",
@@ -40238,7 +42602,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 31,
-    "color": "#596879",
+    "color": "#5e6e81",
     "keys": [
       "HX-1183",
       "HX1183",
@@ -40249,11 +42613,13 @@ export const books = [
     "chipId": "HX-1183",
     "locationCode": "S5-B-L1-P31",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 0.8725,
+    "heightScale": 0.85,
+    "depthScale": 0.8,
     "worldPosition": [
-      5.7874,
-      0.24147,
-      -1.244286
+      5.78992,
+      0.22005,
+      -1.21657
     ],
     "chipPayload": {
       "book_id": "HX-1183",
@@ -40272,7 +42638,7 @@ export const books = [
     "side": "B",
     "layer": 1,
     "slot": 32,
-    "color": "#596879",
+    "color": "#5e6e81",
     "keys": [
       "HX-1184",
       "HX1184",
@@ -40283,11 +42649,13 @@ export const books = [
     "chipId": "HX-1184",
     "locationCode": "S5-B-L1-P32",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 0.8725,
+    "heightScale": 0.85,
+    "depthScale": 0.8,
     "worldPosition": [
-      5.7874,
-      0.23688,
-      -1.012
+      5.78992,
+      0.22005,
+      -1.02811
     ],
     "chipPayload": {
       "book_id": "HX-1184",
@@ -40306,7 +42674,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 1,
-    "color": "#596879",
+    "color": "#546271",
     "keys": [
       "HX-1185",
       "HX1185",
@@ -40317,11 +42685,13 @@ export const books = [
     "chipId": "HX-1185",
     "locationCode": "S5-B-L2-P01",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.1953,
+    "heightScale": 0.95,
+    "depthScale": 1,
     "worldPosition": [
       5.7874,
-      0.69259,
-      -8.588
+      0.68035,
+      -8.566909
     ],
     "chipPayload": {
       "book_id": "HX-1185",
@@ -40340,7 +42710,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 2,
-    "color": "#596879",
+    "color": "#546271",
     "keys": [
       "HX-1186",
       "HX1186",
@@ -40351,11 +42721,13 @@ export const books = [
     "chipId": "HX-1186",
     "locationCode": "S5-B-L2-P02",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.1953,
+    "heightScale": 0.95,
+    "depthScale": 1,
     "worldPosition": [
       5.7874,
-      0.67576,
-      -8.355714
+      0.68035,
+      -8.308727
     ],
     "chipPayload": {
       "book_id": "HX-1186",
@@ -40374,7 +42746,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 3,
-    "color": "#596879",
+    "color": "#546271",
     "keys": [
       "HX-1187",
       "HX1187",
@@ -40385,11 +42757,13 @@ export const books = [
     "chipId": "HX-1187",
     "locationCode": "S5-B-L2-P03",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.1953,
+    "heightScale": 0.95,
+    "depthScale": 1,
     "worldPosition": [
       5.7874,
-      0.68647,
-      -8.123429
+      0.68035,
+      -8.050546
     ],
     "chipPayload": {
       "book_id": "HX-1187",
@@ -40408,7 +42782,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 4,
-    "color": "#596879",
+    "color": "#617286",
     "keys": [
       "HX-1188",
       "HX1188",
@@ -40419,11 +42793,13 @@ export const books = [
     "chipId": "HX-1188",
     "locationCode": "S5-B-L2-P04",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 0.9961,
+    "heightScale": 0.95,
+    "depthScale": 0.8,
     "worldPosition": [
-      5.7874,
-      0.69106,
-      -7.891143
+      5.78992,
+      0.68035,
+      -7.813879
     ],
     "chipPayload": {
       "book_id": "HX-1188",
@@ -40442,7 +42818,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 5,
-    "color": "#596879",
+    "color": "#617286",
     "keys": [
       "HX-1189",
       "HX1189",
@@ -40453,11 +42829,13 @@ export const books = [
     "chipId": "HX-1189",
     "locationCode": "S5-B-L2-P05",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 0.9961,
+    "heightScale": 0.95,
+    "depthScale": 0.8,
     "worldPosition": [
-      5.7874,
-      0.68494,
-      -7.658857
+      5.78992,
+      0.68035,
+      -7.598728
     ],
     "chipPayload": {
       "book_id": "HX-1189",
@@ -40476,7 +42854,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 6,
-    "color": "#596879",
+    "color": "#576676",
     "keys": [
       "HX-1190",
       "HX1190",
@@ -40487,11 +42865,13 @@ export const books = [
     "chipId": "HX-1190",
     "locationCode": "S5-B-L2-P06",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 0.8633,
+    "heightScale": 0.95,
+    "depthScale": 1.3,
     "worldPosition": [
-      5.7874,
-      0.68494,
-      -7.426571
+      5.78362,
+      0.68035,
+      -7.39792
     ],
     "chipPayload": {
       "book_id": "HX-1190",
@@ -40510,7 +42890,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 7,
-    "color": "#596879",
+    "color": "#515e6c",
     "keys": [
       "HX-1191",
       "HX1191",
@@ -40521,11 +42901,13 @@ export const books = [
     "chipId": "HX-1191",
     "locationCode": "S5-B-L2-P07",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 0.9297,
+    "heightScale": 1,
+    "depthScale": 1,
     "worldPosition": [
       5.7874,
-      0.69106,
-      -7.194286
+      0.688,
+      -7.204284
     ],
     "chipPayload": {
       "book_id": "HX-1191",
@@ -40544,7 +42926,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 8,
-    "color": "#596879",
+    "color": "#515e6c",
     "keys": [
       "HX-1192",
       "HX1192",
@@ -40555,11 +42937,13 @@ export const books = [
     "chipId": "HX-1192",
     "locationCode": "S5-B-L2-P08",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 0.9297,
+    "heightScale": 1,
+    "depthScale": 1,
     "worldPosition": [
       5.7874,
-      0.68188,
-      -6.962
+      0.688,
+      -7.003476
     ],
     "chipPayload": {
       "book_id": "HX-1192",
@@ -40578,7 +42962,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 9,
-    "color": "#596879",
+    "color": "#515e6c",
     "keys": [
       "HX-1193",
       "HX1193",
@@ -40589,11 +42973,13 @@ export const books = [
     "chipId": "HX-1193",
     "locationCode": "S5-B-L2-P09",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 0.9584,
+    "heightScale": 0.9,
+    "depthScale": 1,
     "worldPosition": [
       5.7874,
-      0.67882,
-      -6.638
+      0.6727,
+      -6.642495
     ],
     "chipPayload": {
       "book_id": "HX-1193",
@@ -40612,7 +42998,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 10,
-    "color": "#596879",
+    "color": "#576676",
     "keys": [
       "HX-1194",
       "HX1194",
@@ -40623,11 +43009,13 @@ export const books = [
     "chipId": "HX-1194",
     "locationCode": "S5-B-L2-P10",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.0268,
+    "heightScale": 1,
+    "depthScale": 1.15,
     "worldPosition": [
-      5.7874,
-      0.69412,
-      -6.398571
+      5.78551,
+      0.688,
+      -6.42809
     ],
     "chipPayload": {
       "book_id": "HX-1194",
@@ -40646,7 +43034,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 11,
-    "color": "#596879",
+    "color": "#576676",
     "keys": [
       "HX-1195",
       "HX1195",
@@ -40657,11 +43045,13 @@ export const books = [
     "chipId": "HX-1195",
     "locationCode": "S5-B-L2-P11",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.0268,
+    "heightScale": 1,
+    "depthScale": 1.15,
     "worldPosition": [
-      5.7874,
-      0.68035,
-      -6.159143
+      5.78551,
+      0.688,
+      -6.206293
     ],
     "chipPayload": {
       "book_id": "HX-1195",
@@ -40680,7 +43070,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 12,
-    "color": "#596879",
+    "color": "#576676",
     "keys": [
       "HX-1196",
       "HX1196",
@@ -40691,11 +43081,13 @@ export const books = [
     "chipId": "HX-1196",
     "locationCode": "S5-B-L2-P12",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.0268,
+    "heightScale": 1,
+    "depthScale": 1.15,
     "worldPosition": [
-      5.7874,
-      0.68341,
-      -5.919714
+      5.78551,
+      0.688,
+      -5.984496
     ],
     "chipPayload": {
       "book_id": "HX-1196",
@@ -40714,7 +43106,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 13,
-    "color": "#596879",
+    "color": "#5e6e81",
     "keys": [
       "HX-1197",
       "HX1197",
@@ -40725,11 +43117,13 @@ export const books = [
     "chipId": "HX-1197",
     "locationCode": "S5-B-L2-P13",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.1638,
+    "heightScale": 0.85,
+    "depthScale": 0.8,
     "worldPosition": [
-      5.7874,
-      0.67576,
-      -5.680286
+      5.78992,
+      0.66505,
+      -5.747912
     ],
     "chipPayload": {
       "book_id": "HX-1197",
@@ -40748,7 +43142,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 14,
-    "color": "#596879",
+    "color": "#5e6e81",
     "keys": [
       "HX-1198",
       "HX1198",
@@ -40759,11 +43153,13 @@ export const books = [
     "chipId": "HX-1198",
     "locationCode": "S5-B-L2-P14",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.1638,
+    "heightScale": 0.85,
+    "depthScale": 0.8,
     "worldPosition": [
-      5.7874,
-      0.69718,
-      -5.440857
+      5.78992,
+      0.66505,
+      -5.496542
     ],
     "chipPayload": {
       "book_id": "HX-1198",
@@ -40782,7 +43178,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 15,
-    "color": "#596879",
+    "color": "#5e6e81",
     "keys": [
       "HX-1199",
       "HX1199",
@@ -40793,11 +43189,13 @@ export const books = [
     "chipId": "HX-1199",
     "locationCode": "S5-B-L2-P15",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.1638,
+    "heightScale": 0.85,
+    "depthScale": 0.8,
     "worldPosition": [
-      5.7874,
-      0.68953,
-      -5.201429
+      5.78992,
+      0.66505,
+      -5.245171
     ],
     "chipPayload": {
       "book_id": "HX-1199",
@@ -40816,7 +43214,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 16,
-    "color": "#596879",
+    "color": "#687b90",
     "keys": [
       "HX-1200",
       "HX1200",
@@ -40827,11 +43225,13 @@ export const books = [
     "chipId": "HX-1200",
     "locationCode": "S5-B-L2-P16",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.0953,
+    "heightScale": 1.05,
+    "depthScale": 0.9,
     "worldPosition": [
-      5.7874,
-      0.68188,
-      -4.962
+      5.78866,
+      0.69565,
+      -5.001194
     ],
     "chipPayload": {
       "book_id": "HX-1200",
@@ -40850,7 +43250,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 17,
-    "color": "#596879",
+    "color": "#687b90",
     "keys": [
       "HX-1201",
       "HX1201",
@@ -40861,11 +43261,13 @@ export const books = [
     "chipId": "HX-1201",
     "locationCode": "S5-B-L2-P17",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 0.938,
+    "heightScale": 1.05,
+    "depthScale": 0.9,
     "worldPosition": [
-      5.7874,
-      0.68035,
-      -4.638
+      5.78866,
+      0.69565,
+      -4.6447
     ],
     "chipPayload": {
       "book_id": "HX-1201",
@@ -40884,7 +43286,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 18,
-    "color": "#596879",
+    "color": "#687b90",
     "keys": [
       "HX-1202",
       "HX1202",
@@ -40895,11 +43297,13 @@ export const books = [
     "chipId": "HX-1202",
     "locationCode": "S5-B-L2-P18",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 0.938,
+    "heightScale": 1.05,
+    "depthScale": 0.9,
     "worldPosition": [
-      5.7874,
-      0.69259,
-      -4.398571
+      5.78866,
+      0.69565,
+      -4.442099
     ],
     "chipPayload": {
       "book_id": "HX-1202",
@@ -40918,7 +43322,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 19,
-    "color": "#596879",
+    "color": "#65778b",
     "keys": [
       "HX-1203",
       "HX1203",
@@ -40929,11 +43333,13 @@ export const books = [
     "chipId": "HX-1203",
     "locationCode": "S5-B-L2-P19",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.0823,
+    "heightScale": 0.85,
+    "depthScale": 1.3,
     "worldPosition": [
-      5.7874,
-      0.68341,
-      -4.159143
+      5.78362,
+      0.66505,
+      -4.223914
     ],
     "chipPayload": {
       "book_id": "HX-1203",
@@ -40952,7 +43358,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 20,
-    "color": "#596879",
+    "color": "#546271",
     "keys": [
       "HX-1204",
       "HX1204",
@@ -40963,11 +43369,13 @@ export const books = [
     "chipId": "HX-1204",
     "locationCode": "S5-B-L2-P20",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.2266,
+    "heightScale": 0.85,
+    "depthScale": 1.3,
     "worldPosition": [
-      5.7874,
-      0.67882,
-      -3.919714
+      5.78362,
+      0.66505,
+      -3.974559
     ],
     "chipPayload": {
       "book_id": "HX-1204",
@@ -40986,7 +43394,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 21,
-    "color": "#596879",
+    "color": "#687b90",
     "keys": [
       "HX-1205",
       "HX1205",
@@ -40997,11 +43405,13 @@ export const books = [
     "chipId": "HX-1205",
     "locationCode": "S5-B-L2-P21",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.0823,
+    "heightScale": 0.9,
+    "depthScale": 1.3,
     "worldPosition": [
-      5.7874,
-      0.67729,
-      -3.680286
+      5.78362,
+      0.6727,
+      -3.725205
     ],
     "chipPayload": {
       "book_id": "HX-1205",
@@ -41020,7 +43430,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 22,
-    "color": "#596879",
+    "color": "#687b90",
     "keys": [
       "HX-1206",
       "HX1206",
@@ -41031,11 +43441,13 @@ export const books = [
     "chipId": "HX-1206",
     "locationCode": "S5-B-L2-P22",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.0823,
+    "heightScale": 0.85,
+    "depthScale": 1.48,
     "worldPosition": [
-      5.7874,
-      0.69718,
-      -3.440857
+      5.781352,
+      0.66505,
+      -3.491435
     ],
     "chipPayload": {
       "book_id": "HX-1206",
@@ -41054,7 +43466,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 23,
-    "color": "#596879",
+    "color": "#687b90",
     "keys": [
       "HX-1207",
       "HX1207",
@@ -41065,11 +43477,13 @@ export const books = [
     "chipId": "HX-1207",
     "locationCode": "S5-B-L2-P23",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.0823,
+    "heightScale": 0.85,
+    "depthScale": 1.48,
     "worldPosition": [
-      5.7874,
-      0.68953,
-      -3.201429
+      5.781352,
+      0.66505,
+      -3.257665
     ],
     "chipPayload": {
       "book_id": "HX-1207",
@@ -41088,7 +43502,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 24,
-    "color": "#596879",
+    "color": "#687b90",
     "keys": [
       "HX-1208",
       "HX1208",
@@ -41099,11 +43513,13 @@ export const books = [
     "chipId": "HX-1208",
     "locationCode": "S5-B-L2-P24",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.0823,
+    "heightScale": 0.85,
+    "depthScale": 1.48,
     "worldPosition": [
-      5.7874,
-      0.69565,
-      -2.962
+      5.781352,
+      0.66505,
+      -3.023895
     ],
     "chipPayload": {
       "book_id": "HX-1208",
@@ -41122,7 +43538,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 25,
-    "color": "#596879",
+    "color": "#617286",
     "keys": [
       "HX-1209",
       "HX1209",
@@ -41133,11 +43549,13 @@ export const books = [
     "chipId": "HX-1209",
     "locationCode": "S5-B-L2-P25",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.0521,
+    "heightScale": 1.1,
+    "depthScale": 1.3,
     "worldPosition": [
-      5.7874,
-      0.68035,
-      -2.638
+      5.78362,
+      0.7033,
+      -2.632377
     ],
     "chipPayload": {
       "book_id": "HX-1209",
@@ -41156,7 +43574,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 26,
-    "color": "#596879",
+    "color": "#617286",
     "keys": [
       "HX-1210",
       "HX1210",
@@ -41167,11 +43585,13 @@ export const books = [
     "chipId": "HX-1210",
     "locationCode": "S5-B-L2-P26",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.0521,
+    "heightScale": 1.1,
+    "depthScale": 1.3,
     "worldPosition": [
-      5.7874,
-      0.688,
-      -2.405714
+      5.78362,
+      0.7033,
+      -2.40513
     ],
     "chipPayload": {
       "book_id": "HX-1210",
@@ -41190,7 +43610,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 27,
-    "color": "#596879",
+    "color": "#5e6e81",
     "keys": [
       "HX-1211",
       "HX1211",
@@ -41201,11 +43621,13 @@ export const books = [
     "chipId": "HX-1211",
     "locationCode": "S5-B-L2-P27",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.0521,
+    "heightScale": 1,
+    "depthScale": 1.15,
     "worldPosition": [
-      5.7874,
-      0.67729,
-      -2.173429
+      5.78551,
+      0.688,
+      -2.177883
     ],
     "chipPayload": {
       "book_id": "HX-1211",
@@ -41224,7 +43646,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 28,
-    "color": "#596879",
+    "color": "#5e6e81",
     "keys": [
       "HX-1212",
       "HX1212",
@@ -41235,11 +43657,13 @@ export const books = [
     "chipId": "HX-1212",
     "locationCode": "S5-B-L2-P28",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.0521,
+    "heightScale": 1,
+    "depthScale": 1.15,
     "worldPosition": [
-      5.7874,
-      0.68341,
-      -1.941143
+      5.78551,
+      0.688,
+      -1.950637
     ],
     "chipPayload": {
       "book_id": "HX-1212",
@@ -41258,7 +43682,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 29,
-    "color": "#596879",
+    "color": "#5e6e81",
     "keys": [
       "HX-1213",
       "HX1213",
@@ -41269,11 +43693,13 @@ export const books = [
     "chipId": "HX-1213",
     "locationCode": "S5-B-L2-P29",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 1.0521,
+    "heightScale": 1,
+    "depthScale": 1.15,
     "worldPosition": [
-      5.7874,
-      0.69718,
-      -1.708857
+      5.78551,
+      0.688,
+      -1.72339
     ],
     "chipPayload": {
       "book_id": "HX-1213",
@@ -41292,7 +43718,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 30,
-    "color": "#596879",
+    "color": "#4a5562",
     "keys": [
       "HX-1214",
       "HX1214",
@@ -41303,11 +43729,13 @@ export const books = [
     "chipId": "HX-1214",
     "locationCode": "S5-B-L2-P30",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.0521,
+    "heightScale": 1.1,
+    "depthScale": 1,
     "worldPosition": [
       5.7874,
-      0.688,
-      -1.476571
+      0.7033,
+      -1.496143
     ],
     "chipPayload": {
       "book_id": "HX-1214",
@@ -41326,7 +43754,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 31,
-    "color": "#596879",
+    "color": "#4a5562",
     "keys": [
       "HX-1215",
       "HX1215",
@@ -41337,11 +43765,13 @@ export const books = [
     "chipId": "HX-1215",
     "locationCode": "S5-B-L2-P31",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.0521,
+    "heightScale": 1.1,
+    "depthScale": 1,
     "worldPosition": [
       5.7874,
-      0.68341,
-      -1.244286
+      0.7033,
+      -1.268896
     ],
     "chipPayload": {
       "book_id": "HX-1215",
@@ -41360,7 +43790,7 @@ export const books = [
     "side": "B",
     "layer": 2,
     "slot": 32,
-    "color": "#596879",
+    "color": "#4a5562",
     "keys": [
       "HX-1216",
       "HX1216",
@@ -41371,11 +43801,13 @@ export const books = [
     "chipId": "HX-1216",
     "locationCode": "S5-B-L2-P32",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.0521,
+    "heightScale": 1.1,
+    "depthScale": 1,
     "worldPosition": [
       5.7874,
-      0.688,
-      -1.012
+      0.7033,
+      -1.04165
     ],
     "chipPayload": {
       "book_id": "HX-1216",
@@ -41394,7 +43826,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 1,
-    "color": "#596879",
+    "color": "#617286",
     "keys": [
       "HX-1217",
       "HX1217",
@@ -41405,11 +43837,13 @@ export const books = [
     "chipId": "HX-1217",
     "locationCode": "S5-B-L3-P01",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.184,
+    "heightScale": 0.95,
+    "depthScale": 1.15,
     "worldPosition": [
-      5.7874,
-      1.17729,
-      -8.588
+      5.78551,
+      1.18035,
+      -8.56813
     ],
     "chipPayload": {
       "book_id": "HX-1217",
@@ -41428,7 +43862,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 2,
-    "color": "#596879",
+    "color": "#4a5562",
     "keys": [
       "HX-1218",
       "HX1218",
@@ -41439,11 +43873,13 @@ export const books = [
     "chipId": "HX-1218",
     "locationCode": "S5-B-L3-P02",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 0.9209,
+    "heightScale": 0.9,
+    "depthScale": 0.8,
     "worldPosition": [
-      5.7874,
-      1.18647,
-      -8.355714
+      5.78992,
+      1.1727,
+      -8.340805
     ],
     "chipPayload": {
       "book_id": "HX-1218",
@@ -41462,7 +43898,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 3,
-    "color": "#596879",
+    "color": "#4a5562",
     "keys": [
       "HX-1219",
       "HX1219",
@@ -41473,11 +43909,13 @@ export const books = [
     "chipId": "HX-1219",
     "locationCode": "S5-B-L3-P03",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 0.9209,
+    "heightScale": 0.9,
+    "depthScale": 0.8,
     "worldPosition": [
-      5.7874,
-      1.19412,
-      -8.123429
+      5.78992,
+      1.1727,
+      -8.141896
     ],
     "chipPayload": {
       "book_id": "HX-1219",
@@ -41496,7 +43934,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 4,
-    "color": "#596879",
+    "color": "#4a5562",
     "keys": [
       "HX-1220",
       "HX1220",
@@ -41507,11 +43945,13 @@ export const books = [
     "chipId": "HX-1220",
     "locationCode": "S5-B-L3-P04",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 0.9209,
+    "heightScale": 0.9,
+    "depthScale": 0.8,
     "worldPosition": [
-      5.7874,
-      1.19565,
-      -7.891143
+      5.78992,
+      1.1727,
+      -7.942987
     ],
     "chipPayload": {
       "book_id": "HX-1220",
@@ -41530,7 +43970,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 5,
-    "color": "#596879",
+    "color": "#5e6e81",
     "keys": [
       "HX-1221",
       "HX1221",
@@ -41541,11 +43981,13 @@ export const books = [
     "chipId": "HX-1221",
     "locationCode": "S5-B-L3-P05",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.184,
+    "heightScale": 1,
+    "depthScale": 0.8,
     "worldPosition": [
-      5.7874,
-      1.17729,
-      -7.658857
+      5.78992,
+      1.188,
+      -7.715662
     ],
     "chipPayload": {
       "book_id": "HX-1221",
@@ -41564,7 +44006,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 6,
-    "color": "#596879",
+    "color": "#5e6e81",
     "keys": [
       "HX-1222",
       "HX1222",
@@ -41575,11 +44017,13 @@ export const books = [
     "chipId": "HX-1222",
     "locationCode": "S5-B-L3-P06",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.184,
+    "heightScale": 1,
+    "depthScale": 0.8,
     "worldPosition": [
-      5.7874,
-      1.18647,
-      -7.426571
+      5.78992,
+      1.188,
+      -7.459922
     ],
     "chipPayload": {
       "book_id": "HX-1222",
@@ -41598,7 +44042,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 7,
-    "color": "#596879",
+    "color": "#4a5562",
     "keys": [
       "HX-1223",
       "HX1223",
@@ -41609,11 +44053,13 @@ export const books = [
     "chipId": "HX-1223",
     "locationCode": "S5-B-L3-P07",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 0.9867,
+    "heightScale": 0.85,
+    "depthScale": 1.15,
     "worldPosition": [
-      5.7874,
-      1.17729,
-      -7.194286
+      5.78551,
+      1.16505,
+      -7.225493
     ],
     "chipPayload": {
       "book_id": "HX-1223",
@@ -41632,7 +44078,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 8,
-    "color": "#596879",
+    "color": "#4a5562",
     "keys": [
       "HX-1224",
       "HX1224",
@@ -41643,11 +44089,13 @@ export const books = [
     "chipId": "HX-1224",
     "locationCode": "S5-B-L3-P08",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 0.9867,
+    "heightScale": 0.85,
+    "depthScale": 1.15,
     "worldPosition": [
-      5.7874,
-      1.19565,
-      -6.962
+      5.78551,
+      1.16505,
+      -7.012377
     ],
     "chipPayload": {
       "book_id": "HX-1224",
@@ -41666,7 +44114,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 9,
-    "color": "#596879",
+    "color": "#5e6e81",
     "keys": [
       "HX-1225",
       "HX1225",
@@ -41677,11 +44125,13 @@ export const books = [
     "chipId": "HX-1225",
     "locationCode": "S5-B-L3-P09",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 0.9433,
+    "heightScale": 0.85,
+    "depthScale": 1.48,
     "worldPosition": [
-      5.7874,
-      1.188,
-      -6.638
+      5.781352,
+      1.16505,
+      -6.644126
     ],
     "chipPayload": {
       "book_id": "HX-1225",
@@ -41700,7 +44150,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 10,
-    "color": "#596879",
+    "color": "#5e6e81",
     "keys": [
       "HX-1226",
       "HX1226",
@@ -41711,11 +44161,13 @@ export const books = [
     "chipId": "HX-1226",
     "locationCode": "S5-B-L3-P10",
     "placeholder": true,
-    "heightScale": 1.04,
+    "widthScale": 1.2128,
+    "heightScale": 0.85,
+    "depthScale": 1.48,
     "worldPosition": [
-      5.7874,
-      1.19412,
-      -6.398571
+      5.781352,
+      1.16505,
+      -6.411271
     ],
     "chipPayload": {
       "book_id": "HX-1226",
@@ -41734,7 +44186,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 11,
-    "color": "#596879",
+    "color": "#4d5967",
     "keys": [
       "HX-1227",
       "HX1227",
@@ -41745,11 +44197,13 @@ export const books = [
     "chipId": "HX-1227",
     "locationCode": "S5-B-L3-P11",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.2128,
+    "heightScale": 1.1,
+    "depthScale": 1,
     "worldPosition": [
       5.7874,
-      1.19565,
-      -6.159143
+      1.2033,
+      -6.149309
     ],
     "chipPayload": {
       "book_id": "HX-1227",
@@ -41768,7 +44222,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 12,
-    "color": "#596879",
+    "color": "#4d5967",
     "keys": [
       "HX-1228",
       "HX1228",
@@ -41779,11 +44233,13 @@ export const books = [
     "chipId": "HX-1228",
     "locationCode": "S5-B-L3-P12",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.2128,
+    "heightScale": 1.1,
+    "depthScale": 1,
     "worldPosition": [
       5.7874,
-      1.18953,
-      -5.919714
+      1.2033,
+      -5.887347
     ],
     "chipPayload": {
       "book_id": "HX-1228",
@@ -41802,7 +44258,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 13,
-    "color": "#596879",
+    "color": "#65778b",
     "keys": [
       "HX-1229",
       "HX1229",
@@ -41813,11 +44269,13 @@ export const books = [
     "chipId": "HX-1229",
     "locationCode": "S5-B-L3-P13",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 0.9433,
+    "heightScale": 1.05,
+    "depthScale": 1.48,
     "worldPosition": [
-      5.7874,
-      1.18953,
-      -5.680286
+      5.781352,
+      1.19565,
+      -5.654491
     ],
     "chipPayload": {
       "book_id": "HX-1229",
@@ -41836,7 +44294,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 14,
-    "color": "#596879",
+    "color": "#617286",
     "keys": [
       "HX-1230",
       "HX1230",
@@ -41847,11 +44305,13 @@ export const books = [
     "chipId": "HX-1230",
     "locationCode": "S5-B-L3-P14",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 0.8759,
+    "heightScale": 1.05,
+    "depthScale": 0.8,
     "worldPosition": [
-      5.7874,
-      1.19259,
-      -5.440857
+      5.78992,
+      1.19565,
+      -5.45802
     ],
     "chipPayload": {
       "book_id": "HX-1230",
@@ -41870,7 +44330,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 15,
-    "color": "#596879",
+    "color": "#617286",
     "keys": [
       "HX-1231",
       "HX1231",
@@ -41881,11 +44341,13 @@ export const books = [
     "chipId": "HX-1231",
     "locationCode": "S5-B-L3-P15",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 0.8759,
+    "heightScale": 1.05,
+    "depthScale": 0.8,
     "worldPosition": [
-      5.7874,
-      1.18188,
-      -5.201429
+      5.78992,
+      1.19565,
+      -5.268825
     ],
     "chipPayload": {
       "book_id": "HX-1231",
@@ -41904,7 +44366,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 16,
-    "color": "#596879",
+    "color": "#687b90",
     "keys": [
       "HX-1232",
       "HX1232",
@@ -41915,11 +44377,13 @@ export const books = [
     "chipId": "HX-1232",
     "locationCode": "S5-B-L3-P16",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.2802,
+    "heightScale": 1.05,
+    "depthScale": 0.8,
     "worldPosition": [
-      5.7874,
-      1.18035,
-      -4.962
+      5.78992,
+      1.19565,
+      -5.03597
     ],
     "chipPayload": {
       "book_id": "HX-1232",
@@ -41938,7 +44402,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 17,
-    "color": "#596879",
+    "color": "#5e6e81",
     "keys": [
       "HX-1233",
       "HX1233",
@@ -41949,11 +44413,13 @@ export const books = [
     "chipId": "HX-1233",
     "locationCode": "S5-B-L3-P17",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.3009,
+    "heightScale": 0.85,
+    "depthScale": 1,
     "worldPosition": [
       5.7874,
-      1.18341,
-      -4.638
+      1.16505,
+      -4.605508
     ],
     "chipPayload": {
       "book_id": "HX-1233",
@@ -41972,7 +44438,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 18,
-    "color": "#596879",
+    "color": "#5e6e81",
     "keys": [
       "HX-1234",
       "HX1234",
@@ -41983,11 +44449,13 @@ export const books = [
     "chipId": "HX-1234",
     "locationCode": "S5-B-L3-P18",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.3009,
+    "heightScale": 0.85,
+    "depthScale": 1,
     "worldPosition": [
       5.7874,
-      1.18647,
-      -4.398571
+      1.16505,
+      -4.324524
     ],
     "chipPayload": {
       "book_id": "HX-1234",
@@ -42006,7 +44474,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 19,
-    "color": "#596879",
+    "color": "#5e6e81",
     "keys": [
       "HX-1235",
       "HX1235",
@@ -42017,11 +44485,13 @@ export const books = [
     "chipId": "HX-1235",
     "locationCode": "S5-B-L3-P19",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.3009,
+    "heightScale": 0.85,
+    "depthScale": 1,
     "worldPosition": [
       5.7874,
-      1.17729,
-      -4.159143
+      1.16505,
+      -4.04354
     ],
     "chipPayload": {
       "book_id": "HX-1235",
@@ -42040,7 +44510,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 20,
-    "color": "#596879",
+    "color": "#5b6a7c",
     "keys": [
       "HX-1236",
       "HX1236",
@@ -42051,11 +44521,13 @@ export const books = [
     "chipId": "HX-1236",
     "locationCode": "S5-B-L3-P20",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 0.9585,
+    "heightScale": 0.9,
+    "depthScale": 0.9,
     "worldPosition": [
-      5.7874,
-      1.18494,
-      -3.919714
+      5.78866,
+      1.1727,
+      -3.799528
     ],
     "chipPayload": {
       "book_id": "HX-1236",
@@ -42074,7 +44546,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 21,
-    "color": "#596879",
+    "color": "#5b6a7c",
     "keys": [
       "HX-1237",
       "HX1237",
@@ -42085,11 +44557,13 @@ export const books = [
     "chipId": "HX-1237",
     "locationCode": "S5-B-L3-P21",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 0.9585,
+    "heightScale": 0.9,
+    "depthScale": 0.9,
     "worldPosition": [
-      5.7874,
-      1.18494,
-      -3.680286
+      5.78866,
+      1.1727,
+      -3.592487
     ],
     "chipPayload": {
       "book_id": "HX-1237",
@@ -42108,7 +44582,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 22,
-    "color": "#596879",
+    "color": "#5b6a7c",
     "keys": [
       "HX-1238",
       "HX1238",
@@ -42119,11 +44593,13 @@ export const books = [
     "chipId": "HX-1238",
     "locationCode": "S5-B-L3-P22",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 0.9585,
+    "heightScale": 0.9,
+    "depthScale": 0.9,
     "worldPosition": [
-      5.7874,
-      1.188,
-      -3.440857
+      5.78866,
+      1.1727,
+      -3.385447
     ],
     "chipPayload": {
       "book_id": "HX-1238",
@@ -42142,7 +44618,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 23,
-    "color": "#596879",
+    "color": "#515e6c",
     "keys": [
       "HX-1239",
       "HX1239",
@@ -42153,11 +44629,13 @@ export const books = [
     "chipId": "HX-1239",
     "locationCode": "S5-B-L3-P23",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 0.8901,
+    "heightScale": 1.1,
+    "depthScale": 0.8,
     "worldPosition": [
-      5.7874,
-      1.188,
-      -3.201429
+      5.78992,
+      1.2033,
+      -3.1858
     ],
     "chipPayload": {
       "book_id": "HX-1239",
@@ -42176,7 +44654,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 24,
-    "color": "#596879",
+    "color": "#617286",
     "keys": [
       "HX-1240",
       "HX1240",
@@ -42187,11 +44665,13 @@ export const books = [
     "chipId": "HX-1240",
     "locationCode": "S5-B-L3-P24",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 0.9585,
+    "heightScale": 0.85,
+    "depthScale": 0.8,
     "worldPosition": [
-      5.7874,
-      1.18953,
-      -2.962
+      5.78992,
+      1.16505,
+      -2.986154
     ],
     "chipPayload": {
       "book_id": "HX-1240",
@@ -42210,7 +44690,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 25,
-    "color": "#596879",
+    "color": "#546271",
     "keys": [
       "HX-1241",
       "HX1241",
@@ -42221,11 +44701,13 @@ export const books = [
     "chipId": "HX-1241",
     "locationCode": "S5-B-L3-P25",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.2404,
+    "heightScale": 1.05,
+    "depthScale": 1.48,
     "worldPosition": [
-      5.7874,
-      1.18953,
-      -2.638
+      5.781352,
+      1.19565,
+      -2.61204
     ],
     "chipPayload": {
       "book_id": "HX-1241",
@@ -42244,7 +44726,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 26,
-    "color": "#596879",
+    "color": "#65778b",
     "keys": [
       "HX-1242",
       "HX1242",
@@ -42255,11 +44737,13 @@ export const books = [
     "chipId": "HX-1242",
     "locationCode": "S5-B-L3-P26",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.0336,
+    "heightScale": 1.05,
+    "depthScale": 0.9,
     "worldPosition": [
-      5.7874,
-      1.17882,
-      -2.405714
+      5.78866,
+      1.19565,
+      -2.366448
     ],
     "chipPayload": {
       "book_id": "HX-1242",
@@ -42278,7 +44762,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 27,
-    "color": "#596879",
+    "color": "#65778b",
     "keys": [
       "HX-1243",
       "HX1243",
@@ -42289,11 +44773,13 @@ export const books = [
     "chipId": "HX-1243",
     "locationCode": "S5-B-L3-P27",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.0336,
+    "heightScale": 1.05,
+    "depthScale": 0.9,
     "worldPosition": [
-      5.7874,
-      1.18035,
-      -2.173429
+      5.78866,
+      1.19565,
+      -2.143182
     ],
     "chipPayload": {
       "book_id": "HX-1243",
@@ -42312,7 +44798,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 28,
-    "color": "#596879",
+    "color": "#5e6e81",
     "keys": [
       "HX-1244",
       "HX1244",
@@ -42323,11 +44809,13 @@ export const books = [
     "chipId": "HX-1244",
     "locationCode": "S5-B-L3-P28",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.1715,
+    "heightScale": 1,
+    "depthScale": 0.8,
     "worldPosition": [
-      5.7874,
-      1.19106,
-      -1.941143
+      5.78992,
+      1.188,
+      -1.905032
     ],
     "chipPayload": {
       "book_id": "HX-1244",
@@ -42346,7 +44834,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 29,
-    "color": "#596879",
+    "color": "#5e6e81",
     "keys": [
       "HX-1245",
       "HX1245",
@@ -42357,11 +44845,13 @@ export const books = [
     "chipId": "HX-1245",
     "locationCode": "S5-B-L3-P29",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.1715,
+    "heightScale": 1,
+    "depthScale": 0.8,
     "worldPosition": [
-      5.7874,
-      1.18035,
-      -1.708857
+      5.78992,
+      1.188,
+      -1.651997
     ],
     "chipPayload": {
       "book_id": "HX-1245",
@@ -42380,7 +44870,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 30,
-    "color": "#596879",
+    "color": "#5b6a7c",
     "keys": [
       "HX-1246",
       "HX1246",
@@ -42391,11 +44881,13 @@ export const books = [
     "chipId": "HX-1246",
     "locationCode": "S5-B-L3-P30",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 0.8958,
+    "heightScale": 0.95,
+    "depthScale": 1.15,
     "worldPosition": [
-      5.7874,
-      1.19718,
-      -1.476571
+      5.78551,
+      1.18035,
+      -1.428731
     ],
     "chipPayload": {
       "book_id": "HX-1246",
@@ -42414,7 +44906,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 31,
-    "color": "#596879",
+    "color": "#5b6a7c",
     "keys": [
       "HX-1247",
       "HX1247",
@@ -42425,11 +44917,13 @@ export const books = [
     "chipId": "HX-1247",
     "locationCode": "S5-B-L3-P31",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 0.8958,
+    "heightScale": 0.95,
+    "depthScale": 1.15,
     "worldPosition": [
-      5.7874,
-      1.188,
-      -1.244286
+      5.78551,
+      1.18035,
+      -1.235234
     ],
     "chipPayload": {
       "book_id": "HX-1247",
@@ -42448,7 +44942,7 @@ export const books = [
     "side": "B",
     "layer": 3,
     "slot": 32,
-    "color": "#596879",
+    "color": "#5b6a7c",
     "keys": [
       "HX-1248",
       "HX1248",
@@ -42459,11 +44953,13 @@ export const books = [
     "chipId": "HX-1248",
     "locationCode": "S5-B-L3-P32",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 0.8958,
+    "heightScale": 0.95,
+    "depthScale": 1.15,
     "worldPosition": [
-      5.7874,
-      1.19259,
-      -1.012
+      5.78551,
+      1.18035,
+      -1.041737
     ],
     "chipPayload": {
       "book_id": "HX-1248",
@@ -42482,7 +44978,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 1,
-    "color": "#596879",
+    "color": "#65778b",
     "keys": [
       "HX-1249",
       "HX1249",
@@ -42493,11 +44989,13 @@ export const books = [
     "chipId": "HX-1249",
     "locationCode": "S5-B-L4-P01",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.2599,
+    "heightScale": 0.85,
+    "depthScale": 1,
     "worldPosition": [
       5.7874,
-      1.69259,
-      -8.588
+      1.66505,
+      -8.559927
     ],
     "chipPayload": {
       "book_id": "HX-1249",
@@ -42516,7 +45014,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 2,
-    "color": "#596879",
+    "color": "#65778b",
     "keys": [
       "HX-1250",
       "HX1250",
@@ -42527,11 +45025,13 @@ export const books = [
     "chipId": "HX-1250",
     "locationCode": "S5-B-L4-P02",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.2599,
+    "heightScale": 0.85,
+    "depthScale": 1,
     "worldPosition": [
       5.7874,
-      1.69259,
-      -8.355714
+      1.66505,
+      -8.28778
     ],
     "chipPayload": {
       "book_id": "HX-1250",
@@ -42550,7 +45050,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 3,
-    "color": "#596879",
+    "color": "#65778b",
     "keys": [
       "HX-1251",
       "HX1251",
@@ -42561,11 +45061,13 @@ export const books = [
     "chipId": "HX-1251",
     "locationCode": "S5-B-L4-P03",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.2599,
+    "heightScale": 0.85,
+    "depthScale": 1,
     "worldPosition": [
       5.7874,
-      1.68341,
-      -8.123429
+      1.66505,
+      -8.015633
     ],
     "chipPayload": {
       "book_id": "HX-1251",
@@ -42584,7 +45086,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 4,
-    "color": "#596879",
+    "color": "#515e6c",
     "keys": [
       "HX-1252",
       "HX1252",
@@ -42595,11 +45097,13 @@ export const books = [
     "chipId": "HX-1252",
     "locationCode": "S5-B-L4-P04",
     "placeholder": true,
-    "heightScale": 1.06,
+    "widthScale": 0.8621,
+    "heightScale": 0.85,
+    "depthScale": 0.8,
     "worldPosition": [
-      5.7874,
-      1.69718,
-      -7.891143
+      5.78992,
+      1.66505,
+      -7.786456
     ],
     "chipPayload": {
       "book_id": "HX-1252",
@@ -42618,7 +45122,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 5,
-    "color": "#596879",
+    "color": "#515e6c",
     "keys": [
       "HX-1253",
       "HX1253",
@@ -42629,11 +45133,13 @@ export const books = [
     "chipId": "HX-1253",
     "locationCode": "S5-B-L4-P05",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 0.8621,
+    "heightScale": 0.85,
+    "depthScale": 0.8,
     "worldPosition": [
-      5.7874,
-      1.67882,
-      -7.658857
+      5.78992,
+      1.66505,
+      -7.600251
     ],
     "chipPayload": {
       "book_id": "HX-1253",
@@ -42652,7 +45158,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 6,
-    "color": "#596879",
+    "color": "#515e6c",
     "keys": [
       "HX-1254",
       "HX1254",
@@ -42663,11 +45169,13 @@ export const books = [
     "chipId": "HX-1254",
     "locationCode": "S5-B-L4-P06",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 0.8621,
+    "heightScale": 0.85,
+    "depthScale": 0.8,
     "worldPosition": [
-      5.7874,
-      1.67729,
-      -7.426571
+      5.78992,
+      1.66505,
+      -7.414045
     ],
     "chipPayload": {
       "book_id": "HX-1254",
@@ -42686,7 +45194,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 7,
-    "color": "#596879",
+    "color": "#65778b",
     "keys": [
       "HX-1255",
       "HX1255",
@@ -42697,11 +45205,13 @@ export const books = [
     "chipId": "HX-1255",
     "locationCode": "S5-B-L4-P07",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 0.9284,
+    "heightScale": 0.9,
+    "depthScale": 1.3,
     "worldPosition": [
-      5.7874,
-      1.68494,
-      -7.194286
+      5.78362,
+      1.6727,
+      -7.220677
     ],
     "chipPayload": {
       "book_id": "HX-1255",
@@ -42720,7 +45230,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 8,
-    "color": "#596879",
+    "color": "#617286",
     "keys": [
       "HX-1256",
       "HX1256",
@@ -42731,11 +45241,13 @@ export const books = [
     "chipId": "HX-1256",
     "locationCode": "S5-B-L4-P08",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 0.9947,
+    "heightScale": 1,
+    "depthScale": 1,
     "worldPosition": [
       5.7874,
-      1.69106,
-      -6.962
+      1.688,
+      -7.012986
     ],
     "chipPayload": {
       "book_id": "HX-1256",
@@ -42754,7 +45266,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 9,
-    "color": "#596879",
+    "color": "#515e6c",
     "keys": [
       "HX-1257",
       "HX1257",
@@ -42765,11 +45277,13 @@ export const books = [
     "chipId": "HX-1257",
     "locationCode": "S5-B-L4-P09",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.1032,
+    "heightScale": 0.9,
+    "depthScale": 1.3,
     "worldPosition": [
-      5.7874,
-      1.67882,
-      -6.638
+      5.78362,
+      1.6727,
+      -6.626855
     ],
     "chipPayload": {
       "book_id": "HX-1257",
@@ -42788,7 +45302,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 10,
-    "color": "#596879",
+    "color": "#515e6c",
     "keys": [
       "HX-1258",
       "HX1258",
@@ -42799,11 +45313,13 @@ export const books = [
     "chipId": "HX-1258",
     "locationCode": "S5-B-L4-P10",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.1032,
+    "heightScale": 0.9,
+    "depthScale": 1.3,
     "worldPosition": [
-      5.7874,
-      1.67576,
-      -6.398571
+      5.78362,
+      1.6727,
+      -6.388565
     ],
     "chipPayload": {
       "book_id": "HX-1258",
@@ -42822,7 +45338,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 11,
-    "color": "#596879",
+    "color": "#5b6a7c",
     "keys": [
       "HX-1259",
       "HX1259",
@@ -42833,11 +45349,13 @@ export const books = [
     "chipId": "HX-1259",
     "locationCode": "S5-B-L4-P11",
     "placeholder": true,
-    "heightScale": 1.05,
+    "widthScale": 1.1767,
+    "heightScale": 0.9,
+    "depthScale": 0.9,
     "worldPosition": [
-      5.7874,
-      1.69565,
-      -6.159143
+      5.78866,
+      1.6727,
+      -6.142331
     ],
     "chipPayload": {
       "book_id": "HX-1259",
@@ -42856,7 +45374,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 12,
-    "color": "#596879",
+    "color": "#5b6a7c",
     "keys": [
       "HX-1260",
       "HX1260",
@@ -42867,11 +45385,13 @@ export const books = [
     "chipId": "HX-1260",
     "locationCode": "S5-B-L4-P12",
     "placeholder": true,
-    "heightScale": 1.03,
+    "widthScale": 1.1767,
+    "heightScale": 0.9,
+    "depthScale": 0.9,
     "worldPosition": [
-      5.7874,
-      1.69259,
-      -5.919714
+      5.78866,
+      1.6727,
+      -5.888155
     ],
     "chipPayload": {
       "book_id": "HX-1260",
@@ -42890,7 +45410,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 13,
-    "color": "#596879",
+    "color": "#5b6a7c",
     "keys": [
       "HX-1261",
       "HX1261",
@@ -42901,11 +45421,13 @@ export const books = [
     "chipId": "HX-1261",
     "locationCode": "S5-B-L4-P13",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.1767,
+    "heightScale": 0.9,
+    "depthScale": 0.9,
     "worldPosition": [
-      5.7874,
-      1.67576,
-      -5.680286
+      5.78866,
+      1.6727,
+      -5.633978
     ],
     "chipPayload": {
       "book_id": "HX-1261",
@@ -42924,7 +45446,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 14,
-    "color": "#596879",
+    "color": "#617286",
     "keys": [
       "HX-1262",
       "HX1262",
@@ -42935,11 +45457,13 @@ export const books = [
     "chipId": "HX-1262",
     "locationCode": "S5-B-L4-P14",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 0.9561,
+    "heightScale": 0.85,
+    "depthScale": 1.48,
     "worldPosition": [
-      5.7874,
-      1.67729,
-      -5.440857
+      5.781352,
+      1.66505,
+      -5.403631
     ],
     "chipPayload": {
       "book_id": "HX-1262",
@@ -42958,7 +45482,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 15,
-    "color": "#596879",
+    "color": "#617286",
     "keys": [
       "HX-1263",
       "HX1263",
@@ -42969,11 +45493,13 @@ export const books = [
     "chipId": "HX-1263",
     "locationCode": "S5-B-L4-P15",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 0.9561,
+    "heightScale": 0.85,
+    "depthScale": 1.48,
     "worldPosition": [
-      5.7874,
-      1.68953,
-      -5.201429
+      5.781352,
+      1.66505,
+      -5.197113
     ],
     "chipPayload": {
       "book_id": "HX-1263",
@@ -42992,7 +45518,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 16,
-    "color": "#596879",
+    "color": "#617286",
     "keys": [
       "HX-1264",
       "HX1264",
@@ -43003,11 +45529,13 @@ export const books = [
     "chipId": "HX-1264",
     "locationCode": "S5-B-L4-P16",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 0.9561,
+    "heightScale": 0.85,
+    "depthScale": 1.48,
     "worldPosition": [
-      5.7874,
-      1.68035,
-      -4.962
+      5.781352,
+      1.66505,
+      -4.990595
     ],
     "chipPayload": {
       "book_id": "HX-1264",
@@ -43026,7 +45554,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 17,
-    "color": "#596879",
+    "color": "#687b90",
     "keys": [
       "HX-1265",
       "HX1265",
@@ -43037,11 +45565,13 @@ export const books = [
     "chipId": "HX-1265",
     "locationCode": "S5-B-L4-P17",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.0302,
+    "heightScale": 0.85,
+    "depthScale": 0.8,
     "worldPosition": [
-      5.7874,
-      1.68953,
-      -4.638
+      5.78992,
+      1.66505,
+      -4.634743
     ],
     "chipPayload": {
       "book_id": "HX-1265",
@@ -43060,7 +45590,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 18,
-    "color": "#596879",
+    "color": "#687b90",
     "keys": [
       "HX-1266",
       "HX1266",
@@ -43071,11 +45601,13 @@ export const books = [
     "chipId": "HX-1266",
     "locationCode": "S5-B-L4-P18",
     "placeholder": true,
-    "heightScale": 0.96,
+    "widthScale": 1.0302,
+    "heightScale": 0.85,
+    "depthScale": 0.8,
     "worldPosition": [
-      5.7874,
-      1.68188,
-      -4.398571
+      5.78992,
+      1.66505,
+      -4.412228
     ],
     "chipPayload": {
       "book_id": "HX-1266",
@@ -43094,7 +45626,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 19,
-    "color": "#596879",
+    "color": "#4d5967",
     "keys": [
       "HX-1267",
       "HX1267",
@@ -43105,11 +45637,13 @@ export const books = [
     "chipId": "HX-1267",
     "locationCode": "S5-B-L4-P19",
     "placeholder": true,
-    "heightScale": 0.95,
+    "widthScale": 1.2233,
+    "heightScale": 1,
+    "depthScale": 0.8,
     "worldPosition": [
-      5.7874,
-      1.68035,
-      -4.159143
+      5.78992,
+      1.688,
+      -4.168853
     ],
     "chipPayload": {
       "book_id": "HX-1267",
@@ -43128,7 +45662,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 20,
-    "color": "#596879",
+    "color": "#4d5967",
     "keys": [
       "HX-1268",
       "HX1268",
@@ -43139,11 +45673,13 @@ export const books = [
     "chipId": "HX-1268",
     "locationCode": "S5-B-L4-P20",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 1.2233,
+    "heightScale": 1,
+    "depthScale": 0.8,
     "worldPosition": [
-      5.7874,
-      1.68953,
-      -3.919714
+      5.78992,
+      1.688,
+      -3.904616
     ],
     "chipPayload": {
       "book_id": "HX-1268",
@@ -43162,7 +45698,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 21,
-    "color": "#596879",
+    "color": "#4d5967",
     "keys": [
       "HX-1269",
       "HX1269",
@@ -43173,11 +45709,13 @@ export const books = [
     "chipId": "HX-1269",
     "locationCode": "S5-B-L4-P21",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 1.2233,
+    "heightScale": 1,
+    "depthScale": 0.8,
     "worldPosition": [
-      5.7874,
-      1.67576,
-      -3.680286
+      5.78992,
+      1.688,
+      -3.64038
     ],
     "chipPayload": {
       "book_id": "HX-1269",
@@ -43196,7 +45734,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 22,
-    "color": "#596879",
+    "color": "#4a5562",
     "keys": [
       "HX-1270",
       "HX1270",
@@ -43207,11 +45745,13 @@ export const books = [
     "chipId": "HX-1270",
     "locationCode": "S5-B-L4-P22",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 0.837,
+    "heightScale": 0.85,
+    "depthScale": 1.15,
     "worldPosition": [
-      5.7874,
-      1.68647,
-      -3.440857
+      5.78551,
+      1.66505,
+      -3.417866
     ],
     "chipPayload": {
       "book_id": "HX-1270",
@@ -43230,7 +45770,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 23,
-    "color": "#596879",
+    "color": "#5e6e81",
     "keys": [
       "HX-1271",
       "HX1271",
@@ -43241,11 +45781,13 @@ export const books = [
     "chipId": "HX-1271",
     "locationCode": "S5-B-L4-P23",
     "placeholder": true,
-    "heightScale": 0.99,
+    "widthScale": 1.0302,
+    "heightScale": 0.8,
+    "depthScale": 1.3,
     "worldPosition": [
-      5.7874,
-      1.68647,
-      -3.201429
+      5.78362,
+      1.6574,
+      -3.216212
     ],
     "chipPayload": {
       "book_id": "HX-1271",
@@ -43264,7 +45806,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 24,
-    "color": "#596879",
+    "color": "#5e6e81",
     "keys": [
       "HX-1272",
       "HX1272",
@@ -43275,11 +45817,13 @@ export const books = [
     "chipId": "HX-1272",
     "locationCode": "S5-B-L4-P24",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 1.0302,
+    "heightScale": 0.8,
+    "depthScale": 1.3,
     "worldPosition": [
-      5.7874,
-      1.69106,
-      -2.962
+      5.78362,
+      1.6574,
+      -2.993697
     ],
     "chipPayload": {
       "book_id": "HX-1272",
@@ -43298,7 +45842,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 25,
-    "color": "#596879",
+    "color": "#65778b",
     "keys": [
       "HX-1273",
       "HX1273",
@@ -43309,11 +45853,13 @@ export const books = [
     "chipId": "HX-1273",
     "locationCode": "S5-B-L4-P25",
     "placeholder": true,
-    "heightScale": 1.01,
+    "widthScale": 0.9624,
+    "heightScale": 0.95,
+    "depthScale": 1.48,
     "worldPosition": [
-      5.7874,
-      1.68953,
-      -2.638
+      5.781352,
+      1.68035,
+      -2.642059
     ],
     "chipPayload": {
       "book_id": "HX-1273",
@@ -43332,7 +45878,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 26,
-    "color": "#596879",
+    "color": "#65778b",
     "keys": [
       "HX-1274",
       "HX1274",
@@ -43343,11 +45889,13 @@ export const books = [
     "chipId": "HX-1274",
     "locationCode": "S5-B-L4-P26",
     "placeholder": true,
-    "heightScale": 0.92,
+    "widthScale": 0.9624,
+    "heightScale": 0.95,
+    "depthScale": 1.48,
     "worldPosition": [
-      5.7874,
-      1.67576,
-      -2.405714
+      5.781352,
+      1.68035,
+      -2.434178
     ],
     "chipPayload": {
       "book_id": "HX-1274",
@@ -43366,7 +45914,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 27,
-    "color": "#596879",
+    "color": "#65778b",
     "keys": [
       "HX-1275",
       "HX1275",
@@ -43377,11 +45925,13 @@ export const books = [
     "chipId": "HX-1275",
     "locationCode": "S5-B-L4-P27",
     "placeholder": true,
-    "heightScale": 1.02,
+    "widthScale": 0.9624,
+    "heightScale": 0.95,
+    "depthScale": 1.48,
     "worldPosition": [
-      5.7874,
-      1.69106,
-      -2.173429
+      5.781352,
+      1.68035,
+      -2.226297
     ],
     "chipPayload": {
       "book_id": "HX-1275",
@@ -43400,7 +45950,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 28,
-    "color": "#596879",
+    "color": "#576676",
     "keys": [
       "HX-1276",
       "HX1276",
@@ -43411,11 +45961,13 @@ export const books = [
     "chipId": "HX-1276",
     "locationCode": "S5-B-L4-P28",
     "placeholder": true,
-    "heightScale": 0.93,
+    "widthScale": 1.2191,
+    "heightScale": 1,
+    "depthScale": 1.3,
     "worldPosition": [
-      5.7874,
-      1.67729,
-      -1.941143
+      5.78362,
+      1.688,
+      -1.990699
     ],
     "chipPayload": {
       "book_id": "HX-1276",
@@ -43434,7 +45986,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 29,
-    "color": "#596879",
+    "color": "#576676",
     "keys": [
       "HX-1277",
       "HX1277",
@@ -43445,11 +45997,13 @@ export const books = [
     "chipId": "HX-1277",
     "locationCode": "S5-B-L4-P29",
     "placeholder": true,
-    "heightScale": 0.94,
+    "widthScale": 1.2191,
+    "heightScale": 1,
+    "depthScale": 1.3,
     "worldPosition": [
-      5.7874,
-      1.67882,
-      -1.708857
+      5.78362,
+      1.688,
+      -1.727383
     ],
     "chipPayload": {
       "book_id": "HX-1277",
@@ -43468,7 +46022,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 30,
-    "color": "#596879",
+    "color": "#617286",
     "keys": [
       "HX-1278",
       "HX1278",
@@ -43479,11 +46033,13 @@ export const books = [
     "chipId": "HX-1278",
     "locationCode": "S5-B-L4-P30",
     "placeholder": true,
-    "heightScale": 1,
+    "widthScale": 1.0266,
+    "heightScale": 1.1,
+    "depthScale": 1.3,
     "worldPosition": [
-      5.7874,
-      1.688,
-      -1.476571
+      5.78362,
+      1.7033,
+      -1.484855
     ],
     "chipPayload": {
       "book_id": "HX-1278",
@@ -43502,7 +46058,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 31,
-    "color": "#596879",
+    "color": "#617286",
     "keys": [
       "HX-1279",
       "HX1279",
@@ -43513,11 +46069,13 @@ export const books = [
     "chipId": "HX-1279",
     "locationCode": "S5-B-L4-P31",
     "placeholder": true,
-    "heightScale": 0.98,
+    "widthScale": 1.0266,
+    "heightScale": 1.1,
+    "depthScale": 1.3,
     "worldPosition": [
-      5.7874,
-      1.68494,
-      -1.244286
+      5.78362,
+      1.7033,
+      -1.263115
     ],
     "chipPayload": {
       "book_id": "HX-1279",
@@ -43536,7 +46094,7 @@ export const books = [
     "side": "B",
     "layer": 4,
     "slot": 32,
-    "color": "#596879",
+    "color": "#617286",
     "keys": [
       "HX-1280",
       "HX1280",
@@ -43547,11 +46105,13 @@ export const books = [
     "chipId": "HX-1280",
     "locationCode": "S5-B-L4-P32",
     "placeholder": true,
-    "heightScale": 0.97,
+    "widthScale": 1.0266,
+    "heightScale": 1.1,
+    "depthScale": 1.3,
     "worldPosition": [
-      5.7874,
-      1.68341,
-      -1.012
+      5.78362,
+      1.7033,
+      -1.041375
     ],
     "chipPayload": {
       "book_id": "HX-1280",
