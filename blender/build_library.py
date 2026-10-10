@@ -248,8 +248,9 @@ for x in [-8.33,-5,-1.67,1.67,5,8.33]:
 cube('Garden boundary',(0,.16,-11.1),(20,.25,1.1),stone,.07)
 for i in range(26):sphere('Garden shrub',(random.uniform(-10,10),.5,-11.1),(.4,.5,.4),green if i%2 else green2)
 
-# Shelf books come entirely from the smart-book system (blender/smart_books.py): 1280 chipped
-# volumes that the browser instances from smart-book.glb. This build authors no static
+# Shelf books come entirely from the smart-book system (blender/smart_books.py): the
+# browser instances one thin spine template per volume, and the reader opens the hardcover
+# from smart-book.glb. This build authors no static clothbound volumes. This build authors no static
 # clothbound volumes. export_saved.py sets the same variable from the scene it re-exports.
 static_books=0
 shelf_manifest=[]
@@ -406,7 +407,7 @@ for obj in list(bpy.data.objects):
         mesh.materials.append(mat);mesh.update();detail_cache[key]=mesh
     obj.data=detail_cache[key]
 for name,coll in groups.items():
-    if name in ('10 Render rig','11 Book template','12 Smart books'):continue
+    if name in ('10 Render rig','11 Book template','12 Smart books','13 Shelf book'):continue
     candidates=list(coll.objects)
     for o in candidates:
         if o.type=='FONT':
@@ -426,7 +427,7 @@ for name,coll in groups.items():
 bpy.ops.object.select_all(action='DESELECT')
 mesh_objects=[]
 for name,coll in groups.items():
-    if name in ('10 Render rig','11 Book template','12 Smart books'):continue
+    if name in ('10 Render rig','11 Book template','12 Smart books','13 Shelf book'):continue
     for o in coll.objects:
         if o.type=='MESH':o.select_set(True);mesh_objects.append(o)
 triangles=sum(sum(len(p.vertices)-2 for p in o.data.polygons) for o in mesh_objects)

@@ -97,13 +97,13 @@
   "static_books": 0,
   "mesh_objects": 71,
   "triangles": 344074,
-  "bytes": 6419828,
+  "bytes": 6419832,
   "textures": [
     "public/textures/floor-oak-*.jpg",
     "public/textures/joinery-oak-*.jpg",
     "public/textures/botanical-leaf.png"
   ],
   "texture_source": "Poly Haven (CC0) via tools/fetch-textures.mjs",
-  "interactive_books": 1280,
-  "books_per_side_layer": 32
+  "interactive_books": 11360,
+  "books_per_side_layer": 284
 }

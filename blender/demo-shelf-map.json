@@ -1,0 +1,15 @@
+{
+  "_comment": "Where each named book stands: bay 0-3 from the left, fraction 0-1 along the row. This record is explicit because the bay capacity has changed twice already (2 books per bay, then 8, now as many spines as fit), and inferring a book's place from the previous catalogue's slot number moved books that should have stayed put. tools/prepare-smart-books.mjs reads only this file for demo placement.",
+  "计算机基础": { "shelf": 1, "side": "A", "layer": 1, "bay": 3, "fraction": 0 },
+  "人工智能：一种现代的方法": { "shelf": 1, "side": "A", "layer": 3, "bay": 3, "fraction": 0.1429 },
+  "时间简史": { "shelf": 1, "side": "B", "layer": 4, "bay": 3, "fraction": 0 },
+  "人类简史": { "shelf": 2, "side": "A", "layer": 2, "bay": 3, "fraction": 0.1429 },
+  "小王子": { "shelf": 2, "side": "B", "layer": 3, "bay": 3, "fraction": 0 },
+  "经济学原理": { "shelf": 3, "side": "A", "layer": 2, "bay": 3, "fraction": 0.1429 },
+  "思考，快与慢": { "shelf": 3, "side": "B", "layer": 3, "bay": 3, "fraction": 0 },
+  "设计心理学": { "shelf": 4, "side": "A", "layer": 2, "bay": 3, "fraction": 0.1429 },
+  "音乐的故事": { "shelf": 4, "side": "B", "layer": 1, "bay": 3, "fraction": 0 },
+  "三体": { "shelf": 5, "side": "A", "layer": 3, "bay": 3, "fraction": 0.1429 },
+  "沙丘": { "shelf": 5, "side": "A", "layer": 4, "bay": 3, "fraction": 0.1429 },
+  "中国大百科全书": { "shelf": 5, "side": "B", "layer": 1, "bay": 3, "fraction": 0 }
+}

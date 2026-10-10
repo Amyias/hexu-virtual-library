@@ -35,9 +35,14 @@ export async function loadEnvironment(scene, books, progress) {
     }
   });
   scene.add(gltf.scene);
+  // Two templates from the same Blender authoring frame: the hardcover with its chip pocket,
+  // which the reader opens, and the thin spine-and-page-edge volume the shelves are stocked
+  // with. Only the spine is visible on a shelved book, and a shelf holds ten thousand of them.
   const model=await loader.loadAsync(new URL('../../public/models/smart-book.glb',import.meta.url).href);
   const bookTemplate=model.scene;
-  const shelfBooks=createShelfBooks(scene,bookTemplate,books);
+  const spines=await loader.loadAsync(new URL('../../public/models/shelf-book.glb',import.meta.url).href);
+  const shelfTemplate=spines.scene;
+  const shelfBooks=createShelfBooks(scene,shelfTemplate,books);
   // Floating labels remain readable at any camera angle; physical brass plates are in the GLB.
   const names = [
     "计算机 / AI",

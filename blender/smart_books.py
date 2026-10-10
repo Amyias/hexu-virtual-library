@@ -1,12 +1,16 @@
 """A reusable hardcover model with a genuinely recessed smart-chip pocket.
-Physical size: 216 x 306 x 26 mm. A single template serves all 1280 books.
+Physical size: 216 x 306 x 26 mm. This is the book the reader opens; the shelves are stocked
+from the thinner spine-only template in shelf_books.py, which one catalogue drives as well.
 """
 import bpy
 import math
 import json
+import sys
 from pathlib import Path
 from mathutils import Vector
 ROOT=Path(__file__).resolve().parents[1]
+sys.path.insert(0,str(ROOT/'blender'))
+from shelf_books import build_template as build_shelf_template
 
 def pos(p):return (p[0],-p[2],p[1])
 def mat(name,c,rough=.5,metal=0,alpha=1):
@@ -79,38 +83,36 @@ def populate():
     for o in template.objects:o.select_set(True)
     bpy.ops.export_scene.gltf(filepath=str(ROOT/'public/models/smart-book.glb'),export_format='GLB',use_selection=True,export_yup=True,export_animations=False)
     objects=list(template.objects)
+    # The shelved library: one thin spine template per volume, packed spine to the aisle. The
+    # hardcover above is what the reader opens; a shelved volume shows only its spine and the
+    # page edge along its top, so stocking eleven thousand of those rather than eleven thousand
+    # hardcovers is the difference between a workable .blend and an unusable one.
+    shelf_collection,shelf_parts=build_shelf_template()
     inventory=json.loads((ROOT/'blender/catalog.json').read_text(encoding='utf-8'))
-    cover_colors={}
+    cloths={}
     for b in inventory:
         bookroot=bpy.data.objects.new('Book_'+b['bookId'],None);shelfbooks.objects.link(bookroot)
-        bookroot.location=pos(b['worldPosition']);bookroot.rotation_euler.z=math.pi/2 if b['side']=='A' else -math.pi/2
+        # The spine is the volume's own -X face, so it comes out facing the aisle once side A is
+        # turned a half turn about the shelf's up axis and side B is left as authored.
+        bookroot.location=pos(b['worldPosition']);bookroot.rotation_euler.z=math.pi if b['side']=='A' else 0
         # The catalogue gives every volume its own width, height and thickness, the way a real
-        # shelf is stocked. The book is authored upright, so in Blender its own axes are X for
-        # the cover width, Y for the thickness and Z for the height; the root sits at the
-        # volume's centre, so scaling leaves the book standing on its board and carries the
-        # chip engraving with it.
+        # shelf is stocked. The volume is authored upright, so in Blender its own axes are X for
+        # the cover width, Y for the thickness (the spine's width) and Z for the height; the root
+        # sits at the volume's centre, so scaling leaves it standing on its board.
         bookroot.scale=(b.get('widthScale',1),b.get('depthScale',1),b.get('heightScale',1))
         for k,v in b['chipPayload'].items():bookroot[k]=v
         bookroot['chip_id']=b['chipId']
-        if b['color'] not in cover_colors:
+        if b['color'] not in cloths:
             h=b['color'].lstrip('#');c=tuple((int(h[i:i+2],16)/255)**2.2 for i in (0,2,4))
-            cover_colors[b['color']]=mat('Book cover '+b['color'],c,.68)
-        mapping={root:bookroot}
-        for o in objects:
-            if o==root:continue
-            clone=o.copy();clone.data=o.data;shelfbooks.objects.link(clone);mapping[o]=clone
-        for o,clone in mapping.items():
-            if o==root:continue
-            clone.parent=mapping.get(o.parent,bookroot)
-            if clone.type=='MESH' and clone.data.materials[0]==leather:
-                clone.material_slots[0].link='OBJECT';clone.material_slots[0].material=cover_colors[b['color']]
-        # Physical recessed microtext for the .blend close-up and subsequent editing.
-        for name,text,y,size in [('ChipSerial',b['bookId'],cy+.005,.0031),('ChipPosition',b['locationCode'],cy-.003,.0020)]:
-            curve=bpy.data.curves.new(name,'FONT');curve.body=text;curve.size=size;curve.align_x='CENTER';curve.extrude=.000015
-            ob=bpy.data.objects.new(name+'_'+b['bookId'],curve);shelfbooks.objects.link(ob);ob.parent=mapping[hinge]
-            ob.location=pos((cx,y,.0009));ob.rotation_euler=(math.pi/2,0,0);ob.data.materials.append(silver)
+            cloths[b['color']]=mat('Book cloth '+b['color'],c,.68)
+        for o in shelf_parts:
+            clone=o.copy();clone.data=o.data;shelfbooks.objects.link(clone);clone.parent=bookroot
+            if clone.name.startswith('Spine'):
+                clone.material_slots[0].link='OBJECT';clone.material_slots[0].material=cloths[b['color']]
     template.hide_render=True
     template.hide_viewport=True
+    shelf_collection.hide_render=True
+    shelf_collection.hide_viewport=True
     # Counted off the inventory rather than written down, so widening a shelf face cannot
     # leave the exported manifest claiming the old capacity.
     per_face={}
