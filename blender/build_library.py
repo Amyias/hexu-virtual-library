@@ -248,7 +248,7 @@ for x in [-8.33,-5,-1.67,1.67,5,8.33]:
 cube('Garden boundary',(0,.16,-11.1),(20,.25,1.1),stone,.07)
 for i in range(26):sphere('Garden shrub',(random.uniform(-10,10),.5,-11.1),(.4,.5,.4),green if i%2 else green2)
 
-# Shelf books come entirely from the smart-book system (blender/smart_books.py): 320 chipped
+# Shelf books come entirely from the smart-book system (blender/smart_books.py): 1280 chipped
 # volumes that the browser instances from smart-book.glb. This build authors no static
 # clothbound volumes. export_saved.py sets the same variable from the scene it re-exports.
 static_books=0

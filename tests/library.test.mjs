@@ -37,7 +37,7 @@ test("tolerates a one-character recognition slip without matching unrelated word
     assert.equal(findBook(word), undefined, word + " 不应命中任何馆藏");
 });
 
-test("every catalogued chip rests on its board inside a bay, 8 per face and layer", () => {
+test("every catalogued chip rests on its board inside a bay, 8 per bay and 32 per face and layer", () => {
   const input = JSON.parse(
     fs.readFileSync(
       new URL("../blender/catalog.json", import.meta.url),
@@ -46,8 +46,8 @@ test("every catalogued chip rests on its board inside a bay, 8 per face and laye
   );
   assert.deepEqual(books, input);
   // Blender envelope: each shelf is 1m (X) x 2m (Y) x 8m (Z), centred on the anchors.
-  // Each face is a bookcase with a 300 mm deep cavity; slot numbers are a bay-relative
-  // index 1..8 and real placement lives in worldPosition.
+  // Each face is a bookcase with a 300 mm deep cavity; slot numbers are a bay-major index
+  // 1..32 and real placement lives in worldPosition.
   const centres = [-6, -3, 0, 3, 6];
   const posts = [-8.75, -6.8, -4.8, -2.8, -0.85];
   const halfPost = 0.05;
@@ -59,11 +59,21 @@ test("every catalogued chip rests on its board inside a bay, 8 per face and laye
   const thickness = 0.0258; // book depth, off smart-book.glb
   const slots = new Set();
   const perFace = new Map();
+  const perBay = new Map();
   for (const b of books) {
     const slotKey = [b.shelf, b.side, b.layer, b.slot].join(":");
     assert.ok(!slots.has(slotKey), "duplicate slot " + slotKey);
     slots.add(slotKey);
-    assert.ok(b.slot >= 1 && b.slot <= 8, `${b.bookId} is outside the 8-per-face grid`);
+    assert.ok(
+      b.slot >= 1 && b.slot <= 32,
+      `${b.bookId} is outside the 32-per-face grid`,
+    );
+    // Height varies per book so the wall reads as shelving rather than as a texture. The
+    // catalogue has to carry the factor the renderer scales the template by.
+    assert.ok(
+      b.heightScale >= 0.92 && b.heightScale <= 1.06,
+      `${b.bookId} has an out-of-range height`,
+    );
 
     const [x, y, z] = b.worldPosition;
     const centre = centres[b.shelf - 1];
@@ -73,9 +83,9 @@ test("every catalogued chip rests on its board inside a bay, 8 per face and laye
       Math.abs(x - sign * rearBoard - (centre + sign * backFace)) < 1e-9,
       `${b.bookId} does not lean on the back panel`,
     );
-    // The volume stands on the board: centre height = board top + half the book height.
+    // The volume stands on the board: centre height = board top + half the scaled book.
     assert.ok(
-      Math.abs(y - (boardTops[b.layer - 1] + halfHeight)) < 1e-9,
+      Math.abs(y - (boardTops[b.layer - 1] + halfHeight * b.heightScale)) < 1e-6,
       `${b.bookId} does not rest on layer ${b.layer}`,
     );
     // Entirely inside its own bookcase, clear of the brass lip and the frame posts.
@@ -94,10 +104,31 @@ test("every catalogued chip rests on its board inside a bay, 8 per face and laye
     assert.ok(!zs.has(z), `${b.bookId} shares a position on ${face}`);
     zs.add(z);
     perFace.set(face, zs);
+    // Which bay the book stands in, counted between the runs of frame posts.
+    const bay = posts.findIndex((post, i) => z > post && z < posts[i + 1]);
+    assert.ok(bay >= 0, `${b.bookId} stands between no two posts`);
+    const bayKey = [b.shelf, b.side, b.layer, bay].join(":");
+    const row = perBay.get(bayKey) ?? [];
+    row.push(z);
+    perBay.set(bayKey, row);
   }
-  assert.equal(books.length, 320);
+  assert.equal(books.length, 1280);
   assert.equal(perFace.size, 5 * 2 * 4);
-  for (const [face, zs] of perFace) assert.equal(zs.size, 8, `${face} holds ${zs.size} books`);
+  for (const [face, zs] of perFace) assert.equal(zs.size, 32, `${face} holds ${zs.size} books`);
+  // Every bay carries a full row: eight books, spaced apart but not scattered. The catalogue
+  // this replaces held two per bay and left the rest of the shelf bare.
+  assert.equal(perBay.size, 5 * 2 * 4 * 4);
+  for (const [bay, zs] of perBay) {
+    assert.equal(zs.length, 8, `${bay} holds ${zs.length} books`);
+    const sorted = [...zs].sort((a, b) => a - b);
+    for (let i = 1; i < sorted.length; i++) {
+      const gap = sorted[i] - sorted[i - 1] - 0.216;
+      assert.ok(gap > 0.004 && gap < 0.05, `${bay} has a ${gap.toFixed(3)} m gap`);
+    }
+  }
+  // The engravings are one 4096x2560 sheet of 32x40 cells (src/scene/smart-books.js); a book
+  // past that budget would sample off the sheet and engrave nothing.
+  assert.ok(books.length <= 32 * 40, "catalogue outgrew its engraving atlas");
   assert.equal(books.filter((b) => !b.placeholder).length, 12);
 });
 
@@ -144,11 +175,11 @@ test("exported GLB contains five shelves, texture, valid buffers and optimized m
     fs.readFileSync(new URL("../public/models/manifest.json", import.meta.url)),
   );
   assert.equal(manifest.shelves.length, 5);
-  // Every shelf book is one of the 320 instanced interactive copies built from
+  // Every shelf book is one of the 1280 instanced interactive copies built from
   // smart-book.glb, so the merged environment exports no static filler volumes.
   assert.equal(manifest.static_books, 0);
-  assert.equal(manifest.interactive_books, 320);
-  assert.equal(manifest.books_per_side_layer, 8);
+  assert.equal(manifest.interactive_books, 1280);
+  assert.equal(manifest.books_per_side_layer, 32);
   assert.ok(manifest.triangles < 600_000);
 });
 

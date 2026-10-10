@@ -1,5 +1,5 @@
 """A reusable hardcover model with a genuinely recessed smart-chip pocket.
-Physical size: 216 x 306 x 26 mm. A single template serves all 320 books.
+Physical size: 216 x 306 x 26 mm. A single template serves all 1280 books.
 """
 import bpy
 import math
@@ -84,6 +84,11 @@ def populate():
     for b in inventory:
         bookroot=bpy.data.objects.new('Book_'+b['bookId'],None);shelfbooks.objects.link(bookroot)
         bookroot.location=pos(b['worldPosition']);bookroot.rotation_euler.z=math.pi/2 if b['side']=='A' else -math.pi/2
+        # The catalogue varies each volume's height so the rows read as shelving rather than as
+        # a wall of identical slabs. A book's height lies on its own local Z (the book is
+        # authored upright), and the root sits at the volume's centre, so scaling Z leaves the
+        # book standing on its board and carries the chip engraving with it.
+        bookroot.scale=(1,1,b.get('heightScale',1))
         for k,v in b['chipPayload'].items():bookroot[k]=v
         bookroot['chip_id']=b['chipId']
         if b['color'] not in cover_colors:
@@ -105,7 +110,11 @@ def populate():
             ob.location=pos((cx,y,.0009));ob.rotation_euler=(math.pi/2,0,0);ob.data.materials.append(silver)
     template.hide_render=True
     template.hide_viewport=True
+    # Counted off the inventory rather than written down, so widening a shelf face cannot
+    # leave the exported manifest claiming the old capacity.
+    per_face={}
+    for b in inventory:per_face[(b['shelf'],b['side'],b['layer'])]=per_face.get((b['shelf'],b['side'],b['layer']),0)+1
     scene['smart_books_total']=len(inventory)
-    scene['books_per_side_layer']=8
+    scene['books_per_side_layer']=max(per_face.values()) if per_face else 0
     print('SMART_BOOKS_READY '+str(len(inventory)),flush=True)
     return inventory

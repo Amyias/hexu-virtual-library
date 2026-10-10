@@ -8,7 +8,7 @@
 
 ### 1. 验证
 
-- 任何改动都先跑 `npm test`。当前 6 项：馆藏几何与书架结构、`hexu-library.glb` 合并契约、`smart-book.glb` 部件命名、三份馆藏清单副本一致性、ASR 生命周期。
+- 任何改动都先跑 `npm test`。当前 9 项：唤醒词与书名匹配的容错、馆藏几何与书架结构（每开间 8 本、逐本高度）、`hexu-library.glb` 合并契约、`smart-book.glb` 部件命名、植物与贴图导出、三份馆藏清单副本一致性、服务端识别与语义层的降级路径、语音适配器生命周期。
 - 涉及界面、场景、动画或交互的改动，另外在浏览器里回归一遍完整链路：加载场景 → 找书 → 翻开封面 → 查看芯片 → 放回书架 → 回到待命。
 - 改动 Blender 脚本后，**先把项目复制到临时目录跑重建**，与现有产物对比，不要直接覆盖仓库里的成品模型。
 
@@ -219,11 +219,15 @@ python tools/make-icon.py
 # 重新生成馆藏清单（一次写入三份副本，必须保持一致）
 node tools/prepare-smart-books.mjs
 
+# 按清单重建源头 .blend 里的书（只重建书，不动环境几何；注意要带上 .blend 参数，
+# 漏掉它会以空场景启动，脚本照样成功但会把环境清空）
+& 'D:\Blender Foundation\Blender 5.2\blender.exe' --background --factory-startup blender/hexu-library.blend --python-exit-code 1 --python blender/refine_books.py
+
 # 拉取表面贴图（幂等；--force 强制重下）
 node tools/fetch-textures.mjs
 ```
 
-改动馆藏坐标后，应重跑 `prepare-smart-books.mjs` 并重建模型，避免书籍与预留槽位不一致。
+改动馆藏坐标后，按「先清单、后模型」的顺序重跑 `prepare-smart-books.mjs` 与 `refine_books.py`，网页实例与 `.blend` 里的书才会落在同一批坐标上。
 
 ## 模型精细化的做法
 

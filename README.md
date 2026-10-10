@@ -48,21 +48,21 @@ npm start
 | `index.html` | 页面结构、import map、本地依赖入口 |
 | `src/main.js` | 启动与资源加载错误提示 |
 | `src/app.js` | 唤醒、导航、阅读、芯片特写、归还的状态与动画编排 |
-| `src/data/catalog.js` | 320 枚编号芯片馆藏（含 12 本示例书）、位置与检索关键词 |
+| `src/data/catalog.js` | 1280 枚编号芯片馆藏（含 12 本示例书）、位置与检索关键词 |
 | `src/voice/intent.js` | 唤醒词与馆藏匹配 |
 | `src/voice/speech.js` | Web Speech API 生命周期和识别事件 |
 | `src/voice/server-asr.js` | 服务端识别通道：录音、能量断句、上传（后端可用时才启用） |
 | `src/voice/understand.js` | 语义解析通道：本地规则读不懂的说法交给大语言模型（已配置时才启用） |
 | `src/scene/runtime.js` | 相机、光照、阴影、环境反射 |
 | `src/scene/environment.js` | 加载 Blender GLB、悬浮分类标识、书架实例化入口 |
-| `src/scene/smart-books.js` | 320 本书的 GPU 实例化与芯片刻印图集 |
+| `src/scene/smart-books.js` | 1280 本书的 GPU 实例化、逐实例高度与芯片刻印图集 |
 | `src/scene/orb.js` | 小和流光 Shader、呼吸与唤醒波纹 |
 | `src/reader/book.js` | 绕书脊铰链开合、封面与中文简介纹理、芯片特写模型 |
 | `src/styles/library.css` | 页面与响应式布局 |
 | `blender/hexu-library.blend` | 可直接在 Blender 编辑的源场景 |
 | `blender/build_library.py` | 可重复执行的建模、导出、渲染脚本 |
 | `blender/export_saved.py` | 从已保存的源模型重新导出，不重建或覆盖源文件 |
-| `blender/smart_books.py` | 硬皮书模板（下凹芯片槽）建模、`smart-book.glb` 导出、320 本书实例化 |
+| `blender/smart_books.py` | 硬皮书模板（下凹芯片槽）建模、`smart-book.glb` 导出、1280 本书实例化 |
 | `blender/refine_books.py` | 定点更新书籍，备份、导出并渲染书本、芯片与书架内景 |
 | `blender/vegetation.py` | 盆栽曲面叶片、叶脉、陶盆与灌木分枝建模 |
 | `blender/refine_vegetation.py` | 定点更新植物，核验其余模型不变，导出并渲染近景 |
@@ -70,14 +70,14 @@ npm start
 | `blender/SHELVING_REFERENCES.md` | 书架进深标准、图书摆放方式与更新方法 |
 | `blender/MATERIAL_REFERENCES.md` | 地板与书柜的材质来源、UV 尺度与更新方法 |
 | `blender/PENDANT_REFERENCES.md` | 吊灯的型材构造、配色与素材库结论 |
-| `blender/catalog.json` | 320 本书的坐标与芯片载荷（生成物） |
+| `blender/catalog.json` | 1280 本书的坐标与芯片载荷（生成物） |
 | `blender/library-preview.png` | Blender 实际渲染的场景预览 |
 | `blender/smart-book-detail.png` | 书本与芯片槽近景渲染 |
 | `blender/chip-detail.png` | 芯片微刻字近景渲染 |
 | `blender/shelf-detail.png` | 书架内景：书立在层板上、靠住背板 |
 | `model/`（在 `model` 分支，不在 master） | 语音识别模型：228 MiB 超过 GitHub 单文件 100 MiB，切成 3 块；打包脚本自动取回并校验 |
 | `public/models/hexu-library.glb` | 网页使用的合并材质环境模型（不含架上藏书） |
-| `public/models/smart-book.glb` | 320 本书共用的硬皮书模板 |
+| `public/models/smart-book.glb` | 1280 本书共用的硬皮书模板 |
 | `public/models/book-inventory.json` | 馆藏清单副本（与 `blender/catalog.json` 一致） |
 | `public/models/manifest.json` | 导出版本、书架规格、面数、文件大小 |
 | `public/textures/floor-oak-*.jpg` | 地板贴图（反照率 / 法线 / 粗糙度），CC0 扫描件 |
@@ -102,7 +102,7 @@ npm start
 
 ## Blender 模型
 
-打开 `blender/hexu-library.blend` 可编辑原始对象：书架按集合 `Shelf_1` 至 `Shelf_5` 组织，另有建筑、前台、阅读家具、绿植、灯具、书籍模板与渲染相机集合。源文件在合并之前保存，网页 GLB 按“集合 + 材质”合并，降低绘制调用数量。环境本身不导出静态藏书——架上 320 本书全部来自 `smart-book.glb` 的实例化；当前导出为 71 个网格、344,074 个三角面、**6.12 MiB**，精确统计见 `public/models/manifest.json`。毫米级书脊条纹在网页导出时简化倒角，源文件保留完整细节。
+打开 `blender/hexu-library.blend` 可编辑原始对象：书架按集合 `Shelf_1` 至 `Shelf_5` 组织，另有建筑、前台、阅读家具、绿植、灯具、书籍模板与渲染相机集合。源文件在合并之前保存，网页 GLB 按“集合 + 材质”合并，降低绘制调用数量。环境本身不导出静态藏书——架上 1280 本书全部来自 `smart-book.glb` 的实例化；当前导出为 71 个网格、344,074 个三角面、**6.12 MiB**，精确统计见 `public/models/manifest.json`。毫米级书脊条纹在网页导出时简化倒角，源文件保留完整细节。
 
 **几何用 Draco 压缩**（`KHR_draco_mesh_compression`，量化取位置 14 / 法线 10 / UV 12 位）。几何原本占文件的 74% 且是 float32，gzip 只能压到 59%；Draco 把它从 12.97 MiB 压到 **1.49 MiB**，且不损失任何视觉细节——比删减几何正确，因为那些面是植物的叶片。解码器 vendored 在 `public/vendor/draco/`，不经 CDN。加载实测（服务器上行 10 Mbps 是瓶颈）：首次约 6 秒，再次打开约 2 秒。
 
@@ -116,16 +116,18 @@ npm start
 
 ## 馆藏芯片与智能书
 
-架上 320 本书（5 架 × 双面 4 层 × 每面每层 8 本）共用同一个 Blender 硬皮书模型 `public/models/smart-book.glb`：216 × 306 × 26 mm，含真正下凹的芯片槽、铜触点、硅片、镀金边框与保护窗。`FrontHinge` 是独立节点，翻开封面时绕书脊真实旋转。
+架上 1280 本书（5 架 × 双面 4 层 × 每面 4 个开间 × 每开间 8 本）共用同一个 Blender 硬皮书模型 `public/models/smart-book.glb`：216 × 306 × 26 mm，含真正下凹的芯片槽、铜触点、硅片、镀金边框与保护窗。`FrontHinge` 是独立节点，翻开封面时绕书脊真实旋转。
 
-- 编号为 `HX-0001` 至 `HX-0320`，另有位置码 `S{架}-{A|B}-L{层}-P{槽}`（如 `S5-A-L3-P08`）；编号与位置码都能直接用来找书。
+- 编号为 `HX-0001` 至 `HX-1280`，另有位置码 `S{架}-{A|B}-L{层}-P{槽}`（如 `S5-A-L3-P26`）；编号与位置码都能直接用来找书。
 - 其中 12 本有真实书名、作者与简介，其余为编号样书。
-- 网页端按网格部件各建一个 `InstancedMesh`，封面颜色走逐实例着色；封面刻印是 4096 × 2560 的 Canvas 图集（16 × 20 格，恰好 320 格），由 `atlasOffset` 实例属性采样。因此 320 本书只占 45 个绘制调用（44 个网格部件 + 芯片图集）。
+- 高度逐本不同（模板的 0.92–1.06 倍，由书号哈希决定）：1280 本一样高会像贴图，参差的顶部才读得出是书架。宽度保持统一——芯片刻印是封面上的平面片，缩放宽度会把刻印拉变形。
+- 网页端按网格部件各建一个 `InstancedMesh`，封面颜色与高度走逐实例变换；封面刻印是 4096 × 2560 的 Canvas 图集（32 × 40 格，恰好 1280 格），由 `atlasOffset` 实例属性采样。因此 1280 本书只占 45 个绘制调用（44 个网格部件 + 芯片图集）。
+- 性能实测（参考机、窗口 1266 × 783、像素比 1.25）：满架 46.6 fps，只放两成的旧布局 70.8 fps。书**不投自身阴影**——它们站在格内，看得见的阴影来自搁板与上层板；省掉阴影通道里重复提交的 5.5 万个实例后，同一场景从 30.6 fps 提到 46.6 fps。逐本高度只改模板的局部 Y 轴，宽度不动，芯片刻印不会被拉变形。
 - 点击「查看芯片」会把书上的芯片放大成特写，展示编号、位置码与内部标记。
 
-书的位置由真实坐标决定，并由回归测试核对：每本书的 `worldPosition` 必须正好落在对应层板的顶面上、书背贴合架内背板、位于立柱之间的开间内，且每面每层恰好 8 本。进深与摆放依据见 `blender/SHELVING_REFERENCES.md`。
+书的位置由真实坐标决定，并由回归测试核对：每本书的 `worldPosition` 必须正好落在对应层板的顶面上、书背贴合架内背板、位于立柱之间的开间内，每开间恰好 8 本且互不接触，每面每层恰好 32 本。进深与摆放依据见 `blender/SHELVING_REFERENCES.md`。
 
-`tools/prepare-smart-books.mjs` 是馆藏清单的唯一生成器，一次写入三份必须完全一致的副本：`blender/catalog.json`、`public/models/book-inventory.json`、`src/data/catalog.js`。它从当前清单继承那 12 本示例书，因此调整示例书目后需要重跑并核对数量：
+`tools/prepare-smart-books.mjs` 是馆藏清单的唯一生成器，一次写入三份必须完全一致的副本：`blender/catalog.json`、`public/models/book-inventory.json`、`src/data/catalog.js`。它从当前清单继承那 12 本示例书，并把记录里的槽位读作「第几个开间、开间内第几位」，因此开间容量变化时示例书仍留在原架、原面、原层、原开间。调整示例书目后需要重跑并核对数量：
 
 ```powershell
 node tools/prepare-smart-books.mjs
@@ -157,6 +159,6 @@ node tools/prepare-smart-books.mjs
 npm test
 ```
 
-回归测试覆盖五类契约：唤醒词与中英混排归一化、书名匹配的容错与误命中防线、320 本书的坐标与书架结构关系、`hexu-library.glb` 的合并网格与预算、`smart-book.glb` 的铰链与部件命名、三份馆藏清单副本的一致性，以及语音适配器的生命周期（模拟浏览器识别事件，不等同于真人麦克风转录验收）。实际语音测试请在 Chrome/Edge 打开 localhost 后授权执行。界面测试应覆盖：唤醒、找书、向左拖动封面、显示简介、查看芯片、归还后重新找书。
+回归测试覆盖五类契约：唤醒词与中英混排归一化、书名匹配的容错与误命中防线、1280 本书的坐标与书架结构关系、`hexu-library.glb` 的合并网格与预算、`smart-book.glb` 的铰链与部件命名、三份馆藏清单副本的一致性，以及语音适配器的生命周期（模拟浏览器识别事件，不等同于真人麦克风转录验收）。实际语音测试请在 Chrome/Edge 打开 localhost 后授权执行。界面测试应覆盖：唤醒、找书、向左拖动封面、显示简介、查看芯片、归还后重新找书。
 
 保留依赖文件中的版权及许可头。Three.js 使用 MIT 许可；GSAP 3.12.5 的许可链接保留于 `public/vendor/gsap.min.js` 开头；Draco 解码器使用 Apache-2.0，许可全文见 `public/vendor/DRACO-LICENSE.txt`。地板与书柜的贴图来自 Poly Haven，授权为 **CC0（公有领域）**，可自由分发，无需署名；素材标识记录在 `tools/fetch-textures.mjs` 与 `blender/MATERIAL_REFERENCES.md`。
