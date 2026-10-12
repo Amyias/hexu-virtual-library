@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1000" viewBox="0 0 1440 1000" role="img" aria-labelledby="title desc"><title id="title">从一句话到一本书 · 语音与意图流程</title><desc id="desc">ASR 负责“听到什么”；规则与可选大模型负责“要做什么”；应用调度负责“如何执行”</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#526b69"/></marker></defs><style>text{font-family:'Microsoft YaHei','Noto Sans CJK SC',Arial,sans-serif;fill:#203b3b}.title{font-size:32px;font-weight:700}.sub{font-size:17px;fill:#627674}.lane{font-size:20px;font-weight:700}.node{font-size:19px;font-weight:700}.body{font-size:16px;fill:#4c6664}.label{font-size:15px;fill:#526b69;paint-order:stroke;stroke:#f5f7f4;stroke-width:7px;stroke-linejoin:round}</style><rect width="1440" height="1000" fill="#f5f7f4"/>
+<text x="40" y="58" class="title"><tspan x="40" dy="0">从一句话到一本书 · 语音与意图流程</tspan></text>
+<text x="40" y="94" class="sub"><tspan x="40" dy="0">ASR 负责“听到什么”；规则与可选大模型负责“要做什么”；应用调度负责“如何执行”</tspan></text>
+<rect x="40" y="135" width="1360" height="190" rx="20" fill="#e7eeea" stroke="#cddbd5"/>
+<text x="64" y="172" class="lane"><tspan x="64" dy="0">01 / 音频转文本</tspan></text>
+<rect x="65" y="200" width="270" height="90" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
+<text x="83" y="231" class="node"><tspan x="83" dy="0">启动语音感知</tspan></text>
+<text x="83" y="258" class="body"><tspan x="83" dy="0">权限与本地启用偏好</tspan></text>
+<rect x="395" y="200" width="270" height="90" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
+<text x="413" y="231" class="node"><tspan x="413" dy="0">探测 /asr/ready</tspan></text>
+<text x="413" y="258" class="body"><tspan x="413" dy="0">就绪 → 录音上传后端</tspan></text>
+<rect x="725" y="200" width="300" height="90" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
+<text x="743" y="231" class="node"><tspan x="743" dy="0">不可用 → Web Speech</tspan></text>
+<text x="743" y="258" class="body"><tspan x="743" dy="0">continuous + interimResults</tspan></text>
+<rect x="1080" y="200" width="295" height="90" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
+<text x="1098" y="231" class="node"><tspan x="1098" dy="0">统一转录入口</tspan></text>
+<text x="1098" y="258" class="body"><tspan x="1098" dy="0">processText(text, …)</tspan></text>
+<polyline points="335,245 395,245" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
+<polyline points="665,245 725,245" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
+<text x="677" y="232" class="label"><tspan x="677" dy="0">否则</tspan></text>
+<polyline points="1025,245 1080,245" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
+<polyline points="530,290 530,310 1228,310 1228,290" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
+<text x="745" y="304" class="label"><tspan x="745" dy="0">后端转录同样汇入</tspan></text>
+<rect x="40" y="355" width="1360" height="250" rx="20" fill="#e7eeea" stroke="#cddbd5"/>
+<text x="64" y="392" class="lane"><tspan x="64" dy="0">02 / 唤醒门控与理解</tspan></text>
+<rect x="65" y="425" width="285" height="125" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
+<text x="83" y="456" class="node"><tspan x="83" dy="0">唤醒 / 25 秒等待窗</tspan></text>
+<text x="83" y="483" class="body"><tspan x="83" dy="0">仅叫“小和” → 气泡回应</tspan><tspan x="83" dy="25">“有什么需求吗？”留在前台</tspan><tspan x="83" dy="25">带需求或已唤醒 → 继续查询</tspan></text>
+<rect x="395" y="425" width="285" height="125" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
+<text x="413" y="456" class="node"><tspan x="413" dy="0">本地规则匹配</tspan></text>
+<text x="413" y="483" class="body"><tspan x="413" dy="0">精确 &gt; 片段 &gt; 单字近似</tspan><tspan x="413" dy="25">二字书名不做近似</tspan><tspan x="413" dy="25">多个识别候选参与匹配</tspan></text>
+<rect x="725" y="425" width="300" height="125" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
+<text x="743" y="456" class="node"><tspan x="743" dy="0">可选 /understand</tspan></text>
+<text x="743" y="483" class="body"><tspan x="743" dy="0">规则未命中且已配置时调用</tspan><tspan x="743" dy="25">提供具名书目与编号规则</tspan><tspan x="743" dy="25">解析 action / bookId / say</tspan></text>
+<rect x="1080" y="425" width="295" height="125" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
+<text x="1098" y="456" class="node"><tspan x="1098" dy="0">合法馆藏校验</tspan></text>
+<text x="1098" y="483" class="body"><tspan x="1098" dy="0">服务端与前端核对 bookId</tspan><tspan x="1098" dy="25">有效 → 实际馆藏对象</tspan><tspan x="1098" dy="25">无结果 → 提示并继续等待</tspan></text>
+<polyline points="1340,290 1340,410 207,410 207,425" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
+<polyline points="350,487 395,487" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
+<polyline points="680,487 725,487" fill="none" stroke="#526b69" stroke-width="2" stroke-dasharray="7 6" marker-end="url(#arrow)"/>
+<text x="680" y="474" class="label"><tspan x="680" dy="0">未命中</tspan></text>
+<polyline points="1025,487 1080,487" fill="none" stroke="#526b69" stroke-width="2" stroke-dasharray="7 6" marker-end="url(#arrow)"/>
+<polyline points="538,550 538,580 1228,580 1228,550" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
+<text x="750" y="573" class="label"><tspan x="750" dy="0">本地命中直接执行</tspan></text>
+<rect x="40" y="640" width="1360" height="310" rx="20" fill="#e7eeea" stroke="#cddbd5"/>
+<text x="64" y="677" class="lane"><tspan x="64" dy="0">03 / 动画执行与反馈</tspan></text>
+<rect x="65" y="715" width="285" height="110" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
+<text x="83" y="746" class="node"><tspan x="83" dy="0">NAVIGATING</tspan></text>
+<text x="83" y="773" class="body"><tspan x="83" dy="0">光球先到书架引导点</tspan><tspan x="83" dy="25">高亮具体书籍实例</tspan></text>
+<rect x="395" y="715" width="285" height="110" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
+<text x="413" y="746" class="node"><tspan x="413" dy="0">PRESENTING</tspan></text>
+<text x="413" y="773" class="body"><tspan x="413" dy="0">隐藏架上目标实例</tspan><tspan x="413" dy="25">完整书模型飞到相机前</tspan></text>
+<rect x="725" y="715" width="300" height="110" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
+<text x="743" y="746" class="node"><tspan x="743" dy="0">READING</tspan></text>
+<text x="743" y="773" class="body"><tspan x="743" dy="0">拖动 / 按钮 / 语音开合</tspan><tspan x="743" dy="25">查看芯片与书籍简介</tspan></text>
+<rect x="1080" y="715" width="295" height="110" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
+<text x="1098" y="746" class="node"><tspan x="1098" dy="0">RETURNING → IDLE</tspan></text>
+<text x="1098" y="773" class="body"><tspan x="1098" dy="0">合上、飞回、恢复实例</tspan><tspan x="1098" dy="25">光球回前台，释放阅读资源</tspan></text>
+<polyline points="1340,550 1340,700 207,700 207,715" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
+<polyline points="350,770 395,770" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
+<polyline points="680,770 725,770" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
+<polyline points="1025,770 1080,770" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
+<text x="65" y="887" class="body"><tspan x="65" dy="0">独立唤醒：只改变对话和光球脉冲，不触发导航。</tspan><tspan x="65" dy="27">段式后端识别在句尾才返回文本；识别请求进行时暂停接收新的音频帧。</tspan></text>
+</svg>

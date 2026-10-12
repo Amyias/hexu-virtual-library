@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="810" viewBox="0 0 1440 810" role="img" aria-labelledby="title desc"><title id="title">资产生产与运行加载 · 双书籍模板设计</title><desc id="desc">离线建模保留可编辑源文件；网页把静态环境、海量书脊和单本阅读模型分开加载</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#526b69"/></marker></defs><style>text{font-family:'Microsoft YaHei','Noto Sans CJK SC',Arial,sans-serif;fill:#203b3b}.title{font-size:32px;font-weight:700}.sub{font-size:17px;fill:#627674}.lane{font-size:20px;font-weight:700}.node{font-size:19px;font-weight:700}.body{font-size:16px;fill:#4c6664}.label{font-size:15px;fill:#526b69;paint-order:stroke;stroke:#f5f7f4;stroke-width:7px;stroke-linejoin:round}</style><rect width="1440" height="810" fill="#f5f7f4"/>
+<text x="40" y="58" class="title"><tspan x="40" dy="0">资产生产与运行加载 · 双书籍模板设计</tspan></text>
+<text x="40" y="94" class="sub"><tspan x="40" dy="0">离线建模保留可编辑源文件；网页把静态环境、海量书脊和单本阅读模型分开加载</tspan></text>
+<rect x="40" y="135" width="400" height="610" rx="20" fill="#e7eeea" stroke="#cddbd5"/>
+<text x="64" y="172" class="lane"><tspan x="64" dy="0">01 / 源数据与制作</tspan></text>
+<rect x="520" y="135" width="400" height="610" rx="20" fill="#f0ece2" stroke="#cddbd5"/>
+<text x="544" y="172" class="lane"><tspan x="544" dy="0">02 / 可分发资产</tspan></text>
+<rect x="1000" y="135" width="400" height="610" rx="20" fill="#e9edf4" stroke="#cddbd5"/>
+<text x="1024" y="172" class="lane"><tspan x="1024" dy="0">03 / 浏览器使用</tspan></text>
+<rect x="65" y="210" width="350" height="110" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
+<text x="83" y="241" class="node"><tspan x="83" dy="0">Blender 环境制作</tspan></text>
+<text x="83" y="268" class="body"><tspan x="83" dy="0">建筑、家具、植物、灯具</tspan><tspan x="83" dy="25">UV / PBR / 集合与材质合并</tspan></text>
+<rect x="545" y="210" width="350" height="110" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
+<text x="563" y="241" class="node"><tspan x="563" dy="0">hexu-library.glb</tspan></text>
+<text x="563" y="268" class="body"><tspan x="563" dy="0">Draco 几何压缩</tspan><tspan x="563" dy="25">71 个网格 / 344,074 三角面</tspan></text>
+<rect x="1025" y="210" width="350" height="110" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
+<text x="1043" y="241" class="node"><tspan x="1043" dy="0">GLTFLoader + DRACOLoader</tspan></text>
+<text x="1043" y="268" class="body"><tspan x="1043" dy="0">本地解码器</tspan><tspan x="1043" dy="25">WebGL 场景 / 光照 / 阴影</tspan></text>
+<polyline points="415,265 545,265" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
+<text x="460" y="251" class="label"><tspan x="460" dy="0">导出</tspan></text>
+<polyline points="895,265 1025,265" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
+<text x="940" y="251" class="label"><tspan x="940" dy="0">加载</tspan></text>
+<rect x="65" y="395" width="350" height="110" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
+<text x="83" y="426" class="node"><tspan x="83" dy="0">书籍模型制作</tspan></text>
+<text x="83" y="453" class="body"><tspan x="83" dy="0">shelf_books.py：书脊轻模板</tspan><tspan x="83" dy="25">smart_books.py：完整芯片书</tspan></text>
+<rect x="545" y="395" width="350" height="110" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
+<text x="563" y="426" class="node"><tspan x="563" dy="0">两块 GLB 模板</tspan></text>
+<text x="563" y="453" class="body"><tspan x="563" dy="0">shelf-book.glb：2 个部件</tspan><tspan x="563" dy="25">smart-book.glb：封面铰链与芯片</tspan></text>
+<rect x="1025" y="395" width="350" height="110" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
+<text x="1043" y="426" class="node"><tspan x="1043" dy="0">两种细节层次</tspan></text>
+<text x="1043" y="453" class="body"><tspan x="1043" dy="0">架上：11,360 本 / 2 个实例池</tspan><tspan x="1043" dy="25">阅读：按需克隆完整模型</tspan></text>
+<polyline points="415,450 545,450" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
+<text x="460" y="436" class="label"><tspan x="460" dy="0">导出</tspan></text>
+<polyline points="895,450 1025,450" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
+<text x="932" y="436" class="label"><tspan x="932" dy="0">实例化</tspan></text>
+<rect x="65" y="580" width="350" height="110" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
+<text x="83" y="611" class="node"><tspan x="83" dy="0">唯一馆藏生成器</tspan></text>
+<text x="83" y="638" class="body"><tspan x="83" dy="0">prepare-smart-books.mjs</tspan><tspan x="83" dy="25">示例书位置：demo-shelf-map.json</tspan></text>
+<rect x="545" y="580" width="350" height="110" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
+<text x="563" y="611" class="node"><tspan x="563" dy="0">三份一致清单</tspan></text>
+<text x="563" y="638" class="body"><tspan x="563" dy="0">blender/catalog.json + catalog.js</tspan><tspan x="563" dy="25">public/models/book-inventory.json</tspan></text>
+<rect x="1025" y="580" width="350" height="110" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
+<text x="1043" y="611" class="node"><tspan x="1043" dy="0">编号与位置贯穿全链路</tspan></text>
+<text x="1043" y="638" class="body"><tspan x="1043" dy="0">检索 / 坐标 / 芯片文字</tspan><tspan x="1043" dy="25">共同以 bookId 识别具体藏书</tspan></text>
+<polyline points="415,635 545,635" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
+<text x="460" y="621" class="label"><tspan x="460" dy="0">生成</tspan></text>
+<polyline points="895,635 1025,635" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
+<text x="940" y="621" class="label"><tspan x="940" dy="0">读取</tspan></text>
+<text x="40" y="785" class="body"><tspan x="40" dy="0">维护约束：改动坐标先生成清单，再在副本重建模型；核对清单与几何关系后再替换成品。</tspan></text>
+</svg>
