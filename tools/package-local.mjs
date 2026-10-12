@@ -126,7 +126,7 @@ function ensurePython() {
   return venvPython;
 }
 
-const DEPENDENCIES = ["pyinstaller==6.22.3", "sherpa-onnx==1.13.8"];
+const DEPENDENCIES = ["pyinstaller==6.22.3", "sherpa-onnx==1.13.8", "pywebview==6.2.1"];
 /* Listed separately because the sherpa-onnx wheel does not pull it in, yet transcribe() needs
    it — and without it the packaged program starts, reports itself ready, and then fails on the
    first utterance. The deployment installs it the same way. */
@@ -380,6 +380,13 @@ const INSTRUCTIONS = `和序图书馆 · 本机版
   使用说明.txt      本文件
 
 语音识别完全在本机运行，录音不出这台电脑。
+
+正文书库与小说阅读
+  点击「本地书库」可以搜索、下载正文，也可以导入自己的 TXT / EPUB，或导入静态书源 JSON。
+  直接说「小和，帮我找书名」也能查找本地正文；没有缓存时会搜索在线书源并下载。
+  打开书本封面后进入正文阅读，可翻页、选择章节、调整字号，阅读位置会自动保存。
+  正文和书库索引保存在 %APPDATA%\\hexu-library\\books，更新程序不会覆盖它们。
+  在线搜索和下载需要网络；已经下载或导入的正文可以离线阅读。
 
 大语言模型（可选，让「霍金写的那本」这类说法也能听懂）
   在窗口页面底部展开「使用说明 ↗」，里面有「本机设置」的入口；或直接打开
