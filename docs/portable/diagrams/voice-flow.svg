@@ -33,8 +33,8 @@
 <text x="743" y="456" class="node"><tspan x="743" dy="0">可选 /understand</tspan></text>
 <text x="743" y="483" class="body"><tspan x="743" dy="0">规则未命中且已配置时调用</tspan><tspan x="743" dy="25">提供具名书目与编号规则</tspan><tspan x="743" dy="25">解析 action / bookId / say</tspan></text>
 <rect x="1080" y="425" width="295" height="125" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
-<text x="1098" y="456" class="node"><tspan x="1098" dy="0">合法馆藏校验</tspan></text>
-<text x="1098" y="483" class="body"><tspan x="1098" dy="0">服务端与前端核对 bookId</tspan><tspan x="1098" dy="25">有效 → 实际馆藏对象</tspan><tspan x="1098" dy="25">无结果 → 提示并继续等待</tspan></text>
+<text x="1098" y="456" class="node"><tspan x="1098" dy="0">馆藏与正文承接</tspan></text>
+<text x="1098" y="483" class="body"><tspan x="1098" dy="0">语义结果核对 bookId</tspan><tspan x="1098" dy="25">有效 → 实际馆藏对象</tspan><tspan x="1098" dy="25">未入库 → 检索正文并上架</tspan></text>
 <polyline points="1340,290 1340,410 207,410 207,425" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
 <polyline points="350,487 395,487" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
 <polyline points="680,487 725,487" fill="none" stroke="#526b69" stroke-width="2" stroke-dasharray="7 6" marker-end="url(#arrow)"/>
@@ -52,7 +52,7 @@
 <text x="413" y="773" class="body"><tspan x="413" dy="0">隐藏架上目标实例</tspan><tspan x="413" dy="25">完整书模型飞到相机前</tspan></text>
 <rect x="725" y="715" width="300" height="110" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
 <text x="743" y="746" class="node"><tspan x="743" dy="0">READING</tspan></text>
-<text x="743" y="773" class="body"><tspan x="743" dy="0">拖动 / 按钮 / 语音开合</tspan><tspan x="743" dy="25">查看芯片与书籍简介</tspan></text>
+<text x="743" y="773" class="body"><tspan x="743" dy="0">拖动 / 按钮 / 语音开合</tspan><tspan x="743" dy="25">芯片 / 简介 / 本地正文翻页</tspan></text>
 <rect x="1080" y="715" width="295" height="110" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
 <text x="1098" y="746" class="node"><tspan x="1098" dy="0">RETURNING → IDLE</tspan></text>
 <text x="1098" y="773" class="body"><tspan x="1098" dy="0">合上、飞回、恢复实例</tspan><tspan x="1098" dy="25">光球回前台，释放阅读资源</tspan></text>

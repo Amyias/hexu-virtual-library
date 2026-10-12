@@ -1,12 +1,14 @@
 import * as THREE from "three";
 import { books, anchors, heights } from "./data/catalog.js";
-import { wakeRE, wakeStripRE, findBook } from "./voice/intent.js";
+import { wakeRE, wakeStripRE, findBook, normalize } from "./voice/intent.js";
 import { probeUnderstand, understand } from "./voice/understand.js";
 import { createSpeech } from "./voice/speech.js";
 import { createRuntime } from "./scene/runtime.js";
 import { loadEnvironment } from "./scene/environment.js";
 import { createOrb } from "./scene/orb.js";
 import { createBookFactory } from "./reader/book.js";
+import { createLocalLibrary } from "./reader/library.js";
+import { createNovelReader } from "./reader/novel.js";
 const gsap = window.gsap;
 export async function startLibrary() {
   if (!gsap) throw new Error("GSAP 动画依赖未能加载");
@@ -22,6 +24,7 @@ export async function startLibrary() {
     speakEnabled = false,
     understandReady = false;
   let noticeTimer, bubbleTimer, wakeTween;
+  let localLibrary, novelReader;
   const navigation = { pulse: 0 };
   function notice(text) {
     $("notice").textContent = text;
@@ -128,11 +131,18 @@ export async function startLibrary() {
       notice("现在还没有在阅读的书。");
       return;
     }
+    if (localLibrary) { searchFullText(request); return; }
     if (result.error) notice(result.error);
     awakeUntil = Date.now() + 25000;
     const msg = "暂未匹配到馆藏。试试“三体”“计算机基础”或“人工智能”。";
     response(msg);
     say(msg);
+  }
+  function searchFullText(request) {
+    awakeUntil = Date.now() + 25000;
+    response('好的，正在为您检索可下载的正文。');
+    say('好的，正在为您检索可下载的正文。');
+    localLibrary.search(request, true);
   }
   function processText(text, direct = false, wasInterimWake = false) {
     const match = text.match(wakeRE);
@@ -142,36 +152,41 @@ export async function startLibrary() {
       .replace(wakeStripRE, "")
       .replace(/你好|您好|在吗|你在吗|嗨|嘿|哈喽|hello/gi, "")
       .replace(/[\s，。！？、,.!?]/g, "");
+    if (!request) {
+      if (!wasInterimWake) wake();
+      return response("有什么需求吗？", null, true);
+    }
     if (phase === "READING") {
       /* Reading commands are few and regular, so they are answered here and now; going to the
          model for them would add a second of latency for nothing. 「合上」 used to return the
          book, which is not what it says — it closes the cover. */
       if (/放回|归还|还书|收回|拿走/.test(request)) returnBook();
+      else if (/下一页|往后翻|向后翻/.test(request)) { novelReader.show(); novelReader.next(); }
+      else if (/上一页|往前翻|向前翻/.test(request)) { novelReader.show(); novelReader.previous(); }
+      else if (/正文|读小说|继续阅读/.test(request)) openFullText();
       else if (/合上|关上|闭合|盖上/.test(request)) {
         if (chipView) closeChip();
         else animateTurn(0);
       } else if (/翻开|打开|摊开|掀开/.test(request)) animateTurn(1);
       else if (/芯片|标签|身份证/.test(request)) openChip();
       else if (match || direct)
-        notice("正在陪你阅读，可以让我翻开、合上、看芯片或放回书架。");
+        notice("正在陪你阅读，可以说下一页、上一页、读正文、看芯片或放回书架。");
       return null;
     }
     if (phase !== "IDLE") {
       if (match || direct) notice("小和正在取书，请稍候。");
       return null;
     }
-    if (!request) {
-      if (!wasInterimWake) wake();
-      const r = response("有什么需求吗？", null, true);
-      /* 气泡回应不产生扬声器回声，持续倾听下一句话。 */ return r;
-    }
     if (match && !wasInterimWake) wake();
-    const b = findBook(request);
+    const b = localLibrary?.find(request) || findBook(request);
+    const namedDemo = b && !b.placeholder && normalize(request).includes(normalize(b.title));
+    if (localLibrary && !b?.localBookId && (namedDemo || /下载|正文|读小说/.test(request))) { searchFullText(text); return null; }
     if (!b) {
       if (understandReady) {
         findViaModel(request);
         return null;
       }
+      if (localLibrary) { searchFullText(text); return null; }
       awakeUntil = Date.now() + 25000;
       const msg = "暂未匹配到馆藏。试试“三体”“计算机基础”或“人工智能”。";
       response(msg);
@@ -201,8 +216,23 @@ export async function startLibrary() {
     wake,
     processText,
     getPhase: () => phase,
+    lookupBook: text => localLibrary?.find(text) || findBook(text),
   });
   const factory = createBookFactory(renderer, environment.bookTemplate);
+  novelReader = createNovelReader({ notice });
+  localLibrary = createLocalLibrary({ books, notice, onSelect(book) {
+    if (phase === 'IDLE') present(book, '正文已在本地书库，正在为您定位。');
+    else if (phase === 'READING' && selected?.localBookId === book.localBookId) novelReader.show();
+    else notice('正文已上架。请先放回当前书籍，再从正文书库取阅。');
+  } });
+  const readTextButton = document.createElement('button');
+  readTextButton.id = 'readText'; readTextButton.className = 'secondary'; readTextButton.textContent = '阅读正文';
+  $('reader').querySelector('.reader-bottom').insertBefore(readTextButton, $('inspectChip'));
+  function openFullText() {
+    if (selected?.localBookId) novelReader.show();
+    else if (selected) { notice('这册演示馆藏目前只有简介，正在在线检索正文'); localLibrary.search(selected.title, false); }
+  }
+  readTextButton.onclick = openFullText;
   /* A model may be configured on the deployment for phrasing the local rules cannot read.
      Probing is best-effort and silent: without one, every request still goes through the rules,
      which is why this can never make the app worse. */
@@ -238,6 +268,7 @@ export async function startLibrary() {
   }
   function openChip() {
     if (phase !== 'READING' || chipView) return;
+    novelReader.hide();
     drag = null;
     chipView = factory.createChip(selected);
     scene.add(chipView);
@@ -299,6 +330,7 @@ export async function startLibrary() {
     if (phase !== "IDLE") return;
     phase = "NAVIGATING";
     selected = b;
+    novelReader.attach(b);
     $("locationText").textContent =
       `${target.shelf_id} · ${b.side} 面 · 第 ${b.layer} 层`;
     $("voiceTitle").textContent = "小和正在为你取书";
@@ -347,6 +379,7 @@ export async function startLibrary() {
       `${b.bookId} / ${b.side} 面 / 第 ${b.layer} 层 / 第 ${b.slot} 本`;
     $("dragHint").textContent = "按住封面向左拖动，让故事从这里展开";
     $("openBook").textContent = "翻开书页";
+    $("readText").textContent = b.localBookId ? '阅读本地正文' : '查找正文';
     $("returnBook").disabled = false;
   }
   function readerScale() {
@@ -367,6 +400,7 @@ export async function startLibrary() {
     turn = THREE.MathUtils.clamp(value, 0, 1);
     if (!hinge) return;
     hinge.rotation.y = -Math.PI * turn;
+    novelReader.cover(turn > 0.85);
     readerPosition();
     $("openBook").textContent = turn > 0.5 ? "合上封面" : "翻开书页";
     $("dragHint").textContent =
@@ -390,6 +424,7 @@ export async function startLibrary() {
   }
   async function returnBook() {
     if (phase !== "READING") return;
+    novelReader.clear();
     closeChip();
     phase = "RETURNING";
     drag = null;
@@ -543,8 +578,14 @@ export async function startLibrary() {
   };
   document
     .querySelectorAll("[data-query]")
-    .forEach((el) => (el.onclick = () => processText(el.dataset.query, true)));
+    .forEach((el) => (el.onclick = () => {
+      const book = localLibrary.find(el.dataset.query) || findBook(el.dataset.query);
+      if (phase === 'IDLE' && book) present(book, '好的，为您找到相关书籍，请随我来。');
+      else processText(el.dataset.query, true);
+    }));
   document.addEventListener("keydown", (e) => {
+    if (localLibrary.opened) { if (e.key === 'Escape') localLibrary.close(); return; }
+    if (novelReader.handleKey(e)) return;
     if (e.target.matches("input")) return;
     if (chipView) { if(e.key === 'Escape') closeChip(); return; }
     if (e.key === "Escape" && phase === "READING") returnBook();
@@ -594,7 +635,8 @@ export async function startLibrary() {
         $("voiceTitle").textContent = "说一声「小和」，开启一段探索";
       }
     }
-    renderer.render(scene, camera);
+    // The full-screen text panels keep the last scene frame; reading needs no GPU redraws.
+    if (!novelReader.visible && !localLibrary.opened) renderer.render(scene, camera);
   }
   frame();
   $("loading").style.display = "none";
@@ -611,8 +653,10 @@ export async function startLibrary() {
       shelves: 5,
       interactiveBooks: books.length,
       staticBooks: environment.staticBooks,
+      localLibrary: localLibrary.getState(),
+      novel: novelReader.getState(),
     }),
     processText,
-    books: books.map(({ mesh, origin, ...b }) => b),
+    get books() { return books.map(({ mesh, origin, ...b }) => b); },
   };
 }

@@ -1,7 +1,7 @@
 import { findBook, wakeRE } from "./intent.js";
 import { createServerAsr, probeServerAsr } from "./server-asr.js";
 /* Browser recognizer lifecycle, independent of rendering and animation. */
-export function createSpeech({ $, notice, wake, processText, getPhase }) {
+export function createSpeech({ $, notice, wake, processText, getPhase, lookupBook = findBook }) {
   // Real Web Speech API: one live recognizer, interim wake-up, final intent, automatic restart.
   const Recognition =
     window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -139,10 +139,10 @@ export function createSpeech({ $, notice, wake, processText, getPhase }) {
         /* Fall back to a lower-ranked hypothesis only when the top one matches no
            catalogue entry. A lower one may not contain the wake word, and depending
            on the 25s window for that would make every rescue fragile. */
-        const chosen = findBook(text)
+        const chosen = lookupBook(text)
           ? text
-          : heard.find((candidate) => findBook(candidate)) ?? text;
-        const matched = Boolean(findBook(chosen));
+          : heard.find((candidate) => lookupBook(candidate)) ?? text;
+        const matched = Boolean(lookupBook(chosen));
         record(text, chosen, heard.length, matched);
         const already = interimWakes.has(i);
         interimWakes.delete(i);
@@ -220,7 +220,7 @@ export function createSpeech({ $, notice, wake, processText, getPhase }) {
       serverAsr = createServerAsr({
         onText(text) {
           $("transcript").textContent = "听到：" + text;
-          record(text, text, 1, Boolean(findBook(text)));
+          record(text, text, 1, Boolean(lookupBook(text)));
           processText(text, false, false);
         },
         onStatus: micStatus,

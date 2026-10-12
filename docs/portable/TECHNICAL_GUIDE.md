@@ -1,14 +1,12 @@
 # 和序 · 虚拟智能图书馆：技术实现与系统架构
 
-> 分享说明：Markdown 请与 diagrams/ 文件夹一起移动；单独移动文件请选 TECHNICAL_GUIDE.html。三张配图在 HTML 内嵌，可离线阅读；源码链接指向 Gitee，访问私有仓库需要联网并登录。
-
-> 文档日期：2026-10-12。源码基线：`2.3.0`，提交 `efe19c0`。本文根据当前源码、馆藏清单和导出清单整理，适合项目介绍、技术交接与演示准备。标为“建议”的内容尚未实现；数量与资源大小是该基线的数据，不代表未来版本。
+> 文档日期：2026-10-12。源码基线：`2.3.0`，正文书库功能版。本文根据当前源码、馆藏清单和导出清单整理，适合项目介绍、技术交接与演示准备。标为“建议”的内容尚未实现；数量与资源大小是该基线的数据，不代表未来版本。
 
 ## 1. 项目解决什么问题
 
 和序图书馆把“说出需求、定位书籍、取书、阅读、归还”组织成一个可视化闭环。读者可以呼叫“小和”，也可以输入书名、编号、位置码或点击推荐入口。系统匹配到馆藏后，光球引导到书架，目标书飞到眼前；读者拖动封面翻开简介，还可以放大查看嵌入式芯片。
 
-项目适合展示三维馆藏导览和语音交互。当前数据是预设目录：11,360 册中有 12 本具名演示书，其余为编号样书；阅读内容是书名、作者、分类与简介卡片。芯片是三维几何与数字标记，尚未对接真实 RFID、借还设备或图书馆业务数据库。
+项目适合展示三维馆藏导览和语音交互。当前数据是预设目录：11,360 册中有 12 本具名演示书，其余为编号样书；原有演示书保留简介卡片；新增正文书库支持在线下载和 TXT / EPUB 导入，入库后绑定编号样书并逐页阅读。芯片是三维几何与数字标记，尚未对接真实 RFID、借还设备或图书馆业务数据库。
 
 ### 当前版本概况
 
@@ -23,7 +21,7 @@
 | 架上藏书 | 2 个 `InstancedMesh` 实例池；书脊轻模板共 216 个三角面 |
 | 植物 | 6 盆盆栽、26 丛灌木，含 54 片曲面大叶和 14,144 片小叶 |
 
-数量来源为 [馆藏清单](https://gitee.com/li-tao-yi/hexu-virtual-library/blob/efe19c0ce5fea3df10b1929952d9fcbdf8ea715b/public/models/book-inventory.json)、[导出统计](https://gitee.com/li-tao-yi/hexu-virtual-library/blob/efe19c0ce5fea3df10b1929952d9fcbdf8ea715b/public/models/manifest.json) 和回归测试。早期“每面每层 8 本、共 320 本”的设计已经被该基线的密集竖排方案替代。
+数量来源为 [馆藏清单](https://github.com/Amyias/hexu-virtual-library/blob/master/public/models/book-inventory.json)、[导出统计](https://github.com/Amyias/hexu-virtual-library/blob/master/public/models/manifest.json) 和回归测试。早期“每面每层 8 本、共 320 本”的设计已经被该基线的密集竖排方案替代。
 
 ## 2. 系统架构
 
@@ -33,7 +31,7 @@
 
 若 Markdown 阅读器不显示 SVG，可打开 [架构图 PNG 预览](diagrams/architecture.png)。
 
-系统由三部分组成：浏览器负责界面、馆藏匹配、状态和三维动画；可选 Python 后端提供本地模型识别、语义理解及桌面设置；Blender 与构建脚本负责生成模型、贴图、馆藏清单和发行包。静态站点可以独立运行，后端能力通过就绪接口自动探测。
+系统由三部分组成：浏览器负责界面、馆藏匹配、状态和三维动画；Python 服务提供正文书库，并可选提供本地模型识别、语义理解及桌面设置；Blender 与构建脚本负责生成模型、贴图、馆藏清单和发行包。静态站点可以独立运行，后端能力通过就绪接口自动探测。
 
 ### 主要模块及边界
 
@@ -105,7 +103,7 @@
 
 `intent.js` 先归一化空白、标点和大小写，并预先构造候选索引。匹配优先级为完整标题 / 别名命中、片段命中、编辑距离不超过 1 的近似命中；同级优先书名，再按目录顺序决定。查询太短时限制近似匹配，二字书名不做近似，以减少“身体”“三国”等误命中《三体》的情况。识别器提供的多个候选也参与匹配。
 
-规则未命中且 `/understand/ready` 就绪时，应用才调用语义层。后端把具名目录摘要、编号规则、当前状态与读者文本交给配置的大模型 `/chat/completions` 接口；限制其输出 `find / return / open / close / chip / none`。后端检查 `bookId` 确实存在，前端再查找对应馆藏对象后执行。模型不可用、超时或结果不合法时退回未匹配提示。前端预算 15 秒，后端模型请求默认预算 12 秒。
+规则未命中且 `/understand/ready` 就绪时，应用才调用语义层。后端把具名目录摘要、编号规则、当前状态与读者文本交给配置的大模型 `/chat/completions` 接口；限制其输出 `find / return / open / close / chip / none`。后端检查 `bookId` 确实存在，前端再查找对应馆藏对象后执行。模型不可用、超时或结果不合法时转到正文检索。前端预算 15 秒，后端模型请求默认预算 12 秒。
 
 这使“霍金写的那本”有机会映射到《时间简史》，但并不构成全馆语义检索或推荐系统：当前大部分藏书没有真实元数据，也没有向量索引。
 
@@ -119,7 +117,7 @@
 
 Blender 保存建筑、书架、家具和植物的源对象；导出时按集合与材质合并网格。前端使用 `GLTFLoader` 加载 GLB，通过项目内的 Draco 解码器解压环境几何。
 
-`runtime.js` 建立透视相机、半球光、方向光和阴影，使用 sRGB 输出及 ACES 色调映射；像素比限制到 2，避免高分辨率设备无限增加像素开销。`RoomEnvironment` 与 PMREM 提供环境反射。地板和书柜使用反照率、法线、粗糙度 PBR 贴图；木纹按物理尺度映射，来源和 CC0 许可见 [材质说明](https://gitee.com/li-tao-yi/hexu-virtual-library/blob/efe19c0ce5fea3df10b1929952d9fcbdf8ea715b/blender/MATERIAL_REFERENCES.md)。
+`runtime.js` 建立透视相机、半球光、方向光和阴影，使用 sRGB 输出及 ACES 色调映射；像素比限制到 2，避免高分辨率设备无限增加像素开销。`RoomEnvironment` 与 PMREM 提供环境反射。地板和书柜使用反照率、法线、粗糙度 PBR 贴图；木纹按物理尺度映射，来源和 CC0 许可见 [材质说明](https://github.com/Amyias/hexu-virtual-library/blob/master/blender/MATERIAL_REFERENCES.md)。
 
 光球由程序化 Shader、加法混合光晕和环形几何共同组成。时间控制色彩流动和待机浮动，唤醒参数提高亮度、尺寸和波纹强度，再由 GSAP 逐渐衰减。
 
@@ -135,7 +133,7 @@ Blender 保存建筑、书架、家具和植物的源对象；导出时按集合
 
 应用状态链是 `IDLE → NAVIGATING → PRESENTING → READING → RETURNING → IDLE`。导航先使光球到书架引导点，再高亮具体书籍。书的起点来自该册的真实 `worldPosition`，完整模型飞到相机前，阅读时允许翻页和芯片特写。归还时先合上封面，飞回书位并恢复架上实例，再把光球和视角送回待机状态。
 
-指针按下后用 Raycaster 判断是否点中书籍；水平拖动距离映射到 `turn ∈ [0,1]`，并设置 `hinge.rotation.y = -π × turn`。因此封面绕书脊铰链从 0° 转到 -180°。松开后吸附到开或合状态，也可用按钮与左右方向键操作。介绍页和封面文字由 Canvas 生成，内容不是书籍全文。
+指针按下后用 Raycaster 判断是否点中书籍；水平拖动距离映射到 `turn ∈ [0,1]`，并设置 `hinge.rotation.y = -π × turn`。因此封面绕书脊铰链从 0° 转到 -180°。松开后吸附到开或合状态，也可用按钮与左右方向键操作。介绍页和封面文字由 Canvas 生成，这块 3D 纹理展示简介。已入库书籍翻开封面后进入 DOM 正文阅读器，按实际容器高度分页，支持章节、字号和持久化进度。
 
 ## 6. 馆藏数据与芯片定位
 
@@ -168,7 +166,7 @@ Blender 保存建筑、书架、家具和植物的源对象；导出时按集合
 
 | 模式 | 如何运行 | 语音识别位置 | 适合场景 |
 | --- | --- | --- | --- |
-| 静态开发 | `npm start`，默认 `http://localhost:8080` | 浏览器识别服务 | 三维演示、文字找书、前端开发 |
+| 本地开发 | `npm start`，默认 `http://localhost:8080` | 浏览器识别服务 | 三维演示、正文书库、前端开发 |
 | Python 后端 | `tools/asr-server.py`，默认 `127.0.0.1:8090`；需模型和依赖 | 运行 Python 的主机 | 本地 ASR、可选语义服务 |
 | Windows 桌面程序 | PyInstaller 打包；WebView2 窗口或 `--browser` | 用户电脑内置模型 | 无需开发环境的使用者 |
 
@@ -188,15 +186,19 @@ Blender 保存建筑、书架、家具和植物的源对象；导出时按集合
 | `GET /update/status`、`GET /update/progress` | 版本与更新进度 | 仅回环访问 |
 | `POST /update/apply` | 启动更新流程 | 仅回环访问 |
 
-这些接口由 Python 后端提供，`npm start` 的 Node 服务只提供静态文件。Python 服务默认绑定回环地址，使用预压缩 `.gz` 副本和 ETag / 304 减少重复传输；接口就绪并不等同于已完成真实麦克风测试。
+这些接口由 Python 后端提供，`npm start` 的 Node 服务同时按需启动 Python 书库子进程，代理 `/library/*` 接口，正文存在用户目录的 SQLite 与 UTF-8 TXT 中。Python 服务默认绑定回环地址，使用预压缩 `.gz` 副本和 ETag / 304 减少重复传输；接口就绪并不等同于已完成真实麦克风测试。
 
 应用另通过 `xiaohe-response` 事件公布找书 / 唤醒协议，字段为 `speech`、`is_wake_only`、`action`、`target` 与 `book_data`。这是前端业务响应，与语义接口的 `action/bookId/say` 是两份不同契约。消费该事件时应先判断 `action`；`IDLE` 的目标字段是无动作占位，不应触发移动。
 
-### 7.3 桌面版与更新
+### 7.3 正文书库
+
+`book_library.py` 管理书目、章节、书源和进度，`book_sources.py` 提供维基文库 API 和静态 CSS 规则。下载任务异步执行，全部章节成功才保存；已入库书名优先命中本地数据，不需外网。书架绑定保留原 HX 芯片编号与位置。详细使用方法、书源格式、不支持的规则与接口见 [正文书库说明](https://github.com/Amyias/hexu-virtual-library/blob/master/docs/BOOK_LIBRARY.md)。
+
+### 7.4 桌面版与更新
 
 打包脚本准备虚拟环境、校验模型、暂存站点、预压缩资源，再调用 PyInstaller；Windows 窗口由 pywebview / WebView2 承载。`window_host.py` 为应用页处理麦克风权限，缺少原生组件时退回系统浏览器。
 
-源码提交推送到 GitHub，Gitee 保留同步入口；桌面更新器读取 **GitHub Releases**，下载程序包，校验摘要，在退出后由辅助脚本替换并重启。模型包与程序包分开，有模型的安装可保留模型，减少重复下载。Gitee 的 `master` 不包含完整 ASR 模型；构建还需另行准备模型，或具备可读取的模型分支。配置见 [部署说明](https://gitee.com/li-tao-yi/hexu-virtual-library/blob/efe19c0ce5fea3df10b1929952d9fcbdf8ea715b/DEPLOY.md)。
+源码提交推送到 GitHub，GitHub 保留同步入口；桌面更新器读取 **GitHub Releases**，下载程序包，校验摘要，在退出后由辅助脚本替换并重启。模型包与程序包分开，有模型的安装可保留模型，减少重复下载。GitHub 的 `master` 不包含完整 ASR 模型；构建还需另行准备模型，或具备可读取的模型分支。配置见 [部署说明](https://github.com/Amyias/hexu-virtual-library/blob/master/DEPLOY.md)。
 
 **发布维护规则更新（2026-10-12）**：每个发行版都必须提供程序 ZIP 与模型 ZIP，即使模型内容未变。新版本先创建草稿，两个附件的状态、大小与 SHA-256 校验通过后才正式发布；历史模型仅作为更新器兼容兜底。补模型使用 `--assets-only --model-only`，不替换程序、不移动标签；`--no-model` 只能用于当前发行版已经存在完整模型附件的情况。源码 `git push` 与上传 Release 附件是两个独立步骤，模型 ZIP 不进入 `master` 历史。
 
@@ -234,7 +236,7 @@ npm test
 
 ### 修改模型或馆藏时
 
-先明确数据或部件边界，保留源文件和备份；调整坐标后生成三份清单，再在临时副本重建，比较几何与位置不变量，验证后替换成品。仅改模型源文件而未更新 GLB，或仅改一份清单，都可能造成架上书、阅读书和芯片位置不一致。工作约定见 [DEVELOPMENT.md](https://gitee.com/li-tao-yi/hexu-virtual-library/blob/efe19c0ce5fea3df10b1929952d9fcbdf8ea715b/DEVELOPMENT.md)。
+先明确数据或部件边界，保留源文件和备份；调整坐标后生成三份清单，再在临时副本重建，比较几何与位置不变量，验证后替换成品。仅改模型源文件而未更新 GLB，或仅改一份清单，都可能造成架上书、阅读书和芯片位置不一致。工作约定见 [DEVELOPMENT.md](https://github.com/Amyias/hexu-virtual-library/blob/master/DEVELOPMENT.md)。
 
 本文附带的三张 SVG 可重新生成：
 
@@ -252,11 +254,11 @@ node docs/generate-diagrams.mjs
 | 应用状态统一调度 | 减少重复取书、动画重叠和资源泄漏 | 当前一次主要阅读一本，尚无多用户借阅事务 |
 | 能量阈值断句 | 实现简单，不额外加载 VAD 模型 | 噪声影响阈值；段式请求有句尾延迟和收音空档 |
 | Web Audio ScriptProcessor | 当前录音实现可工作 | 后续可评估迁移 AudioWorklet，减少主线程音频处理压力 |
-| 实时简介纹理 | 支持中文元数据 | 不是 EPUB / PDF 阅读器，不支持连续全文翻页 |
+| 3D 简介 + DOM 正文 | 实际测量分页、章节、字号与进度 | EPUB 导入后转纯文本；暂无 PDF、诗文图片与复杂排版还原 |
 | Python 轻量 HTTP 服务 | 静态文件和识别易于一起部署 | 尚不是具备多租户认证、限流和持久化事务的公共平台 |
 | GLB 几何压缩 | 减少模型传输体积 | 解码仍有 CPU 开销；纹理和目录也占内存与带宽 |
 
-本次文档工作没有对帧率、首次加载时间、真实语音准确率、外部模型接口或桌面自动更新执行新的现场验收。文档中的现有能力以源码为依据，性能结论需要在目标设备和网络上另行测量。
+正文功能已完成真实下载、分页、字号、移动端与重开进度的浏览器回归，自动测试包括 13 项 Node 和 11 项 Python 检查。本次没有对帧率、首次加载时间、真实语音准确率、外部模型接口或桌面自动更新执行新的现场验收。文档中的现有能力以源码为依据，性能结论需要在目标设备和网络上另行测量。
 
 ## 10. 建议下一步补齐什么
 
@@ -271,7 +273,7 @@ node docs/generate-diagrams.mjs
 | P1 | 位置版本与实体 RFID 映射 | 数据目录不能证明实体书实时位置 | 分开管理 bookId、tagId、location 与时间戳，处理读写器事件及过期数据 |
 | P1 | 性能与可访问性 | 设备配置不同，部分读者不便使用 3D | 记录 GPU 帧时间与内存，提供低画质、减少动态效果、纯列表与键盘路径 |
 | P1 | 后端公开部署加固 | 回环单机设计不能直接等同于公共服务 | 添加身份验证、请求限额、音频保留策略和多用户会话隔离 |
-| P2 | EPUB / PDF 阅读与版权边界 | 目前只能看简介 | 确认内容授权，再设计页码、书签、字体、搜索与阅读进度 |
+| P2 | 丰富正文书库 | 已有 TXT / EPUB、在线下载与进度，特殊书源仍有限制 | 补充正文搜索、显式书签、PDF 与更多静态书源适配 |
 | P2 | 自动交互回归与资产版本 | 现有测试没有跑完整 UI 动画 | CI 验证取书 / 翻页 / 芯片 / 归还；为资产与目录生成统一版本和摘要 |
 | P2 | 借阅与运营后台 | 当前没有借阅业务闭环 | 明确读者身份、借还状态、预约、审计与异常纠正，再设计数据库和接口 |
 
@@ -279,7 +281,7 @@ node docs/generate-diagrams.mjs
 
 ## 11. 汇报与演示可以如何组织
 
-可以按“需求 → 用户体验 → 架构 → 技术难点 → 验证 → 下一步”讲解，而不是只罗列框架名称。演示主线建议选《三体》：独立唤醒、找书、目标高亮、飞出、拖动封面、看芯片、归还；再用编号查询证明位置与芯片标记贯通。
+可以按“需求 → 用户体验 → 架构 → 技术难点 → 验证 → 下一步”讲解，而不是只罗列框架名称。演示主线建议选《狂人日记》：独立唤醒、找书、目标高亮、飞出、拖动封面、看芯片、归还；再用编号查询证明位置与芯片标记贯通。
 
 适合强调的工程点包括：识别与意图分层、同一调度入口承接多种输入、海量书脊实例与单本精细模型分工、唯一馆藏生成器连接建模与前端、模型返回编号的双重校验，以及后端能力缺失时的降级路径。演示前先说明真实书目数量与样书范围，避免把三维展示误讲成已经接入实际借还系统。
 
@@ -287,9 +289,9 @@ node docs/generate-diagrams.mjs
 
 本文的实现描述主要依据下列源码，后续升级时可从这些入口复核：
 
-- 场景：[runtime.js](https://gitee.com/li-tao-yi/hexu-virtual-library/blob/efe19c0ce5fea3df10b1929952d9fcbdf8ea715b/src/scene/runtime.js)、[environment.js](https://gitee.com/li-tao-yi/hexu-virtual-library/blob/efe19c0ce5fea3df10b1929952d9fcbdf8ea715b/src/scene/environment.js)、[smart-books.js](https://gitee.com/li-tao-yi/hexu-virtual-library/blob/efe19c0ce5fea3df10b1929952d9fcbdf8ea715b/src/scene/smart-books.js)、[orb.js](https://gitee.com/li-tao-yi/hexu-virtual-library/blob/efe19c0ce5fea3df10b1929952d9fcbdf8ea715b/src/scene/orb.js)。
-- 交互：[app.js](https://gitee.com/li-tao-yi/hexu-virtual-library/blob/efe19c0ce5fea3df10b1929952d9fcbdf8ea715b/src/app.js)、[book.js](https://gitee.com/li-tao-yi/hexu-virtual-library/blob/efe19c0ce5fea3df10b1929952d9fcbdf8ea715b/src/reader/book.js)。
-- 语音：[speech.js](https://gitee.com/li-tao-yi/hexu-virtual-library/blob/efe19c0ce5fea3df10b1929952d9fcbdf8ea715b/src/voice/speech.js)、[server-asr.js](https://gitee.com/li-tao-yi/hexu-virtual-library/blob/efe19c0ce5fea3df10b1929952d9fcbdf8ea715b/src/voice/server-asr.js)、[intent.js](https://gitee.com/li-tao-yi/hexu-virtual-library/blob/efe19c0ce5fea3df10b1929952d9fcbdf8ea715b/src/voice/intent.js)、[understand.js](https://gitee.com/li-tao-yi/hexu-virtual-library/blob/efe19c0ce5fea3df10b1929952d9fcbdf8ea715b/src/voice/understand.js)。
-- 服务与发行：[asr-server.py](https://gitee.com/li-tao-yi/hexu-virtual-library/blob/efe19c0ce5fea3df10b1929952d9fcbdf8ea715b/tools/asr-server.py)、[window_host.py](https://gitee.com/li-tao-yi/hexu-virtual-library/blob/efe19c0ce5fea3df10b1929952d9fcbdf8ea715b/tools/window_host.py)、[package-local.mjs](https://gitee.com/li-tao-yi/hexu-virtual-library/blob/efe19c0ce5fea3df10b1929952d9fcbdf8ea715b/tools/package-local.mjs)、[updater.py](https://gitee.com/li-tao-yi/hexu-virtual-library/blob/efe19c0ce5fea3df10b1929952d9fcbdf8ea715b/tools/updater.py)、[release.mjs](https://gitee.com/li-tao-yi/hexu-virtual-library/blob/efe19c0ce5fea3df10b1929952d9fcbdf8ea715b/tools/release.mjs)。
-- 数据与验收：[prepare-smart-books.mjs](https://gitee.com/li-tao-yi/hexu-virtual-library/blob/efe19c0ce5fea3df10b1929952d9fcbdf8ea715b/tools/prepare-smart-books.mjs)、[manifest.json](https://gitee.com/li-tao-yi/hexu-virtual-library/blob/efe19c0ce5fea3df10b1929952d9fcbdf8ea715b/public/models/manifest.json)、[library.test.mjs](https://gitee.com/li-tao-yi/hexu-virtual-library/blob/efe19c0ce5fea3df10b1929952d9fcbdf8ea715b/tests/library.test.mjs)。
-- 使用与维护：[README.md](https://gitee.com/li-tao-yi/hexu-virtual-library/blob/efe19c0ce5fea3df10b1929952d9fcbdf8ea715b/README.md)、[DEPLOY.md](https://gitee.com/li-tao-yi/hexu-virtual-library/blob/efe19c0ce5fea3df10b1929952d9fcbdf8ea715b/DEPLOY.md)、[DEVELOPMENT.md](https://gitee.com/li-tao-yi/hexu-virtual-library/blob/efe19c0ce5fea3df10b1929952d9fcbdf8ea715b/DEVELOPMENT.md)。
+- 场景：[runtime.js](https://github.com/Amyias/hexu-virtual-library/blob/master/src/scene/runtime.js)、[environment.js](https://github.com/Amyias/hexu-virtual-library/blob/master/src/scene/environment.js)、[smart-books.js](https://github.com/Amyias/hexu-virtual-library/blob/master/src/scene/smart-books.js)、[orb.js](https://github.com/Amyias/hexu-virtual-library/blob/master/src/scene/orb.js)。
+- 交互：[app.js](https://github.com/Amyias/hexu-virtual-library/blob/master/src/app.js)、[book.js](https://github.com/Amyias/hexu-virtual-library/blob/master/src/reader/book.js)。
+- 语音：[speech.js](https://github.com/Amyias/hexu-virtual-library/blob/master/src/voice/speech.js)、[server-asr.js](https://github.com/Amyias/hexu-virtual-library/blob/master/src/voice/server-asr.js)、[intent.js](https://github.com/Amyias/hexu-virtual-library/blob/master/src/voice/intent.js)、[understand.js](https://github.com/Amyias/hexu-virtual-library/blob/master/src/voice/understand.js)。
+- 服务与发行：[asr-server.py](https://github.com/Amyias/hexu-virtual-library/blob/master/tools/asr-server.py)、[window_host.py](https://github.com/Amyias/hexu-virtual-library/blob/master/tools/window_host.py)、[package-local.mjs](https://github.com/Amyias/hexu-virtual-library/blob/master/tools/package-local.mjs)、[updater.py](https://github.com/Amyias/hexu-virtual-library/blob/master/tools/updater.py)、[release.mjs](https://github.com/Amyias/hexu-virtual-library/blob/master/tools/release.mjs)。
+- 数据与验收：[prepare-smart-books.mjs](https://github.com/Amyias/hexu-virtual-library/blob/master/tools/prepare-smart-books.mjs)、[manifest.json](https://github.com/Amyias/hexu-virtual-library/blob/master/public/models/manifest.json)、[library.test.mjs](https://github.com/Amyias/hexu-virtual-library/blob/master/tests/library.test.mjs)。
+- 使用与维护：[README.md](https://github.com/Amyias/hexu-virtual-library/blob/master/README.md)、[DEPLOY.md](https://github.com/Amyias/hexu-virtual-library/blob/master/DEPLOY.md)、[DEVELOPMENT.md](https://github.com/Amyias/hexu-virtual-library/blob/master/DEVELOPMENT.md)。

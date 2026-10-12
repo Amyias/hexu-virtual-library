@@ -10,13 +10,13 @@ const { marked } = await import(pathToFileURL(require.resolve('marked')).href);
 const docs = path.dirname(fileURLToPath(import.meta.url));
 const output = path.join(docs, 'portable');
 const names = ['architecture', 'voice-flow', 'asset-pipeline'];
-const sourceBase = 'https://gitee.com/li-tao-yi/hexu-virtual-library/blob/efe19c0ce5fea3df10b1929952d9fcbdf8ea715b/';
+const sourceBase = 'https://github.com/Amyias/hexu-virtual-library/blob/master/';
 await fs.mkdir(path.join(output, 'diagrams'), { recursive: true });
 
 const source = (await fs.readFile(path.join(docs, 'TECHNICAL_GUIDE.md'), 'utf8'))
   .replace(/<!-- export-note:start -->[\s\S]*?<!-- export-note:end -->\s*/g, '')
   .replace(/\]\(\.\.\/([^\s)]+)\)/g, (_, relative) => `](${sourceBase}${relative})`);
-const intro = '> 分享说明：Markdown 请与 diagrams/ 文件夹一起移动；单独移动文件请选 TECHNICAL_GUIDE.html。三张配图在 HTML 内嵌，可离线阅读；源码链接指向 Gitee，访问私有仓库需要联网并登录。\n\n';
+const intro = '> 分享说明：Markdown 请与 diagrams/ 文件夹一起移动；单独移动文件请选 TECHNICAL_GUIDE.html。三张配图在 HTML 内嵌，可离线阅读；源码链接指向 GitHub，访问私有仓库需要联网并登录。\n\n';
 const markdown = source.replace(/\n\n/, `\n\n${intro}`);
 await fs.writeFile(path.join(output, 'TECHNICAL_GUIDE.md'), markdown);
 
@@ -76,7 +76,7 @@ if ((html.match(/<svg\b/g) || []).length !== 3 || /<img\b/.test(html) || /(?:hre
   throw new Error('Portable HTML must contain all three SVGs and no external local resources');
 }
 await fs.writeFile(path.join(output, 'TECHNICAL_GUIDE.html'), html);
-await fs.writeFile(path.join(output, 'README.md'), `# 文档分享包\n\n- TECHNICAL_GUIDE.html：推荐。可以单独复制到任意目录或电脑，双击浏览器打开，三张 SVG 图与样式已内嵌，无需联网。\n- TECHNICAL_GUIDE.md：Markdown 版。正文用 PNG 配图，请与 diagrams/ 目录一起移动；目录中同时保留可编辑的 SVG 原图。\n- 源码链接指向 Gitee 私有仓库，访问需要联网并登录，不影响离线阅读正文和图表。\n- 浏览器打印可另存 PDF；分页由浏览器决定。\n\n不要只从压缩包预览窗口打开 Markdown：先完整解压，再用阅读器打开。\n`);
+await fs.writeFile(path.join(output, 'README.md'), `# 文档分享包\n\n- TECHNICAL_GUIDE.html：推荐。可以单独复制到任意目录或电脑，双击浏览器打开，三张 SVG 图与样式已内嵌，无需联网。\n- TECHNICAL_GUIDE.md：Markdown 版。正文用 PNG 配图，请与 diagrams/ 目录一起移动；目录中同时保留可编辑的 SVG 原图。\n- 源码链接指向 GitHub 私有仓库，访问需要联网并登录，不影响离线阅读正文和图表。\n- 浏览器打印可另存 PDF；分页由浏览器决定。\n\n不要只从压缩包预览窗口打开 Markdown：先完整解压，再用阅读器打开。\n`);
 
 // Deterministic ZIP (UTF-8 names, DEFLATE, fixed timestamp), using Node built-ins.
 function crc32(bytes) {

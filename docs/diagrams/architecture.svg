@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1040" viewBox="0 0 1440 1040" role="img" aria-labelledby="title desc"><title id="title">和序图书馆 · 系统架构</title><desc id="desc">源码基线 2.3.0 / efe19c0 · 实线为主要数据流，虚线为可选服务或资源加载</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#526b69"/></marker></defs><style>text{font-family:'Microsoft YaHei','Noto Sans CJK SC',Arial,sans-serif;fill:#203b3b}.title{font-size:32px;font-weight:700}.sub{font-size:17px;fill:#627674}.lane{font-size:20px;font-weight:700}.node{font-size:19px;font-weight:700}.body{font-size:16px;fill:#4c6664}.label{font-size:15px;fill:#526b69;paint-order:stroke;stroke:#f5f7f4;stroke-width:7px;stroke-linejoin:round}</style><rect width="1440" height="1040" fill="#f5f7f4"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1240" viewBox="0 0 1440 1240" role="img" aria-labelledby="title desc"><title id="title">和序图书馆 · 系统架构</title><desc id="desc">正文书库功能版 · 实线为主要数据流，虚线为可选服务或资源加载</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#526b69"/></marker></defs><style>text{font-family:'Microsoft YaHei','Noto Sans CJK SC',Arial,sans-serif;fill:#203b3b}.title{font-size:32px;font-weight:700}.sub{font-size:17px;fill:#627674}.lane{font-size:20px;font-weight:700}.node{font-size:19px;font-weight:700}.body{font-size:16px;fill:#4c6664}.label{font-size:15px;fill:#526b69;paint-order:stroke;stroke:#f5f7f4;stroke-width:7px;stroke-linejoin:round}</style><rect width="1440" height="1240" fill="#f5f7f4"/>
 <text x="40" y="58" class="title"><tspan x="40" dy="0">和序图书馆 · 系统架构</tspan></text>
-<text x="40" y="94" class="sub"><tspan x="40" dy="0">源码基线 2.3.0 / efe19c0 · 实线为主要数据流，虚线为可选服务或资源加载</tspan></text>
+<text x="40" y="94" class="sub"><tspan x="40" dy="0">正文书库功能版 · 实线为主要数据流，虚线为可选服务或资源加载</tspan></text>
 <rect x="40" y="130" width="870" height="650" rx="20" fill="#e7eeea" stroke="#cddbd5"/>
 <text x="64" y="167" class="lane"><tspan x="64" dy="0">01 / 浏览器：展示、匹配与交互</tspan></text>
 <rect x="950" y="130" width="450" height="650" rx="20" fill="#e9edf4" stroke="#cddbd5"/>
@@ -41,8 +41,8 @@
 <text x="368" y="616" class="node"><tspan x="368" dy="0">界面反馈</tspan></text>
 <text x="368" y="643" class="body"><tspan x="368" dy="0">DOM / CSS3 / 气泡</tspan><tspan x="368" dy="25">麦克风状态与识别记录</tspan><tspan x="368" dy="25">可选 speechSynthesis 播报</tspan></text>
 <rect x="635" y="585" width="250" height="120" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
-<text x="653" y="616" class="node"><tspan x="653" dy="0">书籍与芯片阅读器</tspan></text>
-<text x="653" y="643" class="body"><tspan x="653" dy="0">reader/book.js</tspan><tspan x="653" dy="25">FrontHinge 铰链翻页</tspan><tspan x="653" dy="25">Canvas 中文纹理 / 芯片特写</tspan></text>
+<text x="653" y="616" class="node"><tspan x="653" dy="0">3D 与正文阅读器</tspan></text>
+<text x="653" y="643" class="body"><tspan x="653" dy="0">book.js + novel.js</tspan><tspan x="653" dy="25">铰链 / 芯片 / 真实正文分页</tspan><tspan x="653" dy="25">目录 / 字号 / 阅读进度</tspan></text>
 <polyline points="192,585 192,490" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
 <text x="205" y="545" class="label"><tspan x="205" dy="0">读取索引</tspan></text>
 <polyline points="477,490 477,585" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
@@ -60,7 +60,7 @@
 <text x="993" y="643" class="body"><tspan x="993" dy="0">POST /understand → /chat/completions</tspan><tspan x="993" dy="25">规则未命中时请求；校验 bookId</tspan><tspan x="993" dy="25">设置 / 更新接口只允许回环访问</tspan></text>
 <polyline points="580,490 580,520 930,520 930,637 975,637" fill="none" stroke="#526b69" stroke-width="2" stroke-dasharray="7 6" marker-end="url(#arrow)"/>
 <text x="650" y="538" class="label"><tspan x="650" dy="0">未命中时：文本 → 意图</tspan></text>
-<text x="65" y="748" class="body"><tspan x="65" dy="0">浏览器不直接访问大模型密钥；静态模式由 tools/serve.mjs 提供文件。</tspan></text>
+<text x="65" y="748" class="body"><tspan x="65" dy="0">浏览器不直接访问大模型密钥；Node 开发服务代理 /library/* 至 Python 书库。</tspan></text>
 <rect x="65" y="875" width="405" height="88" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
 <text x="83" y="906" class="node"><tspan x="83" dy="0">Blender + Python</tspan></text>
 <text x="83" y="933" class="body"><tspan x="83" dy="0">环境 / 植物 / 书籍模板 → GLB</tspan></text>
@@ -73,4 +73,17 @@
 <polyline points="470,920 500,920" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
 <polyline points="900,920 930,920" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
 <polyline points="700,875 700,802 900,802 900,430 885,430" fill="none" stroke="#526b69" stroke-width="2" stroke-dasharray="7 6" marker-end="url(#arrow)"/>
+<rect x="40" y="1020" width="1360" height="180" rx="20" fill="#e7eeea" stroke="#cddbd5"/>
+<text x="64" y="1057" class="lane"><tspan x="64" dy="0">04 / 正文书库：下载、持久化与阅读</tspan></text>
+<rect x="65" y="1080" width="405" height="95" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
+<text x="83" y="1111" class="node"><tspan x="83" dy="0">来源引擎与书库 API</tspan></text>
+<text x="83" y="1138" class="body"><tspan x="83" dy="0">维基文库 / 静态 CSS / TXT / EPUB</tspan><tspan x="83" dy="25">book_sources.py + book_library.py</tspan></text>
+<rect x="500" y="1080" width="400" height="95" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
+<text x="518" y="1111" class="node"><tspan x="518" dy="0">本机持久化</tspan></text>
+<text x="518" y="1138" class="body"><tspan x="518" dy="0">SQLite：书目 / 章节 / 书源 / 进度</tspan><tspan x="518" dy="25">UTF-8 TXT：完整正文副本</tspan></text>
+<rect x="930" y="1080" width="445" height="95" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
+<text x="948" y="1111" class="node"><tspan x="948" dy="0">书架与正文联动</tspan></text>
+<text x="948" y="1138" class="body"><tspan x="948" dy="0">library.js：稳定绑定编号样书</tspan><tspan x="948" dy="25">novel.js：测量分页与进度恢复</tspan></text>
+<polyline points="470,1125 500,1125" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
+<polyline points="900,1125 930,1125" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
 </svg>

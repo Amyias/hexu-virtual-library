@@ -689,3 +689,34 @@ body.inspecting #chipPanel { display: block; }
 body.inspecting #reader > .reader-head, body.inspecting #reader > .reader-bottom { display: none; }
 #chipPanel .reader-bottom button { pointer-events: auto; }
 #chipLocation { font-size: 14px; letter-spacing: .04em; }
+
+[hidden] { display: none !important; }
+#libraryButton { border: 1px solid #a8bba8; background: #355d48; color: #fff9e9; border-radius: 24px; padding: 9px 18px; }
+#localLibrary, #novelReader { position: fixed; inset: 0; z-index: 30; background: #182b2680; padding: 24px; display: grid; place-items: center; backdrop-filter: blur(9px); }
+.library-dialog { width: min(900px, 100%); max-height: calc(100dvh - 48px); overflow: auto; padding: 30px; background: #f5f4eb; border: 1px solid #c6d1bf; border-radius: 20px; color: #284738; box-shadow: 0 18px 70px #183d3240; }
+.library-heading, .library-subheading, .book-result, #downloadRow { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.library-heading h2 { margin: 8px 0 14px; font-size: 28px; }.library-heading small { letter-spacing: .12em; font-size: 10px; }
+#libraryStatus { font-size: 13px; color: #66785f; }
+#librarySearch { display: flex; gap: 8px; margin: 18px 0; }#librarySearch input { flex: 1; min-width: 70px; }
+.library-dialog button, .file-button, .novel-toolbar button, .novel-paper button { border: 1px solid #b3c1aa; background: #edf0e3; color: #2e533d; padding: 9px 13px; border-radius: 9px; font: inherit; font-size: 13px; cursor: pointer; }
+.library-dialog input, .library-dialog select { border: 1px solid #b3c1aa; border-radius: 8px; padding: 10px; background: #fffef7; font: inherit; font-size: 14px; color: #294b39; }
+.book-result { padding: 14px 0; border-bottom: 1px solid #d4dccb; }.book-result strong, .book-result small { display: block; }.book-result small { margin-top: 5px; color: #6e7e68; font-size: 12px; }.book-result button { flex-shrink: 0; }
+.library-subheading { margin-top: 25px; }.library-subheading h3 { font-size: 16px; }.file-button { display: inline-block; }
+.library-dialog details { margin-top: 22px; font-size: 12px; line-height: 1.9; }.library-dialog details p { font-size: 12px; }.library-dialog pre { white-space: pre-wrap; overflow-wrap: anywhere; }.library-dialog a { color: #356c4e; }
+#downloadRow { padding: 12px; background: #e4eddd; font-size: 13px; border-radius: 8px; margin-bottom: 15px; }
+#novelReader { z-index: 28; background: #dfe5d9ef; }
+.novel-shell { width: min(1250px, 100%); height: min(920px, calc(100dvh - 48px)); display: flex; flex-direction: column; background: #fbf7e9; border: 1px solid #c6ccb7; border-radius: 15px; overflow: hidden; box-shadow: 0 20px 65px #1a372c26; }
+.novel-toolbar { position: static; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; gap: 12px; background: #eff0e2; border-bottom: 1px solid #d5ddc7; }
+.novel-toolbar strong, .novel-toolbar small { display: block; }.novel-toolbar small { font-size: 12px; margin-top: 5px; color: #738169; }.novel-toolbar > div { pointer-events: auto; }.novel-toolbar button { margin-left: 5px; }
+.novel-layout { display: flex; min-height: 0; flex: 1; }.novel-layout aside { width: 215px; flex-shrink: 0; border-right: 1px solid #dbe1cc; padding: 20px 15px; display: flex; flex-direction: column; gap: 14px; }
+#novelToc { flex: 1; min-height: 0; width: 100%; border: 0; background: transparent; color: #4a634a; font: 13px/1.8 inherit; }#novelToc option { padding: 8px; white-space: normal; }#novelSource { color: #3e6d4b; font-size: 12px; }#novelLicense { font-size: 10px; line-height: 1.6; color: #7c8970; }
+.novel-paper { padding: 22px clamp(20px,5vw,70px); flex: 1; min-width: 0; min-height: 0; display: flex; flex-direction: column; }.novel-paper h2 { font: 23px/1.5 "Microsoft YaHei",sans-serif; margin: 0 0 18px; color: #3f5439; flex-shrink: 0; }
+#novelText { flex: 1; min-height: 0; overflow: hidden; white-space: pre-wrap; overflow-wrap: anywhere; font-family: "Noto Serif SC","Source Han Serif SC","Songti SC","SimSun",serif; line-height: 1.95; letter-spacing: .02em; color: #30392c; outline-offset: 3px; touch-action: pan-y; }
+.novel-paper footer { display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; gap: 10px; margin-top: 18px; color: #778367; font-size: 12px; }
+#novelProgress { white-space: nowrap; min-width: 96px; text-align: center; }
+.novel-reading .bubble { display: none; }
+@media (max-width: 700px) {
+ #localLibrary, #novelReader { padding: 8px; }.library-dialog { padding: 20px; max-height: calc(100dvh - 16px); }.library-heading h2 { font-size: 22px; }#librarySearch { flex-wrap: wrap; }#librarySearch input { flex-basis: 100%; }.library-subheading { flex-wrap: wrap; }
+ .novel-shell { height: calc(100dvh - 16px); border-radius: 8px; }.novel-toolbar { padding: 12px; flex-wrap: wrap; }.novel-toolbar strong { font-size: 16px; }.novel-toolbar button { font-size: 11px; padding: 7px; }
+ .novel-layout { flex-direction: column; }.novel-layout aside { width: 100%; padding: 8px 15px; border: 0; flex-direction: row; align-items: center; height: 52px; }#novelToc { flex: 1; height: 35px; }#novelSource, #novelLicense, .novel-layout aside > strong { display: none; }.novel-paper { padding: 15px 20px; }.novel-paper h2 { font-size: 19px; margin-bottom: 10px; }.novel-paper footer { margin-top: 12px; }.novel-paper button { padding: 9px; font-size: 12px; }
+}

@@ -22,7 +22,7 @@ node tools/package-local.mjs      # 打包一次，产物在 dist/和序图书�
 
 语义解析（可选，让「霍金写的那本」这类说法也能听懂）在页面里的「本机设置」入口填写自己的 API 密钥；不填也完全可用，只是规则读不懂的说法会被礼貌拒绝。密钥存在用户目录，不在程序文件夹里。
 
-### 方式二：开发用静态站点
+### 方式二：开发服务（场景 + 本地正文书库）
 
 已安装 Node.js 18 或更高版本时，在项目目录执行：
 
@@ -30,7 +30,7 @@ node tools/package-local.mjs      # 打包一次，产物在 dist/和序图书�
 npm start
 ```
 
-打开 `http://localhost:8080`。不需要 `npm install`。不能直接双击 `index.html`：浏览器模块与 GLB 资源需要通过 HTTP 服务加载。**这条只提供静态站点，没有本机识别模型**，识别会退回浏览器自带的 Web Speech API（在连不上厂商云服务的网络里不可用）。
+打开 `http://localhost:8080`。不需要 `npm install`。不能直接双击 `index.html`：浏览器模块与 GLB 资源需要通过 HTTP 服务加载。正文书库需要 Python 3.10+（标准库即可），服务会自动寻找解释器；也可设置 `HEXU_PYTHON` 指向 Python。这条运行方式没有本机识别模型，识别会退回浏览器自带的 Web Speech API（在连不上厂商云服务的网络里不可用）。
 
 首次点击“启动语音感知”并允许麦克风，然后说“小和”或“小和，帮我找三体”。**这一次点击只需一次**：选择会被记住，此后每次打开页面都自动开始收听，直接说「小和」即可。之所以不能做到零点击，是因为浏览器的麦克风授权本身必须由用户手势触发——没有任何网页能绕过这一点；而授权一旦持久化，页面就能在无手势的新文档里自行开麦（已实测）。
 
@@ -41,6 +41,12 @@ npm start
 书名匹配带容错：三字以上的书名差一个字（「时间减史」→《时间简史》）或只说其中一段（「计算机」→《计算机基础》）都能命中，识别器返回的多个候选会一并参与匹配。二字书名只做精确匹配——编辑距离分不出同音与不同音，放开会让「身体」「三国」「沙发」这类常用词误命中，因此「三题」这类错字交由候选列表救回。帮助面板底部的「最近识别记录」会列出听到的原文、实际采用的候选与是否命中，用来分辨是识别错了还是没匹配上。
 
 **说不出书名也能找。** 服务器若配置了大语言模型（见 [DEPLOY.md](./DEPLOY.md) 的「可选的语义解析层」），规则读不懂的说法——「霍金写的那本」「讲宇宙起源最著名的那本书」——会交给模型判断要哪一本。规则能精确命中的不绕这一趟，所以常见说法仍是即时的；模型不可用时功能不退化，只是少了理解长尾的能力。阅读时还可以用嘴操作：翻开、合上、看看芯片、放回书架。
+
+## 小说正文与本地书库
+
+说「小和，帮我找狂人日记」：已入库则直接从书架取阅，未入库则检索真实正文；精确结果唯一时自动下载，多个候选时选择一个来源。下载完整后保存到本机并绑定现有编号样书，翻开封面即可逐页阅读，支持目录、字号与阅读进度恢复。点击「正文书库」也可搜索、导入 TXT / EPUB、导入静态 CSS 书源 JSON。原有演示书仍保留简介，点击「查找正文」可进一步检索全文。
+
+书库默认保存在 `%APPDATA%\hexu-library\books`，包含 SQLite 与 UTF-8 正文，程序更新不会覆盖。内置中文维基文库，并提供你指定的源仓库入口；导入支持静态 CSS 子集，不执行书源里的 JavaScript。运行方式、书源格式、支持范围与备份方法见 [正文书库使用说明](docs/BOOK_LIBRARY.md)。旧发行版程序须重新打包后才能使用这项功能。
 
 ## 文件结构
 
@@ -62,6 +68,12 @@ npm start
 | `src/scene/smart-books.js` | 架上 11360 本书的书脊实例化：逐实例着色与三向缩放 |
 | `src/scene/orb.js` | 小和流光 Shader、呼吸与唤醒波纹 |
 | `src/reader/book.js` | 绕书脊铰链开合、封面与中文简介纹理、芯片特写模型 |
+| `src/reader/library.js` | 正文书库面板、在线检索与下载、TXT/EPUB 和书源导入、书架位置绑定 |
+| `src/reader/novel.js` | 正文测量分页、章节目录、字号与阅读进度恢复 |
+| `tools/book_library.py` | SQLite 书库、UTF-8 正文、异步下载任务、导入与 HTTP API |
+| `tools/book_sources.py` | 维基文库 API 与静态 CSS 书源引擎 |
+| `tools/library-service.py` | 开发服务使用的 Python 书库子进程 |
+| `docs/BOOK_LIBRARY.md` | 正文书库、书源格式与接口说明 |
 | `src/styles/library.css` | 页面与响应式布局 |
 | `blender/hexu-library.blend` | 可直接在 Blender 编辑的源场景 |
 | `blender/build_library.py` | 可重复执行的建模、导出、渲染脚本 |
@@ -92,7 +104,7 @@ npm start
 | `public/textures/botanical-leaf.png` | Blender 生成的叶片贴图，同时内嵌于 GLB |
 | `public/vendor/` | Three.js 0.160.1、GLTFLoader、DRACOLoader、GSAP 3.12.5 等固定依赖 |
 | `public/vendor/draco/` | Draco 解码器（Apache-2.0），环境模型用它解压几何 |
-| `tools/serve.mjs` | 无额外依赖的本地静态服务 |
+| `tools/serve.mjs` | Node 本地服务与按需启动的 Python 正文书库代理 |
 | `tools/asr-server.py` | 一个进程两种跑法：服务器模式（静态站点 + 本机模型识别），或经 PyInstaller 冻结成本机程序 |
 | `tools/window_host.py` | 打包版的窗口：用 WebView2 承载页面，并替页面放行麦克风（WebView2 默认拒绝） |
 | `tools/updater.py` | 更新：查 Gitee 的新提交、生成并启动更新脚本（拉源码 → 重新打包 → 重开） |
@@ -104,6 +116,7 @@ npm start
 | `tools/fetch-textures.mjs` | 表面贴图的唯一拉取脚本，来源与许可记录在内 |
 | `tools/prepare-smart-books.mjs` | 馆藏清单的唯一生成器，一次写入三份副本 |
 | `tests/library.test.mjs` | 馆藏几何、ASR 事件与 GLB 完整性回归检查 |
+| `tests/book-query.test.mjs`、`tests/test_book_library.py` | 正文查询、持久化、章节导入、下载任务与 HTTP API 回归 |
 | `archive/prototype-single-file.html` | 原始单文件版本备份 |
 | `archive/*.blend` | 植物精细化前 / 芯片体系前的源文件备份 |
 

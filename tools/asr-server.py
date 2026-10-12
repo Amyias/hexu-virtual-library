@@ -46,6 +46,7 @@ from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
 import updater
+import book_library
 
 MODEL_NAME = "sherpa-onnx-sense-voice-zh-en-ja-ko-yue-int8-2024-07-17"
 
@@ -585,6 +586,8 @@ class Handler(SimpleHTTPRequestHandler):
 
     # --- routes ------------------------------------------------------------
     def do_GET(self):
+        if book_library.handle_request(self):
+            return
         pathname = self.path.split("?", 1)[0]
         if pathname == "/healthz":
             self._send_json(200, {"app": "hexu-library", "asr_ready": model_state()[0],
@@ -711,6 +714,8 @@ class Handler(SimpleHTTPRequestHandler):
         self._send_json(502, {"ok": False, "message": hint + detail, **settings_summary()})
 
     def do_POST(self):
+        if book_library.handle_request(self):
+            return
         pathname = self.path.split("?", 1)[0]
         if pathname == "/understand":
             self._post_understand()

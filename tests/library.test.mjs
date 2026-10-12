@@ -337,6 +337,7 @@ test("real recognizer adapter preserves interim wake, final intent, restart and 
         finals.push(args);
       },
       getPhase: () => "IDLE",
+      lookupBook: text => text.includes('狂人日记') ? { title: '狂人日记' } : findBook(text),
     });
     $("micButton").onclick();
     recognizer.onstart();
@@ -367,6 +368,11 @@ test("real recognizer adapter preserves interim wake, final intent, restart and 
     assert.equal(recent.at(-1).used, "小何，帮我找三体");
     assert.equal(recent.at(-1).candidates, 2);
     assert.equal(recent.at(-1).matched, true);
+    const localResult = [{ transcript: '小和，帮我找狂人日记' }, { transcript: '小和，帮我找三体' }];
+    localResult.isFinal = true;
+    recognizer.onresult({ resultIndex: 0, results: [localResult] });
+    assert.deepEqual(finals.at(-1), ['小和，帮我找狂人日记', false, false]);
+    assert.equal(voice.getState().recent.at(-1).matched, true);
     recognizer.onend();
     assert.equal(timers.size, 1);
     const retry = [...timers.values()][0];

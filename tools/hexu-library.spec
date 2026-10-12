@@ -43,7 +43,7 @@ datas += collect_data_files("sherpa_onnx")
 # and clr_loader sit behind it, so they are named here rather than left to the import graph.
 # PyInstaller's own hooks then collect what those need: Python.Runtime.dll for pythonnet, and
 # webview/lib — the WebView2 interop assemblies — for pywebview.
-hiddenimports = ["sherpa_onnx", "numpy", "window_host", "updater",
+hiddenimports = ["sherpa_onnx", "numpy", "window_host", "updater", "book_library", "book_sources",
                  "webview", "clr", "pythonnet", "clr_loader"]
 
 # tkinter is never used here and drags in a tcl/tk runtime worth about ten megabytes. Nothing
