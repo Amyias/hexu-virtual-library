@@ -34,6 +34,7 @@ def main():
     parser.add_argument("entries", nargs="*", help="top-level names to include (default: all)")
     parser.add_argument("--exclude", action="append", default=[], help="path to leave out")
     parser.add_argument("--store", action="store_true", help="do not compress")
+    parser.add_argument("--require", action="append", default=[], help="required nonempty archive entry")
     args = parser.parse_args()
 
     source = pathlib.Path(args.source).resolve()
@@ -63,12 +64,15 @@ def main():
     with zipfile.ZipFile(output) as check:
         count = len(check.namelist())
         broken = check.testzip()
-    if count != written or broken:
+        missing = [name for name in args.require if name not in check.namelist() or check.getinfo(name).file_size == 0]
+    if count != written or broken or missing:
         print(
             f"归档校验失败：写入 {written} 个条目，读回 {count} 个"
             + (f"，首个损坏项 {broken}" if broken else ""),
             file=sys.stderr,
         )
+        if missing:
+            print("缺少必需的非空文件：" + ", ".join(missing), file=sys.stderr)
         return 1
 
     print(

@@ -622,7 +622,8 @@ footer{color:var(--muted);font-size:13px;margin-top:36px;padding-top:18px;border
 <p>应用另通过 <code>xiaohe-response</code> 事件公布找书 / 唤醒协议，字段为 <code>speech</code>、<code>is_wake_only</code>、<code>action</code>、<code>target</code> 与 <code>book_data</code>。这是前端业务响应，与语义接口的 <code>action/bookId/say</code> 是两份不同契约。消费该事件时应先判断 <code>action</code>；<code>IDLE</code> 的目标字段是无动作占位，不应触发移动。</p>
 <h3>7.3 桌面版与更新</h3>
 <p>打包脚本准备虚拟环境、校验模型、暂存站点、预压缩资源，再调用 PyInstaller；Windows 窗口由 pywebview / WebView2 承载。<code>window_host.py</code> 为应用页处理麦克风权限，缺少原生组件时退回系统浏览器。</p>
-<p>源码同步走 Gitee Git 仓库；桌面更新器实际读取 <strong>GitHub Releases</strong>，下载程序包，校验摘要，在退出后由辅助脚本替换并重启。模型包与程序包分开，有模型的安装可保留模型，减少重复下载。Gitee 的 <code>master</code> 不包含完整 ASR 模型；构建还需另行准备模型，或具备可读取的模型分支。配置见 <a href="https://gitee.com/li-tao-yi/hexu-virtual-library/blob/efe19c0ce5fea3df10b1929952d9fcbdf8ea715b/DEPLOY.md">部署说明</a>。</p>
+<p>源码提交推送到 GitHub，Gitee 保留同步入口；桌面更新器读取 <strong>GitHub Releases</strong>，下载程序包，校验摘要，在退出后由辅助脚本替换并重启。模型包与程序包分开，有模型的安装可保留模型，减少重复下载。Gitee 的 <code>master</code> 不包含完整 ASR 模型；构建还需另行准备模型，或具备可读取的模型分支。配置见 <a href="https://gitee.com/li-tao-yi/hexu-virtual-library/blob/efe19c0ce5fea3df10b1929952d9fcbdf8ea715b/DEPLOY.md">部署说明</a>。</p>
+<p><strong>发布维护规则更新（2026-10-12）</strong>：每个发行版都必须提供程序 ZIP 与模型 ZIP，即使模型内容未变。新版本先创建草稿，两个附件的状态、大小与 SHA-256 校验通过后才正式发布；历史模型仅作为更新器兼容兜底。补模型使用 <code>--assets-only --model-only</code>，不替换程序、不移动标签；<code>--no-model</code> 只能用于当前发行版已经存在完整模型附件的情况。源码 <code>git push</code> 与上传 Release 附件是两个独立步骤，模型 ZIP 不进入 <code>master</code> 历史。</p>
 <p>用户设置保存在仓库外的用户配置目录，避免升级覆盖；源码、文档、日志与 HTTP 状态接口不应包含密钥原文。本文只说明配置机制，不包含实际凭据。</p>
 <h2 id="section-8">8. 如何运行、验证和维护</h2>
 <h3>最小运行</h3>
@@ -633,7 +634,7 @@ footer{color:var(--muted);font-size:13px;margin-top:36px;padding-top:18px;border
 <h3>自动与人工验收</h3>
 <pre><code class="language-powershell">npm test
 </code></pre>
-<p>当前 9 项测试覆盖唤醒词与检索容错、误命中防线、馆藏排架与三份清单一致性、环境 GLB、阅读模板节点、植物纹理、ASR / 语义探测降级及识别生命周期。识别生命周期使用模拟事件，不能据此宣称真人语音准确率、噪声鲁棒性或端到端延迟已达标。</p>
+<p>原基线的 9 项测试覆盖唤醒词与检索容错、误命中防线、馆藏排架与三份清单一致性、环境 GLB、阅读模板节点、植物纹理、ASR / 语义探测降级及识别生命周期。此次发布规则维护增加 3 项附件策略测试，<code>npm test</code> 共 12 项；另用 <code>python -m unittest discover -s tests -p test_archive.py</code> 验证真实 ZIP 及缺失/空模型文件拒绝路径。识别生命周期使用模拟事件，不能据此宣称真人语音准确率、噪声鲁棒性或端到端延迟已达标。</p>
 <p>人工演示建议依次检查：</p>
 <ol>
 <li>场景加载完成，可旋转、缩放，五个分区正常显示。</li>

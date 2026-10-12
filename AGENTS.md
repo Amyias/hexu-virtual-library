@@ -8,17 +8,27 @@
 
 1. 先验证：跑 `npm test`；涉及界面、场景或交互的改动，另外在浏览器里回归完整链路（加载场景 → 找书 → 翻开封面 → 查看芯片 → 放回书架 → 回到待命）。
 2. 提交：Conventional Commits 前缀（`feat` / `fix` / `docs` / `refactor` / `chore` / `test`）+ 中文描述，写清**为什么**改。一次提交只做一件事。提交信息用 `git commit -F -` 配合 heredoc 传入。
-3. 推送：`git push origin master`。
+3. 推送：优先将 `master` 推送至现有 GitHub 仓库 `https://github.com/Amyias/hexu-virtual-library.git`，再同步 `git push origin master`（Gitee）。无需新增远端或改写 `origin`；Gitee 网络不可用时如实报告，以已核验的 GitHub 推送为准。
 
 ## 自动提交推送的边界
 
 用户已授权完成改动后自动提交并推送，无需逐次确认。该授权**仅限**：
 
-- 只推 `origin` 的 `master`，不新增远端、不改远端地址；
+- 只推现有 GitHub 仓库 `Amyias/hexu-virtual-library` 的 `master` 和 `origin` 的 `master`，不新增远端、不改远端地址；
 - 不执行 force push，不改写已推送的历史；
 - 提交内容不得包含任何凭据值或私钥内容。
 
 越出以上范围的对外操作——新建或删除仓库、修改仓库设置、推送其它远端、把仓库转为公开——**先征得用户确认**。
+
+## 发行版附件规则
+
+- 源码提交和 GitHub Release 是两件事：`git push` 不会上传 `dist/` 的发行附件，发版必须另行运行 `tools/release.mjs`。
+- 每个新发行版必须同时包含 `hexu-library-<版本>-program.zip` 与 `sense-voice-<版本>.zip`，即使模型内容没有变化。旧版本里的模型包不能代替当前版本附件。
+- 新版本先创建草稿，两个附件校验完整后才公开发布；上传失败保留草稿待补传，不把缺附件的版本作为完成品发布。
+- `--no-model` 仅用于当前发行版已有完整、带 SHA-256 的模型附件时更新程序包；缺模型必须失败，不得报告发布成功。
+- 补传模型使用 `node tools/release.mjs --assets-only --model-only`，保留已发布程序包与标签，不为补附件改版本号。
+- 完成后通过 GitHub API 验证两个附件均为 `uploaded`、大小大于零并有 SHA-256；本次上传的附件大小和摘要必须与本地 ZIP 完全一致。模型 ZIP 还须通过 CRC 检查并包含非空 ONNX 与词表。
+- `dist/`、`.cache/` 与模型 ZIP 继续不进入 `master` 历史；模型包发布到 GitHub Release。更新已有发行版附件是已授权的发布维护范围，不包含删除整个发行版或改写标签。
 
 ## 凭据（硬性约束，无例外）
 

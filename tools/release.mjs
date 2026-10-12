@@ -15,6 +15,7 @@ Both archives unpack at the install root, so applying either is a plain overwrit
 
     node tools/release.mjs                 build, archive, publish
     node tools/release.mjs --prepare-only  build and archive, print the paths, publish nothing
+    node tools/release.mjs --assets-only --model-only  repair the existing release's model only
 
 Publishing needs a token in GITHUB_TOKEN (fine-grained, Contents: Read and write). It is read in
 the few requests that need it and never copied, logged or written anywhere — the same rule the
@@ -29,6 +30,7 @@ import path from "node:path";
 import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
+import { matchesArchive, requireModelForSkip, requireCompleteRelease } from "./release-policy.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const APP = "和序图书馆";
@@ -81,47 +83,24 @@ function preflight(version, assetsOnly) {
   const local = run("git", ["tag", "-l", `v${version}`]).stdout.trim();
   if (local) fail(`标签 v${version} 已存在。改 package.json 的版本号再发。`);
 
-  const remote = run("git", ["ls-remote", "--tags", "github", `v${version}`]).stdout.trim();
-  if (remote) fail(`GitHub 上已经有 v${version} 这个标签了。要往它上面补传附件，加 --assets-only。`);
-
-  // The release is created from a commit that has to exist on GitHub: the API takes the sha as
-  // `target_commitish`, and a tag cannot be made from a commit the remote has never seen. Asked
-  // for one that was still local, GitHub answered 422 with a message about an invalid tag.
   const head = run("git", ["rev-parse", "HEAD"]).stdout.trim();
-  const remoteHead = run("git", ["rev-parse", "refs/remotes/github/master"]).stdout.trim() ||
-    run("git", ["ls-remote", "github", "refs/heads/master"]).stdout.trim().split(/\s+/)[0];
-  if (remoteHead && remoteHead !== head) {
-    fail(
-      [
-        "要发布的提交还没推到 GitHub——发行版是从远端那个提交建的：",
-        `  本地   ${head.slice(0, 12)}`,
-        `  远端   ${remoteHead.slice(0, 12)}`,
-        "先 git push github master，再发版。",
-      ].join("\n"),
-    );
-  }
+  // Remote checks use the authenticated API in publish(); no named github remote is required.
   return head;
 }
 
 /** The two archives. Both unpack at the install root: the program archive is everything except
  *  the model, the model archive is the model under the path it belongs at.
  *
- *  `--no-model` leaves the model archive out entirely. The model never changes between versions,
- *  and the program already finds it in the newest release that carries one, so uploading 228 MB
- *  again — with a one-in-five chance of a stalled connection per session — buys nothing. */
-function archive(version, withModel) {
-  if (!fs.existsSync(path.join(APP_DIR, `${APP}.exe`))) {
+ *  Every release carries both files. --model-only repairs an existing release without replacing
+ *  its program; --no-model is restricted to an already verified model in that same release. */
+function archive(version, withModel, modelOnly = false) {
+  if (!modelOnly && !fs.existsSync(path.join(APP_DIR, `${APP}.exe`))) {
     fail(`先打包：${APP_DIR} 里没有程序。运行 node tools/package-local.mjs`);
   }
   fs.mkdirSync(OUT_DIR, { recursive: true });
   const program = path.join(OUT_DIR, `hexu-library-${version}-program.zip`);
   const model = path.join(OUT_DIR, `sense-voice-${version}.zip`);
-  for (const file of [program, model]) fs.rmSync(file, { force: true });
-
-  const entries = fs
-    .readdirSync(APP_DIR)
-    .filter((name) => name !== "_internal");
-  entries.push("_internal");
+  for (const file of [modelOnly ? null : program, withModel ? model : null].filter(Boolean)) fs.rmSync(file, { force: true });
 
   // Python writes the archives, not tar: `tar -a -f x.zip` produces a plain tar with a zip name
   // (GNU tar has no zip compressor), which every zip reader refuses while PowerShell's
@@ -131,29 +110,34 @@ function archive(version, withModel) {
     ? path.join(root, ".cache", "venv", "Scripts", "python.exe")
     : "python";
 
-  const madeProgram = run(
-    python,
-    [
-      path.join("tools", "make-archive.py"), program, APP_DIR, ...entries,
-      // The model is the one thing left behind.
-      "--exclude", "_internal/models",
-    ],
-    { stdio: "inherit" },
-  );
-  if (madeProgram.status !== 0) fail("切程序包失败。");
-
-  const assets = [{ file: program, name: path.basename(program), label: "程序包（不含模型）" }];
+  const assets = [];
+  if (!modelOnly) {
+    const entries = fs.readdirSync(APP_DIR);
+    const madeProgram = run(
+      python,
+      [
+        path.join("tools", "make-archive.py"), program, APP_DIR, ...entries,
+        "--exclude", "_internal/models",
+      ],
+      { stdio: "inherit" },
+    );
+    if (madeProgram.status !== 0) fail("切程序包失败。");
+    assets.push({ file: program, name: path.basename(program), label: "程序包（不含模型）" });
+  }
   if (!withModel) {
-    log("（--no-model：模型包跳过，更新器会从带了模型的那个发行版里取）");
+    log("（--no-model：发布前必须确认当前发行版已有完整模型附件）");
     return assets;
   }
 
+  if (!fs.existsSync(path.join(APP_DIR, "_internal", "models"))) fail("模型目录不存在，不能生成模型包。请先运行 tools/package-local.mjs。");
   const madeModel = run(
     python,
     [
       path.join("tools", "make-archive.py"), model, APP_DIR, "_internal/models",
       // Deflating 228 MB of int8 weights saves almost nothing and costs a minute.
       "--store",
+      "--require", "_internal/models/sense-voice/model.int8.onnx",
+      "--require", "_internal/models/sense-voice/tokens.txt",
     ],
     { stdio: "inherit" },
   );
@@ -165,12 +149,8 @@ function archive(version, withModel) {
 /** The release notes: the commits that are in this version. */
 function notes(version, commit) {
   const log15 = run("git", ["log", "--pretty=format:- %s", "-n", "15"]).stdout.trim();
-  // The remote's tags, not this checkout's: releases are created through the API, which makes
-  // the tag on GitHub without leaving one here.
-  const tags = run("git", ["ls-remote", "--tags", "github"]).stdout.trim();
-  const first = !tags;
   return [
-    first ? `和序图书馆 首个发行版 v${version}` : `和序图书馆 v${version}`,
+    `和序图书馆 v${version}`,
     "",
     `提交 \`${commit.slice(0, 12)}\``,
     "",
@@ -179,7 +159,7 @@ function notes(version, commit) {
     "",
     "### 怎么装",
     "1. 下载 `*-program.zip`，解压覆盖到程序文件夹（模型原地保留，不会被覆盖）。",
-    "2. 只有新机器才需要再下载模型包，解压到同一个文件夹。",
+    `2. 新机器还需要下载本发行版的 \`sense-voice-${version}.zip\`，解压到同一个文件夹；已有模型的机器更新时只下载程序包。`,
     "",
     "程序里的「本机设置 → 更新」可以直接检查并安装新版本（需要在该机器上放一个只读令牌，",
     "因为仓库是私有的）。",
@@ -271,9 +251,16 @@ async function upload(uploadUrl, asset, token, cleanup, attempts = 4) {
   fail(`上传 ${asset.name} 连试 ${attempts} 次都没成功。网络恢复后重跑一次即可（--skip-build --assets-only）。`);
 }
 
-async function publish(version, commit, assets, token) {
+async function publish(version, commit, assets, token, assetsOnly, skipModel) {
+  let createdDraft = false;
   let release = await github(`/repos/${REPO}/releases/tags/v${version}`, { token });
+  if (skipModel) requireModelForSkip(version, release.ok ? release.payload : null);
   if (release.status === 404) {
+    if (assetsOnly) fail(`v${version} 不存在，--assets-only 不允许创建新发行版。`);
+    const remote = await github(`/repos/${REPO}/git/ref/heads/master`, { token });
+    if (!remote.ok || remote.payload?.object?.sha !== commit) fail("GitHub master 尚未包含当前提交，请先推送再发版。");
+    const tag = await github(`/repos/${REPO}/git/ref/tags/v${version}`, { token });
+    if (tag.status !== 404) fail(`标签检查失败或 v${version} 标签已存在，不创建发行版。`);
     const created = await github(`/repos/${REPO}/releases`, {
       method: "POST",
       token,
@@ -283,14 +270,16 @@ async function publish(version, commit, assets, token) {
         target_commitish: commit,
         name: `和序图书馆 v${version}`,
         body: notes(version, commit),
-        draft: false,
+        draft: true,
         prerelease: false,
       }),
     });
     if (!created.ok) fail(`创建发行版失败：HTTP ${created.status} ${why(created)}`);
     release = created;
-    log(`已创建发行版 v${version}`);
+    createdDraft = true;
+    log(`已创建发行草稿 v${version}，附件完整后才公开发布。`);
   } else if (release.ok) {
+    if (!assetsOnly) fail(`v${version} 已存在，补传附件请使用 --assets-only。`);
     log(`发行版 v${version} 已存在，补传缺失的附件。`);
   } else {
     fail(`读取发行版失败：HTTP ${release.status} ${why(release)}`);
@@ -300,9 +289,11 @@ async function publish(version, commit, assets, token) {
    *  A failed upload can leave one behind — GitHub calls it a starter asset. */
   const cleanup = async (name) => {
     const current = await github(`/repos/${REPO}/releases/${release.payload.id}/assets`, { token });
+    if (!current.ok || !Array.isArray(current.payload)) fail(`读取待清理附件失败：HTTP ${current.status}`);
     for (const asset of current.payload ?? []) {
       if (asset.name === name) {
-        await github(`/repos/${REPO}/releases/assets/${asset.id}`, { method: "DELETE", token });
+        const removed = await github(`/repos/${REPO}/releases/assets/${asset.id}`, { method: "DELETE", token });
+        if (!removed.ok) fail(`清理附件失败：HTTP ${removed.status}`);
         log(`  清掉上一次留下的半成品 ${name}`);
       }
     }
@@ -311,26 +302,36 @@ async function publish(version, commit, assets, token) {
   const existing = new Map((release.payload?.assets ?? []).map((a) => [a.name, a]));
   for (const asset of assets) {
     const already = existing.get(asset.name);
-    if (already && already.size === fs.statSync(asset.file).size) {
-      log(`附件 ${asset.name} 已存在且大小一致，跳过。`);
+    if (matchesArchive(already, fs.statSync(asset.file).size, sha256(asset.file))) {
+      log(`附件 ${asset.name} 已上传且大小和 SHA-256 一致，跳过。`);
       continue;
     }
     if (already) {
       // The upload endpoint refuses a duplicate name, so the stale one goes first.
-      await github(`/repos/${REPO}/releases/assets/${already.id}`, { method: "DELETE", token });
+      const removed = await github(`/repos/${REPO}/releases/assets/${already.id}`, { method: "DELETE", token });
+      if (!removed.ok) fail(`删除旧附件失败：HTTP ${removed.status}`);
       log(`已删除旧的同名附件 ${asset.name}`);
     }
     await upload(release.payload.upload_url, asset, token, cleanup);
   }
+  const verified = await github(`/repos/${REPO}/releases/tags/v${version}`, { token });
+  if (!verified.ok) fail(`发布后读取附件失败：HTTP ${verified.status}`);
+  requireCompleteRelease(version, verified.payload);
+  for (const asset of assets) {
+    const remote = verified.payload.assets.find(item => item.name === asset.name);
+    if (!matchesArchive(remote, fs.statSync(asset.file).size, sha256(asset.file))) fail(`上传后校验失败：${asset.name}`);
+  }
+  if (createdDraft || verified.payload.draft) {
+    const published = await github(`/repos/${REPO}/releases/${verified.payload.id}`, {
+      method: "PATCH", token, contentType: "application/json", body: JSON.stringify({ draft: false }),
+    });
+    if (!published.ok || published.payload?.draft) fail(`附件已齐全但发布草稿失败：HTTP ${published.status}`);
+  }
+  log("程序包与模型包均已上传，状态、大小和 SHA-256 校验通过。");
   return release.payload?.html_url;
 }
 
-/** The publishing token: the environment first, then the settings file the program keeps it in.
-
- *  One paste covers both jobs — the same value that lets the program check and install updates
- *  also lets this script publish them — so the token is stored in one place, the settings page,
- *  rather than also having to be set as an environment variable. The value is read here and used
- *  in the requests below; it is never printed, logged or written anywhere. */
+/** Publishing credentials come only from the environment, never from settings files. */
 function readToken() {
   const fromEnvironment = (process.env[TOKEN_VARIABLE] ?? "").trim();
   if (fromEnvironment) return fromEnvironment;
@@ -347,53 +348,40 @@ function readToken() {
     const value = (read.stdout ?? "").trim();
     if (value) return value;
   } catch {
-    /* fall through to the settings file */
+    /* No configured user environment. */
   }
 
-  const settings = path.join(
-    process.env.APPDATA ?? path.join(process.env.USERPROFILE ?? "", "AppData", "Roaming"),
-    "hexu-library",
-    "llm.env",
-  );
-  try {
-    for (const line of fs.readFileSync(settings, "utf8").splitlines()) {
-      const separator = line.indexOf("=");
-      if (separator > 0 && line.slice(0, separator).trim() === "HEXU_GITHUB_TOKEN") {
-        return line.slice(separator + 1).trim();
-      }
-    }
-  } catch {
-    /* No settings file: the environment was the only chance. */
-  }
   return "";
 }
 
 const version = JSON.parse(fs.readFileSync(path.join(root, "package.json"), "utf8")).version;
 const prepareOnly = process.argv.includes("--prepare-only");
 const assetsOnly = process.argv.includes("--assets-only");
+const modelOnly = process.argv.includes("--model-only");
+const skipModel = process.argv.includes("--no-model");
+if (modelOnly && (!assetsOnly || skipModel)) fail("--model-only 必须搭配 --assets-only，且不能与 --no-model 同用。");
 
 log(`和序图书馆 · 发版 v${version}`);
 const commit = preflight(version, assetsOnly);
 log(`提交       ${commit.slice(0, 12)}`);
 
-if (!process.argv.includes("--skip-build")) {
+if (!modelOnly && !process.argv.includes("--skip-build")) {
   log("打包（约两分钟）…");
   const build = run("node", [path.join("tools", "package-local.mjs")], { stdio: "inherit" });
   if (build.status !== 0) fail("打包失败，未发版。");
 }
 
-const assets = archive(version, !process.argv.includes("--no-model"));
+const assets = archive(version, !skipModel, modelOnly);
 for (const asset of assets) {
   log(`${asset.label}  ${asset.name}  ${megabytes(fs.statSync(asset.file).size)}  sha256 ${sha256(asset.file).slice(0, 16)}…`);
 }
 
-const token = readToken();
+const token = prepareOnly ? "" : readToken();
 if (prepareOnly || !token) {
   if (!prepareOnly) {
     log("");
     log("没有找到访问令牌，因此只准备好文件、没有发布。");
-    log("要自动发布，把细粒度 PAT（Contents: Read and write）粘到程序设置页的「访问令牌」一栏，");
-    log("或放在环境变量 " + TOKEN_VARIABLE + " 里；也可以打开发行版页面自己把文件拖进去：");
+    log("要自动发布，请将细粒度 PAT（Contents: Read and write）配置在环境变量 " + TOKEN_VARIABLE + " 中；也可以手动上传：");
   }
   for (const asset of assets) log("  " + asset.file);
   log("");
@@ -401,6 +389,6 @@ if (prepareOnly || !token) {
   process.exit(prepareOnly ? 0 : 1);
 }
 
-const url = await publish(version, commit, assets, token);
+const url = await publish(version, commit, assets, token, assetsOnly, skipModel);
 log("");
 log(`完成：${url ?? `https://github.com/${REPO}/releases/tag/v${version}`}`);
