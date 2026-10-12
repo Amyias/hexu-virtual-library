@@ -2,6 +2,8 @@
 
 完整技术说明、SVG 系统架构图、语音流程、资产管线及扩展建议，见 [技术实现与系统架构](docs/TECHNICAL_GUIDE.md)。
 
+跨目录或电脑分享时，使用 [完整文档包](docs/TECHNICAL_GUIDE_PORTABLE.zip)，或直接复制 [独立 HTML 文档](docs/portable/TECHNICAL_GUIDE.html)（图与样式内嵌，可离线阅读）。
+
 Blender 精细环境模型 + Three.js 网页交互。此版本已从单文件拆分为 ES Modules，模型、贴图及渲染依赖均保存在项目中。
 
 ## 运行

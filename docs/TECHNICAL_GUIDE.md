@@ -2,6 +2,10 @@
 
 > 文档日期：2026-10-12。源码基线：`2.3.0`，提交 `efe19c0`。本文根据当前源码、馆藏清单和导出清单整理，适合项目介绍、技术交接与演示准备。标为“建议”的内容尚未实现；数量与资源大小是该基线的数据，不代表未来版本。
 
+<!-- export-note:start -->
+**移动或分享文档**：下载 [完整文档包](TECHNICAL_GUIDE_PORTABLE.zip)，解压后保持 Markdown 与 `diagrams/` 文件夹在一起。正文使用 PNG 以兼容更多 Markdown 阅读器，SVG 原图仍保留。如果希望只移动一个文件，请使用 [独立 HTML 版](portable/TECHNICAL_GUIDE.html)：三张矢量图与样式全部内嵌，双击即可离线查看。普通 Markdown 的外部图片不会随 `.md` 文件自动移动；源码链接在仓库内使用，可移植版已改为 Gitee 链接（私有仓库需要登录）。
+<!-- export-note:end -->
+
 ## 1. 项目解决什么问题
 
 和序图书馆把“说出需求、定位书籍、取书、阅读、归还”组织成一个可视化闭环。读者可以呼叫“小和”，也可以输入书名、编号、位置码或点击推荐入口。系统匹配到馆藏后，光球引导到书架，目标书飞到眼前；读者拖动封面翻开简介，还可以放大查看嵌入式芯片。
@@ -25,7 +29,7 @@
 
 ## 2. 系统架构
 
-![系统架构：浏览器、可选后端与资产构建](diagrams/architecture.svg)
+![系统架构：浏览器、可选后端与资产构建](diagrams/architecture.png)
 
 [单独打开架构 SVG](diagrams/architecture.svg)。图中文字与连线均为矢量元素，可在支持 SVG 的工具中编辑，缩放时不损失清晰度。
 
@@ -77,7 +81,7 @@
 
 ## 4. 语音唤醒、识别与理解
 
-![语音识别、意图解析与取还流程](diagrams/voice-flow.svg)
+![语音识别、意图解析与取还流程](diagrams/voice-flow.png)
 
 [SVG 原图](diagrams/voice-flow.svg) · [PNG 预览](diagrams/voice-flow.png)
 
@@ -109,7 +113,7 @@
 
 ## 5. 三维场景、模型与性能
 
-![从 Blender 制作到网页加载的资产管线](diagrams/asset-pipeline.svg)
+![从 Blender 制作到网页加载的资产管线](diagrams/asset-pipeline.png)
 
 [SVG 原图](diagrams/asset-pipeline.svg) · [PNG 预览](diagrams/asset-pipeline.png)
 
