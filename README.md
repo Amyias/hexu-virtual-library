@@ -117,6 +117,7 @@ npm start
 | `tools/prepare-smart-books.mjs` | 馆藏清单的唯一生成器，一次写入三份副本 |
 | `tests/library.test.mjs` | 馆藏几何、ASR 事件与 GLB 完整性回归检查 |
 | `tests/book-query.test.mjs`、`tests/test_book_library.py` | 正文查询、持久化、章节导入、下载任务与 HTTP API 回归 |
+| `tests/server.test.mjs` | 本机服务的请求来源校验：设置与更新接口拒绝其它网页（CSRF）和重绑定到本机的域名 |
 | `archive/prototype-single-file.html` | 原始单文件版本备份 |
 | `archive/*.blend` | 植物精细化前 / 芯片体系前的源文件备份 |
 

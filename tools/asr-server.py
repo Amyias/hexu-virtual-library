@@ -104,6 +104,8 @@ def config_path():
 ROOT = site_root()
 PORT = int(os.environ.get("PORT", "8090"))
 HOST = os.environ.get("HOST", "127.0.0.1")
+# Names a loopback-only route answers to; urlsplit gives "::1" for a "[::1]:8090" Host.
+LOOPBACK_NAMES = {"localhost", "127.0.0.1", "::1"}
 
 MODEL_DIR = model_dir()
 MODEL_FILE = MODEL_DIR / "model.int8.onnx"
@@ -533,18 +535,45 @@ class Handler(SimpleHTTPRequestHandler):
     def _send_json(self, status, payload):
         self._send(status, json.dumps(payload).encode("utf-8"), "application/json; charset=utf-8")
 
+    def _cross_site(self):
+        """True when a browser reports that another site's page sent this request.
+
+        A loopback address does not prove the reader asked for it: any page open in a browser on
+        this machine can post to 127.0.0.1:8090 too, and a text/plain body is a "simple" request
+        that needs no preflight. Browsers always label such a request — Sec-Fetch-Site, and an
+        Origin on every POST — so a mismatch is refused. A request with neither header did not
+        come from a web page (curl, the tests), and no page can strip them."""
+        site = self.headers.get("Sec-Fetch-Site")
+        if site and site not in ("same-origin", "none"):
+            return True
+        origin = self.headers.get("Origin")
+        if origin is None:
+            return False
+        # "null" (sandboxed frames, file://) has no netloc and so never matches.
+        host = (self.headers.get("Host") or "").lower()
+        return urllib.parse.urlsplit(origin).netloc.lower() != host
+
     def _loopback_only(self):
         """The settings surface belongs to the person at this machine.
 
         The default bind is loopback already, but HOST can be widened for a LAN deployment, and
-        the settings page must not become remotely writable if it is."""
+        the settings page must not become remotely writable if it is. The Host header must name
+        loopback as well: DNS rebinding points an attacker's domain at 127.0.0.1, which makes its
+        page same-origin with this one — only the name it asked for gives it away."""
         try:
-            if ipaddress.ip_address(self.client_address[0]).is_loopback:
-                return True
+            loopback = ipaddress.ip_address(self.client_address[0]).is_loopback
         except ValueError:
-            pass
-        self._send_json(403, {"error": "本机设置只能从本机访问"})
-        return False
+            loopback = False
+        host = urllib.parse.urlsplit("//" + (self.headers.get("Host") or "")).hostname or ""
+        if not loopback or host.rstrip(".").lower() not in LOOPBACK_NAMES:
+            self.close_connection = True  # the refused body is never read
+            self._send_json(403, {"error": "本机设置只能从本机访问"})
+            return False
+        if self._cross_site():
+            self.close_connection = True
+            self._send_json(403, {"error": "本机设置不接受来自其它网页的请求"})
+            return False
+        return True
 
     def _static_path(self, pathname):
         """Resolve a URL path inside ROOT, or None if it escapes."""
@@ -714,6 +743,13 @@ class Handler(SimpleHTTPRequestHandler):
         self._send_json(502, {"ok": False, "message": hint + detail, **settings_summary()})
 
     def do_POST(self):
+        # Recognition, the semantic layer and the reading library cost CPU, the reader's model
+        # quota and their own shelf; none of it is for other sites' pages to spend or rewrite.
+        # Checked before the library routes too, which also honour Sec-Fetch-Site this way.
+        if self._cross_site():
+            self.close_connection = True
+            self._send_json(403, {"error": "不接受来自其它网页的请求"})
+            return
         if book_library.handle_request(self):
             return
         pathname = self.path.split("?", 1)[0]
