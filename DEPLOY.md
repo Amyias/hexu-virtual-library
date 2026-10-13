@@ -232,7 +232,7 @@ node tools/package-local.mjs --shortcut --zip   # 顺带在桌面放一个快捷
 
 脚本会：准备 `.cache/venv` 并安装 `pyinstaller==6.22.3` 与 `sherpa-onnx==1.13.8`（本机 Python 3.14 有对应的 win_amd64 轮子，不需要编译器）→ 校验 `.cache/models/` 里的模型 → 把站点复制到 `.cache/stage/site` 并**预压缩 `.gz` 兄弟文件** → 调 PyInstaller → 校验产物 → 写「使用说明.txt」。重复运行会复用已装好的依赖。
 
-模型**在一个单独的 `model` 分支上**（GitHub），不在 `master`：228 MiB 超过 GitHub 单文件 100 MiB 的硬限制，所以切成 3 块（每块 76.1 MB）放在那里；`master` 保持轻量、与 Gitee 完全一致。本地没有模型时，打包脚本会**自动从那个分支取回、逐块校验 SHA-256、拼回**——分支也没有时才需要手工拷一次：
+模型**在一个单独的 `model` 分支上**（GitHub），不在 `master`：228 MiB 超过 GitHub 单文件 100 MiB 的硬限制，所以切成 3 块（每块 76.1 MB）放在那里；`master` 保持轻量。本地没有模型时，打包脚本会**自动从那个分支取回、逐块校验 SHA-256、拼回**——分支也没有时才需要手工拷一次：
 
 ```
 node tools/package-local.mjs      # 没模型时会先说「从 model 分支取回」，校验通过才继续
@@ -293,7 +293,7 @@ python tools/make-icon.py      # 需要 Pillow；图标已提交，构建本身�
 | `--window` | 强制使用内嵌窗口（源码运行时的默认是浏览器） |
 | `--no-browser` | 什么都不打开，只提供服务（部署与测试用） |
 | `--check-mic` | 开一个窗口探测麦克风是否可用，打印结论并写进 `%APPDATA%\hexu-library\mic-check.txt`，退出码 0/1 |
-| `--check-update` | 检查 Gitee 上有没有新提交，打印结论，退出码 0 已最新 / 1 有更新 / 2 查不了 |
+| `--check-update` | 检查 GitHub 发行版有没有新版本，打印结论，退出码 0 已最新 / 1 有更新 / 2 查不了 |
 
 没有控制台的构建里，`attach_console()` 会在从终端启动时接回父控制台，所以 `--check-mic` 的结论能直接打印在终端里；双击启动时没有可接的控制台，真正致命的启动错误会以对话框呈现。
 

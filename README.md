@@ -107,7 +107,7 @@ npm start
 | `tools/serve.mjs` | Node 本地服务与按需启动的 Python 正文书库代理 |
 | `tools/asr-server.py` | 一个进程两种跑法：服务器模式（静态站点 + 本机模型识别），或经 PyInstaller 冻结成本机程序 |
 | `tools/window_host.py` | 打包版的窗口：用 WebView2 承载页面，并替页面放行麦克风（WebView2 默认拒绝） |
-| `tools/updater.py` | 更新：查 Gitee 的新提交、生成并启动更新脚本（拉源码 → 重新打包 → 重开） |
+| `tools/updater.py` | 更新：查 GitHub 最新发行版、下载并校验程序包（断点续传）、退出后替换并重开；模型不变时不重下 |
 | `tools/package-local.mjs` | 本机版打包：准备虚拟环境、校验模型、暂存站点并预压缩、调 PyInstaller、可选桌面快捷方式 |
 | `tools/hexu-library.spec` | PyInstaller 配方（one-dir，程序名与数据文件清单） |
 | `public/settings.html` | 本机设置页：填写模型密钥、测试连接、检查与执行更新（仅回环可访问） |

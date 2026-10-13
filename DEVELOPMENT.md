@@ -40,11 +40,10 @@ MSG
 ### 3. 推送
 
 ```bash
-git push https://github.com/Amyias/hexu-virtual-library.git master
-git push origin master
+git push github master
 ```
 
-GitHub 为发行源码主入口，Gitee `origin` 保留作为同步目标；只推现有仓库的 `master`，不改远端地址、不强推。Gitee 网络不可用时记录失败，核对 GitHub 远端提交号后完成该次提交。认证只在工具调用中使用环境变量，不把令牌拼进 URL、命令行或配置文件。
+GitHub 是唯一的权威仓库：源码、`model` 分支与发行版都在那里。只推 `master`，不改远端地址、不强推；推之前远端若有本机没有的提交，先 `git fetch github` 再把本地提交 rebase 上去。推送走 SSH，不需要令牌。
 
 ### 4. 发行附件不是 Git 提交
 
@@ -62,14 +61,17 @@ GitHub 为发行源码主入口，Gitee `origin` 保留作为同步目标；只�
 
 | 项 | 值 |
 | --- | --- |
-| 平台 | Gitee |
-| 仓库 | `li-tao-yi/hexu-virtual-library` |
-| 地址 | https://gitee.com/li-tao-yi/hexu-virtual-library |
+| 平台 | GitHub |
+| 仓库 | `Amyias/hexu-virtual-library` |
+| 地址 | https://github.com/Amyias/hexu-virtual-library |
 | 可见性 | 私有 |
-| 默认分支 | `master` |
-| 远端 | `git@gitee.com:li-tao-yi/hexu-virtual-library.git` |
+| 分支 | `master`（源码）、`model`（语音识别模型分块，见下文「模型在哪」） |
+| 远端 | `git@github.com:Amyias/hexu-virtual-library.git`，本机远端名 `github` |
+| 发行版 | https://github.com/Amyias/hexu-virtual-library/releases，程序更新从这里下载 |
 
 远端使用 SSH，因此**推送不需要任何令牌**。
+
+> 早期的 Gitee 仓库 `li-tao-yi/hexu-virtual-library`（本机远端名 `origin`）已停止同步，内容停在 GitHub 之前的某个提交，不要再从那里拉取或推送。
 
 ## 凭据
 
@@ -101,8 +103,8 @@ GitHub 为发行源码主入口，Gitee `origin` 保留作为同步目标；只�
 | 项 | 位置 |
 | --- | --- |
 | 私钥 | `~/.ssh/id_ed25519`（即 `C:\Users\<用户名>\.ssh\id_ed25519`） |
-| 公钥 | `~/.ssh/id_ed25519.pub`，已登记到 Gitee 账号 |
-| 验证 | `ssh -T git@gitee.com`，成功时返回 `Hi 李焘屹(@li-tao-yi)!` |
+| 公钥 | `~/.ssh/id_ed25519.pub`，已登记到 GitHub 账号 |
+| 验证 | `ssh -T git@github.com`，成功时返回 `Hi Amyias! You've successfully authenticated…` |
 
 密钥位于用户目录，不在仓库内，也不会被提交。
 
@@ -114,39 +116,13 @@ GitHub 为发行源码主入口，Gitee `origin` 保留作为同步目标；只�
 | --- | --- |
 | 变量名 | `GITHUB_TOKEN` |
 | 所需权限 | 细粒度 PAT，`Contents: Read and write`（发版）；`Contents: Read-only`（只更新） |
-| 存放 | 同 `GITEE_ACCESS_TOKEN`：Windows 用户级环境变量 |
+| 存放 | Windows 用户级环境变量（`HKCU\Environment`）；设置后新开终端生效 |
 
 检查是否已配置（不会打印令牌内容）：`test -n "$GITHUB_TOKEN" && echo 已配置 || echo 未配置`
 
-### API 认证：Gitee 个人访问令牌
+### 不再需要：Gitee 个人访问令牌
 
-仅调用 Gitee REST API（新建仓库、修改仓库描述等）时需要；日常提交推送用不到。
-
-| 项 | 位置 |
-| --- | --- |
-| 变量名 | `GITEE_ACCESS_TOKEN` |
-| 存放 | Windows 环境变量，明文 `REG_SZ` |
-| 用户级 | `HKCU\Environment` |
-| 系统级 | `HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment` |
-| 所需权限 | 至少 `user_info`（读账号）与 `projects`（建仓库） |
-
-检查是否已配置（不会打印令牌内容）：
-
-```bash
-test -n "$GITEE_ACCESS_TOKEN" && echo "已配置" || echo "未配置"
-```
-
-读取与持久化设置：
-
-```powershell
-# 查看。会显示明文值，注意不要把输出粘贴进任何文件或对话
-reg query "HKCU\Environment" /v GITEE_ACCESS_TOKEN
-
-# 持久化设置，新开终端后生效
-setx GITEE_ACCESS_TOKEN "<你的令牌>"
-```
-
-> 当前令牌在用户级与系统级各有一份，系统级那份本机所有用户与进程都能读到。若只想给当前用户使用，可删除系统级那份，只保留用户级。
+仓库迁到 GitHub 后，`GITEE_ACCESS_TOKEN` 已没有任何工具使用。本机若仍设着它（用户级与系统级各一份），可以删掉——系统级那份本机所有用户与进程都能读到。
 
 ## 编码陷阱：命令行不要传中文
 
@@ -175,8 +151,7 @@ Windows PowerShell 5.1 用**控制台代码页**（本机是 GBK）解码两样�
 ## 模型在哪
 
 语音识别模型（228 MiB）**在 `model` 分支上**，不在 `master`：GitHub 单文件上限 100 MiB 装不下，
-所以切成 3 块（`model/README.md` 有完整说明）；Gitee 那边单文件 50 MB、单仓库 500 MB，这些块
-在那边的限制下根本推不上去，因此该分支**只推 GitHub**。
+所以切成 3 块（`model/README.md` 有完整说明）。
 
 `master` 一切照旧：`model/` 已加进 `.gitignore`，防止工作区里的副本被误提交。打包时若本地没有
 模型，`tools/package-local.mjs` 会用 `git show model:model/...` 从分支取回（不动索引与工作区）、

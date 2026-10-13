@@ -8,13 +8,13 @@
 
 1. 先验证：跑 `npm test`；涉及界面、场景或交互的改动，另外在浏览器里回归完整链路（加载场景 → 找书 → 翻开封面 → 查看芯片 → 放回书架 → 回到待命）。
 2. 提交：Conventional Commits 前缀（`feat` / `fix` / `docs` / `refactor` / `chore` / `test`）+ 中文描述，写清**为什么**改。一次提交只做一件事。提交信息用 `git commit -F -` 配合 heredoc 传入。
-3. 推送：优先将 `master` 推送至现有 GitHub 仓库 `https://github.com/Amyias/hexu-virtual-library.git`，再同步 `git push origin master`（Gitee）。无需新增远端或改写 `origin`；Gitee 网络不可用时如实报告，以已核验的 GitHub 推送为准。
+3. 推送：`git push github master`。GitHub 仓库 `Amyias/hexu-virtual-library` 是唯一的权威仓库（本机远端名 `github`；从 GitHub 新克隆的副本里它叫 `origin`）。Gitee 不再推送。
 
 ## 自动提交推送的边界
 
 用户已授权完成改动后自动提交并推送，无需逐次确认。该授权**仅限**：
 
-- 只推现有 GitHub 仓库 `Amyias/hexu-virtual-library` 的 `master` 和 `origin` 的 `master`，不新增远端、不改远端地址；
+- 只推 GitHub 仓库 `Amyias/hexu-virtual-library` 的 `master`，不新增远端、不改远端地址；
 - 不执行 force push，不改写已推送的历史；
 - 提交内容不得包含任何凭据值或私钥内容。
 

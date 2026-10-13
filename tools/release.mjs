@@ -18,8 +18,8 @@ Both archives unpack at the install root, so applying either is a plain overwrit
     node tools/release.mjs --assets-only --model-only  repair the existing release's model only
 
 Publishing needs a token in GITHUB_TOKEN (fine-grained, Contents: Read and write). It is read in
-the few requests that need it and never copied, logged or written anywhere — the same rule the
-Gitee token follows in DEVELOPMENT.md. Without it, --prepare-only leaves the archives ready to
+the few requests that need it and never copied, logged or written anywhere — the credential rule
+in DEVELOPMENT.md. Without it, --prepare-only leaves the archives ready to
 drag into the release page by hand.
 
 Before publishing this bumps nothing: the version comes from package.json, so a release is always

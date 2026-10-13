@@ -6,7 +6,7 @@
 
 - 只想移动一个文件：复制 `docs/portable/TECHNICAL_GUIDE.html`。图表与样式内嵌，浏览器可离线阅读。
 - 需要 Markdown：完整解压 `docs/TECHNICAL_GUIDE_PORTABLE.zip`，保持 `TECHNICAL_GUIDE.md` 与 `diagrams/` 在同一目录。正文配图使用 PNG，SVG 原图保留。
-- 源文档里的 `../src/` 等链接在导出时转换为 Gitee 基线提交的链接，避免搬走后错误指向本地文件。私有仓库的源码链接需要登录与网络。
+- 源文档里的 `../src/` 等链接在导出时转换为 GitHub 仓库 `master` 分支的链接，避免搬走后错误指向本地文件。私有仓库的源码链接需要登录与网络。
 
 普通 Markdown 阅读器并不统一支持内嵌 SVG、HTML 或 data URI。因此不依赖这些特性来实现单文件 Markdown；单文件阅读由 HTML 版提供。
 

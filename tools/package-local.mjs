@@ -29,6 +29,8 @@ const APP = "和序图书馆";
 const MODEL_NAME = "sherpa-onnx-sense-voice-zh-en-ja-ko-yue-int8-2024-07-17";
 const DEPLOY_HOST = "root@64.90.2.91";
 const DEPLOY_MODEL_PATH = `/opt/hexu-library/models/${MODEL_NAME}`;
+// The repository of record, and the only one that carries the `model` branch.
+const GITHUB_REMOTE = "git@github.com:Amyias/hexu-virtual-library.git";
 
 const cache = path.join(root, ".cache");
 const venv = path.join(cache, "venv");
@@ -174,8 +176,16 @@ function ensureDependencies(python) {
  *  that does not match is worse than no model at all: it would package into a program that fails
  *  on the first utterance, a long way from the cause. */
 function restoreModelFromBranch() {
+  // A fresh clone from GitHub has the branch only as <remote>/model until it is checked out, so
+  // the remote-tracking copies count too.
+  const remotes = (run("git", ["-C", root, "remote"]).stdout || "").split(/\s+/).filter(Boolean);
+  const ref = ["model", ...remotes.map((remote) => `${remote}/model`)].find(
+    (candidate) =>
+      run("git", ["-C", root, "rev-parse", "--verify", "--quiet", `${candidate}^{commit}`]).status === 0,
+  );
+  if (!ref) return false;
   const read = (name, encoding) => {
-    const result = spawnSync("git", ["-C", root, "show", `model:model/${name}`], {
+    const result = spawnSync("git", ["-C", root, "show", `${ref}:model/${name}`], {
       encoding,
       maxBuffer: 512 * 1024 * 1024,
     });
@@ -228,7 +238,7 @@ function checkModel() {
       `识别模型不在这里：${modelDir}\n缺少 ${missing.join("、")}\n\n` +
         "它本来会自动从 model 分支取回，但现在也取不到——若这是浅克隆或单分支克隆\n" +
         "（--depth 1 / --single-branch），那个分支默认不在本地，先取下来：\n" +
-        "  git fetch origin model\n" +
+        `  git fetch ${GITHUB_REMOTE} model:model\n` +
         "仍然不行的话，从部署机器拷一次：\n" +
         `  mkdir -p ".cache/models/${MODEL_NAME}"\n` +
         `  scp -i ~/.ssh/rainyun-rcs-Snowy_Brew.pem "${DEPLOY_HOST}:${DEPLOY_MODEL_PATH}/{model.int8.onnx,tokens.txt,LICENSE}" ".cache/models/${MODEL_NAME}/"\n`,
