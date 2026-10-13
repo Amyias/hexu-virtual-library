@@ -38,13 +38,6 @@ test("tolerates a one-character recognition slip without matching unrelated word
 });
 
 test("every catalogued volume stands spine-out in its bay at its own size", () => {
-  const input = JSON.parse(
-    fs.readFileSync(
-      new URL("../blender/catalog.json", import.meta.url),
-      "utf8",
-    ),
-  );
-  assert.deepEqual(books, input);
   // Blender envelope: each shelf is 1m (X) x 2m (Y) x 8m (Z), centred on the anchors. Each face
   // is a bookcase with a 300 mm deep cavity and a solid back panel whose inner face stands
   // 200 mm from the shelf centre plane. A volume is shelved spine to the aisle, so its
@@ -229,17 +222,33 @@ test("smart-book template exposes the parts the reader and instancing depend on"
     json.materials.some((m) => m.name === "Book | fine woven cover"),
     "cloth cover material drives the per-instance shelf colours",
   );
-  // All three generated inventory copies must stay identical.
-  assert.deepEqual(
-    JSON.parse(
-      fs.readFileSync(
-        new URL("../public/models/book-inventory.json", import.meta.url),
-      ),
-    ),
-    JSON.parse(
-      fs.readFileSync(new URL("../blender/catalog.json", import.meta.url)),
-    ),
+});
+
+test("the one stored inventory stays compact and names exactly the recorded books", () => {
+  const url = new URL("../public/models/book-inventory.json", import.meta.url);
+  // It is parsed before the scene can start; the expanded form was 12 MB and three copies.
+  assert.ok(fs.statSync(url).size < 1024 * 1024, "book-inventory.json should stay under 1 MiB");
+  assert.ok(
+    !fs.existsSync(new URL("../blender/catalog.json", import.meta.url)),
+    "blender/catalog.json is no longer generated",
   );
+  const inventory = JSON.parse(fs.readFileSync(url, "utf8"));
+  assert.equal(inventory.format, 2);
+  assert.equal(inventory.books.length, books.length);
+  const demoMap = JSON.parse(
+    fs.readFileSync(new URL("../blender/demo-shelf-map.json", import.meta.url), "utf8"),
+  );
+  const named = books.filter((b) => !b.placeholder);
+  assert.deepEqual(
+    named.map((b) => b.title).sort(),
+    Object.keys(demoMap).filter((k) => !k.startsWith("_")).sort(),
+  );
+  for (const b of named) {
+    const record = demoMap[b.title];
+    assert.equal(b.synopsis, record.synopsis);
+    assert.deepEqual([b.shelf, b.side, b.layer], [record.shelf, record.side, record.layer]);
+    for (const alias of record.aliases) assert.ok(b.keys.includes(alias), `${b.title} keeps ${alias}`);
+  }
 });
 
 test("detailed vegetation is exported with UV leaf texture and separate shrub meshes", () => {

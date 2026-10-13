@@ -1,5 +1,6 @@
 import fs from 'node:fs';
-import {books as previous} from '../src/data/catalog.js';
+import {isDeepStrictEqual} from 'node:util';
+import {expandInventory} from '../src/data/inventory.js';
 import demoShelfMap from '../blender/demo-shelf-map.json' with {type:'json'};
 const names=['计算机与AI技术','文学与历史哲学','商业经济与管理','艺术设计与建筑','科幻与未来馆藏'];
 const colors=['#466b60','#7f6650','#536c7d','#886554','#596879'];
@@ -80,29 +81,35 @@ function cloth(hex,shade){
   const to=t=>Math.round(255*(t<1/6?p+(q-p)*6*t:t<1/2?q:t<2/3?p+(q-p)*(2/3-t)*6:p));
   return '#'+[h+1/3,h,h-1/3].map(t=>to(channel(t)).toString(16).padStart(2,'0')).join('');
 }
-// A named book keeps the face and the place in the bay recorded in blender/demo-shelf-map.json.
-// That record is explicit rather than inferred from the previous catalogue's slot numbers: the
-// bay capacity has changed twice, and inferring it moved books that should have stayed put.
+// A named book keeps the face and the place in the bay recorded in blender/demo-shelf-map.json,
+// along with its title, synopsis and aliases. That record is explicit rather than inferred from
+// the previous catalogue: the bay capacity has changed twice, and inferring it moved books that
+// should have stayed put. Nothing here reads this script's own earlier output.
+const PLACEHOLDER={author:'和序图书馆 · 编号样书',synopsis:'这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。'};
 const demos=new Map();
-for(const b of previous.filter(b=>!b.placeholder))demos.set([b.shelf,b.side,b.layer].join(':'),b);
+for(const [title,record] of Object.entries(demoShelfMap)){
+  if(title.startsWith('_'))continue;
+  const face=[record.shelf,record.side,record.layer].join(':');
+  if(demos.has(face))throw new Error(`demo-shelf-map.json puts two named books on face ${face}`);
+  demos.set(face,{...record,title});
+}
 const rows=[];
 for(let shelf=1;shelf<=5;shelf++)for(const side of ['A','B'])for(let layer=1;layer<=4;layer++)for(let bay=0;bay<BAYS;bay++){
   const row=bayRow(`S${shelf}${side}L${layer}B${bay}`,POSTS[bay+1]-POSTS[bay]-POST-CLEAR*2);
   const faceDemo=demos.get([shelf,side,layer].join(':'));
-  const demoRow=faceDemo?demoShelfMap[faceDemo.title]:undefined;
-  if(faceDemo&&!demoRow)throw new Error(`demo-shelf-map.json has no record for ${faceDemo.title}`);
   let demoPlace=-1;
-  if(demoRow&&demoRow.shelf===shelf&&demoRow.side===side&&demoRow.layer===layer&&demoRow.bay===bay)demoPlace=Math.round(demoRow.fraction*(row.length-1));
+  if(faceDemo&&faceDemo.bay===bay)demoPlace=Math.round(faceDemo.fraction*(row.length-1));
   for(let place=0;place<row.length;place++){
     const slot=rows.filter(b=>b.shelf===shelf&&b.side===side&&b.layer===layer).length+1;
     const bookId=`HX-${String(rows.length+1).padStart(5,'0')}`;
     const locationCode=`S${shelf}-${side}-L${layer}-P${String(slot).padStart(3,'0')}`;
     const size=row[place];
     const demo=place===demoPlace?faceDemo:undefined;
-    // A named book's recorded ids and position code are dropped rather than kept as aliases:
-    // those numbers now name other volumes, and one search key must not point at two books.
-    const aliases=(demo?.keys??[]).filter(k=>!/^(HX-?\d{4,5}|S\d-[AB]-L\d-P\d{2,3})$/.test(k));
-    rows.push({title:demo?.title??`馆藏 ${bookId}`,author:demo?.author??'和序图书馆 · 编号样书',category:demo?.category??names[shelf-1],shelf,side,layer,slot,color:cloth(colors[shelf-1],size.shade),keys:[...new Set([...aliases,bookId,bookId.replace('-',''),locationCode])],synopsis:demo?.synopsis??'这是一册用于展示智能馆藏管理的编号样书。封面内嵌微型定位芯片，芯片编号与本书编号一一对应，内部标记记录书架、面向、层号和槽位。你可以查看芯片信息，核对当前存放位置，并体验取书、翻阅和归还的完整流程。',bookId,chipId:bookId,locationCode,placeholder:!demo,widthScale:SIZE,heightScale:SIZE,depthScale:SIZE,worldPosition:[(shelf-3)*3+(side==='A'?1:-1)*(BACK_PANEL_FACE+WIDTH*SIZE/2),+(BOARD_TOPS[layer-1]+HEIGHT*SIZE/2).toFixed(6),+(POSTS[bay]+POST/2+CLEAR+size.centre).toFixed(6)],chipPayload:{book_id:bookId,shelf_id:`Shelf_${shelf}`,shelf_side:side,layer,slot,location_code:locationCode}});
+    // An alias shaped like an id or a position code would name some other volume, and one
+    // search key must not point at two books.
+    const aliases=demo?.aliases??[];
+    if(aliases.some(k=>/^(HX-?\d{4,5}|S\d-[AB]-L\d-P\d{2,3})$/.test(k)))throw new Error(`${demo.title} has an id-shaped alias`);
+    rows.push({title:demo?.title??`馆藏 ${bookId}`,author:demo?.author??PLACEHOLDER.author,category:demo?.category??names[shelf-1],shelf,side,layer,slot,color:cloth(colors[shelf-1],size.shade),keys:[...new Set([...aliases,bookId,bookId.replace('-',''),locationCode])],synopsis:demo?.synopsis??PLACEHOLDER.synopsis,bookId,chipId:bookId,locationCode,placeholder:!demo,widthScale:SIZE,heightScale:SIZE,depthScale:SIZE,worldPosition:[(shelf-3)*3+(side==='A'?1:-1)*(BACK_PANEL_FACE+WIDTH*SIZE/2),+(BOARD_TOPS[layer-1]+HEIGHT*SIZE/2).toFixed(6),+(POSTS[bay]+POST/2+CLEAR+size.centre).toFixed(6)],chipPayload:{book_id:bookId,shelf_id:`Shelf_${shelf}`,shelf_side:side,layer,slot,location_code:locationCode}});
   }
 }
 /** A row is packed, so the checks below are about touching and about the shelf's own limits,
@@ -130,7 +137,24 @@ for(const b of rows){
   if(b.widthScale!==SIZE||b.heightScale!==SIZE||b.depthScale!==SIZE)throw new Error(`${b.bookId} is not the standard size`);
   if(BACK_PANEL_FACE+WIDTH*SIZE>0.4955-0.002)throw new Error(`${b.bookId} reaches past the brass lip`);
 }
-fs.writeFileSync('blender/catalog.json',JSON.stringify(rows,null,2));
-fs.writeFileSync('public/models/book-inventory.json',JSON.stringify(rows,null,2));
-fs.writeFileSync('src/data/catalog.js','// Generated inventory: 5 shelves × 2 faces × 4 layers × 4 bays, packed spine-out.\nexport const books = '+JSON.stringify(rows,null,2)+';\nexport const anchors=[-6,-3,0,3,6];\nexport const heights=[.3,.7,1.2,1.7];\n');
+// One stored copy, compact: a row per volume and the named books in full. Everything else a
+// book carries follows from its row and index — src/data/inventory.js expands it, and the
+// expansion has to give back exactly the books laid out above before anything is written.
+const inventory={
+  _comment:'Generated by tools/prepare-smart-books.mjs; do not edit. Row i is volume HX-(i+1). Expanded by src/data/inventory.js.',
+  format:2,
+  categories:names,
+  placeholder:PLACEHOLDER,
+  named:Object.fromEntries(rows.filter(b=>!b.placeholder).map(b=>{
+    const demo=demoShelfMap[b.title];
+    return [b.bookId,{title:b.title,author:b.author,category:b.category,aliases:demo.aliases,synopsis:b.synopsis}];
+  })),
+  columns:['shelf','side','layer','slot','color','x','y','z'],
+  books:rows.map(b=>[b.shelf,b.side,b.layer,b.slot,b.color,...b.worldPosition]),
+};
+if(!isDeepStrictEqual(expandInventory(inventory),rows))throw new Error('The compact inventory does not expand back to the laid-out books');
+// A row to a line, so a regenerated inventory diffs as the volumes that actually moved.
+const {books:packed,...head}=inventory;
+const text=JSON.stringify(head,null,2).replace(/\n}$/,',\n  "books": [\n'+packed.map(r=>'    '+JSON.stringify(r)).join(',\n')+'\n  ]\n}\n');
+fs.writeFileSync('public/models/book-inventory.json',text);
 console.log(`Prepared ${rows.length} unique chips and ${rows.filter(b=>!b.placeholder).length} named demo books.`);

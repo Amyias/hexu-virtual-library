@@ -37,8 +37,8 @@
 <text x="83" y="611" class="node"><tspan x="83" dy="0">唯一馆藏生成器</tspan></text>
 <text x="83" y="638" class="body"><tspan x="83" dy="0">prepare-smart-books.mjs</tspan><tspan x="83" dy="25">示例书位置：demo-shelf-map.json</tspan></text>
 <rect x="545" y="580" width="350" height="110" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
-<text x="563" y="611" class="node"><tspan x="563" dy="0">三份一致清单</tspan></text>
-<text x="563" y="638" class="body"><tspan x="563" dy="0">blender/catalog.json + catalog.js</tspan><tspan x="563" dy="25">public/models/book-inventory.json</tspan></text>
+<text x="563" y="611" class="node"><tspan x="563" dy="0">唯一一份紧凑清单</tspan></text>
+<text x="563" y="638" class="body"><tspan x="563" dy="0">public/models/book-inventory.json</tspan><tspan x="563" dy="25">网页 / 本机服务 / Blender 同规则展开</tspan></text>
 <rect x="1025" y="580" width="350" height="110" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
 <text x="1043" y="611" class="node"><tspan x="1043" dy="0">编号与位置贯穿全链路</tspan></text>
 <text x="1043" y="638" class="body"><tspan x="1043" dy="0">检索 / 坐标 / 芯片文字</tspan><tspan x="1043" dy="25">共同以 bookId 识别具体藏书</tspan></text>

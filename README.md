@@ -58,7 +58,8 @@ npm start
 | `index.html` | 页面结构、import map、本地依赖入口 |
 | `src/main.js` | 启动与资源加载错误提示 |
 | `src/app.js` | 唤醒、导航、阅读、芯片特写、归还的状态与动画编排 |
-| `src/data/catalog.js` | 11360 枚编号芯片馆藏（含 12 本示例书）、位置与检索关键词 |
+| `src/data/catalog.js` | 馆藏入口：以 JSON 模块导入 `book-inventory.json`，展开成 11360 本书（含 12 本示例书） |
+| `src/data/inventory.js` | 紧凑清单的展开规则：编号、位置码、检索关键词、芯片载荷都由行号与坐标推出 |
 | `src/voice/intent.js` | 唤醒词与馆藏匹配 |
 | `src/voice/speech.js` | Web Speech API 生命周期和识别事件 |
 | `src/voice/server-asr.js` | 服务端识别通道：录音、能量断句、上传（后端可用时才启用） |
@@ -80,7 +81,7 @@ npm start
 | `blender/export_saved.py` | 从已保存的源模型重新导出，不重建或覆盖源文件 |
 | `blender/smart_books.py` | 硬皮书模板（下凹芯片槽）建模、`smart-book.glb` 导出、架上书实例化 |
 | `blender/shelf_books.py` | 书架轻模板建模：书脊 + 书口顶边、布料与烫金纹理，导出 `shelf-book.glb` |
-| `blender/demo-shelf-map.json` | 12 本示例书的位置记录（架/面/层/开间/行内比例），生成器只读这一份 |
+| `blender/demo-shelf-map.json` | 12 本示例书的全部记录：位置（架/面/层/开间/行内比例）与书名、作者、分类、简介、检索别名，生成器只读这一份 |
 | `blender/refine_books.py` | 定点更新书籍，备份、导出并渲染书本、芯片与书架内景 |
 | `blender/vegetation.py` | 盆栽曲面叶片、叶脉、陶盆与灌木分枝建模 |
 | `blender/refine_vegetation.py` | 定点更新植物，核验其余模型不变，导出并渲染近景 |
@@ -88,7 +89,6 @@ npm start
 | `blender/SHELVING_REFERENCES.md` | 书架进深标准、图书摆放方式与更新方法 |
 | `blender/MATERIAL_REFERENCES.md` | 地板与书柜的材质来源、UV 尺度与更新方法 |
 | `blender/PENDANT_REFERENCES.md` | 吊灯的型材构造、配色与素材库结论 |
-| `blender/catalog.json` | 11360 本书的坐标与芯片载荷（生成物） |
 | `blender/library-preview.png` | Blender 实际渲染的场景预览 |
 | `blender/smart-book-detail.png` | 书本与芯片槽近景渲染 |
 | `blender/chip-detail.png` | 芯片微刻字近景渲染 |
@@ -97,7 +97,7 @@ npm start
 | `public/models/hexu-library.glb` | 网页使用的合并材质环境模型（不含架上藏书） |
 | `public/models/smart-book.glb` | 阅读器用的硬皮书模板（含芯片槽与铰链） |
 | `public/models/shelf-book.glb` | 架上书脊模板：书脊 + 书口顶边，2 个部件、216 个三角面 |
-| `public/models/book-inventory.json` | 馆藏清单副本（与 `blender/catalog.json` 一致） |
+| `public/models/book-inventory.json` | 唯一一份馆藏清单（生成物，约 0.5 MB）：每本一行 `[架, 面, 层, 槽, 布色, x, y, z]`，示例书另有完整记录；网页、测试、本机服务与 Blender 都读它 |
 | `public/models/manifest.json` | 导出版本、书架规格、面数、文件大小 |
 | `public/textures/floor-oak-*.jpg` | 地板贴图（反照率 / 法线 / 粗糙度），CC0 扫描件 |
 | `public/textures/joinery-oak-*.jpg` | 书柜与木作贴图（同上） |
@@ -114,7 +114,7 @@ npm start
 | `public/favicon.ico` | 程序图标（多尺寸）：页面标签、程序窗口、exe 与桌面快捷方式共用同一个文件 |
 | `tools/make-icon.py` | 图标生成器：按样式表里的品牌色画实心圆 + 「和」，重复执行安全（需要 Pillow，只有它需要） |
 | `tools/fetch-textures.mjs` | 表面贴图的唯一拉取脚本，来源与许可记录在内 |
-| `tools/prepare-smart-books.mjs` | 馆藏清单的唯一生成器，一次写入三份副本 |
+| `tools/prepare-smart-books.mjs` | 馆藏清单的唯一生成器，写出 `book-inventory.json` 并核对它能原样展开 |
 | `tests/library.test.mjs` | 馆藏几何、ASR 事件与 GLB 完整性回归检查 |
 | `tests/book-query.test.mjs`、`tests/test_book_library.py` | 正文查询、持久化、章节导入、下载任务与 HTTP API 回归 |
 | `tests/server.test.mjs` | 本机服务的请求来源校验：设置与更新接口拒绝其它网页（CSRF）和重绑定到本机的域名 |
@@ -148,7 +148,9 @@ npm start
 
 书的位置由真实坐标决定，并由回归测试核对：每本书的 `worldPosition` 是对应层板顶面之上的自身中心、书口（前切口）抵住架内背板、书脊落在立柱之间的开间内且不越过黄铜包边，同一开间内的书首尾相接（缝小于 0.5 mm）、从左侧立柱起排、整行占满九成以上，每面每层 200 本以上。进深与摆放依据见 `blender/SHELVING_REFERENCES.md`。
 
-`tools/prepare-smart-books.mjs` 是馆藏清单的唯一生成器，一次写入三份必须完全一致的副本：`blender/catalog.json`、`public/models/book-inventory.json`、`src/data/catalog.js`。那 12 本示例书的位置**明写**在 `blender/demo-shelf-map.json`（架、面、层、开间与行内比例），不再从前一份清单的槽位推断——开间容量已经变过两次，推断会挪动本该留在原处的书。调整示例书目后需要重跑并核对数量：
+`tools/prepare-smart-books.mjs` 是馆藏清单的唯一生成器，只写一份 `public/models/book-inventory.json`。它是紧凑格式：每本书一行 `[架, 面, 层, 槽, 布色, x, y, z]`，第 i 行就是 `HX-(i+1)`；编号、位置码、检索关键词、芯片载荷与样书的书名简介都能由行号推出，由 `src/data/inventory.js` 展开（Blender 端的 `smart_books.load_inventory()` 是同一套规则）。以前把展开后的结果写成三份副本，单份 12 MB，页面要先解析完一个 40 万行的模块才能开始加载场景。生成器写文件前会核对紧凑清单能原样展开回它排出的每一本书。
+
+那 12 本示例书的位置与内容**明写**在 `blender/demo-shelf-map.json`（架、面、层、开间、行内比例，以及书名、作者、分类、简介、检索别名），不从前一份清单推断——开间容量已经变过两次，推断会挪动本该留在原处的书；生成器也因此不再读自己上一次的输出。调整示例书目后需要重跑并核对数量：
 
 ```powershell
 node tools/prepare-smart-books.mjs
@@ -164,7 +166,7 @@ node tools/prepare-smart-books.mjs
 & 'D:\Blender Foundation\Blender 5.2\blender.exe' --background --factory-startup --python-exit-code 1 --python blender/build_library.py
 ```
 
-该命令覆盖本项目生成的 `.blend`、`.glb`、纹理和预览。如果已在 Blender 手动修改源场景，请先另存后再运行。改动馆藏位置时，应同步 `src/data/catalog.js` 和 `blender/catalog.json` 并重建，避免书籍与预留槽位不一致。
+该命令覆盖本项目生成的 `.blend`、`.glb`、纹理和预览。如果已在 Blender 手动修改源场景，请先另存后再运行。改动馆藏位置时，先重跑 `node tools/prepare-smart-books.mjs` 再重建，避免书籍与预留槽位不一致。
 
 在 Blender 手动编辑并保存后，只更新网页模型和预览：
 
@@ -180,6 +182,6 @@ node tools/prepare-smart-books.mjs
 npm test
 ```
 
-回归测试覆盖五类契约：唤醒词与中英混排归一化、书名匹配的容错与误命中防线、11360 本书的书脊排架关系、`hexu-library.glb` 的合并网格与预算、`smart-book.glb` 的铰链与部件命名、三份馆藏清单副本的一致性，以及语音适配器的生命周期（模拟浏览器识别事件，不等同于真人麦克风转录验收）。实际语音测试请在 Chrome/Edge 打开 localhost 后授权执行。界面测试应覆盖：唤醒、找书、向左拖动封面、显示简介、查看芯片、归还后重新找书。
+回归测试覆盖五类契约：唤醒词与中英混排归一化、书名匹配的容错与误命中防线、11360 本书的书脊排架关系、`hexu-library.glb` 的合并网格与预算、`smart-book.glb` 的铰链与部件命名、唯一一份馆藏清单的体积与示例书记录、本机设置接口的来源校验，以及语音适配器的生命周期（模拟浏览器识别事件，不等同于真人麦克风转录验收）。实际语音测试请在 Chrome/Edge 打开 localhost 后授权执行。界面测试应覆盖：唤醒、找书、向左拖动封面、显示简介、查看芯片、归还后重新找书。
 
 保留依赖文件中的版权及许可头。Three.js 使用 MIT 许可；GSAP 3.12.5 的许可链接保留于 `public/vendor/gsap.min.js` 开头；Draco 解码器使用 Apache-2.0，许可全文见 `public/vendor/DRACO-LICENSE.txt`。地板与书柜的贴图来自 Poly Haven，授权为 **CC0（公有领域）**，可自由分发，无需署名；素材标识记录在 `tools/fetch-textures.mjs` 与 `blender/MATERIAL_REFERENCES.md`。

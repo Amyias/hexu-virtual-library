@@ -36,7 +36,7 @@
 <polyline points="605,423 635,423" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
 <rect x="65" y="585" width="255" height="120" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
 <text x="83" y="616" class="node"><tspan x="83" dy="0">馆藏数据</tspan></text>
-<text x="83" y="643" class="body"><tspan x="83" dy="0">catalog.js：11,360 条记录</tspan><tspan x="83" dy="25">12 本具名演示书</tspan><tspan x="83" dy="25">bookId / 坐标 / chipPayload</tspan></text>
+<text x="83" y="643" class="body"><tspan x="83" dy="0">book-inventory.json：11,360 行</tspan><tspan x="83" dy="25">12 本具名演示书</tspan><tspan x="83" dy="25">由行号展开 bookId / chipPayload</tspan></text>
 <rect x="350" y="585" width="255" height="120" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
 <text x="368" y="616" class="node"><tspan x="368" dy="0">界面反馈</tspan></text>
 <text x="368" y="643" class="body"><tspan x="368" dy="0">DOM / CSS3 / 气泡</tspan><tspan x="368" dy="25">麦克风状态与识别记录</tspan><tspan x="368" dy="25">可选 speechSynthesis 播报</tspan></text>

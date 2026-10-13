@@ -8,7 +8,7 @@
 
 ### 1. 验证
 
-- 任何改动都先跑 `npm test`。除图书馆核心测试外，还验证发行附件完整性、跳过模型的边界，以及同大小异内容和半成品附件不能算上传成功。本机设置与更新接口拒绝跨站与 DNS 重绑定请求（`tests/server.test.mjs`，需要 Python，没有则跳过）。
+- 任何改动都先跑 `npm test`。除图书馆核心测试外，还验证发行附件完整性、跳过模型的边界，以及同大小异内容和半成品附件不能算上传成功。馆藏清单只有一份且保持紧凑，示例书与 `demo-shelf-map.json` 一致。本机设置与更新接口拒绝跨站与 DNS 重绑定请求（`tests/server.test.mjs`，需要 Python，没有则跳过）。
 - 涉及界面、场景、动画或交互的改动，另外在浏览器里回归一遍完整链路：加载场景 → 找书 → 翻开封面 → 查看芯片 → 放回书架 → 回到待命。
 - 改动 Blender 脚本后，**先把项目复制到临时目录跑重建**，与现有产物对比，不要直接覆盖仓库里的成品模型。
 
@@ -231,7 +231,7 @@ python tools/make-icon.py
 # 在 Blender 手动编辑并保存后，只重新导出与渲染，不重建
 & 'D:\Blender Foundation\Blender 5.2\blender.exe' --background --factory-startup blender/hexu-library.blend --python-exit-code 1 --python blender/export_saved.py
 
-# 重新生成馆藏清单（一次写入三份副本，必须保持一致）
+# 重新生成馆藏清单（只写 public/models/book-inventory.json 一份）
 node tools/prepare-smart-books.mjs
 
 # 按清单重建源头 .blend 里的书（只重建书，不动环境几何；注意要带上 .blend 参数，

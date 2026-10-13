@@ -12,6 +12,24 @@ ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'blender'))
 from shelf_books import build_template as build_shelf_template
 
+def load_inventory():
+    """The shelved volumes, expanded from the one stored inventory.
+
+    public/models/book-inventory.json keeps a compact row per volume — [shelf, side, layer,
+    slot, colour, x, y, z], row i being HX-(i+1) — and the named books in full. This mirrors
+    expandInventory() in src/data/inventory.js for the fields a book in the .blend needs."""
+    data=json.loads((ROOT/'public/models/book-inventory.json').read_text(encoding='utf-8'))
+    inventory=[]
+    for index,(shelf,side,layer,slot,color,x,y,z) in enumerate(data['books']):
+        book_id=f'HX-{index+1:05d}'
+        location=f'S{shelf}-{side}-L{layer}-P{slot:03d}'
+        inventory.append({'bookId':book_id,'chipId':book_id,'locationCode':location,'shelf':shelf,'side':side,
+                          'layer':layer,'slot':slot,'color':color,'placeholder':book_id not in data['named'],
+                          'widthScale':1,'heightScale':1,'depthScale':1,'worldPosition':[x,y,z],
+                          'chipPayload':{'book_id':book_id,'shelf_id':f'Shelf_{shelf}','shelf_side':side,
+                                         'layer':layer,'slot':slot,'location_code':location}})
+    return inventory
+
 def pos(p):return (p[0],-p[2],p[1])
 def mat(name,c,rough=.5,metal=0,alpha=1):
     m=bpy.data.materials.get(name) or bpy.data.materials.new(name);m.use_nodes=True;m.node_tree.nodes.clear()
@@ -88,7 +106,7 @@ def populate():
     # page edge along its top, so stocking eleven thousand of those rather than eleven thousand
     # hardcovers is the difference between a workable .blend and an unusable one.
     shelf_collection,shelf_parts=build_shelf_template()
-    inventory=json.loads((ROOT/'blender/catalog.json').read_text(encoding='utf-8'))
+    inventory=load_inventory()
     cloths={}
     for b in inventory:
         bookroot=bpy.data.objects.new('Book_'+b['bookId'],None);shelfbooks.objects.link(bookroot)

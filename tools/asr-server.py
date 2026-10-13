@@ -346,17 +346,16 @@ def load_catalog():
     the local rules already do. Only the books with real titles need describing."""
     by_id, named = {}, []
     try:
-        entries = json.loads(CATALOG_PATH.read_text(encoding="utf-8"))
-    except (OSError, ValueError) as error:
+        data = json.loads(CATALOG_PATH.read_text(encoding="utf-8"))
+        # Row i is HX-(i+1); the named books are recorded in full beside the rows.
+        for index in range(len(data["books"])):
+            book_id = f"HX-{index + 1:05d}"
+            by_id[book_id] = data["named"].get(book_id)
+        for book_id, book in data["named"].items():
+            named.append(f"{book_id} | {book.get('title','')} | {book.get('author','')} | {book.get('category','')}")
+    except (OSError, ValueError, KeyError, TypeError) as error:
         print(f"  语义层：读取馆藏清单失败（{error}）", flush=True)
-        return by_id, named
-    for entry in entries:
-        book_id = entry.get("bookId")
-        if not book_id:
-            continue
-        by_id[book_id] = entry
-        if not entry.get("placeholder"):
-            named.append(f"{book_id} | {entry.get('title','')} | {entry.get('author','')} | {entry.get('category','')}")
+        return {}, []
     return by_id, named
 
 

@@ -137,13 +137,15 @@ Blender 保存建筑、书架、家具和植物的源对象；导出时按集合
 
 ## 6. 馆藏数据与芯片定位
 
-馆藏由 `tools/prepare-smart-books.mjs` 统一生成，写入三份副本：
+馆藏由 `tools/prepare-smart-books.mjs` 统一生成，只写一份 `public/models/book-inventory.json`（约 0.5 MB）。它是紧凑格式：每本书一行 `[架, 面, 层, 槽, 布色, x, y, z]`，第 i 行即 `HX-(i+1)`；编号、位置码、检索关键词与芯片载荷都由行号推出。三处读取方按同一规则展开：
 
-- `src/data/catalog.js`：前端加载并构建检索索引。
-- `public/models/book-inventory.json`：HTTP 和后端读取。
-- `blender/catalog.json`：Blender 放置书籍、生成标记。
+- `src/data/inventory.js`：前端展开成完整书目，`src/data/catalog.js` 以 JSON 模块导入清单并据此构建检索索引。
+- `tools/asr-server.py`：语义层校验模型返回的编号、列出具名书。
+- `blender/smart_books.py` 的 `load_inventory()`：Blender 放置书籍、生成标记。
 
-12 本示例书的位置来自 `blender/demo-shelf-map.json`；生成器根据开间实际长度、立柱位置和 26 mm 书厚计算容量。每行共 284 本，位置码里的 `P` 表示该面该层的全行槽位，并非某个开间内的第几本。
+生成器写文件前核对紧凑清单能原样展开回排出的每一本书。早期版本把展开结果写成三份副本，单份约 12 MB。
+
+12 本示例书的位置与书名、作者、简介、别名都来自 `blender/demo-shelf-map.json`；生成器根据开间实际长度、立柱位置和 26 mm 书厚计算容量。每行共 284 本，位置码里的 `P` 表示该面该层的全行槽位，并非某个开间内的第几本。
 
 | 数据字段 | 作用 |
 | --- | --- |
@@ -222,7 +224,7 @@ npm start
 npm test
 ```
 
-原基线的 9 项测试覆盖唤醒词与检索容错、误命中防线、馆藏排架与三份清单一致性、环境 GLB、阅读模板节点、植物纹理、ASR / 语义探测降级及识别生命周期。此次发布规则维护增加 3 项附件策略测试，`npm test` 共 12 项；另用 `python -m unittest discover -s tests -p test_archive.py` 验证真实 ZIP 及缺失/空模型文件拒绝路径。识别生命周期使用模拟事件，不能据此宣称真人语音准确率、噪声鲁棒性或端到端延迟已达标。
+原基线的 9 项测试覆盖唤醒词与检索容错、误命中防线、馆藏排架与清单一致性、环境 GLB、阅读模板节点、植物纹理、ASR / 语义探测降级及识别生命周期。此次发布规则维护增加 3 项附件策略测试，`npm test` 共 12 项；另用 `python -m unittest discover -s tests -p test_archive.py` 验证真实 ZIP 及缺失/空模型文件拒绝路径。识别生命周期使用模拟事件，不能据此宣称真人语音准确率、噪声鲁棒性或端到端延迟已达标。
 
 人工演示建议依次检查：
 
@@ -236,7 +238,7 @@ npm test
 
 ### 修改模型或馆藏时
 
-先明确数据或部件边界，保留源文件和备份；调整坐标后生成三份清单，再在临时副本重建，比较几何与位置不变量，验证后替换成品。仅改模型源文件而未更新 GLB，或仅改一份清单，都可能造成架上书、阅读书和芯片位置不一致。工作约定见 [DEVELOPMENT.md](https://github.com/Amyias/hexu-virtual-library/blob/master/DEVELOPMENT.md)。
+先明确数据或部件边界，保留源文件和备份；调整坐标后重新生成清单，再在临时副本重建，比较几何与位置不变量，验证后替换成品。仅改模型源文件而未更新 GLB，或绕过生成器手改清单，都可能造成架上书、阅读书和芯片位置不一致。工作约定见 [DEVELOPMENT.md](https://github.com/Amyias/hexu-virtual-library/blob/master/DEVELOPMENT.md)。
 
 本文附带的三张 SVG 可重新生成：
 
@@ -250,7 +252,7 @@ node docs/generate-diagrams.mjs
 | --- | --- | --- |
 | 本地规则优先 | 常见需求即时响应，减少外部请求 | 复杂表达需要可选语义服务；多解时当前按优先级取首个结果 |
 | 双书籍模板 | 万册排架保持较少绘制调用，阅读仍有细节 | 架上几何为书脊表示，不能当成完整实体书直接任意翻转观察 |
-| 静态目录三份副本 | 前端、后端、Blender 各自读取方便 | 必须依靠唯一生成器和一致性测试同步 |
+| 单份紧凑清单 | 体积小，前端、后端、Blender 读同一份文件 | 三处各自实现展开规则，靠生成器的回读核对与测试保持一致 |
 | 应用状态统一调度 | 减少重复取书、动画重叠和资源泄漏 | 当前一次主要阅读一本，尚无多用户借阅事务 |
 | 能量阈值断句 | 实现简单，不额外加载 VAD 模型 | 噪声影响阈值；段式请求有句尾延迟和收音空档 |
 | Web Audio ScriptProcessor | 当前录音实现可工作 | 后续可评估迁移 AudioWorklet，减少主线程音频处理压力 |
