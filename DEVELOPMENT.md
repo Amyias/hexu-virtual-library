@@ -40,10 +40,10 @@ MSG
 ### 3. 推送
 
 ```bash
-git push github master
+git push origin master
 ```
 
-GitHub 是唯一的权威仓库：源码、`model` 分支与发行版都在那里。只推 `master`，不改远端地址、不强推；推之前远端若有本机没有的提交，先 `git fetch github` 再把本地提交 rebase 上去。推送走 SSH，不需要令牌。
+GitHub 是唯一的权威仓库：源码、`model` 分支与发行版都在那里。只推 `master`，不改远端地址、不强推；推之前远端若有本机没有的提交，先 `git fetch origin` 再把本地提交 rebase 上去。推送走 SSH，不需要令牌。
 
 ### 4. 发行附件不是 Git 提交
 
@@ -66,12 +66,12 @@ GitHub 是唯一的权威仓库：源码、`model` 分支与发行版都在那�
 | 地址 | https://github.com/Amyias/hexu-virtual-library |
 | 可见性 | 私有 |
 | 分支 | `master`（源码）、`model`（语音识别模型分块，见下文「模型在哪」） |
-| 远端 | `git@github.com:Amyias/hexu-virtual-library.git`，本机远端名 `github` |
+| 远端 | `git@github.com:Amyias/hexu-virtual-library.git`，远端名 `origin` |
 | 发行版 | https://github.com/Amyias/hexu-virtual-library/releases，程序更新从这里下载 |
 
 远端使用 SSH，因此**推送不需要任何令牌**。
 
-> 早期的 Gitee 仓库 `li-tao-yi/hexu-virtual-library`（本机远端名 `origin`）已停止同步，内容停在 GitHub 之前的某个提交，不要再从那里拉取或推送。
+> 早期的 Gitee 仓库 `li-tao-yi/hexu-virtual-library` 已停止同步并从本机远端移除，仓库描述已标注迁移、Issue 与 Pull Request 已关闭，内容停在 GitHub 之前的某个提交（`efe19c0`）。不要再从那里拉取或推送。Gitee 的「关闭仓库」状态 API 不支持，需要在网页「管理 → 仓库设置 → 仓库状态」里手动设置。
 
 ## 凭据
 
