@@ -30,7 +30,7 @@ import path from "node:path";
 import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
-import { matchesArchive, requireModelForSkip, requireCompleteRelease } from "./release-policy.mjs";
+import { matchesArchive, requireModelForSkip, requireCompleteRelease, findRelease } from "./release-policy.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const APP = "和序图书馆";
@@ -251,9 +251,21 @@ async function upload(uploadUrl, asset, token, cleanup, attempts = 4) {
   fail(`上传 ${asset.name} 连试 ${attempts} 次都没成功。网络恢复后重跑一次即可（--skip-build --assets-only）。`);
 }
 
+/** The release for this version, draft or not, in the shape github() returns. The tag endpoint
+ *  answers 404 for a draft, so a miss there is checked against the release list before it is
+ *  believed: otherwise a draft left by an interrupted run could never be resumed. */
+async function lookupRelease(version, token) {
+  const byTag = await github(`/repos/${REPO}/releases/tags/v${version}`, { token });
+  if (byTag.status !== 404) return byTag;
+  const list = await github(`/repos/${REPO}/releases?per_page=100`, { token });
+  if (!list.ok) return list;
+  const draft = findRelease(version, list.payload);
+  return draft ? { ...list, payload: draft } : byTag;
+}
+
 async function publish(version, commit, assets, token, assetsOnly, skipModel) {
   let createdDraft = false;
-  let release = await github(`/repos/${REPO}/releases/tags/v${version}`, { token });
+  let release = await lookupRelease(version, token);
   if (skipModel) requireModelForSkip(version, release.ok ? release.payload : null);
   if (release.status === 404) {
     if (assetsOnly) fail(`v${version} 不存在，--assets-only 不允许创建新发行版。`);
@@ -314,8 +326,9 @@ async function publish(version, commit, assets, token, assetsOnly, skipModel) {
     }
     await upload(release.payload.upload_url, asset, token, cleanup);
   }
-  const verified = await github(`/repos/${REPO}/releases/tags/v${version}`, { token });
-  if (!verified.ok) fail(`发布后读取附件失败：HTTP ${verified.status}`);
+  // Read back by id: the release is still a draft here, which the tag endpoint cannot see.
+  const verified = await github(`/repos/${REPO}/releases/${release.payload.id}`, { token });
+  if (!verified.ok) fail(`上传后读取附件失败：HTTP ${verified.status}`);
   requireCompleteRelease(version, verified.payload);
   for (const asset of assets) {
     const remote = verified.payload.assets.find(item => item.name === asset.name);

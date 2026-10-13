@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { matchesArchive, requireModelForSkip, requireCompleteRelease } from '../tools/release-policy.mjs';
+import { matchesArchive, requireModelForSkip, requireCompleteRelease, findRelease } from '../tools/release-policy.mjs';
 
 const hash = 'a'.repeat(64);
 const asset = (name, extra = {}) => ({ name, state: 'uploaded', size: 1234, digest: `sha256:${hash}`, ...extra });
@@ -27,4 +27,12 @@ test('same-sized or half-uploaded archives are not accepted as verified uploads'
   assert.equal(matchesArchive(model, 1234, 'b'.repeat(64)), false);
   assert.equal(matchesArchive({ ...model, state: 'starter' }, 1234, hash), false);
   assert.equal(matchesArchive(model, 5678, hash), false);
+});
+
+test('a draft release is found by tag in the release list, which the tag endpoint never returns', () => {
+  const draft = { id: 2, tag_name: 'v2.4.1', draft: true };
+  const releases = [draft, { id: 1, tag_name: 'v2.4.0', draft: false }];
+  assert.equal(findRelease('2.4.1', releases), draft);
+  assert.equal(findRelease('2.4.2', releases), null);
+  assert.equal(findRelease('2.4.1', null), null);
 });

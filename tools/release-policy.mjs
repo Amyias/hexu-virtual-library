@@ -22,3 +22,9 @@ export function requireCompleteRelease(version, release) {
     .filter(name => !usableAsset(release?.assets?.find(asset => asset.name === name)));
   if (missing.length) throw new Error(`发行版附件不完整或未校验：${missing.join('、')}`);
 }
+
+// GET /releases/tags/{tag} never returns a draft, and this publisher always starts from one. The
+// release list does include drafts for a token that can push, so a draft is found there by tag.
+export function findRelease(version, releases) {
+  return (Array.isArray(releases) ? releases : []).find(release => release?.tag_name === `v${version}`) ?? null;
+}
