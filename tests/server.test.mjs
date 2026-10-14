@@ -36,12 +36,14 @@ async function waitForServer(port) {
   throw new Error("asr-server did not start");
 }
 
-test("local settings refuse other sites' pages and rebound host names", { skip: !python && "no Python" }, async (t) => {
-  // 设置写入临时目录，绝不碰使用者自己的 llm.env。
+/* 起一个只属于这次测试的服务：设置写入临时目录，绝不碰使用者自己的 llm.env；环境里的
+   HEXU_LLM_* 全部去掉，免得机器上恰好配着真密钥时测试去调用（并计费）真实模型。 */
+async function startServer(t, extraEnv = {}) {
   const config = fs.mkdtempSync(path.join(os.tmpdir(), "hexu-settings-"));
   const port = 18000 + Math.floor(Math.random() * 2000);
+  const env = Object.fromEntries(Object.entries(process.env).filter(([name]) => !name.startsWith("HEXU_LLM_")));
   const server = spawn(python, ["tools/asr-server.py", "--no-browser", "--port", String(port)], {
-    env: { ...process.env, APPDATA: config, XDG_CONFIG_HOME: config, PORT: String(port) },
+    env: { ...env, APPDATA: config, XDG_CONFIG_HOME: config, PORT: String(port), ...extraEnv },
     stdio: "ignore",
   });
   t.after(() => {
@@ -49,6 +51,11 @@ test("local settings refuse other sites' pages and rebound host names", { skip: 
     fs.rmSync(config, { recursive: true, force: true });
   });
   await waitForServer(port);
+  return port;
+}
+
+test("local settings refuse other sites' pages and rebound host names", { skip: !python && "no Python" }, async (t) => {
+  const port = await startServer(t);
 
   const own = `127.0.0.1:${port}`;
   const json = { "Content-Type": "application/json" };
@@ -84,4 +91,15 @@ test("local settings refuse other sites' pages and rebound host names", { skip: 
 
   // 静态站点不受影响。
   assert.equal(await request(port, "GET", "/index.html", { Host: rebound }), 200);
+});
+
+test("semantic calls past the per-minute budget are refused before reaching the model", { skip: !python && "no Python" }, async (t) => {
+  const port = await startServer(t, { HEXU_LLM_PER_MINUTE: "3" });
+  const json = { "Content-Type": "application/json" };
+  const ask = () => request(port, "POST", "/understand", json, JSON.stringify({ text: "霍金写的那本", phase: "IDLE" }));
+  // 没有配置模型时每次回 503（什么都不发出去），但仍计入额度。
+  for (let i = 0; i < 3; i++) assert.equal(await ask(), 503);
+  assert.equal(await ask(), 429);
+  // 被拒的请求体已读完，连接仍可用：别的接口照常应答。
+  assert.equal(await request(port, "GET", "/healthz"), 200);
 });

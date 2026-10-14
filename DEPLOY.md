@@ -66,6 +66,7 @@ ssh -i ~/.ssh/rainyun-rcs-Snowy_Brew.pem -L 8090:127.0.0.1:8090 root@64.90.2.91
 | `HEXU_LLM_BASE_URL` | `https://api.deepseek.com` | 仅接受 https，且拒绝回环/私有/保留地址 |
 | `HEXU_LLM_MODEL` | `deepseek-flash` | 换 `deepseek-v4-pro` 可提质，贵 50～70 倍 |
 | `HEXU_LLM_TIMEOUT` | `12` | 秒；超时即退回本地提示 |
+| `HEXU_LLM_PER_MINUTE` | `20` | 每个客户端地址每 60 秒最多调用模型几次，超出回 429 并退回本地规则；`0` 为不限。经隧道访问时所有请求都来自回环地址，相当于全服务共用一份额度。只读环境变量，不读下面的配置文件 |
 
 同一组设置也可以放在**用户目录**的配置文件里（本机版走这条路，见下文「本机版打包」）：Windows 是 `%APPDATA%\hexu-library\llm.env`，其它系统是 `~/.config/hexu-library/llm.env`，格式与下面完全一样。**环境变量优先**，所以部署在服务器上的服务不会被某个人 profile 里遗留的文件改写；`/settings/state` 会回一个 `key_source` 字段说明当前生效的是哪一边。
 

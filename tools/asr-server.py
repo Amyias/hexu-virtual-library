@@ -18,7 +18,8 @@ Routes:
     GET  /asr/ready        -> {"ready": bool, ...}  the page probes this and only then uses /asr
     POST /asr              -> 16 kHz mono WAV body, returns {"text": ...}
     GET  /understand/ready -> {"ready": bool, ...}  whether a semantic layer is configured
-    POST /understand       -> {"text": ..., "phase": ...}, returns a parsed intent
+    POST /understand       -> {"text": ..., "phase": ...}, returns a parsed intent; 429 past
+                              HEXU_LLM_PER_MINUTE calls a minute from one address
     GET  /settings         -> local settings page; /settings/state, /settings/key and
                               /settings/test answer it, and all four are loopback-only
     GET  <anything>        -> static file under the site root
@@ -253,6 +254,43 @@ LLM_BASE_URL_DEFAULT = "https://api.deepseek.com"
 LLM_MODEL_DEFAULT = "deepseek-flash"
 LLM_TIMEOUT = float(os.environ.get("HEXU_LLM_TIMEOUT", "12"))
 MAX_JSON_BODY = 4_096
+# Model calls allowed per client address in any sixty seconds. A person needs a handful a minute —
+# only what the local rules cannot place goes to the model — so this is far above real use and
+# exists for the runaway case: a recogniser looping on background noise, or a page bug resending,
+# billing the reader's quota until somebody notices. 0 turns the limit off.
+LLM_PER_MINUTE = int(os.environ.get("HEXU_LLM_PER_MINUTE", "20"))
+
+
+class RateLimit:
+    """A sliding sixty-second window per key, safe across the server's request threads.
+
+    Keyed by client address. Through the deployment's SSH tunnel every request arrives from
+    loopback, so there it is one budget for the whole service; a LAN bind gets one per machine."""
+
+    def __init__(self, per_minute, window=60.0, clock=time.monotonic):
+        self.per_minute, self.window, self.clock = per_minute, window, clock
+        self._calls = {}
+        self._lock = threading.Lock()
+
+    def allow(self, key):
+        """Record a call and return 0, or return the seconds until one is allowed again."""
+        if self.per_minute <= 0:
+            return 0
+        now = self.clock()
+        with self._lock:
+            # Drop every key whose window has emptied, so idle addresses cannot pile up.
+            for other in [k for k, calls in self._calls.items() if calls[-1] <= now - self.window]:
+                del self._calls[other]
+            calls = [t for t in self._calls.get(key, []) if t > now - self.window]
+            if len(calls) >= self.per_minute:
+                self._calls[key] = calls
+                return max(1, int(calls[0] + self.window - now + 0.999))
+            calls.append(now)
+            self._calls[key] = calls
+            return 0
+
+
+UNDERSTAND_LIMIT = RateLimit(LLM_PER_MINUTE)
 
 CATALOG_PATH = ROOT / "public" / "models" / "book-inventory.json"
 CONFIG_PATH = config_path()
@@ -745,6 +783,19 @@ class Handler(SimpleHTTPRequestHandler):
     def _post_understand(self):
         body = self._read_json()
         if body is None:
+            return
+        wait = UNDERSTAND_LIMIT.allow(self.client_address[0])
+        if wait:
+            # The page shows this and falls back to the local rules, exactly as when no model is
+            # configured; nothing is sent to the provider.
+            self.send_response(429)
+            payload = json.dumps({"action": "none", "error": f"语义服务调用过于频繁，请 {wait} 秒后再试"}).encode("utf-8")
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(payload)))
+            self.send_header("Retry-After", str(wait))
+            self.send_header("X-Content-Type-Options", "nosniff")
+            self.end_headers()
+            self.wfile.write(payload)
             return
         status, payload = understand(body.get("text"), body.get("phase"))
         self._send_json(status, payload)
