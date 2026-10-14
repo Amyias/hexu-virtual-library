@@ -30,7 +30,7 @@ import path from "node:path";
 import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
-import { matchesArchive, requireModelForSkip, requireCompleteRelease, findRelease } from "./release-policy.mjs";
+import { matchesArchive, requireModelForSkip, requireCompleteRelease, findRelease, notesRange } from "./release-policy.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const APP = "和序图书馆";
@@ -146,23 +146,30 @@ function archive(version, withModel, modelOnly = false) {
   return assets;
 }
 
-/** The release notes: the commits that are in this version. */
+/** The release notes: the commits this version adds over the one before it.
+ *
+ *  The previous version is the newest version tag the commit already contains. Tags are created
+ *  on GitHub when a release is published, so they are fetched first — a stale local list would
+ *  find an older tag and repeat commits that have shipped already. */
 function notes(version, commit) {
-  const log15 = run("git", ["log", "--pretty=format:- %s", "-n", "15"]).stdout.trim();
+  run("git", ["fetch", "--quiet", "--tags", "origin"]);
+  const previous = run("git", ["describe", "--tags", "--abbrev=0", "--match", "v[0-9]*", commit]);
+  const previousTag = previous.status === 0 ? previous.stdout.trim() : "";
+  const commits = run("git", ["log", "--pretty=format:- %s", ...notesRange(previousTag, commit)]).stdout.trim();
   return [
     `和序图书馆 v${version}`,
     "",
     `提交 \`${commit.slice(0, 12)}\``,
     "",
-    "### 本版包含的提交",
-    log15,
+    previousTag ? `### 自 ${previousTag} 以来的提交` : "### 本版包含的提交",
+    commits || "- （与上一版本相同的提交，仅重新打包）",
     "",
     "### 怎么装",
     "1. 下载 `*-program.zip`，解压覆盖到程序文件夹（模型原地保留，不会被覆盖）。",
     `2. 新机器还需要下载本发行版的 \`sense-voice-${version}.zip\`，解压到同一个文件夹；已有模型的机器更新时只下载程序包。`,
     "",
-    "程序里的「本机设置 → 更新」可以直接检查并安装新版本（需要在该机器上放一个只读令牌，",
-    "因为仓库是私有的）。",
+    "已安装的程序启动后及运行中每 5 分钟自动检查一次，发现新版会自动下载、校验、安装并重启；",
+    "也可以在「本机设置 → 更新」里手动检查。仓库是私有的，每台机器需要一个只读令牌。",
   ].join("\n");
 }
 

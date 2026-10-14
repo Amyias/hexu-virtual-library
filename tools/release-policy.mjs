@@ -17,6 +17,13 @@ export function requireModelForSkip(version, release) {
   }
 }
 
+// The commits a release adds: everything since the newest earlier version tag it contains. With no
+// such tag (the first release, or a clone without tags) fall back to a fixed number, so the notes
+// are never empty and never the whole history.
+export function notesRange(previousTag, commit) {
+  return previousTag ? [`${previousTag}..${commit}`] : ['-n', '15', commit];
+}
+
 export function requireCompleteRelease(version, release) {
   const missing = [programName(version), modelName(version)]
     .filter(name => !usableAsset(release?.assets?.find(asset => asset.name === name)));
