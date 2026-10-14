@@ -37,12 +37,12 @@ test("tolerates a one-character recognition slip without matching unrelated word
     assert.equal(findBook(word), undefined, word + " 不应命中任何馆藏");
 });
 
-test("every catalogued volume stands spine-out in its bay at its own size", () => {
+test("every catalogued volume stands spine-out in its bay at the standard size", () => {
   // Blender envelope: each shelf is 1m (X) x 2m (Y) x 8m (Z), centred on the anchors. Each face
   // is a bookcase with a 300 mm deep cavity and a solid back panel whose inner face stands
   // 200 mm from the shelf centre plane. A volume is shelved spine to the aisle, so its
   // fore-edge rests on that panel and the row is packed along the spine — the thickness axis.
-  // worldPosition is the centre of a volume scaled by its own three sizes.
+  // worldPosition is the volume's centre; every volume is the template's 216 x 306 x 26 mm.
   const centres = [-6, -3, 0, 3, 6];
   const posts = [-8.75, -6.8, -4.8, -2.8, -0.85];
   const post = 0.1;

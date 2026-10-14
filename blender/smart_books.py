@@ -113,8 +113,9 @@ def populate():
         # The spine is the volume's own -X face, so it comes out facing the aisle once side A is
         # turned a half turn about the shelf's up axis and side B is left as authored.
         bookroot.location=pos(b['worldPosition']);bookroot.rotation_euler.z=math.pi if b['side']=='A' else 0
-        # The catalogue gives every volume its own width, height and thickness, the way a real
-        # shelf is stocked. The volume is authored upright, so in Blender its own axes are X for
+        # Every volume is the template's own size (the catalogue's scales are all 1); the scale is
+        # still applied so that stays the inventory's decision. The volume is authored upright, so
+        # in Blender its own axes are X for
         # the cover width, Y for the thickness (the spine's width) and Z for the height; the root
         # sits at the volume's centre, so scaling leaves it standing on its board.
         bookroot.scale=(b.get('widthScale',1),b.get('depthScale',1),b.get('heightScale',1))
