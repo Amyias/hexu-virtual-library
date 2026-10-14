@@ -4,7 +4,7 @@
 
 ## 如何使用
 
-1. 启动最新版源码服务 `npm start`，或使用重新打包后的本机程序。源码模式的书库服务需要 Python 3.10+，只使用标准库，无需安装爬虫或数据库依赖。若 Python 不在 PATH，可设置 `HEXU_PYTHON` 指向解释器，再启动服务。
+1. 启动最新版源码服务 `npm start`，或使用重新打包后的本机程序。源码模式的书库服务需要 Python 3.10+；先用该解释器运行 `python -m pip install -r tools/requirements-sources.txt` 安装解析依赖。SQLite 使用标准库，不需另装数据库。若 Python 不在 PATH，可设置 `HEXU_PYTHON` 指向解释器，再启动服务。
 2. 点击一次「启动语音感知」，允许麦克风。说「小和」，小和仅回答「有什么需求吗？」；接着说「帮我找狂人日记」。也可以直接说「小和，帮我找狂人日记」。文字搜索框走相同的找书逻辑。
 3. 已有本地正文时直接取书，不访问在线书源。未入库的书名会进入在线正文检索；精确结果唯一时自动下载，多个候选时在面板选择「下载并上架」。下载进度会显示当前章节，支持取消。
 4. 正文完整保存后，小和飞到绑定的书架位置并取出书本。向左拖动封面，或点击「翻开书页」，进入正文阅读。也可点击「阅读正文」。
@@ -32,9 +32,13 @@ Windows 默认位置为 `%APPDATA%\hexu-library\books`；其他系统默认 `~/.
 
 内置 [中文维基文库](https://zh.wikisource.org/)，通过 MediaWiki API 获取真实文本，保留作者、来源链接、许可说明和修订号。目录指向同书子页面时逐章下载；全文在单页时按「第几章／回」或 `Chapter N` 标题拆分。个别文献的特殊目录格式可能需要选择具体分卷或另一个版本。
 
-「正文书库 → 书源管理与导入」提供 [源仓库](https://www.yckceo.com/yuedu/shuyuan/index.html) 入口。先下载 JSON 文件再导入；面板分别列出成功和拒绝的书源及原因。支持本项目的静态 CSS 格式，以及 Legado 3.x 中使用同样 CSS 语法的声明式子集，**不等同于完整兼容阅读 App 的所有书源**。
+「正文书库 → 书源管理与导入」提供 [源仓库](https://www.yckceo.com/yuedu/shuyuan/index.html) 入口。先下载 JSON 文件再导入；面板分别列出成功和拒绝的书源及原因。支持 CSS、XPath 1.0、JSONPath 和纯 JavaScript 规则，以及 Legado 3.x 的部分规则语法，**不等同于完整兼容阅读 App 的所有书源**。
 
-支持标签、`.class`、`#id` 与空格分隔的后代选择器；字段可用 `@text`、`@href`、`@src`、`@title`，允许 `@css:` 前缀。支持 GET 搜索地址的 `{{key}}`、`{query}`、`{{page}}`（第一页）。一本书的详情页须直接包含章节目录，章节页须直接包含正文。
+支持 CSS 选择器及 `class.xxx@tag.a` 的基础链式写法；字段支持 `@text`、`ownText`、`href`、`@src`、`@title` 和 `@html`。XPath 使用 `@XPath:` 或 `//` 前缀；JSONPath 使用 `@Json:` 或 `$`，支持递归、通配和过滤。纯 JS 支持 `@js:`、`<js>...</js>`、`jsLib`、规则后的 JS 转换与 `##正则##替换`，可用变量为 `result`、`baseUrl`、`key`、`page`。每次执行限制 0.5 秒、32 MiB 内存，不提供本机文件、环境变量、进程或网络访问接口。
+
+搜索 URL 支持 `{{key}}`、`{query}`、`{{page}}`（第一页）及 `{{JS表达式}}`；支持 `URL,{"method":"POST","body":"...","headers":{...}}` 请求选项。请求头仅允许 User-Agent、Accept、Accept-Language、Content-Type、Referer；正文为字符串，编码可为 UTF-8/GBK/GB18030。请求及跳转仍需符合该源同域与公网地址限制。
+
+导入成功后默认启用，源文件标明 `enabled:false` 时保持停用；可在“书源管理与导入”的书源列表勾选开关，状态保存在本机。缺少搜索配置但具有书籍信息、目录与正文规则的源可以导入，标记“网址导入”，不会参加按书名搜索。在上方粘贴同站点的书籍或目录网址，点击“读取书籍网址”，核对书名后“下载并上架”。`ruleBookInfo.tocUrl` 可指向独立目录，`nextTocUrl` 与 `nextContentUrl` 分别用于目录和正文分页，循环或中途失败不保存半本书。导入时只做离线规则验证；公网 DNS 检查在真正访问站点时进行。
 
 以下为格式示例，需要改成实际站点的地址与选择器，不是可直接下载的书源：
 
@@ -59,11 +63,13 @@ Windows 默认位置为 `%APPDATA%\hexu-library\books`；其他系统默认 `~/.
 }
 ```
 
-暂不支持 JavaScript、XPath、JSONPath、Legado 的 `class.xxx@tag.a` 链式语法、POST 搜索、登录、验证码、跨域章节、正文的「下一页」拼接与图像/PDF 转文字。不会执行导入 JSON 中的代码，也不会绕过站点访问控制。自定义书源仅访问其同域公开 HTTP(S) 地址；本机、内网和保留地址被拒绝。代理返回保留地址的 DNS 环境也可能导致该书源被拒绝。
+暂不支持 Android／Java 宿主桥接（`java.*`、`Packages.*`）、设备注册、WebView 登录、验证码、跨域章节与图像/PDF 转文字，也不完整兼容 Legado 的所有选择器组合。依赖这些能力的源会明确显示原因并拒绝启用；导入时不会运行 JS，也不会绕过站点访问控制。本次检查的“番茄小说(APP)”源正文依赖 Java 加密和设备注册，尚不能使用；不能用纯 JS 支持代替这一运行环境。
+
+自定义书源仅访问其同域公开 HTTP(S) 地址；本机、内网和保留地址被拒绝。代理返回保留地址的 DNS 环境也可能阻止站点访问。书源启用表示配置已保存、规则已验证，不保证外站可连接或每本书都提供可下载正文。
 
 「导入 TXT / EPUB」支持 UTF-8、带 BOM 的 UTF-16 与 GB18030 TXT，以及无加密的 EPUB。EPUB 按 spine 顺序读取，并将 HTML 转为纯文本，脚本不会进入页面。导入的是本机实际文件内容，不会发送给大语言模型。
 
-当前限制：单次导入文件 8 MiB，EPUB 解压后总量 32 MiB；在线单页响应 4 MiB，一次下载最多 500 个章节页，整书最多 1000 万字符；最多两个同时下载任务。所有来源检索默认包括前五个自定义源和维基文库，其他书源可通过下拉框单独选择。取消会在当前网络请求结束后生效；失败或取消的任务不会作为完整书籍入库，重试从头下载。
+当前限制：单次导入文件 8 MiB，EPUB 解压后总量 32 MiB；在线单页响应 4 MiB，自定义书源一次最多 2000 章（维基文库仍为 500 章）、目录最多 50 页、每章正文最多 20 页，整书最多 1000 万字符；最多两个同时下载任务。所有来源检索默认包括前五个已启用且支持搜索的自定义源和维基文库，其他书源可通过下拉框单独选择。取消会在当前网络请求结束后生效；失败或取消的任务不会作为完整书籍入库，重试从头下载。
 
 ## 模块与接口
 
@@ -80,7 +86,7 @@ src/reader/library.js       src/reader/novel.js
                   ↙             ↘
        tools/book_sources.py    SQLite + UTF-8 TXT
           ↙          ↘
-  MediaWiki API   自定义静态 CSS 书源
+  MediaWiki API   CSS / XPath / JSONPath / JS 书源
 ```
 
 `npm start` 的 Node 服务按需启动 `tools/library-service.py` 子进程并代理 `/library/*`；Python 本机程序与服务器则直接复用 `book_library`，两条运行路径使用相同的数据库与下载逻辑。正文显示使用 `textContent`，不会把远端 HTML 当作可执行页面。
@@ -96,7 +102,9 @@ src/reader/library.js       src/reader/novel.js
 | `GET /library/jobs/<id>` | 下载状态和进度 |
 | `POST /library/jobs/<id>` | 请求取消任务 |
 | `POST /library/import` | 导入文件名与 Base64 文件内容 |
-| `POST /library/sources` | 导入书源 JSON 对象或数组 |
+| `POST /library/sources` | 导入书源 JSON 对象或数组，返回能力与拒绝原因 |
+| `POST /library/sources/<id>` | 设置 `{ "enabled": true/false }` |
+| `POST /library/url` | 提交 `{ "url": "..." }`，匹配已启用书源并读取书名供确认 |
 | `POST /library/progress/<id>` | 保存 `chapter` 和 `offset` |
 
 分页在当前窗口内测量真实文字高度，不使用固定字符数截断或简介占位。翻页的下一页起点等于上一页结束偏移，调整字号与窗口尺寸后重新排版；字符偏移让进度不依赖页码变化。
@@ -108,4 +116,4 @@ npm test
 python -m unittest discover -s tests -p "test_*.py"
 ```
 
-后端测试覆盖持久化、章节与进度恢复、重复入库、EPUB 顺序、脚本剔除、静态书源下载、取消和失败不入库、网络不可用时本地别名命中。界面改动还需在浏览器完成加载 → 找书 → 拖开封面 → 正文翻页 → 查看芯片 → 归还 → 待命，并检查字号、移动端排版与重新打开后的阅读进度。
+后端测试覆盖持久化、章节与进度恢复、重复入库、EPUB 顺序、脚本剔除、JS / XPath / JSONPath 混合下载、书源启停与网址导入、目录分页、JS 超时及宿主隔离、取消和失败不入库、网络不可用时本地别名命中。界面改动还需在浏览器完成加载 → 找书 → 拖开封面 → 正文翻页 → 查看芯片 → 归还 → 待命，并检查字号、移动端排版与重新打开后的阅读进度。

@@ -129,7 +129,7 @@ function ensurePython() {
   return venvPython;
 }
 
-const DEPENDENCIES = ["pyinstaller==6.22.3", "sherpa-onnx==1.13.8", "pywebview==6.2.1"];
+const DEPENDENCIES = ["pyinstaller==6.22.3", "sherpa-onnx==1.13.8", "pywebview==6.2.1", "lxml==6.0.2", "cssselect==1.3.0", "jsonpath-ng==1.10.1", "quickjs-ng==0.17.0.1"];
 /* Listed separately because the sherpa-onnx wheel does not pull it in, yet transcribe() needs
    it — and without it the packaged program starts, reports itself ready, and then fails on the
    first utterance. The deployment installs it the same way. */
@@ -402,7 +402,8 @@ const INSTRUCTIONS = `和序图书馆 · 本机版
   如果浏览器拦截自动播放，点击播放器的播放按钮即可。
 
 正文书库与小说阅读
-  点击「本地书库」可以搜索、下载正文，也可以导入自己的 TXT / EPUB，或导入静态书源 JSON。
+  点击「本地书库」可以搜索、下载正文，也可以导入自己的 TXT / EPUB，或导入 CSS / XPath / JSONPath / 纯 JS 书源 JSON。
+  书源管理中可勾选启用；只有目录规则的书源可粘贴书籍网址，再点击「读取书籍网址」。
   直接说「小和，帮我找书名」也能查找本地正文；没有缓存时会搜索在线书源并下载。
   打开书本封面后进入正文阅读，可翻页、选择章节、调整字号，阅读位置会自动保存。
   正文和书库索引保存在 %APPDATA%\\hexu-library\\books，更新程序不会覆盖它们。

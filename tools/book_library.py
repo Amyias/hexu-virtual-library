@@ -118,7 +118,39 @@ class BookLibrary:
         config = self.sources().get(identifier)
         if not config:
             raise SourceError("书源不存在")
+        if not config.get("enabled", True):
+            raise SourceError("书源已停用，请在书源管理中启用")
         return CssSource(identifier, config)
+
+    def list_sources(self):
+        built_in = {"id": "wikisource", "name": Wikisource.name, "enabled": True,
+                    "capabilities": {"search": True, "url_import": False, "engines": []}, "builtin": True}
+        return [built_in, *[{"id": key, "name": value["name"], "enabled": value.get("enabled", True),
+                            "capabilities": value.get("capabilities", {"search": True, "url_import": True, "engines": ["CSS"]})}
+                           for key, value in self.sources().items()]]
+
+    def set_source_enabled(self, identifier, enabled):
+        if not isinstance(enabled, bool):
+            raise SourceError("启用状态必须为布尔值")
+        with self.lock, self.connect() as db:
+            row = db.execute("SELECT config FROM sources WHERE id=?", (identifier,)).fetchone()
+            if not row:
+                raise SourceError("书源不存在或为内置书源")
+            config = json.loads(row["config"])
+            config["enabled"] = enabled
+            db.execute("UPDATE sources SET config=? WHERE id=?", (json.dumps(config, ensure_ascii=False), identifier))
+        return {"id": identifier, "enabled": enabled}
+
+    def preview_url(self, url, source_id="all"):
+        if not isinstance(url, str) or not 0 < len(url) <= 2048:
+            raise SourceError("请输入有效的书籍目录网址")
+        host = urlsplit(url).hostname
+        sources = self.sources()
+        matches = [key for key, value in sources.items() if value.get("enabled", True) and value.get("capabilities", {}).get("url_import", True)
+                   and urlsplit(value["base_url"]).hostname == host and (source_id == "all" or source_id == key)]
+        if not matches:
+            raise SourceError("没有已启用且匹配此网址的书源；请先导入对应书源并勾选启用")
+        return self.provider(matches[0]).preview(url)
 
     def list_books(self):
         with self.connect() as db:
@@ -174,7 +206,11 @@ class BookLibrary:
         if any(any(normalize(query) == normalize(title) for title in [book["title"], *book.get("aliases", [])]) for book in local):
             return {"local": local, "results": [], "errors": []}
         candidates, errors = [], []
-        providers = [source_id] if source_id != "all" else list(self.sources())[:5] + ["wikisource"]
+        available = self.sources()
+        providers = [source_id] if source_id != "all" else [key for key, value in available.items()
+            if value.get("enabled", True) and value.get("capabilities", {}).get("search", True)][:5] + ["wikisource"]
+        if source_id in available and not available[source_id].get("capabilities", {}).get("search", True):
+            return {"local": local, "results": [], "errors": [{"source_id": source_id, "message": "此源支持网址导入，不提供按书名搜索；请粘贴书籍目录网址"}]}
         def search_source(identifier):
             try:
                 return self.provider(identifier).search(query), None
@@ -246,9 +282,10 @@ class BookLibrary:
             for item in items:
                 try:
                     config = normalize_source(item)
+                    config["enabled"] = item.get("enabled", True) is not False
                     identifier = hashlib.sha256(config["base_url"].encode()).hexdigest()[:16]
                     db.execute("INSERT OR REPLACE INTO sources VALUES(?,?)", (identifier, json.dumps(config, ensure_ascii=False)))
-                    accepted.append({"id": identifier, "name": config["name"]})
+                    accepted.append({"id": identifier, "name": config["name"], "enabled": config["enabled"], "capabilities": config["capabilities"]})
                 except (SourceError, TypeError, AttributeError) as error:
                     rejected.append({"name": str(item.get("bookSourceName", item.get("name", "书源")))[:80] if isinstance(item, dict) else "书源", "message": str(error)[:200]})
         return {"accepted": accepted, "rejected": rejected}
@@ -303,7 +340,7 @@ def handle_request(handler):
             elif url.path.startswith("/library/jobs/"):
                 reply(200, library.job(url.path.rsplit("/", 1)[-1]))
             elif url.path == "/library/sources":
-                reply(200, {"sources": [{"id": "wikisource", "name": Wikisource.name}, *[{"id": key, "name": value["name"]} for key, value in library.sources().items()]]})
+                reply(200, {"sources": library.list_sources()})
             else:
                 reply(404, {"error": "接口不存在"})
         elif handler.command == "POST":
@@ -322,6 +359,10 @@ def handle_request(handler):
                 raise SourceError("请求必须为 JSON 对象")
             if url.path == "/library/download":
                 reply(202, library.start_download(body))
+            elif url.path == "/library/url":
+                reply(200, library.preview_url(body.get("url"), body.get("source_id", "all")))
+            elif url.path.startswith("/library/sources/"):
+                reply(200, library.set_source_enabled(url.path.rsplit("/", 1)[-1], body.get("enabled")))
             elif url.path == "/library/import":
                 raw = base64.b64decode(body.get("data", ""), validate=True)
                 reply(200, library.save(import_document(body.get("filename", ""), raw, body.get("title", ""), body.get("author", ""))))

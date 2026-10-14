@@ -44,9 +44,9 @@ npm start
 
 ## 小说正文与本地书库
 
-说「小和，帮我找狂人日记」：已入库则直接从书架取阅，未入库则检索真实正文；精确结果唯一时自动下载，多个候选时选择一个来源。下载完整后保存到本机并绑定现有编号样书，翻开封面即可逐页阅读，支持目录、字号与阅读进度恢复。点击「正文书库」也可搜索、导入 TXT / EPUB、导入静态 CSS 书源 JSON。原有演示书仍保留简介，点击「查找正文」可进一步检索全文。
+说「小和，帮我找狂人日记」：已入库则直接从书架取阅，未入库则检索真实正文；精确结果唯一时自动下载，多个候选时选择一个来源。下载完整后保存到本机并绑定现有编号样书，翻开封面即可逐页阅读，支持目录、字号与阅读进度恢复。点击「正文书库」也可搜索、导入 TXT / EPUB、导入 CSS / XPath / JSONPath / 纯 JS 书源 JSON。原有演示书仍保留简介，点击「查找正文」可进一步检索全文。
 
-书库默认保存在 `%APPDATA%\hexu-library\books`，包含 SQLite 与 UTF-8 正文，程序更新不会覆盖。内置中文维基文库，并提供你指定的源仓库入口；导入支持静态 CSS 子集，不执行书源里的 JavaScript。运行方式、书源格式、支持范围与备份方法见 [正文书库使用说明](docs/BOOK_LIBRARY.md)。旧发行版程序须重新打包后才能使用这项功能。
+书库默认保存在 `%APPDATA%\hexu-library\books`，包含 SQLite 与 UTF-8 正文，程序更新不会覆盖。内置中文维基文库，并提供你指定的源仓库入口；导入支持 CSS、XPath、JSONPath 与隔离执行的纯 JavaScript；Android/Java 桥接接口仍不支持。运行方式、书源格式、支持范围与备份方法见 [正文书库使用说明](docs/BOOK_LIBRARY.md)。旧发行版程序须重新打包后才能使用这项功能。
 
 **阅读音乐**：翻开 3D 封面或进入本地正文时，迷你播放器自动播放提供的《Saint Barbara Theme》《The Trek》，两首按顺序循环；支持暂停/继续、上一首/下一首、进度拖动和音量记忆。返回 3D 书本或查看芯片时保持播放，放回书架时立即停止并归零。若浏览器阻止自动播放，点击播放器的 ▶ 即可。音频位于 `public/audio/`，本机打包也会携带，无需访问 Steam 目录；旧 EXE 需重新打包才会包含此功能。
 
@@ -76,7 +76,8 @@ npm start
 | `src/reader/library.js` | 正文书库面板、在线检索与下载、TXT/EPUB 和书源导入、书架位置绑定 |
 | `src/reader/novel.js` | 正文测量分页、章节目录、字号与阅读进度恢复 |
 | `tools/book_library.py` | SQLite 书库、UTF-8 正文、异步下载任务、导入与 HTTP API |
-| `tools/book_sources.py` | 维基文库 API 与静态 CSS 书源引擎 |
+| `tools/book_sources.py` | 维基文库 API 与多格式书源下载管线 |
+| `tools/source_rules.py` | CSS、XPath、JSONPath 与受限 QuickJS 规则解析 |
 | `tools/library-service.py` | 开发服务使用的 Python 书库子进程 |
 | `docs/BOOK_LIBRARY.md` | 正文书库、书源格式与接口说明 |
 | `src/styles/library.css` | 页面与响应式布局 |
@@ -190,3 +191,20 @@ npm test
 回归测试覆盖五类契约：唤醒词与中英混排归一化、书名匹配的容错与误命中防线、11360 本书的书脊排架关系、`hexu-library.glb` 的合并网格与预算、`smart-book.glb` 的铰链与部件命名、唯一一份馆藏清单的体积与示例书记录、本机设置接口的来源校验，以及语音适配器的生命周期（模拟浏览器识别事件，不等同于真人麦克风转录验收）。实际语音测试请在 Chrome/Edge 打开 localhost 后授权执行。界面测试应覆盖：唤醒、找书、向左拖动封面、显示简介、查看芯片、归还后重新找书。
 
 保留依赖文件中的版权及许可头。Three.js 使用 MIT 许可；GSAP 3.12.5 的许可链接保留于 `public/vendor/gsap.min.js` 开头；Draco 解码器使用 Apache-2.0，许可全文见 `public/vendor/DRACO-LICENSE.txt`。地板与书柜的贴图来自 Poly Haven，授权为 **CC0（公有领域）**，可自由分发，无需署名；素材标识记录在 `tools/fetch-textures.mjs` 与 `blender/MATERIAL_REFERENCES.md`。
+
+## 书源兼容与网址导入
+
+“正文书库 → 书源管理与导入”支持 CSS、XPath 1.0、JSONPath（含递归、通配与过滤）及纯 JavaScript 规则。JS 在 QuickJS 中执行，每次上限 0.5 秒、32 MiB 内存，不暴露文件、进程、环境变量或网络接口。支持 `@js:`、`<js>`、URL 的 `{{表达式}}`、`jsLib`、规则后的 JS 转换与 `##正则##替换`；XPath/JSONPath/CSS 可分别用于搜索、书籍信息、目录和正文。实现为自有兼容层，并非完整的 Legado 运行时。
+
+导入成功后自动启用（若源原本 `enabled:false` 则保持停用），可在书源列表勾选开关。没有搜索规则的源标记“网址导入”，不再因 `ruleSearch:[]` 报错，也不会参加按书名搜索；粘贴同站点书籍或目录网址，点击“读取书籍网址”，确认书名后“下载并上架”。支持 `ruleBookInfo`、`ownText`、`href`、`@html`、目录及正文分页；存入书库的是清理后的纯文本。任一章节失败、分页循环或取消均不保存半本书。
+
+当前边界：不提供阅读 App 的 `java.*`/`Packages.*`、Android 设备注册、Java 加密类、WebView 登录或验证码流程，也不完整实现 Legado 的所有组合选择器。依赖这些能力的源会列明原因并拒绝启用，不能把“支持 JS”当作全部 App 书源已兼容。以本次检查的“番茄小说(APP)”源为例，其正文依赖 Java 加密和设备注册，尚未适配；书海阁文件的目录及正文规则可被解析，但外站 HTTP 403 等服务状态仍可能阻止下载。
+
+源码运行先安装解析依赖：
+
+```powershell
+python -m pip install -r tools/requirements-sources.txt
+python -m unittest discover -s tests -p test_source_rules.py
+```
+
+桌面打包会自动安装并收集这些依赖。依赖文档：[QuickJS Python binding](https://pypi.org/project/quickjs-ng/)、[lxml XPath](https://lxml.de/xpathxslt.html)、[JSONPath-NG](https://pypi.org/project/jsonpath-ng/)。兼容语法参考 [Legado 解析器源码](https://github.com/LegadoTeam/legado/tree/master/app/src/main/java/io/legado/app/model/analyzeRule)，未复制该项目的实现代码。

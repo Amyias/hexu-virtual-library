@@ -1,4 +1,4 @@
-"""Bounded text providers. Downloaded rules are data; JavaScript is never executed."""
+"""Bounded text providers with CSS, XPath, JSONPath and isolated JavaScript rules."""
 import html
 import ipaddress
 import json
@@ -12,8 +12,7 @@ MAX_RESPONSE = 4 * 1024 * 1024
 USER_AGENT = "HexuLibrary/2.4 (personal local reading; MediaWiki API)"
 
 
-class SourceError(ValueError):
-    pass
+from source_rules import SourceError, RuleEngine, plain, tree
 
 
 class Node:
@@ -146,17 +145,24 @@ def validate_url(url, host, public_only=True):
     return url
 
 
-def fetch(url, host, trusted=False):
+def fetch(url, host, trusted=False, headers=None, method="GET", body=None, charset="utf-8"):
     validate_url(url, host, not trusted)
     class Redirect(urllib.request.HTTPRedirectHandler):
         def redirect_request(self, req, fp, code, msg, headers, newurl):
             validate_url(newurl, host, not trusted)
             return super().redirect_request(req, fp, code, msg, headers, newurl)
-    request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, "Accept": "application/json,text/html,text/plain"})
+    if method not in {"GET", "POST"} or charset.lower() not in {"utf-8", "gbk", "gb18030"}:
+        raise SourceError("书源只支持 GET/POST 与 UTF-8/GBK 编码")
+    if body is not None and (not isinstance(body, str) or len(body) > 128 * 1024):
+        raise SourceError("书源请求体必须为不超过 128 KiB 的字符串")
+    request = urllib.request.Request(url, data=body.encode(charset) if body is not None else None, method=method,
+                                     headers={"User-Agent": USER_AGENT, "Accept": "application/json,text/html,text/plain", **safe_headers(headers or {})})
     try:
         with urllib.request.build_opener(Redirect()).open(request, timeout=18) as response:
             body = response.read(MAX_RESPONSE + 1)
             encoding = response.headers.get_content_charset() or "utf-8"
+    except urllib.error.HTTPError as error:
+        raise SourceError("书源返回 HTTP %d，请稍后重试或换源" % error.code) from error
     except (OSError, ValueError) as error:
         raise SourceError("书源连接失败，请稍后重试或换一个书源") from error
     if len(body) > MAX_RESPONSE:
@@ -227,71 +233,203 @@ class Wikisource:
 
 
 def normalize_source(data):
-    """Accept our CSS schema and the declarative CSS subset of Legado 3.x."""
+    """Normalize declarative Legado rules without requiring every source to offer search."""
     if not isinstance(data, dict):
         raise SourceError("书源必须为 JSON 对象")
     if "bookSourceUrl" in data:
-        search, toc, content = data.get("ruleSearch", {}), data.get("ruleToc", {}), data.get("ruleContent", {})
+        def group(key):
+            value = data.get(key)
+            if value in (None, []):
+                return {}
+            if not isinstance(value, dict):
+                raise SourceError(key + " 必须为对象")
+            return value
+        search, toc, content, info = (group(k) for k in ("ruleSearch", "ruleToc", "ruleContent", "ruleBookInfo"))
         data = {"name": data.get("bookSourceName", "导入书源"), "base_url": data["bookSourceUrl"], "search_url": data.get("searchUrl", ""),
                 "search": {"items": search.get("bookList", ""), "title": search.get("name", ""), "url": search.get("bookUrl", ""), "author": search.get("author", "")},
-                "toc": {"items": toc.get("chapterList", ""), "title": toc.get("chapterName", ""), "url": toc.get("chapterUrl", "")},
-                "content": {"body": content.get("content", "")}, "license": "导入书源：仅获取站点公开提供的免费正文"}
-    if not isinstance(data, dict) or not all(data.get(key) for key in ("name", "base_url", "search_url", "search", "toc", "content")):
-        raise SourceError("书源缺少搜索、目录或正文规则")
+                "info": {"init": info.get("init", ""), "title": info.get("name", ""), "author": info.get("author", ""), "toc_url": info.get("tocUrl", "")},
+                "toc": {"items": toc.get("chapterList", ""), "title": toc.get("chapterName", ""), "url": toc.get("chapterUrl", ""), "next": toc.get("nextTocUrl", "")},
+                "content": {"body": content.get("content", ""), "next": content.get("nextContentUrl", "")},
+                "js_lib": data.get("jsLib", "") or "", "headers": data.get("header", {}) or {},
+                "license": "导入书源：仅获取站点公开提供的免费正文"}
+    # Keep only known fields; comments and Android event hooks are never executable configuration.
+    data = {k: v for k, v in data.items() if k in {"name", "base_url", "search_url", "search", "info", "toc", "content", "js_lib", "headers", "license"}}
+    if not isinstance(data.get("name"), str) or not data["name"].strip() or not isinstance(data.get("base_url"), str):
+        raise SourceError("书源缺少名称或合法网址")
+    data.setdefault("search_url", "")
+    data.setdefault("search", {})
+    data.setdefault("info", {})
+    data.setdefault("js_lib", "")
+    for key in ("search_url", "js_lib"):
+        if not isinstance(data[key], str):
+            raise SourceError(key + " 必须为字符串")
+    for group in ("search", "info", "toc", "content"):
+        if not isinstance(data.get(group), dict) or any(not isinstance(rule, str) for rule in data[group].values()):
+            raise SourceError("书源规则必须是对象，选择器必须是字符串")
+    for group, required in (("toc", ("items", "title", "url")), ("content", ("body",))):
+        if any(not data[group].get(key, "").strip() for key in required):
+            raise SourceError("书源缺少必要的目录或正文规则")
+    has_search = bool(data["search_url"].strip() and all(data["search"].get(k, "").strip() for k in ("items", "title", "url")))
+    if data["search_url"] and not has_search:
+        raise SourceError("书源搜索地址已配置，但搜索列表、书名或链接规则不完整")
     encoded = json.dumps(data, ensure_ascii=False)
-    if any(marker in encoded for marker in ("@js:", "<js>", "javascript:", "java.", "@XPath:", "$.")):
-        raise SourceError("此书源依赖 JS、XPath 或 JSONPath，当前静态 CSS 引擎不支持")
-    if re.search(r"\{\{(?!key\}\}|page\}\})", encoded):
-        raise SourceError("此书源含动态脚本，不会执行导入代码")
+    if re.search(r"\bPackages\s*\.|\b(?:android|javax)\.", encoded):
+        raise SourceError("此源还依赖 Android/Java 类桥接（Packages、加密或设备注册）；JS、XPath、JSONPath 已支持，但这些专用接口尚未实现")
+    if re.search(r"\bjava\s*\.", encoded):
+        raise SourceError("此源调用阅读 App 的 java 桥接接口；当前支持纯 JS，尚不提供 java.ajax 等宿主接口")
     host = urllib.parse.urlsplit(data["base_url"]).hostname
     if not host:
         raise SourceError("书源缺少合法域名")
-    validate_url(data["base_url"], host)
-    for group, required in (("search", ("items", "title", "url")), ("toc", ("items", "title", "url")), ("content", ("body",))):
-        if not isinstance(data[group], dict) or any(not isinstance(data[group].get(key), str) or not data[group][key].strip() for key in required):
-            raise SourceError("书源缺少必要的搜索、目录或正文选择器")
-    for group in (data["search"], data["toc"], data["content"]):
-        for rule in group.values():
-            if not isinstance(rule, str):
-                raise SourceError("书源规则必须是字符串")
-            selector = rule.rsplit("@", 1)[0] if "@" in rule.replace("@css:", "") else rule
-            for part in selector.replace("@css:", "").split():
-                _matches(Node(), part)
+    # Import is offline validation; DNS/public-address checks happen on every actual request.
+    validate_url(data["base_url"], host, public_only=False)
+    if isinstance(data.get("headers", {}), str):
+        try:
+            data["headers"] = json.loads(data["headers"])
+        except ValueError as error:
+            raise SourceError("书源请求头必须为 JSON 对象") from error
+    data["headers"] = safe_headers(data.get("headers", {}))
+    engine = RuleEngine(data["js_lib"])
+    for group in ("search", "info", "toc", "content"):
+        for rule in data[group].values():
+            engine.validate(rule)
+    if not has_search and not data["info"].get("title"):
+        raise SourceError("此源既没有搜索规则，也没有网址导入所需的书名规则")
+    engines = ["CSS"]
+    if re.search(r"@js:|<js>|\{\{(?!key\}\}|page\}\})", encoded, re.I): engines.append("JS")
+    if re.search(r"@xpath:|\"(?://|\.//)", encoded, re.I): engines.append("XPath")
+    if re.search(r"@json:|\$[.\[]", encoded, re.I): engines.append("JSONPath")
+    data["capabilities"] = {"search": has_search, "url_import": bool(data["info"].get("title")), "engines": engines}
     return data
 
 
+def safe_headers(headers):
+    if not isinstance(headers, dict) or len(headers) > 16:
+        raise SourceError("书源请求头必须为对象且不超过 16 项")
+    allowed = {"user-agent", "accept", "accept-language", "content-type", "referer"}
+    result = {}
+    for key, value in headers.items():
+        if not isinstance(key, str) or key.lower() not in allowed or not isinstance(value, str) or len(value) > 2048 or "\r" in value or "\n" in value:
+            raise SourceError("书源请求头不受支持或包含非法字符")
+        result[key] = value
+    return result
+
+
 class CssSource:
+    """Historical name retained for stored sources; now uses the multi-format rule engine."""
     def __init__(self, identifier, config):
         self.id, self.config = identifier, config
         self.name, self.host = config["name"], urllib.parse.urlsplit(config["base_url"]).hostname
 
+    def engine(self, url, key=""):
+        return RuleEngine(self.config.get("js_lib", ""), {"baseUrl": url, "key": key})
+
     def document(self, url):
-        return Document(fetch(url, self.host)).root
+        headers = self.config.get("headers", {})
+        return fetch(url, self.host, headers=headers) if headers else fetch(url, self.host)
 
     def search(self, query):
         config = self.config
-        url = urllib.parse.urljoin(config["base_url"], config["search_url"].replace("{{key}}", urllib.parse.quote(query)).replace("{query}", urllib.parse.quote(query)).replace("{{page}}", "1"))
-        root = self.document(url)
-        rule = config["search"]
-        return [{"source_id": self.id, "source_key": urllib.parse.urljoin(url, field(node, rule["url"])), "title": field(node, rule["title"]), "author": field(node, rule.get("author", ""), "未知作者") if rule.get("author") else "未知作者", "source": self.name, "source_url": urllib.parse.urljoin(url, field(node, rule["url"])), "license": config.get("license", "公开免费正文，见来源页")} for node in select(root, rule["items"])][:8]
+        if not config.get("search_url"):
+            return []
+        spec = self.engine(config["base_url"], query).render_url(config["search_url"], query)
+        parts = re.split(r",\s*(?=\{)", spec, maxsplit=1)
+        url = urllib.parse.urljoin(config["base_url"], parts[0])
+        if len(parts) == 2:
+            try:
+                options = json.loads(parts[1])
+            except ValueError as error:
+                raise SourceError("书源搜索请求选项不是合法 JSON") from error
+            if not isinstance(options, dict) or set(options) - {"method", "body", "headers", "charset"}:
+                raise SourceError("书源请求选项不受支持")
+            root = fetch(url, self.host, headers={**config.get("headers", {}), **safe_headers(options.get("headers", {}))},
+                         method=options.get("method", "GET"), body=options.get("body"), charset=options.get("charset", "utf-8"))
+        else:
+            root = self.document(url)
+        engine, rule = self.engine(url, query), config["search"]
+        results = []
+        for node in engine.items(root, rule["items"])[:8]:
+            title = engine.value(node, rule["title"])
+            link = engine.value(node, rule["url"])
+            if not title or not link: continue
+            target = urllib.parse.urljoin(url, link)
+            validate_url(target, self.host)
+            results.append({"source_id": self.id, "source_key": target, "title": title,
+                            "author": engine.value(node, rule.get("author", ""), "未知作者") if rule.get("author") else "未知作者",
+                            "source": self.name, "source_url": target, "license": config.get("license", "公开免费正文，见来源页")})
+        return results
+
+    def preview(self, key):
+        validate_url(key, self.host)
+        root, engine = self.document(key), self.engine(key)
+        info = self.config.get("info", {})
+        if info.get("init"):
+            root = engine.value(root, info["init"])
+        title = engine.value(root, info["title"]) if info.get("title") else ""
+        if not title:
+            raise SourceError("未能从网址读取书名，请确认是该书源的书籍或目录网址")
+        return {"source_id": self.id, "source_key": key, "title": title,
+                "author": engine.value(root, info["author"]) if info.get("author") else "未知作者",
+                "source": self.name, "source_url": key, "license": self.config.get("license", "公开免费正文，见来源页")}
 
     def download(self, key, report, cancelled):
         validate_url(key, self.host)
-        root = self.document(key)
-        toc = self.config["toc"]
-        entries = [(field(node, toc["title"]), urllib.parse.urljoin(key, field(node, toc["url"]))) for node in select(root, toc["items"])]
-        entries = list(dict.fromkeys(entries))
-        if not entries or len(entries) > 500:
-            raise SourceError("目录为空或超过 500 章，不会把未完成书籍保存为已入库")
-        chapters = []
-        for index, (title, url) in enumerate(entries):
-            if cancelled():
-                raise SourceError("已取消下载")
-            report(index, len(entries), title)
-            content = field(self.document(url), self.config["content"]["body"])
-            if len(content) < 40:
-                raise SourceError("正文为空或被站点拦截，请换源")
-            chapters.append({"title": title, "text": content})
-            if sum(len(item["text"]) for item in chapters) > 10_000_000:
-                raise SourceError("正文过大，请分卷下载")
-        return {"title": "", "author": "", "source_id": self.id, "source_key": key, "source_url": key, "source": self.name, "license": self.config.get("license", "公开免费正文，见来源页"), "chapters": chapters}
+        root, engine = self.document(key), self.engine(key)
+        info = self.config.get("info", {})
+        if info.get("init"):
+            root = engine.value(root, info["init"])
+        title = engine.value(root, info["title"]) if info.get("title") else ""
+        author = engine.value(root, info["author"]) if info.get("author") else ""
+        toc_url = engine.value(root, info["toc_url"]) if info.get("toc_url") else ""
+        current = urllib.parse.urljoin(key, toc_url) if toc_url else key
+        if current != key:
+            root = self.document(current)
+        toc, visited, entries = self.config["toc"], set(), []
+        while True:
+            if cancelled(): raise SourceError("已取消下载")
+            if current in visited or len(visited) >= 50:
+                raise SourceError("目录分页循环或超过 50 页，未保存不完整正文")
+            visited.add(current)
+            engine = self.engine(current)
+            for node in engine.items(root, toc["items"]):
+                name, link = engine.value(node, toc["title"]), engine.value(node, toc["url"])
+                if name and link:
+                    url = urllib.parse.urljoin(current, link)
+                    validate_url(url, self.host)
+                    if not any(entry[1] == url for entry in entries): entries.append((name, url))
+            if len(entries) > 2000: raise SourceError("目录超过 2000 章，请分卷下载")
+            next_url = engine.value(root, toc["next"]) if toc.get("next") else ""
+            if not next_url: break
+            current = urllib.parse.urljoin(current, next_url)
+            validate_url(current, self.host)
+            root = self.document(current)
+        if not entries:
+            raise SourceError("目录为空，不会把目录页当作完整书籍保存")
+        chapters, total_chars = [], 0
+        for index, (name, url) in enumerate(entries):
+            if cancelled(): raise SourceError("已取消下载")
+            report(index, len(entries), name)
+            body_parts, seen = [], set()
+            current = url
+            while True:
+                if cancelled(): raise SourceError("已取消下载")
+                if current in seen or len(seen) >= 20: raise SourceError("正文分页循环或超过 20 页，未保存不完整正文")
+                seen.add(current)
+                content_root = self.document(current)
+                engine = self.engine(current)
+                content = engine.value(content_root, self.config["content"]["body"])
+                # @html is extraction syntax; the local reader stores readable text, never active HTML.
+                if re.search(r"<[/!]?[a-zA-Z][^>]*>", content): content = plain(tree(content))
+                content = clean(content)
+                if not content: raise SourceError("正文为空或被站点拦截，请换源")
+                body_parts.append(content)
+                total_chars += len(content)
+                if total_chars > 10_000_000: raise SourceError("正文过大，请分卷下载")
+                next_url = engine.value(content_root, self.config["content"]["next"]) if self.config["content"].get("next") else ""
+                if not next_url: break
+                current = urllib.parse.urljoin(current, next_url)
+                validate_url(current, self.host)
+            body = "\n\n".join(body_parts)
+            if len(body) < 40: raise SourceError("正文过短或被站点拦截，请换源")
+            chapters.append({"title": name, "text": body})
+        return {"title": title, "author": author, "source_id": self.id, "source_key": key, "source_url": key,
+                "source": self.name, "license": self.config.get("license", "公开免费正文，见来源页"), "chapters": chapters}
