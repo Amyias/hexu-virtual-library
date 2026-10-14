@@ -257,7 +257,8 @@
         </div>
         <p id="updateMessage" role="status"></p>
         <p class="note">
-          更新从 GitHub 发行版下载：程序会关闭几秒，把新版本覆盖上去（<b>语音识别模型原地保留</b>，
+          启动后及运行中每 5 分钟自动检查 GitHub 发行版，发现新版后自动下载、校验、安装并重启，无需点击更新。
+          程序只在安装时短暂关闭（<b>语音识别模型原地保留</b>，
           它不在每次更新里），然后自动重新打开。
           仓库是私有的，所以这台机器需要一个<b>只读</b>的 GitHub 访问令牌：填在上面这一栏即可，
           页面从不回显它，日志也不记录。没有令牌时这里会明确提示，不会给出看不懂的错误。
@@ -398,7 +399,10 @@
       }
 
       /** While 99 MB are arriving, the only honest thing to show is how much has arrived. */
+      let watchingProgress = false;
       async function watchProgress() {
+        if (watchingProgress) return;
+        watchingProgress = true;
         const box = $("updateProgress");
         const bar = $("updateBar").firstElementChild;
         const text = $("updateProgressText");
@@ -413,9 +417,11 @@
           text.textContent = total
             ? `${{ downloading: "正在下载", retrying: "重试中", downloaded: "下载完成", installing: "正在安装", failed: "未成功" }[progress.state] ?? progress.state} ${(done / 1048576).toFixed(1)} / ${(total / 1048576).toFixed(1)} MB`
             : progress.message || "—";
-          if (["installing", "failed"].includes(progress.state)) {
+          if (["installing", "failed", "idle"].includes(progress.state)) {
+            watchingProgress = false;
             if (progress.state === "installing") text.textContent = "下载完成，正在安装（程序即将关闭）";
-            else updateMessage(progress.message || "更新未成功。", false);
+            else if (progress.state === 'failed') updateMessage(progress.message || "更新未成功。", false);
+            else box.hidden = true;
             return;
           }
           await new Promise((resolve) => setTimeout(resolve, 700));
@@ -428,6 +434,8 @@
             cache: "no-store",
           });
           showUpdate(await response.json());
+          const progress = await fetch('/update/progress', { cache: 'no-store' }).then(r => r.json());
+          if (['checking', 'downloading', 'retrying', 'installing'].includes(progress.state)) watchProgress();
         } catch {
           state("updateState", "读不到更新状态", false);
         }
@@ -452,6 +460,7 @@
 
       load();
       loadUpdate();
+      setInterval(() => loadUpdate(), 10000);
     </script>
   </body>
 </html>

@@ -31,6 +31,8 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
+import uuid
+import zipfile
 from pathlib import Path
 
 #: Where releases are published.
@@ -49,12 +51,12 @@ HELPER_NAME = "update.ps1"
 SPEC_NAME = "update.json"
 
 _lock = threading.Lock()
-_cache = {"at": 0.0, "payload": None, "token": None}
+_cache = {"at": 0.0, "payload": None, "identity": None}
 _progress = {"state": "idle", "message": ""}
 #: Set when a download finishes or gives up, so a program whose window is closed mid-download can
 #: wait for it instead of taking it down with the process.
 _finished = threading.Event()
-BUSY_STATES = ("downloading", "retrying", "installing")
+BUSY_STATES = ("checking", "downloading", "retrying", "installing")
 
 
 # --- talking to GitHub --------------------------------------------------------
@@ -151,11 +153,12 @@ def status(site_root, install_root, token, refresh=False):
     """What the settings page and `--check-update` show, including a plain-language reason."""
     with _lock:
         now = time.time()
-        if (not refresh and _cache["payload"] and _cache["token"] == token
+        identity = hashlib.sha256(token.encode()).hexdigest()
+        if (not refresh and _cache["payload"] and _cache["identity"] == identity
                 and now - _cache["at"] < CACHE_SECONDS):
             return _cache["payload"]
         payload = _inspect(site_root, install_root, token)
-        _cache.update(at=now, payload=payload, token=token)
+        _cache.update(at=now, payload=payload, identity=identity)
         return payload
 
 
@@ -230,9 +233,7 @@ def _inspect(site_root, install_root, token):
 
     current = info.get("version", "")
     if not current:
-        payload.update(state="unknown", can_apply=True,
-                       reason="这个构建没有版本标记，无法比较版本；安装一次发行版即可对齐")
-        return payload
+        current = "0.0.0"
     if version_tuple(tag) <= version_tuple(current):
         payload.update(state="up-to-date", reason=f"已经是最新版本（{current}）")
         return payload
@@ -248,6 +249,9 @@ def _inspect(site_root, install_root, token):
     payload["model_asset"] = None
     if payload["needs_model"]:
         payload["model_asset"] = _model_asset(token, assets)
+        if not payload["model_asset"]:
+            payload.update(state="error", reason="本机缺少模型，发行版也没有可用模型包，暂不更新")
+            return payload
     payload.update(
         state="update-available",
         can_apply=True,
@@ -325,6 +329,9 @@ def _download(asset, target, token, label):
     target = Path(target)
     total = int(asset.get("size") or 0)
     digest = (asset.get("digest") or "").split(":")[-1] if asset.get("digest") else ""
+    if total <= 0 or not re.fullmatch(r"[a-fA-F0-9]{64}", digest):
+        _progress.update(state="failed", message=f"{label}缺少有效大小或 SHA-256，未安装")
+        return False
     _progress.update(state="downloading", label=label, bytes=0, total=total, message=f"正在下载{label}")
 
     for attempt in range(1, DOWNLOAD_ATTEMPTS + 1):
@@ -362,115 +369,39 @@ def _download(asset, target, token, label):
 #: the console code page turns Chinese into mojibake, a trap this project has already been caught
 #: by. Every path it needs arrives through update.json rather than the command line, for the same
 #: reason — non-ASCII arguments do not survive PowerShell's own parsing.
-HELPER = r"""# 和序图书馆 · 更新助手（由程序生成，可以删掉）
-$ErrorActionPreference = 'Continue'
-Start-Transcript -Path (Join-Path $PSScriptRoot 'update.log') -Append | Out-Null
-$spec = Get-Content -LiteralPath (Join-Path $PSScriptRoot 'update.json') -Raw -Encoding UTF8 | ConvertFrom-Json
-$install = $spec.install
-Write-Host ''
-Write-Host '和序图书馆 · 正在安装更新' -ForegroundColor Green
-
-# 1. 等程序退出：先请它关闭，十秒后还在就强制结束
-$program = Get-Process -Id $spec.pid -ErrorAction SilentlyContinue
-if ($program) {
-  Write-Host '等待程序退出…'
-  $null = $program.CloseMainWindow()
-  for ($i = 0; $i -lt 20; $i++) {
-    Start-Sleep -Milliseconds 500
-    if (-not (Get-Process -Id $spec.pid -ErrorAction SilentlyContinue)) { break }
-  }
-  if (Get-Process -Id $spec.pid -ErrorAction SilentlyContinue) { Stop-Process -Id $spec.pid -Force }
-}
-Start-Sleep -Milliseconds 400
-
-# 2. 解压到暂存目录，并确认真的解出了程序
-#
-#    The check is for the executable, not for the directory: Expand-Archive creates the directory
-#    and then reports success even when it extracts nothing at all, which is exactly what happened
-#    the first time this ran (the archive was a tar with a zip name). An empty staging directory
-#    followed by a mirror is how an install was emptied; the executable is the one thing whose
-#    absence must stop everything.
-$stage = Join-Path $PSScriptRoot 'stage'
-if (Test-Path -LiteralPath $stage) { Remove-Item -LiteralPath $stage -Recurse -Force }
-Write-Host '解开程序包…'
-try {
-  Expand-Archive -LiteralPath (Join-Path $PSScriptRoot $spec.programZip) -DestinationPath $stage -Force -ErrorAction Stop
-} catch {
-  Write-Host ('解压失败：' + $_.Exception.Message) -ForegroundColor Red
-  Write-Host '程序保持原样，没有改动任何文件。' -ForegroundColor Red
-  Read-Host '按回车关闭这个窗口'
-  exit 1
-}
-if (-not (Test-Path -LiteralPath (Join-Path $stage '和序图书馆.exe'))) {
-  Write-Host '解压出来的是空的，或者在包里的结构不对——不覆盖现有程序。' -ForegroundColor Red
-  Read-Host '按回车关闭这个窗口'
-  exit 1
-}
-
-# 3. 覆盖安装目录
-#
-#    模型先挪到一边再挪回来，而不是让 robocopy 的 /XD 去排除它：模型不在程序包里，而 /MIR 会
-#    删掉目标里多出来的东西，把 228 MB 的模型交给一个排除规则的语义去保护是不必要的赌博。
-#    同一个卷上改名是瞬时的。
-$models = Join-Path $install '_internal\models'
-$keep = Join-Path $PSScriptRoot 'models-keep'
-Write-Host '覆盖程序文件（模型先挪开，随后放回）…'
-if (Test-Path -LiteralPath $models) {
-  if (Test-Path -LiteralPath $keep) { Remove-Item -LiteralPath $keep -Recurse -Force }
-  Move-Item -LiteralPath $models -Destination $keep -Force
-}
-robocopy $stage $install /MIR /NFL /NDL /NJH /NJS /NP | Out-Null
-$copied = $LASTEXITCODE
-if ($copied -ge 8) {
-  Write-Host '覆盖文件失败。' -ForegroundColor Red
-  if (Test-Path -LiteralPath $keep) { Move-Item -LiteralPath $keep -Destination $models -Force }
-  Read-Host '按回车关闭这个窗口'
-  exit 1
-}
-if (Test-Path -LiteralPath $keep) {
-  $modelsParent = Join-Path $install '_internal'
-  if (-not (Test-Path -LiteralPath $modelsParent)) { New-Item -ItemType Directory -Path $modelsParent | Out-Null }
-  Move-Item -LiteralPath $keep -Destination $models -Force
-}
-
-# 4. 只有缺模型时才装模型包
-if ($spec.modelZip) {
-  Write-Host '安装语音识别模型（约 228 MB，只需一次）…'
-  Expand-Archive -LiteralPath (Join-Path $PSScriptRoot $spec.modelZip) -DestinationPath $install -Force
-  if (-not (Test-Path -LiteralPath (Join-Path $models 'sense-voice\model.int8.onnx'))) {
-    Write-Host '模型装完但文件不在预期位置，请手动检查。' -ForegroundColor Red
-  }
-}
-Remove-Item -LiteralPath $stage -Recurse -Force -ErrorAction SilentlyContinue
-
-# 5. 重新打开
-if (Test-Path -LiteralPath (Join-Path $install '和序图书馆.exe')) {
-  Write-Host '更新完成，正在重新打开程序…' -ForegroundColor Green
-  Start-Process -FilePath (Join-Path $install '和序图书馆.exe')
-} else {
-  Write-Host '安装目录里没有程序，没有重新打开——请手动检查。' -ForegroundColor Red
-}
-Stop-Transcript | Out-Null
-Write-Host '这个窗口可以关掉了。'
-Start-Sleep -Seconds 4
-exit 0
-"""
+HELPER = Path(__file__).with_name("update-helper.ps1").read_text(encoding="utf-8")
 
 
 def work_dir():
     """Where downloads and the helper live. Outside the program folder on purpose: the install
     directory may be anywhere, and none of this belongs in it."""
-    directory = Path(tempfile.gettempdir()) / WORK_DIR_NAME
+    directory = Path(tempfile.gettempdir()) / WORK_DIR_NAME / uuid.uuid4().hex
     directory.mkdir(parents=True, exist_ok=True)
     return directory
 
 
-def _write_helper(directory, install_root, program_zip, model_zip, pid):
+def _write_helper(directory, install_root, program_zip, model_zip, pid, restart_args=(), expected_version=""):
+    # Only supported non-secret switches can cross into the helper's on-disk spec.
+    arguments = []
+    port = 8090
+    for index, argument in enumerate(restart_args):
+        if argument in ("--no-browser", "--browser", "--window"):
+            arguments.append(argument)
+        elif argument == "--port" and index + 1 < len(restart_args):
+            value = str(restart_args[index + 1])
+            if value.isdigit() and 0 < int(value) < 65536:
+                port = int(value)
+                arguments.extend(("--port", str(port)))
     spec = {
         "install": str(install_root),
         "programZip": program_zip.name,
         "modelZip": model_zip.name if model_zip else "",
         "pid": int(pid),
+        "runId": uuid.uuid4().hex,
+        "restartArgs": arguments,
+        "restartPort": port,
+        "executable": Path(sys.executable).name if getattr(sys, "frozen", False) else "和序图书馆.exe",
+        "expectedVersion": expected_version,
     }
     (directory / SPEC_NAME).write_text(json.dumps(spec, ensure_ascii=False, indent=2), encoding="utf-8-sig")
     helper = directory / HELPER_NAME
@@ -478,19 +409,21 @@ def _write_helper(directory, install_root, program_zip, model_zip, pid):
     return helper
 
 
-def begin(site_root, install_root, token, pid, on_ready):
+def begin(site_root, install_root, token, pid, on_ready, restart_args=()):
     """Download in the background, then hand over to the helper. Returns (ok, message).
 
     Downloading here — inside the running program, with the page able to show progress — is what
     keeps the machine down for seconds instead of minutes: the helper only has to unpack and
     relaunch."""
     with _lock:
-        if _progress.get("state") in ("downloading", "retrying", "installing"):
+        if _progress.get("state") in BUSY_STATES:
             return False, "已经在下载更新了，请稍候。"
         _progress.clear()
         _progress.update(state="checking", message="正在检查更新…")
+        _finished.clear()
 
     if install_root is None:
+        _progress.update(state="idle", message="")
         return False, "这是源码运行（未打包），请用打包后的程序更新"
     payload = status(site_root, install_root, token, refresh=True)
     if not payload.get("can_apply"):
@@ -498,19 +431,19 @@ def begin(site_root, install_root, token, pid, on_ready):
         return False, payload.get("reason") or "当前状态无法更新"
 
     threading.Thread(
-        target=_apply, args=(payload, install_root, token, pid, on_ready), daemon=True
+        target=_apply, args=(payload, install_root, token, pid, on_ready, restart_args), daemon=True
     ).start()
     return True, "正在下载更新，页面会显示进度；下载完成后程序会自动关闭并重新打开。"
 
 
-def _apply(payload, install_root, token, pid, on_ready):
+def _apply(payload, install_root, token, pid, on_ready, restart_args=()):
     try:
-        _apply_inner(payload, install_root, token, pid, on_ready)
+        _apply_inner(payload, install_root, token, pid, on_ready, restart_args)
     finally:
         _finished.set()
 
 
-def _apply_inner(payload, install_root, token, pid, on_ready):
+def _apply_inner(payload, install_root, token, pid, on_ready, restart_args=()):
     directory = work_dir()
     program = payload["program_asset"]
     program_zip = directory / program["name"]
@@ -518,23 +451,44 @@ def _apply_inner(payload, install_root, token, pid, on_ready):
         if not _download(program, program_zip, token, "程序包"):
             _progress.update(state="failed", message="程序包下载失败，未做任何改动")
             return
+        # Validate before closing the working app, including archives with a misleading .zip name.
+        with zipfile.ZipFile(program_zip) as archive:
+            if archive.testzip() is not None:
+                raise ValueError("程序包 CRC 校验失败")
+            executable = Path(sys.executable).name if getattr(sys, "frozen", False) else "和序图书馆.exe"
+            if archive.getinfo(executable).file_size <= 0:
+                raise ValueError("程序包缺少可运行文件")
+            info = json.loads(archive.read("_internal/build-info.json"))
+            if info.get("version") != payload.get("latest", {}).get("version"):
+                raise ValueError("程序包版本与发行版不一致")
+            for entry in archive.namelist():
+                parts = entry.replace("\\", "/").split("/")
+                if entry.startswith(("/", "\\")) or ".." in parts or ":" in entry:
+                    raise ValueError("程序包包含不安全路径")
 
         model_zip = None
         if payload.get("needs_model") and payload.get("model_asset"):
             asset = payload["model_asset"]
             candidate = directory / asset["name"]
             if _download(asset, candidate, token, "语音识别模型"):
+                with zipfile.ZipFile(candidate) as archive:
+                    if archive.testzip() is not None:
+                        raise ValueError("模型包 CRC 校验失败")
+                    for name in ("model.int8.onnx", "tokens.txt"):
+                        if archive.getinfo("_internal/models/sense-voice/" + name).file_size <= 0:
+                            raise ValueError("模型包不完整")
                 model_zip = candidate
             else:
                 _progress.update(state="failed", message="模型包下载失败，未做任何改动")
                 return
 
         _progress.update(state="installing", message="下载完成，正在安装…")
-        helper = _write_helper(directory, install_root, program_zip, model_zip, pid)
+        helper = _write_helper(directory, install_root, program_zip, model_zip, pid,
+                               restart_args, payload.get("latest", {}).get("version", ""))
         subprocess.Popen(
             ["powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", str(helper)],
             cwd=str(directory),
-            creationflags=getattr(subprocess, "CREATE_NEW_CONSOLE", 0),
+            creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
             close_fds=True,
         )
         # The helper waits for this process to disappear before touching a single file.

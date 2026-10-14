@@ -362,6 +362,7 @@ function verify() {
     path.join(appDir, `${APP}.exe`),
     path.join(appDir, "_internal", "index.html"),
     path.join(appDir, "_internal", "build-info.json"),
+    path.join(appDir, "_internal", "update-helper.ps1"),
     path.join(appDir, "_internal", "public", "favicon.ico"),
     path.join(appDir, "_internal", "public", "settings.html"),
     path.join(appDir, "_internal", "public", "audio", "01_Saint_Barbara_Theme.mp3"),
@@ -416,8 +417,8 @@ const INSTRUCTIONS = `和序图书馆 · 本机版
   填写之后，为理解语义，转写文本与馆藏目录会发送给所配置的模型服务。
 
 更新
-  程序启动后会检查 GitHub 上有没有新版本，有就在设置页里一键更新：下载新版本 → 校验 →
-  覆盖 → 自动重新打开。程序包约 99 MB，语音识别模型不在更新里（原地保留），所以更新很快。
+  程序启动后及运行中每 5 分钟会检查 GitHub 新版，发现后自动下载 → 校验 → 安装 → 重新打开，
+  无需点击设置页的更新按钮。已有语音模型原地保留，更新成功后清理旧程序副本与下载包。
   仓库是私有的，因此这台机器需要一个只读的 GitHub 令牌：在设置页「更新」那一栏粘贴即可，
   也可以放在环境变量 GITHUB_TOKEN 里。没有令牌时设置页会明确提示，不会给出看不懂的错误。
   命令行另有：和序图书馆.exe --check-update

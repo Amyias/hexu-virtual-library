@@ -595,7 +595,7 @@ class Handler(SimpleHTTPRequestHandler):
         # The download itself runs in a worker thread so this reply is immediate and the page can
         # poll /update/progress while 99 MB arrive.
         ok, message = updater.begin(ROOT, install_root(), update_token(), os.getpid(),
-                                    stop_everything)
+                                    stop_everything, restart_args=self.server.restart_args)
         self._send_json(200 if ok else 409, {"ok": ok, "message": message})
 
     def _read_json(self):
@@ -619,7 +619,7 @@ class Handler(SimpleHTTPRequestHandler):
             return
         pathname = self.path.split("?", 1)[0]
         if pathname == "/healthz":
-            self._send_json(200, {"app": "hexu-library", "asr_ready": model_state()[0],
+            self._send_json(200, {"app": "hexu-library", "pid": os.getpid(), "asr_ready": model_state()[0],
                                   "semantic_ready": llm_state()[0] is not None})
             return
         if pathname == "/asr/ready":
@@ -1021,6 +1021,8 @@ def window_mode(options):
     before. `--window` and `--browser` override either way."""
     if options["window"] is not None:
         return options["window"]
+    if not options["browser"]:
+        return False
     return frozen() and os.name == "nt"
 
 
@@ -1039,11 +1041,11 @@ def show_window(url):
     try:
         import window_host
     except Exception as error:
-        note(f"内嵌窗口不可用（{type(error).__name__}: {error}）")
+        print(f"内嵌窗口不可用（{type(error).__name__}: {error}）", flush=True)
         return False
     ready, reason = window_host.available()
     if not ready:
-        note(f"内嵌窗口不可用：{reason}")
+        print(f"内嵌窗口不可用：{reason}", flush=True)
         return False
     return window_host.run(url, icon=window_icon())
 
@@ -1115,6 +1117,23 @@ def update_check():
     return 2
 
 
+def automatic_updates(interval=300, restart_args=()):
+    """Check at startup and every five minutes; a complete release installs without a UI click."""
+    if install_root() is None or _stop.wait(1.5):
+        return
+    while not _stop.is_set():
+        if not updater.busy():
+            try:
+                info = updater.status(ROOT, install_root(), update_token(), refresh=True)
+                if info.get("can_apply"):
+                    updater.begin(ROOT, install_root(), update_token(), os.getpid(), stop_everything,
+                                  restart_args=restart_args)
+            except Exception:
+                pass  # Network errors remain visible in /update/status and retry next cycle.
+        if _stop.wait(interval):
+            return
+
+
 def main():
     attach_console()
     options = parse_argv(sys.argv[1:])
@@ -1126,7 +1145,7 @@ def main():
 
     existing = running_instance(HOST, options["port"])
     if existing:
-        note(f"和序图书馆已经在运行：{existing}")
+        print(f"和序图书馆已经在运行：{existing}", flush=True)
         if window_mode(options) and show_window(existing):
             return 0
         if options["browser"]:
@@ -1143,7 +1162,7 @@ def main():
         server = Server((HOST, 0), partial(Handler, directory=str(ROOT)))
 
     address = f"http://{local_host(HOST)}:{server.server_address[1]}/"
-    note(f"和序图书馆 · {address}")
+    print(f"和序图书馆 · {address}", flush=True)
     print(f"  站点根目录 {ROOT}", flush=True)
     ready, info = model_state()
     print(f"  识别模型   {MODEL_DIR}", flush=True)
@@ -1156,19 +1175,22 @@ def main():
     # where WinForms needs its message loop.
     threading.Thread(target=server.serve_forever, daemon=True).start()
     threading.Thread(target=warm_model, daemon=True).start()
-    # One check shortly after startup, off the critical path: the page asks for the answer when
-    # it loads, and a cached answer is what keeps that a fast request.
-    threading.Thread(
-        target=lambda: (time.sleep(1.5), updater.status(ROOT, install_root(), update_token())),
-        daemon=True
-    ).start()
+    restart_args = ("--port", str(server.server_address[1]))
+    if not options["browser"]:
+        restart_args += ("--no-browser",)
+    if options["window"] is True:
+        restart_args += ("--window",)
+    elif options["browser"] and not window_mode(options):
+        restart_args += ("--browser",)
+    server.restart_args = restart_args
+    threading.Thread(target=automatic_updates, args=(300, restart_args), daemon=True).start()
 
     if window_mode(options):
         if show_window(address):
             server.shutdown()
             server.server_close()
             return 0
-        note("无法显示程序窗口，已改用浏览器打开。")
+        print("无法显示程序窗口，已改用浏览器打开。", flush=True)
         if options["browser"]:
             webbrowser.open(address)
     elif options["browser"]:

@@ -28,6 +28,7 @@ MODEL_DIR = Path(
 # out on purpose — every one of those textures is already embedded in hexu-library.glb, and the
 # loose copies only feed Blender.
 datas = [(str(STAGE), ".")]
+datas.append((str(HERE / "update-helper.ps1"), "."))
 # Only what the recogniser opens at runtime; test_wavs and the export script stay behind.
 for name in ("model.int8.onnx", "tokens.txt", "LICENSE"):
     source = MODEL_DIR / name
