@@ -6,7 +6,7 @@
 
 完成一个「改动」后直接提交并推送，**不需要额外征求确认**。一个「改动」= 一件完成且已验证的逻辑变更，不是每次保存文件。
 
-1. 先验证：跑 `npm test`；涉及界面、场景或交互的改动，另外在浏览器里回归完整链路（加载场景 → 找书 → 翻开封面 → 查看芯片 → 放回书架 → 回到待命）。
+1. 先验证：跑 `npm test`；涉及界面、场景或交互的改动，另外跑 `npm run test:ui`（无头浏览器回归完整链路：加载场景 → 找书 → 翻开封面 → 查看芯片 → 放回书架 → 回到待命）。
 2. 提交：Conventional Commits 前缀（`feat` / `fix` / `docs` / `refactor` / `chore` / `test`）+ 中文描述，写清**为什么**改。一次提交只做一件事。提交信息用 `git commit -F -` 配合 heredoc 传入。
 3. 推送：`git push origin master`。`origin` 即 GitHub 仓库 `Amyias/hexu-virtual-library`，它是唯一的权威仓库；旧 Gitee 仓库已停止同步，不再推送。
 
