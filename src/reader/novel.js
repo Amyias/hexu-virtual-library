@@ -1,5 +1,5 @@
 /** Real text pagination measured in the current viewport; progress uses a character offset. */
-export function createNovelReader({ notice }) {
+export function createNovelReader({ notice, onShow = () => {}, onHide = () => {} }) {
   const section = document.createElement('section');
   section.id = 'novelReader'; section.hidden = true; section.setAttribute('aria-label', '小说正文阅读');
   section.innerHTML = `<div class="novel-shell"><header class="novel-toolbar"><div><strong id="novelTitle"></strong><small id="novelAuthor"></small></div><div><button id="fontDown" aria-label="缩小字号">A−</button><button id="fontUp" aria-label="放大字号">A＋</button><button id="closeNovel">返回 3D 书本</button></div></header><div class="novel-layout"><aside><strong>章节目录</strong><select id="novelToc" size="14" aria-label="章节目录"></select><a id="novelSource" target="_blank" rel="noopener noreferrer">正文来源</a><small id="novelLicense"></small></aside><div class="novel-paper"><h2 id="novelChapter"></h2><article id="novelText" tabindex="0" aria-label="当前页正文"></article><footer><button id="previousPage">← 上一页</button><span id="novelProgress" aria-live="polite"></span><button id="nextPage">下一页 →</button></footer></div></div></div>`;
@@ -52,10 +52,12 @@ export function createNovelReader({ notice }) {
   }
   function show() {
     if (!documentBook) { notice('这本书还没有本地正文，请先在正文书库检索并下载'); return; }
-    section.hidden = false; document.body.classList.add('novel-reading'); render();
+    section.hidden = false; document.body.classList.add('novel-reading');
+    onShow(section.querySelector('.novel-shell'));
+    render();
     $('novelText').focus({ preventScroll: true });
   }
-  function hide() { if (!section.hidden) persist(); section.hidden = true; document.body.classList.remove('novel-reading'); }
+  function hide() { if (!section.hidden) persist(); section.hidden = true; document.body.classList.remove('novel-reading'); onHide(); }
   async function attach(book) {
     hide(); documentBook = null; openedCover = false; previousOffsets.clear();
     const current = ++generation;

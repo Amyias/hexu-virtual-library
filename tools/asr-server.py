@@ -128,6 +128,7 @@ MIME = {
     ".jpeg": "image/jpeg",
     ".svg": "image/svg+xml",
     ".ico": "image/x-icon",
+    ".mp3": "audio/mpeg",
 }
 
 _recognizer = None
@@ -657,6 +658,46 @@ class Handler(SimpleHTTPRequestHandler):
             return
         self._serve_static(target)
 
+    def _send_audio(self, target):
+        """Single byte ranges let the browser seek without downloading the whole MP3 again."""
+        size = target.stat().st_size
+        start, end = 0, size - 1
+        byte_range = None if self.headers.get("If-Range") else self.headers.get("Range")
+        if byte_range:
+            match = re.fullmatch(r"bytes=(\d*)-(\d*)", byte_range)
+            valid = bool(match and (match[1] or match[2]))
+            if valid:
+                start = int(match[1]) if match[1] else max(0, size - int(match[2]))
+                end = min(int(match[2]), end) if match[1] and match[2] else end
+                valid = start < size and start <= end and bool(match[1] or int(match[2]) > 0)
+            if not valid:
+                self.send_response(416)
+                self.send_header("Content-Range", f"bytes */{size}")
+                self.send_header("Content-Length", "0")
+                self.end_headers()
+                return
+        self.send_response(206 if byte_range else 200)
+        self.send_header("Content-Type", "audio/mpeg")
+        self.send_header("Content-Length", str(end - start + 1))
+        self.send_header("Accept-Ranges", "bytes")
+        self.send_header("Cache-Control", "no-cache")
+        self.send_header("X-Content-Type-Options", "nosniff")
+        if byte_range:
+            self.send_header("Content-Range", f"bytes {start}-{end}/{size}")
+        self.end_headers()
+        try:
+            with target.open("rb") as source:
+                source.seek(start)
+                remaining = end - start + 1
+                while remaining > 0:
+                    chunk = source.read(min(65536, remaining))
+                    if not chunk:
+                        break
+                    self.wfile.write(chunk)
+                    remaining -= len(chunk)
+        except (BrokenPipeError, ConnectionResetError):
+            pass  # Switching tracks cancels the previous browser request.
+
     def _send_file(self, target):
         """Serve a file, revalidating instead of re-sending.
 
@@ -664,6 +705,9 @@ class Handler(SimpleHTTPRequestHandler):
         transfer it again: an ETag lets the browser revalidate and take a 304. A pre-compressed
         sibling is used when the client accepts gzip — the deploy step writes those, which keeps
         this process read-only."""
+        if target.suffix == ".mp3":
+            self._send_audio(target)
+            return
         stat = target.stat()
         etag = '"%d-%d"' % (stat.st_size, int(stat.st_mtime))
         if self.headers.get("If-None-Match") == etag:

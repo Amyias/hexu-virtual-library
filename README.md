@@ -48,6 +48,8 @@ npm start
 
 书库默认保存在 `%APPDATA%\hexu-library\books`，包含 SQLite 与 UTF-8 正文，程序更新不会覆盖。内置中文维基文库，并提供你指定的源仓库入口；导入支持静态 CSS 子集，不执行书源里的 JavaScript。运行方式、书源格式、支持范围与备份方法见 [正文书库使用说明](docs/BOOK_LIBRARY.md)。旧发行版程序须重新打包后才能使用这项功能。
 
+**阅读音乐**：翻开 3D 封面或进入本地正文时，迷你播放器自动播放提供的《Saint Barbara Theme》《The Trek》，两首按顺序循环；支持暂停/继续、上一首/下一首、进度拖动和音量记忆。返回 3D 书本或查看芯片时保持播放，放回书架时立即停止并归零。若浏览器阻止自动播放，点击播放器的 ▶ 即可。音频位于 `public/audio/`，本机打包也会携带，无需访问 Steam 目录；旧 EXE 需重新打包才会包含此功能。
+
 ## 文件结构
 
 | 路径 | 职责 |
@@ -58,6 +60,8 @@ npm start
 | `index.html` | 页面结构、import map、本地依赖入口 |
 | `src/main.js` | 启动与资源加载错误提示 |
 | `src/app.js` | 唤醒、导航、阅读、芯片特写、归还的状态与动画编排 |
+| `src/reader/music.js` | 阅读音乐、循环切歌、暂停、进度及音量；放回书籍时停止 |
+| `public/audio/` | 用户提供的两首 MP3，随站点和本机程序携带 |
 | `src/data/catalog.js` | 馆藏入口：以 JSON 模块导入 `book-inventory.json`，展开成 11360 本书（含 12 本示例书） |
 | `src/data/inventory.js` | 紧凑清单的展开规则：编号、位置码、检索关键词、芯片载荷都由行号与坐标推出 |
 | `src/voice/intent.js` | 唤醒词与馆藏匹配 |

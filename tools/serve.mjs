@@ -42,6 +42,7 @@ const mime = {
   ".json": "application/json; charset=utf-8",
   ".glb": "model/gltf-binary",
   ".png": "image/png",
+  ".mp3": "audio/mpeg",
 };
 const server = http.createServer(async (req, res) => {
   try {
@@ -74,6 +75,27 @@ const server = http.createServer(async (req, res) => {
       if (error || !stat.isFile()) {
         res.writeHead(404);
         res.end("Not found");
+        return;
+      }
+      if (path.extname(target) === '.mp3') {
+        let start = 0, end = stat.size - 1;
+        const range = req.headers['if-range'] ? null : req.headers.range;
+        if (range) {
+          const match = /^bytes=(\d*)-(\d*)$/.exec(range);
+          let valid = !!match && !!(match[1] || match[2]);
+          if (valid) {
+            start = match[1] ? Number(match[1]) : Math.max(0, stat.size - Number(match[2]));
+            end = match[1] && match[2] ? Math.min(Number(match[2]), end) : end;
+            valid = Number.isSafeInteger(start) && Number.isSafeInteger(end) && start < stat.size && start <= end && (match[1] || Number(match[2]) > 0);
+          }
+          if (!valid) { res.writeHead(416, { 'Content-Range': `bytes */${stat.size}`, 'Content-Length': 0 }); res.end(); return; }
+        }
+        const headers = { 'Content-Type': 'audio/mpeg', 'Content-Length': end - start + 1, 'Accept-Ranges': 'bytes', 'Cache-Control': 'no-cache', 'X-Content-Type-Options': 'nosniff' };
+        if (range) headers['Content-Range'] = `bytes ${start}-${end}/${stat.size}`;
+        res.writeHead(range ? 206 : 200, headers);
+        if (req.method === 'HEAD') { res.end(); return; }
+        const stream = fs.createReadStream(target, { start, end });
+        stream.on('error', () => res.destroy()); res.on('close', () => stream.destroy()); stream.pipe(res);
         return;
       }
       res.writeHead(200, {

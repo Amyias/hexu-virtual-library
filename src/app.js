@@ -9,6 +9,7 @@ import { createOrb } from "./scene/orb.js";
 import { createBookFactory } from "./reader/book.js";
 import { createLocalLibrary } from "./reader/library.js";
 import { createNovelReader } from "./reader/novel.js";
+import { createReadingMusic } from "./reader/music.js";
 const gsap = window.gsap;
 export async function startLibrary() {
   if (!gsap) throw new Error("GSAP 动画依赖未能加载");
@@ -219,7 +220,11 @@ export async function startLibrary() {
     lookupBook: text => localLibrary?.find(text) || findBook(text),
   });
   const factory = createBookFactory(renderer, environment.bookTemplate);
-  novelReader = createNovelReader({ notice });
+  const readingMusic = createReadingMusic();
+  novelReader = createNovelReader({ notice,
+    onShow: host => { readingMusic.mount(host); readingMusic.start(); },
+    onHide: () => readingMusic.mount(),
+  });
   localLibrary = createLocalLibrary({ books, notice, onSelect(book) {
     if (phase === 'IDLE') present(book, '正文已在本地书库，正在为您定位。');
     else if (phase === 'READING' && selected?.localBookId === book.localBookId) novelReader.show();
@@ -400,6 +405,7 @@ export async function startLibrary() {
     turn = THREE.MathUtils.clamp(value, 0, 1);
     if (!hinge) return;
     hinge.rotation.y = -Math.PI * turn;
+    if (phase === 'READING' && turn > 0.85) readingMusic.start();
     novelReader.cover(turn > 0.85);
     readerPosition();
     $("openBook").textContent = turn > 0.5 ? "合上封面" : "翻开书页";
@@ -424,6 +430,7 @@ export async function startLibrary() {
   }
   async function returnBook() {
     if (phase !== "READING") return;
+    readingMusic.stop();
     novelReader.clear();
     closeChip();
     phase = "RETURNING";
@@ -655,6 +662,7 @@ export async function startLibrary() {
       staticBooks: environment.staticBooks,
       localLibrary: localLibrary.getState(),
       novel: novelReader.getState(),
+      music: readingMusic.getState(),
     }),
     processText,
     get books() { return books.map(({ mesh, origin, ...b }) => b); },
