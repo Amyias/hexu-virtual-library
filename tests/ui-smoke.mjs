@@ -215,9 +215,17 @@ try {
   }
 } finally {
   page?.close();
-  browser.kill();
   site.kill();
-  await sleep(500); // let the browser release its profile before it is removed
-  fs.rmSync(profile, { recursive: true, force: true, maxRetries: 5, retryDelay: 200 });
+  // Chrome's helper processes keep files in the profile open for a moment after the main one is
+  // killed, so wait for it to exit and then retry. A profile that still cannot be removed is a
+  // leftover in the temp directory, not a failed test.
+  const exited = new Promise((resolve) => browser.once("exit", resolve));
+  browser.kill();
+  await Promise.race([exited, sleep(5000)]);
+  try {
+    fs.rmSync(profile, { recursive: true, force: true, maxRetries: 20, retryDelay: 250 });
+  } catch {
+    console.warn(`（临时浏览器配置未能删除，可手动清理：${profile}）`);
+  }
 }
 process.exit(failed ? 1 : 0);
