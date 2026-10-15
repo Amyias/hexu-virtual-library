@@ -14,6 +14,8 @@
 
 ### 2. 提交
 
+提交前跑 `npm run format`。格式由 Prettier 决定（`.prettierrc.json`：双引号、行宽 100），范围是 `src` 下的 JS/CSS 与 `tests`、`tools`、`docs` 下的脚本；vendor、生成的清单与 Blender 的 Python 不在内。只改格式的提交单独提交，并把哈希追加到 `.git-blame-ignore-revs`；本机执行一次 `git config blame.ignoreRevsFile .git-blame-ignore-revs`，`git blame` 就会跳过它们。
+
 使用 Conventional Commits 前缀 + 中文描述：
 
 | 前缀 | 用途 |
@@ -181,6 +183,8 @@ Windows PowerShell 5.1 用**控制台代码页**（本机是 GBK）解码两样�
 ```powershell
 npm start                      # 本地服务，http://localhost:8080
 npm test                       # 回归测试
+npm run format                 # 统一 JS/CSS 格式（Prettier，经 npx 运行，不需要 npm install）
+npm run format:check           # 只检查，不改文件
 
 # 本机版：打包成双击可运行的程序（自带识别模型），产物在 dist/和序图书馆/
 node tools/package-local.mjs           # 或 npm run package:local

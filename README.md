@@ -56,6 +56,7 @@ npm start
 | --- | --- |
 | `DEVELOPMENT.md` | 开发与提交约定、远端仓库与凭据位置，动手前先读 |
 | `AGENTS.md` | 约定要点，供自动化代理读取 |
+| `.prettierrc.json`、`.git-blame-ignore-revs` | 代码格式规则（`npm run format`）；纯格式化提交的清单，供 `git blame` 跳过 |
 | `DEPLOY.md` | 服务器部署与服务端语音识别 |
 | `index.html` | 页面结构、import map、本地依赖入口 |
 | `src/main.js` | 启动与资源加载错误提示 |
