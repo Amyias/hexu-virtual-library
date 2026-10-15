@@ -185,6 +185,25 @@ try {
   if (!loaded.modelLoaded || loaded.interactiveBooks < 10000)
     throw new Error(`场景不完整：${JSON.stringify(loaded)}`);
   step("加载场景", `${loaded.interactiveBooks} 本书`);
+  if (
+    !loaded.companion?.loaded ||
+    loaded.companion.source !== "blender" ||
+    loaded.companion.legs !== 4 ||
+    loaded.companion.eyes !== 2
+  )
+    throw new Error("Blender 小和宠物未完整加载");
+  const home = loaded.orb;
+  await page.evaluate("window.libraryDebug.processText('小和')");
+  const wakeState = await state();
+  const protocol = JSON.parse(await text("protocol"));
+  if (
+    wakeState.phase !== "IDLE" ||
+    JSON.stringify(wakeState.orb) !== JSON.stringify(home) ||
+    protocol.speech !== "有什么需求吗？" ||
+    !protocol.is_wake_only
+  )
+    throw new Error("仅唤醒时宠物错误位移或响应不符");
+  step("宠物加载与仅唤醒", "四条腿、两只眼睛；锚点保持前台");
 
   if ((await search("HX-09881")) !== "NAVIGATE_TO_BOOK") throw new Error("按编号找书没有发出导航");
   await waitFor(phaseIs("READING"), "取书并进入阅读");

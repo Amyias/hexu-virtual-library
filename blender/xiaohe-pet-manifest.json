@@ -1,0 +1,20 @@
+{
+  "meshes": 9,
+  "triangles": 396,
+  "nodes": 16,
+  "width_m": 0.78,
+  "height_m": 0.526046511627907,
+  "depth_m": 0.26,
+  "color": "#D87656",
+  "eyes": 2,
+  "arms": 2,
+  "legs": 4,
+  "protected_assets": {
+    "blender/hexu-library.blend": "6f26bdf9af1b271ffd82eaf193dc819f8624dcbb53616af032b764439b712c88",
+    "public/models/hexu-library.glb": "8be424e3b22f8d6c1ae6ff38bf05d7487bf04dceb16c0d97e7dde2fc77eacd97",
+    "public/models/smart-book.glb": "383499ddf6ec08c9f8a77aa260916db824339cd4a0c0621593f15da18e10a218",
+    "public/models/shelf-book.glb": "4b21e097fa19b5b463f00d68a9f0dd3661a8364f5c46e37f58531bf42b631c10",
+    "public/models/book-inventory.json": "3515b1e5ac33d11d1abe294b316bd77f0e871ef689a535331e5a82f872ad616c"
+  },
+  "glb_bytes": 36072
+}

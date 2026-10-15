@@ -4,7 +4,7 @@ import { probeUnderstand } from "./voice/understand.js";
 import { createSpeech } from "./voice/speech.js";
 import { createRuntime } from "./scene/runtime.js";
 import { loadEnvironment } from "./scene/environment.js";
-import { createOrb } from "./scene/orb.js";
+import { createCompanion } from "./scene/companion.js";
 import { createBookFactory } from "./reader/book.js";
 import { createLocalLibrary } from "./reader/library.js";
 import { createNovelReader } from "./reader/novel.js";
@@ -30,7 +30,7 @@ export async function startLibrary() {
   const machine = createPhaseMachine();
   const attention = createAttention();
   const feedback = createFeedback($);
-  const pulse = { value: 0 }; // the orb's wake ripple, 1 → 0
+  const pulse = { value: 0 }; // the companion wake gesture, 1 → 0
   let understandReady = false;
   let library = null;
 
@@ -44,7 +44,8 @@ export async function startLibrary() {
       ($("loading").querySelector("p").textContent = "正在加载 Blender 模型 " + percent + "%"),
   );
   const factory = createBookFactory(renderer, environment.bookTemplate);
-  const { orb, coreMaterial, core, glow, rings } = createOrb(scene, home);
+  const companion = await createCompanion(scene, home);
+  const orb = companion.root; // Navigation keeps its existing anchor contract.
 
   const readingMusic = createReadingMusic();
   const novelReader = createNovelReader({
@@ -160,20 +161,7 @@ export async function startLibrary() {
   function frame() {
     requestAnimationFrame(frame);
     const time = clock.getElapsedTime();
-    const boost = pulse.value;
-    coreMaterial.uniforms.time.value = time;
-    coreMaterial.uniforms.boost.value = boost;
-    core.position.y = Math.sin(time * 1.8) * 0.045;
-    core.scale.setScalar(
-      1 + Math.sin(time * 2) * 0.045 + boost * (0.4 + Math.sin(time * 12) * 0.1),
-    );
-    glow.scale.setScalar(1.25 + boost * 0.7);
-    rings.forEach((ring, i) => {
-      ring.rotation.y = time * (0.35 + i * 0.13);
-      ring.rotation.z = time * 0.2 + i;
-      ring.scale.setScalar(1 + boost * ((time * 1.5 + i * 0.3) % 1) * 2);
-      ring.material.opacity = 0.45 + boost * 0.3;
-    });
+    companion.update({ time, pulse: pulse.value, phase: machine.phase, camera });
     projected.copy(orb.position).add(bubbleAnchor).project(camera);
     $("bubble").style.left = (projected.x * 0.5 + 0.5) * innerWidth + "px";
     $("bubble").style.top = (-projected.y * 0.5 + 0.5) * innerHeight + "px";
@@ -198,6 +186,7 @@ export async function startLibrary() {
       modelMeshes: environment.meshes,
       book: journey.selected?.title,
       orb: orb.position.toArray(),
+      companion: companion.getState(),
       shelves: 5,
       interactiveBooks: books.length,
       staticBooks: environment.staticBooks,

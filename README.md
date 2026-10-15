@@ -79,7 +79,7 @@ npm start
 | `src/scene/runtime.js` | 相机、光照、阴影、环境反射 |
 | `src/scene/environment.js` | 加载 Blender GLB、悬浮分类标识、书架实例化入口 |
 | `src/scene/smart-books.js` | 架上 11360 本书的书脊实例化：逐实例着色与三向缩放 |
-| `src/scene/orb.js` | 小和流光 Shader、呼吸与唤醒波纹 |
+| `src/scene/companion.js` | Blender 像素宠物加载、呼吸眨眼、抬手唤醒与带路动画 |
 | `src/reader/book.js` | 绕书脊铰链开合、封面与中文简介纹理、芯片特写模型 |
 | `src/reader/library.js` | 正文书库面板、在线检索与下载、TXT/EPUB 和书源导入、书架位置绑定 |
 | `src/reader/novel.js` | 正文测量分页、章节目录、字号与阅读进度恢复 |
@@ -147,7 +147,7 @@ npm start
 
 植物已升级为 6 盆鹤望兰形态盆栽与 26 丛黄杨形态灌木，包含 54 片曲面大叶及 14,144 片对生小叶。盆栽有叶脉纹理、弯曲叶柄、陶盆内壁、卷边与土壤颗粒；灌木通过分枝与叶片形成自然冠形。近景见 `blender/plant-detail.png` 和 `blender/hedge-detail.png`，图像由 Blender 实际渲染。
 
-建模内容包括倒角木制层板、书架实体背板、框架立柱、黄铜层板包边、编号铭牌、弧角石台面、木条前台、软包座椅、台灯、植物叶片、窗框及悬吊灯具。木纹使用真实 UV 贴图并内嵌导出。动态阅读用书与能量光球仍由 Three.js 驱动，以支持拖动与实时文字。
+建模内容包括倒角木制层板、书架实体背板、框架立柱、黄铜层板包边、编号铭牌、弧角石台面、木条前台、软包座椅、台灯、植物叶片、窗框及悬吊灯具。木纹使用真实 UV 贴图并内嵌导出。动态阅读用书与 Blender 小和宠物由 Three.js 驱动，以支持拖动、实时文字和角色动画。
 
 ## 馆藏芯片与智能书
 
@@ -216,3 +216,11 @@ python -m unittest discover -s tests -p test_source_rules.py
 ```
 
 桌面打包会自动安装并收集这些依赖。依赖文档：[QuickJS Python binding](https://pypi.org/project/quickjs-ng/)、[lxml XPath](https://lxml.de/xpathxslt.html)、[JSONPath-NG](https://pypi.org/project/jsonpath-ng/)。兼容语法参考 [Legado 解析器源码](https://github.com/LegadoTeam/legado/tree/master/app/src/main/java/io/legado/app/model/analyzeRule)，未复制该项目的实现代码。
+
+## 小和的橙色像素宠物形态
+
+小和已由光球改为按用户参考图制作的立体像素宠物：陶土橙方块身体、两只黑色方眼、两侧短手臂与四条短腿。模型在 Blender 5.2 中生成，独立的 [可编辑 Blender 文件](blender/xiaohe-pet.blend) 与 [四分之三视角渲染](blender/xiaohe-pet-three-quarter.png) 随源码保存；网页读取 `public/models/xiaohe-pet.glb`，没有用平面图片代替 3D 模型。
+
+角色为 9 个网格、16 个节点、396 个三角面，GLB 约 35.2 KiB。待机悬浮、呼吸与眨眼，唤醒时抬手并放大、出现橙色波纹，找书与归还时摆腿飞行。原有语音与找书、封面、芯片、正文阅读流程继续使用。前台锚点与所有馆藏坐标未改。
+
+生成模块 `blender/xiaohe_pet.py`、构建脚本 `blender/build_xiaohe_pet.py`、网页适配 `src/scene/companion.js`；形态量取、来源、独立重建与不变量验证见 [小和模型说明](blender/XIAOHE_PET_REFERENCES.md)。打包配置已携带新 GLB，旧桌面 EXE 要重新打包才能显示新形态。
