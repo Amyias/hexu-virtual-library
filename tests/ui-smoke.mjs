@@ -61,11 +61,17 @@ async function waitFor(check, what, timeout = STEP_TIMEOUT) {
 /** A minimal DevTools client: one page, Runtime.evaluate, and the page's own errors. */
 async function connect(debugPort) {
   let targets;
-  await waitFor(async () => {
-    targets = await (await fetch(`http://127.0.0.1:${debugPort}/json`)).json();
-    return targets.some((target) => target.type === "page");
-  }, "浏览器调试端口", 20_000);
-  const socket = new WebSocket(targets.find((target) => target.type === "page").webSocketDebuggerUrl);
+  await waitFor(
+    async () => {
+      targets = await (await fetch(`http://127.0.0.1:${debugPort}/json`)).json();
+      return targets.some((target) => target.type === "page");
+    },
+    "浏览器调试端口",
+    20_000,
+  );
+  const socket = new WebSocket(
+    targets.find((target) => target.type === "page").webSocketDebuggerUrl,
+  );
   await new Promise((resolve, reject) => {
     socket.onopen = resolve;
     socket.onerror = reject;
@@ -92,7 +98,11 @@ async function connect(debugPort) {
       socket.send(JSON.stringify({ id: n, method, params }));
     });
   const evaluate = async (expression) => {
-    const reply = await send("Runtime.evaluate", { expression, awaitPromise: true, returnByValue: true });
+    const reply = await send("Runtime.evaluate", {
+      expression,
+      awaitPromise: true,
+      returnByValue: true,
+    });
     if (reply.result?.exceptionDetails) throw new Error(reply.result.exceptionDetails.text);
     return reply.result?.result?.value;
   };
@@ -138,10 +148,16 @@ let page;
 let failed = false;
 const started = Date.now();
 const step = (name, detail = "") =>
-  console.log(`✔ ${name}${detail ? "  " + detail : ""}  (${Math.round((Date.now() - started) / 1000)} s)`);
+  console.log(
+    `✔ ${name}${detail ? "  " + detail : ""}  (${Math.round((Date.now() - started) / 1000)} s)`,
+  );
 
 try {
-  await waitFor(async () => (await fetch(`http://127.0.0.1:${sitePort}/`)).ok, "静态服务启动", 20_000);
+  await waitFor(
+    async () => (await fetch(`http://127.0.0.1:${sitePort}/`)).ok,
+    "静态服务启动",
+    20_000,
+  );
   page = await connect(debugPort);
   const state = () => page.evaluate("window.libraryDebug && window.libraryDebug.getState()");
   const phaseIs = (phase) => async () => (await state())?.phase === phase;
@@ -157,14 +173,17 @@ try {
 
   await page.send("Page.navigate", { url: `http://127.0.0.1:${sitePort}/` });
   await waitFor(
-    async () => (await page.evaluate("getComputedStyle(document.getElementById('loading')).display")) === "none" && (await state()),
+    async () =>
+      (await page.evaluate("getComputedStyle(document.getElementById('loading')).display")) ===
+        "none" && (await state()),
     "场景加载",
   );
   // Test-only: at software-rendered frame rates GSAP would otherwise stretch every tween, a
   // three-second walk becoming many minutes. With lag smoothing off, animations keep wall time.
   await page.evaluate("gsap.ticker.lagSmoothing(0)");
   const loaded = await state();
-  if (!loaded.modelLoaded || loaded.interactiveBooks < 10000) throw new Error(`场景不完整：${JSON.stringify(loaded)}`);
+  if (!loaded.modelLoaded || loaded.interactiveBooks < 10000)
+    throw new Error(`场景不完整：${JSON.stringify(loaded)}`);
   step("加载场景", `${loaded.interactiveBooks} 本书`);
 
   if ((await search("HX-09881")) !== "NAVIGATE_TO_BOOK") throw new Error("按编号找书没有发出导航");
@@ -185,13 +204,18 @@ try {
   await click("returnBook");
   await waitFor(phaseIs("IDLE"), "放回书架并回到待命");
   const idle = await state();
-  if (idle.book || idle.music?.active) throw new Error(`回到待命后仍有残留：${JSON.stringify({ book: idle.book, music: idle.music })}`);
+  if (idle.book || idle.music?.active)
+    throw new Error(
+      `回到待命后仍有残留：${JSON.stringify({ book: idle.book, music: idle.music })}`,
+    );
   step("放回书架 → 回到待命", "音乐已停");
 
-  if ((await search("S5-B-L4-P284")) !== "NAVIGATE_TO_BOOK") throw new Error("按位置码找书没有发出导航");
+  if ((await search("S5-B-L4-P284")) !== "NAVIGATE_TO_BOOK")
+    throw new Error("按位置码找书没有发出导航");
   await waitFor(phaseIs("READING"), "再次取书");
   const second = await text("bookLocation");
-  if (!second.startsWith("HX-11360 /")) throw new Error(`位置码 S5-B-L4-P284 应是 HX-11360：${second}`);
+  if (!second.startsWith("HX-11360 /"))
+    throw new Error(`位置码 S5-B-L4-P284 应是 HX-11360：${second}`);
   step("按位置码再找一本", second);
   await click("returnBook");
   await waitFor(phaseIs("IDLE"), "第二本放回");

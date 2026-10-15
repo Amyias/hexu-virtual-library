@@ -22,21 +22,14 @@ export function createRuntime(canvas) {
   const scene = new THREE.Scene();
   scene.background = new THREE.Color("#e9ece3");
   scene.fog = new THREE.Fog("#e9ece3", 36, 70);
-  const camera = new THREE.PerspectiveCamera(
-    39,
-    innerWidth / innerHeight,
-    0.1,
-    100,
-  );
+  const camera = new THREE.PerspectiveCamera(39, innerWidth / innerHeight, 0.1, 100);
   const focus = new THREE.Vector3(0, 0, -1.2);
   const orbit = { angle: 0.44, elevation: 0.65, radius: 26 };
   function updateCamera() {
     camera.position.set(
-      focus.x +
-        Math.sin(orbit.angle) * Math.cos(orbit.elevation) * orbit.radius,
+      focus.x + Math.sin(orbit.angle) * Math.cos(orbit.elevation) * orbit.radius,
       focus.y + Math.sin(orbit.elevation) * orbit.radius,
-      focus.z +
-        Math.cos(orbit.angle) * Math.cos(orbit.elevation) * orbit.radius,
+      focus.z + Math.cos(orbit.angle) * Math.cos(orbit.elevation) * orbit.radius,
     );
     camera.lookAt(focus);
   }

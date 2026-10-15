@@ -1,6 +1,5 @@
 import { books } from "../data/catalog.js";
-export const normalize = (s) =>
-  s.toLowerCase().replace(/[\s，。！？、,.!?《》“”"：:]/g, "");
+export const normalize = (s) => s.toLowerCase().replace(/[\s，。！？、,.!?《》“”"：:]/g, "");
 /* 唤醒词别名。供 test() 使用，不能带 g 标志——带 g 的正则会被 lastIndex 状态污染。 */
 export const wakeRE = /小和|小何|肖和|小荷|小河|晓和|小禾|小鹤|xiao\s*he/i;
 /* 供 replace() 使用：一句话里唤醒词可能出现多次，不带 g 只会删掉第一处。 */

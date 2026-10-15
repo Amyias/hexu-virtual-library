@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
-import { createShelfBooks } from './smart-books.js';
+import { createShelfBooks } from "./smart-books.js";
 
 /** Blender is the sole source of the static environment; no primitive fallback. */
 export async function loadEnvironment(scene, books, progress) {
@@ -28,9 +28,7 @@ export async function loadEnvironment(scene, books, progress) {
     meshes++;
     object.castShadow = true;
     object.receiveShadow = true;
-    for (const material of Array.isArray(object.material)
-      ? object.material
-      : [object.material]) {
+    for (const material of Array.isArray(object.material) ? object.material : [object.material]) {
       material.envMapIntensity = 0.38;
     }
   });
@@ -38,19 +36,17 @@ export async function loadEnvironment(scene, books, progress) {
   // Two templates from the same Blender authoring frame: the hardcover with its chip pocket,
   // which the reader opens, and the thin spine-and-page-edge volume the shelves are stocked
   // with. Only the spine is visible on a shelved book, and a shelf holds ten thousand of them.
-  const model=await loader.loadAsync(new URL('../../public/models/smart-book.glb',import.meta.url).href);
-  const bookTemplate=model.scene;
-  const spines=await loader.loadAsync(new URL('../../public/models/shelf-book.glb',import.meta.url).href);
-  const shelfTemplate=spines.scene;
-  const shelfBooks=createShelfBooks(scene,shelfTemplate,books);
+  const model = await loader.loadAsync(
+    new URL("../../public/models/smart-book.glb", import.meta.url).href,
+  );
+  const bookTemplate = model.scene;
+  const spines = await loader.loadAsync(
+    new URL("../../public/models/shelf-book.glb", import.meta.url).href,
+  );
+  const shelfTemplate = spines.scene;
+  const shelfBooks = createShelfBooks(scene, shelfTemplate, books);
   // Floating labels remain readable at any camera angle; physical brass plates are in the GLB.
-  const names = [
-    "计算机 / AI",
-    "文学 / 历史",
-    "经济 / 管理",
-    "艺术 / 设计",
-    "科幻 / 未来",
-  ];
+  const names = ["计算机 / AI", "文学 / 历史", "经济 / 管理", "艺术 / 设计", "科幻 / 未来"];
   names.forEach((name, i) => {
     const canvas = document.createElement("canvas");
     canvas.width = 768;
@@ -72,9 +68,7 @@ export async function loadEnvironment(scene, books, progress) {
   });
   let staticBooks = 0;
   try {
-    const response = await fetch(
-      new URL("../../public/models/manifest.json", import.meta.url),
-    );
+    const response = await fetch(new URL("../../public/models/manifest.json", import.meta.url));
     if (response.ok) staticBooks = (await response.json()).static_books;
   } catch {
     /* Model remains usable if optional statistics are missing. */

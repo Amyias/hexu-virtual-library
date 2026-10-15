@@ -78,9 +78,7 @@ function run(command, args, options = {}) {
 function sizeOf(target) {
   const stat = fs.statSync(target);
   if (stat.isFile()) return stat.size;
-  return fs
-    .readdirSync(target)
-    .reduce((total, name) => total + sizeOf(path.join(target, name)), 0);
+  return fs.readdirSync(target).reduce((total, name) => total + sizeOf(path.join(target, name)), 0);
 }
 
 function megabytes(bytes) {
@@ -129,14 +127,28 @@ function ensurePython() {
   return venvPython;
 }
 
-const DEPENDENCIES = ["pyinstaller==6.22.3", "sherpa-onnx==1.13.8", "pywebview==6.2.1", "lxml==6.0.2", "cssselect==1.3.0", "jsonpath-ng==1.10.1", "quickjs-ng==0.17.0.1"];
+const DEPENDENCIES = [
+  "pyinstaller==6.22.3",
+  "sherpa-onnx==1.13.8",
+  "pywebview==6.2.1",
+  "lxml==6.0.2",
+  "cssselect==1.3.0",
+  "jsonpath-ng==1.10.1",
+  "quickjs-ng==0.17.0.1",
+];
 /* Listed separately because the sherpa-onnx wheel does not pull it in, yet transcribe() needs
    it — and without it the packaged program starts, reports itself ready, and then fails on the
    first utterance. The deployment installs it the same way. */
 const ALSO_REQUIRED = ["numpy"];
 
 function ensureDependencies(python) {
-  const installed = run(python, ["-m", "pip", "show", ...DEPENDENCIES.map((pin) => pin.split("==")[0]), ...ALSO_REQUIRED]);
+  const installed = run(python, [
+    "-m",
+    "pip",
+    "show",
+    ...DEPENDENCIES.map((pin) => pin.split("==")[0]),
+    ...ALSO_REQUIRED,
+  ]);
   if (installed.status === 0 && !installed.stdout.includes("WARNING")) {
     log("构建依赖已就绪，跳过安装。");
     return;
@@ -182,7 +194,8 @@ function restoreModelFromBranch() {
   const remotes = (run("git", ["-C", root, "remote"]).stdout || "").split(/\s+/).filter(Boolean);
   const ref = ["model", ...remotes.map((remote) => `${remote}/model`)].find(
     (candidate) =>
-      run("git", ["-C", root, "rev-parse", "--verify", "--quiet", `${candidate}^{commit}`]).status === 0,
+      run("git", ["-C", root, "rev-parse", "--verify", "--quiet", `${candidate}^{commit}`])
+        .status === 0,
   );
   if (!ref) return false;
   const read = (name, encoding) => {
@@ -202,7 +215,9 @@ function restoreModelFromBranch() {
     return false;
   }
 
-  log(`本地没有模型，从 model 分支取回（${manifest.parts.length} 块，共 ${megabytes(manifest.bytes)}）…`);
+  log(
+    `本地没有模型，从 model 分支取回（${manifest.parts.length} 块，共 ${megabytes(manifest.bytes)}）…`,
+  );
   const pieces = [];
   for (const part of manifest.parts) {
     const bytes = read(part.name, "buffer");
@@ -258,7 +273,9 @@ function checkModel() {
 function writeBuildInfo() {
   const version = JSON.parse(fs.readFileSync(path.join(root, "package.json"), "utf8")).version;
   const commit = (run("git", ["-C", root, "rev-parse", "HEAD"]).stdout || "").trim();
-  const branch = (run("git", ["-C", root, "rev-parse", "--abbrev-ref", "HEAD"]).stdout || "").trim();
+  const branch = (
+    run("git", ["-C", root, "rev-parse", "--abbrev-ref", "HEAD"]).stdout || ""
+  ).trim();
   const info = {
     app: APP,
     version,
@@ -267,7 +284,11 @@ function writeBuildInfo() {
     built_at: new Date().toISOString(),
     source_dir: root,
   };
-  fs.writeFileSync(path.join(stage, "build-info.json"), JSON.stringify(info, null, 2) + "\n", "utf8");
+  fs.writeFileSync(
+    path.join(stage, "build-info.json"),
+    JSON.stringify(info, null, 2) + "\n",
+    "utf8",
+  );
   log(`版本标记   ${(commit || "(无 git，未记录提交)").slice(0, 12)} · ${info.built_at}`);
 }
 
@@ -465,12 +486,16 @@ function desktopShortcut() {
   const specPath = path.join(cache, "shortcut.json");
   const reportPath = path.join(cache, "shortcut-report.json");
   fs.rmSync(reportPath, { force: true });
-  fs.writeFileSync(specPath, JSON.stringify({
-    name: APP,
-    target,
-    workingDirectory: appDir,
-    description: "和序图书馆 · 本机版（自带语音识别）",
-  }), "utf8");
+  fs.writeFileSync(
+    specPath,
+    JSON.stringify({
+      name: APP,
+      target,
+      workingDirectory: appDir,
+      description: "和序图书馆 · 本机版（自带语音识别）",
+    }),
+    "utf8",
+  );
 
   const script = `
 $ErrorActionPreference = 'Stop'
@@ -512,7 +537,9 @@ $report = [ordered]@{
     );
   }
   if (!report.exists || !report.matches || !fs.existsSync(report.link)) {
-    fail(`快捷方式写好了但对不上，请检查桌面：${report.link}\n期望指向 ${target}，实际 ${report.target}`);
+    fail(
+      `快捷方式写好了但对不上，请检查桌面：${report.link}\n期望指向 ${target}，实际 ${report.target}`,
+    );
   }
   log(`快捷方式  ${report.link}`);
   log(`          → ${report.target}`);

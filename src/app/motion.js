@@ -52,7 +52,10 @@ export function createMotion({ gsap, scene, camera, focus, home }) {
       new THREE.Vector3(target.x, target.y + 1, 1.9),
       target,
     ]);
-    route = new THREE.Line(new THREE.BufferGeometry().setFromPoints(curve.getPoints(80)), routeMaterial);
+    route = new THREE.Line(
+      new THREE.BufferGeometry().setFromPoints(curve.getPoints(80)),
+      routeMaterial,
+    );
     route.computeLineDistances();
     scene.add(route);
   }

@@ -33,7 +33,10 @@ const READING_COMMANDS = [
 
 /** The request with the wake word, greetings and punctuation taken out. */
 export function requestOf(text) {
-  return text.replace(wakeStripRE, "").replace(GREETINGS, "").replace(/[\s，。！？、,.!?]/g, "");
+  return text
+    .replace(wakeStripRE, "")
+    .replace(GREETINGS, "")
+    .replace(/[\s，。！？、,.!?]/g, "");
 }
 
 export function readingCommand(request) {
@@ -48,7 +51,18 @@ export function readingCommand(request) {
  *  the reading library and the semantic model are available.
  *
  *  `wake` on the result means: answer the wake word before doing the rest. */
-export function decide(text, { phase, direct = false, wasInterimWake = false, awake = false, lookup, fullText = false, understand = false }) {
+export function decide(
+  text,
+  {
+    phase,
+    direct = false,
+    wasInterimWake = false,
+    awake = false,
+    lookup,
+    fullText = false,
+    understand = false,
+  },
+) {
   const addressed = wakeRE.test(text);
   if (!direct && !addressed && !awake) return { type: "ignore" };
   const request = requestOf(text);
@@ -65,7 +79,8 @@ export function decide(text, { phase, direct = false, wasInterimWake = false, aw
   // A named demo has only a synopsis on the shelf, so asking for it by title — or asking for text
   // at all — looks for downloadable text first, unless the reading library already holds it.
   const namedDemo = book && !book.placeholder && normalize(request).includes(normalize(book.title));
-  if (fullText && !book?.localBookId && (namedDemo || FULL_TEXT.test(request))) return { type: "full-text", wake, query: text };
+  if (fullText && !book?.localBookId && (namedDemo || FULL_TEXT.test(request)))
+    return { type: "full-text", wake, query: text };
   if (!book) {
     if (understand) return { type: "model", wake, request };
     if (fullText) return { type: "full-text", wake, query: text };

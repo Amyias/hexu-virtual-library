@@ -4,17 +4,38 @@ import { READING } from "./phases.js";
 /* The two long choreographies — fetching a book to the reader and putting it back — and the phase
    transitions that bracket them. Each step waits for the previous animation, so the phase always
    says which part of the walk is under way. */
-export function createJourney({ $, machine, motion, view, environment, orb, camera, orbit, home, anchors, feedback, attention, novelReader, readingMusic }) {
+export function createJourney({
+  $,
+  machine,
+  motion,
+  view,
+  environment,
+  orb,
+  camera,
+  orbit,
+  home,
+  anchors,
+  feedback,
+  attention,
+  novelReader,
+  readingMusic,
+}) {
   let selected = null;
   const { moveTo, cameraTo } = motion;
   // The front-desk view the scene starts in, and returns to after every book.
-  const overview = { angle: 0.44, elevation: 0.65, radius: 26, focus: new THREE.Vector3(0, 0, -1.2) };
+  const overview = {
+    angle: 0.44,
+    elevation: 0.65,
+    radius: 26,
+    focus: new THREE.Vector3(0, 0, -1.2),
+  };
 
   async function fetchBook(volume, target) {
     if (!machine.send("navigate")) return;
     selected = volume;
     novelReader.attach(volume);
-    $("locationText").textContent = `${target.shelf_id} · ${volume.side} 面 · 第 ${volume.layer} 层`;
+    $("locationText").textContent =
+      `${target.shelf_id} · ${volume.side} 面 · 第 ${volume.layer} 层`;
     $("voiceTitle").textContent = "小和正在为你取书";
     const landing = new THREE.Vector3(...target.world_position);
     motion.showRoute(landing);
@@ -30,7 +51,9 @@ export function createJourney({ $, machine, motion, view, environment, orb, came
     environment.shelfBooks.setVisible(volume, false);
     environment.shelfBooks.highlight(volume, false);
     await cameraTo(new THREE.Vector3(0, 5.2, 16), new THREE.Vector3(0, 1.3, 2), 1.2);
-    const destination = camera.position.clone().add(new THREE.Vector3(0, 0, -5.3).applyQuaternion(camera.quaternion));
+    const destination = camera.position
+      .clone()
+      .add(new THREE.Vector3(0, 0, -5.3).applyQuaternion(camera.quaternion));
     const euler = new THREE.Euler().setFromQuaternion(camera.quaternion);
     const s = view.scale();
     await Promise.all([
@@ -44,7 +67,8 @@ export function createJourney({ $, machine, motion, view, environment, orb, came
     $("reader").classList.add("show");
     /* 书名已印在封面上，浮层不再重复；位置信息保留，书名交给读屏软件读取。 */
     $("reader").setAttribute("aria-label", `${volume.title} · 书籍阅读特写`);
-    $("bookLocation").textContent = `${volume.bookId} / ${volume.side} 面 / 第 ${volume.layer} 层 / 第 ${volume.slot} 本`;
+    $("bookLocation").textContent =
+      `${volume.bookId} / ${volume.side} 面 / 第 ${volume.layer} 层 / 第 ${volume.slot} 本`;
     $("dragHint").textContent = "按住封面向左拖动，让故事从这里展开";
     $("openBook").textContent = "翻开书页";
     $("readText").textContent = volume.localBookId ? "阅读本地正文" : "查找正文";
@@ -66,14 +90,22 @@ export function createJourney({ $, machine, motion, view, environment, orb, came
     await Promise.all([
       moveTo(book.position, volume.origin, 1.45),
       moveTo(book.scale, new THREE.Vector3(0.15, 0.15, 0.15), 1.45),
-      moveTo(book.rotation, new THREE.Vector3(0, volume.side === "A" ? Math.PI / 2 : -Math.PI / 2, 0), 1.45),
+      moveTo(
+        book.rotation,
+        new THREE.Vector3(0, volume.side === "A" ? Math.PI / 2 : -Math.PI / 2, 0),
+        1.45,
+      ),
     ]);
     view.release();
     environment.shelfBooks.setVisible(volume, true);
     motion.clearRoute();
     await moveTo(orb.position, new THREE.Vector3(anchors[volume.shelf - 1], 1.8, 2), 0.65);
     await moveTo(orb.position, home, 1.4);
-    Object.assign(orbit, { angle: overview.angle, elevation: overview.elevation, radius: overview.radius });
+    Object.assign(orbit, {
+      angle: overview.angle,
+      elevation: overview.elevation,
+      radius: overview.radius,
+    });
     const { angle, elevation, radius, focus } = overview;
     const eye = new THREE.Vector3(
       Math.sin(angle) * Math.cos(elevation) * radius,

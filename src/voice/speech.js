@@ -3,8 +3,7 @@ import { createServerAsr, probeServerAsr } from "./server-asr.js";
 /* Browser recognizer lifecycle, independent of rendering and animation. */
 export function createSpeech({ $, notice, wake, processText, getPhase, lookupBook = findBook }) {
   // Real Web Speech API: one live recognizer, interim wake-up, final intent, automatic restart.
-  const Recognition =
-    window.SpeechRecognition || window.webkitSpeechRecognition;
+  const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   let recognition = null,
     wanted = false,
     running = false,
@@ -61,16 +60,14 @@ export function createSpeech({ $, notice, wake, processText, getPhase, lookupBoo
   function micStatus(text, kind = "off") {
     $("micStatus").textContent = text;
     $("micDot").className =
-      "status-dot " +
-      (kind === "live" ? "live" : kind === "error" ? "error" : "");
+      "status-dot " + (kind === "live" ? "live" : kind === "error" ? "error" : "");
     document.body.classList.toggle("listening", kind === "live");
     $("micButton").classList.toggle("active", wanted);
     $("micButton").textContent = wanted ? "◉ 关闭语音感知" : "◉ 启动语音感知";
   }
   function scheduleRecognition() {
     clearTimeout(restartTimer);
-    if (wanted && !document.hidden)
-      restartTimer = setTimeout(startRecognition, retryDelay);
+    if (wanted && !document.hidden) restartTimer = setTimeout(startRecognition, retryDelay);
   }
   function startRecognition() {
     if (!wanted || running || starting || document.hidden) return;
@@ -126,11 +123,7 @@ export function createSpeech({ $, notice, wake, processText, getPhase, lookupBoo
         )
           continue;
         if (!e.results[i].isFinal) {
-          if (
-            wakeRE.test(text) &&
-            !interimWakes.has(i) &&
-            getPhase() === "IDLE"
-          ) {
+          if (wakeRE.test(text) && !interimWakes.has(i) && getPhase() === "IDLE") {
             interimWakes.add(i);
             wake();
           }
@@ -141,7 +134,7 @@ export function createSpeech({ $, notice, wake, processText, getPhase, lookupBoo
            on the 25s window for that would make every rescue fragile. */
         const chosen = lookupBook(text)
           ? text
-          : heard.find((candidate) => lookupBook(candidate)) ?? text;
+          : (heard.find((candidate) => lookupBook(candidate)) ?? text);
         const matched = Boolean(lookupBook(chosen));
         record(text, chosen, heard.length, matched);
         const already = interimWakes.has(i);
@@ -151,18 +144,12 @@ export function createSpeech({ $, notice, wake, processText, getPhase, lookupBoo
     };
     recognition.onerror = (e) => {
       if (e.error === "aborted") return;
-      if (
-        ["not-allowed", "service-not-allowed", "audio-capture"].includes(
-          e.error,
-        )
-      ) {
+      if (["not-allowed", "service-not-allowed", "audio-capture"].includes(e.error)) {
         wanted = false;
         clearTimeout(restartTimer);
         clearTimeout(silentTimer);
         micStatus(
-          e.error === "audio-capture"
-            ? "未找到可用麦克风"
-            : "麦克风或识别服务未获授权",
+          e.error === "audio-capture" ? "未找到可用麦克风" : "麦克风或识别服务未获授权",
           "error",
         );
         notice("请检查浏览器站点麦克风权限，使用 localhost / HTTPS 后重试。");
@@ -188,17 +175,14 @@ export function createSpeech({ $, notice, wake, processText, getPhase, lookupBoo
       running = false;
       starting = false;
       if (wanted) {
-        if (!lastNetworkError)
-          micStatus(document.hidden ? "页面后台，语音暂停" : "识别重连中");
+        if (!lastNetworkError) micStatus(document.hidden ? "页面后台，语音暂停" : "识别重连中");
         scheduleRecognition();
-      } else if (!$("micDot").classList.contains("error"))
-        micStatus("语音感知已关闭");
+      } else if (!$("micDot").classList.contains("error")) micStatus("语音感知已关闭");
     };
   } else {
     micStatus("浏览器不支持语音识别", "error");
     $("micButton").disabled = true;
-    $("transcript").textContent =
-      "请改用支持 Web Speech API 的 Chrome / Edge，或使用文字找书";
+    $("transcript").textContent = "请改用支持 Web Speech API 的 Chrome / Edge，或使用文字找书";
   }
   /* Segment recognition returns no interim results, so the wake word arrives at the end of the
      utterance instead of mid-sentence. Nothing downstream can tell which transport produced the

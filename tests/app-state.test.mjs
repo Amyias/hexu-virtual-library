@@ -1,16 +1,41 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { createPhaseMachine, TRANSITIONS, IDLE, NAVIGATING, PRESENTING, READING, RETURNING } from "../src/app/phases.js";
-import { decide, createAttention, protocolResponse, requestOf, readingCommand, FOUND, LOCATING } from "../src/app/dialogue.js";
+import {
+  createPhaseMachine,
+  TRANSITIONS,
+  IDLE,
+  NAVIGATING,
+  PRESENTING,
+  READING,
+  RETURNING,
+} from "../src/app/phases.js";
+import {
+  decide,
+  createAttention,
+  protocolResponse,
+  requestOf,
+  readingCommand,
+  FOUND,
+  LOCATING,
+} from "../src/app/dialogue.js";
 import { findBook } from "../src/voice/intent.js";
 
 test("the reading loop is one cycle and refuses every out-of-order step", () => {
   const seen = [];
-  const machine = createPhaseMachine((next, previous, event) => seen.push(`${previous}-${event}->${next}`));
+  const machine = createPhaseMachine((next, previous, event) =>
+    seen.push(`${previous}-${event}->${next}`),
+  );
   // Nothing but a walk can start from IDLE: a second request, a 「放回」, a stray animation end.
-  for (const event of ["arrive", "present", "return", "shelve", "nonsense"]) assert.equal(machine.send(event), false, event);
+  for (const event of ["arrive", "present", "return", "shelve", "nonsense"])
+    assert.equal(machine.send(event), false, event);
   assert.equal(machine.phase, IDLE);
-  for (const [event, phase] of [["navigate", NAVIGATING], ["arrive", PRESENTING], ["present", READING], ["return", RETURNING], ["shelve", IDLE]]) {
+  for (const [event, phase] of [
+    ["navigate", NAVIGATING],
+    ["arrive", PRESENTING],
+    ["present", READING],
+    ["return", RETURNING],
+    ["shelve", IDLE],
+  ]) {
     assert.equal(machine.send(event), true, event);
     assert.equal(machine.phase, phase);
   }
@@ -34,7 +59,10 @@ test("an utterance is only heard when it is addressed, typed, or inside the wake
   assert.equal(decide("帮我找三体", ctx({ direct: true })).type, "present");
   // The wake word alone wakes, but not twice for one utterance already answered from an interim.
   assert.deepEqual(decide("小和", ctx()), { type: "wake-only", wake: true });
-  assert.deepEqual(decide("小和你好", ctx({ wasInterimWake: true })), { type: "wake-only", wake: false });
+  assert.deepEqual(decide("小和你好", ctx({ wasInterimWake: true })), {
+    type: "wake-only",
+    wake: false,
+  });
   // Wake word, greeting and punctuation go; the title marks stay for the matcher to normalise.
   assert.equal(requestOf("小和，你好！帮我找 《三体》。"), "帮我找《三体》");
 });
@@ -53,18 +81,32 @@ test("a found book is fetched, with the reply depending on how it was asked", ()
 
 test("what the rules cannot place goes to the model, then the reading library, then a polite no", () => {
   const unknown = "霍金写的那本";
-  assert.deepEqual(decide(unknown, ctx({ direct: true, understand: true, fullText: true })), { type: "model", wake: false, request: unknown });
+  assert.deepEqual(decide(unknown, ctx({ direct: true, understand: true, fullText: true })), {
+    type: "model",
+    wake: false,
+    request: unknown,
+  });
   assert.equal(decide(unknown, ctx({ direct: true, fullText: true })).type, "full-text");
   assert.equal(decide(unknown, ctx({ direct: true })).type, "no-match");
   // A named demo asked for by title looks for downloadable text first — the shelf holds a synopsis.
-  assert.deepEqual(decide("三体", ctx({ direct: true, fullText: true })), { type: "full-text", wake: false, query: "三体" });
+  assert.deepEqual(decide("三体", ctx({ direct: true, fullText: true })), {
+    type: "full-text",
+    wake: false,
+    query: "三体",
+  });
   // A numbered volume has no text to look for, so it is fetched straight away.
   assert.equal(decide("HX-00001", ctx({ direct: true, fullText: true })).type, "present");
   // Unless the reader asks for text in so many words.
-  assert.equal(decide("下载 HX-00001 的正文", ctx({ direct: true, fullText: true })).type, "full-text");
+  assert.equal(
+    decide("下载 HX-00001 的正文", ctx({ direct: true, fullText: true })).type,
+    "full-text",
+  );
   // A book the reading library already holds is fetched, not searched for again.
   const local = { title: "三体", placeholder: false, localBookId: "x" };
-  assert.equal(decide("三体", ctx({ direct: true, fullText: true, lookup: () => local })).type, "present");
+  assert.equal(
+    decide("三体", ctx({ direct: true, fullText: true, lookup: () => local })).type,
+    "present",
+  );
 });
 
 test("while reading, commands act on the book in hand and nothing starts another walk", () => {
@@ -80,11 +122,22 @@ test("while reading, commands act on the book in hand and nothing starts another
   ])
     assert.deepEqual(reading(text), { type: "reading", command }, text);
   assert.deepEqual(reading("小和帮我找三体"), { type: "reading", command: "hint" });
-  assert.deepEqual(reading("帮我找三体", { awake: true }), { type: "reading", command: null }, "unaddressed chatter is not answered");
-  assert.equal(readingCommand("合上"), "close", "「合上」 closes the cover; it does not return the book");
+  assert.deepEqual(
+    reading("帮我找三体", { awake: true }),
+    { type: "reading", command: null },
+    "unaddressed chatter is not answered",
+  );
+  assert.equal(
+    readingCommand("合上"),
+    "close",
+    "「合上」 closes the cover; it does not return the book",
+  );
   for (const phase of [NAVIGATING, PRESENTING, RETURNING]) {
     assert.deepEqual(decide("小和帮我找三体", ctx({ phase })), { type: "busy", tell: true });
-    assert.deepEqual(decide("帮我找三体", ctx({ phase, awake: true })), { type: "busy", tell: false });
+    assert.deepEqual(decide("帮我找三体", ctx({ phase, awake: true })), {
+      type: "busy",
+      tell: false,
+    });
   }
 });
 
@@ -112,7 +165,12 @@ test("the published protocol keeps its shape", () => {
   const found = protocolResponse("好的", book, false, options);
   assert.deepEqual(Object.keys(found), ["speech", "is_wake_only", "action", "target", "book_data"]);
   assert.equal(found.action, "NAVIGATE_TO_BOOK");
-  assert.deepEqual(found.target, { shelf_id: "Shelf_5", shelf_side: "A", layer: 3, world_position: [6, 1.2, 0] });
+  assert.deepEqual(found.target, {
+    shelf_id: "Shelf_5",
+    shelf_side: "A",
+    layer: 3,
+    world_position: [6, 1.2, 0],
+  });
   assert.equal(found.book_data.title, "三体");
   const idle = protocolResponse("有什么需求吗？", null, true, options);
   assert.equal(idle.action, "IDLE");

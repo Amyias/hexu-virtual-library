@@ -85,7 +85,10 @@ test("every catalogued volume stands spine-out in its bay at the standard size",
     const half = (thickness * b.depthScale) / 2;
     // The spine, which is what a reader sees, has to stay inside the shelf mouth.
     const spineX = x + sign * ((width * b.widthScale) / 2);
-    assert.ok(sign * spineX < sign * (centre + sign * lip), `${b.bookId} pokes through the brass lip`);
+    assert.ok(
+      sign * spineX < sign * (centre + sign * lip),
+      `${b.bookId} pokes through the brass lip`,
+    );
     assert.ok(z - half > -8.75 && z + half < -0.85, `${b.bookId} leaves the shelf`);
     for (const post of posts)
       assert.ok(
@@ -143,15 +146,11 @@ test("every catalogued volume stands spine-out in its bay at the standard size",
 });
 
 test("exported GLB contains five shelves, texture, valid buffers and optimized meshes", () => {
-  const buffer = fs.readFileSync(
-    new URL("../public/models/hexu-library.glb", import.meta.url),
-  );
+  const buffer = fs.readFileSync(new URL("../public/models/hexu-library.glb", import.meta.url));
   assert.equal(buffer.readUInt32LE(0), 0x46546c67);
   assert.equal(buffer.readUInt32LE(4), 2);
   assert.equal(buffer.readUInt32LE(8), buffer.length);
-  const json = JSON.parse(
-    buffer.subarray(20, 20 + buffer.readUInt32LE(12)).toString(),
-  );
+  const json = JSON.parse(buffer.subarray(20, 20 + buffer.readUInt32LE(12)).toString());
   for (let n = 1; n <= 5; n++)
     assert.ok(json.nodes.some((node) => node.name?.startsWith(`Shelf_${n}__`)));
   assert.ok(json.images.length >= 6, "both wood texture sets are embedded");
@@ -176,10 +175,7 @@ test("exported GLB contains five shelves, texture, valid buffers and optimized m
       `${material.name} should keep its scan's own tone`,
     );
   }
-  assert.ok(
-    json.meshes.length < 180,
-    "material-batched rather than thousands of objects",
-  );
+  assert.ok(json.meshes.length < 180, "material-batched rather than thousands of objects");
   assert.ok(buffer.length < 30_000_000, "reasonable uncompressed model budget");
   const manifest = JSON.parse(
     fs.readFileSync(new URL("../public/models/manifest.json", import.meta.url)),
@@ -195,13 +191,9 @@ test("exported GLB contains five shelves, texture, valid buffers and optimized m
 });
 
 test("smart-book template exposes the parts the reader and instancing depend on", () => {
-  const buffer = fs.readFileSync(
-    new URL("../public/models/smart-book.glb", import.meta.url),
-  );
+  const buffer = fs.readFileSync(new URL("../public/models/smart-book.glb", import.meta.url));
   assert.equal(buffer.readUInt32LE(0), 0x46546c67);
-  const json = JSON.parse(
-    buffer.subarray(20, 20 + buffer.readUInt32LE(12)).toString(),
-  );
+  const json = JSON.parse(buffer.subarray(20, 20 + buffer.readUInt32LE(12)).toString());
   const names = json.nodes.map((node) => node.name);
   for (const part of [
     "BookTemplate",
@@ -241,27 +233,32 @@ test("the one stored inventory stays compact and names exactly the recorded book
   const named = books.filter((b) => !b.placeholder);
   assert.deepEqual(
     named.map((b) => b.title).sort(),
-    Object.keys(demoMap).filter((k) => !k.startsWith("_")).sort(),
+    Object.keys(demoMap)
+      .filter((k) => !k.startsWith("_"))
+      .sort(),
   );
   for (const b of named) {
     const record = demoMap[b.title];
     assert.equal(b.synopsis, record.synopsis);
     assert.deepEqual([b.shelf, b.side, b.layer], [record.shelf, record.side, record.layer]);
-    for (const alias of record.aliases) assert.ok(b.keys.includes(alias), `${b.title} keeps ${alias}`);
+    for (const alias of record.aliases)
+      assert.ok(b.keys.includes(alias), `${b.title} keeps ${alias}`);
   }
 });
 
 test("detailed vegetation is exported with UV leaf texture and separate shrub meshes", () => {
-  const stats = JSON.parse(fs.readFileSync(new URL('../blender/vegetation-manifest.json', import.meta.url)));
+  const stats = JSON.parse(
+    fs.readFileSync(new URL("../blender/vegetation-manifest.json", import.meta.url)),
+  );
   assert.equal(stats.potted_plants, 6);
   assert.equal(stats.shrubs, 26);
   assert.equal(stats.large_leaves, 54);
   assert.ok(stats.small_leaves > 14000);
-  const b = fs.readFileSync(new URL('../public/models/hexu-library.glb', import.meta.url));
+  const b = fs.readFileSync(new URL("../public/models/hexu-library.glb", import.meta.url));
   const gltf = JSON.parse(b.subarray(20, 20 + b.readUInt32LE(12)).toString());
-  assert.ok(gltf.nodes.some(n => n.name?.startsWith('08 Exterior shrubs__')));
-  assert.ok(gltf.images.some(i => i.name === 'botanical-leaf'));
-  const leafMaterial = gltf.materials.find(m => m.name?.includes('Strelitzia lamina'));
+  assert.ok(gltf.nodes.some((n) => n.name?.startsWith("08 Exterior shrubs__")));
+  assert.ok(gltf.images.some((i) => i.name === "botanical-leaf"));
+  const leafMaterial = gltf.materials.find((m) => m.name?.includes("Strelitzia lamina"));
   assert.ok(leafMaterial.pbrMetallicRoughness.baseColorTexture);
   assert.equal(leafMaterial.doubleSided, true);
 });
@@ -346,7 +343,7 @@ test("real recognizer adapter preserves interim wake, final intent, restart and 
         finals.push(args);
       },
       getPhase: () => "IDLE",
-      lookupBook: text => text.includes('狂人日记') ? { title: '狂人日记' } : findBook(text),
+      lookupBook: (text) => (text.includes("狂人日记") ? { title: "狂人日记" } : findBook(text)),
     });
     $("micButton").onclick();
     recognizer.onstart();
@@ -364,10 +361,7 @@ test("real recognizer adapter preserves interim wake, final intent, restart and 
     recognizer.onresult({ resultIndex: 0, results: [result] });
     assert.deepEqual(finals, [["小何，帮我找三体", false, true]]);
     // 首选听成同音错字时，必须靠较低候选把这句话救回来，而不是整句丢掉。
-    const multi = [
-      { transcript: "小何，帮我找三替" },
-      { transcript: "小何，帮我找三体" },
-    ];
+    const multi = [{ transcript: "小何，帮我找三替" }, { transcript: "小何，帮我找三体" }];
     multi.isFinal = true;
     recognizer.onresult({ resultIndex: 1, results: [result, multi] });
     assert.deepEqual(finals[1], ["小何，帮我找三体", false, false]);
@@ -377,10 +371,13 @@ test("real recognizer adapter preserves interim wake, final intent, restart and 
     assert.equal(recent.at(-1).used, "小何，帮我找三体");
     assert.equal(recent.at(-1).candidates, 2);
     assert.equal(recent.at(-1).matched, true);
-    const localResult = [{ transcript: '小和，帮我找狂人日记' }, { transcript: '小和，帮我找三体' }];
+    const localResult = [
+      { transcript: "小和，帮我找狂人日记" },
+      { transcript: "小和，帮我找三体" },
+    ];
     localResult.isFinal = true;
     recognizer.onresult({ resultIndex: 0, results: [localResult] });
-    assert.deepEqual(finals.at(-1), ['小和，帮我找狂人日记', false, false]);
+    assert.deepEqual(finals.at(-1), ["小和，帮我找狂人日记", false, false]);
     assert.equal(voice.getState().recent.at(-1).matched, true);
     recognizer.onend();
     assert.equal(timers.size, 1);

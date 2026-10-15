@@ -41,7 +41,9 @@ async function waitForServer(port) {
 async function startServer(t, extraEnv = {}) {
   const config = fs.mkdtempSync(path.join(os.tmpdir(), "hexu-settings-"));
   const port = 18000 + Math.floor(Math.random() * 2000);
-  const env = Object.fromEntries(Object.entries(process.env).filter(([name]) => !name.startsWith("HEXU_LLM_")));
+  const env = Object.fromEntries(
+    Object.entries(process.env).filter(([name]) => !name.startsWith("HEXU_LLM_")),
+  );
   const server = spawn(python, ["tools/asr-server.py", "--no-browser", "--port", String(port)], {
     env: { ...env, APPDATA: config, XDG_CONFIG_HOME: config, PORT: String(port), ...extraEnv },
     stdio: "ignore",
@@ -54,52 +56,118 @@ async function startServer(t, extraEnv = {}) {
   return port;
 }
 
-test("local settings refuse other sites' pages and rebound host names", { skip: !python && "no Python" }, async (t) => {
-  const port = await startServer(t);
+test(
+  "local settings refuse other sites' pages and rebound host names",
+  { skip: !python && "no Python" },
+  async (t) => {
+    const port = await startServer(t);
 
-  const own = `127.0.0.1:${port}`;
-  const json = { "Content-Type": "application/json" };
-  const write = JSON.stringify({ model: "test-model" });
+    const own = `127.0.0.1:${port}`;
+    const json = { "Content-Type": "application/json" };
+    const write = JSON.stringify({ model: "test-model" });
 
-  // 本机、同源：设置页自己的请求照常通过。
-  assert.equal(await request(port, "GET", "/settings/state"), 200);
-  assert.equal(await request(port, "GET", "/settings/state", { Host: `[::1]:${port}` }), 200);
-  assert.equal(
-    await request(port, "POST", "/settings/key", { ...json, Origin: `http://${own}`, "Sec-Fetch-Site": "same-origin" }, write),
-    200,
-  );
+    // 本机、同源：设置页自己的请求照常通过。
+    assert.equal(await request(port, "GET", "/settings/state"), 200);
+    assert.equal(await request(port, "GET", "/settings/state", { Host: `[::1]:${port}` }), 200);
+    assert.equal(
+      await request(
+        port,
+        "POST",
+        "/settings/key",
+        { ...json, Origin: `http://${own}`, "Sec-Fetch-Site": "same-origin" },
+        write,
+      ),
+      200,
+    );
 
-  // 别的网页：text/plain 是无需预检的简单请求，只能靠 Origin 与 Sec-Fetch-Site 认出来。
-  const plain = { "Content-Type": "text/plain" };
-  assert.equal(await request(port, "POST", "/settings/key", { ...plain, Origin: "https://evil.example" }, write), 403);
-  assert.equal(await request(port, "POST", "/settings/key", { ...plain, Origin: "null" }, write), 403);
-  assert.equal(await request(port, "POST", "/settings/key", { ...plain, "Sec-Fetch-Site": "cross-site" }, write), 403);
-  // localhost 的另一个端口算 same-site，但不是同源。
-  assert.equal(await request(port, "POST", "/update/apply", { Origin: `http://localhost:${port + 1}` }), 403);
-  assert.equal(await request(port, "POST", "/understand", { ...json, Origin: "https://evil.example" }, "{}"), 403);
-  // 正文书库自己也查 Origin，但要先过这一道：Sec-Fetch-Site 只在这里看。
-  assert.equal(await request(port, "POST", "/library/sources", { ...json, "Sec-Fetch-Site": "cross-site" }, "{}"), 403);
-  assert.equal(await request(port, "GET", "/settings/state", { "Sec-Fetch-Site": "cross-site" }), 403);
+    // 别的网页：text/plain 是无需预检的简单请求，只能靠 Origin 与 Sec-Fetch-Site 认出来。
+    const plain = { "Content-Type": "text/plain" };
+    assert.equal(
+      await request(
+        port,
+        "POST",
+        "/settings/key",
+        { ...plain, Origin: "https://evil.example" },
+        write,
+      ),
+      403,
+    );
+    assert.equal(
+      await request(port, "POST", "/settings/key", { ...plain, Origin: "null" }, write),
+      403,
+    );
+    assert.equal(
+      await request(
+        port,
+        "POST",
+        "/settings/key",
+        { ...plain, "Sec-Fetch-Site": "cross-site" },
+        write,
+      ),
+      403,
+    );
+    // localhost 的另一个端口算 same-site，但不是同源。
+    assert.equal(
+      await request(port, "POST", "/update/apply", { Origin: `http://localhost:${port + 1}` }),
+      403,
+    );
+    assert.equal(
+      await request(port, "POST", "/understand", { ...json, Origin: "https://evil.example" }, "{}"),
+      403,
+    );
+    // 正文书库自己也查 Origin，但要先过这一道：Sec-Fetch-Site 只在这里看。
+    assert.equal(
+      await request(
+        port,
+        "POST",
+        "/library/sources",
+        { ...json, "Sec-Fetch-Site": "cross-site" },
+        "{}",
+      ),
+      403,
+    );
+    assert.equal(
+      await request(port, "GET", "/settings/state", { "Sec-Fetch-Site": "cross-site" }),
+      403,
+    );
 
-  // DNS 重绑定：攻击者的域名解析到 127.0.0.1，Origin 与 Host 一致，只有主机名露馅。
-  const rebound = `evil.example:${port}`;
-  assert.equal(await request(port, "GET", "/settings/state", { Host: rebound }), 403);
-  assert.equal(
-    await request(port, "POST", "/settings/key", { ...json, Host: rebound, Origin: `http://${rebound}` }, write),
-    403,
-  );
+    // DNS 重绑定：攻击者的域名解析到 127.0.0.1，Origin 与 Host 一致，只有主机名露馅。
+    const rebound = `evil.example:${port}`;
+    assert.equal(await request(port, "GET", "/settings/state", { Host: rebound }), 403);
+    assert.equal(
+      await request(
+        port,
+        "POST",
+        "/settings/key",
+        { ...json, Host: rebound, Origin: `http://${rebound}` },
+        write,
+      ),
+      403,
+    );
 
-  // 静态站点不受影响。
-  assert.equal(await request(port, "GET", "/index.html", { Host: rebound }), 200);
-});
+    // 静态站点不受影响。
+    assert.equal(await request(port, "GET", "/index.html", { Host: rebound }), 200);
+  },
+);
 
-test("semantic calls past the per-minute budget are refused before reaching the model", { skip: !python && "no Python" }, async (t) => {
-  const port = await startServer(t, { HEXU_LLM_PER_MINUTE: "3" });
-  const json = { "Content-Type": "application/json" };
-  const ask = () => request(port, "POST", "/understand", json, JSON.stringify({ text: "霍金写的那本", phase: "IDLE" }));
-  // 没有配置模型时每次回 503（什么都不发出去），但仍计入额度。
-  for (let i = 0; i < 3; i++) assert.equal(await ask(), 503);
-  assert.equal(await ask(), 429);
-  // 被拒的请求体已读完，连接仍可用：别的接口照常应答。
-  assert.equal(await request(port, "GET", "/healthz"), 200);
-});
+test(
+  "semantic calls past the per-minute budget are refused before reaching the model",
+  { skip: !python && "no Python" },
+  async (t) => {
+    const port = await startServer(t, { HEXU_LLM_PER_MINUTE: "3" });
+    const json = { "Content-Type": "application/json" };
+    const ask = () =>
+      request(
+        port,
+        "POST",
+        "/understand",
+        json,
+        JSON.stringify({ text: "霍金写的那本", phase: "IDLE" }),
+      );
+    // 没有配置模型时每次回 503（什么都不发出去），但仍计入额度。
+    for (let i = 0; i < 3; i++) assert.equal(await ask(), 503);
+    assert.equal(await ask(), 429);
+    // 被拒的请求体已读完，连接仍可用：别的接口照常应答。
+    assert.equal(await request(port, "GET", "/healthz"), 200);
+  },
+);

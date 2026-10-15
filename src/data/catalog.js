@@ -4,5 +4,5 @@ import inventory from "../../public/models/book-inventory.json" with { type: "js
 import { expandInventory } from "./inventory.js";
 
 export const books = expandInventory(inventory);
-export const anchors=[-6,-3,0,3,6];
-export const heights=[.3,.7,1.2,1.7];
+export const anchors = [-6, -3, 0, 3, 6];
+export const heights = [0.3, 0.7, 1.2, 1.7];

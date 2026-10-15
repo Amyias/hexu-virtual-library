@@ -6,14 +6,31 @@ import { IDLE } from "./phases.js";
 
 /* 小和 itself: carries out what dialogue.decide() concluded. Every text input — recognised speech,
    the search box, the suggestion chips, libraryDebug.processText — comes through processText(). */
-export function createAssistant({ gsap, $, machine, attention, feedback, journey, view, pulse, home, getLibrary, novelReader, isUnderstandReady }) {
+export function createAssistant({
+  gsap,
+  $,
+  machine,
+  attention,
+  feedback,
+  journey,
+  view,
+  pulse,
+  home,
+  getLibrary,
+  novelReader,
+  isUnderstandReady,
+}) {
   const { notice, bubble, say } = feedback;
   let wakeTween;
   const lookup = (text) => getLibrary()?.find(text) || findBook(text);
 
   /** Publish the find / wake protocol and show it in the developer panel. */
   function respond(text, book = null, wakeOnly = false) {
-    const response = protocolResponse(text, book, wakeOnly, { anchors, heights, home: home.toArray() });
+    const response = protocolResponse(text, book, wakeOnly, {
+      anchors,
+      heights,
+      home: home.toArray(),
+    });
     $("protocol").textContent = JSON.stringify(response, null, 2);
     window.dispatchEvent(new CustomEvent("xiaohe-response", { detail: response }));
     return response;
@@ -57,7 +74,10 @@ export function createAssistant({ gsap, $, machine, attention, feedback, journey
     $("voiceTitle").textContent = "小和正在理解你的意思…";
     const result = await understand(request, machine.phase);
     if (!machine.is(IDLE)) return; // the reader moved on while we were waiting
-    const book = result.action === "find" && result.bookId ? books.find((entry) => entry.bookId === result.bookId) : null;
+    const book =
+      result.action === "find" && result.bookId
+        ? books.find((entry) => entry.bookId === result.bookId)
+        : null;
     if (book) {
       present(book, result.say || FOUND);
       return;

@@ -3,7 +3,22 @@ import { IDLE, READING } from "./phases.js";
 
 /* Pointer, wheel, keyboard and button wiring. In IDLE the pointer orbits the library and the
    wheel zooms; while reading it turns the cover. Everything else is ignored mid-walk. */
-export function bindInput({ $, canvas, machine, view, journey, assistant, feedback, library, novelReader, orbit, focus, updateCamera, camera, renderer }) {
+export function bindInput({
+  $,
+  canvas,
+  machine,
+  view,
+  journey,
+  assistant,
+  feedback,
+  library,
+  novelReader,
+  orbit,
+  focus,
+  updateCamera,
+  camera,
+  renderer,
+}) {
   let orbitDrag = null;
 
   canvas.addEventListener("pointerdown", (event) => {
@@ -19,7 +34,11 @@ export function bindInput({ $, canvas, machine, view, journey, assistant, feedba
     if (view.dragTo(event.clientX)) return;
     if (!orbitDrag || !machine.is(IDLE)) return;
     orbit.angle -= (event.clientX - orbitDrag.x) * 0.005;
-    orbit.elevation = THREE.MathUtils.clamp(orbit.elevation + (event.clientY - orbitDrag.y) * 0.003, 0.2, 1.2);
+    orbit.elevation = THREE.MathUtils.clamp(
+      orbit.elevation + (event.clientY - orbitDrag.y) * 0.003,
+      0.2,
+      1.2,
+    );
     orbitDrag = { x: event.clientX, y: event.clientY };
     updateCamera();
   });

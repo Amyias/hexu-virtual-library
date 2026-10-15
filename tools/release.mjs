@@ -30,7 +30,13 @@ import path from "node:path";
 import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
-import { matchesArchive, requireModelForSkip, requireCompleteRelease, findRelease, notesRange } from "./release-policy.mjs";
+import {
+  matchesArchive,
+  requireModelForSkip,
+  requireCompleteRelease,
+  findRelease,
+  notesRange,
+} from "./release-policy.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const APP = "和序图书馆";
@@ -70,9 +76,7 @@ function preflight(version, assetsOnly) {
 
   const dirty = run("git", ["status", "--porcelain", "--untracked-files=no"]).stdout.trim();
   if (dirty) {
-    fail(
-      "工作区有未提交的改动，先提交再发版——发行版必须对应一个确切的提交：\n" + dirty,
-    );
+    fail("工作区有未提交的改动，先提交再发版——发行版必须对应一个确切的提交：\n" + dirty);
   }
 
   if (assetsOnly) {
@@ -100,7 +104,8 @@ function archive(version, withModel, modelOnly = false) {
   fs.mkdirSync(OUT_DIR, { recursive: true });
   const program = path.join(OUT_DIR, `hexu-library-${version}-program.zip`);
   const model = path.join(OUT_DIR, `sense-voice-${version}.zip`);
-  for (const file of [modelOnly ? null : program, withModel ? model : null].filter(Boolean)) fs.rmSync(file, { force: true });
+  for (const file of [modelOnly ? null : program, withModel ? model : null].filter(Boolean))
+    fs.rmSync(file, { force: true });
 
   // Python writes the archives, not tar: `tar -a -f x.zip` produces a plain tar with a zip name
   // (GNU tar has no zip compressor), which every zip reader refuses while PowerShell's
@@ -116,8 +121,12 @@ function archive(version, withModel, modelOnly = false) {
     const madeProgram = run(
       python,
       [
-        path.join("tools", "make-archive.py"), program, APP_DIR, ...entries,
-        "--exclude", "_internal/models",
+        path.join("tools", "make-archive.py"),
+        program,
+        APP_DIR,
+        ...entries,
+        "--exclude",
+        "_internal/models",
       ],
       { stdio: "inherit" },
     );
@@ -129,15 +138,21 @@ function archive(version, withModel, modelOnly = false) {
     return assets;
   }
 
-  if (!fs.existsSync(path.join(APP_DIR, "_internal", "models"))) fail("模型目录不存在，不能生成模型包。请先运行 tools/package-local.mjs。");
+  if (!fs.existsSync(path.join(APP_DIR, "_internal", "models")))
+    fail("模型目录不存在，不能生成模型包。请先运行 tools/package-local.mjs。");
   const madeModel = run(
     python,
     [
-      path.join("tools", "make-archive.py"), model, APP_DIR, "_internal/models",
+      path.join("tools", "make-archive.py"),
+      model,
+      APP_DIR,
+      "_internal/models",
       // Deflating 228 MB of int8 weights saves almost nothing and costs a minute.
       "--store",
-      "--require", "_internal/models/sense-voice/model.int8.onnx",
-      "--require", "_internal/models/sense-voice/tokens.txt",
+      "--require",
+      "_internal/models/sense-voice/model.int8.onnx",
+      "--require",
+      "_internal/models/sense-voice/tokens.txt",
     ],
     { stdio: "inherit" },
   );
@@ -155,7 +170,11 @@ function notes(version, commit) {
   run("git", ["fetch", "--quiet", "--tags", "origin"]);
   const previous = run("git", ["describe", "--tags", "--abbrev=0", "--match", "v[0-9]*", commit]);
   const previousTag = previous.status === 0 ? previous.stdout.trim() : "";
-  const commits = run("git", ["log", "--pretty=format:- %s", ...notesRange(previousTag, commit)]).stdout.trim();
+  const commits = run("git", [
+    "log",
+    "--pretty=format:- %s",
+    ...notesRange(previousTag, commit),
+  ]).stdout.trim();
   return [
     `和序图书馆 v${version}`,
     "",
@@ -201,7 +220,12 @@ async function github(pathname, { method = "GET", token, body, contentType } = {
 function why(result) {
   const errors = result.payload?.errors;
   if (Array.isArray(errors) && errors.length) {
-    return errors.map((e) => `${e.resource ?? ""}${e.field ? "." + e.field : ""}: ${e.message ?? JSON.stringify(e)}`).join("；");
+    return errors
+      .map(
+        (e) =>
+          `${e.resource ?? ""}${e.field ? "." + e.field : ""}: ${e.message ?? JSON.stringify(e)}`,
+      )
+      .join("；");
   }
   return result.payload?.message ?? "";
 }
@@ -255,7 +279,9 @@ async function upload(uploadUrl, asset, token, cleanup, attempts = 4) {
     log(`  服务器返回 HTTP ${response.status}，稍后重试`);
     await new Promise((resolve) => setTimeout(resolve, attempt * 3000));
   }
-  fail(`上传 ${asset.name} 连试 ${attempts} 次都没成功。网络恢复后重跑一次即可（--skip-build --assets-only）。`);
+  fail(
+    `上传 ${asset.name} 连试 ${attempts} 次都没成功。网络恢复后重跑一次即可（--skip-build --assets-only）。`,
+  );
 }
 
 /** The release for this version, draft or not, in the shape github() returns. The tag endpoint
@@ -277,7 +303,8 @@ async function publish(version, commit, assets, token, assetsOnly, skipModel) {
   if (release.status === 404) {
     if (assetsOnly) fail(`v${version} 不存在，--assets-only 不允许创建新发行版。`);
     const remote = await github(`/repos/${REPO}/git/ref/heads/master`, { token });
-    if (!remote.ok || remote.payload?.object?.sha !== commit) fail("GitHub master 尚未包含当前提交，请先推送再发版。");
+    if (!remote.ok || remote.payload?.object?.sha !== commit)
+      fail("GitHub master 尚未包含当前提交，请先推送再发版。");
     const tag = await github(`/repos/${REPO}/git/ref/tags/v${version}`, { token });
     if (tag.status !== 404) fail(`标签检查失败或 v${version} 标签已存在，不创建发行版。`);
     const created = await github(`/repos/${REPO}/releases`, {
@@ -308,10 +335,14 @@ async function publish(version, commit, assets, token, assetsOnly, skipModel) {
    *  A failed upload can leave one behind — GitHub calls it a starter asset. */
   const cleanup = async (name) => {
     const current = await github(`/repos/${REPO}/releases/${release.payload.id}/assets`, { token });
-    if (!current.ok || !Array.isArray(current.payload)) fail(`读取待清理附件失败：HTTP ${current.status}`);
+    if (!current.ok || !Array.isArray(current.payload))
+      fail(`读取待清理附件失败：HTTP ${current.status}`);
     for (const asset of current.payload ?? []) {
       if (asset.name === name) {
-        const removed = await github(`/repos/${REPO}/releases/assets/${asset.id}`, { method: "DELETE", token });
+        const removed = await github(`/repos/${REPO}/releases/assets/${asset.id}`, {
+          method: "DELETE",
+          token,
+        });
         if (!removed.ok) fail(`清理附件失败：HTTP ${removed.status}`);
         log(`  清掉上一次留下的半成品 ${name}`);
       }
@@ -327,7 +358,10 @@ async function publish(version, commit, assets, token, assetsOnly, skipModel) {
     }
     if (already) {
       // The upload endpoint refuses a duplicate name, so the stale one goes first.
-      const removed = await github(`/repos/${REPO}/releases/assets/${already.id}`, { method: "DELETE", token });
+      const removed = await github(`/repos/${REPO}/releases/assets/${already.id}`, {
+        method: "DELETE",
+        token,
+      });
       if (!removed.ok) fail(`删除旧附件失败：HTTP ${removed.status}`);
       log(`已删除旧的同名附件 ${asset.name}`);
     }
@@ -338,14 +372,19 @@ async function publish(version, commit, assets, token, assetsOnly, skipModel) {
   if (!verified.ok) fail(`上传后读取附件失败：HTTP ${verified.status}`);
   requireCompleteRelease(version, verified.payload);
   for (const asset of assets) {
-    const remote = verified.payload.assets.find(item => item.name === asset.name);
-    if (!matchesArchive(remote, fs.statSync(asset.file).size, sha256(asset.file))) fail(`上传后校验失败：${asset.name}`);
+    const remote = verified.payload.assets.find((item) => item.name === asset.name);
+    if (!matchesArchive(remote, fs.statSync(asset.file).size, sha256(asset.file)))
+      fail(`上传后校验失败：${asset.name}`);
   }
   if (createdDraft || verified.payload.draft) {
     const published = await github(`/repos/${REPO}/releases/${verified.payload.id}`, {
-      method: "PATCH", token, contentType: "application/json", body: JSON.stringify({ draft: false }),
+      method: "PATCH",
+      token,
+      contentType: "application/json",
+      body: JSON.stringify({ draft: false }),
     });
-    if (!published.ok || published.payload?.draft) fail(`附件已齐全但发布草稿失败：HTTP ${published.status}`);
+    if (!published.ok || published.payload?.draft)
+      fail(`附件已齐全但发布草稿失败：HTTP ${published.status}`);
   }
   log("程序包与模型包均已上传，状态、大小和 SHA-256 校验通过。");
   return release.payload?.html_url;
@@ -361,8 +400,12 @@ function readToken() {
   try {
     const read = spawnSync(
       "powershell",
-      ["-NoProfile", "-NonInteractive", "-Command",
-       `[Environment]::GetEnvironmentVariable('${TOKEN_VARIABLE}','User')`],
+      [
+        "-NoProfile",
+        "-NonInteractive",
+        "-Command",
+        `[Environment]::GetEnvironmentVariable('${TOKEN_VARIABLE}','User')`,
+      ],
       { cwd: root, encoding: "utf8" },
     );
     const value = (read.stdout ?? "").trim();
@@ -379,7 +422,8 @@ const prepareOnly = process.argv.includes("--prepare-only");
 const assetsOnly = process.argv.includes("--assets-only");
 const modelOnly = process.argv.includes("--model-only");
 const skipModel = process.argv.includes("--no-model");
-if (modelOnly && (!assetsOnly || skipModel)) fail("--model-only 必须搭配 --assets-only，且不能与 --no-model 同用。");
+if (modelOnly && (!assetsOnly || skipModel))
+  fail("--model-only 必须搭配 --assets-only，且不能与 --no-model 同用。");
 
 log(`和序图书馆 · 发版 v${version}`);
 const commit = preflight(version, assetsOnly);
@@ -393,7 +437,9 @@ if (!modelOnly && !process.argv.includes("--skip-build")) {
 
 const assets = archive(version, !skipModel, modelOnly);
 for (const asset of assets) {
-  log(`${asset.label}  ${asset.name}  ${megabytes(fs.statSync(asset.file).size)}  sha256 ${sha256(asset.file).slice(0, 16)}…`);
+  log(
+    `${asset.label}  ${asset.name}  ${megabytes(fs.statSync(asset.file).size)}  sha256 ${sha256(asset.file).slice(0, 16)}…`,
+  );
 }
 
 const token = prepareOnly ? "" : readToken();
@@ -401,7 +447,11 @@ if (prepareOnly || !token) {
   if (!prepareOnly) {
     log("");
     log("没有找到访问令牌，因此只准备好文件、没有发布。");
-    log("要自动发布，请将细粒度 PAT（Contents: Read and write）配置在环境变量 " + TOKEN_VARIABLE + " 中；也可以手动上传：");
+    log(
+      "要自动发布，请将细粒度 PAT（Contents: Read and write）配置在环境变量 " +
+        TOKEN_VARIABLE +
+        " 中；也可以手动上传：",
+    );
   }
   for (const asset of assets) log("  " + asset.file);
   log("");

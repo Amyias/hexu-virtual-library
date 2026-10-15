@@ -6,7 +6,16 @@ import { READING } from "./phases.js";
 
    `turn` runs from 0 (closed) to 1 (cover laid flat); the hinge turns the cover about the spine by
    -π × turn, and the book slides right as it opens so the open spread stays centred. */
-export function createReaderView({ gsap, $, scene, camera, factory, machine, readingMusic, novelReader }) {
+export function createReaderView({
+  gsap,
+  $,
+  scene,
+  camera,
+  factory,
+  machine,
+  readingMusic,
+  novelReader,
+}) {
   let book = null; // the volume's 3D root
   let hinge = null;
   let turn = 0;
@@ -54,13 +63,19 @@ export function createReaderView({ gsap, $, scene, camera, factory, machine, rea
     novelReader.cover(turn > 0.85);
     position();
     $("openBook").textContent = turn > 0.5 ? "合上封面" : "翻开书页";
-    $("dragHint").textContent = turn > 0.85 ? "每一本书，都是通往另一个世界的入口。" : "按住封面向左拖动，让故事从这里展开";
+    $("dragHint").textContent =
+      turn > 0.85 ? "每一本书，都是通往另一个世界的入口。" : "按住封面向左拖动，让故事从这里展开";
   }
 
   function animateTurn(value) {
     turnTween?.kill();
     const state = { value: turn };
-    turnTween = gsap.to(state, { value, duration: 0.65, ease: "power2.out", onUpdate: () => setTurn(state.value) });
+    turnTween = gsap.to(state, {
+      value,
+      duration: 0.65,
+      ease: "power2.out",
+      onUpdate: () => setTurn(state.value),
+    });
   }
 
   /** Close the cover before the book goes back; resolves once it is shut. */
@@ -69,7 +84,12 @@ export function createReaderView({ gsap, $, scene, camera, factory, machine, rea
     turnTween?.kill();
     const state = { value: turn };
     return new Promise((resolve) =>
-      gsap.to(state, { value: 0, duration: 0.55, onUpdate: () => setTurn(state.value), onComplete: resolve }),
+      gsap.to(state, {
+        value: 0,
+        duration: 0.55,
+        onUpdate: () => setTurn(state.value),
+        onComplete: resolve,
+      }),
     );
   }
 
@@ -113,7 +133,8 @@ export function createReaderView({ gsap, $, scene, camera, factory, machine, rea
     positionChip();
     book.visible = false;
     $("chipId").textContent = volume.chipId;
-    $("chipLocation").textContent = `${volume.locationCode} · ${volume.shelf} 号书架 / ${volume.side} 面 / 第 ${volume.layer} 层 / 第 ${volume.slot} 本`;
+    $("chipLocation").textContent =
+      `${volume.locationCode} · ${volume.shelf} 号书架 / ${volume.side} 面 / 第 ${volume.layer} 层 / 第 ${volume.slot} 本`;
     document.body.classList.add("inspecting");
   }
 

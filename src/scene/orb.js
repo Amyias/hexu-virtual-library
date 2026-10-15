@@ -11,10 +11,7 @@ export function createOrb(scene, home) {
     fragmentShader:
       "varying vec3 vNormal;varying vec3 vPos;uniform float time;uniform float boost;void main(){float f=sin(vPos.x*10.0+time*1.7+sin(vPos.y*9.0-time*2.0)*2.0)*0.5+0.5;vec3 c=mix(vec3(0.12,0.85,0.72),vec3(0.38,0.32,0.95),f);c=mix(c,vec3(0.95,0.57,0.86),pow(max(0.0,sin(vPos.y*13.0+time)),3.0)*0.7);float edge=pow(1.0-abs(vNormal.z),2.0);gl_FragColor=vec4(c+edge*0.4+boost*0.24,1.0);}",
   });
-  const core = new THREE.Mesh(
-    new THREE.SphereGeometry(0.27, 48, 48),
-    coreMaterial,
-  );
+  const core = new THREE.Mesh(new THREE.SphereGeometry(0.27, 48, 48), coreMaterial);
   orb.add(core);
   const glowCanvas = document.createElement("canvas");
   glowCanvas.width = glowCanvas.height = 128;

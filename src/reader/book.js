@@ -1,9 +1,8 @@
 import * as THREE from "three";
-import { chipTexture } from '../scene/smart-books.js';
+import { chipTexture } from "../scene/smart-books.js";
 /** Dynamic text textures and a true spine hinge for the interactive reading copy. */
-export function createBookFactory(renderer,template) {
-  const mat = (color) =>
-    new THREE.MeshStandardMaterial({ color, roughness: 0.65 });
+export function createBookFactory(renderer, template) {
+  const mat = (color) => new THREE.MeshStandardMaterial({ color, roughness: 0.65 });
   const boxGeo = new THREE.BoxGeometry(1, 1, 1);
   function box(w, h, d, material, x, y, z, parent) {
     const m = new THREE.Mesh(boxGeo, material);
@@ -44,9 +43,7 @@ export function createBookFactory(renderer,template) {
     ctx.fillStyle = cover ? "#f1e8cb" : "#607458";
     ctx.font = "22px sans-serif";
     ctx.fillText(
-      cover
-        ? "H E  X U   /   C O L L E C T I O N"
-        : "H E  X U   /   阅 读 档 案",
+      cover ? "H E  X U   /   C O L L E C T I O N" : "H E  X U   /   阅 读 档 案",
       95,
       133,
     );
@@ -60,15 +57,7 @@ export function createBookFactory(renderer,template) {
       ctx.strokeStyle = "#d6d6b780";
       for (let i = 0; i < 14; i++) {
         ctx.beginPath();
-        ctx.ellipse(
-          510,
-          870,
-          170 + i * 12,
-          170 + i * 8,
-          i * 0.1,
-          0,
-          Math.PI * 2,
-        );
+        ctx.ellipse(510, 870, 170 + i * 12, 170 + i * 8, i * 0.1, 0, Math.PI * 2);
         ctx.stroke();
       }
       ctx.font = "26px sans-serif";
@@ -82,11 +71,7 @@ export function createBookFactory(renderer,template) {
       ctx.fillStyle = "#62745a";
       ctx.font = "26px sans-serif";
       ctx.fillText(b.category, 95, 1165);
-      ctx.fillText(
-        `馆藏 0${b.shelf} · ${b.side} 面 · 第 ${b.layer} 层`,
-        95,
-        1215,
-      );
+      ctx.fillText(`馆藏 0${b.shelf} · ${b.side} 面 · 第 ${b.layer} 层`, 95, 1215);
       ctx.fillText("01                                   和序图书馆", 95, 1300);
     }
     return texture(c);
@@ -96,40 +81,84 @@ export function createBookFactory(renderer,template) {
     // The close-up is the same volume that stands on the shelf, at 1/0.15 scale, so it carries
     // the volume's own width, height and thickness — a book that changed size on being picked
     // up would give the whole interaction away.
-    const w = b.widthScale ?? 1, h = b.heightScale ?? 1, d = b.depthScale ?? 1;
-    const body=cloneTemplate(b);body.scale.set(w/.15,h/.15,d/.15);root.add(body);
-    const hinge=body.getObjectByName('FrontHinge');
-    if(!hinge)throw new Error('Blender book hinge missing');
-    const coverMesh=body.getObjectByName('FrontCover_top');
-    const page=plane(.204,.29,pageTexture(b));page.position.set(0,0,.0084*d);body.add(page);
-    const c=document.createElement('canvas');c.width=900;c.height=1100;const ctx=c.getContext('2d');
-    ctx.fillStyle='#e7dec1';ctx.font='22px sans-serif';ctx.fillText('HE XU / SMART COLLECTION',55,80);
-    ctx.font='64px "Microsoft YaHei",sans-serif';const y=wrap(ctx,b.title,55,220,790,90);
-    ctx.font='28px "Microsoft YaHei",sans-serif';wrap(ctx,b.author,55,y+70,790,44);
-    ctx.strokeStyle='#d8c696';ctx.lineWidth=2;ctx.strokeRect(22,22,856,1056);
-    ctx.font='30px monospace';ctx.fillText(b.bookId,55,970);
-    const ink=plane(.198,.197,texture(c));ink.material.transparent=true;ink.position.set(.108*w,.045*h,.0023*d);hinge.add(ink);
+    const w = b.widthScale ?? 1,
+      h = b.heightScale ?? 1,
+      d = b.depthScale ?? 1;
+    const body = cloneTemplate(b);
+    body.scale.set(w / 0.15, h / 0.15, d / 0.15);
+    root.add(body);
+    const hinge = body.getObjectByName("FrontHinge");
+    if (!hinge) throw new Error("Blender book hinge missing");
+    const coverMesh = body.getObjectByName("FrontCover_top");
+    const page = plane(0.204, 0.29, pageTexture(b));
+    page.position.set(0, 0, 0.0084 * d);
+    body.add(page);
+    const c = document.createElement("canvas");
+    c.width = 900;
+    c.height = 1100;
+    const ctx = c.getContext("2d");
+    ctx.fillStyle = "#e7dec1";
+    ctx.font = "22px sans-serif";
+    ctx.fillText("HE XU / SMART COLLECTION", 55, 80);
+    ctx.font = '64px "Microsoft YaHei",sans-serif';
+    const y = wrap(ctx, b.title, 55, 220, 790, 90);
+    ctx.font = '28px "Microsoft YaHei",sans-serif';
+    wrap(ctx, b.author, 55, y + 70, 790, 44);
+    ctx.strokeStyle = "#d8c696";
+    ctx.lineWidth = 2;
+    ctx.strokeRect(22, 22, 856, 1056);
+    ctx.font = "30px monospace";
+    ctx.fillText(b.bookId, 55, 970);
+    const ink = plane(0.198, 0.197, texture(c));
+    ink.material.transparent = true;
+    ink.position.set(0.108 * w, 0.045 * h, 0.0023 * d);
+    hinge.add(ink);
     // The engraving is the one printed element that keeps its physical size on every cover, so
     // its scale cancels the volume's while its position rides the cover's.
-    const label=plane(.028,.014,chipTexture(b));label.position.set(.173*w,-.105*h,.00095*d);label.scale.set(1/w,1/h,1);hinge.add(label);
+    const label = plane(0.028, 0.014, chipTexture(b));
+    label.position.set(0.173 * w, -0.105 * h, 0.00095 * d);
+    label.scale.set(1 / w, 1 / h, 1);
+    hinge.add(label);
     return { root, hinge, coverMesh };
   }
 
-  function cloneTemplate(b){
-    const body=template.clone(true);
-    body.traverse(o=>{if(o.isMesh){o.material=o.material.clone();if(/FrontCover|RearBoard|RoundedSpine/.test(o.name))o.material.color.set(b.color);}});
+  function cloneTemplate(b) {
+    const body = template.clone(true);
+    body.traverse((o) => {
+      if (o.isMesh) {
+        o.material = o.material.clone();
+        if (/FrontCover|RearBoard|RoundedSpine/.test(o.name)) o.material.color.set(b.color);
+      }
+    });
     return body;
   }
-  function plane(w,h,map){
-    const mesh=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({map,toneMapped:false}));
-    mesh.userData.ownedGeometry=true;mesh.material.userData.ownedMap=true;return mesh;
+  function plane(w, h, map) {
+    const mesh = new THREE.Mesh(
+      new THREE.PlaneGeometry(w, h),
+      new THREE.MeshBasicMaterial({ map, toneMapped: false }),
+    );
+    mesh.userData.ownedGeometry = true;
+    mesh.material.userData.ownedMap = true;
+    return mesh;
   }
-  function createChip(b){
-    const root=new THREE.Group(),parts=new THREE.Group();root.add(parts);parts.scale.setScalar(45);
-    const copy=cloneTemplate(b);const hinge=copy.getObjectByName('FrontHinge');
-    for(const child of [...hinge.children])if(/Chip|Recess/.test(child.name)){hinge.remove(child);child.position.x-=.173;child.position.y+=.105;parts.add(child);}
+  function createChip(b) {
+    const root = new THREE.Group(),
+      parts = new THREE.Group();
+    root.add(parts);
+    parts.scale.setScalar(45);
+    const copy = cloneTemplate(b);
+    const hinge = copy.getObjectByName("FrontHinge");
+    for (const child of [...hinge.children])
+      if (/Chip|Recess/.test(child.name)) {
+        hinge.remove(child);
+        child.position.x -= 0.173;
+        child.position.y += 0.105;
+        parts.add(child);
+      }
     dispose(copy);
-    const label=plane(.028,.014,chipTexture(b));label.position.z=.00095;parts.add(label);
+    const label = plane(0.028, 0.014, chipTexture(b));
+    label.position.z = 0.00095;
+    parts.add(label);
     return root;
   }
 
@@ -138,12 +167,12 @@ export function createBookFactory(renderer,template) {
       if (o.isMesh) {
         if (o.userData.ownedGeometry) o.geometry.dispose();
         for (const m of Array.isArray(o.material) ? o.material : [o.material]) {
-          if(m.userData.ownedMap)m.map?.dispose();
+          if (m.userData.ownedMap) m.map?.dispose();
           m.dispose();
         }
       }
     });
     root.removeFromParent();
   }
-  return { create: createBook,createChip, dispose };
+  return { create: createBook, createChip, dispose };
 }

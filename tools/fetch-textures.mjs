@@ -30,12 +30,20 @@ const SETS = [
   {
     material: "地板 · 橡木",
     slug: "wood_table_worn",
-    outputs: { Diffuse: "floor-oak-albedo.jpg", nor_gl: "floor-oak-normal.jpg", Rough: "floor-oak-roughness.jpg" },
+    outputs: {
+      Diffuse: "floor-oak-albedo.jpg",
+      nor_gl: "floor-oak-normal.jpg",
+      Rough: "floor-oak-roughness.jpg",
+    },
   },
   {
     material: "书柜 · 烟熏橡木",
     slug: "black_oak_veneer",
-    outputs: { Diffuse: "joinery-oak-albedo.jpg", nor_gl: "joinery-oak-normal.jpg", Rough: "joinery-oak-roughness.jpg" },
+    outputs: {
+      Diffuse: "joinery-oak-albedo.jpg",
+      nor_gl: "joinery-oak-normal.jpg",
+      Rough: "joinery-oak-roughness.jpg",
+    },
   },
 ];
 
@@ -64,7 +72,11 @@ for (const set of SETS) {
   for (const [map, filename] of Object.entries(set.outputs)) {
     const r = await fetchMap(set.slug, map, filename);
     total += r.bytes;
-    console.log(`  ${r.skipped ? "已有" : "下载"}  ${filename.padEnd(28)} ${(r.bytes / 1024).toFixed(0)} KB`);
+    console.log(
+      `  ${r.skipped ? "已有" : "下载"}  ${filename.padEnd(28)} ${(r.bytes / 1024).toFixed(0)} KB`,
+    );
   }
 }
-console.log(`\n${SETS.length} 套材质，合计 ${(total / 1048576).toFixed(2)} MB，写入 public/textures/`);
+console.log(
+  `\n${SETS.length} 套材质，合计 ${(total / 1048576).toFixed(2)} MB，写入 public/textures/`,
+);

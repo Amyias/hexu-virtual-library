@@ -37,7 +37,12 @@ export async function startLibrary() {
   const canvas = $("scene");
   const { renderer, scene, camera, focus, orbit, updateCamera } = createRuntime(canvas);
   $("loading").querySelector("p").textContent = "正在加载 Blender 精细模型";
-  const environment = await loadEnvironment(scene, books, (percent) => ($("loading").querySelector("p").textContent = "正在加载 Blender 模型 " + percent + "%"));
+  const environment = await loadEnvironment(
+    scene,
+    books,
+    (percent) =>
+      ($("loading").querySelector("p").textContent = "正在加载 Blender 模型 " + percent + "%"),
+  );
   const factory = createBookFactory(renderer, environment.bookTemplate);
   const { orb, coreMaterial, core, glow, rings } = createOrb(scene, home);
 
@@ -57,8 +62,32 @@ export async function startLibrary() {
   $("reader").querySelector(".reader-bottom").insertBefore(readTextButton, $("inspectChip"));
 
   const motion = createMotion({ gsap, scene, camera, focus, home });
-  const view = createReaderView({ gsap, $, scene, camera, factory, machine, readingMusic, novelReader });
-  const journey = createJourney({ $, machine, motion, view, environment, orb, camera, orbit, home, anchors, feedback, attention, novelReader, readingMusic });
+  const view = createReaderView({
+    gsap,
+    $,
+    scene,
+    camera,
+    factory,
+    machine,
+    readingMusic,
+    novelReader,
+  });
+  const journey = createJourney({
+    $,
+    machine,
+    motion,
+    view,
+    environment,
+    orb,
+    camera,
+    orbit,
+    home,
+    anchors,
+    feedback,
+    attention,
+    novelReader,
+    readingMusic,
+  });
   const assistant = createAssistant({
     gsap,
     $,
@@ -78,7 +107,8 @@ export async function startLibrary() {
     notice: feedback.notice,
     onSelect(book) {
       if (machine.is(IDLE)) assistant.present(book, "正文已在本地书库，正在为您定位。");
-      else if (machine.is(READING) && journey.selected?.localBookId === book.localBookId) novelReader.show();
+      else if (machine.is(READING) && journey.selected?.localBookId === book.localBookId)
+        novelReader.show();
       else feedback.notice("正文已上架。请先放回当前书籍，再从正文书库取阅。");
     },
   });
@@ -90,7 +120,22 @@ export async function startLibrary() {
     getPhase: () => machine.phase,
     lookupBook: assistant.lookup,
   });
-  bindInput({ $, canvas, machine, view, journey, assistant, feedback, library, novelReader, orbit, focus, updateCamera, camera, renderer });
+  bindInput({
+    $,
+    canvas,
+    machine,
+    view,
+    journey,
+    assistant,
+    feedback,
+    library,
+    novelReader,
+    orbit,
+    focus,
+    updateCamera,
+    camera,
+    renderer,
+  });
 
   /* A model may be configured on the deployment for phrasing the local rules cannot read.
      Probing is best-effort and silent: without one, every request still goes through the rules,
@@ -104,7 +149,8 @@ export async function startLibrary() {
   fetch("/update/status", { cache: "no-store" })
     .then((response) => (response.ok ? response.json() : null))
     .then((info) => {
-      if (info && info.state === "update-available") feedback.notice(`发现新版本（${info.reason}），将自动下载、校验并重启。`);
+      if (info && info.state === "update-available")
+        feedback.notice(`发现新版本（${info.reason}），将自动下载、校验并重启。`);
     })
     .catch(() => {});
 
@@ -118,7 +164,9 @@ export async function startLibrary() {
     coreMaterial.uniforms.time.value = time;
     coreMaterial.uniforms.boost.value = boost;
     core.position.y = Math.sin(time * 1.8) * 0.045;
-    core.scale.setScalar(1 + Math.sin(time * 2) * 0.045 + boost * (0.4 + Math.sin(time * 12) * 0.1));
+    core.scale.setScalar(
+      1 + Math.sin(time * 2) * 0.045 + boost * (0.4 + Math.sin(time * 12) * 0.1),
+    );
     glow.scale.setScalar(1.25 + boost * 0.7);
     rings.forEach((ring, i) => {
       ring.rotation.y = time * (0.35 + i * 0.13);
