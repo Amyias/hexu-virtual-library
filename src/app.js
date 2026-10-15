@@ -12,6 +12,7 @@ import { createReadingMusic } from "./reader/music.js";
 import { createPhaseMachine, IDLE, READING } from "./app/phases.js";
 import { createAttention } from "./app/dialogue.js";
 import { createFeedback } from "./app/feedback.js";
+import { projectDialogueAnchor } from "./app/project-dialogue.js";
 import { createMotion } from "./app/motion.js";
 import { createReaderView } from "./app/reader-view.js";
 import { createJourney } from "./app/journey.js";
@@ -164,7 +165,7 @@ export async function startLibrary() {
     requestAnimationFrame(frame);
     const time = clock.getElapsedTime();
     companion.update({ time, pulse: pulse.value, phase: machine.phase, camera });
-    projected.copy(orb.position).add(bubbleAnchor).project(camera);
+    projectDialogueAnchor(camera, orb.position, bubbleAnchor, projected);
     const bubble = $("bubble");
     const desiredX = (projected.x * 0.5 + 0.5) * innerWidth;
     const width = bubble.offsetWidth;
