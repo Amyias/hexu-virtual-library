@@ -59,7 +59,14 @@ npm start
 | `DEPLOY.md` | 服务器部署与服务端语音识别 |
 | `index.html` | 页面结构、import map、本地依赖入口 |
 | `src/main.js` | 启动与资源加载错误提示 |
-| `src/app.js` | 唤醒、导航、阅读、芯片特写、归还的状态与动画编排 |
+| `src/app.js` | 启动与装配：加载场景，把下面各模块接起来，逐帧渲染 |
+| `src/app/phases.js` | 显式状态机：`IDLE → NAVIGATING → PRESENTING → READING → RETURNING → IDLE`，越序请求一律拒绝 |
+| `src/app/dialogue.js` | 一句话要做什么（唤醒、阅读指令、取书、交给模型或正文检索），纯函数，不碰场景 |
+| `src/app/assistant.js` | 小和：执行 `dialogue.js` 的判断，所有文本输入的唯一入口 `processText` |
+| `src/app/journey.js` | 取书与归还的动画编排，并在每段之间推进状态 |
+| `src/app/reader-view.js` | 手中的书：封面开合、拖动、芯片特写 |
+| `src/app/input.js` | 指针、滚轮、键盘与按钮绑定 |
+| `src/app/feedback.js`、`src/app/motion.js` | 提示 / 气泡 / 语音播报；补间动画与取书路线 |
 | `src/reader/music.js` | 阅读音乐、循环切歌、暂停、进度及音量；放回书籍时停止 |
 | `public/audio/` | 用户提供的两首 MP3，随站点和本机程序携带 |
 | `src/data/catalog.js` | 馆藏入口：以 JSON 模块导入 `book-inventory.json`，展开成 11360 本书（含 12 本示例书） |

@@ -42,7 +42,7 @@
 | 文件 / 模块 | 职责 | 主要边界 |
 | --- | --- | --- |
 | `src/main.js` | 启动应用、显示加载异常 | 依赖或模型失败时给出可见提示 |
-| `src/app.js` | 文本调度、唤醒、状态、取还动画 | 统一控制动作，避免各输入渠道直接改场景 |
+| `src/app.js` 与 `src/app/` | 装配；状态机（`phases.js`）、意图判断（`dialogue.js`）、执行（`assistant.js`）、取还动画（`journey.js`）、手中的书（`reader-view.js`）、输入绑定（`input.js`） | 所有输入渠道都经 `processText` 与状态机，越序请求被拒绝而不是叠加动画 |
 | `src/voice/speech.js` | 识别器生命周期、候选、重连、记录 | 将转录结果送到 `processText` |
 | `src/voice/server-asr.js` | 浏览器录音、断句、WAV 上传 | 启用前先探测 `/asr/ready` |
 | `src/voice/intent.js` | 标题、别名、编号与位置匹配 | 返回目录内的实际书籍对象 |
@@ -135,7 +135,7 @@ Blender 保存建筑、书架、家具和植物的源对象；导出时按集合
 
 ### 5.3 取书与翻页
 
-应用状态链是 `IDLE → NAVIGATING → PRESENTING → READING → RETURNING → IDLE`。导航先使光球到书架引导点，再高亮具体书籍。书的起点来自该册的真实 `worldPosition`，完整模型飞到相机前，阅读时允许翻页和芯片特写。归还时先合上封面，飞回书位并恢复架上实例，再把光球和视角送回待机状态。
+应用状态链是 `IDLE → NAVIGATING → PRESENTING → READING → RETURNING → IDLE`，由 `src/app/phases.js` 的显式转移表定义：每个状态只有一条出路，越序的事件（取书途中再找书、书还没到就归还）被拒绝。导航先使光球到书架引导点，再高亮具体书籍。书的起点来自该册的真实 `worldPosition`，完整模型飞到相机前，阅读时允许翻页和芯片特写。归还时先合上封面，飞回书位并恢复架上实例，再把光球和视角送回待机状态。
 
 指针按下后用 Raycaster 判断是否点中书籍；水平拖动距离映射到 `turn ∈ [0,1]`，并设置 `hinge.rotation.y = -π × turn`。因此封面绕书脊铰链从 0° 转到 -180°。松开后吸附到开或合状态，也可用按钮与左右方向键操作。介绍页和封面文字由 Canvas 生成，这块 3D 纹理展示简介。已入库书籍翻开封面后进入 DOM 正文阅读器，按实际容器高度分页，支持章节、字号和持久化进度。
 
@@ -296,7 +296,7 @@ node docs/generate-diagrams.mjs
 本文的实现描述主要依据下列源码，后续升级时可从这些入口复核：
 
 - 场景：[runtime.js](../src/scene/runtime.js)、[environment.js](../src/scene/environment.js)、[smart-books.js](../src/scene/smart-books.js)、[orb.js](../src/scene/orb.js)。
-- 交互：[app.js](../src/app.js)、[book.js](../src/reader/book.js)。
+- 交互：[app.js](../src/app.js)、[app/](../src/app/)（状态机、意图判断、取还编排）、[book.js](../src/reader/book.js)。
 - 语音：[speech.js](../src/voice/speech.js)、[server-asr.js](../src/voice/server-asr.js)、[intent.js](../src/voice/intent.js)、[understand.js](../src/voice/understand.js)。
 - 服务与发行：[asr-server.py](../tools/asr-server.py)、[window_host.py](../tools/window_host.py)、[package-local.mjs](../tools/package-local.mjs)、[updater.py](../tools/updater.py)、[release.mjs](../tools/release.mjs)。
 - 数据与验收：[prepare-smart-books.mjs](../tools/prepare-smart-books.mjs)、[manifest.json](../public/models/manifest.json)、[library.test.mjs](../tests/library.test.mjs)。

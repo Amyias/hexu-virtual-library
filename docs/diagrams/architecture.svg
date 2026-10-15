@@ -25,7 +25,7 @@
 <text x="83" y="428" class="body"><tspan x="83" dy="0">intent.js：精确 / 片段 / 近似</tspan><tspan x="83" dy="25">标题、别名、编号、位置码</tspan><tspan x="83" dy="25">输出实际馆藏对象</tspan></text>
 <rect x="350" y="370" width="255" height="120" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
 <text x="368" y="401" class="node"><tspan x="368" dy="0">应用调度与状态</tspan></text>
-<text x="368" y="428" class="body"><tspan x="368" dy="0">app.js / processText</tspan><tspan x="368" dy="25">唤醒、多轮、取书、归还</tspan><tspan x="368" dy="25">统一控制 GSAP 动画</tspan></text>
+<text x="368" y="428" class="body"><tspan x="368" dy="0">app/ 状态机 + processText</tspan><tspan x="368" dy="25">唤醒、多轮、取书、归还</tspan><tspan x="368" dy="25">越序请求拒绝，不叠加动画</tspan></text>
 <rect x="635" y="370" width="250" height="120" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
 <text x="653" y="401" class="node"><tspan x="653" dy="0">实时 3D 渲染</tspan></text>
 <text x="653" y="428" class="body"><tspan x="653" dy="0">Three.js / WebGL</tspan><tspan x="653" dy="25">环境、光球、相机</tspan><tspan x="653" dy="25">架上书实例化</tspan></text>
@@ -66,7 +66,7 @@
 <text x="83" y="933" class="body"><tspan x="83" dy="0">环境 / 植物 / 书籍模板 → GLB</tspan></text>
 <rect x="500" y="875" width="400" height="88" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
 <text x="518" y="906" class="node"><tspan x="518" dy="0">本地资产与馆藏清单</tspan></text>
-<text x="518" y="933" class="body"><tspan x="518" dy="0">GLB + 贴图 + vendor + 3 份目录副本</tspan></text>
+<text x="518" y="933" class="body"><tspan x="518" dy="0">GLB + 贴图 + vendor + 单份紧凑馆藏清单</tspan></text>
 <rect x="930" y="875" width="445" height="88" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
 <text x="948" y="906" class="node"><tspan x="948" dy="0">桌面打包与版本更新</tspan></text>
 <text x="948" y="933" class="body"><tspan x="948" dy="0">PyInstaller / WebView2 / GitHub Releases</tspan></text>

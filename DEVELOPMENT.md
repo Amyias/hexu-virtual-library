@@ -264,7 +264,7 @@ Blender 位于 `D:\Blender Foundation\Blender 5.2\blender.exe`。
 **语义层的三条设计边界**（改它之前先读）：
 
 - **本地规则优先**：规则能精确命中的不会绕这一趟，所以常见说法仍是瞬时的，模型只覆盖长尾。
-- **不放进识别适配器**。`tests/library.test.mjs` 锁定了适配器必须在 `onresult` 内**同步**派发（`deepEqual(finals, [...])` 那两条），而网络调用做不到同步。它放在 `src/app.js` 的 `processText` 这一层。
+- **不放进识别适配器**。`tests/library.test.mjs` 锁定了适配器必须在 `onresult` 内**同步**派发（`deepEqual(finals, [...])` 那两条），而网络调用做不到同步。它放在 `src/app/assistant.js` 的 `processText` 这一层。
 - **绝不信任模型给出的目标对象**。返回的 `bookId` 一律在服务端核对是否存在于馆藏清单，编造的编号判为 `none`。`navigate` 需要书目对象上的 `origin`/`instanceIndex`，一个凭空的对象会让它崩。
 
 配置、模型代际的坑（`thinking` 默认开启、思考模式下 `temperature` 失效）、费用与隐私，见 [DEPLOY.md](./DEPLOY.md) 的「可选的语义解析层」。

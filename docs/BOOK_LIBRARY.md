@@ -76,7 +76,7 @@ Windows 默认位置为 `%APPDATA%\hexu-library\books`；其他系统默认 `~/.
 ```text
 ASR / 文字输入
        ↓
-src/app.js → 本地书目匹配 → 3D 取书与封面开合
+src/app/assistant.js → 本地书目匹配 → 3D 取书与封面开合
        ↓ 未入库                     ↓
 src/reader/library.js       src/reader/novel.js
        ↓ 搜索 / 下载 / 导入          ↓ 章节 / 分页 / 进度
