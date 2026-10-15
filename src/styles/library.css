@@ -1,3 +1,11 @@
+@font-face {
+  font-family: "Fusion Pixel";
+  src: url("../../public/fonts/fusion-pixel/fusion-pixel-12px-monospaced-zh_hans.otf.woff2")
+    format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
 :root {
   --ink: #243d39;
   --muted: #788580;
@@ -210,6 +218,7 @@ header > * {
   padding-top: 12px;
 }
 .bottom {
+  pointer-events: none;
   position: fixed;
   left: 50%;
   bottom: 31px;
@@ -223,7 +232,11 @@ header > * {
   gap: 8px;
   margin-bottom: 13px;
 }
+#libraryButton {
+  pointer-events: auto;
+}
 .console {
+  pointer-events: auto;
   padding: 12px;
   background: #fafbf5e8;
   border: 1px solid white;
@@ -328,32 +341,148 @@ form button {
   position: fixed;
   left: 50%;
   top: 50%;
-  max-width: 280px;
-  padding: 13px 21px;
-  border-radius: 18px;
-  background: #ffffffe8;
-  border: 1px solid white;
-  box-shadow: 0 8px 40px #3b65531a;
-  backdrop-filter: blur(20px);
+  width: max-content;
+  min-width: 216px;
+  max-width: min(360px, calc(100vw - 32px));
   transform: translate(-50%, -100%);
-  font-size: 13px;
+  font-family: "Fusion Pixel", monospace;
+  font-synthesis: none;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: 0;
   pointer-events: none;
-  transition: opacity 0.2s;
   opacity: 0;
-  z-index: 3;
+  z-index: 30;
 }
 .bubble.show {
   opacity: 1;
 }
-.bubble:after {
+.bubble-frame {
+  padding: 12px 16px 16px;
+  color: #49392f;
+  background: #fff7e7;
+  box-shadow:
+    4px 0 #594237,
+    -4px 0 #594237,
+    0 -4px #594237,
+    0 4px #594237,
+    4px 8px #594237,
+    8px 4px #594237,
+    8px 8px #362d2530;
+}
+.bubble.show .bubble-frame {
+  animation: pixel-bubble-pop 150ms steps(3, end);
+}
+.bubble-heading {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #e2ccb0;
+  color: #a36d4c;
+  font-size: 12px;
+  line-height: 16px;
+}
+.bubble-led {
+  width: 8px;
+  height: 8px;
+  background: #d87656;
+  box-shadow: 2px 2px #e6b794;
+}
+.bubble-dots {
+  margin-left: auto;
+  letter-spacing: 2px;
+}
+.bubble-copy {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+.bubble-measure,
+.bubble-writing {
+  grid-area: 1 / 1;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+.bubble-measure {
+  visibility: hidden;
+}
+.bubble-caret {
+  display: inline-block;
+  width: 8px;
+  height: 4px;
+  margin-left: 4px;
+  background: #d87656;
+  vertical-align: baseline;
+}
+.bubble.typing .bubble-caret {
+  animation: pixel-caret 560ms steps(1, end) infinite;
+}
+.bubble:not(.typing) .bubble-caret {
+  opacity: 0.45;
+}
+.bubble::before,
+.bubble::after {
   content: "";
   position: absolute;
-  bottom: -6px;
-  left: 50%;
-  width: 12px;
-  height: 12px;
-  background: #fffffff0;
-  transform: rotate(45deg);
+  left: calc(var(--bubble-tail-x, 50%) - 4px);
+  width: 8px;
+  height: 4px;
+}
+.bubble::before {
+  bottom: -16px;
+  background: #594237;
+  box-shadow:
+    0 -4px 0 2px #594237,
+    0 -8px 0 4px #594237,
+    0 -12px 0 6px #594237;
+}
+.bubble::after {
+  bottom: -12px;
+  background: #fff7e7;
+  box-shadow:
+    0 -4px 0 2px #fff7e7,
+    0 -8px 0 4px #fff7e7;
+}
+#dialogueSound {
+  font-family: "Fusion Pixel", monospace;
+}
+#dialogueSound.active {
+  background: #f4dfc3;
+  color: #79513a;
+}
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+@keyframes pixel-bubble-pop {
+  from {
+    transform: translateY(8px);
+    opacity: 0.3;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes pixel-caret {
+  50% {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bubble.show .bubble-frame,
+  .bubble.typing .bubble-caret {
+    animation: none;
+  }
 }
 .location {
   position: fixed;

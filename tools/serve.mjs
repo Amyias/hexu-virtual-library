@@ -75,6 +75,7 @@ const mime = {
   ".glb": "model/gltf-binary",
   ".png": "image/png",
   ".mp3": "audio/mpeg",
+  ".woff2": "font/woff2",
 };
 const server = http.createServer(async (req, res) => {
   try {

@@ -53,6 +53,7 @@ const SITE_FILES = [
   path.join("public", "settings.html"),
   path.join("public", "vendor"),
   path.join("public", "audio"),
+  path.join("public", "fonts"),
   path.join("public", "models", "hexu-library.glb"),
   path.join("public", "models", "smart-book.glb"),
   path.join("public", "models", "shelf-book.glb"),

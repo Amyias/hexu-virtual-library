@@ -141,7 +141,6 @@ const browser = spawn(
     `--user-data-dir=${profile}`,
     "--use-angle=swiftshader",
     "--enable-unsafe-swiftshader",
-    "--autoplay-policy=no-user-gesture-required",
     "--window-size=1280,820",
     "about:blank",
   ],
@@ -175,6 +174,87 @@ try {
   const text = (id) => page.evaluate(`document.getElementById(${JSON.stringify(id)}).textContent`);
   const click = (id) => page.evaluate(`document.getElementById(${JSON.stringify(id)}).click()`);
 
+  // Test typewriter timing without a software-WebGL frame blocking every timer callback.
+  await page.send("Page.navigate", {
+    url: `http://127.0.0.1:${sitePort}/tests/fixtures/pixel-dialogue.html`,
+  });
+  await waitFor(() => page.evaluate("Boolean(window.pixelFixture)"), "像素反馈模块加载");
+  if ((await page.evaluate("pixelFixture.feedback.getState().sound.state")) !== "locked")
+    throw new Error("音效在用户操作前创建了 AudioContext");
+  const font = await page.evaluate(`(async () => {
+    await document.fonts.load('24px "Fusion Pixel"', '有什么需求吗？');
+    return [...document.fonts].some(font => font.family === 'Fusion Pixel' && font.status === 'loaded');
+  })()`);
+  if (!font) throw new Error("离线中文像素字体加载失败");
+  const replyRect = await page.evaluate(
+    "(() => { const r=document.getElementById('testReply').getBoundingClientRect();return {x:r.x+r.width/2,y:r.y+r.height/2};})()",
+  );
+  for (const type of ["mousePressed", "mouseReleased"])
+    await page.send("Input.dispatchMouseEvent", {
+      type,
+      ...replyRect,
+      button: "left",
+      clickCount: 1,
+    });
+  const prefixes = new Set();
+  const typingStarted = Date.now();
+  while (Date.now() - typingStarted < 2000) {
+    const reply = await page.evaluate(
+      "({text:document.getElementById('bubbleText').textContent,state:pixelFixture.feedback.getState()})",
+    );
+    prefixes.add(reply.text);
+    if (!reply.state.typing && reply.text === "有什么需求吗？") break;
+    await sleep(15);
+  }
+  const replyState = await page.evaluate("pixelFixture.feedback.getState()");
+  if (
+    prefixes.size < 3 ||
+    replyState.typing ||
+    replyState.sound.state !== "running" ||
+    !replyState.sound.pops ||
+    !replyState.sound.ticks
+  )
+    throw new Error(`逐字回应或声音未完成：${JSON.stringify(replyState)} / ${prefixes.size}`);
+  await page.evaluate("pixelFixture.feedback.bubble('上一段未完成的长回复',0)");
+  await sleep(90);
+  await page.evaluate("pixelFixture.feedback.bubble('新的回复',0)");
+  await waitFor(async () => (await text("bubbleText")) === "新的回复", "新回复替换旧文本");
+  await page.evaluate("pixelFixture.feedback.toggleSounds()");
+  const muted = await page.evaluate("pixelFixture.feedback.getState().sound");
+  await page.evaluate("pixelFixture.feedback.bubble('静音仍然逐字显示',0)");
+  await waitFor(
+    async () => !(await page.evaluate("pixelFixture.feedback.getState().typing")),
+    "静音文字完成",
+  );
+  const afterMute = await page.evaluate("pixelFixture.feedback.getState().sound");
+  if (afterMute.enabled || afterMute.pops !== muted.pops || afterMute.ticks !== muted.ticks)
+    throw new Error("静音后仍播放了音效");
+  await page.evaluate("pixelFixture.feedback.toggleSounds()");
+  const waveform = await page.evaluate(`(async () => {
+    const offline = new OfflineAudioContext(1, 26460, 44100);
+    let time=0;
+    class Context {
+      constructor(){this.destination=offline.destination;this.state='running';}
+      get currentTime(){return time;}
+      createGain(){return offline.createGain();}
+      createOscillator(){return offline.createOscillator();}
+      createBiquadFilter(){return offline.createBiquadFilter();}
+    }
+    const sounds=pixelFixture.createDialogueSounds({host:{AudioContext:Context},storage:{getItem:()=>null}});
+    await sounds.unlock();sounds.pop();time=.2;sounds.type('你',1);time=.28;sounds.type('好',2);
+    const samples=(await offline.startRendering()).getChannelData(0);
+    const peak=(a,b)=>Math.max(...samples.slice(Math.floor(a*44100),Math.floor(b*44100)).map(Math.abs));
+    return {pop:peak(0,.14),type:peak(.2,.24),silence:peak(.4,.59),max:peak(0,.59)};
+  })()`);
+  if (
+    waveform.pop < 0.01 ||
+    waveform.type < 0.005 ||
+    waveform.max > 0.2 ||
+    waveform.silence > 0.00001
+  )
+    throw new Error(`合成音效波形异常：${JSON.stringify(waveform)}`);
+  step("像素气泡与逐字音效", `${prefixes.size} 个可见文字阶段；字体加载、静音与声音波形通过`);
+
   await page.send("Page.navigate", { url: `http://127.0.0.1:${sitePort}/` });
   await waitFor(
     async () =>
@@ -202,7 +282,18 @@ try {
   )
     throw new Error("Blender 小和宠物未完整加载");
   const home = loaded.orb;
-  await page.evaluate("window.libraryDebug.processText('小和')");
+  for (const type of ["mousePressed", "mouseReleased"])
+    await page.send("Input.dispatchMouseEvent", {
+      type,
+      x: loaded.petScreen[0],
+      y: loaded.petScreen[1],
+      button: "left",
+      clickCount: 1,
+    });
+  await waitFor(
+    async () => (await state()).dialogue.message === "有什么需求吗？",
+    "点击 Blender 小和回应",
+  );
   const wakeState = await state();
   const protocol = JSON.parse(await text("protocol"));
   if (
@@ -302,7 +393,12 @@ try {
   console.error(`\n✖ ${error.message}`);
   if (page) {
     try {
-      const shot = await page.send("Page.captureScreenshot", { format: "png" });
+      const shot = await Promise.race([
+        page.send("Page.captureScreenshot", { format: "png" }),
+        sleep(10000).then(() => {
+          throw new Error("Failure screenshot timed out");
+        }),
+      ]);
       const file = path.join(os.tmpdir(), `hexu-ui-failure-${Date.now()}.png`);
       fs.writeFileSync(file, Buffer.from(shot.result.data, "base64"));
       console.error(`  失败时的页面截图：${file}`);

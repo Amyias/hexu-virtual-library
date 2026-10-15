@@ -18,11 +18,16 @@ export function bindInput({
   updateCamera,
   camera,
   renderer,
+  petRoot,
 }) {
   let orbitDrag = null;
+  let tap = null;
+  const petRay = new THREE.Raycaster();
+  const petPointer = new THREE.Vector2();
 
   canvas.addEventListener("pointerdown", (event) => {
     if (view.inspecting || event.button !== 0) return;
+    tap = { x: event.clientX, y: event.clientY };
     if (machine.is(READING)) {
       if (view.grab(event)) canvas.setPointerCapture(event.pointerId);
     } else if (machine.is(IDLE)) {
@@ -31,6 +36,7 @@ export function bindInput({
     }
   });
   canvas.addEventListener("pointermove", (event) => {
+    if (tap && Math.hypot(event.clientX - tap.x, event.clientY - tap.y) > 5) tap = null;
     if (view.dragTo(event.clientX)) return;
     if (!orbitDrag || !machine.is(IDLE)) return;
     orbit.angle -= (event.clientX - orbitDrag.x) * 0.005;
@@ -45,8 +51,27 @@ export function bindInput({
   const release = () => {
     view.letGo();
     orbitDrag = null;
+    tap = null;
   };
-  canvas.addEventListener("pointerup", release);
+  canvas.addEventListener("pointerup", (event) => {
+    if (tap && machine.is(IDLE)) {
+      const rect = canvas.getBoundingClientRect();
+      petPointer.set(
+        ((event.clientX - rect.left) / rect.width) * 2 - 1,
+        (-(event.clientY - rect.top) / rect.height) * 2 + 1,
+      );
+      petRay.setFromCamera(petPointer, camera);
+      petRoot.updateMatrixWorld(true);
+      if (
+        petRay
+          .intersectObject(petRoot, true)
+          .some((hit) => /^Pet(?:Body|Eye|Arm|Leg)/.test(hit.object.name))
+      )
+        assistant.processText("小和", true);
+    }
+    tap = null;
+    release();
+  });
   canvas.addEventListener("pointercancel", release);
   canvas.addEventListener("lostpointercapture", release);
   canvas.addEventListener(
@@ -75,6 +100,7 @@ export function bindInput({
     updateCamera();
   };
   $("sound").onclick = feedback.toggleSpeaking;
+  $("dialogueSound").onclick = feedback.toggleSounds;
   $("searchForm").onsubmit = (event) => {
     event.preventDefault();
     const text = $("query").value.trim();

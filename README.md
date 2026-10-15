@@ -225,3 +225,7 @@ python -m unittest discover -s tests -p test_source_rules.py
 角色为 9 个网格、16 个节点、396 个三角面，GLB 约 35.2 KiB。待机悬浮、呼吸与眨眼，唤醒时抬手并放大、出现橙色波纹，找书与归还时摆腿飞行。原有语音与找书、封面、芯片、正文阅读流程继续使用。前台锚点与所有馆藏坐标未改。
 
 生成模块 `blender/xiaohe_pet.py`、构建脚本 `blender/build_xiaohe_pet.py`、网页适配 `src/scene/companion.js`；形态量取、来源、独立重建与不变量验证见 [小和模型说明](blender/XIAOHE_PET_REFERENCES.md)。打包配置已携带新 GLB，旧桌面 EXE 要重新打包才能显示新形态。
+
+## 小和像素对话
+
+点击小和或说“小和”，会出现阶梯边框气泡与逐字显示的中文像素文字。气泡弹出和打字使用轻柔的本地合成音效，右下角 ▥ 可独立静音；♪ 保留语音播报开关。字体与授权文件随程序离线打包。也可以问“你是谁”“你能做什么”，或说“谢谢”“再见”。实现与素材来源见 [像素对话说明](docs/PIXEL_DIALOGUE.md)。

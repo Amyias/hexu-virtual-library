@@ -67,7 +67,7 @@
         5 架 · 双面 4 层 · 书脊朝外竖排<br />仅展示已入库书籍，未入库槽位留空。
       </div>
     </aside>
-    <div id="bubble" class="bubble" role="status">有什么需求吗？</div>
+    <div id="bubble" class="bubble" aria-hidden="true"></div>
     <div class="bottom">
       <div id="libraryActions" class="library-actions"></div>
       <div class="console">
@@ -101,6 +101,7 @@
       ><span id="locationText">前台服务区 · 小和待命中</span>
     </div>
     <div class="view-tools">
+      <button id="dialogueSound" aria-label="关闭气泡与打字音效" title="关闭气泡与打字音效" aria-pressed="true">▥</button>
       <button id="home" aria-label="重置视角" title="重置视角">⌂</button
       ><button id="sound" aria-label="开启语音播报" title="开启语音播报">
         ♪
@@ -156,7 +157,7 @@
           阅读时也可以用嘴操作：<b>翻开、合上、下一页、上一页、读正文、看看芯片、放回书架</b>。
         </p>
         <p>
-          语音播报默认关闭，气泡回应始终开启；右下角 ♪
+          点击小和或说出唤醒词，会弹出像素气泡，文字逐字出现。右下角 ▥ 可独立关闭气泡与打字音效；音效在首次点击或键盘操作后可播放。语音播报默认关闭，右下角 ♪
           可开启播报，建议配合耳机以减少扬声器回声。
         </p>
         <p>

@@ -1,0 +1,10 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>小和像素对话验证</title><link rel="stylesheet" href="../../src/styles/library.css"><style>body{background:#e8e5da;background-image:linear-gradient(#d3cdbf55 1px,transparent 1px),linear-gradient(90deg,#d3cdbf55 1px,transparent 1px);background-size:24px 24px}#bubble{left:50%;top:55%}#testReply{position:fixed;left:24px;top:24px;padding:12px 18px}#notice{position:fixed;bottom:24px;left:24px}</style></head>
+<body><button id="testReply">回应</button><div id="bubble" class="bubble" aria-hidden="true"></div><div class="view-tools"><button id="dialogueSound">▥</button><button id="sound">♪</button></div><div id="notice"></div><script type="module">
+import {createFeedback} from '../../src/app/feedback.js';
+import {createDialogueSounds} from '../../src/app/dialogue-sounds.js';
+const feedback=createFeedback(id=>document.getElementById(id));
+document.getElementById('testReply').onclick=()=>feedback.bubble('有什么需求吗？',0);
+document.getElementById('dialogueSound').onclick=feedback.toggleSounds;
+window.pixelFixture={feedback,createDialogueSounds};
+</script></body></html>

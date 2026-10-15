@@ -15,6 +15,12 @@ export const LOCATING = "好的，正在为您定位…";
 export const READING_HINT = "正在陪你阅读，可以说下一页、上一页、读正文、看芯片或放回书架。";
 export const BUSY_HINT = "小和正在取书，请稍候。";
 
+const PET_REPLIES = [
+  [/^(?:你是谁|你叫什么|介绍一下自己)$/, "我是小和，你的图书馆小伙伴。想读什么书，告诉我吧！"],
+  [/^(?:谢谢|谢谢你|多谢|辛苦了)$/, "不客气！能陪你读书，我很开心。"],
+  [/^(?:你会什么|你能做什么|有什么功能)$/, "我会找书、带你取书，也能陪你翻页阅读。说出书名就好！"],
+  [/^(?:再见|拜拜|晚安)$/, "下次见！我会在书架旁等你。"],
+];
 const GREETINGS = /你好|您好|在吗|你在吗|嗨|嘿|哈喽|hello/gi;
 
 /* Reading commands are few and regular, so they are answered at once; going to the model for them
@@ -74,6 +80,8 @@ export function decide(
   if (phase !== IDLE) return { type: "busy", tell: addressed || direct };
 
   const wake = addressed && !wasInterimWake;
+  const reply = PET_REPLIES.find(([pattern]) => pattern.test(request));
+  if (reply) return { type: "reply", wake, speech: reply[1] };
   const book = lookup(request);
   if (!book) {
     if (understand) return { type: "model", wake, request };

@@ -1,0 +1,25 @@
+# 小和像素对话
+
+所有唤醒、找书和归还气泡共用 `src/app/pixel-dialogue.js`。`createTypewriter` 按 Unicode 字素簇逐个显示中文、组合字符和 emoji；中文间隔 65 ms，拉丁字符 42 ms，标点稍停。替换回复、隐藏页面或关闭气泡会取消上一段的定时器与声音。保留完整文本的隐藏测量层使气泡尺寸稳定；屏幕阅读器一次收到完整回复，不逐字播报。系统开启减少动画时关闭气泡位移和光标闪烁，文字仍按本功能要求逐字显示。
+
+气泡是 HTML/CSS 叠加层，用整数像素台阶、硬边阴影和尾巴跟随 Blender 宠物的投影坐标。它会避开屏幕左右边缘，字体仅作用于气泡，不影响小说正文排版。当前 Blender 宠物和馆内模型继续复用。
+
+## 字体
+
+字体为 [Fusion Pixel Font](https://github.com/TakWolf/fusion-pixel-font) 2026.09.25 的 12px 等宽简体中文字形，按 24px 的整数倍显示。WOFF2 与 OFL-1.1 及上游组成字体的许可证放在 `public/fonts/fusion-pixel/`，全部随本机程序打包；不依赖字体 CDN。来源与 SHA-256 见 `SOURCE.json`。
+
+重新准备：`.cache/venv/Scripts/python.exe tools/fetch-pixel-font.py`。脚本固定官方发行包与摘要，仅取指定字体及授权文件。
+
+## 声音
+
+`src/app/dialogue-sounds.js` 使用 Web Audio 原创合成两种声音：120 ms 的正弦滑音表示气泡弹出；26 ms 的低通方波表示一个字出现。空白和标点不打字发声，音量包络有短起音和衰减；每次回复结束后不循环。音效不下载第三方录音，也不需要网络或音频附件。
+
+浏览器通常要求一次用户操作才能播放声音。首次点击页面、点击小和、启动麦克风或键盘输入会尝试解锁 AudioContext；解锁前文字照常出现，不积压旧音效。右下角 ▥ 独立控制音效并记住选择；♪ 仍只控制语音播报。播报一段话时减少重叠的逐字音效。页面隐藏后停止当前声音。
+
+实现依据：[MDN Web Audio best practices](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Best_practices)、[自动播放规则](https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Autoplay)。
+
+## 交互
+
+点一下 Blender 宠物或说“小和”会回应“有什么需求吗？”，停在前台。拖动视角不会触发点击。唤醒后可以说书名，也可问“你是谁”“你能做什么”，或说“谢谢”“再见”；这些简短回应由本地规则处理，不启动正文下载。找书、取书与归还沿用现有状态机。
+
+验证覆盖 Unicode 逐字输出、快速替换、取消计时、标点节奏、声音开关、限速和节点释放；浏览器回归另检查字体加载、像素样式、实际 AudioContext 解锁、点击宠物与完整读书链路。自动化验证不等同于真人麦克风听写验收。

@@ -137,6 +137,7 @@ export async function startLibrary() {
     updateCamera,
     camera,
     renderer,
+    petRoot: orb,
   });
 
   /* A model may be configured on the deployment for phrasing the local rules cannot read.
@@ -164,8 +165,18 @@ export async function startLibrary() {
     const time = clock.getElapsedTime();
     companion.update({ time, pulse: pulse.value, phase: machine.phase, camera });
     projected.copy(orb.position).add(bubbleAnchor).project(camera);
-    $("bubble").style.left = (projected.x * 0.5 + 0.5) * innerWidth + "px";
-    $("bubble").style.top = (-projected.y * 0.5 + 0.5) * innerHeight + "px";
+    const bubble = $("bubble");
+    const desiredX = (projected.x * 0.5 + 0.5) * innerWidth;
+    const width = bubble.offsetWidth;
+    const left = THREE.MathUtils.clamp(desiredX, width / 2 + 12, innerWidth - width / 2 - 12);
+    bubble.style.left = Math.round(left) + "px";
+    bubble.style.top =
+      Math.round(Math.max(bubble.offsetHeight + 24, (-projected.y * 0.5 + 0.5) * innerHeight)) +
+      "px";
+    bubble.style.setProperty(
+      "--bubble-tail-x",
+      THREE.MathUtils.clamp(desiredX - left + width / 2, 16, width - 16) + "px",
+    );
     $("bubble").style.visibility = projected.z > 1 ? "hidden" : "visible";
     if (attention.lapsed() && machine.is(IDLE)) {
       feedback.hideBubble();
@@ -188,6 +199,11 @@ export async function startLibrary() {
       book: journey.selected?.title,
       orb: orb.position.toArray(),
       companion: companion.getState(),
+      dialogue: feedback.getState(),
+      petScreen: (() => {
+        const point = orb.position.clone().project(camera);
+        return [(point.x * 0.5 + 0.5) * innerWidth, (-point.y * 0.5 + 0.5) * innerHeight];
+      })(),
       shelves: 5,
       interactiveBooks: books.filter((book) => book.localBookId).length,
       shelfCapacity: books.length,

@@ -20,7 +20,7 @@ export function createAssistant({
   novelReader,
   isUnderstandReady,
 }) {
-  const { notice, bubble, say } = feedback;
+  const { notice, say } = feedback;
   let wakeTween;
   const lookup = (text) => getLibrary()?.find(text) || findBook(text);
 
@@ -41,7 +41,7 @@ export function createAssistant({
     wakeTween?.kill();
     pulse.value = 1;
     wakeTween = gsap.to(pulse, { value: 0, duration: 2.8, ease: "power2.out" });
-    bubble("有什么需求吗？", 25000);
+    say("有什么需求吗？", 25000);
     $("voiceTitle").textContent = "我在，请告诉我书名或感兴趣的主题";
   }
 
@@ -130,6 +130,11 @@ export function createAssistant({
     switch (decision.type) {
       case "wake-only":
         return respond("有什么需求吗？", null, true);
+      case "reply":
+        attention.wake();
+        respond(decision.speech);
+        say(decision.speech);
+        return null;
       case "reading":
         READING_ACTIONS[decision.command]?.();
         return null;
