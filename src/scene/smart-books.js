@@ -43,8 +43,9 @@ export function createShelfBooks(scene, template, books) {
   );
   const zero = new THREE.Matrix4().makeScale(0, 0, 0);
   const pools = [];
+  const visibleSlots = new Set(books.filter((b) => b.localBookId).map((b) => b.bookId));
   const pool = (mesh, matrices) => {
-    matrices.forEach((m, i) => mesh.setMatrixAt(i, m));
+    matrices.forEach((m, i) => mesh.setMatrixAt(i, books[i].localBookId ? m : zero));
     scene.add(mesh);
     pools.push({ mesh, matrices });
   };
@@ -80,7 +81,13 @@ export function createShelfBooks(scene, template, books) {
   highlight.visible = false;
   scene.add(highlight);
   return {
+    get visibleCount() {
+      return visibleSlots.size;
+    },
     setVisible(b, visible) {
+      visible = Boolean(visible && b.localBookId);
+      if (visible) visibleSlots.add(b.bookId);
+      else visibleSlots.delete(b.bookId);
       for (const { mesh, matrices } of pools) {
         mesh.setMatrixAt(b.instanceIndex, visible ? matrices[b.instanceIndex] : zero);
         mesh.instanceMatrix.needsUpdate = true;

@@ -104,6 +104,7 @@
     "public/textures/botanical-leaf.png"
   ],
   "texture_source": "Poly Haven (CC0) via tools/fetch-textures.mjs",
-  "interactive_books": 11360,
-  "books_per_side_layer": 284
+  "interactive_books": 0,
+  "books_per_side_layer": 284,
+  "shelf_slot_capacity": 11360
 }

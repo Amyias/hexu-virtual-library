@@ -106,6 +106,7 @@ export async function startLibrary() {
   library = createLocalLibrary({
     books,
     notice: feedback.notice,
+    onBind: (book) => environment.shelfBooks.setVisible(book, true),
     onSelect(book) {
       if (machine.is(IDLE)) assistant.present(book, "正文已在本地书库，正在为您定位。");
       else if (machine.is(READING) && journey.selected?.localBookId === book.localBookId)
@@ -188,7 +189,9 @@ export async function startLibrary() {
       orb: orb.position.toArray(),
       companion: companion.getState(),
       shelves: 5,
-      interactiveBooks: books.length,
+      interactiveBooks: books.filter((book) => book.localBookId).length,
+      shelfCapacity: books.length,
+      visibleShelfBooks: environment.shelfBooks.visibleCount,
       staticBooks: environment.staticBooks,
       localLibrary: library.getState(),
       novel: novelReader.getState(),
@@ -196,7 +199,7 @@ export async function startLibrary() {
     }),
     processText: assistant.processText,
     get books() {
-      return books.map(({ mesh, origin, ...b }) => b);
+      return books.filter((book) => book.localBookId).map(({ mesh, origin, ...b }) => b);
     },
   };
 }

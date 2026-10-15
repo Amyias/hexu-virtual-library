@@ -35,45 +35,41 @@
     </aside>
     <aside class="collection">
       <div class="section-title"><span>探索馆藏</span><span>INDEX</span></div>
-      <button class="shelf-link" data-query="人工智能">
+      <div class="shelf-link">
         <span class="number">01</span
         ><span
           ><strong>计算机与 AI 技术</strong
           ><small>COMPUTER & SCIENCE</small></span
-        ></button
-      ><button class="shelf-link" data-query="文学">
+        ></div
+      ><div class="shelf-link">
         <span class="number">02</span
         ><span
           ><strong>文学与历史哲学</strong
           ><small>LITERATURE & HISTORY</small></span
-        ></button
-      ><button class="shelf-link" data-query="经济">
+        ></div
+      ><div class="shelf-link">
         <span class="number">03</span
         ><span
           ><strong>商业经济与管理</strong><small>BUSINESS & LIFE</small></span
-        ></button
-      ><button class="shelf-link" data-query="设计">
+        ></div
+      ><div class="shelf-link">
         <span class="number">04</span
         ><span
           ><strong>艺术设计与建筑</strong><small>ART & DESIGN</small></span
-        ></button
-      ><button class="shelf-link" data-query="科幻">
+        ></div
+      ><div class="shelf-link">
         <span class="number">05</span
         ><span
           ><strong>科幻与未来馆藏</strong><small>SCIENCE FICTION</small></span
         >
-      </button>
+      </div>
       <div class="collection-note">
-        5 架 · 双面 4 层 · 书脊朝外竖排<br />11360 枚独立编号芯片，可按编号找书。
+        5 架 · 双面 4 层 · 书脊朝外竖排<br />仅展示已入库书籍，未入库槽位留空。
       </div>
     </aside>
     <div id="bubble" class="bubble" role="status">有什么需求吗？</div>
     <div class="bottom">
-      <div class="suggestions">
-        <button class="chip" data-query="三体">探索《三体》 ↗</button
-        ><button class="chip" data-query="计算机基础">计算机基础</button
-        ><button class="chip" data-query="设计">寻找设计灵感</button>
-      </div>
+      <div id="libraryActions" class="library-actions"></div>
       <div class="console">
         <div class="listen-row">
           <button id="micButton" class="mic-button">◉ 启动语音感知</button>
@@ -91,7 +87,7 @@
           <input
             id="query"
             aria-label="输入书名或语音指令"
-            placeholder="输入书名或芯片编号，如 HX-0001"
+            placeholder="输入已入库书名、芯片编号或位置码"
             autocomplete="off"
           /><button type="submit">找书 ↗</button>
         </form>
@@ -130,7 +126,7 @@
       <div class="help-body">
         <p>
           <b>先点击「启动语音感知」并允许麦克风。</b
-          >说「小和」，再说「帮我找三体」；也可以一句说完。
+          >说「小和」，再说想找的书名；也可以一句说完。
         </p>
         <p>
           这一次点击只需一次：授权之后，以后每次打开页面都会自动开始收听，直接说「小和」即可，无需再点。
@@ -164,7 +160,7 @@
           可开启播报，建议配合耳机以减少扬声器回声。
         </p>
         <p>
-          这是含 11360 本编号馆藏的本地规则原型，其中 12 本有演示书目，其余为编号样书。找书默认完全由本地规则完成；
+          书架仅显示已导入或下载的真实书籍，未入库位置保持空置。找书默认由本地规则完成；
           仅当服务器配置了语义解析且规则无法理解时，才把<b>转写文本与馆藏目录</b>发送至所配置的模型服务——
           音频始终不出服务器。浏览器语音识别可能把音频发送至其识别服务，需要可用的网络；后台页面不保证持续识别。<a
             href="https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition"

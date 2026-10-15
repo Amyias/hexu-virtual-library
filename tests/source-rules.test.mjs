@@ -30,3 +30,16 @@ test(
     assert.equal(result.status, 0, result.stderr || result.error?.message);
   },
 );
+
+test(
+  "semantic catalogue follows real local imports and rejects empty physical slots",
+  { skip: !python },
+  () => {
+    const result = spawnSync(
+      python,
+      ["-m", "unittest", "discover", "-s", "tests", "-p", "test_shelf_catalog.py"],
+      { encoding: "utf8", windowsHide: true, timeout: 15000 },
+    );
+    assert.equal(result.status, 0, result.stderr || result.error?.message);
+  },
+);

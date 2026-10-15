@@ -71,7 +71,7 @@ export function createJourney({
       `${volume.bookId} / ${volume.side} 面 / 第 ${volume.layer} 层 / 第 ${volume.slot} 本`;
     $("dragHint").textContent = "按住封面向左拖动，让故事从这里展开";
     $("openBook").textContent = "翻开书页";
-    $("readText").textContent = volume.localBookId ? "阅读本地正文" : "查找正文";
+    $("readText").textContent = "阅读本地正文";
     $("returnBook").disabled = false;
   }
 

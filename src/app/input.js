@@ -83,15 +83,6 @@ export function bindInput({
     assistant.processText(text, true);
     $("query").value = "";
   };
-  // A suggestion chip names a book exactly, so it walks straight to it when it can.
-  document.querySelectorAll("[data-query]").forEach((chip) => {
-    chip.onclick = () => {
-      const book = assistant.lookup(chip.dataset.query);
-      if (machine.is(IDLE) && book) assistant.present(book, "好的，为您找到相关书籍，请随我来。");
-      else assistant.processText(chip.dataset.query, true);
-    };
-  });
-
   document.addEventListener("keydown", (event) => {
     if (library.opened) {
       if (event.key === "Escape") library.close();

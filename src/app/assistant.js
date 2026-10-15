@@ -5,7 +5,7 @@ import { decide, protocolResponse, NO_MATCH, FOUND, READING_HINT, BUSY_HINT } fr
 import { IDLE } from "./phases.js";
 
 /* 小和 itself: carries out what dialogue.decide() concluded. Every text input — recognised speech,
-   the search box, the suggestion chips, libraryDebug.processText — comes through processText(). */
+   the search box, libraryDebug.processText — comes through processText(). */
 export function createAssistant({
   gsap,
   $,
@@ -76,7 +76,7 @@ export function createAssistant({
     if (!machine.is(IDLE)) return; // the reader moved on while we were waiting
     const book =
       result.action === "find" && result.bookId
-        ? books.find((entry) => entry.bookId === result.bookId)
+        ? books.find((entry) => entry.localBookId && entry.bookId === result.bookId)
         : null;
     if (book) {
       present(book, result.say || FOUND);
@@ -97,10 +97,6 @@ export function createAssistant({
   function openFullText() {
     const selected = journey.selected;
     if (selected?.localBookId) novelReader.show();
-    else if (selected) {
-      notice("这册演示馆藏目前只有简介，正在在线检索正文");
-      getLibrary().search(selected.title, false);
-    }
   }
 
   const READING_ACTIONS = {

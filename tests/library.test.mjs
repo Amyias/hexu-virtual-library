@@ -2,10 +2,16 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import { books } from "../src/data/catalog.js";
-import { findBook, wakeRE } from "../src/voice/intent.js";
+import { findBook as findInstalledBook, wakeRE } from "../src/voice/intent.js";
 import { createSpeech } from "../src/voice/speech.js";
 import { probeServerAsr } from "../src/voice/server-asr.js";
 import { probeUnderstand, understand } from "../src/voice/understand.js";
+
+import { readingBooks } from "./fixtures/books.mjs";
+import { orderedShelfSlots } from "../src/data/shelf-slots.js";
+import { deferredSlotIds } from "../src/data/catalog.js";
+import { createHash } from "node:crypto";
+const findBook = (text) => findInstalledBook(text, readingBooks);
 
 test("wake aliases and Chinese/English normalization", () => {
   for (const word of ["小和", "小何", "肖和", "小荷", "小禾", "小鹤", "xiao he", "XIAO HE"])
@@ -142,7 +148,7 @@ test("every catalogued volume stands spine-out in its bay at the standard size",
       `${key} has no matched volumes`,
     );
   }
-  assert.equal(books.filter((b) => !b.placeholder).length, 12);
+  assert.equal(books.filter((b) => b.localBookId || b.title || b.synopsis).length, 0);
 });
 
 test("exported GLB contains five shelves, texture, valid buffers and optimized meshes", () => {
@@ -185,7 +191,8 @@ test("exported GLB contains five shelves, texture, valid buffers and optimized m
   // spine template at runtime. The manifest's count is Blender's tally of the catalogue, so the
   // two must agree — that is what catches a catalogue regenerated without re-running the build.
   assert.equal(manifest.static_books, 0);
-  assert.equal(manifest.interactive_books, books.length);
+  assert.equal(manifest.interactive_books, 0);
+  assert.equal(manifest.shelf_slot_capacity, books.length);
   assert.ok(manifest.books_per_side_layer > 200, "a face should hold a packed row");
   assert.ok(manifest.triangles < 600_000);
 });
@@ -216,34 +223,40 @@ test("smart-book template exposes the parts the reader and instancing depend on"
   );
 });
 
-test("the one stored inventory stays compact and names exactly the recorded books", () => {
+test("empty slots contain no preset content and preserve every existing local slot binding", () => {
   const url = new URL("../public/models/book-inventory.json", import.meta.url);
-  // It is parsed before the scene can start; the expanded form was 12 MB and three copies.
-  assert.ok(fs.statSync(url).size < 1024 * 1024, "book-inventory.json should stay under 1 MiB");
-  assert.ok(
-    !fs.existsSync(new URL("../blender/catalog.json", import.meta.url)),
-    "blender/catalog.json is no longer generated",
-  );
+  assert.ok(fs.statSync(url).size < 1024 * 1024);
   const inventory = JSON.parse(fs.readFileSync(url, "utf8"));
-  assert.equal(inventory.format, 2);
+  assert.equal(inventory.format, 3);
   assert.equal(inventory.books.length, books.length);
-  const demoMap = JSON.parse(
-    fs.readFileSync(new URL("../blender/demo-shelf-map.json", import.meta.url), "utf8"),
-  );
-  const named = books.filter((b) => !b.placeholder);
-  assert.deepEqual(
-    named.map((b) => b.title).sort(),
-    Object.keys(demoMap)
-      .filter((k) => !k.startsWith("_"))
-      .sort(),
-  );
-  for (const b of named) {
-    const record = demoMap[b.title];
-    assert.equal(b.synopsis, record.synopsis);
-    assert.deepEqual([b.shelf, b.side, b.layer], [record.shelf, record.side, record.layer]);
-    for (const alias of record.aliases)
-      assert.ok(b.keys.includes(alias), `${b.title} keeps ${alias}`);
-  }
+  assert.equal(inventory.named, undefined);
+  assert.equal(inventory.placeholder, undefined);
+  assert.ok(!fs.existsSync(new URL("../blender/demo-shelf-map.json", import.meta.url)));
+  for (const query of ["三体", "计算机基础", "HX-00001", "S5-B-L4-P284"])
+    assert.equal(findInstalledBook(query), undefined, "an empty slot cannot be fetched");
+  const slots = orderedShelfSlots(books, deferredSlotIds);
+  assert.equal(new Set(slots.map((b) => b.bookId)).size, books.length);
+  // Golden digest of all 11,348 previously assignable physical IDs, in persisted slot order.
+  const digest = createHash("sha256")
+    .update(
+      slots
+        .slice(0, 11348)
+        .map((b) => b.bookId)
+        .join(","),
+    )
+    .digest("hex");
+  assert.equal(digest, "f6b19a399aeaaf96cfbf8131b5eec0f58e3527bbd9a3ba41f2b7b76c03fc316a");
+});
+
+test("real books bound after startup are searchable without stale preset aliases", () => {
+  const slot = { ...books[0], keys: [...books[0].keys] };
+  assert.equal(findInstalledBook(slot.bookId, [slot]), undefined);
+  Object.assign(slot, { title: "新导入故事", localBookId: "local-1", localAliases: ["故事别名"] });
+  assert.equal(findInstalledBook("小和找新导入故事", [slot]), slot);
+  assert.equal(findInstalledBook("故事别名", [slot]), slot);
+  assert.equal(findInstalledBook(slot.bookId, [slot]), slot);
+  assert.equal(findInstalledBook(slot.locationCode, [slot]), slot);
+  assert.equal(findInstalledBook("三体", [slot]), undefined);
 });
 
 test("detailed vegetation is exported with UV leaf texture and separate shrub meshes", () => {

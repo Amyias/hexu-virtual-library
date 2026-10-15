@@ -18,7 +18,7 @@ import {
   FOUND,
   LOCATING,
 } from "../src/app/dialogue.js";
-import { findBook } from "../src/voice/intent.js";
+import { findBook as findInstalledBook } from "../src/voice/intent.js";
 
 test("the reading loop is one cycle and refuses every out-of-order step", () => {
   const seen = [];
@@ -50,6 +50,8 @@ test("the reading loop is one cycle and refuses every out-of-order step", () => 
   assert.equal(machine.can("toString"), false, "inherited keys are not events");
 });
 
+import { readingBooks } from "./fixtures/books.mjs";
+const findBook = (text) => findInstalledBook(text, readingBooks);
 const lookup = (request) => findBook(request);
 const ctx = (extra = {}) => ({ phase: IDLE, lookup, ...extra });
 
@@ -88,21 +90,11 @@ test("what the rules cannot place goes to the model, then the reading library, t
   });
   assert.equal(decide(unknown, ctx({ direct: true, fullText: true })).type, "full-text");
   assert.equal(decide(unknown, ctx({ direct: true })).type, "no-match");
-  // A named demo asked for by title looks for downloadable text first — the shelf holds a synopsis.
-  assert.deepEqual(decide("三体", ctx({ direct: true, fullText: true })), {
-    type: "full-text",
-    wake: false,
-    query: "三体",
-  });
-  // A numbered volume has no text to look for, so it is fetched straight away.
-  assert.equal(decide("HX-00001", ctx({ direct: true, fullText: true })).type, "present");
-  // Unless the reader asks for text in so many words.
-  assert.equal(
-    decide("下载 HX-00001 的正文", ctx({ direct: true, fullText: true })).type,
-    "full-text",
-  );
+  assert.equal(decide("三体", ctx({ direct: true, fullText: true })).type, "present");
+  // Empty IDs are not selectable, even when the physical slot exists.
+  assert.equal(decide("HX-00001", ctx({ direct: true, lookup: () => undefined })).type, "no-match");
   // A book the reading library already holds is fetched, not searched for again.
-  const local = { title: "三体", placeholder: false, localBookId: "x" };
+  const local = { title: "三体", localBookId: "x" };
   assert.equal(
     decide("三体", ctx({ direct: true, fullText: true, lookup: () => local })).type,
     "present",

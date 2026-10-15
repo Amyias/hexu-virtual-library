@@ -11,7 +11,11 @@ if not backup.exists():shutil.copy2(ROOT/'blender/hexu-library.blend',backup)
 inventory=populate()
 bpy.ops.wm.save_as_mainfile(filepath=str(ROOT/'blender/hexu-library.blend'))
 exec(compile((ROOT/'blender/export_saved.py').read_text(encoding='utf-8'),str(ROOT/'blender/export_saved.py'),'exec'))
-# Source-books were omitted only from the web environment selection, not from the render.
+# Templates are only shown for the two construction-detail renders, never stocked on shelves.
+template=bpy.data.collections['11 Book template'];template.hide_render=False
+root=bpy.data.objects['BookTemplate']
+b=inventory[0];root.location=(b['worldPosition'][0],-b['worldPosition'][2],b['worldPosition'][1])
+root.rotation_euler.z=3.141592653589793
 scene=bpy.context.scene;cam=scene.camera
 scene.render.resolution_x=1300;scene.render.resolution_y=1100
 cam.data.type='ORTHO';cam.data.ortho_scale=.40
@@ -20,7 +24,8 @@ target=Vector((x,-z,y));cam.location=target+Vector((.50,.08,.07));cam.rotation_e
 scene.render.filepath=str(ROOT/'blender/smart-book-detail.png');bpy.ops.render.render(write_still=True)
 target+=Vector((.013,.065,-.105));cam.location=target+Vector((.30,.012,.015));cam.rotation_euler=(target-cam.location).to_track_quat('-Z','Y').to_euler();cam.data.ortho_scale=.065
 scene.render.filepath=str(ROOT/'blender/chip-detail.png');bpy.ops.render.render(write_still=True)
-# Shelf interior: the volume stands on the board and leans back on the solid back panel.
+template.hide_render=True
+# Shelf interior: the empty slot stands on the board and leans back on the solid back panel.
 # Framed at the top layer, which catches the softbox; the offsets were picked by rendering
 # candidates, because a deeper book sits in the shelf's own shadow.
 shelf=next(b for b in inventory if b['shelf']==5 and b['side']=='A' and b['layer']==4 and b['slot']==5)

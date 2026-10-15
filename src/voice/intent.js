@@ -54,15 +54,19 @@ function tierOf(query, candidate) {
   return 0;
 }
 
-/* 馆藏摊平成候选表。归一化是纯函数，一次算好，免得每次查询重复上千次正则替换。
-   每条记下所属书与是否书名——书名与别名同级时书名优先。 */
-const INDEX = books.flatMap((book) => [
-  { book, text: normalize(book.title), isTitle: true },
-  ...book.keys.map((key) => ({ book, text: normalize(key), isTitle: false })),
-]);
-
 /* 返回命中的书、级别与命中的那个词。级别相同时先到者胜，即目录顺序。 */
-export function matchBook(text) {
+export function matchBook(text, collection = books) {
+  // Titles and aliases change when real books are bound after startup. Never index empty slots.
+  const INDEX = collection
+    .filter((book) => book.localBookId)
+    .flatMap((book) => [
+      { book, text: normalize(book.title), isTitle: true },
+      ...[...book.keys, ...(book.localAliases || [])].map((key) => ({
+        book,
+        text: normalize(key),
+        isTitle: false,
+      })),
+    ]);
   const query = normalize(text);
   let best = null;
   let bestRank = 0;
@@ -78,6 +82,6 @@ export function matchBook(text) {
   return best;
 }
 
-export function findBook(text) {
-  return matchBook(text)?.book;
+export function findBook(text, collection = books) {
+  return matchBook(text, collection)?.book;
 }

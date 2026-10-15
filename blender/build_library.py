@@ -442,6 +442,7 @@ bpy.ops.export_scene.gltf(filepath=str(OUT/'hexu-library.glb'),export_format='GL
   export_draco_texcoord_quantization=12)
 manifest={'generator':bpy.app.version_string,'source':'blender/hexu-library.blend','model':'public/models/hexu-library.glb','shelves':shelf_manifest,'static_books':static_books,'mesh_objects':len(mesh_objects),'triangles':triangles,'bytes':(OUT/'hexu-library.glb').stat().st_size,'textures':['public/textures/floor-oak-*.jpg','public/textures/joinery-oak-*.jpg','public/textures/botanical-leaf.png'],'texture_source':'Poly Haven (CC0) via tools/fetch-textures.mjs'}
 manifest['interactive_books']=int(scene.get('smart_books_total',0))
+manifest['shelf_slot_capacity']=int(scene.get('shelf_slot_capacity',0))
 manifest['books_per_side_layer']=int(scene.get('books_per_side_layer',0))
 (OUT/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2),encoding='utf-8')
 print('MODEL_EXPORT_OK '+json.dumps(manifest),flush=True)

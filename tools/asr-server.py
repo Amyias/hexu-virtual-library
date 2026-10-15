@@ -378,57 +378,39 @@ def settings_summary():
 
 
 def load_catalog():
-    """Ids for validating what the model returns, plus the few books worth naming in the prompt.
-
-    Most of the catalogue is numbered stock whose title *is* its id, so listing those would
-    cost thousands of tokens and teach the model nothing — they are reachable by code, which
-    the local rules already do. Only the books with real titles need describing."""
-    by_id, named = {}, []
+    """Only real, persisted books are semantic targets; empty shelf IDs are never books."""
     try:
         data = json.loads(CATALOG_PATH.read_text(encoding="utf-8"))
-        # Row i is HX-(i+1); the named books are recorded in full beside the rows.
-        for index in range(len(data["books"])):
-            book_id = f"HX-{index + 1:05d}"
-            by_id[book_id] = data["named"].get(book_id)
-        for book_id, book in data["named"].items():
-            named.append(f"{book_id} | {book.get('title','')} | {book.get('author','')} | {book.get('category','')}")
+        deferred = set(data["library_deferred_ids"])
+        rows = data["books"]
+        physical = [i for i in range(len(rows)) if i + 1 not in deferred]
+        physical.sort(key=lambda i: rows[i][0] != 2)
+        physical += [i for i in range(len(rows)) if i + 1 in deferred]
+        by_id = {}
+        for book in book_library.instance().list_books():
+            slot = book["slot"]
+            if isinstance(slot, int) and 0 <= slot < len(physical):
+                by_id[f"HX-{physical[slot] + 1:05d}"] = book
+        named = [f"{identifier} | {book['title']} | {book.get('author', '')}"
+                 for identifier, book in by_id.items()]
+        return by_id, named
     except (OSError, ValueError, KeyError, TypeError) as error:
-        print(f"  语义层：读取馆藏清单失败（{error}）", flush=True)
+        print(f"  语义层：读取本地书库失败（{type(error).__name__}）", flush=True)
         return {}, []
-    return by_id, named
-
-
-CATALOG_BY_ID, CATALOG_NAMED = load_catalog()
-_SYSTEM_PROMPT = None
 
 
 def system_prompt():
-    """Built once. A stable prefix is what lets the provider cache it between calls."""
-    global _SYSTEM_PROMPT
-    if _SYSTEM_PROMPT is None:
-        _SYSTEM_PROMPT = (
-            "你是图书馆的语义解析器。把读者的一句话解析成一个动作，只输出 JSON。\n\n"
-            "action 的取值：\n"
-            "- find：读者想找某本书，必须在 bookId 里给出编号\n"
-            "- return：把正在阅读的书放回书架\n"
-            "- open：翻开当前书的封面\n"
-            "- close：合上当前书的封面\n"
-            "- chip：查看当前书的芯片\n"
-            "- none：与图书馆无关，或无法判断\n\n"
-            "带正式书名的馆藏只有下面这些，bookId 必须从中选择：\n"
-            + "\n".join(CATALOG_NAMED)
-            + f"\n\n其余 {len(CATALOG_BY_ID) - len(CATALOG_NAMED)} 本只有编号（形如 HX-0001），"
-            "没有书名，无法按内容查找；读者直接报编号时由本地规则处理，你不需要管。\n\n"
-            '只输出这个 JSON，不要输出任何其它文字：\n'
-            '{"action": "find|return|open|close|chip|none", "bookId": "HX-0000 或空字符串", '
-            '"say": "不超过 20 字的中文回应"}\n\n'
-            "规则：\n"
-            "- 不确定就用 none，不要猜。\n"
-            "- 读者的说法与上表只是部分相关时，也要选最接近的那一本"
-            "（例如「讲宇宙的那本」对应《时间简史》）。\n"
-            "- action 不是 find 时，bookId 留空字符串。\n"
-        )
-    return _SYSTEM_PROMPT
+    """Read fresh metadata so books imported during this session are immediately searchable."""
+    _, named = load_catalog()
+    return (
+        "你是图书馆的语义解析器。把读者的一句话解析成动作，只输出 JSON。\n"
+        "动作：find 找书；return 归还；open 翻开；close 合上；chip 查看芯片；none 无法判断。\n"
+        "仅以下已入库的真实书籍可供选择，find 的 bookId 必须来自本表：\n"
+        + "\n".join(named)
+        + '\n只输出 {"action":"find|return|open|close|chip|none","bookId":"编号或空字符串","say":"不超过20字的中文回应"}。'
+        "不确定、目录为空或读者想找未入库的书时返回 none；不得把空槽位当成书。"
+        "非 find 动作的 bookId 留空。"
+    )
 
 
 def llm_state():
@@ -441,11 +423,10 @@ def llm_state():
             "key_source": sources["HEXU_LLM_API_KEY"]}
     if not resolved["HEXU_LLM_API_KEY"]:
         return None, resolved, {"ready": False, "reason": "尚未配置模型密钥", **info}
-    if not CATALOG_NAMED:
-        return None, resolved, {"ready": False, "reason": "馆藏清单不可读", **info}
+    by_id, named = load_catalog()
     return resolved["HEXU_LLM_API_KEY"], resolved, {
         "ready": True, **info,
-        "named_books": len(CATALOG_NAMED), "total_books": len(CATALOG_BY_ID),
+        "named_books": len(named), "total_books": len(by_id),
     }
 
 
@@ -546,7 +527,7 @@ def understand(text, phase):
                      "seconds": round(time.perf_counter() - started, 3)}
     # Never trust the model's target: an id it invented must not reach the scene, where it
     # would resolve to nothing and break navigation.
-    if action == "find" and book_id not in CATALOG_BY_ID:
+    if action == "find" and book_id not in load_catalog()[0]:
         action, book_id = "none", ""
     return 200, {"action": action, "bookId": book_id, "say": say, "via": "llm",
                  "seconds": round(time.perf_counter() - started, 3)}

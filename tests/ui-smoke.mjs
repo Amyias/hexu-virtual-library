@@ -126,7 +126,11 @@ const debugPort = await freePort();
 const profile = fs.mkdtempSync(path.join(os.tmpdir(), "hexu-ui-"));
 const site = spawn(process.execPath, [path.join(root, "tools", "serve.mjs")], {
   cwd: root,
-  env: { ...process.env, PORT: String(sitePort) },
+  env: {
+    ...process.env,
+    PORT: String(sitePort),
+    HEXU_BOOK_LIBRARY_DIR: path.join(profile, "books"),
+  },
   stdio: "ignore",
 });
 const browser = spawn(
@@ -182,9 +186,14 @@ try {
   // three-second walk becoming many minutes. With lag smoothing off, animations keep wall time.
   await page.evaluate("gsap.ticker.lagSmoothing(0)");
   const loaded = await state();
-  if (!loaded.modelLoaded || loaded.interactiveBooks < 10000)
+  if (
+    !loaded.modelLoaded ||
+    loaded.shelfCapacity !== 11360 ||
+    loaded.interactiveBooks !== 0 ||
+    loaded.visibleShelfBooks !== 0
+  )
     throw new Error(`场景不完整：${JSON.stringify(loaded)}`);
-  step("加载场景", `${loaded.interactiveBooks} 本书`);
+  step("加载场景", `${loaded.shelfCapacity} 个空槽位，0 本预置书`);
   if (
     !loaded.companion?.loaded ||
     loaded.companion.source !== "blender" ||
@@ -205,18 +214,52 @@ try {
     throw new Error("仅唤醒时宠物错误位移或响应不符");
   step("宠物加载与仅唤醒", "四条腿、两只眼睛；锚点保持前台");
 
-  if ((await search("HX-09881")) !== "NAVIGATE_TO_BOOK") throw new Error("按编号找书没有发出导航");
+  if (await page.evaluate("document.querySelectorAll('[data-query], .suggestions, .chip').length"))
+    throw new Error("预置推荐入口仍然存在");
+  await waitFor(async () => (await state()).localLibrary.ready, "连接空书库");
+  const imports = await page.evaluate(`(async () => {
+    const saved = [];
+    for (const [title, content] of [["回归阅读甲", "这是第一页的本地正文。".repeat(1500)], ["回归阅读乙", "另一册真实正文。".repeat(300)]]) {
+      const bytes = new TextEncoder().encode(content);
+      const data = btoa(String.fromCharCode(...bytes));
+      const response = await fetch('/library/import', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({filename:title+'.txt', data}) });
+      if (!response.ok) throw Error('TXT 导入失败');
+      saved.push(await response.json());
+    }
+    document.getElementById('libraryButton').click();
+    return saved;
+  })()`);
+  await waitFor(
+    async () => (await state()).interactiveBooks === 2 && (await state()).visibleShelfBooks === 2,
+    "真实书籍上架",
+  );
+  await click("closeLibrary");
+  const bound = await page.evaluate("window.libraryDebug.books");
+  const firstBook = bound.find((b) => b.localBookId === imports[0].id);
+  const secondBook = bound.find((b) => b.localBookId === imports[1].id);
+  if (!firstBook || !secondBook) throw new Error("导入书籍未绑定真实槽位");
+  step("导入两册真实 TXT", `${firstBook.bookId} / ${secondBook.bookId}`);
+  if ((await search(firstBook.bookId)) !== "NAVIGATE_TO_BOOK")
+    throw new Error("按编号找书没有发出导航");
   await waitFor(phaseIs("READING"), "取书并进入阅读");
   const location = await text("bookLocation");
-  if (!location.startsWith("HX-09881 /")) throw new Error(`取到的不是 HX-09881：${location}`);
+  if (!location.startsWith(firstBook.bookId + " /"))
+    throw new Error(`取到的不是已导入书籍：${location}`);
   step("找书", location);
 
   await click("openBook");
   await waitFor(async () => (await state()).turn > 0.99, "翻开封面");
   step("翻开封面");
+  await waitFor(async () => (await state()).novel.visible, "显示真实正文");
+  if (!(await text("novelText")).includes("这是第一页的本地正文"))
+    throw new Error("没有显示导入正文");
+  await click("nextPage");
+  await waitFor(async () => (await state()).novel.offset > 0, "正文翻到下一页");
+  step("正文翻页");
+  await click("closeNovel");
 
   await click("inspectChip");
-  await waitFor(async () => (await text("chipId")) === "HX-09881", "芯片特写显示编号");
+  await waitFor(async () => (await text("chipId")) === firstBook.bookId, "芯片特写显示编号");
   step("查看芯片", `${await text("chipId")} · ${(await text("chipLocation")).split(" · ")[0]}`);
   await click("closeChip");
 
@@ -229,16 +272,28 @@ try {
     );
   step("放回书架 → 回到待命", "音乐已停");
 
-  if ((await search("S5-B-L4-P284")) !== "NAVIGATE_TO_BOOK")
+  if ((await search(secondBook.locationCode)) !== "NAVIGATE_TO_BOOK")
     throw new Error("按位置码找书没有发出导航");
   await waitFor(phaseIs("READING"), "再次取书");
   const second = await text("bookLocation");
-  if (!second.startsWith("HX-11360 /"))
-    throw new Error(`位置码 S5-B-L4-P284 应是 HX-11360：${second}`);
+  if (!second.startsWith(secondBook.bookId + " /"))
+    throw new Error(`位置码取到错误书籍：${second}`);
   step("按位置码再找一本", second);
   await click("returnBook");
   await waitFor(phaseIs("IDLE"), "第二本放回");
   step("第二本放回");
+  await page.send("Page.reload");
+  await waitFor(
+    async () =>
+      (await state())?.localLibrary.count === 2 && (await state()).visibleShelfBooks === 2,
+    "重载后恢复真实书籍",
+  );
+  const rebound = await page.evaluate(
+    "window.libraryDebug.books.map(b => [b.localBookId, b.bookId])",
+  );
+  if (JSON.stringify(rebound) !== JSON.stringify(bound.map((b) => [b.localBookId, b.bookId])))
+    throw new Error("重新加载后真实书籍的位置发生变化");
+  step("重载后保留书籍与编号");
 
   if (page.errors.length) throw new Error("页面报错：\n  " + page.errors.join("\n  "));
   console.log(`\n界面冒烟测试通过（${Math.round((Date.now() - started) / 1000)} 秒）`);

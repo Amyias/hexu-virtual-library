@@ -16,7 +16,7 @@ def load_inventory():
     """The shelved volumes, expanded from the one stored inventory.
 
     public/models/book-inventory.json keeps a compact row per volume — [shelf, side, layer,
-    slot, colour, x, y, z], row i being HX-(i+1) — and the named books in full. This mirrors
+    slot, colour, x, y, z], row i being HX-(i+1) —. This mirrors
     expandInventory() in src/data/inventory.js for the fields a book in the .blend needs."""
     data=json.loads((ROOT/'public/models/book-inventory.json').read_text(encoding='utf-8'))
     inventory=[]
@@ -24,7 +24,7 @@ def load_inventory():
         book_id=f'HX-{index+1:05d}'
         location=f'S{shelf}-{side}-L{layer}-P{slot:03d}'
         inventory.append({'bookId':book_id,'chipId':book_id,'locationCode':location,'shelf':shelf,'side':side,
-                          'layer':layer,'slot':slot,'color':color,'placeholder':book_id not in data['named'],
+                          'layer':layer,'slot':slot,'color':color,
                           'widthScale':1,'heightScale':1,'depthScale':1,'worldPosition':[x,y,z],
                           'chipPayload':{'book_id':book_id,'shelf_id':f'Shelf_{shelf}','shelf_side':side,
                                          'layer':layer,'slot':slot,'location_code':location}})
@@ -43,7 +43,7 @@ def populate():
     for cname in ['11 Book template','12 Smart books']:
         c=bpy.data.collections.get(cname)
         if c:
-            for o in list(c.objects):bpy.data.objects.remove(o,do_unlink=True)
+            bpy.data.batch_remove(ids=list(c.objects))
             bpy.data.collections.remove(c)
     # Clears the legacy clothbound fillers that older .blend files still carry (archive
     # backups, or a scene hand-edited before the smart-book system existed). A fresh
@@ -107,27 +107,6 @@ def populate():
     # hardcovers is the difference between a workable .blend and an unusable one.
     shelf_collection,shelf_parts=build_shelf_template()
     inventory=load_inventory()
-    cloths={}
-    for b in inventory:
-        bookroot=bpy.data.objects.new('Book_'+b['bookId'],None);shelfbooks.objects.link(bookroot)
-        # The spine is the volume's own -X face, so it comes out facing the aisle once side A is
-        # turned a half turn about the shelf's up axis and side B is left as authored.
-        bookroot.location=pos(b['worldPosition']);bookroot.rotation_euler.z=math.pi if b['side']=='A' else 0
-        # Every volume is the template's own size (the catalogue's scales are all 1); the scale is
-        # still applied so that stays the inventory's decision. The volume is authored upright, so
-        # in Blender its own axes are X for
-        # the cover width, Y for the thickness (the spine's width) and Z for the height; the root
-        # sits at the volume's centre, so scaling leaves it standing on its board.
-        bookroot.scale=(b.get('widthScale',1),b.get('depthScale',1),b.get('heightScale',1))
-        for k,v in b['chipPayload'].items():bookroot[k]=v
-        bookroot['chip_id']=b['chipId']
-        if b['color'] not in cloths:
-            h=b['color'].lstrip('#');c=tuple((int(h[i:i+2],16)/255)**2.2 for i in (0,2,4))
-            cloths[b['color']]=mat('Book cloth '+b['color'],c,.68)
-        for o in shelf_parts:
-            clone=o.copy();clone.data=o.data;shelfbooks.objects.link(clone);clone.parent=bookroot
-            if clone.name.startswith('Spine'):
-                clone.material_slots[0].link='OBJECT';clone.material_slots[0].material=cloths[b['color']]
     template.hide_render=True
     template.hide_viewport=True
     shelf_collection.hide_render=True
@@ -136,7 +115,8 @@ def populate():
     # leave the exported manifest claiming the old capacity.
     per_face={}
     for b in inventory:per_face[(b['shelf'],b['side'],b['layer'])]=per_face.get((b['shelf'],b['side'],b['layer']),0)+1
-    scene['smart_books_total']=len(inventory)
+    scene['smart_books_total']=0
+    scene['shelf_slot_capacity']=len(inventory)
     scene['books_per_side_layer']=max(per_face.values()) if per_face else 0
     print('SMART_BOOKS_READY '+str(len(inventory)),flush=True)
     return inventory

@@ -1,22 +1,21 @@
 /* What an utterance asks for, decided without doing any of it.
 
-   Recognised speech, the search box and the suggestion chips all arrive as text. decide() reads
+   Recognised speech, the search box all arrive as text. decide() reads
    one against the current phase and returns a plain description — wake up, read this command,
    walk to this book, ask the model — and assistant.js carries it out. Keeping the decision free
    of the scene, the DOM and the network is what lets the routing rules be tested on their own. */
-import { wakeRE, wakeStripRE, normalize } from "../voice/intent.js";
+import { wakeRE, wakeStripRE } from "../voice/intent.js";
 import { IDLE, READING } from "./phases.js";
 
 /** How long 「小和」 keeps listening for a request without the wake word. */
 export const AWAKE_MS = 25000;
-export const NO_MATCH = "暂未匹配到馆藏。试试“三体”“计算机基础”或“人工智能”。";
+export const NO_MATCH = "暂未匹配到已入库书籍。请打开正文书库，搜索下载或导入 TXT / EPUB。";
 export const FOUND = "好的，为您找到相关书籍，请随我来。";
 export const LOCATING = "好的，正在为您定位…";
 export const READING_HINT = "正在陪你阅读，可以说下一页、上一页、读正文、看芯片或放回书架。";
 export const BUSY_HINT = "小和正在取书，请稍候。";
 
 const GREETINGS = /你好|您好|在吗|你在吗|嗨|嘿|哈喽|hello/gi;
-const FULL_TEXT = /下载|正文|读小说/;
 
 /* Reading commands are few and regular, so they are answered at once; going to the model for them
    would add a second of latency for nothing. Order matters where phrases overlap. 「合上」 closes
@@ -76,11 +75,6 @@ export function decide(
 
   const wake = addressed && !wasInterimWake;
   const book = lookup(request);
-  // A named demo has only a synopsis on the shelf, so asking for it by title — or asking for text
-  // at all — looks for downloadable text first, unless the reading library already holds it.
-  const namedDemo = book && !book.placeholder && normalize(request).includes(normalize(book.title));
-  if (fullText && !book?.localBookId && (namedDemo || FULL_TEXT.test(request)))
-    return { type: "full-text", wake, query: text };
   if (!book) {
     if (understand) return { type: "model", wake, request };
     if (fullText) return { type: "full-text", wake, query: text };

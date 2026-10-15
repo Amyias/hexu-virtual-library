@@ -217,22 +217,11 @@ header > * {
   width: min(590px, calc(100% - 40px));
   text-align: center;
 }
-.suggestions {
+.library-actions {
   display: flex;
   justify-content: center;
   gap: 8px;
   margin-bottom: 13px;
-}
-.chip {
-  border: 1px solid #fff;
-  background: #f7f9f1c9;
-  border-radius: 20px;
-  padding: 6px 14px;
-  font-size: 11px;
-  backdrop-filter: blur(12px);
-}
-.chip:hover {
-  background: #fff;
 }
 .console {
   padding: 12px;

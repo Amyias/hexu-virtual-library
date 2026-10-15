@@ -1,3 +1,5 @@
+import { orderedShelfSlots } from "../data/shelf-slots.js";
+import { deferredSlotIds } from "../data/catalog.js";
 import { wakeStripRE, normalize } from "../voice/intent.js";
 
 export function bookQuery(text) {
@@ -13,10 +15,8 @@ export function bookQuery(text) {
     .trim();
 }
 
-export function createLocalLibrary({ books, onSelect, notice }) {
-  const samples = books
-    .filter((book) => book.placeholder)
-    .sort((a, b) => Number(b.shelf === 2) - Number(a.shelf === 2));
+export function createLocalLibrary({ books, onSelect, onBind, notice }) {
+  const slots = orderedShelfSlots(books, deferredSlotIds);
   const assigned = new Map();
   const panel = document.createElement("section");
   panel.id = "localLibrary";
@@ -29,7 +29,7 @@ export function createLocalLibrary({ books, onSelect, notice }) {
   const button = document.createElement("button");
   button.id = "libraryButton";
   button.textContent = "正文书库 ↗";
-  document.querySelector(".suggestions").append(button);
+  document.getElementById("libraryActions").append(button);
   const $ = (id) => panel.querySelector("#" + id);
   let ready = false,
     working = false,
@@ -49,7 +49,7 @@ export function createLocalLibrary({ books, onSelect, notice }) {
     return payload;
   }
   function bind(metadata) {
-    const book = samples[metadata.slot];
+    const book = slots[metadata.slot];
     if (!book) throw new Error("书架可用位置不足");
     Object.assign(book, {
       title: metadata.title,
@@ -59,7 +59,9 @@ export function createLocalLibrary({ books, onSelect, notice }) {
       localBookId: metadata.id,
       localAliases: metadata.aliases || [],
     });
+    const newlyBound = !assigned.has(metadata.id);
     assigned.set(metadata.id, book);
+    if (newlyBound) onBind(book);
     return book;
   }
   function select(metadata) {
