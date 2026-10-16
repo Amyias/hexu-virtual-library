@@ -2,6 +2,7 @@ import { books, anchors, heights } from "../data/catalog.js";
 import { understand } from "../voice/understand.js";
 import { findBook } from "../voice/intent.js";
 import { decide, protocolResponse, NO_MATCH, FOUND, READING_HINT, BUSY_HINT } from "./dialogue.js";
+import { createChatSession, bubblePreview } from "../voice/chat.js";
 import { IDLE } from "./phases.js";
 
 /* 小和 itself: carries out what dialogue.decide() concluded. Every text input — recognised speech,
@@ -19,9 +20,12 @@ export function createAssistant({
   getLibrary,
   novelReader,
   isUnderstandReady,
+  conversation,
 }) {
   const { notice, say } = feedback;
   let wakeTween;
+  const chat = createChatSession();
+  let intentGeneration = 0;
   const lookup = (text) => getLibrary()?.find(text) || findBook(text);
 
   /** Publish the find / wake protocol and show it in the developer panel. */
@@ -46,6 +50,7 @@ export function createAssistant({
   }
 
   function present(book, speech) {
+    cancelPending();
     attention.clear();
     const response = respond(speech, book);
     say(speech);
@@ -72,8 +77,9 @@ export function createAssistant({
      answer either the reply is exactly what it always was. */
   async function findViaModel(request) {
     $("voiceTitle").textContent = "小和正在理解你的意思…";
+    const generation = ++intentGeneration;
     const result = await understand(request, machine.phase);
-    if (!machine.is(IDLE)) return; // the reader moved on while we were waiting
+    if (generation !== intentGeneration || !machine.is(IDLE)) return; // the reader moved on while we were waiting
     const book =
       result.action === "find" && result.bookId
         ? books.find((entry) => entry.localBookId && entry.bookId === result.bookId)
@@ -86,12 +92,52 @@ export function createAssistant({
       notice("现在还没有在阅读的书。");
       return;
     }
+    if (result.error) {
+      notice(result.error);
+      say("找书理解服务暂时不可用，请在正文书库按书名检索。");
+      return;
+    }
     if (getLibrary()) {
       searchFullText(request);
       return;
     }
-    if (result.error) notice(result.error);
     noMatch();
+  }
+
+  function cancelPending() {
+    intentGeneration++;
+    chat.cancel();
+    conversation?.busy(false);
+    feedback.hideBubble();
+    window.speechSynthesis?.cancel();
+  }
+  function clearConversation() {
+    cancelPending();
+    chat.clear();
+  }
+  async function converse(request) {
+    if (chat.getState().busy) {
+      notice("小和正在回答，请等待或在对话面板停止当前回答。");
+      return;
+    }
+    intentGeneration++;
+    attention.wake(120000);
+    conversation.begin(request);
+    say("让我想一想…", 120000);
+    const result = await chat.ask(request, machine.phase, journey.selected?.bookId);
+    if (result.cancelled) return;
+    attention.wake(40000);
+    if (result.error) {
+      conversation.error(result.error);
+      respond(result.error);
+      say(bubblePreview(result.error));
+      $("voiceTitle").textContent = "对话服务尚未就绪，可打开模型设置检查";
+      return;
+    }
+    conversation.answer(result.reply, result.model, result.truncated);
+    respond(result.reply);
+    say(bubblePreview(result.reply), 15000);
+    $("voiceTitle").textContent = "小和已回答，可以继续追问";
   }
 
   function openFullText() {
@@ -126,7 +172,12 @@ export function createAssistant({
       fullText: Boolean(getLibrary()),
       understand: isUnderstandReady(),
     });
-    if (decision.wake) wake();
+    if (
+      ["reading", "present", "model", "full-text"].includes(decision.type) ||
+      (decision.type === "wake-only" && chat.getState().busy)
+    )
+      cancelPending();
+    if (decision.wake && !chat.getState().busy) wake();
     switch (decision.type) {
       case "wake-only":
         return respond("有什么需求吗？", null, true);
@@ -144,6 +195,9 @@ export function createAssistant({
       case "full-text":
         searchFullText(decision.query);
         return null;
+      case "chat":
+        converse(decision.request);
+        return null;
       case "model":
         findViaModel(decision.request);
         return null;
@@ -157,5 +211,14 @@ export function createAssistant({
     }
   }
 
-  return { processText, wake, present, openFullText, lookup };
+  return {
+    processText,
+    wake,
+    present,
+    openFullText,
+    lookup,
+    cancelPending,
+    clearConversation,
+    getChatState: chat.getState,
+  };
 }

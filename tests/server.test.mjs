@@ -171,3 +171,25 @@ test(
     assert.equal(await request(port, "GET", "/healthz"), 200);
   },
 );
+
+test(
+  "conversation endpoints share quotas and reject cross-site/rebound callers before spending API tokens",
+  { skip: !python },
+  async (t) => {
+    const port = await startServer(t, { HEXU_LLM_PER_MINUTE: "2" });
+    const json = { "Content-Type": "application/json" };
+    const body = JSON.stringify({ text: "什么是机器学习？", history: [] });
+    assert.equal(
+      await request(port, "POST", "/chat", { ...json, Origin: "https://evil.example" }, body),
+      403,
+    );
+    assert.equal(
+      await request(port, "POST", "/chat", { ...json, Host: `evil.example:${port}` }, body),
+      403,
+    );
+    assert.equal(await request(port, "GET", "/chat/ready", { Host: `evil.example:${port}` }), 403);
+    assert.equal(await request(port, "POST", "/chat", json, "[]"), 400);
+    assert.equal(await request(port, "POST", "/chat", json, body), 503);
+    assert.equal(await request(port, "POST", "/understand", json, body), 429);
+  },
+);

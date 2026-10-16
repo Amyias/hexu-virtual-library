@@ -184,7 +184,7 @@
         <dl>
           <dt>语音识别</dt>
           <dd><span id="asr" class="state">正在检查…</span></dd>
-          <dt>语义解析</dt>
+          <dt>大模型对话</dt>
           <dd><span id="semantic" class="state">正在检查…</span></dd>
           <dt>密钥来源</dt>
           <dd id="keySource">—</dd>
@@ -197,12 +197,18 @@
       </section>
 
       <section>
-        <h2>大语言模型（语义解析）</h2>
+        <h2>大语言模型（小和的大脑）</h2>
         <p class="note">
-          不填写也可以正常使用：找书的常见说法由本地规则即时处理。填写之后，规则理解不了的说法
-          （例如「霍金写的那本」）会交给所配置的模型判断。为理解语义，<b>转写文本与馆藏目录</b>
-          会发送给该服务；录音音频始终留在本机。
+          配置后，小和可以自由问答、承接追问，并理解自然语言找书。普通对话会发送本次问题与最近 6 轮对话，找书理解会发送转写文本与真实馆藏目录；本机识别的音频不发送给大模型。
+          不配置时仍能按书名找已入库的书、翻页和归还。模型运行在服务商服务器，本机无需大模型显卡。
         </p>
+        <label for="provider">服务预设（只填写地址与模型，不会自动保存）</label>
+        <select id="provider" style="width:100%;padding:9px;font:inherit">
+          <option value="custom">自定义 / 保留当前配置</option>
+          <option value="deepseek">DeepSeek</option>
+          <option value="openai">OpenAI 兼容接口</option>
+        </select>
+        <p class="note">采用 Chat Completions 兼容协议；地址填写到 API 根路径（如 https://api.deepseek.com 或供应商要求的 /v1），程序自动追加 /chat/completions。切换服务时请填写对应密钥与真实模型 ID。Anthropic、Gemini 等原生协议需使用兼容网关。保存后下一次提问生效，切换模型会重置对话上下文。</p>
         <label for="key">API 密钥</label>
         <input
           id="key"
@@ -300,7 +306,7 @@
         $("environmentNote").hidden = !summary.key_from_environment;
         state(
           "semantic",
-          summary.configured ? "已配置" : "未配置（仅本地规则）",
+          summary.configured ? "已配置（可自由对话）" : "未配置（仅本地书架操作）",
           summary.configured,
         );
       }
@@ -352,6 +358,16 @@
         if (ok) loadUpdate(true);
       }
 
+      $("provider").onchange = () => {
+        if ($("provider").value === "deepseek") {
+          $("baseUrl").value = "https://api.deepseek.com";
+          $("model").value = "deepseek-flash";
+        } else if ($("provider").value === "openai") {
+          $("baseUrl").value = "https://api.openai.com/v1";
+          $("model").value = "";
+        }
+        message("请填写该服务的密钥与模型 ID，然后保存并测试连接。", true);
+      };
       $("save").onclick = save;
 
       $("test").onclick = async () => {

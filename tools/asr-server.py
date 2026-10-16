@@ -18,6 +18,8 @@ Routes:
     GET  /asr/ready        -> {"ready": bool, ...}  the page probes this and only then uses /asr
     POST /asr              -> 16 kHz mono WAV body, returns {"text": ...}
     GET  /understand/ready -> {"ready": bool, ...}  whether a semantic layer is configured
+    POST /chat             -> general conversation with bounded, browser-owned history
+    GET  /chat/ready       -> configured model and non-secret configuration identity
     POST /understand       -> {"text": ..., "phase": ...}, returns a parsed intent; 429 past
                               HEXU_LLM_PER_MINUTE calls a minute from one address
     GET  /settings         -> local settings page; /settings/state, /settings/key and
@@ -48,6 +50,7 @@ from pathlib import Path
 
 import updater
 import book_library
+import llm_chat
 
 MODEL_NAME = "sherpa-onnx-sense-voice-zh-en-ja-ko-yue-int8-2024-07-17"
 
@@ -437,6 +440,8 @@ def validate_endpoint(url):
     parsed = urllib.parse.urlsplit(url)
     if parsed.scheme != "https":
         raise ValueError("模型接入地址必须是 https")
+    if parsed.username or parsed.password or parsed.query or parsed.fragment:
+        raise ValueError("接入地址不能含账号、查询参数或片段")
     host = (parsed.hostname or "").strip().rstrip(".")  # "localhost." is still loopback
     if not host:
         raise ValueError("模型接入地址缺少主机名")
@@ -463,65 +468,32 @@ def understand(text, phase):
     if key is None:
         return 503, info
     base_url = resolved["HEXU_LLM_BASE_URL"].rstrip("/")
-    model = resolved["HEXU_LLM_MODEL"]
-    text = (text or "").strip()
+    if not isinstance(text, str):
+        return 400, {"error": "缺少要解析的文本"}
+    text = text.strip()
     if not text:
         return 400, {"error": "缺少要解析的文本"}
     try:
         validate_endpoint(base_url)
     except ValueError as error:
         return 503, {"error": str(error)}
+    started = time.perf_counter()
+    status, answer = llm_chat.completion(resolved, [
+        {"role": "system", "content": system_prompt()},
+        {"role": "user", "content": f"当前状态：{phase}\n读者说：{text}"},
+    ], validate_endpoint, timeout=LLM_TIMEOUT, intent=True)
+    if status != 200:
+        return status, answer
     try:
-        # `thinking` defaults to enabled on this API generation. Intent extraction is a
-        # constrained classification, so thinking only adds latency and cost — and it would
-        # also silently ignore `temperature`, which is what keeps the output stable.
-        payload = {
-            "model": model,
-            "messages": [
-                {"role": "system", "content": system_prompt()},
-                {
-                    "role": "user",
-                    "content": f"当前状态：{'正在阅读一本书' if phase == 'READING' else '待命中'}\n读者说：{text}",
-                },
-            ],
-            "thinking": {"type": "disabled"},
-            "temperature": 0,
-            "max_tokens": 300,
-            "stream": False,
-            # JSON mode requires the prompt above to ask for JSON explicitly, which it does.
-            "response_format": {"type": "json_object"},
-        }
-        request = urllib.request.Request(
-            base_url + "/chat/completions",
-            data=json.dumps(payload).encode("utf-8"),
-            headers={
-                "Content-Type": "application/json",
-                # The key is used here and nowhere else: not logged, not stored.
-                "Authorization": "Bearer " + key,
-            },
-        )
-        started = time.perf_counter()
-        with urllib.request.urlopen(request, timeout=LLM_TIMEOUT) as response:
-            body = json.loads(response.read().decode("utf-8"))
-    except urllib.error.HTTPError as error:
-        detail = ""
-        try:
-            detail = redact(error.read().decode("utf-8")[:200], key)
-        except Exception:
-            pass
-        return 502, {"error": f"模型服务返回 {error.code}", "detail": detail}
-    except Exception as error:
-        return 502, {"error": f"无法连接模型服务：{type(error).__name__}"}
-
-    try:
-        content = body["choices"][0]["message"]["content"]
-        parsed = json.loads(re.sub(r"```(?:json)?|```", "", content).strip())
-    except (KeyError, IndexError, ValueError):
+        parsed = json.loads(re.sub(r"```(?:json)?|```", "", answer["reply"]).strip())
+        if not isinstance(parsed, dict):
+            raise ValueError()
+    except (KeyError, ValueError, TypeError):
         return 502, {"error": "模型返回的内容无法解析为 JSON"}
 
     action = parsed.get("action")
-    book_id = (parsed.get("bookId") or "").strip()
-    say = (parsed.get("say") or "").strip()[:60]
+    book_id = str(parsed.get("bookId") or "").strip()
+    say = str(parsed.get("say") or "").strip()[:60]
     if action not in ("find", "return", "open", "close", "chip", "none"):
         return 200, {"action": "none", "say": "", "via": "llm",
                      "seconds": round(time.perf_counter() - started, 3)}
@@ -617,13 +589,13 @@ class Handler(SimpleHTTPRequestHandler):
                                     stop_everything, restart_args=self.server.restart_args)
         self._send_json(200 if ok else 409, {"ok": ok, "message": message})
 
-    def _read_json(self):
+    def _read_json(self, limit=MAX_JSON_BODY):
         """One small JSON body, or None after answering the request itself."""
         try:
             length = int(self.headers.get("Content-Length") or 0)
         except ValueError:
             length = 0
-        if length <= 0 or length > MAX_JSON_BODY:
+        if length <= 0 or length > limit:
             self._send_json(413, {"error": "请求体超出限制"})
             return None
         try:
@@ -645,8 +617,11 @@ class Handler(SimpleHTTPRequestHandler):
             ready, payload = model_state()
             self._send_json(200 if ready else 503, payload)
             return
-        if pathname == "/understand/ready":
-            key, _, payload = llm_state()
+        if pathname in ("/understand/ready", "/chat/ready"):
+            if pathname == "/chat/ready" and not self._loopback_only():
+                return
+            key, resolved, payload = llm_state()
+            payload["configuration"] = llm_chat.configuration(resolved)
             self._send_json(200 if key else 503, payload)
             return
         if pathname == "/settings" or pathname == "/settings/":
@@ -761,8 +736,8 @@ class Handler(SimpleHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(body)
 
-    def _post_understand(self):
-        body = self._read_json()
+    def _post_understand(self, conversation=False):
+        body = self._read_json(128_000 if conversation else MAX_JSON_BODY)
         if body is None:
             return
         wait = UNDERSTAND_LIMIT.allow(self.client_address[0])
@@ -778,7 +753,16 @@ class Handler(SimpleHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(payload)
             return
-        status, payload = understand(body.get("text"), body.get("phase"))
+        if not isinstance(body, dict):
+            self._send_json(400, {"error": "请求必须是 JSON 对象"})
+            return
+        if conversation:
+            resolved, _ = settings_state()
+            status, payload = llm_chat.chat(body, resolved, validate_endpoint,
+                                          timeout=float(os.environ.get("HEXU_LLM_CHAT_TIMEOUT", "60")),
+                                          selected=load_catalog()[0].get(str(body.get("bookId", ""))))
+        else:
+            status, payload = understand(body.get("text"), body.get("phase"))
         self._send_json(status, payload)
 
     def _post_settings_key(self):
@@ -798,7 +782,8 @@ class Handler(SimpleHTTPRequestHandler):
 
     def _post_settings_test(self):
         """Prove the whole path with one real, tiny request: key, address, TLS and parsing."""
-        status, payload = understand("测试连接", "IDLE")
+        resolved, _ = settings_state()
+        status, payload = llm_chat.chat({"text": "请只回答：连接成功"}, resolved, validate_endpoint)
         if status == 200:
             seconds = payload.get("seconds", "")
             self._send_json(200, {"ok": True, "message": f"连接成功，模型已应答（{seconds} 秒）",
@@ -828,6 +813,10 @@ class Handler(SimpleHTTPRequestHandler):
         if book_library.handle_request(self):
             return
         pathname = self.path.split("?", 1)[0]
+        if pathname == "/chat":
+            if self._loopback_only():
+                self._post_understand(conversation=True)
+            return
         if pathname == "/understand":
             self._post_understand()
             return

@@ -54,6 +54,8 @@ ssh -i ~/.ssh/rainyun-rcs-Snowy_Brew.pem -L 8090:127.0.0.1:8090 root@64.90.2.91
 
 ## 可选的语义解析层
 
+同一组 API 配置也用于小和的自由问答与多轮追问。完整使用方式、模型切换及数据发送范围见 [大模型大脑说明](docs/LLM_BRAIN.md)。普通问答接口 `/chat` 只允许本机同源访问，开发预览和桌面程序共用实现。
+
 本地规则匹配的是书名与别名，快、免费、离线可用，但读不懂「霍金写的那本」。配一个大语言模型之后，这类说法交给它判断要哪一本。
 
 **默认关闭。** 没有配置密钥时 `/understand/ready` 返回 `ready:false`，页面继续只用本地规则——功能不退化，只是少了理解长尾的能力。
@@ -65,7 +67,8 @@ ssh -i ~/.ssh/rainyun-rcs-Snowy_Brew.pem -L 8090:127.0.0.1:8090 root@64.90.2.91
 | `HEXU_LLM_API_KEY` | 无 | 缺省即关闭整个语义层 |
 | `HEXU_LLM_BASE_URL` | `https://api.deepseek.com` | 仅接受 https，且拒绝回环/私有/保留地址 |
 | `HEXU_LLM_MODEL` | `deepseek-flash` | 换 `deepseek-v4-pro` 可提质，贵 50～70 倍 |
-| `HEXU_LLM_TIMEOUT` | `12` | 秒；超时即退回本地提示 |
+| `HEXU_LLM_TIMEOUT` | `12` | 找书语义解析等待秒数 |
+| `HEXU_LLM_CHAT_TIMEOUT` | `60` | 普通对话等待秒数；前端默认 90 秒超时 |
 | `HEXU_LLM_PER_MINUTE` | `20` | 每个客户端地址每 60 秒最多调用模型几次，超出回 429 并退回本地规则；`0` 为不限。经隧道访问时所有请求都来自回环地址，相当于全服务共用一份额度。只读环境变量，不读下面的配置文件 |
 
 同一组设置也可以放在**用户目录**的配置文件里（本机版走这条路，见下文「本机版打包」）：Windows 是 `%APPDATA%\hexu-library\llm.env`，其它系统是 `~/.config/hexu-library/llm.env`，格式与下面完全一样。**环境变量优先**，所以部署在服务器上的服务不会被某个人 profile 里遗留的文件改写；`/settings/state` 会回一个 `key_source` 字段说明当前生效的是哪一边。

@@ -16,6 +16,7 @@ import { projectDialogueAnchor } from "./app/project-dialogue.js";
 import { createMotion } from "./app/motion.js";
 import { createReaderView } from "./app/reader-view.js";
 import { createJourney } from "./app/journey.js";
+import { createConversation } from "./app/conversation.js";
 import { createAssistant } from "./app/assistant.js";
 import { bindInput } from "./app/input.js";
 
@@ -90,7 +91,13 @@ export async function startLibrary() {
     novelReader,
     readingMusic,
   });
+  const conversation = createConversation({
+    onSubmit: (text) => assistant.processText(text, true),
+    onCancel: () => assistant.cancelPending(),
+    onClear: () => assistant.clearConversation(),
+  });
   const assistant = createAssistant({
+    conversation,
     gsap,
     $,
     machine,
@@ -147,7 +154,12 @@ export async function startLibrary() {
   probeUnderstand().then((info) => {
     if (!info) return;
     understandReady = true;
-    feedback.notice(`语义解析已就绪（${info.model}），可以用自然语言找书`);
+    feedback.notice(`小和的模型已配置（${info.model}），可以自由提问或自然语言找书`);
+  });
+  window.addEventListener("focus", () => {
+    probeUnderstand().then((info) => {
+      understandReady = Boolean(info);
+    });
   });
   /* The packaged service checks and applies updates automatically; the page shows its status. */
   fetch("/update/status", { cache: "no-store" })
@@ -201,6 +213,7 @@ export async function startLibrary() {
       orb: orb.position.toArray(),
       companion: companion.getState(),
       dialogue: feedback.getState(),
+      chat: { ...assistant.getChatState(), ...conversation.getState() },
       petScreen: (() => {
         const point = orb.position.clone().project(camera);
         return [(point.x * 0.5 + 0.5) * innerWidth, (-point.y * 0.5 + 0.5) * innerHeight];

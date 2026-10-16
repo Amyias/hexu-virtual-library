@@ -127,7 +127,11 @@ const profile = fs.mkdtempSync(path.join(os.tmpdir(), "hexu-ui-"));
 const site = spawn(process.execPath, [path.join(root, "tools", "serve.mjs")], {
   cwd: root,
   env: {
-    ...process.env,
+    ...Object.fromEntries(
+      Object.entries(process.env).filter(([name]) => !name.startsWith("HEXU_LLM_")),
+    ),
+    APPDATA: profile,
+    XDG_CONFIG_HOME: profile,
     PORT: String(sitePort),
     HEXU_BOOK_LIBRARY_DIR: path.join(profile, "books"),
   },
@@ -304,6 +308,59 @@ try {
   )
     throw new Error("仅唤醒时宠物错误位移或响应不符");
   step("宠物加载与仅唤醒", "四条腿、两只眼睛；锚点保持前台");
+
+  // Isolated mocked provider response: exercise the real dispatcher/panel without paid API calls.
+  await page.evaluate(`(() => {
+    window.chatTest = { fetch: window.fetch, calls: [], config: 'first' };
+    window.fetch = async (url, options) => {
+      if (url === '/chat/ready') return new Response(JSON.stringify({ready:true,configuration:chatTest.config}),{status:200});
+      if (url === '/chat') {
+        chatTest.calls.push(JSON.parse(options.body));
+        return new Response(JSON.stringify({reply:'机器学习通过数据学习规律。'+ '这是完整回答。'.repeat(25) + '<img src=x onerror=alert(1)>',model:'mock-chat-model',configuration:chatTest.config}),{status:200});
+      }
+      return chatTest.fetch(url,options);
+    };
+    libraryDebug.processText('小和，什么是机器学习？',true);
+  })()`);
+  await waitFor(
+    async () => (await state()).chat.turns === 1 && !(await state()).chat.pending,
+    "自由提问完成",
+  );
+  const chatCheck = await page.evaluate(`({
+    visible:!document.getElementById('conversation').hidden,
+    answer:document.querySelector('.conversation-message.assistant div').textContent,
+    injected:document.querySelectorAll('#conversation img').length,
+    preview:libraryDebug.getState().dialogue.message,
+    protocol:JSON.parse(document.getElementById('protocol').textContent).action,
+    phase:libraryDebug.getState().phase
+  })`);
+  if (
+    !chatCheck.visible ||
+    chatCheck.answer.length < 150 ||
+    chatCheck.injected ||
+    !chatCheck.preview.endsWith("完整回答见对话面板。") ||
+    chatCheck.protocol !== "IDLE" ||
+    chatCheck.phase !== "IDLE"
+  )
+    throw new Error("自由问答显示或动作隔离失败：" + JSON.stringify(chatCheck));
+  await page.evaluate("libraryDebug.processText('请再举一个例子',true)");
+  await waitFor(async () => (await state()).chat.turns === 2, "多轮追问");
+  if ((await page.evaluate("chatTest.calls[1].history.length")) !== 2)
+    throw new Error("追问未携带历史");
+  await page.evaluate(
+    "chatTest.config='second'; libraryDebug.processText('现在换一个解释方式',true)",
+  );
+  await waitFor(
+    async () =>
+      (await state()).chat.turns === 1 && (await page.evaluate("chatTest.calls.length")) === 3,
+    "切换模型后重置上下文",
+  );
+  if ((await page.evaluate("chatTest.calls[2].history.length")) !== 0)
+    throw new Error("更换模型残留旧上下文");
+  await page.evaluate(
+    "document.querySelector('#conversation [data-clear]').click(); document.querySelector('#conversation [data-close]').click(); window.fetch=chatTest.fetch; delete window.chatTest",
+  );
+  step("大模型对话", "自由提问、多轮上下文、模型切换、长回答与安全文本显示；未调用真实 API");
 
   if (await page.evaluate("document.querySelectorAll('[data-query], .suggestions, .chip').length"))
     throw new Error("预置推荐入口仍然存在");

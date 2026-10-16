@@ -27,13 +27,19 @@ const GREETINGS = /你好|您好|在吗|你在吗|嗨|嘿|哈喽|hello/gi;
    would add a second of latency for nothing. Order matters where phrases overlap. 「合上」 closes
    the cover (or the chip close-up) — it used to return the book, which is not what it says. */
 const READING_COMMANDS = [
-  ["return", /放回|归还|还书|收回|拿走/],
-  ["next", /下一页|往后翻|向后翻/],
-  ["previous", /上一页|往前翻|向前翻/],
-  ["fullText", /正文|读小说|继续阅读/],
-  ["close", /合上|关上|闭合|盖上/],
-  ["open", /翻开|打开|摊开|掀开/],
-  ["chip", /芯片|标签|身份证/],
+  [
+    "return",
+    /^(?:请|帮我|把这本书|把书|将书)*(?:放回(?:书架|去)?|归还(?:书籍|图书)?|还书|收回|拿走)(?:吧|一下)?$/,
+  ],
+  ["next", /^(?:请|帮我|翻到)*(?:下一页|往后翻|向后翻)(?:吧|一下)?$/],
+  ["previous", /^(?:请|帮我|翻到)*(?:上一页|往前翻|向前翻)(?:吧|一下)?$/],
+  [
+    "fullText",
+    /^(?:请|帮我|我要|我想)*(?:读正文|看正文|正文|读小说|继续阅读|阅读正文|打开正文)(?:吧|一下)?$/,
+  ],
+  ["close", /^(?:请|帮我|把书)*(?:合上|关上|闭合|盖上)(?:书|书本|封面)?(?:吧|一下)?$/],
+  ["open", /^(?:请|帮我|把书)*(?:翻开|打开|摊开|掀开)(?:书|书本|封面)?(?:吧|一下)?$/],
+  ["chip", /^(?:请|帮我)*(?:看看|看|查看|检查)?(?:芯片|标签|身份证)(?:吧|一下)?$/],
 ];
 
 /** The request with the wake word, greetings and punctuation taken out. */
@@ -44,7 +50,27 @@ export function requestOf(text) {
     .replace(/[\s，。！？、,.!?]/g, "");
 }
 
+/** Preserve normal punctuation/spaces for the model; requestOf is only a shelf matcher. */
+export function conversationText(text) {
+  return text
+    .replace(wakeRE, "")
+    .replace(/^[\s，。！？、,.!?：:]+/u, "")
+    .trim();
+}
+export function isBookRequest(text) {
+  if (/bug|代码|错误|原因|解决|图片|网页/i.test(text) && !/书|小说|《/.test(text)) return false;
+  if (
+    /什么|为何|为什么|如何|怎么|解释|介绍|意义|原理/.test(text) &&
+    !/帮我找|我要找|我想找|找一本|找本|搜索|检索|下载|借/.test(text)
+  )
+    return false;
+  return /(?:帮我|给我|我要|我想|想)?(?:找|搜索|检索|借|下载|读|阅读|取)(?:一下|一本|本|这本|那本|书|《)|(?:帮我找|找本|找书|找一本|我要找|我想找)|哪(?:本|部)书|那本$|这本书$|书在哪里|书在哪|^《[^》]+》$|^HX-\d+$|^S[1-5]-[AB]-L[1-4]-\d+$|书$/.test(
+    text,
+  );
+}
+
 export function readingCommand(request) {
+  if (/为什么|如何|怎么|是什么|解释|介绍|分析|意义|区别|吗|能不能/.test(request)) return null;
   return READING_COMMANDS.find(([, pattern]) => pattern.test(request))?.[0] ?? null;
 }
 
@@ -72,23 +98,30 @@ export function decide(
   if (!direct && !addressed && !awake) return { type: "ignore" };
   const request = requestOf(text);
   if (!request) return { type: "wake-only", wake: !wasInterimWake };
+  const wake = addressed && !wasInterimWake;
+  const question =
+    /什么|为何|为什么|如何|怎么|解释|介绍|分析|评价|讲讲|讲啥|意义|原理|区别|主题|吗$|谁|聊聊|说说/.test(
+      request,
+    ) || /[？?]\s*$/.test(text);
+  const bookRequest = isBookRequest(request);
   if (phase === READING) {
     const command = readingCommand(request);
     if (command) return { type: "reading", command };
-    return { type: "reading", command: addressed || direct ? "hint" : null };
+    if (bookRequest) return { type: "reading", command: addressed || direct ? "hint" : null };
+    return { type: "chat", wake, request: conversationText(text) };
   }
   if (phase !== IDLE) return { type: "busy", tell: addressed || direct };
-
-  const wake = addressed && !wasInterimWake;
-  const reply = PET_REPLIES.find(([pattern]) => pattern.test(request));
+  // Offline courtesy still works, but configured models answer naturally instead of canned text.
+  const reply = !understand && PET_REPLIES.find(([pattern]) => pattern.test(request));
   if (reply) return { type: "reply", wake, speech: reply[1] };
-  const book = lookup(request);
-  if (!book) {
-    if (understand) return { type: "model", wake, request };
+  const book = !question || bookRequest ? lookup(request) : null;
+  if (book) return { type: "present", wake, book, speech: addressed ? FOUND : LOCATING };
+  if (bookRequest || /^HX-\d+$/i.test(request)) {
+    if (understand) return { type: "model", wake, request: conversationText(text) };
     if (fullText) return { type: "full-text", wake, query: text };
     return { type: "no-match", wake };
   }
-  return { type: "present", wake, book, speech: addressed ? FOUND : LOCATING };
+  return { type: "chat", wake, request: conversationText(text) };
 }
 
 /** The window after 「小和」 in which a request needs no wake word. */

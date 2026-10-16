@@ -88,7 +88,10 @@ export function bindInput({
   $("openBook").onclick = () => {
     if (machine.is(READING)) view.toggleCover();
   };
-  $("returnBook").onclick = () => journey.returnBook();
+  $("returnBook").onclick = () => {
+    assistant.cancelPending();
+    journey.returnBook();
+  };
   $("inspectChip").onclick = () => view.openChip(journey.selected);
   $("closeChip").onclick = () => view.closeChip();
   $("readText").onclick = () => assistant.openFullText();
@@ -110,6 +113,11 @@ export function bindInput({
     $("query").value = "";
   };
   document.addEventListener("keydown", (event) => {
+    if (
+      event.target.closest("#conversation") ||
+      event.target.matches("textarea, input, [contenteditable]")
+    )
+      return;
     if (library.opened) {
       if (event.key === "Escape") library.close();
       return;

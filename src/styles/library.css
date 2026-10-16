@@ -1350,3 +1350,142 @@ body.inspecting #reader > .reader-bottom {
     flex-basis: 100%;
   }
 }
+
+/* The conversation panel remains usable over both the 3D book and the novel reader. */
+.chat-launch {
+  position: fixed;
+  right: 24px;
+  top: 92px;
+  z-index: 65;
+  border: 2px solid #376c53;
+  border-radius: 0;
+  background: #f7f8f2;
+  color: var(--ink);
+  padding: 10px 16px;
+  font:
+    16px "Fusion Pixel",
+    monospace;
+  box-shadow: 4px 4px 0 #376c5340;
+  cursor: pointer;
+}
+.conversation {
+  position: fixed;
+  z-index: 75;
+  right: 24px;
+  top: 145px;
+  width: min(440px, calc(100vw - 32px));
+  max-height: calc(100dvh - 170px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px;
+  border: 3px solid #376c53;
+  background: #f7f8f2;
+  color: var(--ink);
+  box-shadow: 6px 6px 0 #243d3940;
+}
+.conversation[hidden] {
+  display: none;
+}
+.conversation-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font:
+    20px "Fusion Pixel",
+    monospace;
+}
+.conversation button,
+.conversation a {
+  font: inherit;
+  color: inherit;
+}
+.conversation button {
+  cursor: pointer;
+  padding: 6px 10px;
+  border: 1px solid #9cae9e;
+  border-radius: 0;
+  background: #edf1e8;
+}
+.conversation button:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+.conversation-note,
+.conversation-state {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #60776c;
+}
+.conversation-log {
+  overflow-y: auto;
+  min-height: 80px;
+  max-height: 45dvh;
+  overscroll-behavior: contain;
+}
+.conversation-message {
+  margin: 0 0 12px;
+  padding: 10px;
+  background: #e9eee4;
+  border-left: 3px solid #376c53;
+}
+.conversation-message.user {
+  background: #f0e7dd;
+  border-color: #ce805e;
+}
+.conversation-message.error {
+  background: #f5e5df;
+  border-color: #aa543d;
+}
+.conversation-message b {
+  display: block;
+  font:
+    16px "Fusion Pixel",
+    monospace;
+  margin-bottom: 6px;
+}
+.conversation-message div {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-size: 14px;
+  line-height: 1.8;
+  user-select: text;
+}
+.conversation form {
+  display: flex;
+  gap: 8px;
+}
+.conversation textarea {
+  resize: vertical;
+  min-width: 0;
+  width: 100%;
+  max-height: 160px;
+  border: 1px solid #9cae9e;
+  background: white;
+  padding: 8px;
+  font: inherit;
+  color: inherit;
+}
+.conversation-tools {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 12px;
+}
+.conversation :focus-visible,
+.chat-launch:focus-visible {
+  outline: 2px solid #ce805e;
+  outline-offset: 3px;
+}
+@media (max-width: 600px) {
+  .chat-launch {
+    top: 76px;
+    right: 16px;
+  }
+  .conversation {
+    top: 124px;
+    right: 16px;
+    max-height: calc(100dvh - 140px);
+  }
+}
