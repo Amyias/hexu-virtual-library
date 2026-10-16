@@ -1360,14 +1360,16 @@ body.inspecting #reader > .reader-bottom {
 /* The conversation panel remains usable over both the 3D book and the novel reader. */
 .chat-launch {
   position: fixed;
-  right: 24px;
-  top: 92px;
+  right: 34px;
+  bottom: 85px;
+  width: 124px;
+  height: 44px;
   z-index: 65;
   border: 2px solid #376c53;
   border-radius: 0;
   background: #f7f8f2;
   color: var(--ink);
-  padding: 10px 16px;
+  padding: 0;
   font:
     16px "Fusion Pixel",
     monospace;
@@ -1377,10 +1379,11 @@ body.inspecting #reader > .reader-bottom {
 .conversation {
   position: fixed;
   z-index: 75;
-  right: 24px;
-  top: 145px;
+  right: 34px;
+  bottom: 141px;
   width: min(440px, calc(100vw - 32px));
-  max-height: calc(100dvh - 170px);
+  max-height: calc(100dvh - 165px);
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -1484,15 +1487,15 @@ body.inspecting #reader > .reader-bottom {
   outline: 2px solid #ce805e;
   outline-offset: 3px;
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .chat-launch {
-    top: 76px;
-    right: 16px;
+    right: 20px;
+    bottom: 253px;
   }
   .conversation {
-    top: 124px;
-    right: 16px;
-    max-height: calc(100dvh - 140px);
+    right: 20px;
+    bottom: 309px;
+    max-height: calc(100dvh - 333px);
   }
 }
 
