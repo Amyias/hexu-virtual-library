@@ -284,6 +284,83 @@ try {
     throw new Error("气泡收起失败");
   step("完整回答气泡", "长文本不截断、可滚动、显示全文、收起及阅读模式显示通过");
 
+  // Settings use the same local backend in an iframe, never a new browser page.
+  const originalUrl = await page.evaluate("location.href");
+  const originalPages = (await page.send("Target.getTargets")).result.targetInfos.filter(
+    (target) => target.type === "page",
+  ).length;
+  await page.evaluate(`(async () => {
+    const {createSettingsPanel}=await import('/src/app/settings.js');
+    const {createConversation}=await import('/src/app/conversation.js');
+    window.settingsFixture={closed:0};
+    settingsFixture.panel=createSettingsPanel({onClose:()=>settingsFixture.closed++});
+    settingsFixture.conversation=createConversation({onSubmit:()=>{},onCancel:()=>{},onClear:()=>{}});
+    settingsFixture.conversation.begin('保留本轮对话');
+    settingsFixture.conversation.answer('设置关闭后这条记录仍然存在。','fixture-model');
+    settingsFixture.conversation.show();
+    document.querySelector('#conversation a[href="/settings"]').click();
+  })()`);
+  await waitFor(
+    () =>
+      page.evaluate(
+        "document.querySelector('#internalSettings iframe')?.contentDocument?.getElementById('model')?.value === 'deepseek-flash'",
+      ),
+    "程序内加载模型设置",
+  );
+  if (
+    (await page.evaluate("location.href")) !== originalUrl ||
+    !(await page.evaluate("settingsFixture.panel.opened"))
+  )
+    throw new Error("设置错误跳转了主页面");
+  if (
+    (await page.send("Target.getTargets")).result.targetInfos.filter(
+      (target) => target.type === "page",
+    ).length !== originalPages
+  )
+    throw new Error("设置打开了额外浏览器页面");
+  // Only the isolated test profile is written; there is no API key and no provider call.
+  await page.evaluate(`(() => {
+    const doc=document.querySelector('#internalSettings iframe').contentDocument;
+    doc.getElementById('model').value='settings-ui-regression';
+    doc.getElementById('save').click();
+  })()`);
+  await waitFor(
+    () =>
+      page.evaluate(
+        "document.querySelector('#internalSettings iframe')?.contentDocument?.getElementById('message')?.textContent.includes('已保存')",
+      ),
+    "内部设置保存",
+  );
+  await page.evaluate(
+    "document.querySelector('#internalSettings iframe').contentDocument.getElementById('settingsBack').click()",
+  );
+  await waitFor(
+    () => page.evaluate("settingsFixture.closed===1 && !settingsFixture.panel.opened"),
+    "设置返回当前图书馆",
+  );
+  if (
+    (await page.evaluate("settingsFixture.conversation.getState().messages")) !== 2 ||
+    (await page.evaluate("document.querySelectorAll('#internalSettings iframe').length"))
+  )
+    throw new Error("关闭设置丢失对话或未卸载设置文档");
+  await page.evaluate("document.querySelector('#conversation a[href=\"/settings\"]').click()");
+  await waitFor(
+    () =>
+      page.evaluate(
+        "document.querySelector('#internalSettings iframe')?.contentDocument?.getElementById('model')?.value === 'settings-ui-regression'",
+      ),
+    "重新打开保留配置",
+  );
+  await page.evaluate(`(() => {
+    const frame=document.querySelector('#internalSettings iframe');
+    frame.contentDocument.dispatchEvent(new frame.contentWindow.KeyboardEvent('keydown',{key:'Escape',bubbles:true}));
+  })()`);
+  await waitFor(
+    () => page.evaluate("settingsFixture.closed===2 && !settingsFixture.panel.opened"),
+    "设置 Esc 关闭",
+  );
+  step("程序内模型设置", "不跳转、不新开页面；保存、返回、Esc 与对话保留通过");
+
   await page.send("Page.navigate", { url: `http://127.0.0.1:${sitePort}/` });
   await waitFor(
     async () =>

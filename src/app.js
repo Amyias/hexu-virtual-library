@@ -16,6 +16,7 @@ import { projectDialogueAnchor } from "./app/project-dialogue.js";
 import { createMotion } from "./app/motion.js";
 import { createReaderView } from "./app/reader-view.js";
 import { createJourney } from "./app/journey.js";
+import { createSettingsPanel } from "./app/settings.js";
 import { createConversation } from "./app/conversation.js";
 import { createAssistant } from "./app/assistant.js";
 import { bindInput } from "./app/input.js";
@@ -34,6 +35,12 @@ export async function startLibrary() {
   const feedback = createFeedback($);
   const pulse = { value: 0 }; // the companion wake gesture, 1 → 0
   let understandReady = false;
+  const settings = createSettingsPanel({
+    onClose: () =>
+      probeUnderstand().then((info) => {
+        understandReady = Boolean(info);
+      }),
+  });
   let library = null;
 
   const canvas = $("scene");
@@ -210,7 +217,7 @@ export async function startLibrary() {
       $("voiceTitle").textContent = "说一声「小和」，开启一段探索";
     }
     // The full-screen text panels keep the last scene frame; reading needs no GPU redraws.
-    if (!novelReader.visible && !library.opened) renderer.render(scene, camera);
+    if (!novelReader.visible && !library.opened && !settings.opened) renderer.render(scene, camera);
   }
   frame();
   $("loading").style.display = "none";
@@ -228,6 +235,7 @@ export async function startLibrary() {
       companion: companion.getState(),
       dialogue: feedback.getState(),
       chat: { ...assistant.getChatState(), ...conversation.getState() },
+      settings: settings.getState(),
       petScreen: (() => {
         const point = orb.position.clone().project(camera);
         return [(point.x * 0.5 + 0.5) * innerWidth, (-point.y * 0.5 + 0.5) * innerHeight];

@@ -176,7 +176,7 @@
     <main>
       <h1>本机设置</h1>
       <p class="sub">
-        这里是程序自己的页面，只在本机可访问。<a href="/">返回图书馆 ↗</a>
+        这里是程序自己的页面，只在本机可访问。<a id="settingsBack" href="/">返回图书馆 ↗</a>
       </p>
 
       <section>
@@ -282,6 +282,13 @@
     </main>
     <script type="module">
       const $ = (id) => document.getElementById(id);
+      if (window.parent !== window && new URLSearchParams(location.search).get("embedded") === "1") {
+        const closeSettings = () => window.parent.postMessage({ type: "hexu-settings-close" }, location.origin);
+        $("settingsBack").onclick = (event) => { event.preventDefault(); closeSettings(); };
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape") { event.preventDefault(); closeSettings(); }
+        });
+      }
       const message = (text, ok) => {
         $("message").textContent = text;
         $("message").className = ok ? "ok" : "bad";

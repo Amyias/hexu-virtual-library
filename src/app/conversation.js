@@ -18,7 +18,7 @@ export function createConversation({ onSubmit, onCancel, onClear }) {
     <div class="conversation-log" role="log" aria-label="对话记录" aria-live="polite"></div>
     <p class="conversation-state" role="status">配置大模型后即可开始自由对话。</p>
     <form><textarea aria-label="向小和提问" placeholder="想问些什么？" rows="2" maxlength="4000" required></textarea><button type="submit">发送 ↗</button></form>
-    <div class="conversation-tools"><button type="button" data-stop disabled>停止等待</button><button type="button" data-clear>新对话</button><a href="/settings" target="_blank" rel="noopener">模型设置 ↗</a></div>`;
+    <div class="conversation-tools"><button type="button" data-stop disabled>停止等待</button><button type="button" data-clear>新对话</button><a href="/settings">模型设置</a></div>`;
   document.body.append(button, panel);
   const log = panel.querySelector(".conversation-log");
   const state = panel.querySelector(".conversation-state");
