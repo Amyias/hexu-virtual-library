@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
 import path from "node:path";
-import { createChatSession, bubblePreview } from "../src/voice/chat.js";
+import { createChatSession } from "../src/voice/chat.js";
 import { decide, conversationText } from "../src/app/dialogue.js";
 const ok = (body, status = 200) => new Response(JSON.stringify(body), { status });
 function service() {
@@ -89,7 +89,7 @@ test("stopping a pending conversation rejects late replies and never contaminate
   assert.equal(session.getState().turns, 0);
   assert.equal(session.getState().busy, false);
 });
-test("missing configuration, timeout and long Unicode replies remain readable", async () => {
+test("missing configuration and timeout produce explicit connection messages", async () => {
   const missing = createChatSession({
     request: async () => ok({ ready: false, reason: "尚未配置模型密钥" }, 503),
   });
@@ -104,10 +104,6 @@ test("missing configuration, timeout and long Unicode replies remain readable", 
       ),
   });
   assert.match((await slow.ask("你好", "IDLE")).error, /超时/);
-  const preview = bubblePreview("👨‍👩‍👧‍👦" + "这是长回答。".repeat(100));
-  assert.ok(Array.from(preview).length < 110);
-  assert.ok(preview.endsWith("完整回答见对话面板。"));
-  assert.equal(bubblePreview("你好。"), "你好。");
 });
 const python = [process.env.PYTHON, path.resolve(".cache/venv/Scripts/python.exe"), "python"].find(
   (cmd) => cmd && spawnSync(cmd, ["--version"], { windowsHide: true }).status === 0,

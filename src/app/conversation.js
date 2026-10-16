@@ -1,4 +1,4 @@
-/* A scrollable full answer stays readable while the small pixel bubble follows the pet.
+/* Optional history opened explicitly by the reader. Every reply also appears fully in the bubble.
    Replies are always textContent: model output cannot inject scripts/HTML into the library. */
 export function createConversation({ onSubmit, onCancel, onClear }) {
   const button = document.createElement("button");
@@ -97,10 +97,9 @@ export function createConversation({ onSubmit, onCancel, onClear }) {
   });
   return {
     begin(text) {
-      show();
       append("user", text);
       busy(true);
-      status("小和正在思考…");
+      status("小和正在回应…");
     },
     answer(text, model, truncated = false) {
       append("assistant", text);
@@ -108,7 +107,6 @@ export function createConversation({ onSubmit, onCancel, onClear }) {
       status(`${model} · 记忆最近 6 轮${truncated ? " · 回答达到长度上限，可让小和继续" : ""}`);
     },
     error(text) {
-      show();
       append("error", text);
       busy(false);
       status("请检查模型设置后重试。");

@@ -2,7 +2,7 @@ import { books, anchors, heights } from "../data/catalog.js";
 import { understand } from "../voice/understand.js";
 import { findBook } from "../voice/intent.js";
 import { decide, protocolResponse, NO_MATCH, FOUND, READING_HINT, BUSY_HINT } from "./dialogue.js";
-import { createChatSession, bubblePreview } from "../voice/chat.js";
+import { createChatSession } from "../voice/chat.js";
 import { IDLE } from "./phases.js";
 
 /* 小和 itself: carries out what dialogue.decide() concluded. Every text input — recognised speech,
@@ -117,26 +117,26 @@ export function createAssistant({
   }
   async function converse(request) {
     if (chat.getState().busy) {
-      notice("小和正在回答，请等待或在对话面板停止当前回答。");
+      notice("小和正在回答，请等待或点击气泡中的停止等待。");
       return;
     }
     intentGeneration++;
     attention.wake(120000);
     conversation.begin(request);
-    say("让我想一想…", 120000);
+    say("正在回应…", 0, { interactive: true, onCancel: cancelPending });
     const result = await chat.ask(request, machine.phase, journey.selected?.bookId);
     if (result.cancelled) return;
     attention.wake(40000);
     if (result.error) {
       conversation.error(result.error);
       respond(result.error);
-      say(bubblePreview(result.error));
+      say(result.error, 0, { interactive: true });
       $("voiceTitle").textContent = "对话服务尚未就绪，可打开模型设置检查";
       return;
     }
     conversation.answer(result.reply, result.model, result.truncated);
     respond(result.reply);
-    say(bubblePreview(result.reply), 15000);
+    say(result.reply, 0, { interactive: true });
     $("voiceTitle").textContent = "小和已回答，可以继续追问";
   }
 

@@ -396,6 +396,10 @@ form button {
   letter-spacing: 2px;
 }
 .bubble-copy {
+  max-height: min(320px, 42dvh);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
 }
@@ -406,6 +410,8 @@ form button {
   white-space: pre-wrap;
 }
 .bubble-measure {
+  max-height: min(320px, 42dvh);
+  overflow: hidden;
   visibility: hidden;
 }
 .bubble-caret {
@@ -1488,4 +1494,62 @@ body.inspecting #reader > .reader-bottom {
     right: 16px;
     max-height: calc(100dvh - 140px);
   }
+}
+
+/* Full voice replies stay inside a bounded, scrollable pixel bubble until dismissed. */
+.bubble-writing {
+  align-self: start;
+}
+.bubble.interactive {
+  width: min(420px, calc(100vw - 32px));
+  font-size: 20px;
+  line-height: 28px;
+}
+.bubble.show.interactive {
+  pointer-events: auto;
+}
+.bubble-controls {
+  display: none;
+}
+.bubble.interactive .bubble-controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 8px;
+  border-top: 2px solid #e2ccb0;
+  font-size: 12px;
+  line-height: 18px;
+}
+.bubble-status {
+  flex: 1;
+  color: #a36d4c;
+}
+.bubble-controls button {
+  padding: 4px 7px;
+  border: 1px solid #a36d4c;
+  border-radius: 0;
+  background: #fff7e7;
+  color: #594237;
+  font: inherit;
+  white-space: nowrap;
+}
+.bubble-controls button[hidden] {
+  display: none;
+}
+.reading #bubble.interactive,
+.novel-reading #bubble.interactive {
+  display: block;
+}
+.bubble.interactive {
+  z-index: 60;
+}
+.bubble.pinned::before,
+.bubble.pinned::after {
+  display: none;
+}
+
+.bubble:not(.show) .bubble-controls {
+  display: none;
 }

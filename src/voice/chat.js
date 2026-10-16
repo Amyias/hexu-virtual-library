@@ -76,10 +76,3 @@ export function createChatSession({ request = (...args) => fetch(...args), timeo
     getState: () => ({ busy: Boolean(controller), turns: history.length / 2 }),
   };
 }
-
-export function bubblePreview(text) {
-  const glyphs = Array.from(text.replace(/\s+/g, " ").trim());
-  return glyphs.length <= 100
-    ? glyphs.join("")
-    : glyphs.slice(0, 80).join("") + "…完整回答见对话面板。";
-}

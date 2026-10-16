@@ -22,11 +22,11 @@ export function createFeedback($) {
     clearTimeout(noticeTimer);
     noticeTimer = setTimeout(() => ($("notice").style.display = "none"), 6500);
   }
-  function bubble(text, hold = 6500, voiced = false) {
-    dialogue.show(text, hold, { typingSound: !voiced });
+  function bubble(text, hold = 6500, voiced = false, options = {}) {
+    dialogue.show(text, hold, { ...options, typingSound: !voiced });
   }
-  function say(text, hold = 6500) {
-    bubble(text, hold, speaking && Boolean(window.speechSynthesis));
+  function say(text, hold = 6500, options = {}) {
+    bubble(text, hold, speaking && Boolean(window.speechSynthesis), options);
     if (!speaking || !window.speechSynthesis) return;
     speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(text);

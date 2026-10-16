@@ -179,20 +179,34 @@ export async function startLibrary() {
     companion.update({ time, pulse: pulse.value, phase: machine.phase, camera });
     projectDialogueAnchor(camera, orb.position, bubbleAnchor, projected);
     const bubble = $("bubble");
-    const desiredX = (projected.x * 0.5 + 0.5) * innerWidth;
+    const interactive = bubble.classList.contains("interactive");
+    // Keep spoken replies visible while reading, or when the pet moves outside the camera view.
+    const pinned =
+      interactive &&
+      (novelReader.visible ||
+        library.opened ||
+        !machine.is(IDLE) ||
+        projected.z > 1 ||
+        Math.abs(projected.x) > 1 ||
+        Math.abs(projected.y) > 1);
+    bubble.classList.toggle("pinned", pinned);
+    const desiredX = pinned
+      ? innerWidth - bubble.offsetWidth / 2 - 20
+      : (projected.x * 0.5 + 0.5) * innerWidth;
     const width = bubble.offsetWidth;
     const left = THREE.MathUtils.clamp(desiredX, width / 2 + 12, innerWidth - width / 2 - 12);
     bubble.style.left = Math.round(left) + "px";
+    const desiredY = pinned ? innerHeight - 24 : (-projected.y * 0.5 + 0.5) * innerHeight;
     bubble.style.top =
-      Math.round(Math.max(bubble.offsetHeight + 24, (-projected.y * 0.5 + 0.5) * innerHeight)) +
+      Math.round(THREE.MathUtils.clamp(desiredY, bubble.offsetHeight + 24, innerHeight - 24)) +
       "px";
     bubble.style.setProperty(
       "--bubble-tail-x",
       THREE.MathUtils.clamp(desiredX - left + width / 2, 16, width - 16) + "px",
     );
-    $("bubble").style.visibility = projected.z > 1 ? "hidden" : "visible";
+    bubble.style.visibility = interactive || projected.z <= 1 ? "visible" : "hidden";
     if (attention.lapsed() && machine.is(IDLE)) {
-      feedback.hideBubble();
+      if (!feedback.getState().persistent) feedback.hideBubble();
       $("voiceTitle").textContent = "说一声「小和」，开启一段探索";
     }
     // The full-screen text panels keep the last scene frame; reading needs no GPU redraws.

@@ -259,6 +259,31 @@ try {
     throw new Error(`合成音效波形异常：${JSON.stringify(waveform)}`);
   step("像素气泡与逐字音效", `${prefixes.size} 个可见文字阶段；字体加载、静音与声音波形通过`);
 
+  const longBubble = await page.evaluate(`(() => {
+    const value='这是完整的长回答，所有内容都应保留在像素气泡里。'.repeat(80)+'终点标记';
+    pixelFixture.feedback.say(value,0,{interactive:true});
+    document.querySelector('#bubble [data-bubble-finish]').click();
+    const copy=document.querySelector('#bubble .bubble-copy');
+    copy.scrollTop=copy.scrollHeight;
+    document.body.classList.add('reading','novel-reading');
+    return {value,shown:document.getElementById('bubbleText').textContent,
+      scrollable:copy.scrollHeight>copy.clientHeight,scrolled:copy.scrollTop>0,
+      display:getComputedStyle(document.getElementById('bubble')).display,
+      persistent:pixelFixture.feedback.getState().persistent};
+  })()`);
+  if (
+    longBubble.shown !== longBubble.value ||
+    !longBubble.scrollable ||
+    !longBubble.scrolled ||
+    longBubble.display === "none" ||
+    !longBubble.persistent
+  )
+    throw new Error("长回答气泡未完整显示或阅读模式隐藏了气泡");
+  await page.evaluate("document.querySelector('#bubble [data-bubble-close]').click()");
+  if (await page.evaluate("pixelFixture.feedback.getState().visible"))
+    throw new Error("气泡收起失败");
+  step("完整回答气泡", "长文本不截断、可滚动、显示全文、收起及阅读模式显示通过");
+
   await page.send("Page.navigate", { url: `http://127.0.0.1:${sitePort}/` });
   await waitFor(
     async () =>
@@ -309,7 +334,7 @@ try {
     throw new Error("仅唤醒时宠物错误位移或响应不符");
   step("宠物加载与仅唤醒", "四条腿、两只眼睛；锚点保持前台");
 
-  // Isolated mocked provider response: exercise the real dispatcher/panel without paid API calls.
+  // Isolated mocked provider response: speech uses the full bubble, never an automatic panel.
   await page.evaluate(`(() => {
     window.chatTest = { fetch: window.fetch, calls: [], config: 'first' };
     window.fetch = async (url, options) => {
@@ -320,25 +345,33 @@ try {
       }
       return chatTest.fetch(url,options);
     };
-    libraryDebug.processText('小和，什么是机器学习？',true);
+    libraryDebug.processText('小和，什么是机器学习？');
   })()`);
   await waitFor(
     async () => (await state()).chat.turns === 1 && !(await state()).chat.pending,
     "自由提问完成",
   );
+  await page.evaluate("document.querySelector('#bubble [data-bubble-finish]').click()");
   const chatCheck = await page.evaluate(`({
-    visible:!document.getElementById('conversation').hidden,
+    panelHidden:document.getElementById('conversation').hidden,
+    visible:libraryDebug.getState().dialogue.visible,
+    persistent:libraryDebug.getState().dialogue.persistent,
     answer:document.querySelector('.conversation-message.assistant div').textContent,
-    injected:document.querySelectorAll('#conversation img').length,
+    injected:document.querySelectorAll('#conversation img, #bubble img').length,
+    full:document.getElementById('bubbleText').textContent,
+    speech:JSON.parse(document.getElementById('protocol').textContent).speech,
     preview:libraryDebug.getState().dialogue.message,
     protocol:JSON.parse(document.getElementById('protocol').textContent).action,
     phase:libraryDebug.getState().phase
   })`);
   if (
     !chatCheck.visible ||
+    !chatCheck.panelHidden ||
+    !chatCheck.persistent ||
+    chatCheck.full !== chatCheck.speech ||
     chatCheck.answer.length < 150 ||
     chatCheck.injected ||
-    !chatCheck.preview.endsWith("完整回答见对话面板。") ||
+    chatCheck.preview !== chatCheck.answer ||
     chatCheck.protocol !== "IDLE" ||
     chatCheck.phase !== "IDLE"
   )
@@ -360,7 +393,7 @@ try {
   await page.evaluate(
     "document.querySelector('#conversation [data-clear]').click(); document.querySelector('#conversation [data-close]').click(); window.fetch=chatTest.fetch; delete window.chatTest",
   );
-  step("大模型对话", "自由提问、多轮上下文、模型切换、长回答与安全文本显示；未调用真实 API");
+  step("大模型对话", "语音自由提问、完整气泡、手动展开全文、多轮上下文与模型切换；未调用真实 API");
 
   if (await page.evaluate("document.querySelectorAll('[data-query], .suggestions, .chip').length"))
     throw new Error("预置推荐入口仍然存在");

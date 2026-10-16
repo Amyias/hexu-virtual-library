@@ -30,9 +30,17 @@ class ChatTests(unittest.TestCase):
             self.assertEqual(payload["messages"][-1]["content"], "你好，what is C++?")
             self.assertEqual(payload["model"], "test-model")
             self.assertEqual("thinking" in payload, extension)
+            if extension:
+                self.assertEqual(payload["thinking"], {"type": "disabled"})
             self.assertNotIn("response_format", payload)
             self.assertEqual(reply["reply"], "测试回答")
             self.assertNotIn(CONFIG["HEXU_LLM_API_KEY"], json.dumps(reply))
+
+    def test_deepseek_thinking_is_disabled_for_both_chat_and_book_intents(self):
+        for intent in (False, True):
+            with patch("llm_chat.open_completion", return_value=self.response()) as call:
+                llm_chat.completion(CONFIG, [{"role": "user", "content": "test"}], lambda _url: None, intent=intent)
+            self.assertEqual(json.loads(call.call_args.args[0].data)["thinking"], {"type": "disabled"})
 
     def test_history_validation_and_configuration_identity(self):
         history = [{"role": "user", "content": "问"}, {"role": "assistant", "content": "答"}]
