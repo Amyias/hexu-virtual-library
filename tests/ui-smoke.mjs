@@ -170,9 +170,12 @@ try {
   const phaseIs = (phase) => async () => (await state())?.phase === phase;
   const search = (text) =>
     page.evaluate(`(() => {
-      const q = document.getElementById('query');
+      const panel = document.getElementById('conversation');
+      if (panel.hidden) document.getElementById('chatButton').click();
+      const q = panel.querySelector('textarea');
       q.value = ${JSON.stringify(text)};
       q.closest('form').requestSubmit();
+      panel.querySelector('[data-close]').click();
       return JSON.parse(document.getElementById('protocol').textContent).action;
     })()`);
   const text = (id) => page.evaluate(`document.getElementById(${JSON.stringify(id)}).textContent`);
@@ -472,6 +475,8 @@ try {
   );
   step("大模型对话", "语音自由提问、完整气泡、手动展开全文、多轮上下文与模型切换；未调用真实 API");
 
+  if (await page.evaluate("document.querySelector('#searchForm, #query')"))
+    throw new Error("重复的底部文字入口仍然存在");
   if (await page.evaluate("document.querySelectorAll('[data-query], .suggestions, .chip').length"))
     throw new Error("预置推荐入口仍然存在");
   await waitFor(async () => (await state()).localLibrary.ready, "连接空书库");

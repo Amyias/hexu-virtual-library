@@ -6,7 +6,7 @@ import { createChatSession } from "../voice/chat.js";
 import { IDLE } from "./phases.js";
 
 /* 小和 itself: carries out what dialogue.decide() concluded. Every text input — recognised speech,
-   the search box, libraryDebug.processText — comes through processText(). */
+   the conversation panel, libraryDebug.processText — comes through processText(). */
 export function createAssistant({
   gsap,
   $,

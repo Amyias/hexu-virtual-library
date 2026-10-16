@@ -27,7 +27,7 @@ export function createSpeech({ $, notice, wake, processText, getPhase, lookupBoo
       if (!wanted || resultSeen) return;
       micStatus("监听中，但收不到识别结果", "error");
       notice(
-        "麦克风已授权、识别器也在运行，但浏览器一次结果都没回传。通常是这两种原因：系统麦克风被静音或输入设备选错；或浏览器厂商的识别服务连不上。可先用下方文字找书。",
+        "麦克风已授权、识别器也在运行，但浏览器一次结果都没回传。通常是这两种原因：系统麦克风被静音或输入设备选错；或浏览器厂商的识别服务连不上。可先打开右下角「和 · 对话」使用文字输入。",
       );
     }, 20000);
   }
@@ -162,12 +162,12 @@ export function createSpeech({ $, notice, wake, processText, getPhase, lookupBoo
         // hid a service that was never reachable behind a healthy-looking status.
         if (failures === 1)
           notice(
-            "浏览器识别服务没有响应。语音识别需要把音频发给浏览器厂商的服务，请检查网络后重试，也可以先用下方文字找书。",
+            "浏览器识别服务没有响应。语音识别需要把音频发给浏览器厂商的服务，请检查网络后重试，也可以先打开右下角「和 · 对话」使用文字输入。",
           );
         if (failures >= 5) {
           wanted = false;
           micStatus("语音服务不可达，请点击重试", "error");
-          notice("浏览器识别服务无法连接。可先使用下方文字找书。");
+          notice("浏览器识别服务无法连接。可先打开右下角「和 · 对话」使用文字输入。");
         }
       }
     };
@@ -182,7 +182,8 @@ export function createSpeech({ $, notice, wake, processText, getPhase, lookupBoo
   } else {
     micStatus("浏览器不支持语音识别", "error");
     $("micButton").disabled = true;
-    $("transcript").textContent = "请改用支持 Web Speech API 的 Chrome / Edge，或使用文字找书";
+    $("transcript").textContent =
+      "请改用支持 Web Speech API 的 Chrome / Edge，或打开「和 · 对话」使用文字输入";
   }
   /* Segment recognition returns no interim results, so the wake word arrives at the end of the
      utterance instead of mid-sentence. Nothing downstream can tell which transport produced the

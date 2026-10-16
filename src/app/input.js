@@ -104,14 +104,6 @@ export function bindInput({
   };
   $("sound").onclick = feedback.toggleSpeaking;
   $("dialogueSound").onclick = feedback.toggleSounds;
-  $("searchForm").onsubmit = (event) => {
-    event.preventDefault();
-    const text = $("query").value.trim();
-    if (!text) return;
-    $("transcript").textContent = "输入：" + text;
-    assistant.processText(text, true);
-    $("query").value = "";
-  };
   document.addEventListener("keydown", (event) => {
     if (
       event.target.closest("#conversation") ||
