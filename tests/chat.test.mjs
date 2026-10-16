@@ -46,6 +46,28 @@ test("general questions preserve wording and do not search/move books, including
   assert.equal(decide("下一页", { ...ctx, phase: "READING" }).command, "next");
   assert.equal(decide("放回书架", { ...ctx, phase: "READING" }).command, "return");
 });
+test("mentioning an installed title in discussion or writing cannot trigger shelf lookup", () => {
+  const installed = { title: "三体", localBookId: "real-book", bookId: "HX-02273" };
+  const ctx = {
+    phase: "IDLE",
+    direct: true,
+    fullText: true,
+    understand: true,
+    lookup: () => installed,
+  };
+  for (const text of [
+    "小和，请总结《三体》",
+    "帮我写一篇三体读后感",
+    "介绍一下三体",
+    "推荐一本科幻小说",
+    "三体和其他小说比较一下",
+  ])
+    assert.equal(decide(text, ctx).type, "chat", text);
+  assert.equal(decide("小和，帮我找《三体》", ctx).type, "present");
+  assert.equal(decide("三体", ctx).type, "present");
+  assert.equal(decide("小和，请总结这本书", { ...ctx, phase: "READING" }).type, "chat");
+});
+
 test("conversation sends successful pairs, bounds context and resets when provider/model changes", async () => {
   const backend = service();
   const session = createChatSession(backend);

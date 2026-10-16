@@ -1,6 +1,6 @@
 /* What an utterance asks for, decided without doing any of it.
 
-   Recognised speech, the search box all arrive as text. decide() reads
+   Recognised speech and conversation input arrive as text. decide() reads
    one against the current phase and returns a plain description — wake up, read this command,
    walk to this book, ask the model — and assistant.js carries it out. Keeping the decision free
    of the scene, the DOM and the network is what lets the routing rules be tested on their own. */
@@ -57,13 +57,14 @@ export function conversationText(text) {
     .replace(/^[\s，。！？、,.!?：:]+/u, "")
     .trim();
 }
+// Discussing a book, recommending reading or creating text is not a request to fetch a book.
+const QUESTION_OR_DISCUSSION =
+  /什么|为何|为什么|如何|怎么|解释|介绍|分析|评价|讲讲|讲啥|意义|原理|区别|主题|吗$|谁|聊聊|说说|总结|概括|解读|讨论|谈谈|推荐|建议|比较|对比|翻译|润色|创作|帮我写|写一|写个|写篇|写首|写段|读后感/;
+const EXPLICIT_FIND = /帮我找|我要找|我想找|找一本|找本|找书|搜索|检索|下载|借/;
+
 export function isBookRequest(text) {
   if (/bug|代码|错误|原因|解决|图片|网页/i.test(text) && !/书|小说|《/.test(text)) return false;
-  if (
-    /什么|为何|为什么|如何|怎么|解释|介绍|意义|原理/.test(text) &&
-    !/帮我找|我要找|我想找|找一本|找本|搜索|检索|下载|借/.test(text)
-  )
-    return false;
+  if (QUESTION_OR_DISCUSSION.test(text) && !EXPLICIT_FIND.test(text)) return false;
   return /(?:帮我|给我|我要|我想|想)?(?:找|搜索|检索|借|下载|读|阅读|取)(?:一下|一本|本|这本|那本|书|《)|(?:帮我找|找本|找书|找一本|我要找|我想找)|哪(?:本|部)书|那本$|这本书$|书在哪里|书在哪|^《[^》]+》$|^HX-\d+$|^S[1-5]-[AB]-L[1-4]-\d+$|书$/.test(
     text,
   );
@@ -99,10 +100,7 @@ export function decide(
   const request = requestOf(text);
   if (!request) return { type: "wake-only", wake: !wasInterimWake };
   const wake = addressed && !wasInterimWake;
-  const question =
-    /什么|为何|为什么|如何|怎么|解释|介绍|分析|评价|讲讲|讲啥|意义|原理|区别|主题|吗$|谁|聊聊|说说/.test(
-      request,
-    ) || /[？?]\s*$/.test(text);
+  const question = QUESTION_OR_DISCUSSION.test(request) || /[？?]\s*$/.test(text);
   const bookRequest = isBookRequest(request);
   if (phase === READING) {
     const command = readingCommand(request);
