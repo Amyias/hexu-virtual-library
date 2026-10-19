@@ -132,6 +132,8 @@ npm start
 | `tools/make-icon.py` | 小和图标生成器：沿用模型的橙色、方眼与四足轮廓，逐尺寸对齐像素边界，生成透明 SVG、1024px PNG 与 10 档 ICO（再生成需要 Pillow） |
 | `public/icons/xiaohe.svg`、`public/icons/xiaohe.png` | 小和图标的矢量原稿与高清透明原图；程序、窗口、桌面和任务栏统一使用 `public/favicon.ico` |
 | `tools/desktop-shortcut.ps1` | 通过 Windows Unicode 接口创建并读回验证快捷方式，避免简体中文路径在传统代码页下损坏；只更新相同目标的任务栏固定项 |
+| `src/app/window-chrome.js`、`src/styles/window-chrome.css` | 本机窗口的液态玻璃标题栏：背景模糊、5px 边缘置换、高光、小和图标与窗口控制；普通浏览器不显示 |
+| `tools/window_chrome.py` | 只允许当前本机主页操作窗口的窄接口，支持最小化、最大化／还原、关闭及带最小尺寸约束的八方向调整大小 |
 | `tools/fetch-textures.mjs` | 表面贴图的唯一拉取脚本，来源与许可记录在内 |
 | `tools/prepare-smart-books.mjs` | 馆藏清单的唯一生成器，写出 `book-inventory.json` 并核对它能原样展开 |
 | `tests/library.test.mjs` | 馆藏几何、ASR 事件与 GLB 完整性回归检查 |
@@ -140,6 +142,8 @@ npm start
 | `tests/server.test.mjs` | 本机服务的请求来源校验：设置与更新接口拒绝其它网页（CSRF）和重绑定到本机的域名 |
 | `archive/prototype-single-file.html` | 原始单文件版本备份 |
 | `archive/*.blend` | 植物精细化前 / 芯片体系前的源文件备份 |
+
+玻璃标题栏的视觉参考：[HTML + CSS 实现 Liquid Glass 液态玻璃效果](https://juejin.cn/post/7514618352829448244)。背景透出馆内场景，边缘采用 SVG 置换与高光，中间保留可读的模糊透光区域；拖动与双击最大化使用 [WebView2 原生非客户区支持](https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/icorewebview2settings9)。标题栏只在本机窗口启用，普通浏览器不添加窗口操作按钮。
 
 ## Blender 模型
 

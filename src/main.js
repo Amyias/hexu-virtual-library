@@ -1,3 +1,7 @@
+import { installDesktopChrome } from "./app/window-chrome.js";
+
+installDesktopChrome();
+
 // Show a useful boot failure even when a dependency import or GLB fetch fails.
 const loading = document.getElementById("loading");
 if (location.protocol === "file:") {

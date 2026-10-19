@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><title>Glass titlebar fixture</title>
+<style>body { margin:0; min-height:100vh; background:repeating-linear-gradient(110deg,#527765 0 50px,#d5a077 50px 100px,#dce5d9 100px 160px); }</style></head>
+<body><script type="module">
+import { installDesktopChrome } from '../../src/app/window-chrome.js';
+window.chromeFixture={calls:[],maximized:false};
+window.pywebview={api:{
+ desktop_state:async()=>({nativeDrag:false,maximized:chromeFixture.maximized}),
+ desktop_action:async(action)=>{chromeFixture.calls.push(action); if(action==='maximize')chromeFixture.maximized=!chromeFixture.maximized; return {maximized:chromeFixture.maximized};},
+ resize_start:async(edge)=>{chromeFixture.calls.push('resize:'+edge);return true;},
+ resize_move:async()=>true,resize_end:async()=>true,
+}};
+installDesktopChrome(); installDesktopChrome();
+</script></body></html>

@@ -181,6 +181,44 @@ try {
   const text = (id) => page.evaluate(`document.getElementById(${JSON.stringify(id)}).textContent`);
   const click = (id) => page.evaluate(`document.getElementById(${JSON.stringify(id)}).click()`);
 
+  await page.send("Page.navigate", {
+    url: `http://127.0.0.1:${sitePort}/tests/fixtures/window-chrome.html`,
+  });
+  await waitFor(
+    () =>
+      page.evaluate(
+        "document.querySelector('.desktop-titlebar') && getComputedStyle(document.querySelector('.desktop-titlebar')).backdropFilter.includes('blur')",
+      ),
+    "玻璃标题栏加载",
+  );
+  if (
+    await page.evaluate(
+      "document.querySelectorAll('.desktop-titlebar').length !== 1 || document.querySelectorAll('.window-resize-edge').length !== 8",
+    )
+  )
+    throw new Error("标题栏重复或缺少调整大小边缘");
+  await page.evaluate("document.querySelector('[data-window-action=maximize]').click()");
+  await waitFor(
+    () =>
+      page.evaluate(
+        "document.documentElement.classList.contains('window-maximized') && document.querySelector('[data-window-action=maximize]').getAttribute('aria-label') === '还原窗口'",
+      ),
+    "标题栏最大化状态",
+  );
+  await page.evaluate("document.querySelector('[data-window-action=maximize]').click()");
+  await waitFor(
+    () => page.evaluate("!document.documentElement.classList.contains('window-maximized')"),
+    "标题栏还原状态",
+  );
+  for (const command of ["minimize", "close"]) {
+    await page.evaluate(`document.querySelector('[data-window-action=${command}]').click()`);
+    await waitFor(
+      () => page.evaluate(`chromeFixture.calls.includes('${command}')`),
+      `标题栏 ${command}`,
+    );
+  }
+  step("液态玻璃标题栏", "背景滤镜、单实例、最大化／还原及窗口按钮通过；原生窗口另行实测");
+
   // Test typewriter timing without a software-WebGL frame blocking every timer callback.
   await page.send("Page.navigate", {
     url: `http://127.0.0.1:${sitePort}/tests/fixtures/pixel-dialogue.html`,

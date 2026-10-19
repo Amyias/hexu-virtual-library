@@ -36,10 +36,10 @@ def available():
     return True, ""
 
 
-def install_window_hooks(icon=None):
+def install_window_hooks(icon=None, glass=False):
     """Wire the window up the way this program wants it, from inside pywebview's init callback.
 
-    Two things happen here, and both have to happen at this exact moment:
+    The WebView2 permission, icon and native drag support are installed together:
 
     - **The microphone is granted.** WebView2 denies camera and microphone requests unless the
       host application answers the permission request itself, and it shows no prompt of its own —
@@ -49,6 +49,8 @@ def install_window_hooks(icon=None):
     - **The window gets its icon.** The WinForms form is pywebview's own window object and is only
       reachable from the backend that creates it, which is why this is done here rather than by
       passing a parameter to `webview.start`.
+    - **Desktop glass chrome uses native drag regions.** WebView2 keeps Windows dragging,
+      double-click maximize and the system menu; older runtimes use pywebview's drag region.
 
     Hooked onto pywebview's init callback rather than onto the window object, because that
     callback is where `CoreWebView2` first exists — neither subscription can be made any earlier.
@@ -76,6 +78,44 @@ def install_window_hooks(icon=None):
 
     def on_webview_ready(self, sender, args):
         original(self, sender, args)
+        if glass:
+            try:
+                sender.CoreWebView2.Settings.IsNonClientRegionSupportEnabled = True
+                self.pywebview_window._hexu_native_drag = True
+            except Exception:
+                self.pywebview_window._hexu_native_drag = False
+            from System.Windows.Forms import Screen
+            def work_area(*_):
+                if str(self.form.WindowState) != 'Maximized':
+                    self.form.MaximizedBounds = Screen.FromHandle(self.form.Handle).WorkingArea
+            work_area()
+            self.form.LocationChanged += work_area
+            # WebView2 may discard its compositor surface while minimized. Explicitly
+            # track control visibility and repaint on restore instead of retaining white.
+            restore_state = [self.form.WindowState]
+            was_minimized = [False]
+            def refresh_surface(*_):
+                minimized = str(self.form.WindowState) == 'Minimized'
+                self.webview.Visible = not minimized
+                if minimized:
+                    was_minimized[0] = True
+                else:
+                    restore_maximized = (was_minimized[0] and
+                        str(restore_state[0]) == 'Maximized' and
+                        str(self.form.WindowState) == 'Normal')
+                    was_minimized[0] = False
+                    if restore_maximized:
+                        self.form.WindowState = restore_state[0]
+                        return
+                    restore_state[0] = self.form.WindowState
+                    self.form.PerformLayout()
+                    self.webview.Refresh()
+            def activated(*_):
+                if str(self.form.WindowState) == 'Minimized':
+                    self.form.WindowState = restore_state[0]
+                refresh_surface()
+            self.form.Resize += refresh_surface
+            self.form.Activated += activated
         try:
             sender.CoreWebView2.PermissionRequested += on_permission_requested
         except Exception:
@@ -99,11 +139,14 @@ def run(url, title="和序图书馆", width=1280, height=820, icon=None):
 
     Called on the main thread: the WinForms message loop has to own it.
     """
-    if not install_window_hooks(icon):
+    if not install_window_hooks(icon, glass=True):
         return False
     import webview
 
-    webview.create_window(title, url, width=width, height=height, min_size=(880, 620))
+    from window_chrome import DesktopChrome
+    chrome = DesktopChrome(url)
+    chrome._window = webview.create_window(title, url, width=width, height=height,
+        min_size=(880, 620), frameless=True, easy_drag=False, shadow=True, js_api=chrome)
     try:
         # Forcing the backend keeps it off the legacy mshtml renderer, which cannot run the page
         # at all. A missing WebView2 runtime raises here and the caller falls back to a browser.
