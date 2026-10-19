@@ -86,6 +86,7 @@ npm start
 | `tools/book_library.py` | SQLite 书库、UTF-8 正文、异步下载任务、导入与 HTTP API |
 | `tools/book_sources.py` | 多格式书源下载管线与历史维基文库兼容适配 |
 | `tools/builtin_book_sources.py` | 天涯书库 POST 搜索、书包网搜索与完整目录下载 |
+| `tools/windows_book_http.py` | 内置书源连接异常时的 Windows 系统 HTTPS／IPv4 有界重试 |
 | `tools/source_rules.py` | CSS、XPath、JSONPath 与受限 QuickJS 规则解析 |
 | `tools/library-service.py` | 开发服务使用的 Python 书库子进程 |
 | `docs/BOOK_LIBRARY.md` | 正文书库、书源格式与接口说明 |

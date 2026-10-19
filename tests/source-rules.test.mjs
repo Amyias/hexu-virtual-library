@@ -44,7 +44,11 @@ test(
   },
 );
 
-for (const filename of ["test_builtin_sources.py", "test_book_library.py"]) {
+for (const filename of [
+  "test_builtin_sources.py",
+  "test_book_library.py",
+  "test_windows_book_http.py",
+]) {
   test(`book providers and library integration: ${filename}`, { skip: !python }, () => {
     const result = spawnSync(
       python,

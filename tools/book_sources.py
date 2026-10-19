@@ -168,7 +168,7 @@ def connection_message(error):
     return "书源连接失败，请检查当前网络后重试或换源"
 
 
-def fetch(url, host, trusted=False, headers=None, method="GET", body=None, charset="utf-8", https_only=False):
+def fetch(url, host, trusted=False, headers=None, method="GET", body=None, charset="utf-8", https_only=False, windows_fallback=False):
     def check(target):
         if https_only and urllib.parse.urlsplit(target).scheme != "https":
             raise SourceError("内置书源仅允许 HTTPS，不能降级到不安全连接")
@@ -182,8 +182,9 @@ def fetch(url, host, trusted=False, headers=None, method="GET", body=None, chars
         raise SourceError("书源只支持 GET/POST 与 UTF-8/GBK 编码")
     if body is not None and (not isinstance(body, str) or len(body) > 128 * 1024):
         raise SourceError("书源请求体必须为不超过 128 KiB 的字符串")
-    request = urllib.request.Request(url, data=body.encode(charset) if body is not None else None, method=method,
-                                     headers={"User-Agent": USER_AGENT, "Accept": "application/json,text/html,text/plain", **safe_headers(headers or {})})
+    payload = body.encode(charset) if body is not None else None
+    request_headers = {"User-Agent": USER_AGENT, "Accept": "application/json,text/html,text/plain", **safe_headers(headers or {})}
+    request = urllib.request.Request(url, data=payload, method=method, headers=request_headers)
     try:
         with urllib.request.build_opener(Redirect()).open(request, timeout=18) as response:
             body = response.read(MAX_RESPONSE + 1)
@@ -191,7 +192,17 @@ def fetch(url, host, trusted=False, headers=None, method="GET", body=None, chars
     except urllib.error.HTTPError as error:
         raise SourceError("书源返回 HTTP %d，请稍后重试或换源" % error.code) from error
     except (OSError, ValueError) as error:
-        raise SourceError(connection_message(error)) from error
+        reason = error.reason if isinstance(error, urllib.error.URLError) else error
+        native = None
+        if windows_fallback and trusted and https_only and isinstance(error, OSError) and not isinstance(reason, ssl.SSLCertVerificationError):
+            import windows_book_http
+            try:
+                native = windows_book_http.fetch(url, check, request_headers, method, payload, MAX_RESPONSE)
+            except OSError:
+                raise SourceError(connection_message(error) + "；系统 HTTPS 重试也未能建立连接") from error
+        if native is None:
+            raise SourceError(connection_message(error)) from error
+        body, encoding = native
     if len(body) > MAX_RESPONSE:
         raise SourceError("书源响应过大")
     try:

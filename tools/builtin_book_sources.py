@@ -68,7 +68,7 @@ class BuiltinNovelSource(CssSource):
             if delay > 0:
                 time.sleep(delay)
             _last_request[self.id] = time.monotonic()
-        markup = fetch(url, self.host, trusted=True, https_only=True, headers=headers, **options)
+        markup = fetch(url, self.host, trusted=True, https_only=True, windows_fallback=True, headers=headers, **options)
         if self.id == "tianya" and "/e/search/" in url and "<title>信息提示" in markup:
             if "没有搜索到相关" not in markup:
                 raise SourceError("天涯书库暂未返回搜索结果，可能请求过于频繁；请稍后重试或选择书包网")
