@@ -266,7 +266,7 @@ try {
     const value='这是完整的长回答，所有内容都应保留在像素气泡里。'.repeat(80)+'终点标记';
     pixelFixture.feedback.say(value,0,{interactive:true});
     document.querySelector('#bubble [data-bubble-finish]').click();
-    const copy=document.querySelector('#bubble .bubble-scroll');
+    const copy=document.querySelector('#bubble .bubble-copy');
     copy.scrollTop=copy.scrollHeight;
     document.body.classList.add('reading','novel-reading');
     return {value,shown:document.getElementById('bubbleText').textContent,
@@ -286,39 +286,6 @@ try {
   if (await page.evaluate("pixelFixture.feedback.getState().visible"))
     throw new Error("气泡收起失败");
   step("完整回答气泡", "长文本不截断、可滚动、显示全文、收起及阅读模式显示通过");
-
-  const fixedBubble = await page.evaluate(`(() => {
-    document.body.classList.remove('reading','novel-reading');
-    const root=document.getElementById('bubble');
-    const size=()=>({width:root.offsetWidth,height:root.offsetHeight});
-    pixelFixture.feedback.say('有什么需求吗？',0,{instant:true});
-    const wake=size();
-    pixelFixture.feedback.say('简短回答',0,{interactive:true,instant:true});
-    const short=size();
-    const sources=Array.from({length:8},(_,i)=>({id:i+1,title:'参考网页'+i,url:'https://example.com/'+i}));
-    const value='长回答不会改变气泡尺寸。'.repeat(150)+'最后一句完整保留';
-    pixelFixture.feedback.say(value,0,{interactive:true,instant:true,sources});
-    const long=size(), scroll=root.querySelector('.bubble-scroll');
-    scroll.scrollTop=scroll.scrollHeight;
-    const links=[...root.querySelectorAll('.web-sources a')];
-    const last=links.at(-1).getBoundingClientRect(), bounds=scroll.getBoundingClientRect();
-    return {wake,short,long,complete:document.getElementById('bubbleText').textContent===value,
-      oneScrollbar:scroll.scrollHeight>scroll.clientHeight&&getComputedStyle(root.querySelector('.web-sources')).overflowY==='visible',
-      sourceReachable:last.bottom<=bounds.bottom+1&&last.top>=bounds.top-1,links:links.length};
-  })()`);
-  if (
-    JSON.stringify(fixedBubble.wake) !== JSON.stringify(fixedBubble.short) ||
-    JSON.stringify(fixedBubble.short) !== JSON.stringify(fixedBubble.long) ||
-    fixedBubble.long.width > 320 ||
-    fixedBubble.long.height > 240 ||
-    !fixedBubble.complete ||
-    !fixedBubble.oneScrollbar ||
-    !fixedBubble.sourceReachable ||
-    fixedBubble.links !== 8
-  )
-    throw new Error("固定气泡尺寸或来源滚动失败：" + JSON.stringify(fixedBubble));
-  await page.evaluate("document.querySelector('#bubble [data-bubble-close]').click()");
-  step("固定紧凑气泡", "唤醒、短答、长答及8条来源均保持320×240以内；正文与来源共用滚动区");
 
   // Settings use the same local backend in an iframe, never a new browser page.
   const originalUrl = await page.evaluate("location.href");
@@ -474,6 +441,9 @@ try {
     full:document.getElementById('bubbleText').textContent,
     speech:JSON.parse(document.getElementById('protocol').textContent).speech,
     preview:libraryDebug.getState().dialogue.message,
+    pet:libraryDebug.getState().petBounds,
+    bubble:(()=>{const r=document.getElementById('bubble').getBoundingClientRect();return {left:r.left,right:r.right,top:r.top,bottom:r.bottom,height:r.height};})(),
+    placement:libraryDebug.getState().dialoguePlacement,
     sourceCount:document.querySelectorAll('#bubble .web-sources a').length,
     sourceUrl:document.querySelector('#bubble .web-sources a')?.href,
     sourceRel:document.querySelector('#bubble .web-sources a')?.rel,
@@ -497,6 +467,18 @@ try {
     chatCheck.phase !== "IDLE"
   )
     throw new Error("自由问答显示或动作隔离失败：" + JSON.stringify(chatCheck));
+  const { bubble: replyBounds, pet: petBounds } = chatCheck;
+  if (
+    !petBounds ||
+    replyBounds.height <= 240 ||
+    !(
+      replyBounds.right <= petBounds.left - 22 ||
+      replyBounds.left >= petBounds.right + 22 ||
+      replyBounds.bottom <= petBounds.top - 22 ||
+      replyBounds.top >= petBounds.bottom + 22
+    )
+  )
+    throw new Error("恢复原气泡大小后遮挡了小和：" + JSON.stringify(chatCheck));
   await page.evaluate("libraryDebug.processText('请再举一个例子',true)");
   await waitFor(async () => (await state()).chat.turns === 2, "多轮追问");
   if ((await page.evaluate("chatTest.calls[1].history.length")) !== 2)

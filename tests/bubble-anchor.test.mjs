@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import * as THREE from "../public/vendor/three.module.js";
-import { projectDialogueAnchor } from "../src/app/project-dialogue.js";
+import { projectDialogueAnchor, placeDialogue } from "../src/app/project-dialogue.js";
 
 const anchor = new THREE.Vector3(0, 1.2, 5);
 const offset = new THREE.Vector3(0, 0.63, 0);
@@ -55,4 +55,85 @@ test("camera flights and parent transforms also project the current frame", () =
     const before = projectDialogueAnchor(camera, anchor, offset, target).clone();
     assert.ok(pixelError(before, rendererProjection(camera)) < 0.01);
   }
+});
+
+test("auto-sized replies move beside the pet when clamping them above would hide it", () => {
+  const ctx = {
+    viewWidth: 1280,
+    viewHeight: 820,
+    bubbleWidth: 360,
+    bubbleHeight: 570,
+    anchorX: 640,
+    anchorY: 380,
+    pet: { left: 610, right: 670, top: 410, bottom: 470 },
+  };
+  const short = placeDialogue({ ...ctx, bubbleWidth: 240, bubbleHeight: 110 });
+  assert.equal(short.placement, "above");
+  assert.equal(short.maxHeight, 110);
+  const long = placeDialogue(ctx);
+  assert.equal(long.placement, "right");
+  assert.equal(long.maxHeight, 570);
+  assert.ok(long.left - ctx.bubbleWidth / 2 >= ctx.pet.right + 24);
+  const left = placeDialogue({
+    ...ctx,
+    anchorX: 1100,
+    pet: { left: 1070, right: 1130, top: 410, bottom: 470 },
+  });
+  assert.equal(left.placement, "left");
+  assert.equal(placeDialogue({ ...ctx, bubbleHeight: 350 }).placement, "above");
+  const held = placeDialogue({ ...ctx, bubbleHeight: 350, previous: "right" });
+  assert.equal(held.placement, "right");
+});
+
+test("narrow-screen replies keep the pet visible and remain inside the viewport", () => {
+  for (const [viewWidth, viewHeight] of [
+    [390, 740],
+    [667, 375],
+    [1280, 820],
+  ]) {
+    for (const cy of [80, viewHeight / 2, viewHeight - 80]) {
+      const pet = {
+        left: viewWidth / 2 - 28,
+        right: viewWidth / 2 + 28,
+        top: cy - 25,
+        bottom: cy + 25,
+      };
+      const bubbleWidth = Math.min(360, viewWidth - 32);
+      const placed = placeDialogue({
+        viewWidth,
+        viewHeight,
+        bubbleWidth,
+        bubbleHeight: 600,
+        anchorX: viewWidth / 2,
+        anchorY: pet.top - 20,
+        pet,
+      });
+      const left = placed.left - bubbleWidth / 2,
+        right = placed.left + bubbleWidth / 2;
+      const top = placed.top - placed.maxHeight,
+        bottom = placed.top;
+      assert.ok(
+        left >= 15 && right <= viewWidth - 15 && top >= 15 && bottom <= viewHeight - 15,
+        JSON.stringify(placed),
+      );
+      assert.ok(
+        right <= pet.left - 23 ||
+          left >= pet.right + 23 ||
+          bottom <= pet.top - 23 ||
+          top >= pet.bottom + 23,
+        JSON.stringify(placed),
+      );
+    }
+  }
+  const pinned = placeDialogue({
+    viewWidth: 1280,
+    viewHeight: 820,
+    bubbleWidth: 360,
+    bubbleHeight: 550,
+    anchorX: 640,
+    anchorY: 400,
+    pet: { left: 610, right: 670, top: 410, bottom: 470 },
+    pinned: true,
+  });
+  assert.equal(pinned.placement, "pinned");
 });

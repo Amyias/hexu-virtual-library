@@ -69,8 +69,9 @@ export function createTypewriter({
 }
 
 export function createPixelDialogue(root, sounds) {
-  root.innerHTML = `<div class="bubble-frame"><div class="bubble-heading" aria-hidden="true"><span class="bubble-led"></span><span>小和 / XIAO HE</span><span class="bubble-dots">···</span></div><div class="bubble-copy" aria-hidden="true"><span class="bubble-writing"><span id="bubbleText"></span><i class="bubble-caret"></i></span></div><div class="bubble-controls"><span class="bubble-status" aria-live="off"></span><button type="button" data-bubble-finish>显示全文</button><button type="button" data-bubble-stop hidden>停止等待</button><button type="button" data-bubble-close>收起</button></div></div><span id="bubbleAnnouncement" class="visually-hidden" role="status" aria-live="polite" aria-atomic="true"></span>`;
-  const text = root.querySelector("#bubbleText");
+  root.innerHTML = `<div class="bubble-frame"><div class="bubble-heading" aria-hidden="true"><span class="bubble-led"></span><span>小和 / XIAO HE</span><span class="bubble-dots">···</span></div><div class="bubble-copy" aria-hidden="true"><span class="bubble-measure"></span><span class="bubble-writing"><span id="bubbleText"></span><i class="bubble-caret"></i></span></div><div class="bubble-controls"><span class="bubble-status" aria-live="off"></span><button type="button" data-bubble-finish>显示全文</button><button type="button" data-bubble-stop hidden>停止等待</button><button type="button" data-bubble-close>收起</button></div></div><span id="bubbleAnnouncement" class="visually-hidden" role="status" aria-live="polite" aria-atomic="true"></span>`;
+  const text = root.querySelector("#bubbleText"),
+    measure = root.querySelector(".bubble-measure");
   const copy = root.querySelector(".bubble-copy");
   const finishButton = root.querySelector("[data-bubble-finish]");
   const stopButton = root.querySelector("[data-bubble-stop]");
@@ -79,22 +80,18 @@ export function createPixelDialogue(root, sounds) {
   sources.className = "web-sources";
   sources.setAttribute("aria-label", "联网参考来源");
   sources.hidden = true;
-  const scroll = document.createElement("div");
-  scroll.className = "bubble-scroll";
-  copy.before(scroll);
-  scroll.append(copy, sources);
+  root.querySelector(".bubble-controls").before(sources);
   let following = true,
     interactive = false;
-  scroll.addEventListener(
+  copy.addEventListener(
     "wheel",
     () => {
       following = false;
     },
     { passive: true },
   );
-  scroll.addEventListener("scroll", () => {
-    // Sources follow the text in this same viewport; they must not stop automatic typing scroll.
-    following = text.getBoundingClientRect().bottom - scroll.getBoundingClientRect().bottom < 24;
+  copy.addEventListener("scroll", () => {
+    following = copy.scrollHeight - copy.scrollTop - copy.clientHeight < 24;
   });
   const announcement = root.querySelector("#bubbleAnnouncement");
   let message = "",
@@ -106,8 +103,8 @@ export function createPixelDialogue(root, sounds) {
     onText: (value) => {
       text.textContent = value;
       if (following && visible) {
-        const bottom = text.getBoundingClientRect().bottom - scroll.getBoundingClientRect().bottom;
-        if (bottom > 0) scroll.scrollTop += bottom;
+        const bottom = text.getBoundingClientRect().bottom - copy.getBoundingClientRect().bottom;
+        if (bottom > 0) copy.scrollTop += bottom;
       }
     },
     onGlyph: (glyph, index) => {
@@ -155,10 +152,11 @@ export function createPixelDialogue(root, sounds) {
     stopButton.onclick = options.onCancel || null;
     finishButton.hidden = !stopButton.hidden || options.instant === true;
     status.textContent = stopButton.hidden ? "逐字显示 · 可滚动" : "正在回应";
-    scroll.scrollTop = 0;
+    copy.scrollTop = 0;
     following = true;
     hold = duration;
     typingSound = options.typingSound !== false;
+    measure.textContent = message + " ▂";
     // Announce the full reply once; animated text is excluded from the accessibility tree.
     root.setAttribute("aria-hidden", "false");
     visible = true;

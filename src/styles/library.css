@@ -341,9 +341,9 @@ form button {
   position: fixed;
   left: 50%;
   top: 50%;
-  width: min(320px, calc(100vw - 32px));
-  height: min(240px, calc(100dvh - 48px));
-  min-width: 0;
+  width: max-content;
+  min-width: 216px;
+  max-width: min(360px, calc(100vw - 32px));
   transform: translate(-50%, -100%);
   font-family: "Fusion Pixel", monospace;
   font-synthesis: none;
@@ -357,12 +357,12 @@ form button {
 }
 .bubble.show {
   opacity: 1;
-  pointer-events: auto;
 }
 .bubble-frame {
-  height: 100%;
-  display: grid;
-  grid-template-rows: auto minmax(0, 1fr) auto;
+  max-height: var(--bubble-available-height, none);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
   padding: 12px 16px 16px;
   color: #49392f;
   background: #fff7e7;
@@ -399,21 +399,24 @@ form button {
   margin-left: auto;
   letter-spacing: 2px;
 }
-.bubble-scroll {
-  min-height: 0;
+.bubble-copy {
+  max-height: min(320px, 42dvh);
   overflow-y: auto;
   overscroll-behavior: contain;
   scrollbar-width: thin;
-  scrollbar-gutter: stable;
-}
-.bubble-copy {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
 }
+.bubble-measure,
 .bubble-writing {
   grid-area: 1 / 1;
   overflow-wrap: anywhere;
   white-space: pre-wrap;
+}
+.bubble-measure {
+  max-height: min(320px, 42dvh);
+  overflow: hidden;
+  visibility: hidden;
 }
 .bubble-caret {
   display: inline-block;
@@ -1505,6 +1508,7 @@ body.inspecting #reader > .reader-bottom {
   align-self: start;
 }
 .bubble.interactive {
+  width: min(420px, calc(100vw - 32px));
   font-size: 20px;
   line-height: 28px;
 }
@@ -1529,10 +1533,6 @@ body.inspecting #reader > .reader-bottom {
 .web-sources a {
   color: #376c53;
   overflow-wrap: anywhere;
-}
-.bubble .web-sources {
-  max-height: none;
-  overflow: visible;
 }
 .bubble-controls {
   display: none;
@@ -1572,7 +1572,9 @@ body.inspecting #reader > .reader-bottom {
   z-index: 60;
 }
 .bubble.pinned::before,
-.bubble.pinned::after {
+.bubble.pinned::after,
+.bubble.detached::before,
+.bubble.detached::after {
   display: none;
 }
 

@@ -12,7 +12,7 @@ import { createReadingMusic } from "./reader/music.js";
 import { createPhaseMachine, IDLE, READING } from "./app/phases.js";
 import { createAttention } from "./app/dialogue.js";
 import { createFeedback } from "./app/feedback.js";
-import { projectDialogueAnchor } from "./app/project-dialogue.js";
+import { projectDialogueAnchor, placeDialogue } from "./app/project-dialogue.js";
 import { createMotion } from "./app/motion.js";
 import { createReaderView } from "./app/reader-view.js";
 import { createJourney } from "./app/journey.js";
@@ -180,11 +180,42 @@ export async function startLibrary() {
   const clock = new THREE.Clock();
   const projected = new THREE.Vector3();
   const bubbleAnchor = new THREE.Vector3(0, 0.63, 0);
+  const petVisual = orb.getObjectByName("CompanionMotion");
+  const petBox = new THREE.Box3(),
+    petCorner = new THREE.Vector3();
+  let petBounds = null,
+    dialoguePlacement = "above";
   function frame() {
     requestAnimationFrame(frame);
     const time = clock.getElapsedTime();
     companion.update({ time, pulse: pulse.value, phase: machine.phase, camera });
     projectDialogueAnchor(camera, orb.position, bubbleAnchor, projected);
+    petVisual.updateWorldMatrix(true, true);
+    petBox.setFromObject(petVisual);
+    petBounds = { left: Infinity, right: -Infinity, top: Infinity, bottom: -Infinity };
+    for (let i = 0; i < 8; i++) {
+      petCorner
+        .set(
+          i & 1 ? petBox.max.x : petBox.min.x,
+          i & 2 ? petBox.max.y : petBox.min.y,
+          i & 4 ? petBox.max.z : petBox.min.z,
+        )
+        .project(camera);
+      const x = (petCorner.x * 0.5 + 0.5) * innerWidth;
+      const y = (-petCorner.y * 0.5 + 0.5) * innerHeight;
+      petBounds.left = Math.min(petBounds.left, x);
+      petBounds.right = Math.max(petBounds.right, x);
+      petBounds.top = Math.min(petBounds.top, y);
+      petBounds.bottom = Math.max(petBounds.bottom, y);
+    }
+    if (
+      projected.z > 1 ||
+      petBounds.right < 0 ||
+      petBounds.left > innerWidth ||
+      petBounds.bottom < 0 ||
+      petBounds.top > innerHeight
+    )
+      petBounds = null;
     const bubble = $("bubble");
     const interactive = bubble.classList.contains("interactive");
     // Keep spoken replies visible while reading, or when the pet moves outside the camera view.
@@ -197,20 +228,27 @@ export async function startLibrary() {
         Math.abs(projected.x) > 1 ||
         Math.abs(projected.y) > 1);
     bubble.classList.toggle("pinned", pinned);
-    const desiredX = pinned
-      ? innerWidth - bubble.offsetWidth / 2 - 20
-      : (projected.x * 0.5 + 0.5) * innerWidth;
     const width = bubble.offsetWidth;
-    const left = THREE.MathUtils.clamp(desiredX, width / 2 + 12, innerWidth - width / 2 - 12);
-    bubble.style.left = Math.round(left) + "px";
-    const desiredY = pinned ? innerHeight - 24 : (-projected.y * 0.5 + 0.5) * innerHeight;
-    bubble.style.top =
-      Math.round(THREE.MathUtils.clamp(desiredY, bubble.offsetHeight + 24, innerHeight - 24)) +
-      "px";
-    bubble.style.setProperty(
-      "--bubble-tail-x",
-      THREE.MathUtils.clamp(desiredX - left + width / 2, 16, width - 16) + "px",
-    );
+    const naturalHeight = bubble.querySelector(".bubble-frame").scrollHeight + 1;
+    if (width && naturalHeight) {
+      const position = placeDialogue({
+        viewWidth: innerWidth,
+        viewHeight: innerHeight,
+        bubbleWidth: width,
+        bubbleHeight: naturalHeight,
+        anchorX: (projected.x * 0.5 + 0.5) * innerWidth,
+        anchorY: (-projected.y * 0.5 + 0.5) * innerHeight,
+        pet: petBounds,
+        pinned,
+        previous: dialoguePlacement,
+      });
+      dialoguePlacement = position.placement;
+      bubble.classList.toggle("detached", dialoguePlacement !== "above");
+      bubble.style.left = Math.round(position.left) + "px";
+      bubble.style.top = Math.round(position.top) + "px";
+      bubble.style.setProperty("--bubble-available-height", Math.floor(position.maxHeight) + "px");
+      bubble.style.setProperty("--bubble-tail-x", position.tail + "px");
+    }
     bubble.style.visibility = interactive || projected.z <= 1 ? "visible" : "hidden";
     if (attention.lapsed() && machine.is(IDLE)) {
       if (!feedback.getState().persistent) feedback.hideBubble();
@@ -240,6 +278,8 @@ export async function startLibrary() {
         const point = orb.position.clone().project(camera);
         return [(point.x * 0.5 + 0.5) * innerWidth, (-point.y * 0.5 + 0.5) * innerHeight];
       })(),
+      petBounds: petBounds && { ...petBounds },
+      dialoguePlacement,
       shelves: 5,
       interactiveBooks: books.filter((book) => book.localBookId).length,
       shelfCapacity: books.length,
