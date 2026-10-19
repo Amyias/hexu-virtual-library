@@ -44,7 +44,7 @@ datas += collect_data_files("sherpa_onnx")
 # and clr_loader sit behind it, so they are named here rather than left to the import graph.
 # PyInstaller's own hooks then collect what those need: Python.Runtime.dll for pythonnet, and
 # webview/lib — the WebView2 interop assemblies — for pywebview.
-hiddenimports = ["sherpa_onnx", "numpy", "window_host", "updater", "book_library", "book_sources", "source_rules", "lxml.html", "lxml.etree", "lxml.cssselect",
+hiddenimports = ["sherpa_onnx", "numpy", "window_host", "updater", "book_library", "book_sources", "builtin_book_sources", "source_rules", "lxml.html", "lxml.etree", "lxml.cssselect",
                  "cssselect", "jsonpath_ng.ext", "jsonpath_ng._ply_tables.parser_table",
                  "jsonpath_ng._ply_tables.ext_parser_table", "jsonpath_ng._ply_tables.lexer_table",
                  "jsonpath_ng._ply_tables.ext_lexer_table", "quickjs", "_quickjs",

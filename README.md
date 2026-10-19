@@ -30,7 +30,7 @@ node tools/package-local.mjs      # 打包一次，产物在 dist/和序图书�
 npm start
 ```
 
-打开 `http://localhost:8080`。不需要 `npm install`。不能直接双击 `index.html`：浏览器模块与 GLB 资源需要通过 HTTP 服务加载。正文书库需要 Python 3.10+（标准库即可），服务会自动寻找解释器；也可设置 `HEXU_PYTHON` 指向 Python。这条运行方式没有本机识别模型，识别会退回浏览器自带的 Web Speech API（在连不上厂商云服务的网络里不可用）。
+打开 `http://localhost:8080`。不需要 `npm install`。不能直接双击 `index.html`：浏览器模块与 GLB 资源需要通过 HTTP 服务加载。正文书库需要 Python 3.10+，先运行 `python -m pip install -r tools/requirements-sources.txt` 安装内置书源解析依赖；服务会自动寻找解释器；也可设置 `HEXU_PYTHON` 指向 Python。这条运行方式没有本机识别模型，识别会退回浏览器自带的 Web Speech API（在连不上厂商云服务的网络里不可用）。
 
 首次点击“启动语音感知”并允许麦克风，然后说“小和”或“小和，帮我找三体”。**这一次点击只需一次**：选择会被记住，此后每次打开页面都自动开始收听，直接说「小和」即可。之所以不能做到零点击，是因为浏览器的麦克风授权本身必须由用户手势触发——没有任何网页能绕过这一点；而授权一旦持久化，页面就能在无手势的新文档里自行开麦（已实测）。
 
@@ -46,7 +46,7 @@ npm start
 
 说「小和，帮我找狂人日记」：已入库则直接从书架取阅，未入库则检索真实正文；精确结果唯一时自动下载，多个候选时选择一个来源。下载完整后保存到本机并绑定空闲书架槽位，翻开封面即可逐页阅读，支持目录、字号与阅读进度恢复。点击「正文书库」也可搜索、导入 TXT / EPUB、导入 CSS / XPath / JSONPath / 纯 JS 书源 JSON。未入库的位置保持空置；不会预装演示书或编号填充书。
 
-书库默认保存在 `%APPDATA%\hexu-library\books`，包含 SQLite 与 UTF-8 正文，程序更新不会覆盖。内置中文维基文库，并提供你指定的源仓库入口；导入支持 CSS、XPath、JSONPath 与隔离执行的纯 JavaScript；Android/Java 桥接接口仍不支持。运行方式、书源格式、支持范围与备份方法见 [正文书库使用说明](docs/BOOK_LIBRARY.md)。旧发行版程序须重新打包后才能使用这项功能。
+书库默认保存在 `%APPDATA%\hexu-library\books`，包含 SQLite 与 UTF-8 正文，程序更新不会覆盖。内置天涯书库与书包网（简体），默认在线检索从这两个站点获取候选并逐章下载；同时提供你指定的源仓库入口；导入支持 CSS、XPath、JSONPath 与隔离执行的纯 JavaScript；Android/Java 桥接接口仍不支持。运行方式、书源格式、支持范围与备份方法见 [正文书库使用说明](docs/BOOK_LIBRARY.md)。旧发行版程序须重新打包后才能使用这项功能。
 
 **阅读音乐**：翻开 3D 封面或进入本地正文时，迷你播放器自动播放提供的《Saint Barbara Theme》《The Trek》，两首按顺序循环；支持暂停/继续、上一首/下一首、进度拖动和音量记忆。返回 3D 书本或查看芯片时保持播放，放回书架时立即停止并归零。若浏览器阻止自动播放，点击播放器的 ▶ 即可。音频位于 `public/audio/`，本机打包也会携带，无需访问 Steam 目录；旧 EXE 需重新打包才会包含此功能。
 
@@ -84,7 +84,8 @@ npm start
 | `src/reader/library.js` | 正文书库面板、在线检索与下载、TXT/EPUB 和书源导入、书架位置绑定 |
 | `src/reader/novel.js` | 正文测量分页、章节目录、字号与阅读进度恢复 |
 | `tools/book_library.py` | SQLite 书库、UTF-8 正文、异步下载任务、导入与 HTTP API |
-| `tools/book_sources.py` | 维基文库 API 与多格式书源下载管线 |
+| `tools/book_sources.py` | 多格式书源下载管线与历史维基文库兼容适配 |
+| `tools/builtin_book_sources.py` | 天涯书库 POST 搜索、书包网搜索与完整目录下载 |
 | `tools/source_rules.py` | CSS、XPath、JSONPath 与受限 QuickJS 规则解析 |
 | `tools/library-service.py` | 开发服务使用的 Python 书库子进程 |
 | `docs/BOOK_LIBRARY.md` | 正文书库、书源格式与接口说明 |

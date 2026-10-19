@@ -145,11 +145,15 @@ def validate_url(url, host, public_only=True):
     return url
 
 
-def fetch(url, host, trusted=False, headers=None, method="GET", body=None, charset="utf-8"):
-    validate_url(url, host, not trusted)
+def fetch(url, host, trusted=False, headers=None, method="GET", body=None, charset="utf-8", https_only=False):
+    def check(target):
+        if https_only and urllib.parse.urlsplit(target).scheme != "https":
+            raise SourceError("内置书源仅允许 HTTPS，不能降级到不安全连接")
+        return validate_url(target, host, not trusted)
+    check(url)
     class Redirect(urllib.request.HTTPRedirectHandler):
         def redirect_request(self, req, fp, code, msg, headers, newurl):
-            validate_url(newurl, host, not trusted)
+            check(newurl)
             return super().redirect_request(req, fp, code, msg, headers, newurl)
     if method not in {"GET", "POST"} or charset.lower() not in {"utf-8", "gbk", "gb18030"}:
         raise SourceError("书源只支持 GET/POST 与 UTF-8/GBK 编码")
@@ -323,9 +327,15 @@ class CssSource:
     def engine(self, url, key=""):
         return RuleEngine(self.config.get("js_lib", ""), {"baseUrl": url, "key": key})
 
+    def check_url(self, url):
+        return validate_url(url, self.host)
+
+    def request(self, url, **options):
+        return fetch(url, self.host, **options)
+
     def document(self, url):
         headers = self.config.get("headers", {})
-        return fetch(url, self.host, headers=headers) if headers else fetch(url, self.host)
+        return self.request(url, headers=headers) if headers else self.request(url)
 
     def search(self, query):
         config = self.config
@@ -341,7 +351,7 @@ class CssSource:
                 raise SourceError("书源搜索请求选项不是合法 JSON") from error
             if not isinstance(options, dict) or set(options) - {"method", "body", "headers", "charset"}:
                 raise SourceError("书源请求选项不受支持")
-            root = fetch(url, self.host, headers={**config.get("headers", {}), **safe_headers(options.get("headers", {}))},
+            root = self.request(url, headers={**config.get("headers", {}), **safe_headers(options.get("headers", {}))},
                          method=options.get("method", "GET"), body=options.get("body"), charset=options.get("charset", "utf-8"))
         else:
             root = self.document(url)
@@ -352,14 +362,14 @@ class CssSource:
             link = engine.value(node, rule["url"])
             if not title or not link: continue
             target = urllib.parse.urljoin(url, link)
-            validate_url(target, self.host)
+            self.check_url(target)
             results.append({"source_id": self.id, "source_key": target, "title": title,
                             "author": engine.value(node, rule.get("author", ""), "未知作者") if rule.get("author") else "未知作者",
                             "source": self.name, "source_url": target, "license": config.get("license", "公开免费正文，见来源页")})
         return results
 
     def download(self, key, report, cancelled):
-        validate_url(key, self.host)
+        self.check_url(key)
         root, engine = self.document(key), self.engine(key)
         info = self.config.get("info", {})
         if info.get("init"):
@@ -381,13 +391,13 @@ class CssSource:
                 name, link = engine.value(node, toc["title"]), engine.value(node, toc["url"])
                 if name and link:
                     url = urllib.parse.urljoin(current, link)
-                    validate_url(url, self.host)
+                    self.check_url(url)
                     if not any(entry[1] == url for entry in entries): entries.append((name, url))
             if len(entries) > 2000: raise SourceError("目录超过 2000 章，请分卷下载")
             next_url = engine.value(root, toc["next"]) if toc.get("next") else ""
             if not next_url: break
             current = urllib.parse.urljoin(current, next_url)
-            validate_url(current, self.host)
+            self.check_url(current)
             root = self.document(current)
         if not entries:
             raise SourceError("目录为空，不会把目录页当作完整书籍保存")
@@ -414,7 +424,7 @@ class CssSource:
                 next_url = engine.value(content_root, self.config["content"]["next"]) if self.config["content"].get("next") else ""
                 if not next_url: break
                 current = urllib.parse.urljoin(current, next_url)
-                validate_url(current, self.host)
+                self.check_url(current)
             body = "\n\n".join(body_parts)
             if len(body) < 40: raise SourceError("正文过短或被站点拦截，请换源")
             chapters.append({"title": name, "text": body})

@@ -525,7 +525,8 @@ try {
     urlButton: !!document.getElementById('previewBookUrl'),
     search: !!document.getElementById('librarySearch'),
     fileImport: !!document.getElementById('importBookFile'),
-    sourceImport: !!document.getElementById('importSourceFile')
+    sourceImport: !!document.getElementById('importSourceFile'),
+    sources: [...document.getElementById('librarySource').options].map(o => o.value)
   })`);
   if (
     libraryControls.urlForm ||
@@ -536,7 +537,9 @@ try {
     !libraryControls.sourceImport
   )
     throw new Error(`书库入口清理不完整：${JSON.stringify(libraryControls)}`);
-  step("书库仅保留搜索与文件导入入口");
+  if (JSON.stringify(libraryControls.sources) !== JSON.stringify(["all", "tianya", "shubao"]))
+    throw new Error(`内置书源列表不正确：${JSON.stringify(libraryControls.sources)}`);
+  step("书库入口与天涯／书包网内置书源");
   await click("closeLibrary");
   const bound = await page.evaluate("window.libraryDebug.books");
   const firstBook = bound.find((b) => b.localBookId === imports[0].id);

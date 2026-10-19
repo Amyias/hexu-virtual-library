@@ -18,6 +18,7 @@ from pathlib import Path
 from urllib.parse import parse_qs, urlsplit
 from xml.etree import ElementTree
 
+from builtin_book_sources import BUILTIN_SOURCES, BuiltinNovelSource
 from book_sources import CssSource, Document, SourceError, Wikisource, clean, normalize_source, split_chapters as split_text
 
 
@@ -115,6 +116,8 @@ class BookLibrary:
     def provider(self, identifier):
         if identifier == "wikisource":
             return Wikisource()
+        if identifier in BUILTIN_SOURCES:
+            return BuiltinNovelSource(identifier)
         config = self.sources().get(identifier)
         if not config:
             raise SourceError("书源不存在")
@@ -123,9 +126,10 @@ class BookLibrary:
         return CssSource(identifier, config)
 
     def list_sources(self):
-        built_in = {"id": "wikisource", "name": Wikisource.name, "enabled": True,
-                    "capabilities": {"search": True, "engines": []}, "builtin": True}
-        return [built_in, *[{"id": key, "name": value["name"], "enabled": value.get("enabled", True),
+        built_in = [{"id": key, "name": value["name"], "enabled": True,
+                     "capabilities": {"search": True, "engines": ["CSS"]}, "builtin": True}
+                    for key, value in BUILTIN_SOURCES.items()]
+        return [*built_in, *[{"id": key, "name": value["name"], "enabled": value.get("enabled", True),
                             "capabilities": {"search": value.get("capabilities", {}).get("search", True),
                                              "engines": value.get("capabilities", {}).get("engines", ["CSS"])}}
                            for key, value in self.sources().items()]]
@@ -197,8 +201,8 @@ class BookLibrary:
             return {"local": local, "results": [], "errors": []}
         candidates, errors = [], []
         available = self.sources()
-        providers = [source_id] if source_id != "all" else [key for key, value in available.items()
-            if value.get("enabled", True) and value.get("capabilities", {}).get("search", True)][:5] + ["wikisource"]
+        providers = [source_id] if source_id != "all" else [*BUILTIN_SOURCES, *[key for key, value in available.items()
+            if value.get("enabled", True) and value.get("capabilities", {}).get("search", True)][:5]]
         if source_id in available and not available[source_id].get("capabilities", {}).get("search", True):
             return {"local": local, "results": [], "errors": [{"source_id": source_id, "message": "此源不提供按书名搜索，请选择支持搜索的书源"}]}
         def search_source(identifier):

@@ -43,3 +43,14 @@ test(
     assert.equal(result.status, 0, result.stderr || result.error?.message);
   },
 );
+
+for (const filename of ["test_builtin_sources.py", "test_book_library.py"]) {
+  test(`book providers and library integration: ${filename}`, { skip: !python }, () => {
+    const result = spawnSync(
+      python,
+      ["-m", "unittest", "discover", "-s", "tests", "-p", filename],
+      { encoding: "utf8", windowsHide: true, timeout: 15000 },
+    );
+    assert.equal(result.status, 0, result.stderr || result.error?.message);
+  });
+}
