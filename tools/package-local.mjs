@@ -137,6 +137,7 @@ const DEPENDENCIES = [
   "cssselect==1.3.0",
   "jsonpath-ng==1.10.1",
   "quickjs-ng==0.17.0.1",
+  "pypinyin==0.55.0",
 ];
 /* Listed separately because the sherpa-onnx wheel does not pull it in, yet transcribe() needs
    it — and without it the packaged program starts, reports itself ready, and then fails on the
@@ -427,7 +428,7 @@ const INSTRUCTIONS = `和序图书馆 · 本机版
 
 正文书库与小说阅读
   点击「本地书库」可以搜索、下载正文，也可以导入自己的 TXT / EPUB，或导入 CSS / XPath / JSONPath / 纯 JS 书源 JSON。
-  默认从天涯书库、书包网检索并逐章下载；书包网的分页目录会自动读完。
+  默认检索无忧书城公开目录和天涯书库；书包网可单独选择。找到书后逐章下载完整正文。
   书源管理中可勾选启用；支持搜索的书源会出现在书名搜索列表中。
   直接说「小和，帮我找书名」也能查找本地正文；没有缓存时会搜索在线书源并下载。
   打开书本封面后进入正文阅读，可翻页、选择章节、调整字号，阅读位置会自动保存。

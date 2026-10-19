@@ -114,6 +114,9 @@ class BookLibrary:
             return {row["id"]: json.loads(row["config"]) for row in db.execute("SELECT * FROM sources ORDER BY id")}
 
     def provider(self, identifier):
+        if identifier == "wyshu":
+            from wyshu_source import WyshuSource
+            return WyshuSource()
         if identifier == "wikisource":
             return Wikisource()
         if identifier in BUILTIN_SOURCES:
@@ -127,6 +130,7 @@ class BookLibrary:
 
     def list_sources(self):
         built_in = [{"id": key, "name": value["name"], "enabled": True,
+                     "default_search": value.get("default_search", True),
                      "capabilities": {"search": True, "engines": ["CSS"]}, "builtin": True}
                     for key, value in BUILTIN_SOURCES.items()]
         return [*built_in, *[{"id": key, "name": value["name"], "enabled": value.get("enabled", True),
@@ -201,7 +205,7 @@ class BookLibrary:
             return {"local": local, "results": [], "errors": []}
         candidates, errors = [], []
         available = self.sources()
-        providers = [source_id] if source_id != "all" else [*BUILTIN_SOURCES, *[key for key, value in available.items()
+        providers = [source_id] if source_id != "all" else [*[key for key, value in BUILTIN_SOURCES.items() if value.get("default_search", True)], *[key for key, value in available.items()
             if value.get("enabled", True) and value.get("capabilities", {}).get("search", True)][:5]]
         if source_id in available and not available[source_id].get("capabilities", {}).get("search", True):
             return {"local": local, "results": [], "errors": [{"source_id": source_id, "message": "此源不提供按书名搜索，请选择支持搜索的书源"}]}

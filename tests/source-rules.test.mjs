@@ -11,7 +11,7 @@ const python = [
 ].find(
   (command) =>
     command &&
-    spawnSync(command, ["-c", "import quickjs, lxml.html, jsonpath_ng.ext, cssselect"], {
+    spawnSync(command, ["-c", "import quickjs, lxml.html, jsonpath_ng.ext, cssselect, pypinyin"], {
       windowsHide: true,
       timeout: 5000,
     }).status === 0,
@@ -48,6 +48,7 @@ for (const filename of [
   "test_builtin_sources.py",
   "test_book_library.py",
   "test_windows_book_http.py",
+  "test_wyshu_source.py",
 ]) {
   test(`book providers and library integration: ${filename}`, { skip: !python }, () => {
     const result = spawnSync(

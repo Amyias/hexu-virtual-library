@@ -537,9 +537,11 @@ try {
     !libraryControls.sourceImport
   )
     throw new Error(`书库入口清理不完整：${JSON.stringify(libraryControls)}`);
-  if (JSON.stringify(libraryControls.sources) !== JSON.stringify(["all", "tianya", "shubao"]))
+  if (
+    JSON.stringify(libraryControls.sources) !== JSON.stringify(["all", "wyshu", "tianya", "shubao"])
+  )
     throw new Error(`内置书源列表不正确：${JSON.stringify(libraryControls.sources)}`);
-  step("书库入口与天涯／书包网内置书源");
+  step("书库入口与无忧／天涯／书包网内置书源");
   await page.evaluate(`(() => {
     window.networkTest = { fetch: window.fetch, calls: [], retries: 0 };
     window.fetch = async (url, options) => {

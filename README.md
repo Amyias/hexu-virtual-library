@@ -46,7 +46,7 @@ npm start
 
 说「小和，帮我找狂人日记」：已入库则直接从书架取阅，未入库则检索真实正文；精确结果唯一时自动下载，多个候选时选择一个来源。下载完整后保存到本机并绑定空闲书架槽位，翻开封面即可逐页阅读，支持目录、字号与阅读进度恢复。点击「正文书库」也可搜索、导入 TXT / EPUB、导入 CSS / XPath / JSONPath / 纯 JS 书源 JSON。未入库的位置保持空置；不会预装演示书或编号填充书。
 
-书库默认保存在 `%APPDATA%\hexu-library\books`，包含 SQLite 与 UTF-8 正文，程序更新不会覆盖。内置天涯书库与书包网（简体），默认在线检索从这两个站点获取候选并逐章下载；同时提供你指定的源仓库入口；导入支持 CSS、XPath、JSONPath 与隔离执行的纯 JavaScript；Android/Java 桥接接口仍不支持。运行方式、书源格式、支持范围与备份方法见 [正文书库使用说明](docs/BOOK_LIBRARY.md)。旧发行版程序须重新打包后才能使用这项功能。
+书库默认保存在 `%APPDATA%\hexu-library\books`，包含 SQLite 与 UTF-8 正文，程序更新不会覆盖。默认在线检索无忧书城公开目录与天涯书库；书包网（简体）保留为下拉框单独可选源，不再参加默认搜索。无忧书城通过公开 sitemap、书名拼音和实际目录元数据检索，不提交需要验证的搜索表单；多音字或特殊标题可能需要完整书名或拼音，未命中不代表站点没有该书。候选可逐章下载；同时保留书源导入与 TXT / EPUB 导入。运行方式、兼容范围与备份方法见 [正文书库使用说明](docs/BOOK_LIBRARY.md)。
 
 **阅读音乐**：翻开 3D 封面或进入本地正文时，迷你播放器自动播放提供的《Saint Barbara Theme》《The Trek》，两首按顺序循环；支持暂停/继续、上一首/下一首、进度拖动和音量记忆。返回 3D 书本或查看芯片时保持播放，放回书架时立即停止并归零。若浏览器阻止自动播放，点击播放器的 ▶ 即可。音频位于 `public/audio/`，本机打包也会携带，无需访问 Steam 目录；旧 EXE 需重新打包才会包含此功能。
 
@@ -86,6 +86,7 @@ npm start
 | `tools/book_library.py` | SQLite 书库、UTF-8 正文、异步下载任务、导入与 HTTP API |
 | `tools/book_sources.py` | 多格式书源下载管线与历史维基文库兼容适配 |
 | `tools/builtin_book_sources.py` | 天涯书库 POST 搜索、书包网搜索与完整目录下载 |
+| `tools/wyshu_source.py` | 无忧书城公开目录检索、书名拼音候选与真实元数据核对 |
 | `tools/windows_book_http.py` | 内置书源连接异常时的 Windows 系统 HTTPS／IPv4 有界重试 |
 | `tools/source_rules.py` | CSS、XPath、JSONPath 与受限 QuickJS 规则解析 |
 | `tools/library-service.py` | 开发服务使用的 Python 书库子进程 |

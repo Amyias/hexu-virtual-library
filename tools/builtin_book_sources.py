@@ -1,4 +1,4 @@
-"""Two fixed HTTPS novel sites, sharing the bounded source download pipeline."""
+"""Fixed HTTPS novel sites, sharing the bounded source download pipeline."""
 import copy
 import re
 import threading
@@ -9,6 +9,15 @@ from book_sources import CssSource, SourceError, fetch, validate_url
 
 
 BUILTIN_SOURCES = {
+    "wyshu": {
+        "name": "无忧书城",
+        "base_url": "https://www.wyshu.com/",
+        "info": {"title": 'meta[property="og:novel:book_name"]@content',
+                 "author": 'meta[property="og:novel:author"]@content'},
+        "toc": {"items": "ol.list-featured h3 a", "title": "@text", "url": "@href"},
+        "content": {"body": "article.article-post@text"},
+        "license": "无忧书城公开阅读页面；作品权利与使用说明见来源站点",
+    },
     "tianya": {
         "name": "天涯书库",
         "base_url": "https://tianyashuku.net/",
@@ -22,6 +31,7 @@ BUILTIN_SOURCES = {
     },
     "shubao": {
         "name": "书包网 · 简体",
+        "default_search": False,
         "base_url": "https://cn.shubaoc.com/",
         "search_url": "/search/{{key}}/",
         "search": {"items": ".novel-list .novel-item", "title": ".novel-title a@text",
@@ -52,8 +62,14 @@ class BuiltinNovelSource(CssSource):
         parts = urlsplit(url)
         if parts.scheme != "https" or parts.port not in {None, 443} or parts.fragment:
             raise SourceError("内置书源仅接受本站 HTTPS 书籍地址")
-        pattern = (r"/(?:[a-z0-9_-]+/\d+/(?:\d+\.html)?|e/search/index\.php|e/search/result/)"
-                   if self.id == "tianya" else r"/(?:search/[^/]+/|novel/[a-z0-9]+/(?:[a-z0-9]+\.html|\d+/)?)")
+        if self.id == "wyshu" and parts.query:
+            raise SourceError("公开目录书源不接受搜索表单或额外查询参数")
+        patterns = {
+            "wyshu": r"/(?:sitemap/bookname_1\.xml|(?:ys|wx|yq|wl|ds|xy|kh|xd|wg)/[\w%-]+/(?:\d+\.html)?)",
+            "tianya": r"/(?:[a-z0-9_-]+/\d+/(?:\d+\.html)?|e/search/index\.php|e/search/result/)",
+            "shubao": r"/(?:search/[^/]+/|novel/[a-z0-9]+/(?:[a-z0-9]+\.html|\d+/)?)",
+        }
+        pattern = patterns[self.id]
         if not re.fullmatch(pattern, parts.path):
             raise SourceError("此地址不是内置书源的搜索、书籍或章节页面")
         return url

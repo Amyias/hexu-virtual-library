@@ -1,4 +1,4 @@
-"""Bounded Schannel/IPv4 fallback for the two compiled-in HTTPS book origins."""
+"""Bounded Schannel/IPv4 fallback for compiled-in HTTPS book origins."""
 import os
 from pathlib import Path
 import re
@@ -10,7 +10,7 @@ from urllib.parse import urljoin, urlsplit
 
 from source_rules import SourceError
 
-HOSTS = {"cn.shubaoc.com", "tianyashuku.net"}
+HOSTS = {"cn.shubaoc.com", "tianyashuku.net", "www.wyshu.com"}
 HEADER_LIMIT = 65536
 
 

@@ -13,6 +13,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1] / "tools"))
 from book_library import BookLibrary, import_document
 from book_sources import CssSource, SourceError, fetch
 from builtin_book_sources import BuiltinNovelSource
+from wyshu_source import WyshuSource
 
 
 class BuiltinSourceTests(unittest.TestCase):
@@ -40,17 +41,20 @@ class BuiltinSourceTests(unittest.TestCase):
             if source.id == "shubao":
                 raise SourceError("DNS 解析失败")
             return [candidate]
-        with tempfile.TemporaryDirectory() as directory, patch.object(BuiltinNovelSource, "search", search):
+        with tempfile.TemporaryDirectory() as directory, patch.object(BuiltinNovelSource, "search", search), patch.object(WyshuSource, "search", side_effect=SourceError("DNS 解析失败")):
             result = BookLibrary(directory).search("Fixture")
         self.assertEqual(result["results"], [candidate])
-        self.assertEqual(result["errors"], [{"source_id": "shubao", "source_name": "书包网 · 简体", "message": "DNS 解析失败"}])
+        self.assertEqual(result["errors"], [{"source_id": "wyshu", "source_name": "无忧书城", "message": "DNS 解析失败"}])
 
     def test_default_sources_replace_wiki_but_existing_books_stay_local(self):
         with tempfile.TemporaryDirectory() as directory:
             library = BookLibrary(directory)
-            self.assertEqual([s["id"] for s in library.list_sources()], ["tianya", "shubao"])
-            with patch.object(BuiltinNovelSource, "search", return_value=[]) as search:
+            self.assertEqual([s["id"] for s in library.list_sources()], ["wyshu", "tianya", "shubao"])
+            with patch.object(BuiltinNovelSource, "search", return_value=[]) as search, patch.object(WyshuSource, "search", return_value=[]) as wyshu:
                 library.search("Fixture")
+                self.assertEqual(search.call_count, 1)
+                self.assertEqual(wyshu.call_count, 1)
+                library.search("Fixture", "shubao")
                 self.assertEqual(search.call_count, 2)
             document = import_document("old.txt", b"Previously downloaded real body. " * 8, "Old book")
             document.update(source_id="wikisource", source_key="Old book")

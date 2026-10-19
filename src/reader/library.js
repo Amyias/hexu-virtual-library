@@ -95,10 +95,13 @@ export function createLocalLibrary({ books, onSelect, onBind, notice }) {
     const sources = await request("sources");
     const previous = $("librarySource").value;
     $("librarySource").replaceChildren(
-      new Option("所有可搜索书源", "all"),
+      new Option("默认搜索书源", "all"),
       ...sources.sources
         .filter((item) => item.enabled && item.capabilities.search)
-        .map((item) => new Option(item.name, item.id)),
+        .map(
+          (item) =>
+            new Option(item.name + (item.default_search === false ? "（单独选择）" : ""), item.id),
+        ),
     );
     $("sourceList").replaceChildren(
       ...sources.sources.map((item) => {
@@ -113,7 +116,9 @@ export function createLocalLibrary({ books, onSelect, onBind, notice }) {
         label.append(toggle, document.createTextNode(item.name));
         const detail = document.createElement("small");
         detail.textContent = item.builtin
-          ? "内置 · 按书名搜索"
+          ? item.default_search === false
+            ? "内置 · 请在下拉框单独选择"
+            : "内置 · 按书名搜索"
           : item.capabilities.search
             ? "按书名搜索"
             : "不提供搜索";
