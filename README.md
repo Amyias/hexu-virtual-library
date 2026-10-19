@@ -131,6 +131,7 @@ npm start
 | `public/favicon.ico` | 程序图标（多尺寸）：页面标签、程序窗口、exe 与桌面快捷方式共用同一个文件 |
 | `tools/make-icon.py` | 小和图标生成器：沿用模型的橙色、方眼与四足轮廓，逐尺寸对齐像素边界，生成透明 SVG、1024px PNG 与 10 档 ICO（再生成需要 Pillow） |
 | `public/icons/xiaohe.svg`、`public/icons/xiaohe.png` | 小和图标的矢量原稿与高清透明原图；程序、窗口、桌面和任务栏统一使用 `public/favicon.ico` |
+| `tools/desktop-shortcut.ps1` | 通过 Windows Unicode 接口创建并读回验证快捷方式，避免简体中文路径在传统代码页下损坏；只更新相同目标的任务栏固定项 |
 | `tools/fetch-textures.mjs` | 表面贴图的唯一拉取脚本，来源与许可记录在内 |
 | `tools/prepare-smart-books.mjs` | 馆藏清单的唯一生成器，写出 `book-inventory.json` 并核对它能原样展开 |
 | `tests/library.test.mjs` | 馆藏几何、ASR 事件与 GLB 完整性回归检查 |
