@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="小和">
+  <title>小和 · 和序图书馆</title>
+  <g transform="translate(4 13.116279) scale(1.30232558)" shape-rendering="crispEdges">
+    <rect x="7" y="0" width="29" height="21" fill="#D87656"/>
+    <rect x="0" y="7" width="7" height="7" fill="#D87656"/>
+    <rect x="36" y="7" width="7" height="7" fill="#D87656"/>
+    <rect x="7" y="21" width="3" height="8" fill="#D87656"/>
+    <rect x="14" y="21" width="4" height="8" fill="#D87656"/>
+    <rect x="25" y="21" width="4" height="8" fill="#D87656"/>
+    <rect x="32" y="21" width="4" height="8" fill="#D87656"/>
+    <rect x="7" y="0" width="29" height="0.65" fill="#EDAA8B"/>
+    <rect x="35.3" y="0.65" width="0.7" height="20.35" fill="#BE6046"/>
+    <rect x="10" y="3" width="5" height="4" fill="#171918"/>
+    <rect x="28" y="3" width="5" height="4" fill="#171918"/>
+  </g>
+</svg>

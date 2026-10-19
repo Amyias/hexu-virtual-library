@@ -496,6 +496,7 @@ function desktopShortcut() {
     JSON.stringify({
       name: APP,
       target,
+      icon: path.join(appDir, "_internal", "public", "favicon.ico") + ",0",
       workingDirectory: appDir,
       description: "和序图书馆 · 本机版（自带语音识别）",
     }),
@@ -512,15 +513,36 @@ $shortcut = $shell.CreateShortcut($link)
 $shortcut.TargetPath = $spec.target
 $shortcut.WorkingDirectory = $spec.workingDirectory
 $shortcut.Description = $spec.description
+$shortcut.IconLocation = $spec.icon
 $shortcut.Save()
+$pinned = Join-Path $env:APPDATA 'Microsoft/Internet Explorer/Quick Launch/User Pinned/TaskBar'
+$changedPins = @()
+$updatedPinned = 0
+if (Test-Path -LiteralPath $pinned) {
+  Get-ChildItem -LiteralPath $pinned -Filter '*.lnk' -File | ForEach-Object {
+    $pin = $shell.CreateShortcut($_.FullName)
+    if ($pin.TargetPath -eq $spec.target) {
+      $pin.IconLocation = $spec.icon
+      $pin.Save()
+      $changedPins += $_.FullName
+      $updatedPinned++
+    }
+  }
+}
 $check = $shell.CreateShortcut($link)
 $report = [ordered]@{
   link = $link
   desktop = $desktop
   target = $check.TargetPath
-  matches = ($check.TargetPath -eq $spec.target) -and ($check.Description -eq $spec.description)
+  icon = $check.IconLocation
+  updatedPinned = $updatedPinned
+  matches = ($check.TargetPath -eq $spec.target) -and ($check.Description -eq $spec.description) -and ($check.IconLocation -eq $spec.icon)
   exists = (Test-Path -LiteralPath $link)
 }
+Add-Type -TypeDefinition 'using System; using System.Runtime.InteropServices; public static class HexuShellIcon { [DllImport("shell32.dll", CharSet=CharSet.Unicode)] public static extern void SHChangeNotify(uint e, uint f, string a, IntPtr b); }'
+[HexuShellIcon]::SHChangeNotify(0x2000, 0x1005, $link, [IntPtr]::Zero)
+[HexuShellIcon]::SHChangeNotify(0x2000, 0x1005, $spec.target, [IntPtr]::Zero)
+foreach ($changedPin in $changedPins) { [HexuShellIcon]::SHChangeNotify(0x2000, 0x1005, $changedPin, [IntPtr]::Zero) }
 ($report | ConvertTo-Json) | Out-File -LiteralPath $env:HEXU_SHORTCUT_REPORT -Encoding UTF8
 `;
   const result = run("powershell", ["-NoProfile", "-NonInteractive", "-Command", script], {
