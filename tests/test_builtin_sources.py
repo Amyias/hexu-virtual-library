@@ -1,10 +1,13 @@
 """Self-authored site-shaped fixtures; tests never contact a remote book site."""
 import pathlib
+import socket
+import ssl
 import sys
 import tempfile
 import threading
 import unittest
 from unittest.mock import patch
+from urllib.error import URLError
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1] / "tools"))
 from book_library import BookLibrary, import_document
@@ -13,6 +16,35 @@ from builtin_book_sources import BuiltinNovelSource
 
 
 class BuiltinSourceTests(unittest.TestCase):
+    def test_network_failures_identify_cause_without_exposing_raw_details(self):
+        failures = [
+            (socket.gaierror(-2, "private-diagnostic-marker"), "DNS"),
+            (TimeoutError("private-diagnostic-marker"), "超时"),
+            (ConnectionRefusedError("private-diagnostic-marker"), "拒绝"),
+            (ssl.SSLCertVerificationError("private-diagnostic-marker"), "证书"),
+            (ssl.SSLError("private-diagnostic-marker"), "握手"),
+            (ConnectionResetError("private-diagnostic-marker"), "中断"),
+            (OSError("private-diagnostic-marker"), "连接失败"),
+        ]
+        for reason, expected in failures:
+            with self.subTest(reason=type(reason).__name__), patch("book_sources.urllib.request.build_opener") as opener:
+                opener.return_value.open.side_effect = URLError(reason)
+                with self.assertRaises(SourceError) as caught:
+                    fetch("https://cn.shubaoc.com/search/Fixture/", "cn.shubaoc.com", trusted=True)
+                self.assertIn(expected, str(caught.exception))
+                self.assertNotIn("private-diagnostic-marker", str(caught.exception))
+
+    def test_failed_source_has_name_and_does_not_hide_successful_results(self):
+        candidate = {"source_id": "tianya", "title": "Fixture"}
+        def search(source, _query):
+            if source.id == "shubao":
+                raise SourceError("DNS 解析失败")
+            return [candidate]
+        with tempfile.TemporaryDirectory() as directory, patch.object(BuiltinNovelSource, "search", search):
+            result = BookLibrary(directory).search("Fixture")
+        self.assertEqual(result["results"], [candidate])
+        self.assertEqual(result["errors"], [{"source_id": "shubao", "source_name": "书包网 · 简体", "message": "DNS 解析失败"}])
+
     def test_default_sources_replace_wiki_but_existing_books_stay_local(self):
         with tempfile.TemporaryDirectory() as directory:
             library = BookLibrary(directory)

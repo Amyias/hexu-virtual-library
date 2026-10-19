@@ -1,9 +1,11 @@
 """Bounded text providers with CSS, XPath, JSONPath and isolated JavaScript rules."""
 import html
+import errno
 import ipaddress
 import json
 import re
 import socket
+import ssl
 import urllib.parse
 import urllib.request
 from html.parser import HTMLParser
@@ -145,6 +147,27 @@ def validate_url(url, host, public_only=True):
     return url
 
 
+def connection_message(error):
+    """Expose a useful failure category, never a raw URL, proxy detail or exception string."""
+    reason = error.reason if isinstance(error, urllib.error.URLError) else error
+    if isinstance(reason, socket.gaierror):
+        return "DNS 解析失败，请检查当前网络的域名解析后重试"
+    if isinstance(reason, ssl.SSLCertVerificationError):
+        return "HTTPS 证书校验失败，请检查系统时间或网络代理"
+    if isinstance(reason, ssl.SSLError):
+        return "HTTPS 握手失败，请检查网络连接后重试"
+    if isinstance(reason, TimeoutError):
+        return "书源连接超时，请稍后重试或换源"
+    code = getattr(reason, "winerror", None) or getattr(reason, "errno", None)
+    if isinstance(reason, ConnectionRefusedError) or code in {errno.ECONNREFUSED, 10061}:
+        return "连接被拒绝，请检查站点或网络代理是否可用"
+    if isinstance(reason, (ConnectionResetError, ConnectionAbortedError)) or code in {errno.ECONNRESET, errno.ECONNABORTED, 10054, 10053}:
+        return "书源连接中断，请稍后重试"
+    if code in {errno.ENETUNREACH, errno.EHOSTUNREACH, 10051, 10065}:
+        return "网络无法到达书源，请检查当前网络连接"
+    return "书源连接失败，请检查当前网络后重试或换源"
+
+
 def fetch(url, host, trusted=False, headers=None, method="GET", body=None, charset="utf-8", https_only=False):
     def check(target):
         if https_only and urllib.parse.urlsplit(target).scheme != "https":
@@ -168,7 +191,7 @@ def fetch(url, host, trusted=False, headers=None, method="GET", body=None, chars
     except urllib.error.HTTPError as error:
         raise SourceError("书源返回 HTTP %d，请稍后重试或换源" % error.code) from error
     except (OSError, ValueError) as error:
-        raise SourceError("书源连接失败，请稍后重试或换一个书源") from error
+        raise SourceError(connection_message(error)) from error
     if len(body) > MAX_RESPONSE:
         raise SourceError("书源响应过大")
     try:

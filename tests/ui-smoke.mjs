@@ -540,6 +540,86 @@ try {
   if (JSON.stringify(libraryControls.sources) !== JSON.stringify(["all", "tianya", "shubao"]))
     throw new Error(`内置书源列表不正确：${JSON.stringify(libraryControls.sources)}`);
   step("书库入口与天涯／书包网内置书源");
+  await page.evaluate(`(() => {
+    window.networkTest = { fetch: window.fetch, calls: [], retries: 0 };
+    window.fetch = async (url, options) => {
+      if (!String(url).startsWith('/library/search?')) return networkTest.fetch(url, options);
+      const params = new URL(String(url), location.origin).searchParams;
+      const source = params.get('source');
+      networkTest.calls.push({ source, query: params.get('q') });
+      const candidate = id => ({ source_id: id, title:'网络回归书', author:'测试作者', source:id, source_key:'fixture-'+id });
+      let payload;
+      if (source === 'all') payload = { local:[], results:[candidate('tianya')], errors:[{source_id:'shubao',source_name:'书包网 · 简体',message:'DNS 解析失败，请检查当前网络的域名解析后重试'}] };
+      else if (++networkTest.retries === 1) payload = {local:[],results:[],errors:[{source_id:'shubao',source_name:'书包网 · 简体',message:'书源连接超时，请稍后重试或换源'}]};
+      else payload = { local:[], results:[candidate('shubao')], errors:[] };
+      return new Response(JSON.stringify(payload), {status:200,headers:{'Content-Type':'application/json'}});
+    };
+    document.getElementById('libraryQuery').value = '网络回归书';
+    document.getElementById('librarySearch').requestSubmit();
+  })()`);
+  await waitFor(
+    () =>
+      page.evaluate(
+        "document.querySelector('[data-retry-source=shubao]') && !document.getElementById('searchOnline').disabled",
+      ),
+    "显示具体失败书源与重试按钮",
+  );
+  const partialSearch = await page.evaluate(
+    "document.getElementById('libraryResults').textContent",
+  );
+  if (
+    !partialSearch.includes("书包网 · 简体") ||
+    !partialSearch.includes("DNS") ||
+    !partialSearch.includes("下载并上架") ||
+    partialSearch.includes("没有找到")
+  )
+    throw new Error("部分书源失败时丢失成功结果或误报没有书：" + partialSearch);
+  await page.evaluate("document.querySelector('[data-retry-source=shubao]').click()");
+  await waitFor(
+    () =>
+      page.evaluate(
+        "networkTest.retries === 1 && !document.getElementById('searchOnline').disabled",
+      ),
+    "失败书源重试仍失败",
+  );
+  if (
+    !(await page.evaluate(
+      "document.getElementById('libraryResults').textContent.includes('超时') && document.querySelectorAll('#libraryResults .book-result').length === 2",
+    ))
+  )
+    throw new Error("重试失败清空了成功结果或重复显示错误");
+  await page.evaluate(
+    "document.getElementById('libraryQuery').value='尚未提交的其他书名'; document.querySelector('[data-retry-source=shubao]').click()",
+  );
+  await waitFor(
+    () =>
+      page.evaluate(
+        "networkTest.retries === 2 && !document.getElementById('searchOnline').disabled",
+      ),
+    "仅重试失败书源并合并成功结果",
+  );
+  const retriedSearch = await page.evaluate(`({
+    calls:networkTest.calls, rows:document.querySelectorAll('#libraryResults .book-result').length,
+    retry:!!document.querySelector('[data-retry-source]'), source:document.getElementById('librarySource').value
+  })`);
+  if (
+    retriedSearch.rows !== 2 ||
+    retriedSearch.retry ||
+    retriedSearch.source !== "all" ||
+    JSON.stringify(retriedSearch.calls.map((c) => c.source)) !==
+      JSON.stringify(["all", "shubao", "shubao"]) ||
+    retriedSearch.calls.some((c) => c.query !== "网络回归书")
+  )
+    throw new Error(
+      "单书源重试改变查询、重复访问成功书源或丢失结果：" + JSON.stringify(retriedSearch),
+    );
+  await page.evaluate(
+    "window.fetch=networkTest.fetch; delete window.networkTest; document.getElementById('libraryResults').replaceChildren(); document.getElementById('libraryQuery').value=''",
+  );
+  step(
+    "书源网络失败与单独重试",
+    "准确显示来源和原因；重试失败不丢书，恢复后合并结果；未改网络或连接外站",
+  );
   await click("closeLibrary");
   const bound = await page.evaluate("window.libraryDebug.books");
   const firstBook = bound.find((b) => b.localBookId === imports[0].id);

@@ -209,7 +209,8 @@ class BookLibrary:
             try:
                 return self.provider(identifier).search(query), None
             except (SourceError, ValueError, KeyError, TypeError) as error:
-                return [], {"source_id": identifier, "message": str(error)[:160]}
+                config = BUILTIN_SOURCES.get(identifier) or available.get(identifier, {})
+                return [], {"source_id": identifier, "source_name": config.get("name", identifier), "message": str(error)[:160]}
         with ThreadPoolExecutor(max_workers=6) as pool:
             for result, error in pool.map(search_source, providers):
                 candidates.extend(result)

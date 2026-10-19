@@ -35,6 +35,7 @@ export function createLocalLibrary({ books, onSelect, onBind, notice }) {
     working = false,
     jobId = null,
     generation = 0;
+  let displayedSearch = null;
   const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   async function request(path, body, timeout = 45000) {
     const response = await fetch("/library/" + path, {
@@ -184,7 +185,7 @@ export function createLocalLibrary({ books, onSelect, onBind, notice }) {
       }
     }
   }
-  async function search(text, auto = false) {
+  async function search(text, auto = false, retrySource = null) {
     if (working) {
       notice("小和正在检索或下载，请等待或取消");
       return;
@@ -203,15 +204,34 @@ export function createLocalLibrary({ books, onSelect, onBind, notice }) {
     working = true;
     const current = ++generation;
     $("searchOnline").disabled = true;
-    $("libraryResults").textContent = "正在检索书源，找到后可下载完整正文…";
+    const previous = retrySource && displayedSearch?.query === query ? displayedSearch : null;
+    panel.querySelectorAll("[data-retry-source]").forEach((button) => (button.disabled = true));
+    if (!previous) {
+      displayedSearch = null;
+      $("libraryResults").textContent = "正在检索书源，找到后可下载完整正文…";
+    }
     try {
-      const result = await request(
+      let result = await request(
         "search?q=" +
           encodeURIComponent(query) +
           "&source=" +
-          encodeURIComponent($("librarySource").value),
+          encodeURIComponent(retrySource || $("librarySource").value),
       );
       if (current !== generation) return;
+      if (previous) {
+        result = {
+          local: result.local,
+          results: [
+            ...previous.results.filter((item) => item.source_id !== retrySource),
+            ...result.results,
+          ],
+          errors: [
+            ...previous.errors.filter((item) => item.source_id !== retrySource),
+            ...result.errors,
+          ],
+        };
+      }
+      displayedSearch = { query, ...result };
       result.results.forEach((item) => {
         item.aliases = [query];
       });
@@ -230,13 +250,16 @@ export function createLocalLibrary({ books, onSelect, onBind, notice }) {
       const preferred =
         exact.length === 1 ? exact[0] : result.results.length === 1 ? result.results[0] : null;
       if (!result.results.length && !result.local.length)
-        $("libraryResults").textContent =
-          "没有找到可下载正文。可换源或导入 TXT / EPUB。" +
-          result.errors.map((item) => item.message).join("；");
-      else if (result.errors.length) {
-        const note = document.createElement("p");
-        note.textContent =
-          "部分书源暂不可用：" + result.errors.map((item) => item.message).join("；");
+        $("libraryResults").textContent = result.errors.length
+          ? "有书源检索失败，暂不能确定这些站点是否有这本书。"
+          : "没有找到可下载正文。可换源或导入 TXT / EPUB。";
+      for (const item of result.errors) {
+        const note = row(
+          { title: item.source_name || item.source_id, author: "检索失败", source: item.message },
+          () => search(query, false, item.source_id),
+          "重试此书源",
+        );
+        note.querySelector("button").dataset.retrySource = item.source_id;
         $("libraryResults").append(note);
       }
       working = false;
@@ -246,10 +269,16 @@ export function createLocalLibrary({ books, onSelect, onBind, notice }) {
         await download(preferred);
       }
     } catch (error) {
-      if (current === generation) $("libraryResults").textContent = error.message;
+      if (current === generation) {
+        if (previous) notice(error.message);
+        else $("libraryResults").textContent = error.message;
+      }
     } finally {
       if (current === generation) working = false;
       $("searchOnline").disabled = working;
+      panel
+        .querySelectorAll("[data-retry-source]")
+        .forEach((button) => (button.disabled = working));
     }
   }
   button.onclick = () => {
