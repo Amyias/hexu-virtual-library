@@ -293,12 +293,12 @@ def normalize_source(data):
         for rule in data[group].values():
             engine.validate(rule)
     if not has_search and not data["info"].get("title"):
-        raise SourceError("此源既没有搜索规则，也没有网址导入所需的书名规则")
+        raise SourceError("此源既没有搜索规则，也没有书籍信息中的书名规则")
     engines = ["CSS"]
     if re.search(r"@js:|<js>|\{\{(?!key\}\}|page\}\})", encoded, re.I): engines.append("JS")
     if re.search(r"@xpath:|\"(?://|\.//)", encoded, re.I): engines.append("XPath")
     if re.search(r"@json:|\$[.\[]", encoded, re.I): engines.append("JSONPath")
-    data["capabilities"] = {"search": has_search, "url_import": bool(data["info"].get("title")), "engines": engines}
+    data["capabilities"] = {"search": has_search, "engines": engines}
     return data
 
 
@@ -357,19 +357,6 @@ class CssSource:
                             "author": engine.value(node, rule.get("author", ""), "未知作者") if rule.get("author") else "未知作者",
                             "source": self.name, "source_url": target, "license": config.get("license", "公开免费正文，见来源页")})
         return results
-
-    def preview(self, key):
-        validate_url(key, self.host)
-        root, engine = self.document(key), self.engine(key)
-        info = self.config.get("info", {})
-        if info.get("init"):
-            root = engine.value(root, info["init"])
-        title = engine.value(root, info["title"]) if info.get("title") else ""
-        if not title:
-            raise SourceError("未能从网址读取书名，请确认是该书源的书籍或目录网址")
-        return {"source_id": self.id, "source_key": key, "title": title,
-                "author": engine.value(root, info["author"]) if info.get("author") else "未知作者",
-                "source": self.name, "source_url": key, "license": self.config.get("license", "公开免费正文，见来源页")}
 
     def download(self, key, report, cancelled):
         validate_url(key, self.host)

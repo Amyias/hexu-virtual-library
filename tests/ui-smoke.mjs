@@ -519,6 +519,24 @@ try {
     async () => (await state()).interactiveBooks === 2 && (await state()).visibleShelfBooks === 2,
     "真实书籍上架",
   );
+  const libraryControls = await page.evaluate(`({
+    urlForm: !!document.getElementById('libraryUrlImport'),
+    urlInput: !!document.getElementById('libraryBookUrl'),
+    urlButton: !!document.getElementById('previewBookUrl'),
+    search: !!document.getElementById('librarySearch'),
+    fileImport: !!document.getElementById('importBookFile'),
+    sourceImport: !!document.getElementById('importSourceFile')
+  })`);
+  if (
+    libraryControls.urlForm ||
+    libraryControls.urlInput ||
+    libraryControls.urlButton ||
+    !libraryControls.search ||
+    !libraryControls.fileImport ||
+    !libraryControls.sourceImport
+  )
+    throw new Error(`书库入口清理不完整：${JSON.stringify(libraryControls)}`);
+  step("书库仅保留搜索与文件导入入口");
   await click("closeLibrary");
   const bound = await page.evaluate("window.libraryDebug.books");
   const firstBook = bound.find((b) => b.localBookId === imports[0].id);

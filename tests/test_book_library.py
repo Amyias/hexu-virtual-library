@@ -161,6 +161,7 @@ class LocalLibraryTests(unittest.TestCase):
                     return status, data
                 try:
                     self.assertEqual(call("ready")[0], 200)
+                    self.assertEqual(call("url", {"url": "https://example.com/book"})[0], 404)
                     payload = {"filename": "story.txt", "title": "HTTP Novel", "data": base64.b64encode(b"Real text " * 100).decode()}
                     self.assertEqual(call("import", payload, "https://another-site.example")[0], 403)
                     self.assertEqual(library.list_books(), [])

@@ -1319,16 +1319,7 @@ body.inspecting #reader > .reader-bottom {
   }
 }
 
-/* Source capabilities and direct book URL import. */
-#libraryUrlImport {
-  display: flex;
-  gap: 8px;
-  margin: 12px 0 20px;
-}
-#libraryUrlImport input {
-  flex: 1;
-  min-width: 80px;
-}
+/* Source management. */
 .source-entry {
   padding: 10px 0;
   border-bottom: 1px solid #28473818;
@@ -1351,14 +1342,6 @@ body.inspecting #reader > .reader-bottom {
   display: block;
   margin-left: 25px;
   color: #617565;
-}
-@media (max-width: 600px) {
-  #libraryUrlImport {
-    flex-wrap: wrap;
-  }
-  #libraryUrlImport input {
-    flex-basis: 100%;
-  }
 }
 
 /* The conversation panel remains usable over both the 3D book and the novel reader. */

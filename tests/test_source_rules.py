@@ -35,7 +35,7 @@ class SourceCompatibilityTests(unittest.TestCase):
             self.assertEqual([c["title"] for c in result["chapters"]], ["One", "Two"])
             self.assertNotIn("do_not_read", result["chapters"][0]["text"])
 
-    def test_url_only_source_with_empty_search_array_imports_without_attribute_error(self):
+    def test_source_with_empty_search_array_imports_without_attribute_error(self):
         from book_library import BookLibrary
         source = config(); source.pop("searchUrl"); source["ruleSearch"] = []
         with tempfile.TemporaryDirectory() as temp, patch("book_sources.validate_url"):
@@ -44,7 +44,6 @@ class SourceCompatibilityTests(unittest.TestCase):
             self.assertEqual(len(result["accepted"]), 1, result)
             imported = next(iter(library.sources().values()))
             self.assertFalse(imported["capabilities"]["search"])
-            self.assertTrue(imported["capabilities"]["url_import"])
 
     def test_pure_javascript_source_is_accepted_but_android_bridge_is_specific(self):
         with patch("book_sources.validate_url"):
@@ -90,20 +89,20 @@ class SourceCompatibilityTests(unittest.TestCase):
             self.assertEqual(fetcher.call_args.kwargs["method"], "POST")
             self.assertEqual(fetcher.call_args.kwargs["body"], "q=Novel")
 
-    def test_enabled_state_and_url_preview_persist(self):
+    def test_enabled_state_persists_and_controls_search_provider(self):
         from book_library import BookLibrary
-        with tempfile.TemporaryDirectory() as temp, patch("book_sources.validate_url"), patch("book_sources.fetch", return_value='<h1>Novel</h1><span id="author">Writer</span>'):
+        with tempfile.TemporaryDirectory() as temp, patch("book_sources.validate_url"):
             library = BookLibrary(temp)
             result = library.add_sources([config()])
             identifier = result["accepted"][0]["id"]
-            self.assertEqual(library.preview_url("https://example.com/book")["title"], "Novel")
+            self.assertIsInstance(library.provider(identifier), CssSource)
             library.set_source_enabled(identifier, False)
-            self.assertFalse(BookLibrary(temp).sources()[identifier]["enabled"])
-            with self.assertRaises(SourceError): library.preview_url("https://example.com/book")
-            with self.assertRaises(SourceError): library.provider(identifier)
-            library.set_source_enabled(identifier, True)
-            self.assertEqual(library.preview_url("https://example.com/book")["author"], "Writer")
-            with self.assertRaises(SourceError): library.preview_url("https://other.example/book")
+            restarted = BookLibrary(temp)
+            self.assertFalse(restarted.sources()[identifier]["enabled"])
+            with self.assertRaises(SourceError): restarted.provider(identifier)
+            restarted.set_source_enabled(identifier, True)
+            self.assertTrue(BookLibrary(temp).sources()[identifier]["enabled"])
+            self.assertIsInstance(BookLibrary(temp).provider(identifier), CssSource)
 
     def test_javascript_cannot_fetch_network_or_read_host_files(self):
         from source_rules import RuleEngine

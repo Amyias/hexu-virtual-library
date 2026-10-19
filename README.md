@@ -201,11 +201,11 @@ npm test
 
 保留依赖文件中的版权及许可头。Three.js 使用 MIT 许可；GSAP 3.12.5 的许可链接保留于 `public/vendor/gsap.min.js` 开头；Draco 解码器使用 Apache-2.0，许可全文见 `public/vendor/DRACO-LICENSE.txt`。地板与书柜的贴图来自 Poly Haven，授权为 **CC0（公有领域）**，可自由分发，无需署名；素材标识记录在 `tools/fetch-textures.mjs` 与 `blender/MATERIAL_REFERENCES.md`。
 
-## 书源兼容与网址导入
+## 书源兼容与文件导入
 
 “正文书库 → 书源管理与导入”支持 CSS、XPath 1.0、JSONPath（含递归、通配与过滤）及纯 JavaScript 规则。JS 在 QuickJS 中执行，每次上限 0.5 秒、32 MiB 内存，不暴露文件、进程、环境变量或网络接口。支持 `@js:`、`<js>`、URL 的 `{{表达式}}`、`jsLib`、规则后的 JS 转换与 `##正则##替换`；XPath/JSONPath/CSS 可分别用于搜索、书籍信息、目录和正文。实现为自有兼容层，并非完整的 Legado 运行时。
 
-导入成功后自动启用（若源原本 `enabled:false` 则保持停用），可在书源列表勾选开关。没有搜索规则的源标记“网址导入”，不再因 `ruleSearch:[]` 报错，也不会参加按书名搜索；粘贴同站点书籍或目录网址，点击“读取书籍网址”，确认书名后“下载并上架”。支持 `ruleBookInfo`、`ownText`、`href`、`@html`、目录及正文分页；存入书库的是清理后的纯文本。任一章节失败、分页循环或取消均不保存半本书。
+导入成功后自动启用（若源原本 `enabled:false` 则保持停用），可在书源列表勾选开关。没有搜索规则的源标记“不提供搜索”，不再因 `ruleSearch:[]` 报错，也不会参加按书名搜索。在线正文通过书名搜索后下载并上架；本地文件使用 TXT / EPUB 导入。支持 `ruleBookInfo`、`ownText`、`href`、`@html`、目录及正文分页；存入书库的是清理后的纯文本。任一章节失败、分页循环或取消均不保存半本书。
 
 当前边界：不提供阅读 App 的 `java.*`/`Packages.*`、Android 设备注册、Java 加密类、WebView 登录或验证码流程，也不完整实现 Legado 的所有组合选择器。依赖这些能力的源会列明原因并拒绝启用，不能把“支持 JS”当作全部 App 书源已兼容。以本次检查的“番茄小说(APP)”源为例，其正文依赖 Java 加密和设备注册，尚未适配；书海阁文件的目录及正文规则可被解析，但外站 HTTP 403 等服务状态仍可能阻止下载。
 

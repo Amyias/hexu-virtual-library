@@ -124,9 +124,10 @@ class BookLibrary:
 
     def list_sources(self):
         built_in = {"id": "wikisource", "name": Wikisource.name, "enabled": True,
-                    "capabilities": {"search": True, "url_import": False, "engines": []}, "builtin": True}
+                    "capabilities": {"search": True, "engines": []}, "builtin": True}
         return [built_in, *[{"id": key, "name": value["name"], "enabled": value.get("enabled", True),
-                            "capabilities": value.get("capabilities", {"search": True, "url_import": True, "engines": ["CSS"]})}
+                            "capabilities": {"search": value.get("capabilities", {}).get("search", True),
+                                             "engines": value.get("capabilities", {}).get("engines", ["CSS"])}}
                            for key, value in self.sources().items()]]
 
     def set_source_enabled(self, identifier, enabled):
@@ -140,17 +141,6 @@ class BookLibrary:
             config["enabled"] = enabled
             db.execute("UPDATE sources SET config=? WHERE id=?", (json.dumps(config, ensure_ascii=False), identifier))
         return {"id": identifier, "enabled": enabled}
-
-    def preview_url(self, url, source_id="all"):
-        if not isinstance(url, str) or not 0 < len(url) <= 2048:
-            raise SourceError("请输入有效的书籍目录网址")
-        host = urlsplit(url).hostname
-        sources = self.sources()
-        matches = [key for key, value in sources.items() if value.get("enabled", True) and value.get("capabilities", {}).get("url_import", True)
-                   and urlsplit(value["base_url"]).hostname == host and (source_id == "all" or source_id == key)]
-        if not matches:
-            raise SourceError("没有已启用且匹配此网址的书源；请先导入对应书源并勾选启用")
-        return self.provider(matches[0]).preview(url)
 
     def list_books(self):
         with self.connect() as db:
@@ -210,7 +200,7 @@ class BookLibrary:
         providers = [source_id] if source_id != "all" else [key for key, value in available.items()
             if value.get("enabled", True) and value.get("capabilities", {}).get("search", True)][:5] + ["wikisource"]
         if source_id in available and not available[source_id].get("capabilities", {}).get("search", True):
-            return {"local": local, "results": [], "errors": [{"source_id": source_id, "message": "此源支持网址导入，不提供按书名搜索；请粘贴书籍目录网址"}]}
+            return {"local": local, "results": [], "errors": [{"source_id": source_id, "message": "此源不提供按书名搜索，请选择支持搜索的书源"}]}
         def search_source(identifier):
             try:
                 return self.provider(identifier).search(query), None
@@ -359,8 +349,6 @@ def handle_request(handler):
                 raise SourceError("请求必须为 JSON 对象")
             if url.path == "/library/download":
                 reply(202, library.start_download(body))
-            elif url.path == "/library/url":
-                reply(200, library.preview_url(body.get("url"), body.get("source_id", "all")))
             elif url.path.startswith("/library/sources/"):
                 reply(200, library.set_source_enabled(url.path.rsplit("/", 1)[-1], body.get("enabled")))
             elif url.path == "/library/import":

@@ -38,7 +38,7 @@ Windows 默认位置为 `%APPDATA%\hexu-library\books`；其他系统默认 `~/.
 
 搜索 URL 支持 `{{key}}`、`{query}`、`{{page}}`（第一页）及 `{{JS表达式}}`；支持 `URL,{"method":"POST","body":"...","headers":{...}}` 请求选项。请求头仅允许 User-Agent、Accept、Accept-Language、Content-Type、Referer；正文为字符串，编码可为 UTF-8/GBK/GB18030。请求及跳转仍需符合该源同域与公网地址限制。
 
-导入成功后默认启用，源文件标明 `enabled:false` 时保持停用；可在“书源管理与导入”的书源列表勾选开关，状态保存在本机。缺少搜索配置但具有书籍信息、目录与正文规则的源可以导入，标记“网址导入”，不会参加按书名搜索。在上方粘贴同站点的书籍或目录网址，点击“读取书籍网址”，核对书名后“下载并上架”。`ruleBookInfo.tocUrl` 可指向独立目录，`nextTocUrl` 与 `nextContentUrl` 分别用于目录和正文分页，循环或中途失败不保存半本书。导入时只做离线规则验证；公网 DNS 检查在真正访问站点时进行。
+导入成功后默认启用，源文件标明 `enabled:false` 时保持停用；可在“书源管理与导入”的书源列表勾选开关，状态保存在本机。缺少搜索配置但具有书籍信息、目录与正文规则的源可以导入，标记“不提供搜索”，不会参加按书名搜索。在线书籍通过书名搜索后下载；本地书籍通过 TXT / EPUB 文件导入。`ruleBookInfo.tocUrl` 可指向独立目录，`nextTocUrl` 与 `nextContentUrl` 分别用于目录和正文分页，循环或中途失败不保存半本书。导入时只做离线规则验证；公网 DNS 检查在真正访问站点时进行。
 
 以下为格式示例，需要改成实际站点的地址与选择器，不是可直接下载的书源：
 
@@ -104,7 +104,6 @@ src/reader/library.js       src/reader/novel.js
 | `POST /library/import` | 导入文件名与 Base64 文件内容 |
 | `POST /library/sources` | 导入书源 JSON 对象或数组，返回能力与拒绝原因 |
 | `POST /library/sources/<id>` | 设置 `{ "enabled": true/false }` |
-| `POST /library/url` | 提交 `{ "url": "..." }`，匹配已启用书源并读取书名供确认 |
 | `POST /library/progress/<id>` | 保存 `chapter` 和 `offset` |
 
 分页在当前窗口内测量真实文字高度，不使用固定字符数截断或简介占位。翻页的下一页起点等于上一页结束偏移，调整字号与窗口尺寸后重新排版；字符偏移让进度不依赖页码变化。
@@ -116,4 +115,4 @@ npm test
 python -m unittest discover -s tests -p "test_*.py"
 ```
 
-后端测试覆盖持久化、章节与进度恢复、重复入库、EPUB 顺序、脚本剔除、JS / XPath / JSONPath 混合下载、书源启停与网址导入、目录分页、JS 超时及宿主隔离、取消和失败不入库、网络不可用时本地别名命中。界面改动还需在浏览器完成加载 → 找书 → 拖开封面 → 正文翻页 → 查看芯片 → 归还 → 待命，并检查字号、移动端排版与重新打开后的阅读进度。
+后端测试覆盖持久化、章节与进度恢复、重复入库、EPUB 顺序、脚本剔除、JS / XPath / JSONPath 混合下载、书源启停与停用状态持久化、目录分页、JS 超时及宿主隔离、取消和失败不入库、网络不可用时本地别名命中。界面改动还需在浏览器完成加载 → 找书 → 拖开封面 → 正文翻页 → 查看芯片 → 归还 → 待命，并检查字号、移动端排版与重新打开后的阅读进度。

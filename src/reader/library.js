@@ -24,7 +24,7 @@ export function createLocalLibrary({ books, onSelect, onBind, notice }) {
   panel.setAttribute("role", "dialog");
   panel.setAttribute("aria-modal", "true");
   panel.setAttribute("aria-label", "本地正文书库");
-  panel.innerHTML = `<div class="library-dialog"><div class="library-heading"><div><small>YOUR READING COLLECTION</small><h2>本地正文书库</h2></div><button id="closeLibrary" aria-label="关闭正文书库">✕</button></div><p id="libraryStatus" role="status">正在连接本地正文库…</p><form id="librarySearch"><input id="libraryQuery" aria-label="搜索正文书名" placeholder="例如：狂人日记、红楼梦"><select id="librarySource" aria-label="选择书源"><option value="all">所有书源</option></select><button id="searchOnline">在线找正文</button></form><form id="libraryUrlImport"><input id="libraryBookUrl" type="url" aria-label="书籍或目录网址" placeholder="粘贴已导入书源的书籍或目录网址" required><button id="previewBookUrl">读取书籍网址</button></form><div id="downloadRow" hidden><span id="downloadStatus" aria-live="polite"></span><button id="cancelDownload">取消</button></div><div id="libraryResults"></div><div class="library-subheading"><h3>已入库 · 可离线阅读</h3><label class="file-button">导入 TXT / EPUB<input id="importBookFile" type="file" accept=".txt,.epub" hidden></label></div><div id="localBooks"></div><details class="source-import"><summary>书源管理与导入</summary><p>从 <a href="https://www.yckceo.com/yuedu/shuyuan/index.html" target="_blank" rel="noopener noreferrer">源仓库</a> 下载书源 JSON 后导入。支持 CSS、XPath、JSONPath 和纯 JavaScript 规则；书源导入后可在下方勾选启用。仅有目录规则的源可用上方网址入口。Android／Java 专用接口、登录和验证码流程暂不支持。仅获取站点公开提供的免费正文。</p><label class="file-button">导入书源 JSON<input id="importSourceFile" type="file" accept=".json" hidden></label><pre id="sourceReport" role="status"></pre><div id="sourceList"></div></details><details><summary>书库位置</summary><code id="libraryDirectory"></code><p>数据库与 UTF-8 正文保存在程序目录之外，升级不会覆盖。备份时复制整个书库目录。</p></details></div>`;
+  panel.innerHTML = `<div class="library-dialog"><div class="library-heading"><div><small>YOUR READING COLLECTION</small><h2>本地正文书库</h2></div><button id="closeLibrary" aria-label="关闭正文书库">✕</button></div><p id="libraryStatus" role="status">正在连接本地正文库…</p><form id="librarySearch"><input id="libraryQuery" aria-label="搜索正文书名" placeholder="例如：狂人日记、红楼梦"><select id="librarySource" aria-label="选择书源"><option value="all">所有书源</option></select><button id="searchOnline">在线找正文</button></form><div id="downloadRow" hidden><span id="downloadStatus" aria-live="polite"></span><button id="cancelDownload">取消</button></div><div id="libraryResults"></div><div class="library-subheading"><h3>已入库 · 可离线阅读</h3><label class="file-button">导入 TXT / EPUB<input id="importBookFile" type="file" accept=".txt,.epub" hidden></label></div><div id="localBooks"></div><details class="source-import"><summary>书源管理与导入</summary><p>从 <a href="https://www.yckceo.com/yuedu/shuyuan/index.html" target="_blank" rel="noopener noreferrer">源仓库</a> 下载书源 JSON 后导入。支持 CSS、XPath、JSONPath 和纯 JavaScript 规则；书源导入后可在下方勾选启用。仅支持搜索的书源会出现在搜索列表中。Android／Java 专用接口、登录和验证码流程暂不支持。仅获取站点公开提供的免费正文。</p><label class="file-button">导入书源 JSON<input id="importSourceFile" type="file" accept=".json" hidden></label><pre id="sourceReport" role="status"></pre><div id="sourceList"></div></details><details><summary>书库位置</summary><code id="libraryDirectory"></code><p>数据库与 UTF-8 正文保存在程序目录之外，升级不会覆盖。备份时复制整个书库目录。</p></details></div>`;
   document.body.append(panel);
   const button = document.createElement("button");
   button.id = "libraryButton";
@@ -113,12 +113,9 @@ export function createLocalLibrary({ books, onSelect, onBind, notice }) {
         const detail = document.createElement("small");
         detail.textContent = item.builtin
           ? "内置 · 按书名搜索"
-          : [
-              item.capabilities.search ? "按书名搜索" : "不提供搜索",
-              item.capabilities.url_import ? "网址导入" : "",
-            ]
-              .filter(Boolean)
-              .join(" · ");
+          : item.capabilities.search
+            ? "按书名搜索"
+            : "不提供搜索";
         toggle.onchange = async () => {
           toggle.disabled = true;
           try {
@@ -267,25 +264,6 @@ export function createLocalLibrary({ books, onSelect, onBind, notice }) {
     event.preventDefault();
     search($("libraryQuery").value);
   };
-  $("libraryUrlImport").onsubmit = async (event) => {
-    event.preventDefault();
-    if (working) {
-      notice("请等待当前检索或下载完成");
-      return;
-    }
-    working = true;
-    $("previewBookUrl").disabled = true;
-    $("libraryResults").textContent = "正在根据书源读取书籍信息…";
-    try {
-      const candidate = await request("url", { url: $("libraryBookUrl").value.trim() });
-      $("libraryResults").replaceChildren(row(candidate, download, "下载并上架"));
-    } catch (error) {
-      $("libraryResults").textContent = error.message;
-    } finally {
-      working = false;
-      $("previewBookUrl").disabled = false;
-    }
-  };
   $("cancelDownload").onclick = async () => {
     if (jobId) {
       await request("jobs/" + jobId, {}).catch(() => {});
@@ -328,7 +306,7 @@ export function createLocalLibrary({ books, onSelect, onBind, notice }) {
         [
           ...result.accepted.map(
             (item) =>
-              `${item.name}：${item.enabled ? "已启用" : "已停用"} · ${[item.capabilities.search ? "支持搜索" : "", item.capabilities.url_import ? "支持网址导入" : ""].filter(Boolean).join("、")}`,
+              `${item.name}：${item.enabled ? "已启用" : "已停用"} · ${item.capabilities.search ? "支持搜索" : "不提供搜索"}`,
           ),
           ...result.rejected.map((item) => `${item.name}：${item.message}`),
         ].join("\n");
