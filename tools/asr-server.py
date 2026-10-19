@@ -946,6 +946,24 @@ def running_instance(host, port):
     return f"http://{local_host(host)}:{port}/"
 
 
+def utf8_streams():
+    """Let a piped or console run print Chinese on any Windows code page.
+
+    A script-mode start under a test harness, Git Bash or a legacy console may hand Python a
+    pipe encoded with the machine's ANSI code page (cp950, cp936, ...). Printing the startup
+    banner then raised UnicodeEncodeError before the server ever bound its port, so the tests
+    saw only "asr-server did not start". Everything the project writes is UTF-8 already, and a
+    real Windows console is UTF-8 too, so reconfiguring changes nothing there."""
+    for name in ("stdout", "stderr"):
+        stream = getattr(sys, name, None)
+        if stream is None or not hasattr(stream, "reconfigure"):
+            continue
+        try:
+            stream.reconfigure(encoding="utf-8", errors="replace")
+        except (OSError, ValueError):
+            pass
+
+
 def attach_console():
     """Give a packaged run back its console, when it was started from one.
 
@@ -1171,6 +1189,7 @@ def automatic_updates(interval=300, restart_args=()):
 
 def main():
     attach_console()
+    utf8_streams()
     options = parse_argv(sys.argv[1:])
 
     if options["check_mic"]:
