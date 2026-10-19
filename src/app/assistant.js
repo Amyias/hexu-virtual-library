@@ -134,9 +134,9 @@ export function createAssistant({
       $("voiceTitle").textContent = "对话服务尚未就绪，可打开模型设置检查";
       return;
     }
-    conversation.answer(result.reply, result.model, result.truncated);
+    conversation.answer(result.reply, result.model, result.truncated, result.sources);
     respond(result.reply);
-    say(result.reply, 0, { interactive: true });
+    say(result.reply, 0, { interactive: true, sources: result.sources });
     $("voiceTitle").textContent = "小和已回答，可以继续追问";
   }
 

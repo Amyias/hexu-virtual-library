@@ -1,3 +1,5 @@
+import { renderSources } from "./web-sources.js";
+
 /* Optional history opened explicitly by the reader. Every reply also appears fully in the bubble.
    Replies are always textContent: model output cannot inject scripts/HTML into the library. */
 export function createConversation({ onSubmit, onCancel, onClear }) {
@@ -46,7 +48,7 @@ export function createConversation({ onSubmit, onCancel, onClear }) {
     input.disabled = value;
     stop.disabled = !value;
   }
-  function append(role, text) {
+  function append(role, text, sources) {
     const item = document.createElement("article");
     item.className = "conversation-message " + role;
     const label = document.createElement("b");
@@ -54,6 +56,13 @@ export function createConversation({ onSubmit, onCancel, onClear }) {
     const body = document.createElement("div");
     body.textContent = text;
     item.append(label, body);
+    if (sources?.length) {
+      const links = document.createElement("nav");
+      links.className = "web-sources";
+      links.setAttribute("aria-label", "联网参考来源");
+      renderSources(links, sources);
+      item.append(links);
+    }
     log.append(item);
     // Bound the visible transcript separately from the six-turn model context.
     while (log.children.length > 40) log.firstElementChild.remove();
@@ -101,8 +110,8 @@ export function createConversation({ onSubmit, onCancel, onClear }) {
       busy(true);
       status("小和正在回应…");
     },
-    answer(text, model, truncated = false) {
-      append("assistant", text);
+    answer(text, model, truncated = false, sources = []) {
+      append("assistant", text, sources);
       busy(false);
       status(`${model} · 记忆最近 6 轮${truncated ? " · 回答达到长度上限，可让小和继续" : ""}`);
     },

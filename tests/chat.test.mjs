@@ -4,6 +4,7 @@ import { spawnSync } from "node:child_process";
 import path from "node:path";
 import { createChatSession } from "../src/voice/chat.js";
 import { decide, conversationText } from "../src/app/dialogue.js";
+import { sourceEntries } from "../src/app/web-sources.js";
 const ok = (body, status = 200) => new Response(JSON.stringify(body), { status });
 function service() {
   const calls = [];
@@ -33,6 +34,9 @@ test("general questions preserve wording and do not search/move books, including
     "三体讲什么",
     "什么是书",
     "如何放回书架",
+    "小和，搜索今天的新闻",
+    "小和，联网搜索人工智能最新消息",
+    "读取网页 https://example.com/article",
   ])
     for (const phase of ["IDLE", "READING"])
       assert.equal(decide(text, { ...ctx, phase }).type, "chat", text);
@@ -64,6 +68,7 @@ test("mentioning an installed title in discussion or writing cannot trigger shel
   ])
     assert.equal(decide(text, ctx).type, "chat", text);
   assert.equal(decide("小和，帮我找《三体》", ctx).type, "present");
+  assert.equal(decide("帮我搜索《新闻写作》", ctx).type, "present");
   assert.equal(decide("三体", ctx).type, "present");
   assert.equal(decide("小和，请总结这本书", { ...ctx, phase: "READING" }).type, "chat");
 });
@@ -127,6 +132,30 @@ test("missing configuration and timeout produce explicit connection messages", a
   });
   assert.match((await slow.ask("你好", "IDLE")).error, /超时/);
 });
+test("web questions bypass shelf lookup and sources reject executable URLs", () => {
+  const ctx = {
+    phase: "IDLE",
+    direct: true,
+    understand: true,
+    lookup: () => {
+      throw Error("unexpected shelf lookup");
+    },
+  };
+  for (const text of ["联网搜索三体", "搜索今天的新闻", "读取网页 https://example.com"])
+    assert.equal(decide(text, ctx).type, "chat");
+  const entries = sourceEntries([
+    { title: "<script>not HTML</script>", url: "https://example.com/article", id: 1 },
+    { url: "javascript:alert(1)" },
+    { url: "data:text/html,bad" },
+    { url: "https://name:password@example.com" },
+    { url: "not a URL" },
+    null,
+  ]);
+  assert.equal(entries.length, 1);
+  assert.equal(entries[0].title, "<script>not HTML</script>");
+  assert.equal(entries[0].url, "https://example.com/article");
+});
+
 const python = [process.env.PYTHON, path.resolve(".cache/venv/Scripts/python.exe"), "python"].find(
   (cmd) => cmd && spawnSync(cmd, ["--version"], { windowsHide: true }).status === 0,
 );

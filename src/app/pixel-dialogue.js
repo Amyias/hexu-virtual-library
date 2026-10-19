@@ -1,3 +1,5 @@
+import { renderSources } from "./web-sources.js";
+
 const PUNCTUATION = /[，。！？、,.!?:：;；]/u;
 export function splitGlyphs(text) {
   return typeof Intl.Segmenter === "function"
@@ -74,6 +76,11 @@ export function createPixelDialogue(root, sounds) {
   const finishButton = root.querySelector("[data-bubble-finish]");
   const stopButton = root.querySelector("[data-bubble-stop]");
   const status = root.querySelector(".bubble-status");
+  const sources = document.createElement("nav");
+  sources.className = "web-sources";
+  sources.setAttribute("aria-label", "联网参考来源");
+  sources.hidden = true;
+  root.querySelector(".bubble-controls").before(sources);
   let following = true,
     interactive = false;
   copy.addEventListener(
@@ -138,6 +145,7 @@ export function createPixelDialogue(root, sounds) {
     writer.stop();
     sounds.stop();
     message = String(value);
+    renderSources(sources, options.sources);
     interactive = options.interactive === true;
     root.classList.toggle("interactive", interactive);
     stopButton.hidden = typeof options.onCancel !== "function";

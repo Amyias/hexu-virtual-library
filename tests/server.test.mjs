@@ -42,7 +42,7 @@ async function startServer(t, extraEnv = {}) {
   const config = fs.mkdtempSync(path.join(os.tmpdir(), "hexu-settings-"));
   const port = 18000 + Math.floor(Math.random() * 2000);
   const env = Object.fromEntries(
-    Object.entries(process.env).filter(([name]) => !name.startsWith("HEXU_LLM_")),
+    Object.entries(process.env).filter(([name]) => !/^HEXU_(LLM|WEB)_/.test(name)),
   );
   const server = spawn(python, ["tools/asr-server.py", "--no-browser", "--port", String(port)], {
     env: { ...env, APPDATA: config, XDG_CONFIG_HOME: config, PORT: String(port), ...extraEnv },
@@ -147,6 +147,39 @@ test(
 
     // 静态站点不受影响。
     assert.equal(await request(port, "GET", "/index.html", { Host: rebound }), 200);
+  },
+);
+
+test(
+  "web settings persist without exposing keys and reject multiline injection",
+  { skip: !python },
+  async (t) => {
+    const port = await startServer(t);
+    const base = `http://127.0.0.1:${port}`;
+    const headers = { "Content-Type": "application/json" };
+    const post = (body) =>
+      fetch(base + "/settings/key", { method: "POST", headers, body: JSON.stringify(body) });
+    const fakeKey = "invalid-search-test-key";
+    const response = await post({ webKey: fakeKey, webEnabled: "1" });
+    const raw = await response.text();
+    assert.equal(response.status, 200);
+    assert.ok(!raw.includes(fakeKey));
+    let state = JSON.parse(raw);
+    assert.equal(state.web_ready, true);
+    assert.equal(state.web_key_set, true);
+    assert.equal(state.web_key_source, "file");
+    await post({ webEnabled: "0" });
+    state = await (await fetch(base + "/settings/state")).json();
+    assert.equal(state.web_ready, false);
+    assert.equal(state.web_key_set, true);
+    assert.equal((await post({ webEnabled: "invalid" })).status, 400);
+    assert.equal((await post({ webKey: "bad\nHEXU_WEB_ENABLED=1" })).status, 400);
+    state = await (await fetch(base + "/settings/state")).json();
+    assert.equal(state.web_enabled, false);
+    await post({ webKey: "", webEnabled: "1" });
+    state = await (await fetch(base + "/settings/state")).json();
+    assert.equal(state.web_key_set, false);
+    assert.equal(state.web_ready, false);
   },
 );
 

@@ -51,6 +51,7 @@ from pathlib import Path
 import updater
 import book_library
 import llm_chat
+import web_tools
 
 MODEL_NAME = "sherpa-onnx-sense-voice-zh-en-ja-ko-yue-int8-2024-07-17"
 
@@ -297,7 +298,8 @@ UNDERSTAND_LIMIT = RateLimit(LLM_PER_MINUTE)
 
 CATALOG_PATH = ROOT / "public" / "models" / "book-inventory.json"
 CONFIG_PATH = config_path()
-SETTINGS_KEYS = ("HEXU_LLM_BASE_URL", "HEXU_LLM_MODEL", "HEXU_LLM_API_KEY", "HEXU_GITHUB_TOKEN")
+SETTINGS_KEYS = ("HEXU_LLM_BASE_URL", "HEXU_LLM_MODEL", "HEXU_LLM_API_KEY", "HEXU_GITHUB_TOKEN",
+                 "HEXU_WEB_ENABLED", "HEXU_WEB_API_KEY")
 
 
 def load_settings():
@@ -353,6 +355,8 @@ def settings_state():
     for name, default in (("HEXU_LLM_BASE_URL", LLM_BASE_URL_DEFAULT),
                           ("HEXU_LLM_MODEL", LLM_MODEL_DEFAULT),
                           ("HEXU_LLM_API_KEY", ""),
+                          ("HEXU_WEB_ENABLED", "1"),
+                          ("HEXU_WEB_API_KEY", ""),
                           ("HEXU_GITHUB_TOKEN", "")):
         from_environment = os.environ.get(name, "").strip()
         if from_environment:
@@ -377,6 +381,8 @@ def settings_summary():
         "update_token_source": sources["HEXU_GITHUB_TOKEN"],
         "path": str(CONFIG_PATH),
         "asr_ready": model_state()[0],
+        **web_tools.summary(resolved),
+        "web_key_source": sources["HEXU_WEB_API_KEY"],
     }
 
 
@@ -773,9 +779,17 @@ class Handler(SimpleHTTPRequestHandler):
         updates = {}
         for field, name in (("key", "HEXU_LLM_API_KEY"), ("baseUrl", "HEXU_LLM_BASE_URL"),
                             ("model", "HEXU_LLM_MODEL"),
+                            ("webEnabled", "HEXU_WEB_ENABLED"), ("webKey", "HEXU_WEB_API_KEY"),
                             ("updateToken", "HEXU_GITHUB_TOKEN")):
             if field in body:
-                updates[name] = body.get(field)
+                value = body.get(field)
+                if not isinstance(value, str) or "\n" in value or "\r" in value:
+                    self._send_json(400, {"error": "设置必须是单行文本"})
+                    return
+                if field == "webEnabled" and value not in ("0", "1"):
+                    self._send_json(400, {"error": "联网开关无效"})
+                    return
+                updates[name] = value
         save_settings(updates)
         self._send_json(200, {"ok": True, "message": "已保存。下一次说话就会用新的设置。",
                               **settings_summary()})
@@ -783,7 +797,7 @@ class Handler(SimpleHTTPRequestHandler):
     def _post_settings_test(self):
         """Prove the whole path with one real, tiny request: key, address, TLS and parsing."""
         resolved, _ = settings_state()
-        status, payload = llm_chat.chat({"text": "请只回答：连接成功"}, resolved, validate_endpoint)
+        status, payload = llm_chat.chat({"text": "请只回答：连接成功", "web": False}, resolved, validate_endpoint)
         if status == 200:
             seconds = payload.get("seconds", "")
             self._send_json(200, {"ok": True, "message": f"连接成功，模型已应答（{seconds} 秒）",

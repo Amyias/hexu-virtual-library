@@ -128,7 +128,7 @@ const site = spawn(process.execPath, [path.join(root, "tools", "serve.mjs")], {
   cwd: root,
   env: {
     ...Object.fromEntries(
-      Object.entries(process.env).filter(([name]) => !name.startsWith("HEXU_LLM_")),
+      Object.entries(process.env).filter(([name]) => !/^HEXU_(LLM|WEB)_/.test(name)),
     ),
     APPDATA: profile,
     XDG_CONFIG_HOME: profile,
@@ -421,7 +421,7 @@ try {
       if (url === '/chat/ready') return new Response(JSON.stringify({ready:true,configuration:chatTest.config}),{status:200});
       if (url === '/chat') {
         chatTest.calls.push(JSON.parse(options.body));
-        return new Response(JSON.stringify({reply:'机器学习通过数据学习规律。'+ '这是完整回答。'.repeat(25) + '<img src=x onerror=alert(1)>',model:'mock-chat-model',configuration:chatTest.config}),{status:200});
+        return new Response(JSON.stringify({reply:'机器学习通过数据学习规律。'+ '这是完整回答。'.repeat(25) + '<img src=x onerror=alert(1)>',model:'mock-chat-model',configuration:chatTest.config,sources:[{id:1,title:'<img src=x onerror=alert(1)>参考资料',url:'https://example.com/evidence'},{url:'javascript:alert(1)'}]}),{status:200});
       }
       return chatTest.fetch(url,options);
     };
@@ -441,6 +441,10 @@ try {
     full:document.getElementById('bubbleText').textContent,
     speech:JSON.parse(document.getElementById('protocol').textContent).speech,
     preview:libraryDebug.getState().dialogue.message,
+    sourceCount:document.querySelectorAll('#bubble .web-sources a').length,
+    sourceUrl:document.querySelector('#bubble .web-sources a')?.href,
+    sourceRel:document.querySelector('#bubble .web-sources a')?.rel,
+    historySources:document.querySelectorAll('#conversation .web-sources a').length,
     protocol:JSON.parse(document.getElementById('protocol').textContent).action,
     phase:libraryDebug.getState().phase
   })`);
@@ -451,6 +455,10 @@ try {
     chatCheck.full !== chatCheck.speech ||
     chatCheck.answer.length < 150 ||
     chatCheck.injected ||
+    chatCheck.sourceCount !== 1 ||
+    chatCheck.historySources !== 1 ||
+    chatCheck.sourceUrl !== "https://example.com/evidence" ||
+    !chatCheck.sourceRel.includes("noreferrer") ||
     chatCheck.preview !== chatCheck.answer ||
     chatCheck.protocol !== "IDLE" ||
     chatCheck.phase !== "IDLE"

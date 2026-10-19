@@ -272,6 +272,19 @@
       </section>
 
       <section>
+        <h2>联网搜索与网页阅读</h2>
+        <p class="note">小和可按问题需要搜索网页、读取网页后回答，来源显示在像素气泡中。普通闲聊不主动联网。DeepSeek Search / Fetch 各为每千次成功请求 5 元，模型费用另计；每轮最多 3 次联网请求。</p>
+        <label for="webEnabled">联网功能</label>
+        <select id="webEnabled"><option value="1">按需联网</option><option value="0">关闭联网</option></select>
+        <p id="webState" class="note" role="status"></p>
+        <label for="webKey">独立 DeepSeek 搜索密钥（可选）</label>
+        <input id="webKey" type="password" autocomplete="off" placeholder="留空复用当前官方 DeepSeek 密钥" />
+        <p class="note">对话使用官方 DeepSeek 时自动复用已有密钥，无需重填。改用其它对话服务后，可在此单独填写 DeepSeek 密钥，搜索仍由 DeepSeek 提供。密钥只发送给官方接口。</p>
+        <div class="row"><button id="saveWeb" class="primary">保存联网设置</button><button id="clearWeb">清除独立搜索密钥</button></div>
+        <p id="webMessage" role="status"></p>
+      </section>
+
+      <section>
         <h2>关于这个文件</h2>
         <p class="note">
           密钥写在你自己的用户目录里，不在程序所在的文件夹中 —— 程序本体可以整个替换或删除，
@@ -311,6 +324,12 @@
         $("configPath").textContent = summary.path ?? "";
         $("keySource").textContent = SOURCES[summary.key_source] ?? "—";
         $("environmentNote").hidden = !summary.key_from_environment;
+        $("webEnabled").value = summary.web_enabled === false ? "0" : "1";
+        $("webKey").placeholder = summary.web_key_set ? "已配置（留空则不改动）" : "留空复用当前官方 DeepSeek 密钥";
+        $("webState").textContent = !summary.web_enabled ? "联网已关闭。" : summary.web_ready
+          ? (summary.web_key_reused ? "可按需联网，复用当前 DeepSeek 密钥。" : "可按需联网，使用独立 DeepSeek 密钥。")
+          : "尚无可用的 DeepSeek 搜索密钥。";
+        if (summary.web_key_source === "env") $("webState").textContent += "独立搜索密钥来自环境变量，本页修改不能覆盖。";
         state(
           "semantic",
           summary.configured ? "已配置（可自由对话）" : "未配置（仅本地书架操作）",
@@ -376,6 +395,19 @@
         message("请填写该服务的密钥与模型 ID，然后保存并测试连接。", true);
       };
       $("save").onclick = save;
+      $("saveWeb").onclick = async () => {
+        const webKey = $("webKey").value.trim();
+        const { ok, payload } = await post("/settings/key", {
+          webEnabled: $("webEnabled").value, ...(webKey ? { webKey } : {}),
+        });
+        $("webKey").value = "";
+        $("webMessage").textContent = ok ? "联网设置已保存，下次对话生效。" : payload.error || "保存失败。";
+      };
+      $("clearWeb").onclick = async () => {
+        const { ok, payload } = await post("/settings/key", { webKey: "" });
+        $("webKey").value = "";
+        $("webMessage").textContent = ok ? "独立搜索密钥已清除；若对话使用官方 DeepSeek，将复用对话密钥。" : payload.error || "清除失败。";
+      };
 
       $("test").onclick = async () => {
         message("正在保存并测试…", true);

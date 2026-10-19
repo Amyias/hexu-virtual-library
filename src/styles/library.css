@@ -1511,6 +1511,25 @@ body.inspecting #reader > .reader-bottom {
 .bubble.show.interactive {
   pointer-events: auto;
 }
+.web-sources {
+  display: grid;
+  gap: 5px;
+  max-height: 110px;
+  overflow: auto;
+  margin-top: 10px;
+  font:
+    12px/1.6 "Microsoft YaHei",
+    sans-serif;
+  text-align: left;
+  pointer-events: auto;
+}
+.web-sources[hidden] {
+  display: none;
+}
+.web-sources a {
+  color: #376c53;
+  overflow-wrap: anywhere;
+}
 .bubble-controls {
   display: none;
 }

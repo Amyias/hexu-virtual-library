@@ -101,7 +101,11 @@ export function decide(
   if (!request) return { type: "wake-only", wake: !wasInterimWake };
   const wake = addressed && !wasInterimWake;
   const question = QUESTION_OR_DISCUSSION.test(request) || /[？?]\s*$/.test(text);
-  const bookRequest = isBookRequest(request);
+  const webRequest =
+    /联网|上网|网页|https?:\/\//i.test(text) ||
+    (!/《[^》]+》/.test(text) &&
+      /(?:搜索|查一下|搜一下|查询).*(?:新闻|天气|消息|汇率|股价|最新|实时)/.test(text));
+  const bookRequest = !webRequest && isBookRequest(request);
   if (phase === READING) {
     const command = readingCommand(request);
     if (command) return { type: "reading", command };
@@ -112,7 +116,7 @@ export function decide(
   // Offline courtesy still works, but configured models answer naturally instead of canned text.
   const reply = !understand && PET_REPLIES.find(([pattern]) => pattern.test(request));
   if (reply) return { type: "reply", wake, speech: reply[1] };
-  const book = !question || bookRequest ? lookup(request) : null;
+  const book = !webRequest && (!question || bookRequest) ? lookup(request) : null;
   if (book) return { type: "present", wake, book, speech: addressed ? FOUND : LOCATING };
   if (bookRequest || /^HX-\d+$/i.test(request)) {
     if (understand) return { type: "model", wake, request: conversationText(text) };
