@@ -79,7 +79,7 @@ export function bindInput({
     (event) => {
       event.preventDefault();
       if (!machine.is(IDLE)) return;
-      orbit.radius = THREE.MathUtils.clamp(orbit.radius + event.deltaY * 0.016, 12, 38);
+      orbit.radius = THREE.MathUtils.clamp(orbit.radius + event.deltaY * 0.016, 1.2, 38);
       updateCamera();
     },
     { passive: false },

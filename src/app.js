@@ -122,6 +122,26 @@ export async function startLibrary() {
     books,
     notice: feedback.notice,
     onBind: (book) => environment.shelfBooks.setVisible(book, true),
+    onLocate(book) {
+      if (!machine.is(IDLE)) {
+        feedback.notice("书已上架。请先放回当前书籍，再定位书架。");
+        return false;
+      }
+      // Look straight into the assigned face from its aisle. At overview scale a single
+      // 26 mm spine is less than a pixel wide; locating keeps it standing in its real slot.
+      focus.copy(book.origin);
+      Object.assign(orbit, {
+        angle: book.side === "A" ? Math.PI / 2 : -Math.PI / 2,
+        elevation: 0.22,
+        radius: 1.55,
+      });
+      updateCamera();
+      environment.shelfBooks.highlight(book, true);
+      $("locationText").textContent =
+        `《${book.title}》 · 第 ${book.shelf} 架 ${book.side} 面 · 第 ${book.layer} 层 · 第 ${book.slot} 本`;
+      feedback.notice(`已定位 ${book.locationCode}，书本保留在架上；可在正文书库取阅。`);
+      return true;
+    },
     onSelect(book) {
       if (machine.is(IDLE)) assistant.present(book, "正文已在本地书库，正在为您定位。");
       else if (machine.is(READING) && journey.selected?.localBookId === book.localBookId)
@@ -284,6 +304,8 @@ export async function startLibrary() {
       interactiveBooks: books.filter((book) => book.localBookId).length,
       shelfCapacity: books.length,
       visibleShelfBooks: environment.shelfBooks.visibleCount,
+      shelfView: { focus: focus.toArray(), camera: camera.position.toArray() },
+      shelfHighlight: environment.shelfBooks.highlightedPosition,
       staticBooks: environment.staticBooks,
       localLibrary: library.getState(),
       novel: novelReader.getState(),

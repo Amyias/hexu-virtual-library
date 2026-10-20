@@ -78,11 +78,17 @@ export function createShelfBooks(scene, template, books) {
     new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.36, 0.05)),
     0xbdecc5,
   );
+  // BoxHelper defaults to a fixed world matrix. We move this helper between physical
+  // slots, so its position/rotation must actually reach the renderer each frame.
+  highlight.matrixAutoUpdate = true;
   highlight.visible = false;
   scene.add(highlight);
   return {
     get visibleCount() {
       return visibleSlots.size;
+    },
+    get highlightedPosition() {
+      return highlight.visible ? highlight.getWorldPosition(new THREE.Vector3()).toArray() : null;
     },
     setVisible(b, visible) {
       visible = Boolean(visible && b.localBookId);

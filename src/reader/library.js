@@ -15,7 +15,7 @@ export function bookQuery(text) {
     .trim();
 }
 
-export function createLocalLibrary({ books, onSelect, onBind, notice }) {
+export function createLocalLibrary({ books, onSelect, onBind, onLocate, notice }) {
   const slots = orderedShelfSlots(books, deferredSlotIds);
   const assigned = new Map();
   const panel = document.createElement("section");
@@ -70,6 +70,10 @@ export function createLocalLibrary({ books, onSelect, onBind, notice }) {
     panel.hidden = true;
     onSelect(book);
   }
+  function locate(metadata) {
+    const book = bind(metadata);
+    if (onLocate(book)) panel.hidden = true;
+  }
   function row(item, action, label) {
     const element = document.createElement("div");
     element.className = "book-result";
@@ -79,10 +83,28 @@ export function createLocalLibrary({ books, onSelect, onBind, notice }) {
     title.textContent = item.title;
     detail.textContent = `${item.author} · ${item.source}${item.chapter_count ? ` · ${item.chapter_count} 章` : ""}`;
     info.append(title, detail);
+    const bound = assigned.get(item.id);
+    if (bound) {
+      const location = document.createElement("small");
+      location.className = "shelf-location";
+      location.textContent = `第 ${bound.shelf} 架 · ${bound.side} 面 · 第 ${bound.layer} 层 · 第 ${bound.slot} 本 · ${bound.bookId}`;
+      info.append(location);
+      element.dataset.bookId = bound.bookId;
+    }
+    const actions = document.createElement("div");
+    actions.className = "book-actions";
+    if (bound) {
+      const locateButton = document.createElement("button");
+      locateButton.textContent = "定位书架";
+      locateButton.dataset.locateBook = bound.bookId;
+      locateButton.onclick = () => locate(item);
+      actions.append(locateButton);
+    }
     const button = document.createElement("button");
     button.textContent = label;
     button.onclick = () => action(item);
-    element.append(info, button);
+    actions.append(button);
+    element.append(info, actions);
     return element;
   }
   async function refresh() {
@@ -150,7 +172,7 @@ export function createLocalLibrary({ books, onSelect, onBind, notice }) {
       $("libraryStatus").textContent = error.message;
     }
   }
-  async function download(candidate) {
+  async function download(candidate, readAfter = false) {
     if (working) {
       notice("已有检索或下载正在进行，请等待或取消");
       return;
@@ -170,7 +192,8 @@ export function createLocalLibrary({ books, onSelect, onBind, notice }) {
         if (status.state === "completed") {
           await refresh();
           notice(`《${status.book.title}》正文已下载并上架`);
-          select(status.book);
+          if (readAfter) select(status.book);
+          else locate(status.book);
           break;
         }
         if (status.state === "failed" || status.state === "cancelled")
@@ -271,7 +294,7 @@ export function createLocalLibrary({ books, onSelect, onBind, notice }) {
       if (auto && localExact.length === 1) select(localExact[0]);
       else if (auto && preferred && !result.local.length) {
         $("cancelDownload").disabled = false;
-        await download(preferred);
+        await download(preferred, true);
       }
     } catch (error) {
       if (current === generation) {

@@ -915,6 +915,15 @@ body.inspecting #reader > .reader-bottom {
 .book-result small {
   display: block;
 }
+.book-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.book-result .shelf-location {
+  color: var(--green);
+}
 .book-result small {
   margin-top: 5px;
   color: #6e7e68;

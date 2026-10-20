@@ -454,7 +454,7 @@ try {
 
   // Isolated mocked provider response: speech uses the full bubble, never an automatic panel.
   await page.evaluate(`(() => {
-    window.chatTest = { fetch: window.fetch, calls: [], config: 'first' };
+    window.chatTest = { fetch: window.fetch.bind(window), calls: [], config: 'first' };
     window.fetch = async (url, options) => {
       if (url === '/chat/ready') return new Response(JSON.stringify({ready:true,configuration:chatTest.config}),{status:200});
       if (url === '/chat') {
@@ -541,9 +541,59 @@ try {
   if (await page.evaluate("document.querySelectorAll('[data-query], .suggestions, .chip').length"))
     throw new Error("预置推荐入口仍然存在");
   await waitFor(async () => (await state()).localLibrary.ready, "连接空书库");
+  // Only the external download transport is simulated. Completion writes a real TXT
+  // into this test's isolated backend, then the production refresh/binding/GPU path runs.
+  await page.evaluate(`(() => {
+    window.downloadFixture = { fetch: window.fetch.bind(window), book: null };
+    window.fetch = async (url, options) => {
+      const json = payload => new Response(JSON.stringify(payload), {status:200, headers:{'Content-Type':'application/json'}});
+      if (String(url).startsWith('/library/search?')) return json({local:[], results:[{title:'回归阅读甲',author:'测试作者',source:'回归书源',source_id:'fixture'}], errors:[]});
+      if (url === '/library/download') {
+        const bytes = new TextEncoder().encode('这是第一页的本地正文。'.repeat(1500));
+        const response = await downloadFixture.fetch('/library/import', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({filename:'回归阅读甲.txt',data:btoa(String.fromCharCode(...bytes))})});
+        if (!response.ok) throw Error('下载完成入库失败');
+        downloadFixture.book = await response.json();
+        return json({id:'shelving-fixture'});
+      }
+      if (url === '/library/jobs/shelving-fixture') return json({state:'completed',message:'下载完成',book:downloadFixture.book});
+      return downloadFixture.fetch(url, options);
+    };
+    document.getElementById('libraryButton').click();
+    document.getElementById('libraryQuery').value = '回归阅读甲';
+    document.getElementById('librarySearch').requestSubmit();
+  })()`);
+  await waitFor(
+    () =>
+      page.evaluate(
+        "document.querySelector('#libraryResults button')?.textContent === '下载并上架'",
+      ),
+    "显示可下载书籍",
+  );
+  await page.evaluate("document.querySelector('#libraryResults button').click()");
+  await waitFor(
+    async () => (await state()).visibleShelfBooks === 1 && !(await state()).localLibrary.working,
+    "下载完成新增一本实体书",
+  );
+  const shelved = await state();
+  const downloadedBook = await page.evaluate("window.libraryDebug.books[0]");
+  if (
+    shelved.phase !== "IDLE" ||
+    shelved.book ||
+    JSON.stringify(shelved.shelfView.focus) !== JSON.stringify(downloadedBook.worldPosition) ||
+    JSON.stringify(shelved.shelfHighlight) !== JSON.stringify(downloadedBook.worldPosition) ||
+    !(await page.evaluate("document.getElementById('localLibrary').hidden")) ||
+    !(await text("locationText")).includes(downloadedBook.title)
+  )
+    throw Error("下载上架后没有定位真实槽位，或自动取走了刚下载的书");
+  await page.evaluate("window.fetch=downloadFixture.fetch");
+  step(
+    "下载后在对应格子新增实体书",
+    "自动定位书脊、保持在架上；外部下载使用测试响应，真实入库与场景绑定",
+  );
   const imports = await page.evaluate(`(async () => {
-    const saved = [];
-    for (const [title, content] of [["回归阅读甲", "这是第一页的本地正文。".repeat(1500)], ["回归阅读乙", "另一册真实正文。".repeat(300)]]) {
+    const saved = [downloadFixture.book];
+    delete window.downloadFixture;
+    for (const [title, content] of [["回归阅读乙", "另一册真实正文。".repeat(300)]]) {
       const bytes = new TextEncoder().encode(content);
       const data = btoa(String.fromCharCode(...bytes));
       const response = await fetch('/library/import', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({filename:title+'.txt', data}) });
@@ -581,7 +631,7 @@ try {
     throw new Error(`内置书源列表不正确：${JSON.stringify(libraryControls.sources)}`);
   step("书库入口与无忧／天涯／书包网内置书源");
   await page.evaluate(`(() => {
-    window.networkTest = { fetch: window.fetch, calls: [], retries: 0 };
+    window.networkTest = { fetch: window.fetch.bind(window), calls: [], retries: 0 };
     window.fetch = async (url, options) => {
       if (!String(url).startsWith('/library/search?')) return networkTest.fetch(url, options);
       const params = new URL(String(url), location.origin).searchParams;
@@ -665,6 +715,15 @@ try {
   const firstBook = bound.find((b) => b.localBookId === imports[0].id);
   const secondBook = bound.find((b) => b.localBookId === imports[1].id);
   if (!firstBook || !secondBook) throw new Error("导入书籍未绑定真实槽位");
+  await click("libraryButton");
+  await waitFor(
+    () =>
+      page.evaluate(`Boolean(document.querySelector('[data-locate-book="${firstBook.bookId}"]'))`),
+    "已入库书籍提供定位入口",
+  );
+  await page.evaluate(`document.querySelector('[data-locate-book="${firstBook.bookId}"]').click()`);
+  if ((await state()).visibleShelfBooks !== 2 || (await state()).phase !== "IDLE")
+    throw Error("定位书架时取走了实体书");
   step("导入两册真实 TXT", `${firstBook.bookId} / ${secondBook.bookId}`);
   if ((await search(firstBook.bookId)) !== "NAVIGATE_TO_BOOK")
     throw new Error("按编号找书没有发出导航");
