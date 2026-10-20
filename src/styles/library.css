@@ -119,19 +119,7 @@ header > * {
   top: 143px;
   left: 37px;
   width: 275px;
-  isolation: isolate;
   color: #17392e;
-}
-.intro::before {
-  content: "";
-  position: absolute;
-  inset: -14px -16px;
-  z-index: -1;
-  border-radius: 20px;
-  background: linear-gradient(100deg, #edf1e8f2, #edf1e8de 70%, #edf1e8b8);
-  backdrop-filter: blur(8px);
-  box-shadow: 0 0 18px 8px #edf1e87a;
-  pointer-events: none;
 }
 .eyebrow {
   font-size: 10px;
