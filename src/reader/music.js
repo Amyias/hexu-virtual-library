@@ -1,3 +1,11 @@
+import { attachMusicGlass } from "./music-glass.js";
+
+const icon = (path) => `<svg viewBox="0 0 24 24" aria-hidden="true">${path}</svg>`;
+const playIcon = icon('<path d="M8 5.5v13l11-6.5z"/>');
+const pauseIcon = icon(
+  '<rect x="6.5" y="5" width="4" height="14" rx="1"/><rect x="13.5" y="5" width="4" height="14" rx="1"/>',
+);
+
 const TRACKS = [
   { title: "Saint Barbara Theme", file: "/public/audio/01_Saint_Barbara_Theme.mp3" },
   { title: "The Trek", file: "/public/audio/02_The_Trek.mp3" },
@@ -20,7 +28,19 @@ export function createReadingMusic() {
   audio.preload = "none";
   panel.append(audio);
   document.body.append(panel);
+  const glass = attachMusicGlass(panel);
+  panel.querySelector(".music-disc").innerHTML = icon(
+    '<path d="M9 5v12.1a3.2 3.2 0 1 1-2-3V6l13-3v12.1a3.2 3.2 0 1 1-2-3V5.5z"/>',
+  );
+  panel
+    .querySelector(".music-heading")
+    .insertAdjacentHTML(
+      "beforeend",
+      '<span class="music-meter" aria-hidden="true"><i></i><i></i><i></i><i></i></span>',
+    );
   const $ = (id) => panel.querySelector("#" + id);
+  $("musicPrevious").innerHTML = icon('<path d="M5 6h2v12H5zm13 0v12L8 12z"/>');
+  $("musicNext").innerHTML = icon('<path d="M17 6h2v12h-2zM6 6l10 6-10 6z"/>');
   let active = false,
     wantsPlayback = false,
     track = 0,
@@ -36,13 +56,14 @@ export function createReadingMusic() {
   }
   audio.volume = volume / 100;
   $("musicVolume").value = String(volume);
+  $("musicVolume").style.setProperty("--range-progress", `${volume}%`);
 
   function render() {
     $("musicTitle").textContent = TRACKS[track].title;
     $("musicStatus").textContent = status;
     const playing = active && !audio.paused;
     panel.classList.toggle("is-playing", playing);
-    $("musicToggle").textContent = playing ? "Ⅱ" : "▶";
+    $("musicToggle").innerHTML = playing ? pauseIcon : playIcon;
     $("musicToggle").setAttribute("aria-label", playing ? "暂停音乐" : "播放音乐");
     const duration = Number.isFinite(audio.duration) ? audio.duration : 0;
     $("musicTime").textContent = `${clock(audio.currentTime)} / ${clock(duration)}`;
@@ -50,6 +71,7 @@ export function createReadingMusic() {
     $("musicSeek").value = String(
       duration > 0 ? Math.round((audio.currentTime / duration) * 1000) : 0,
     );
+    $("musicSeek").style.setProperty("--range-progress", `${Number($("musicSeek").value) / 10}%`);
   }
   async function play() {
     if (!active) return;
@@ -98,11 +120,13 @@ export function createReadingMusic() {
     if (panel.parentElement === host) return;
     if (host === document.body) host.append(panel);
     else host.insertBefore(panel, host.querySelector(".novel-layout"));
+    glass.refresh();
   }
   function start() {
     if (active) return; // Repeated cover updates must not undo the reader's pause choice.
     active = true;
     panel.hidden = false;
+    glass.refresh();
     void play();
   }
   function stop() {
@@ -124,6 +148,7 @@ export function createReadingMusic() {
   $("musicNext").onclick = () => changeTrack(1);
   $("musicVolume").oninput = (event) => {
     audio.volume = Number(event.target.value) / 100;
+    event.target.style.setProperty("--range-progress", `${event.target.value}%`);
     try {
       localStorage.setItem("hexu-music-volume", event.target.value);
     } catch {

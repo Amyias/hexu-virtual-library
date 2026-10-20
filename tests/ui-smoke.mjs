@@ -182,6 +182,70 @@ try {
   const click = (id) => page.evaluate(`document.getElementById(${JSON.stringify(id)}).click()`);
 
   await page.send("Page.navigate", {
+    url: `http://127.0.0.1:${sitePort}/tests/fixtures/music-glass.html`,
+  });
+  await waitFor(() => page.evaluate("Boolean(window.musicFixture)"), "液态玻璃播放器加载");
+  await click("start");
+  await waitFor(
+    () => page.evaluate("Boolean(document.getElementById('readingMusic').dataset.glassSize)"),
+    "生成圆角折射贴图",
+  );
+  const compactGlass = await page.evaluate(`(()=>{
+    const p=document.getElementById('readingMusic');const r=p.getBoundingClientRect();
+    return {size:p.dataset.glassSize,width:r.width,height:r.height,filter:getComputedStyle(p,'::before').backdropFilter,src:document.getElementById('readingAudio').getAttribute('src')};
+  })()`);
+  if (!compactGlass.filter.includes("url(") || !compactGlass.filter.includes("blur("))
+    throw Error("播放器缺少真实背景折射滤镜");
+  await click("docked");
+  await waitFor(
+    () =>
+      page.evaluate(
+        `document.getElementById('readingMusic').dataset.glassSize !== ${JSON.stringify(compactGlass.size)}`,
+      ),
+    "阅读条重新生成正确比例的折射贴图",
+  );
+  if (
+    !(await page.evaluate(
+      `document.querySelector('#dock #readingMusic') && document.getElementById('readingAudio').getAttribute('src')===${JSON.stringify(compactGlass.src)}`,
+    ))
+  )
+    throw Error("切换阅读条丢失音轨或播放器");
+  await click("musicNext");
+  if (!(await text("musicTitle")).includes("The Trek")) throw Error("玻璃按钮无法切歌");
+  await page.evaluate(
+    "document.getElementById('musicVolume').value=35; document.getElementById('musicVolume').dispatchEvent(new Event('input'))",
+  );
+  if ((await page.evaluate("musicFixture.getState().volume")) !== 0.35)
+    throw Error("玻璃音量控件不可用");
+  await page.send("Emulation.setDeviceMetricsOverride", {
+    width: 390,
+    height: 844,
+    deviceScaleFactor: 1,
+    mobile: false,
+  });
+  await waitFor(
+    () =>
+      page.evaluate("document.getElementById('readingMusic').getBoundingClientRect().width < 390"),
+    "窄屏播放器保持可见",
+  );
+  await click("compact");
+  if (
+    !(await page.evaluate(
+      "document.getElementById('readingMusic').getBoundingClientRect().right <= innerWidth",
+    ))
+  )
+    throw Error("悬浮播放器超出窄屏");
+  await click("stop");
+  if (
+    !(await page.evaluate(
+      "document.getElementById('readingMusic').hidden && !musicFixture.getState().active",
+    ))
+  )
+    throw Error("停止后玻璃播放器仍显示");
+  await page.send("Emulation.clearDeviceMetricsOverride");
+  step("液态玻璃播放器", "背景折射、两种布局自适应、窄屏、切歌、音量和停止通过");
+
+  await page.send("Page.navigate", {
     url: `http://127.0.0.1:${sitePort}/tests/fixtures/window-chrome.html`,
   });
   await waitFor(

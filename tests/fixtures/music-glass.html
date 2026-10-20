@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>阅读音乐液态玻璃验证</title><link rel="stylesheet" href="../../src/styles/library.css"><style>
+body{background:#bdc8b6;background-image:repeating-linear-gradient(0deg,transparent 0 39px,#3b63455e 39px 40px),repeating-linear-gradient(90deg,#decdb778 0 79px,#756b4d55 79px 80px);background-size:80px 40px}
+.fixture-controls{position:absolute;top:24px;left:24px;display:flex;gap:10px}.fixture-controls button{padding:10px 16px}
+#dock{position:absolute;top:140px;left:24px;right:24px;height:250px;background:transparent;box-shadow:none;border:0;overflow:visible}
+.novel-layout{min-height:0}.fixture-caption{position:fixed;left:24px;bottom:24px;font-size:18px;letter-spacing:.08em;color:#234c3c}
+</style></head><body><nav class="fixture-controls"><button id="start">播放</button><button id="compact">悬浮模式</button><button id="docked">阅读条模式</button><button id="stop">停止</button></nav><div id="dock" class="novel-shell" hidden><div class="novel-layout"></div></div><p class="fixture-caption">LIQUID GLASS · READING SOUNDTRACK</p><script type="module">
+import {createReadingMusic} from '../../src/reader/music.js';
+const music=createReadingMusic();
+const dock=document.getElementById('dock');
+document.getElementById('start').onclick=()=>music.start();
+document.getElementById('compact').onclick=()=>{music.mount();dock.hidden=true;};
+document.getElementById('docked').onclick=()=>{dock.hidden=false;music.mount(dock);};
+document.getElementById('stop').onclick=()=>music.stop();
+window.musicFixture=music;
+</script></body></html>
