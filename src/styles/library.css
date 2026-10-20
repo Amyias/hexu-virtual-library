@@ -92,13 +92,7 @@ header > * {
   letter-spacing: 3px;
   color: var(--muted);
 }
-.top-right {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-  font-size: 12px;
-}
-.pill {
+.mic-indicator {
   padding: 8px 13px;
   background: #ffffff90;
   border: 1px solid #ffffff;
@@ -178,61 +172,6 @@ header > * {
   border: 1px solid #d7ded5;
   border-radius: 4px;
   font-family: inherit;
-}
-.collection {
-  position: fixed;
-  right: 30px;
-  top: 133px;
-  width: 215px;
-  padding: 22px;
-  background: #f9faf4d9;
-  border: 1px solid #fff;
-  border-radius: 17px;
-  backdrop-filter: blur(18px);
-}
-.section-title {
-  display: flex;
-  justify-content: space-between;
-  font-size: 10px;
-  letter-spacing: 2px;
-  color: #8a948a;
-  margin-bottom: 14px;
-}
-.shelf-link {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  width: 100%;
-  border: 0;
-  background: none;
-  text-align: left;
-  padding: 12px 0;
-  border-bottom: 1px solid #e1e5dc;
-}
-.shelf-link:last-of-type {
-  border: 0;
-}
-.shelf-link .number {
-  font: italic 17px Georgia;
-  color: #9aab98;
-}
-.shelf-link strong {
-  font-size: 12px;
-  font-weight: 500;
-  display: block;
-}
-.shelf-link small {
-  font-size: 9px;
-  color: #98a093;
-  letter-spacing: 1px;
-}
-.shelf-link:hover strong {
-  color: #419469;
-}
-.collection-note {
-  font-size: 10px;
-  color: #89948a;
-  padding-top: 12px;
 }
 .bottom {
   pointer-events: none;
@@ -592,7 +531,6 @@ form button {
   margin-right: 8px;
 }
 .reading .intro,
-.reading .collection,
 .reading .bottom,
 .reading .view-tools,
 .reading .location {
@@ -600,48 +538,6 @@ form button {
 }
 .reading #bubble {
   display: none;
-}
-.reading .top-right .pill:last-child {
-  display: none;
-}
-details.help {
-  position: fixed;
-  right: 35px;
-  top: 82px;
-  z-index: 8;
-  font-size: 11px;
-}
-details.help summary {
-  cursor: pointer;
-  color: #7a8a7c;
-  text-align: right;
-}
-details.help .help-body {
-  margin-top: 10px;
-  width: 330px;
-  padding: 20px;
-  background: #fafcf7f5;
-  box-shadow: 0 14px 50px #304c3925;
-  border: 1px solid white;
-  border-radius: 16px;
-}
-details.help p {
-  margin: 8px 0;
-}
-details.help a {
-  color: var(--green);
-}
-details.help code {
-  font-size: 10px;
-  overflow-wrap: anywhere;
-}
-#protocol {
-  max-height: 150px;
-  overflow: auto;
-  background: #eef2e9;
-  padding: 10px;
-  font-size: 10px;
-  white-space: pre-wrap;
 }
 #loading {
   position: fixed;
@@ -692,15 +588,7 @@ details.help code {
   .intro h1 {
     font-size: 32px;
   }
-  .collection {
-    width: 185px;
-    right: 20px;
-    padding: 17px;
-  }
   .location {
-    display: none;
-  }
-  .top-right .pill:last-child {
     display: none;
   }
   .bottom {
@@ -713,12 +601,6 @@ details.help code {
   }
   .brand strong {
     font-size: 19px;
-  }
-  .top-right {
-    font-size: 10px;
-  }
-  .top-right .pill {
-    max-width: 175px;
   }
   .intro {
     top: 111px;
@@ -736,16 +618,9 @@ details.help code {
   .intro .hint {
     display: none;
   }
-  .collection {
-    display: none;
-  }
   .view-tools {
     right: 20px;
     bottom: 205px;
-  }
-  details.help {
-    right: 22px;
-    top: 75px;
   }
   .bottom {
     width: calc(100% - 28px);
@@ -767,22 +642,19 @@ details.help code {
     font-size: 11px;
   }
 }
-.top-right .pill:first-child {
+.mic-indicator {
   position: fixed;
   top: 88px;
   left: 36px;
   font-size: 11px;
 }
-.reading .top-right .pill:first-child {
+.reading .mic-indicator {
   top: 85px;
 }
 #reader {
   background: radial-gradient(ellipse at center, transparent 52%, #dfe6dc35 100%);
 }
 @media (min-width: 701px) and (max-width: 1000px) {
-  .collection {
-    display: none;
-  }
   .intro {
     width: 260px;
   }
@@ -801,7 +673,7 @@ details.help code {
   }
 }
 @media (max-width: 700px) {
-  .top-right .pill:first-child {
+  .mic-indicator {
     top: 82px;
     left: 20px;
     max-width: 270px;

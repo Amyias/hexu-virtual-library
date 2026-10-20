@@ -134,9 +134,7 @@
   top: var(--window-title-height);
 }
 .desktop-shell .intro,
-.desktop-shell .collection,
-.desktop-shell details.help,
-.desktop-shell .top-right .pill:first-child {
+.desktop-shell .mic-indicator {
   margin-top: var(--window-title-height);
 }
 .window-maximized .desktop-titlebar {

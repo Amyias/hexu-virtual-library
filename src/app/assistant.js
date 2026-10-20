@@ -28,14 +28,13 @@ export function createAssistant({
   let intentGeneration = 0;
   const lookup = (text) => getLibrary()?.find(text) || findBook(text);
 
-  /** Publish the find / wake protocol and show it in the developer panel. */
+  /** Publish the find / wake protocol for integrations. */
   function respond(text, book = null, wakeOnly = false) {
     const response = protocolResponse(text, book, wakeOnly, {
       anchors,
       heights,
       home: home.toArray(),
     });
-    $("protocol").textContent = JSON.stringify(response, null, 2);
     window.dispatchEvent(new CustomEvent("xiaohe-response", { detail: response }));
     return response;
   }

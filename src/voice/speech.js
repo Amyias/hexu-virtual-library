@@ -41,21 +41,11 @@ export function createSpeech({ $, notice, wake, processText, getPhase, lookupBoo
     }
     return list;
   }
-  /* Bounded record of what was heard versus what was used. Without it a recognition
-     error and a matching miss look identical in the interface — both just do nothing. */
+  /* Bounded diagnostics exposed through getState(), without a separate UI panel. */
   const recent = [];
   function record(heard, used, candidates, matched) {
     recent.push({ heard, used, candidates, matched });
     if (recent.length > 20) recent.shift();
-    $("voiceLog").textContent = recent
-      .slice(-5)
-      .reverse()
-      .map((r) =>
-        r.matched
-          ? `听到：${r.heard}${r.used !== r.heard ? ` → 采用候选：${r.used}` : ""} ✓`
-          : `听到：${r.heard} ✗ ${r.candidates > 1 ? `${r.candidates} 条候选均未匹配` : "未匹配馆藏"}`,
-      )
-      .join("\n");
   }
   function micStatus(text, kind = "off") {
     $("micStatus").textContent = text;

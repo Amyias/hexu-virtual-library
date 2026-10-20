@@ -17,12 +17,9 @@
           <strong>和序图书馆</strong><small>HE XU · LIVING LIBRARY</small>
         </div>
       </div>
-      <div class="top-right">
-        <div class="pill" role="status">
-          <i id="micDot" class="status-dot"></i
-          ><span id="micStatus">语音感知未启动</span>
-        </div>
-        <div class="pill">05 馆藏分区 · 双面开放书架</div>
+      <div class="mic-indicator" role="status">
+        <i id="micDot" class="status-dot"></i
+        ><span id="micStatus">语音感知未启动</span>
       </div>
     </header>
     <aside class="intro">
@@ -32,40 +29,6 @@
       <div class="rule"></div>
       <p>你的专属馆员，一直在这里。</p>
       <div class="hint"><kbd>拖动</kbd> 环视空间　<kbd>滚轮</kbd> 靠近书架</div>
-    </aside>
-    <aside class="collection">
-      <div class="section-title"><span>探索馆藏</span><span>INDEX</span></div>
-      <div class="shelf-link">
-        <span class="number">01</span
-        ><span
-          ><strong>计算机与 AI 技术</strong
-          ><small>COMPUTER & SCIENCE</small></span
-        ></div
-      ><div class="shelf-link">
-        <span class="number">02</span
-        ><span
-          ><strong>文学与历史哲学</strong
-          ><small>LITERATURE & HISTORY</small></span
-        ></div
-      ><div class="shelf-link">
-        <span class="number">03</span
-        ><span
-          ><strong>商业经济与管理</strong><small>BUSINESS & LIFE</small></span
-        ></div
-      ><div class="shelf-link">
-        <span class="number">04</span
-        ><span
-          ><strong>艺术设计与建筑</strong><small>ART & DESIGN</small></span
-        ></div
-      ><div class="shelf-link">
-        <span class="number">05</span
-        ><span
-          ><strong>科幻与未来馆藏</strong><small>SCIENCE FICTION</small></span
-        >
-      </div>
-      <div class="collection-note">
-        5 架 · 双面 4 层 · 书脊朝外竖排<br />仅展示已入库书籍，未入库槽位留空。
-      </div>
     </aside>
     <div id="bubble" class="bubble" aria-hidden="true"></div>
     <div class="bottom">
@@ -114,74 +77,6 @@
         <div class="reader-bottom"><p>芯片编号对应书籍编号 · 内部标记记录书架、面、层与槽位</p><button id="closeChip">返回书本 ↗</button></div>
       </div>
     </section>
-    <details class="help">
-      <summary>使用说明 ↗</summary>
-      <div class="help-body">
-        <p>
-          <b>先点击「启动语音感知」并允许麦克风。</b
-          >说「小和」，再说想找的书名；也可以一句说完。
-        </p>
-        <p>
-          这一次点击只需一次：授权之后，以后每次打开页面都会自动开始收听，直接说「小和」即可，无需再点。
-          （页面无法在未经你同意的情况下打开麦克风——浏览器的麦克风授权本身必须有用户手势，这不可绕过。）
-        </p>
-        <p>
-          支持：小和、小何、肖和、小荷、小禾、小鹤、xiao he。唤醒后等待 25
-          秒；未入库的书名会检索在线正文，多个候选时请在正文书库选择来源。
-        </p>
-        <p>
-          书名不必说得分毫不差：三字以上的书名差一个字（「时间减史」）或只说其中一段（「计算机」）都能命中，
-          识别器返回的多个候选也会一并参与匹配。二字书名（如《三体》）需要说准，或让候选里的正确写法命中。
-        </p>
-        <p>
-          <b>说不出书名也没关系。</b>服务器若配置了语义解析，规则理解不了的说法（「霍金写的那本」
-          「讲宇宙起源最著名的那本书」）会交给大语言模型判断要哪一本。规则能直接命中的不会绕这一趟，
-          所以常见说法仍然是即时的。
-        </p>
-        <p>
-          <b>配置大模型对话：</b>打开 <a href="/settings">本机设置</a>
-          填写 API 密钥、接入地址和模型名称。点击右侧「和 · 对话」可以提问和连续追问，所有回答都在像素气泡中完整逐字显示，支持滚动、「显示全文」与「收起」；语音提问不会自动打开面板。DeepSeek 默认关闭思考模式。DeepSeek 与其他 Chat Completions 兼容服务可随时切换，下一次提问生效；上下文仅保留当前页面最近 6 轮，点击「新对话」清空。<b>未配置时仍能操作书架</b>——找书照旧由本地规则即时完成，只是规则看不懂的说法会礼貌拒绝。
-          密钥保存在你自己的用户目录，不在程序目录里，也不会被任何页面显示出来。
-        </p>
-        <p>
-          <b>正文阅读：</b>说「小和，帮我找狂人日记」，或打开「正文书库」检索、下载或导入 TXT / EPUB。
-          正文下载完整后绑定到书架，翻开封面即可按页阅读，支持目录、字号与进度恢复。
-          阅读时也可以用嘴操作：<b>翻开、合上、下一页、上一页、读正文、看看芯片、放回书架</b>。
-        </p>
-        <p>
-          点击小和或说出唤醒词，会弹出像素气泡，文字逐字出现。右下角 ▥ 可独立关闭气泡与打字音效；音效在首次点击或键盘操作后可播放。语音播报默认关闭，右下角 ♪
-          可开启播报，建议配合耳机以减少扬声器回声。
-        </p>
-        <p>
-          书架仅显示已导入或下载的真实书籍，未入库位置保持空置。找书默认由本地规则完成；
-          普通问答会把<b>本次问题与最近对话</b>发送至所配置的模型服务；自然语言找书会发送转写文本与真实馆藏目录——
-          音频始终不出服务器。浏览器语音识别可能把音频发送至其识别服务，需要可用的网络；后台页面不保证持续识别。<a
-            href="https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition"
-            target="_blank"
-            rel="noreferrer"
-            >Web Speech API 说明</a
-          >
-        </p>
-        <p>
-          本地运行：在本文件目录终端执行 <code>npm start</code>，打开
-          <code>http://localhost:8080</code> —— 正文书库需要 Python 3.10+，没有本机识别模型。<b>含本机识别的完整功能</b>请双击重新打包的「和序图书馆」
-          程序（见 <code>DEPLOY.md</code> 的「本机版打包」）：它自带识别模型与本机服务，<b>直接打开自己的窗口</b>，
-          里面同时提供站点、识别与语义解析。模型与渲染依赖均保存在本项目内。
-        </p>
-        <p>
-          每架沿 Z 轴延伸 8m，宽 1m、高 2m；给定坐标是架端引导点，A / B
-          书籍位于各架两侧。
-        </p>
-        <p>最近一次结构化响应：</p>
-        <pre id="protocol">等待唤醒</pre>
-        <p>
-          最近识别记录。用来分辨是识别错了还是没匹配上：<code>✗</code>
-          说明连候选都没命中馆藏，<code>→ 采用候选</code>
-          说明首选听错了、靠候选救回。
-        </p>
-        <pre id="voiceLog">尚无识别记录</pre>
-      </div>
-    </details>
     <div id="notice" role="alert"></div>
     <div id="loading">
       <div>

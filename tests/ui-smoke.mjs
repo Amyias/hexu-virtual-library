@@ -176,7 +176,7 @@ try {
       q.value = ${JSON.stringify(text)};
       q.closest('form').requestSubmit();
       panel.querySelector('[data-close]').click();
-      return JSON.parse(document.getElementById('protocol').textContent).action;
+      return window.lastProtocol.action;
     })()`);
   const text = (id) => page.evaluate(`document.getElementById(${JSON.stringify(id)}).textContent`);
   const click = (id) => page.evaluate(`document.getElementById(${JSON.stringify(id)}).click()`);
@@ -486,6 +486,22 @@ try {
     throw new Error(`场景不完整：${JSON.stringify(loaded)}`);
   step("加载场景", `${loaded.shelfCapacity} 个空槽位，0 本预置书`);
   if (
+    await page.evaluate(
+      "Boolean(document.querySelector('.collection, .shelf-link, .top-right, .help, #protocol, #voiceLog'))",
+    )
+  )
+    throw Error("已删除的馆藏索引或说明面板仍然存在");
+  if (
+    !(await page.evaluate(
+      "Boolean(document.querySelector('.mic-indicator #micStatus') && document.getElementById('micDot'))",
+    ))
+  )
+    throw Error("清理右侧面板误删了麦克风状态指示器");
+  await page.evaluate(
+    "window.addEventListener('xiaohe-response', event => { window.lastProtocol = event.detail; })",
+  );
+
+  if (
     !loaded.companion?.loaded ||
     loaded.companion.source !== "blender" ||
     loaded.companion.legs !== 4 ||
@@ -506,7 +522,7 @@ try {
     "点击 Blender 小和回应",
   );
   const wakeState = await state();
-  const protocol = JSON.parse(await text("protocol"));
+  const protocol = await page.evaluate("window.lastProtocol");
   if (
     wakeState.phase !== "IDLE" ||
     JSON.stringify(wakeState.orb) !== JSON.stringify(home) ||
@@ -541,7 +557,7 @@ try {
     answer:document.querySelector('.conversation-message.assistant div').textContent,
     injected:document.querySelectorAll('#conversation img, #bubble img').length,
     full:document.getElementById('bubbleText').textContent,
-    speech:JSON.parse(document.getElementById('protocol').textContent).speech,
+    speech:window.lastProtocol.speech,
     preview:libraryDebug.getState().dialogue.message,
     pet:libraryDebug.getState().petBounds,
     bubble:(()=>{const r=document.getElementById('bubble').getBoundingClientRect();return {left:r.left,right:r.right,top:r.top,bottom:r.bottom,height:r.height};})(),
@@ -550,7 +566,7 @@ try {
     sourceUrl:document.querySelector('#bubble .web-sources a')?.href,
     sourceRel:document.querySelector('#bubble .web-sources a')?.rel,
     historySources:document.querySelectorAll('#conversation .web-sources a').length,
-    protocol:JSON.parse(document.getElementById('protocol').textContent).action,
+    protocol:window.lastProtocol.action,
     phase:libraryDebug.getState().phase
   })`);
   if (
