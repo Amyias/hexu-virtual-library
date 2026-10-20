@@ -4,6 +4,7 @@ import { probeUnderstand } from "./voice/understand.js";
 import { createSpeech } from "./voice/speech.js";
 import { createRuntime } from "./scene/runtime.js";
 import { loadEnvironment } from "./scene/environment.js";
+import { createLighting } from "./scene/lighting.js";
 import { createCompanion } from "./scene/companion.js";
 import { createBookFactory } from "./reader/book.js";
 import { createLocalLibrary } from "./reader/library.js";
@@ -52,6 +53,7 @@ export async function startLibrary() {
     (percent) =>
       ($("loading").querySelector("p").textContent = "正在加载 Blender 模型 " + percent + "%"),
   );
+  const lighting = await createLighting({ scene, renderer, root: environment.root });
   const factory = createBookFactory(renderer, environment.bookTemplate);
   const companion = await createCompanion(scene, home);
   const orb = companion.root; // Navigation keeps its existing anchor contract.
@@ -275,7 +277,10 @@ export async function startLibrary() {
       $("voiceTitle").textContent = "说一声「小和」，开启一段探索";
     }
     // The full-screen text panels keep the last scene frame; reading needs no GPU redraws.
-    if (!novelReader.visible && !library.opened && !settings.opened) renderer.render(scene, camera);
+    if (!novelReader.visible && !library.opened && !settings.opened) {
+      lighting.setDynamicShadows(!machine.is(IDLE) && !machine.is(READING));
+      renderer.render(scene, camera);
+    }
   }
   frame();
   $("loading").style.display = "none";
@@ -288,6 +293,7 @@ export async function startLibrary() {
       ...speech.getState(),
       modelLoaded: environment.loaded,
       modelMeshes: environment.meshes,
+      lighting: lighting.getState(),
       book: journey.selected?.title,
       orb: orb.position.toArray(),
       companion: companion.getState(),
@@ -304,6 +310,7 @@ export async function startLibrary() {
       interactiveBooks: books.filter((book) => book.localBookId).length,
       shelfCapacity: books.length,
       visibleShelfBooks: environment.shelfBooks.visibleCount,
+      renderedShelfSlots: environment.shelfBooks.drawCount,
       shelfView: { focus: focus.toArray(), camera: camera.position.toArray() },
       shelfHighlight: environment.shelfBooks.highlightedPosition,
       staticBooks: environment.staticBooks,

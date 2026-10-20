@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Library lighting inspection</title>
+    <style>html,body{margin:0;overflow:hidden}canvas{display:block}</style>
+    <script type="importmap">{"imports":{"three":"/public/vendor/three.module.js","three/addons/":"/public/vendor/addons/"}}</script>
+  </head>
+  <body>
+    <canvas id="scene"></canvas>
+    <script type="module">
+      import { createRuntime } from "/src/scene/runtime.js";
+      import { loadEnvironment } from "/src/scene/environment.js";
+      import { createLighting } from "/src/scene/lighting.js";
+      const runtime = createRuntime(document.querySelector("canvas"));
+      const environment = await loadEnvironment(runtime.scene, [], () => {});
+      const lighting = await createLighting({ ...runtime, root: environment.root });
+      environment.root.traverse((object) => {
+        if (!object.isMesh) return;
+        for (const material of Array.isArray(object.material) ? object.material : [object.material]) {
+          if (material.vertexColors && !object.geometry.hasAttribute("color"))
+            throw new Error("A shared material enabled vertex colours on an uncoloured mesh");
+        }
+      });
+      window.lightingPreview = { ...runtime, environment, lighting };
+      runtime.renderer.render(runtime.scene, runtime.camera);
+      window.lightingReady = true;
+    </script>
+  </body>
+</html>

@@ -481,10 +481,18 @@ try {
     !loaded.modelLoaded ||
     loaded.shelfCapacity !== 11360 ||
     loaded.interactiveBooks !== 0 ||
+    loaded.renderedShelfSlots !== 0 ||
     loaded.visibleShelfBooks !== 0
   )
     throw new Error(`场景不完整：${JSON.stringify(loaded)}`);
   step("加载场景", `${loaded.shelfCapacity} 个空槽位，0 本预置书`);
+  if (
+    loaded.lighting?.pendantLights !== 8 ||
+    loaded.lighting.groundAoReceivers !== 1 ||
+    loaded.lighting.groundAoResolution[0] !== 2048 ||
+    !(loaded.lighting.underlayVertices > 0)
+  )
+    throw Error("灯光、接触遮蔽或地板暗色衬底未加载");
   if (
     !(await page.evaluate(
       "Boolean(document.querySelector('.mark img')?.complete && document.querySelector('.mark img').naturalWidth > 0)",

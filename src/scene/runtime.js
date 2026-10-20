@@ -15,10 +15,10 @@ export function createRuntime(canvas) {
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
   renderer.setSize(innerWidth, innerHeight);
   renderer.shadowMap.enabled = true;
-  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.shadowMap.type = THREE.PCFShadowMap;
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.05;
+  renderer.toneMappingExposure = 1.0;
   const scene = new THREE.Scene();
   scene.background = new THREE.Color("#e9ece3");
   scene.fog = new THREE.Fog("#e9ece3", 36, 70);
@@ -34,23 +34,6 @@ export function createRuntime(canvas) {
     camera.lookAt(focus);
   }
   updateCamera();
-  scene.add(new THREE.HemisphereLight(0xffffff, 0x899276, 1.65));
-  const sun = new THREE.DirectionalLight(0xfff4df, 3.0);
-  sun.position.set(-8, 18, 10);
-  sun.castShadow = true;
-  sun.shadow.mapSize.set(2048, 2048);
-  Object.assign(sun.shadow.camera, {
-    left: -17,
-    right: 17,
-    top: 17,
-    bottom: -17,
-    near: 1,
-    far: 60,
-  });
-  sun.shadow.bias = -0.0005;
-  sun.shadow.normalBias = 0.035;
-  scene.add(sun);
-
   const pmrem = new THREE.PMREMGenerator(renderer);
   const environment = new RoomEnvironment();
   const envTarget = pmrem.fromScene(environment, 0.06);

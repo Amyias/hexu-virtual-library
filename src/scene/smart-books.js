@@ -44,10 +44,18 @@ export function createShelfBooks(scene, template, books) {
   const zero = new THREE.Matrix4().makeScale(0, 0, 0);
   const pools = [];
   const visibleSlots = new Set(books.filter((b) => b.localBookId).map((b) => b.bookId));
+  // Zero matrices hide slots but still execute their vertices through every light's shader.
+  // Keep physical indices stable, while omitting the unused tail (all slots when empty).
+  const updateDrawCount = () => {
+    let count = books.length;
+    while (count && !visibleSlots.has(books[count - 1].bookId)) count--;
+    for (const { mesh } of pools) mesh.count = count;
+  };
   const pool = (mesh, matrices) => {
     matrices.forEach((m, i) => mesh.setMatrixAt(i, books[i].localBookId ? m : zero));
     scene.add(mesh);
     pools.push({ mesh, matrices });
+    updateDrawCount();
   };
   books.forEach((b, i) => {
     b.origin = new THREE.Vector3(...b.worldPosition);
@@ -87,6 +95,9 @@ export function createShelfBooks(scene, template, books) {
     get visibleCount() {
       return visibleSlots.size;
     },
+    get drawCount() {
+      return pools[0]?.mesh.count ?? 0;
+    },
     get highlightedPosition() {
       return highlight.visible ? highlight.getWorldPosition(new THREE.Vector3()).toArray() : null;
     },
@@ -98,6 +109,7 @@ export function createShelfBooks(scene, template, books) {
         mesh.setMatrixAt(b.instanceIndex, visible ? matrices[b.instanceIndex] : zero);
         mesh.instanceMatrix.needsUpdate = true;
       }
+      updateDrawCount();
     },
     highlight(b, on) {
       highlight.visible = on;

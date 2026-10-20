@@ -51,6 +51,8 @@ const SITE_FILES = [
   "src",
   path.join("public", "favicon.ico"),
   path.join("public", "icons", "xiaohe.svg"),
+  path.join("public", "textures", "library-contact-ao.png"),
+  path.join("public", "models", "lighting-rig.json"),
   path.join("public", "settings.html"),
   path.join("public", "vendor"),
   path.join("public", "audio"),
@@ -62,8 +64,8 @@ const SITE_FILES = [
   path.join("public", "models", "manifest.json"),
   path.join("public", "models", "book-inventory.json"),
 ];
-// public/textures is deliberately absent: those seven images are embedded in
-// hexu-library.glb already, and the loose copies exist only to feed Blender.
+// The colour/normal scans remain embedded in the GLB. Only the separately baked
+// ground AO above is a runtime texture; the other loose images still only feed Blender.
 
 /** Compressed in place, so the server can answer with Content-Encoding: gzip. */
 const COMPRESSIBLE = new Set([".html", ".js", ".mjs", ".css", ".json", ".glb", ".svg", ".txt"]);
@@ -390,6 +392,8 @@ function verify() {
     path.join(appDir, "_internal", "update-helper.ps1"),
     path.join(appDir, "_internal", "public", "favicon.ico"),
     path.join(appDir, "_internal", "public", "icons", "xiaohe.svg"),
+    path.join(appDir, "_internal", "public", "textures", "library-contact-ao.png"),
+    path.join(appDir, "_internal", "public", "models", "lighting-rig.json"),
     path.join(appDir, "_internal", "public", "settings.html"),
     path.join(appDir, "_internal", "public", "audio", "01_Saint_Barbara_Theme.mp3"),
     path.join(appDir, "_internal", "public", "audio", "02_The_Trek.mp3"),

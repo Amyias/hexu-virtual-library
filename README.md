@@ -6,6 +6,8 @@
 
 Blender 精细环境模型 + Three.js 网页交互。此版本已从单文件拆分为 ES Modules，模型、贴图及渲染依赖均保存在项目中。
 
+灯光采用窗侧日光、八盏真实位置的暖色吊灯和两盏阅读灯，配合实时软阴影与 Blender 烘焙的地面接触遮蔽。实现为 `src/scene/lighting.js`，共用灯位配置 `public/models/lighting-rig.json`，离线烘焙脚本 `blender/bake_lighting.py`；验证与参考见 [灯光说明](blender/LIGHTING_REFERENCES.md)。新增 2048×2048 AO 贴图，原 .blend、GLB、馆藏位置及模型面数均未更改。
+
 ## 运行
 
 ### 方式一：双击程序（推荐，含语音识别）
