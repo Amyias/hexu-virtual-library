@@ -146,7 +146,18 @@ def run(url, title="和序图书馆", width=1280, height=820, icon=None):
     from window_chrome import DesktopChrome
     chrome = DesktopChrome(url)
     chrome._window = webview.create_window(title, url, width=width, height=height,
-        min_size=(880, 620), frameless=True, easy_drag=False, shadow=True, js_api=chrome)
+        min_size=(880, 620), maximized=True, frameless=True, easy_drag=False, shadow=True,
+        js_api=chrome)
+    def maximize_before_show():
+        # WinForms changes the frame style after applying pywebview's initial state. Set
+        # the work area and maximize again before Show(), so centering cannot offset it.
+        from System.Windows.Forms import FormStartPosition, FormWindowState, Screen
+        form = chrome._window.native
+        form.StartPosition = FormStartPosition.Manual
+        form.WindowState = FormWindowState.Normal
+        form.MaximizedBounds = Screen.FromHandle(form.Handle).WorkingArea
+        form.WindowState = FormWindowState.Maximized
+    chrome._window.events.before_show += maximize_before_show
     try:
         # Forcing the backend keeps it off the legacy mshtml renderer, which cannot run the page
         # at all. A missing WebView2 runtime raises here and the caller falls back to a browser.
