@@ -75,11 +75,16 @@ header > * {
 .mark {
   width: 39px;
   height: 39px;
+  flex-shrink: 0;
   border: 1px solid #829889;
   border-radius: 50%;
   display: grid;
   place-items: center;
-  font-size: 23px;
+}
+.mark img {
+  display: block;
+  width: 36px;
+  height: 36px;
 }
 .brand strong {
   font-family: serif;

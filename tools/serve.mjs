@@ -74,6 +74,7 @@ const mime = {
   ".json": "application/json; charset=utf-8",
   ".glb": "model/gltf-binary",
   ".png": "image/png",
+  ".svg": "image/svg+xml",
   ".mp3": "audio/mpeg",
   ".woff2": "font/woff2",
 };

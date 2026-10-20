@@ -486,6 +486,12 @@ try {
     throw new Error(`场景不完整：${JSON.stringify(loaded)}`);
   step("加载场景", `${loaded.shelfCapacity} 个空槽位，0 本预置书`);
   if (
+    !(await page.evaluate(
+      "Boolean(document.querySelector('.mark img')?.complete && document.querySelector('.mark img').naturalWidth > 0)",
+    ))
+  )
+    throw Error("圆形标识中的小和图标未成功加载");
+  if (
     await page.evaluate(
       "Boolean(document.querySelector('.collection, .shelf-link, .top-right, .help, #protocol, #voiceLog'))",
     )
