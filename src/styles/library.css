@@ -125,12 +125,25 @@ header > * {
   top: 143px;
   left: 37px;
   width: 275px;
+  isolation: isolate;
+  color: #17392e;
+}
+.intro::before {
+  content: "";
+  position: absolute;
+  inset: -14px -16px;
+  z-index: -1;
+  border-radius: 20px;
+  background: linear-gradient(100deg, #edf1e8f2, #edf1e8de 70%, #edf1e8b8);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 0 18px 8px #edf1e87a;
+  pointer-events: none;
 }
 .eyebrow {
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 3px;
-  color: #6f8779;
+  color: #365848;
 }
 .intro h1 {
   font-family: "STSong", "SimSun", serif;
@@ -142,7 +155,8 @@ header > * {
 }
 .intro p {
   font-size: 13px;
-  color: #75817b;
+  color: #284a3b;
+  font-weight: 500;
   line-height: 1.9;
   margin: 0;
 }
@@ -155,10 +169,11 @@ header > * {
 .hint {
   margin-top: 22px;
   font-size: 11px;
-  color: #7f8d83;
+  color: #284a3b;
+  font-weight: 600;
 }
 .hint kbd {
-  background: #ffffff70;
+  background: #f8fbf2e6;
   padding: 3px 6px;
   border: 1px solid #d7ded5;
   border-radius: 4px;
