@@ -11,6 +11,7 @@ const DAY = {
   sunColor: "#fff0d9",
   background: "#e9ece3",
   pendant: 12,
+  luminaire: 3,
   table: 0.65,
   environment: 1,
 };
@@ -23,7 +24,9 @@ const NIGHT = {
   sunColor: "#b9c8ff",
   sunIntensity: 1.2,
   background: "#232b3e",
-  pendant: 20,
+  // Pendants are the main light at night: bright enough to pool on the aisle floor.
+  pendant: 70,
+  luminaire: 8,
   table: 1.6,
   environment: 0.35,
 };
@@ -97,6 +100,7 @@ export async function createLighting({ scene, renderer, root }) {
   const anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
   const point = new THREE.Vector3();
   const reflective = new Map(); // material → its daylight environment strength
+  const luminaires = new Set();
   let receivers = 0;
   let underlayVertices = 0;
   root.updateMatrixWorld(true);
@@ -129,7 +133,10 @@ export async function createLighting({ scene, renderer, root }) {
       for (const texture of [material.map, material.normalMap, material.roughnessMap]) {
         if (texture) texture.anisotropy = anisotropy;
       }
-      if (material.name === "Warm opal luminaire") material.emissiveIntensity = 3;
+      if (material.name === "Warm opal luminaire") {
+        material.emissiveIntensity = DAY.luminaire;
+        luminaires.add(material);
+      }
       if (!material.name.startsWith("Oak floor")) continue;
       const positions = object.geometry.getAttribute("position");
       const uv = new Float32Array(positions.count * 2);
@@ -170,6 +177,7 @@ export async function createLighting({ scene, renderer, root }) {
       mixColour(scene.background, "background");
       if (scene.fog) scene.fog.color.copy(scene.background);
       for (const lamp of pendants) lamp.intensity = mix("pendant");
+      for (const material of luminaires) material.emissiveIntensity = mix("luminaire");
       for (const lamp of tableLamps) lamp.intensity = mix("table");
       const environment = mix("environment");
       for (const [material, strength] of reflective)
@@ -187,6 +195,8 @@ export async function createLighting({ scene, renderer, root }) {
       sunFromWindow: true,
       night,
       sunIntensity: sun.intensity,
+      pendantIntensity: pendants[0]?.intensity,
+      luminaires: luminaires.size,
       shadowMapSize: resolution,
       pendantLights: rig.pendants.length,
       tableLights: rig.tables.length,
