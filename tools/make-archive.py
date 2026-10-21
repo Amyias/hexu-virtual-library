@@ -83,4 +83,9 @@ def main():
 
 
 if __name__ == "__main__":
+    # The report is Chinese. On a console whose code page cannot encode it (cp950 here), the
+    # final print raised after the archive was already written and verified, failing the release.
+    for stream in (sys.stdout, sys.stderr):
+        if hasattr(stream, "reconfigure"):
+            stream.reconfigure(encoding="utf-8", errors="replace")
     sys.exit(main())
