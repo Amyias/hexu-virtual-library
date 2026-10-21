@@ -417,8 +417,7 @@ function clearPreviousBuild() {
   if (running)
     fail(
       `「${APP}」还在运行（${running} 个进程来自 ${appDir}）。
-` +
-        "先关掉它的窗口再重新打包；旧程序一个文件都没有动。",
+` + "先关掉它的窗口再重新打包；旧程序一个文件都没有动。",
     );
   try {
     fs.rmSync(appDir, { recursive: true, force: true });
