@@ -8,7 +8,7 @@ Blender 精细环境模型 + Three.js 网页交互。此版本已从单文件拆
 
 灯光采用窗侧日光、八盏真实位置的暖色吊灯和两盏阅读灯，配合实时软阴影与 Blender 烘焙的地面接触遮蔽。实现为 `src/scene/lighting.js`，共用灯位配置 `public/models/lighting-rig.json`，离线烘焙脚本 `blender/bake_lighting.py`；验证与参考见 [灯光说明](blender/LIGHTING_REFERENCES.md)。新增 2048×2048 AO 贴图，原 .blend、GLB、馆藏位置及模型面数均未更改。
 
-左后方第二扇拱窗外挂着 Blender 生成的像素太阳，方位与窗侧日光一致，所以地上的影子正好背离它。右下角的「☾ / ☀」按钮切换到像素月亮：月亮占用同一位置，光源方向不变，只把日光换成冷色月光、背景转为夜蓝，并调亮吊灯与阅读灯；选择保存在浏览器本地。两个天体共 4 个网格、1,436 个三角面，GLB 约 51 KiB，实现为 `blender/celestial.py`、`blender/build_celestial.py` 与 `src/scene/sky.js`，参考与重建见 [日月说明](blender/CELESTIAL_REFERENCES.md)。
+左后方第二扇拱窗外挂着 Blender 生成的像素太阳，方位与窗侧日光一致，所以地上的影子正好背离它。右下角的「☾ / ☀」按钮切换到像素月亮：月亮占用同一位置，光源方向不变，只把日光换成冷色月光、背景转为夜蓝，并调亮吊灯与阅读灯；选择保存在浏览器本地。两个天体共 4 个网格、1,436 个三角面，GLB 约 52 KiB，实现为 `blender/celestial.py`、`blender/build_celestial.py` 与 `src/scene/sky.js`，参考与重建见 [日月说明](blender/CELESTIAL_REFERENCES.md)。
 
 ## 运行
 

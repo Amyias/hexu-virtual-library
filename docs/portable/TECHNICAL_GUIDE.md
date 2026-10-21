@@ -1,5 +1,7 @@
 # 和序 · 虚拟智能图书馆：技术实现与系统架构
 
+> 分享说明：Markdown 请与 diagrams/ 文件夹一起移动；单独移动文件请选 TECHNICAL_GUIDE.html。三张配图在 HTML 内嵌，可离线阅读；源码链接指向 GitHub，访问私有仓库需要联网并登录。
+
 > 文档日期：2026-10-21。源码基线：`2.5.4`（`master` 提交 `afa6930`，含发布后的灯光与窗口修正）。本文根据当前源码、馆藏清单和导出清单整理，适合项目介绍、技术交接与演示准备。标为“建议”的内容尚未实现；数量与资源大小是该基线的数据，不代表未来版本。
 
 ## 1. 项目解决什么问题
@@ -22,7 +24,7 @@
 | 架上藏书 | 2 个 `InstancedMesh` 实例池；书脊轻模板共 216 个三角面 |
 | 小和 | Blender 像素宠物：9 个网格、16 个节点、396 个三角面，GLB 约 35.2 KiB |
 | 灯光 | 窗侧日光、8 盏吊灯、2 盏阅读灯，实时软阴影 + 2048×2048 烘焙接触遮蔽 |
-| 日月 | 窗外像素太阳 / 月亮可切换：4 个网格、1,436 个三角面，GLB 约 51 KiB |
+| 日月 | 窗外像素太阳 / 月亮可切换：4 个网格、1,436 个三角面，GLB 约 52 KiB |
 | 植物 | 6 盆盆栽、26 丛灌木，含 54 片曲面大叶和 14,144 片小叶 |
 
 数量来源为 [馆藏清单](https://github.com/Amyias/hexu-virtual-library/blob/master/public/models/book-inventory.json)、[导出统计](https://github.com/Amyias/hexu-virtual-library/blob/master/public/models/manifest.json)、[小和模型清单](https://github.com/Amyias/hexu-virtual-library/blob/master/blender/xiaohe-pet-manifest.json) 和回归测试。早期版本的“12 本具名演示书 + 编号样书”已在 2.5.x 中移除；清空后的审计记录见 `blender/empty-shelves-audit.json`。
