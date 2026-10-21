@@ -22,9 +22,10 @@ class ShelfCatalogTests(unittest.TestCase):
                 first = library.save(book_library.import_document("import-one.txt", b"real text " * 100))
                 second = library.save(book_library.import_document("import-two.txt", b"other text " * 100))
                 by_id, named = server.load_catalog()
-                self.assertEqual(list(by_id), ["HX-02273", "HX-02274"])
-                self.assertEqual(by_id["HX-02273"]["id"], first["id"])
-                self.assertEqual(by_id["HX-02274"]["id"], second["id"])
+                # New books start at the front-desk end of shelf 2's A face, top layer down.
+                self.assertEqual(sorted(by_id), ["HX-03124", "HX-03408"])
+                self.assertEqual(by_id["HX-03408"]["id"], first["id"])
+                self.assertEqual(by_id["HX-03124"]["id"], second["id"])
                 self.assertNotIn("HX-00001", by_id)
                 self.assertIn("import-one", server.system_prompt())
                 self.assertIn("import-two", server.system_prompt())

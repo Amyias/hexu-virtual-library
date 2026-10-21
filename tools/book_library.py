@@ -30,6 +30,57 @@ def library_directory():
     return base / "hexu-library" / "books"
 
 
+SHELF_LIMIT = 11000
+# Preferred order of free slot numbers for new books; None keeps the plain next-number rule.
+_fill_order = None
+
+
+def physical_rows(inventory):
+    """Inventory row index for each persisted slot number, oldest rule first.
+
+    A stored book keeps its slot number forever, so this mapping must never change: literature
+    (shelf 2) first, then the other shelves, with the IDs earlier releases skipped at the end.
+    src/data/shelf-slots.js expands the same order in the browser."""
+    deferred = set(inventory["library_deferred_ids"])
+    rows = inventory["books"]
+    physical = [i for i in range(len(rows)) if i + 1 not in deferred]
+    physical.sort(key=lambda i: rows[i][0] != 2)
+    return physical + [i for i in range(len(rows)) if i + 1 in deferred]
+
+
+def shelf_fill_order(inventory):
+    """Slot numbers in the order a new book takes them: where a reader sees it first.
+
+    Slot 0 of the persisted order sits at the window end of the bottom layer, which no view of
+    the hall shows. New books instead start at the front-desk end of the literature shelf's
+    A face (the one the overview camera faces), filling each column top layer down before
+    stepping one spine further from the end panel. Only the choice of a free number changes;
+    the number -> position mapping above is untouched, so stored books never move."""
+    rows = inventory["books"]
+    physical = physical_rows(inventory)[:SHELF_LIMIT]
+    columns = inventory["columns"]
+    shelf, side, layer, z = (columns.index(name) for name in ("shelf", "side", "layer", "z"))
+
+    def visibility(slot):
+        row = rows[physical[slot]]
+        return (row[shelf] != 2, row[shelf], row[side] != "A", -row[z], -row[layer])
+
+    return sorted(range(len(physical)), key=visibility)
+
+
+def configure_shelves(inventory_path):
+    """Called by the server with the shipped inventory; tests may leave it unconfigured."""
+    global _fill_order
+    _fill_order = shelf_fill_order(json.loads(Path(inventory_path).read_text(encoding="utf-8")))
+
+
+def next_slot(used):
+    if _fill_order is None:
+        slot = max(used, default=-1) + 1
+        return slot if slot < SHELF_LIMIT else None
+    return next((slot for slot in _fill_order if slot not in used), None)
+
+
 def normalize(text):
     return re.sub(r"[\W_]+", "", unicodedata.normalize("NFKC", text).casefold())
 
@@ -179,8 +230,8 @@ class BookLibrary:
             existing = db.execute("SELECT metadata FROM books WHERE id=?", (identifier,)).fetchone()
             if existing:
                 return json.loads(existing[0])
-            slot = db.execute("SELECT COALESCE(MAX(slot),-1)+1 FROM books").fetchone()[0]
-            if slot >= 11000:
+            slot = next_slot({row[0] for row in db.execute("SELECT slot FROM books")})
+            if slot is None:
                 raise SourceError("本地书架位置已满")
             metadata = {key: value for key, value in document.items() if key != "chapters"}
             metadata.update(id=identifier, slot=slot, title=str(document["title"])[:160], author=str(document.get("author", "未知作者"))[:120],

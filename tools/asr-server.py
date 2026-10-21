@@ -297,6 +297,10 @@ class RateLimit:
 UNDERSTAND_LIMIT = RateLimit(LLM_PER_MINUTE)
 
 CATALOG_PATH = ROOT / "public" / "models" / "book-inventory.json"
+try:
+    book_library.configure_shelves(CATALOG_PATH)
+except (OSError, ValueError, KeyError):
+    pass  # without the inventory new books fall back to the next free number
 CONFIG_PATH = config_path()
 SETTINGS_KEYS = ("HEXU_LLM_BASE_URL", "HEXU_LLM_MODEL", "HEXU_LLM_API_KEY", "HEXU_GITHUB_TOKEN",
                  "HEXU_WEB_ENABLED", "HEXU_WEB_API_KEY")
@@ -390,11 +394,7 @@ def load_catalog():
     """Only real, persisted books are semantic targets; empty shelf IDs are never books."""
     try:
         data = json.loads(CATALOG_PATH.read_text(encoding="utf-8"))
-        deferred = set(data["library_deferred_ids"])
-        rows = data["books"]
-        physical = [i for i in range(len(rows)) if i + 1 not in deferred]
-        physical.sort(key=lambda i: rows[i][0] != 2)
-        physical += [i for i in range(len(rows)) if i + 1 in deferred]
+        physical = book_library.physical_rows(data)
         by_id = {}
         for book in book_library.instance().list_books():
             slot = book["slot"]

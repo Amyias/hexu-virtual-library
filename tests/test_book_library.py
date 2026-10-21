@@ -36,6 +36,37 @@ class LocalLibraryTests(unittest.TestCase):
             with self.assertRaises(SourceError):
                 restarted.progress(saved["id"], 200, 0)
 
+    def test_new_books_take_the_visible_front_of_the_shelf_without_moving_stored_ones(self):
+        import book_library
+
+        inventory_path = pathlib.Path(__file__).resolve().parents[1] / "public/models/book-inventory.json"
+        inventory = json.loads(inventory_path.read_text(encoding="utf-8"))
+        rows, physical = inventory["books"], book_library.physical_rows(inventory)
+        order = book_library.shelf_fill_order(inventory)
+        self.assertEqual(sorted(order), list(range(book_library.SHELF_LIMIT)))
+        first = [rows[physical[slot]] for slot in order[:5]]
+        # Shelf 2, A face, the column nearest the front desk end panel, top layer down.
+        front_z = max(row[7] for row in rows if row[0] == 2 and row[1] == "A")
+        self.assertEqual([row[:3] for row in first[:4]], [[2, "A", 4], [2, "A", 3], [2, "A", 2], [2, "A", 1]])
+        self.assertTrue(all(row[7] == front_z for row in first[:4]))
+        self.assertEqual(first[4][2], 4)
+        self.assertLess(first[4][7], front_z)
+        # Slot 0, the number older libraries already used, stays at the window end.
+        self.assertLess(rows[physical[0]][7], -8)
+        with tempfile.TemporaryDirectory() as temp:
+            previous = book_library._fill_order
+            try:
+                book_library.configure_shelves(inventory_path)
+                library = BookLibrary(temp)
+                slots = []
+                for index in range(3):
+                    raw = (f"第一章\n第{index}本的正文。" * 40).encode()
+                    slots.append(library.save(import_document(f"b{index}.txt", raw))["slot"])
+                self.assertEqual(slots, order[:3])
+                self.assertEqual(BookLibrary(temp).save(import_document("b0.txt", (f"第一章\n第0本的正文。" * 40).encode()))["slot"], slots[0])
+            finally:
+                book_library._fill_order = previous
+
     def test_empty_or_incomplete_books_do_not_enter_the_catalog(self):
         with tempfile.TemporaryDirectory() as temp:
             library = BookLibrary(temp)
