@@ -389,8 +389,37 @@ function stageSite() {
   log(`站点      原始 ${megabytes(raw)} → 预压缩 ${megabytes(compressed)}（省 ${ratio}%）`);
 }
 
+/** How many processes run an executable from inside the previous build. Asked before deleting:
+ *  removing that folder while the program is open once crashed Node outright (no message, exit
+ *  status 127 in Git Bash) after part of the folder may already be gone. The path travels in the
+ *  environment, which reaches PowerShell as UTF-16, rather than in argv, which this shell would
+ *  re-encode; the script itself is ASCII and prints only a number. */
+function processesInBuild() {
+  if (process.platform !== "win32") return 0;
+  const result = run(
+    "powershell",
+    [
+      "-NoProfile",
+      "-NonInteractive",
+      "-Command",
+      "$d = $env:HEXU_APP_DIR.TrimEnd('\') + '\'; " +
+        "@(Get-CimInstance Win32_Process | Where-Object { $_.ExecutablePath -and " +
+        "$_.ExecutablePath.StartsWith($d, [StringComparison]::OrdinalIgnoreCase) }).Count",
+    ],
+    { env: { ...process.env, HEXU_APP_DIR: appDir } },
+  );
+  return Number.parseInt((result.stdout || "").trim(), 10) || 0;
+}
+
 function clearPreviousBuild() {
   if (!fs.existsSync(appDir)) return;
+  const running = processesInBuild();
+  if (running)
+    fail(
+      `「${APP}」还在运行（${running} 个进程来自 ${appDir}）。
+` +
+        "先关掉它的窗口再重新打包；旧程序一个文件都没有动。",
+    );
   try {
     fs.rmSync(appDir, { recursive: true, force: true });
   } catch (error) {
