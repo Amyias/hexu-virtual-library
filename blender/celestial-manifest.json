@@ -1,0 +1,53 @@
+{
+  "grid": 22,
+  "pixel_m": 0.08,
+  "depth_m": 0.08,
+  "bodies": {
+    "PixelSun": {
+      "meshes": [
+        "PixelSunDisc",
+        "PixelSunRays"
+      ],
+      "pixels": 168,
+      "triangles": 928,
+      "width_m": 1.76,
+      "height_m": 1.76,
+      "depth_m": 0.08
+    },
+    "PixelMoon": {
+      "meshes": [
+        "PixelMoonFace",
+        "PixelMoonStars"
+      ],
+      "pixels": 88,
+      "triangles": 508,
+      "width_m": 1.36,
+      "height_m": 1.36,
+      "depth_m": 0.08
+    }
+  },
+  "palettes": {
+    "sun": {
+      "core": "F7C53B",
+      "shade": "E9962F",
+      "light": "FFE89A",
+      "ray": "F2AE36"
+    },
+    "moon": {
+      "face": "F1E8C6",
+      "shade": "D4C597",
+      "crater": "C2B286",
+      "star": "FFF4CF"
+    }
+  },
+  "protected_assets": {
+    "blender/hexu-library.blend": "abd1bf528b33f38997f862b3ecd345805859203eaf42b5e333ab03e13ebab474",
+    "public/models/hexu-library.glb": "8be424e3b22f8d6c1ae6ff38bf05d7487bf04dceb16c0d97e7dde2fc77eacd97",
+    "public/models/xiaohe-pet.glb": "451945807cd65db7a3ba9e27d45bf0db0844d467c0c0e8d8f4b8f74d31d4bb3b",
+    "public/models/smart-book.glb": "383499ddf6ec08c9f8a77aa260916db824339cd4a0c0621593f15da18e10a218",
+    "public/models/shelf-book.glb": "4b21e097fa19b5b463f00d68a9f0dd3661a8364f5c46e37f58531bf42b631c10",
+    "public/models/book-inventory.json": "d0788e2dcdbcc28f2b072abd7d0be8afaeac60c24b594115bedb6376dcbb2a33",
+    "public/models/lighting-rig.json": "96ab40636bf7f791c2310affab79c8598d68b9f3ec1e7990cea2f7e3d6f7936a"
+  },
+  "glb_bytes": 53592
+}

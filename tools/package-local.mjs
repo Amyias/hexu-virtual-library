@@ -61,6 +61,7 @@ const SITE_FILES = [
   path.join("public", "models", "smart-book.glb"),
   path.join("public", "models", "shelf-book.glb"),
   path.join("public", "models", "xiaohe-pet.glb"),
+  path.join("public", "models", "celestial.glb"),
   path.join("public", "models", "manifest.json"),
   path.join("public", "models", "book-inventory.json"),
 ];
@@ -401,6 +402,7 @@ function verify() {
     path.join(appDir, "_internal", "public", "models", "smart-book.glb"),
     path.join(appDir, "_internal", "public", "models", "shelf-book.glb"),
     path.join(appDir, "_internal", "public", "models", "xiaohe-pet.glb"),
+    path.join(appDir, "_internal", "public", "models", "celestial.glb"),
     path.join(appDir, "_internal", "models", "sense-voice", "model.int8.onnx"),
   ];
   const missing = required.filter((file) => !fs.existsSync(file));

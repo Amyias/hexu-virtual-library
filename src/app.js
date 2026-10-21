@@ -5,6 +5,7 @@ import { createSpeech } from "./voice/speech.js";
 import { createRuntime } from "./scene/runtime.js";
 import { loadEnvironment } from "./scene/environment.js";
 import { createLighting } from "./scene/lighting.js";
+import { createSky } from "./scene/sky.js";
 import { createCompanion } from "./scene/companion.js";
 import { createBookFactory } from "./reader/book.js";
 import { createLocalLibrary } from "./reader/library.js";
@@ -54,6 +55,22 @@ export async function startLibrary() {
       ($("loading").querySelector("p").textContent = "正在加载 Blender 模型 " + percent + "%"),
   );
   const lighting = await createLighting({ scene, renderer, root: environment.root });
+  const sky = await createSky({ scene, lighting, rig: lighting.rig });
+  const paintSky = () => {
+    const button = $("sky");
+    const label = sky.night ? "切换到太阳" : "切换到月亮";
+    button.textContent = sky.night ? "☀" : "☾";
+    button.setAttribute("aria-label", label);
+    button.title = label;
+    button.setAttribute("aria-pressed", String(sky.night));
+    document.body.classList.toggle("night", sky.night);
+  };
+  paintSky();
+  $("sky").onclick = () => {
+    sky.toggle();
+    paintSky();
+    feedback.notice(sky.night ? "夜幕降临，月光从同一扇窗洒进来。" : "天亮了，阳光重新照进馆内。");
+  };
   const factory = createBookFactory(renderer, environment.bookTemplate);
   const companion = await createCompanion(scene, home);
   const orb = companion.root; // Navigation keeps its existing anchor contract.
@@ -211,6 +228,7 @@ export async function startLibrary() {
     requestAnimationFrame(frame);
     const time = clock.getElapsedTime();
     companion.update({ time, pulse: pulse.value, phase: machine.phase, camera });
+    sky.update({ time, camera });
     projectDialogueAnchor(camera, orb.position, bubbleAnchor, projected);
     petVisual.updateWorldMatrix(true, true);
     petBox.setFromObject(petVisual);
@@ -294,6 +312,7 @@ export async function startLibrary() {
       modelLoaded: environment.loaded,
       modelMeshes: environment.meshes,
       lighting: lighting.getState(),
+      sky: sky.getState(),
       book: journey.selected?.title,
       orb: orb.position.toArray(),
       companion: companion.getState(),

@@ -493,6 +493,27 @@ try {
     !(loaded.lighting.underlayVertices > 0)
   )
     throw Error("灯光、接触遮蔽或地板暗色衬底未加载");
+  if (loaded.sky?.night || !loaded.sky?.sunVisible || loaded.sky.moonVisible)
+    throw Error(`默认应为白天且只显示像素太阳：${JSON.stringify(loaded.sky)}`);
+  for (const night of [true, false]) {
+    await click("sky");
+    await waitFor(
+      async () => {
+        const { sky, lighting } = await state();
+        const dark = await page.evaluate("document.body.classList.contains('night')");
+        return (
+          sky.night === night &&
+          sky.blend === (night ? 1 : 0) &&
+          sky.moonVisible === night &&
+          sky.sunVisible === !night &&
+          lighting.night === sky.blend &&
+          dark === night
+        );
+      },
+      night ? "切换到像素月亮" : "切换回像素太阳",
+    );
+  }
+  step("日月切换", "像素太阳与月亮同处窗外光源方位；灯光、背景与文字配色随之切换");
   if (
     !(await page.evaluate(
       "Boolean(document.querySelector('.mark img')?.complete && document.querySelector('.mark img').naturalWidth > 0)",

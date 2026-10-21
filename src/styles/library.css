@@ -472,6 +472,53 @@ form button {
   border-radius: 50%;
   font-size: 17px;
 }
+#sky {
+  color: #b5751f;
+}
+/* Night sky: the scene backdrop turns dark, so the copy drawn straight on it turns light. */
+.brand strong,
+.brand small,
+.eyebrow,
+.intro,
+.intro p,
+.hint,
+.location,
+.location b,
+.footnote {
+  transition: color 1.4s ease;
+}
+body.night {
+  background: #232b3e;
+}
+.night .brand strong,
+.night .intro,
+.night .intro p,
+.night .hint {
+  color: #eef1e6;
+}
+.night .brand small,
+.night .eyebrow,
+.night .location,
+.night .footnote {
+  color: #b9c4cf;
+}
+.night .hint kbd {
+  color: var(--ink);
+}
+.night .location b {
+  color: #dfe6d8;
+}
+.night .mark,
+.night .rule {
+  border-color: #b9c4cf;
+  background: #b9c4cf;
+}
+.night .mark {
+  background: transparent;
+}
+.night #sky {
+  color: #5d6a96;
+}
 #reader {
   position: fixed;
   inset: 0;

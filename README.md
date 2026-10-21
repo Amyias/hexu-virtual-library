@@ -8,6 +8,8 @@ Blender 精细环境模型 + Three.js 网页交互。此版本已从单文件拆
 
 灯光采用窗侧日光、八盏真实位置的暖色吊灯和两盏阅读灯，配合实时软阴影与 Blender 烘焙的地面接触遮蔽。实现为 `src/scene/lighting.js`，共用灯位配置 `public/models/lighting-rig.json`，离线烘焙脚本 `blender/bake_lighting.py`；验证与参考见 [灯光说明](blender/LIGHTING_REFERENCES.md)。新增 2048×2048 AO 贴图，原 .blend、GLB、馆藏位置及模型面数均未更改。
 
+左后方第二扇拱窗外挂着 Blender 生成的像素太阳，方位与窗侧日光一致，所以地上的影子正好背离它。右下角的「☾ / ☀」按钮切换到像素月亮：月亮占用同一位置，光源方向不变，只把日光换成冷色月光、背景转为夜蓝，并调亮吊灯与阅读灯；选择保存在浏览器本地。两个天体共 4 个网格、1,436 个三角面，GLB 约 51 KiB，实现为 `blender/celestial.py`、`blender/build_celestial.py` 与 `src/scene/sky.js`，参考与重建见 [日月说明](blender/CELESTIAL_REFERENCES.md)。
+
 ## 运行
 
 ### 方式一：双击程序（推荐，含语音识别）
@@ -111,6 +113,8 @@ npm start
 | `blender/MATERIAL_REFERENCES.md` | 地板与书柜的材质来源、UV 尺度与更新方法 |
 | `blender/PENDANT_REFERENCES.md` | 吊灯的型材构造、配色与素材库结论 |
 | `blender/library-preview.png` | Blender 实际渲染的场景预览 |
+| `blender/celestial.py`、`blender/build_celestial.py` | 像素太阳与月亮的生成模块和独立构建脚本（带不变量快照） |
+| `blender/celestial.blend`、`blender/celestial-sun.png`、`blender/celestial-moon.png` | 日月的可编辑源文件与 Blender 渲染预览；参数见 `blender/CELESTIAL_REFERENCES.md` |
 | `blender/smart-book-detail.png` | 书本与芯片槽近景渲染 |
 | `blender/chip-detail.png` | 芯片微刻字近景渲染 |
 | `blender/shelf-detail.png` | 书架内景：书立在层板上、靠住背板 |
@@ -118,6 +122,7 @@ npm start
 | `public/models/hexu-library.glb` | 网页使用的合并材质环境模型（不含架上藏书） |
 | `public/models/smart-book.glb` | 阅读器用的硬皮书模板（含芯片槽与铰链） |
 | `public/models/shelf-book.glb` | 架上书脊模板：书脊 + 书口顶边，2 个部件、216 个三角面 |
+| `public/models/celestial.glb` | 像素太阳与月亮：4 个网格、1,436 个三角面，无纹理 |
 | `public/models/book-inventory.json` | 唯一一份馆藏清单（生成物，约 0.5 MB）：每个空槽位一行 `[架, 面, 层, 槽, 布色, x, y, z]`，不含预置书目；网页、测试、本机服务与 Blender 都读它 |
 | `public/models/manifest.json` | 导出版本、书架规格、面数、文件大小 |
 | `public/textures/floor-oak-*.jpg` | 地板贴图（反照率 / 法线 / 粗糙度），CC0 扫描件 |

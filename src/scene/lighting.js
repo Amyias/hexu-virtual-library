@@ -1,5 +1,33 @@
 import * as THREE from "three";
 
+/* Day and night share one emitter: the moon hangs where the sun was, so every shadow keeps its
+   direction when the sky changes. Only colour and strength move between these two states. */
+const DAY = {
+  sky: "#d9e6ff",
+  ground: "#79634b",
+  hemisphere: 0.7,
+  bounceColor: "#dce8ff",
+  bounce: 0.7,
+  sunColor: "#fff0d9",
+  background: "#e9ece3",
+  pendant: 12,
+  table: 0.65,
+  environment: 1,
+};
+const NIGHT = {
+  sky: "#4b5b86",
+  ground: "#2b2520",
+  hemisphere: 0.5,
+  bounceColor: "#8da2d8",
+  bounce: 0.25,
+  sunColor: "#b9c8ff",
+  sunIntensity: 1.2,
+  background: "#232b3e",
+  pendant: 20,
+  table: 1.6,
+  environment: 0.35,
+};
+
 /** Window daylight, actual luminaire emitters and Blender-baked ground occlusion. */
 export async function createLighting({ scene, renderer, root }) {
   const response = await fetch(new URL("../../public/models/lighting-rig.json", import.meta.url));
@@ -8,11 +36,12 @@ export async function createLighting({ scene, renderer, root }) {
   const group = new THREE.Group();
   group.name = "Library lighting";
   scene.add(group);
-  group.add(new THREE.HemisphereLight("#d9e6ff", "#79634b", 0.7));
-  const bounce = new THREE.DirectionalLight("#dce8ff", 0.7);
+  const hemisphere = new THREE.HemisphereLight(DAY.sky, DAY.ground, DAY.hemisphere);
+  group.add(hemisphere);
+  const bounce = new THREE.DirectionalLight(DAY.bounceColor, DAY.bounce);
   bounce.position.set(0, 9, 8);
   group.add(bounce);
-  const sun = new THREE.DirectionalLight("#fff0d9", rig.sun.intensity);
+  const sun = new THREE.DirectionalLight(DAY.sunColor, rig.sun.intensity);
   sun.name = "Window daylight";
   sun.position.fromArray(rig.sun.position);
   sun.target.position.fromArray(rig.sun.target);
@@ -33,8 +62,10 @@ export async function createLighting({ scene, renderer, root }) {
   group.add(sun, sun.target);
 
   const pendantShadows = [];
+  const pendants = [];
+  const tableLamps = [];
   for (const [index, position] of rig.pendants.entries()) {
-    const lamp = new THREE.SpotLight("#ffe1aa", 12, 8, 0.87, 0.65, 2);
+    const lamp = new THREE.SpotLight("#ffe1aa", DAY.pendant, 8, 0.87, 0.65, 2);
     lamp.name = `Pendant light ${index + 1}`;
     lamp.position.fromArray(position);
     lamp.target.position.set(position[0], 0, position[2]);
@@ -48,11 +79,13 @@ export async function createLighting({ scene, renderer, root }) {
     lamp.shadow.autoUpdate = false;
     lamp.shadow.needsUpdate = true;
     pendantShadows.push(lamp.shadow);
+    pendants.push(lamp);
     group.add(lamp, lamp.target);
   }
   for (const position of rig.tables) {
-    const lamp = new THREE.PointLight("#ffdfa3", 0.65, 1.7, 2);
+    const lamp = new THREE.PointLight("#ffdfa3", DAY.table, 1.7, 2);
     lamp.position.fromArray(position);
+    tableLamps.push(lamp);
     group.add(lamp);
   }
 
@@ -63,6 +96,7 @@ export async function createLighting({ scene, renderer, root }) {
   ao.colorSpace = THREE.NoColorSpace;
   const anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
   const point = new THREE.Vector3();
+  const reflective = new Map(); // material → its daylight environment strength
   let receivers = 0;
   let underlayVertices = 0;
   root.updateMatrixWorld(true);
@@ -91,6 +125,7 @@ export async function createLighting({ scene, renderer, root }) {
     }
     for (const material of materials) {
       material.envMapIntensity = material.metalness > 0.5 ? 0.55 : 0.22;
+      reflective.set(material, material.envMapIntensity);
       for (const texture of [material.map, material.normalMap, material.roughnessMap]) {
         if (texture) texture.anisotropy = anisotropy;
       }
@@ -112,7 +147,34 @@ export async function createLighting({ scene, renderer, root }) {
     }
   });
   let dynamicShadows = false;
+  let night = 0;
+  const day = { ...DAY, sunIntensity: rig.sun.intensity };
+  const colour = new THREE.Color(),
+    target = new THREE.Color();
+  const mix = (key) => day[key] + (NIGHT[key] - day[key]) * night;
+  const mixColour = (into, key) =>
+    into.copy(colour.set(day[key]).lerp(target.set(NIGHT[key]), night));
+  if (!(scene.background instanceof THREE.Color)) scene.background = new THREE.Color();
   return {
+    rig,
+    /** 0 = daylight through the window, 1 = moonlight from the same direction. */
+    setNight(amount) {
+      night = THREE.MathUtils.clamp(amount, 0, 1);
+      mixColour(hemisphere.color, "sky");
+      mixColour(hemisphere.groundColor, "ground");
+      hemisphere.intensity = mix("hemisphere");
+      mixColour(bounce.color, "bounceColor");
+      bounce.intensity = mix("bounce");
+      mixColour(sun.color, "sunColor");
+      sun.intensity = mix("sunIntensity");
+      mixColour(scene.background, "background");
+      if (scene.fog) scene.fog.color.copy(scene.background);
+      for (const lamp of pendants) lamp.intensity = mix("pendant");
+      for (const lamp of tableLamps) lamp.intensity = mix("table");
+      const environment = mix("environment");
+      for (const [material, strength] of reflective)
+        material.envMapIntensity = strength * environment;
+    },
     setDynamicShadows(moving) {
       if (moving === dynamicShadows) return;
       dynamicShadows = moving;
@@ -123,6 +185,8 @@ export async function createLighting({ scene, renderer, root }) {
     },
     getState: () => ({
       sunFromWindow: true,
+      night,
+      sunIntensity: sun.intensity,
       shadowMapSize: resolution,
       pendantLights: rig.pendants.length,
       tableLights: rig.tables.length,

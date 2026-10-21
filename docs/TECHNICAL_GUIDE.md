@@ -26,6 +26,7 @@
 | 架上藏书 | 2 个 `InstancedMesh` 实例池；书脊轻模板共 216 个三角面 |
 | 小和 | Blender 像素宠物：9 个网格、16 个节点、396 个三角面，GLB 约 35.2 KiB |
 | 灯光 | 窗侧日光、8 盏吊灯、2 盏阅读灯，实时软阴影 + 2048×2048 烘焙接触遮蔽 |
+| 日月 | 窗外像素太阳 / 月亮可切换：4 个网格、1,436 个三角面，GLB 约 51 KiB |
 | 植物 | 6 盆盆栽、26 丛灌木，含 54 片曲面大叶和 14,144 片小叶 |
 
 数量来源为 [馆藏清单](../public/models/book-inventory.json)、[导出统计](../public/models/manifest.json)、[小和模型清单](../blender/xiaohe-pet-manifest.json) 和回归测试。早期版本的“12 本具名演示书 + 编号样书”已在 2.5.x 中移除；清空后的审计记录见 `blender/empty-shelves-audit.json`。
@@ -58,7 +59,8 @@
 | `src/voice/intent.js` | 标题、别名、编号与位置匹配 | 只索引已入库书籍，空槽位不参与 |
 | `src/voice/understand.js` | 语义请求与超时降级 | 放在应用调度层，不阻塞识别器同步派发 |
 | `src/scene/runtime.js` | 渲染器、相机、色调映射 | 统一米制坐标和渲染设置 |
-| `src/scene/lighting.js` | 窗侧日光、吊灯、阅读灯、接触遮蔽 | 灯位来自 `public/models/lighting-rig.json` |
+| `src/scene/lighting.js` | 窗侧日光、吊灯、阅读灯、接触遮蔽，昼夜配色 | 灯位来自 `public/models/lighting-rig.json`；昼夜只改颜色与强度，不移动光源 |
+| `src/scene/sky.js` | 窗外像素太阳与月亮、日月切换 | 方位与日光一致；不投射阴影，不受雾与色调映射影响 |
 | `src/scene/environment.js` | 环境与两种书籍模板加载 | 连接 Draco 解码器与书架实例化 |
 | `src/scene/smart-books.js` | 海量书脊实例、逐本颜色、显隐与高亮 | 只显示已入库书籍；取书时隐藏目标实例 |
 | `src/scene/companion.js` | 小和像素宠物的待机、唤醒与带路动作 | 视觉动作归宠物，导航锚点归应用 |
@@ -146,7 +148,7 @@
 
 Blender 保存建筑、书架、家具和植物的源对象；导出时按集合与材质合并网格。前端使用 `GLTFLoader` 加载 GLB，通过项目内的 Draco 解码器解压环境几何。
 
-`runtime.js` 建立透视相机，使用 sRGB 输出及 ACES 色调映射；像素比限制到 2。`lighting.js` 按 `lighting-rig.json` 布置窗侧日光（投射软阴影，阴影贴图按屏幕宽度取 2048 或 4096）、8 盏真实位置的暖色吊灯和 2 盏阅读灯，再叠加 `blender/bake_lighting.py` 离线烘焙的 2048×2048 地面接触遮蔽贴图。动态阴影只在取书与归还动画期间更新，待机与阅读时不重复计算。地板和书柜使用反照率、法线、粗糙度 PBR 贴图；木纹按物理尺度映射，来源和 CC0 许可见 [材质说明](../blender/MATERIAL_REFERENCES.md)，灯光依据见 [灯光说明](../blender/LIGHTING_REFERENCES.md)。
+`runtime.js` 建立透视相机，使用 sRGB 输出及 ACES 色调映射；像素比限制到 2。`lighting.js` 按 `lighting-rig.json` 布置窗侧日光（投射软阴影，阴影贴图按屏幕宽度取 2048 或 4096）、8 盏真实位置的暖色吊灯和 2 盏阅读灯，再叠加 `blender/bake_lighting.py` 离线烘焙的 2048×2048 地面接触遮蔽贴图。动态阴影只在取书与归还动画期间更新，待机与阅读时不重复计算。左后方第二扇拱窗外挂着 Blender 生成的像素太阳（`public/models/celestial.glb`，位置为配置中的 `sky.position`）：它与日光在水平面上同一方位，所以地上的影子背离太阳；日光真实仰角约 32°，沿光线放置会落到总览画面之外，因此高度压低到能透过窗户看见。右下角按钮切换到同一位置的像素月亮，`setNight()` 只把日光换成冷色月光、背景与雾转为夜蓝、环境反射减弱并调亮吊灯与阅读灯，光源不移动，阴影方向保持不变；过渡 1.4 秒按真实时间推进，选择保存在浏览器本地。细节见 [日月说明](../blender/CELESTIAL_REFERENCES.md)。地板和书柜使用反照率、法线、粗糙度 PBR 贴图；木纹按物理尺度映射，来源和 CC0 许可见 [材质说明](../blender/MATERIAL_REFERENCES.md)，灯光依据见 [灯光说明](../blender/LIGHTING_REFERENCES.md)。
 
 ### 5.2 小和像素宠物
 
@@ -263,7 +265,7 @@ npm run test:ui
 python -m unittest discover -s tests -p "test_*.py"
 ```
 
-`npm test` 共 62 项 Node 测试，覆盖状态机与意图路由、唤醒词与检索容错、误命中防线、11,360 个空槽位的几何与旧书库位置兼容、环境 / 阅读书 / 小和 GLB、灯光配置、像素气泡与定位、多轮对话与取消、阅读音乐、本机接口的来源校验与限流、发行附件策略及本机标题栏；其中需要 Python 或 Windows 的项目在缺少条件时自动跳过。`npm run test:ui` 用本机 Chrome / Edge 无头跑完整链路（加载空场景 → 导入 TXT → 按编号找书 → 翻开封面 → 正文翻页 → 查看芯片 → 放回书架 → 按位置码再找一本），约 3–4 分钟。Python 单元测试共 57 项，覆盖书库、书源规则、内置书源、对话适配、限流、自动更新与打包归档，需要先安装 `tools/requirements-sources.txt`。识别生命周期与模型调用使用模拟数据，不能据此宣称真人语音准确率、噪声鲁棒性或端到端延迟已达标。
+`npm test` 共 64 项 Node 测试，覆盖状态机与意图路由、唤醒词与检索容错、误命中防线、11,360 个空槽位的几何与旧书库位置兼容、环境 / 阅读书 / 小和 GLB、灯光配置、日月模型与方位、像素气泡与定位、多轮对话与取消、阅读音乐、本机接口的来源校验与限流、发行附件策略及本机标题栏；其中需要 Python 或 Windows 的项目在缺少条件时自动跳过。`npm run test:ui` 用本机 Chrome / Edge 无头跑完整链路（加载空场景 → 日月切换 → 导入 TXT → 按编号找书 → 翻开封面 → 正文翻页 → 查看芯片 → 放回书架 → 按位置码再找一本），约 3–4 分钟。Python 单元测试共 57 项，覆盖书库、书源规则、内置书源、对话适配、限流、自动更新与打包归档，需要先安装 `tools/requirements-sources.txt`。识别生命周期与模型调用使用模拟数据，不能据此宣称真人语音准确率、噪声鲁棒性或端到端延迟已达标。
 
 人工演示建议依次检查：
 
