@@ -28,14 +28,14 @@
 <text x="563" y="453" class="body"><tspan x="563" dy="0">shelf-book.glb：2 个部件</tspan><tspan x="563" dy="25">smart-book.glb：封面铰链与芯片</tspan></text>
 <rect x="1025" y="395" width="350" height="110" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
 <text x="1043" y="426" class="node"><tspan x="1043" dy="0">两种细节层次</tspan></text>
-<text x="1043" y="453" class="body"><tspan x="1043" dy="0">架上：11,360 本 / 2 个实例池</tspan><tspan x="1043" dy="25">阅读：按需克隆完整模型</tspan></text>
+<text x="1043" y="453" class="body"><tspan x="1043" dy="0">架上：已入库书 / 2 个实例池</tspan><tspan x="1043" dy="25">阅读：按需克隆完整模型</tspan></text>
 <polyline points="415,450 545,450" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
 <text x="460" y="436" class="label"><tspan x="460" dy="0">导出</tspan></text>
 <polyline points="895,450 1025,450" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
 <text x="932" y="436" class="label"><tspan x="932" dy="0">实例化</tspan></text>
 <rect x="65" y="580" width="350" height="110" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
 <text x="83" y="611" class="node"><tspan x="83" dy="0">唯一馆藏生成器</tspan></text>
-<text x="83" y="638" class="body"><tspan x="83" dy="0">prepare-smart-books.mjs</tspan><tspan x="83" dy="25">示例书位置：demo-shelf-map.json</tspan></text>
+<text x="83" y="638" class="body"><tspan x="83" dy="0">prepare-smart-books.mjs</tspan><tspan x="83" dy="25">只生成空槽位，不含书目</tspan></text>
 <rect x="545" y="580" width="350" height="110" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
 <text x="563" y="611" class="node"><tspan x="563" dy="0">唯一一份紧凑清单</tspan></text>
 <text x="563" y="638" class="body"><tspan x="563" dy="0">public/models/book-inventory.json</tspan><tspan x="563" dy="25">网页 / 本机服务 / Blender 同规则展开</tspan></text>

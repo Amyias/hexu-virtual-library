@@ -31,7 +31,7 @@
 <text x="413" y="483" class="body"><tspan x="413" dy="0">精确 &gt; 片段 &gt; 单字近似</tspan><tspan x="413" dy="25">二字书名不做近似</tspan><tspan x="413" dy="25">多个识别候选参与匹配</tspan></text>
 <rect x="725" y="425" width="300" height="125" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
 <text x="743" y="456" class="node"><tspan x="743" dy="0">可选 /understand</tspan></text>
-<text x="743" y="483" class="body"><tspan x="743" dy="0">规则未命中且已配置时调用</tspan><tspan x="743" dy="25">提供具名书目与编号规则</tspan><tspan x="743" dy="25">解析 action / bookId / say</tspan></text>
+<text x="743" y="483" class="body"><tspan x="743" dy="0">规则未命中且已配置时调用</tspan><tspan x="743" dy="25">提供已入库书目（编号/书名/作者）</tspan><tspan x="743" dy="25">解析 action / bookId / say</tspan></text>
 <rect x="1080" y="425" width="295" height="125" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
 <text x="1098" y="456" class="node"><tspan x="1098" dy="0">馆藏与正文承接</tspan></text>
 <text x="1098" y="483" class="body"><tspan x="1098" dy="0">语义结果核对 bookId</tspan><tspan x="1098" dy="25">有效 → 实际馆藏对象</tspan><tspan x="1098" dy="25">未入库 → 检索正文并上架</tspan></text>
@@ -46,7 +46,7 @@
 <text x="64" y="677" class="lane"><tspan x="64" dy="0">03 / 动画执行与反馈</tspan></text>
 <rect x="65" y="715" width="285" height="110" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
 <text x="83" y="746" class="node"><tspan x="83" dy="0">NAVIGATING</tspan></text>
-<text x="83" y="773" class="body"><tspan x="83" dy="0">光球先到书架引导点</tspan><tspan x="83" dy="25">高亮具体书籍实例</tspan></text>
+<text x="83" y="773" class="body"><tspan x="83" dy="0">小和先到书架引导点</tspan><tspan x="83" dy="25">高亮具体书籍实例</tspan></text>
 <rect x="395" y="715" width="285" height="110" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
 <text x="413" y="746" class="node"><tspan x="413" dy="0">PRESENTING</tspan></text>
 <text x="413" y="773" class="body"><tspan x="413" dy="0">隐藏架上目标实例</tspan><tspan x="413" dy="25">完整书模型飞到相机前</tspan></text>
@@ -55,10 +55,10 @@
 <text x="743" y="773" class="body"><tspan x="743" dy="0">拖动 / 按钮 / 语音开合</tspan><tspan x="743" dy="25">芯片 / 简介 / 本地正文翻页</tspan></text>
 <rect x="1080" y="715" width="295" height="110" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
 <text x="1098" y="746" class="node"><tspan x="1098" dy="0">RETURNING → IDLE</tspan></text>
-<text x="1098" y="773" class="body"><tspan x="1098" dy="0">合上、飞回、恢复实例</tspan><tspan x="1098" dy="25">光球回前台，释放阅读资源</tspan></text>
+<text x="1098" y="773" class="body"><tspan x="1098" dy="0">合上、飞回、恢复实例</tspan><tspan x="1098" dy="25">小和回前台，释放阅读资源</tspan></text>
 <polyline points="1340,550 1340,700 207,700 207,715" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
 <polyline points="350,770 395,770" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
 <polyline points="680,770 725,770" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
 <polyline points="1025,770 1080,770" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
-<text x="65" y="887" class="body"><tspan x="65" dy="0">独立唤醒：只改变对话和光球脉冲，不触发导航。</tspan><tspan x="65" dy="27">段式后端识别在句尾才返回文本；识别请求进行时暂停接收新的音频帧。</tspan></text>
+<text x="65" y="887" class="body"><tspan x="65" dy="0">独立唤醒：只改变对话气泡和小和的唤醒动作，不触发导航。</tspan><tspan x="65" dy="27">段式后端识别在句尾才返回文本；识别请求进行时暂停接收新的音频帧。</tspan></text>
 </svg>

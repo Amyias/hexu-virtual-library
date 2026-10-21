@@ -118,7 +118,7 @@ npm start
 | `public/models/hexu-library.glb` | 网页使用的合并材质环境模型（不含架上藏书） |
 | `public/models/smart-book.glb` | 阅读器用的硬皮书模板（含芯片槽与铰链） |
 | `public/models/shelf-book.glb` | 架上书脊模板：书脊 + 书口顶边，2 个部件、216 个三角面 |
-| `public/models/book-inventory.json` | 唯一一份馆藏清单（生成物，约 0.5 MB）：每本一行 `[架, 面, 层, 槽, 布色, x, y, z]`，示例书另有完整记录；网页、测试、本机服务与 Blender 都读它 |
+| `public/models/book-inventory.json` | 唯一一份馆藏清单（生成物，约 0.5 MB）：每个空槽位一行 `[架, 面, 层, 槽, 布色, x, y, z]`，不含预置书目；网页、测试、本机服务与 Blender 都读它 |
 | `public/models/manifest.json` | 导出版本、书架规格、面数、文件大小 |
 | `public/textures/floor-oak-*.jpg` | 地板贴图（反照率 / 法线 / 粗糙度），CC0 扫描件 |
 | `public/textures/joinery-oak-*.jpg` | 书柜与木作贴图（同上） |

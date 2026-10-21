@@ -28,7 +28,7 @@
 <text x="368" y="428" class="body"><tspan x="368" dy="0">app/ 状态机 + processText</tspan><tspan x="368" dy="25">唤醒、多轮、取书、归还</tspan><tspan x="368" dy="25">越序请求拒绝，不叠加动画</tspan></text>
 <rect x="635" y="370" width="250" height="120" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
 <text x="653" y="401" class="node"><tspan x="653" dy="0">实时 3D 渲染</tspan></text>
-<text x="653" y="428" class="body"><tspan x="653" dy="0">Three.js / WebGL</tspan><tspan x="653" dy="25">环境、光球、相机</tspan><tspan x="653" dy="25">架上书实例化</tspan></text>
+<text x="653" y="428" class="body"><tspan x="653" dy="0">Three.js / WebGL</tspan><tspan x="653" dy="25">环境、灯光、小和、相机</tspan><tspan x="653" dy="25">架上书实例化</tspan></text>
 <polyline points="477,300 477,370" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
 <text x="488" y="340" class="label"><tspan x="488" dy="0">转录文本</tspan></text>
 <polyline points="350,423 320,423" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
@@ -36,7 +36,7 @@
 <polyline points="605,423 635,423" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
 <rect x="65" y="585" width="255" height="120" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
 <text x="83" y="616" class="node"><tspan x="83" dy="0">馆藏数据</tspan></text>
-<text x="83" y="643" class="body"><tspan x="83" dy="0">book-inventory.json：11,360 行</tspan><tspan x="83" dy="25">12 本具名演示书</tspan><tspan x="83" dy="25">由行号展开 bookId / chipPayload</tspan></text>
+<text x="83" y="643" class="body"><tspan x="83" dy="0">book-inventory.json：11,360 槽位</tspan><tspan x="83" dy="25">仅本机书库真实入库的书上架</tspan><tspan x="83" dy="25">由行号展开 bookId / chipPayload</tspan></text>
 <rect x="350" y="585" width="255" height="120" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
 <text x="368" y="616" class="node"><tspan x="368" dy="0">界面反馈</tspan></text>
 <text x="368" y="643" class="body"><tspan x="368" dy="0">DOM / CSS3 / 气泡</tspan><tspan x="368" dy="25">麦克风状态与识别记录</tspan><tspan x="368" dy="25">可选 speechSynthesis 播报</tspan></text>
@@ -56,8 +56,8 @@
 <polyline points="605,270 620,270 620,316 930,316 930,423 975,423" fill="none" stroke="#526b69" stroke-width="2" stroke-dasharray="7 6" marker-end="url(#arrow)"/>
 <text x="650" y="333" class="label"><tspan x="650" dy="0">就绪时：音频 → 转录</tspan></text>
 <rect x="975" y="585" width="400" height="120" rx="12" fill="#f8faff" stroke="#b5cbc0" stroke-width="1.5"/>
-<text x="993" y="616" class="node"><tspan x="993" dy="0">可选大模型语义层</tspan></text>
-<text x="993" y="643" class="body"><tspan x="993" dy="0">POST /understand → /chat/completions</tspan><tspan x="993" dy="25">规则未命中时请求；校验 bookId</tspan><tspan x="993" dy="25">设置 / 更新接口只允许回环访问</tspan></text>
+<text x="993" y="616" class="node"><tspan x="993" dy="0">可选大模型语义与对话</tspan></text>
+<text x="993" y="643" class="body"><tspan x="993" dy="0">/understand、/chat → /chat/completions</tspan><tspan x="993" dy="25">找书只选已入库书；可选联网工具</tspan><tspan x="993" dy="25">设置 / 对话 / 更新只允许回环访问</tspan></text>
 <polyline points="580,490 580,520 930,520 930,637 975,637" fill="none" stroke="#526b69" stroke-width="2" stroke-dasharray="7 6" marker-end="url(#arrow)"/>
 <text x="650" y="538" class="label"><tspan x="650" dy="0">未命中时：文本 → 意图</tspan></text>
 <text x="65" y="748" class="body"><tspan x="65" dy="0">浏览器不直接访问大模型密钥；Node 开发服务代理 /library/* 至 Python 书库。</tspan></text>
@@ -77,13 +77,13 @@
 <text x="64" y="1057" class="lane"><tspan x="64" dy="0">04 / 正文书库：下载、持久化与阅读</tspan></text>
 <rect x="65" y="1080" width="405" height="95" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
 <text x="83" y="1111" class="node"><tspan x="83" dy="0">来源引擎与书库 API</tspan></text>
-<text x="83" y="1138" class="body"><tspan x="83" dy="0">维基文库 / 静态 CSS / TXT / EPUB</tspan><tspan x="83" dy="25">book_sources.py + book_library.py</tspan></text>
+<text x="83" y="1138" class="body"><tspan x="83" dy="0">内置书源 / 书源规则 / TXT / EPUB</tspan><tspan x="83" dy="25">book_sources.py + book_library.py</tspan></text>
 <rect x="500" y="1080" width="400" height="95" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
 <text x="518" y="1111" class="node"><tspan x="518" dy="0">本机持久化</tspan></text>
 <text x="518" y="1138" class="body"><tspan x="518" dy="0">SQLite：书目 / 章节 / 书源 / 进度</tspan><tspan x="518" dy="25">UTF-8 TXT：完整正文副本</tspan></text>
 <rect x="930" y="1080" width="445" height="95" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
 <text x="948" y="1111" class="node"><tspan x="948" dy="0">书架与正文联动</tspan></text>
-<text x="948" y="1138" class="body"><tspan x="948" dy="0">library.js：稳定绑定编号样书</tspan><tspan x="948" dy="25">novel.js：测量分页与进度恢复</tspan></text>
+<text x="948" y="1138" class="body"><tspan x="948" dy="0">library.js：入库即绑定固定槽位</tspan><tspan x="948" dy="25">novel.js：测量分页与进度恢复</tspan></text>
 <polyline points="470,1125 500,1125" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
 <polyline points="900,1125 930,1125" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
 </svg>
