@@ -493,27 +493,50 @@ try {
     !(loaded.lighting.underlayVertices > 0)
   )
     throw Error("灯光、接触遮蔽或地板暗色衬底未加载");
-  if (loaded.sky?.night || !loaded.sky?.sunVisible || loaded.sky.moonVisible)
-    throw Error(`默认应为白天且只显示像素太阳：${JSON.stringify(loaded.sky)}`);
-  for (const night of [true, false]) {
-    await click("sky");
-    await waitFor(
-      async () => {
-        const { sky, lighting } = await state();
-        const dark = await page.evaluate("document.body.classList.contains('night')");
-        return (
-          sky.night === night &&
-          sky.blend === (night ? 1 : 0) &&
-          sky.moonVisible === night &&
-          sky.sunVisible === !night &&
-          lighting.night === sky.blend &&
-          dark === night
-        );
-      },
-      night ? "切换到像素月亮" : "切换回像素太阳",
+  const skyIs = async (night, automatic) => {
+    const { sky, lighting } = await state();
+    const dark = await page.evaluate("document.body.classList.contains('night')");
+    return (
+      sky.night === night &&
+      sky.automatic === automatic &&
+      sky.blend === (night ? 1 : 0) &&
+      sky.moonVisible === night &&
+      sky.sunVisible === !night &&
+      lighting.night === sky.blend &&
+      dark === night
     );
-  }
-  step("日月切换", "像素太阳与月亮同处窗外光源方位；灯光、背景与文字配色随之切换");
+  };
+  // The page's own clock decides: 08:00-17:00 is the sun, otherwise the moon.
+  const scheduledNight = await page.evaluate(
+    "(() => { const h = new Date().getHours(); return h < 8 || h >= 17; })()",
+  );
+  if (!(await skyIs(scheduledNight, true)))
+    throw Error(`初始日月应跟随系统时间：${JSON.stringify(loaded.sky)}`);
+  // A manual switch holds until the next boundary; switching back returns to the clock.
+  await click("sky");
+  await waitFor(() => skyIs(!scheduledNight, false), "手动切换日月");
+  if (!(await state()).sky.manualUntil) throw Error("手动切换没有记录恢复自动的时间");
+  await click("sky");
+  await waitFor(() => skyIs(scheduledNight, true), "切回后恢复自动");
+  // Move the page clock across the next boundary; the sky must follow by itself.
+  await page.evaluate(`(() => {
+    const Real = Date, now = new Real(), target = new Real(now);
+    target.setMinutes(0, 0, 0);
+    target.setHours(${scheduledNight ? 12 : 18});
+    const shift = target - now;
+    window.__realDate = Real;
+    window.Date = class extends Real {
+      constructor(...args) { super(...(args.length ? args : [Real.now() + shift])); }
+      static now() { return Real.now() + shift; }
+    };
+  })()`);
+  await waitFor(() => skyIs(!scheduledNight, true), "到点自动切换日月");
+  await page.evaluate("window.Date = window.__realDate");
+  await waitFor(() => skyIs(scheduledNight, true), "恢复真实时间后跟随时钟");
+  step(
+    "日月切换",
+    "跟随系统时间（08:00–17:00 太阳）、手动临时切换与到点自动切换；灯光、背景与文字配色随之切换",
+  );
   if (
     !(await page.evaluate(
       "Boolean(document.querySelector('.mark img')?.complete && document.querySelector('.mark img').naturalWidth > 0)",

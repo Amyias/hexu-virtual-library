@@ -55,22 +55,40 @@ export async function startLibrary() {
       ($("loading").querySelector("p").textContent = "正在加载 Blender 模型 " + percent + "%"),
   );
   const lighting = await createLighting({ scene, renderer, root: environment.root });
-  const sky = await createSky({ scene, lighting, rig: lighting.rig });
+  const clockText = (date) =>
+    `${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
   const paintSky = () => {
     const button = $("sky");
-    const label = sky.night ? "切换到太阳" : "切换到月亮";
+    const until = sky.manualUntil;
+    const label =
+      (sky.night ? "切换到太阳" : "切换到月亮") +
+      (until
+        ? `（已手动切换，${clockText(until)} 起恢复自动）`
+        : "（08:00–17:00 太阳，其余时间月亮，自动切换）");
     button.textContent = sky.night ? "☀" : "☾";
     button.setAttribute("aria-label", label);
     button.title = label;
     button.setAttribute("aria-pressed", String(sky.night));
     document.body.classList.toggle("night", sky.night);
   };
+  const sky = await createSky({
+    scene,
+    lighting,
+    rig: lighting.rig,
+    onChange({ night, automatic }) {
+      paintSky();
+      const until = sky.manualUntil;
+      if (automatic)
+        feedback.notice(night ? "17:00 到了，月亮升起，馆内灯光亮起。" : "08:00 到了，太阳升起。");
+      else if (until)
+        feedback.notice(
+          `${night ? "已切换到月亮" : "已切换到太阳"}，${clockText(until)} 起恢复按时间自动切换。`,
+        );
+      else feedback.notice("已恢复按时间自动切换：08:00–17:00 太阳，其余时间月亮。");
+    },
+  });
   paintSky();
-  $("sky").onclick = () => {
-    sky.toggle();
-    paintSky();
-    feedback.notice(sky.night ? "夜幕降临，月光从同一扇窗洒进来。" : "天亮了，阳光重新照进馆内。");
-  };
+  $("sky").onclick = () => sky.toggle();
   const factory = createBookFactory(renderer, environment.bookTemplate);
   const companion = await createCompanion(scene, home);
   const orb = companion.root; // Navigation keeps its existing anchor contract.

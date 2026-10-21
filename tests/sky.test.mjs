@@ -57,3 +57,30 @@ test("the sky body sits outside the window on the daylight's bearing and shows t
   assert.ok(dx < 1.35, `crosses window x=${wx}`);
   assert.ok(wy > 1.3 && wy < 3 + 1.25 * Math.sqrt(1 - (dx / 1.48) ** 2), `crosses window y=${wy}`);
 });
+
+test("the sky follows the local clock and a manual choice lapses at the next 08:00 or 17:00", async () => {
+  const { isNightAt, nextBoundary, readOverride } = await import("../src/scene/sky-schedule.js");
+  const at = (hour, minute = 0) => new Date(2026, 9, 21, hour, minute);
+  for (const [hour, minute, night] of [
+    [0, 0, true],
+    [7, 59, true],
+    [8, 0, false],
+    [12, 30, false],
+    [16, 59, false],
+    [17, 0, true],
+    [23, 59, true],
+  ])
+    assert.equal(isNightAt(at(hour, minute)), night, `${hour}:${minute}`);
+  assert.deepEqual(nextBoundary(at(6, 15)), at(8));
+  assert.deepEqual(nextBoundary(at(8, 0)), at(17));
+  assert.deepEqual(nextBoundary(at(16, 59)), at(17));
+  assert.deepEqual(nextBoundary(at(17, 0)), new Date(2026, 9, 22, 8));
+  assert.deepEqual(nextBoundary(at(23, 30)), new Date(2026, 9, 22, 8));
+  // Crossing a month end still lands on the next morning.
+  assert.deepEqual(nextBoundary(new Date(2026, 9, 31, 20)), new Date(2026, 10, 1, 8));
+  const saved = JSON.stringify({ night: true, until: +at(17) });
+  assert.deepEqual(readOverride(saved, at(10)), { night: true, until: +at(17) });
+  assert.equal(readOverride(saved, at(17)), null, "expired at the boundary");
+  for (const broken of [null, "", "night", "{}", '{"night":"yes","until":1}'])
+    assert.equal(readOverride(broken, at(10)), null);
+});

@@ -1,7 +1,9 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { isNightAt, nextBoundary, readOverride } from "./sky-schedule.js";
 
-const PREFERENCE = "hexu-sky";
+const OVERRIDE = "hexu-sky-override"; // a manual choice and when it lapses
+const LEGACY_PREFERENCE = "hexu-sky"; // 2.5.4 kept a permanent choice; the clock replaces it
 const REQUIRED = [
   "PixelSun",
   "PixelSunDisc",
@@ -23,6 +25,8 @@ export async function createSky({
   rig,
   storage = globalThis.localStorage,
   now = () => performance.now() / 1000,
+  clock = () => new Date(),
+  onChange = () => {},
 }) {
   const gltf = await new GLTFLoader().loadAsync(
     new URL("../../public/models/celestial.glb", import.meta.url).href,
@@ -73,12 +77,16 @@ export async function createSky({
     moon.position.y = -0.6 * Math.min(1, 2 - 2 * v);
     lighting.setNight(v);
   }
+  let override = null; // { night, until } while a manual choice holds
+  function remember(value) {
+    override = value;
+    try {
+      if (value) storage?.setItem(OVERRIDE, JSON.stringify(value));
+      else storage?.removeItem(OVERRIDE);
+    } catch {}
+  }
   function set(next, animate = true) {
     night = Boolean(next);
-    try {
-      if (night) storage?.setItem(PREFERENCE, "night");
-      else storage?.removeItem(PREFERENCE);
-    } catch {}
     const to = night ? 1 : 0;
     // Driven by elapsed time in update(), not a tween: GSAP's lag smoothing would stretch the
     // change over many seconds on a slow GPU.
@@ -89,20 +97,46 @@ export async function createSky({
     }
     return night;
   }
-  let saved = false;
   try {
-    saved = storage?.getItem(PREFERENCE) === "night";
+    storage?.removeItem(LEGACY_PREFERENCE);
+    override = readOverride(storage?.getItem(OVERRIDE), clock());
   } catch {}
-  set(saved, false);
+  if (!override) remember(null);
+  set(override ? override.night : isNightAt(clock()), false);
+
+  let nextCheck = 0;
+  /** Once a second: lapse an expired manual choice, then follow the clock. */
+  function follow() {
+    const date = clock();
+    if (override && date >= override.until) remember(null);
+    const scheduled = override ? override.night : isNightAt(date);
+    if (scheduled === night) return;
+    set(scheduled);
+    onChange({ night, automatic: true });
+  }
 
   return {
     root,
-    toggle: () => set(!night),
-    set,
+    /** Manual switch; it holds until the next 08:00 or 17:00, then the clock takes over. */
+    toggle() {
+      const date = clock();
+      const next = !night;
+      remember(next === isNightAt(date) ? null : { night: next, until: +nextBoundary(date) });
+      set(next);
+      onChange({ night, automatic: false });
+      return night;
+    },
     get night() {
       return night;
     },
+    get manualUntil() {
+      return override ? new Date(override.until) : null;
+    },
     update({ time, camera }) {
+      if (now() >= nextCheck) {
+        nextCheck = now() + 1;
+        follow();
+      }
       if (transition) {
         const t = Math.min(1, (now() - transition.start) / DURATION);
         const eased = 0.5 - 0.5 * Math.cos(Math.PI * t);
@@ -120,6 +154,8 @@ export async function createSky({
     },
     getState: () => ({
       night,
+      automatic: !override,
+      manualUntil: override?.until ?? null,
       blend: blend.value,
       position: root.position.toArray(),
       sunVisible: sun.visible,
