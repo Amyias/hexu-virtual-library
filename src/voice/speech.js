@@ -1,5 +1,6 @@
 import { findBook, wakeRE } from "./intent.js";
 import { createServerAsr, probeServerAsr } from "./server-asr.js";
+import { voice } from "./voice.js";
 /* Browser recognizer lifecycle, independent of rendering and animation. */
 export function createSpeech({ $, notice, wake, processText, getPhase, lookupBook = findBook }) {
   // Real Web Speech API: one live recognizer, interim wake-up, final intent, automatic restart.
@@ -109,7 +110,7 @@ export function createSpeech({ $, notice, wake, processText, getPhase, lookupBoo
         const text = heard[0] ?? "";
         $("transcript").textContent = "听到：" + text;
         /* Optional TTS echo gate; ASR remains running. Headphones recommended. */ if (
-          window.speechSynthesis?.speaking
+          voice.isSpeaking()
         )
           continue;
         if (!e.results[i].isFinal) {
@@ -309,7 +310,7 @@ export function createSpeech({ $, notice, wake, processText, getPhase, lookupBoo
     clearTimeout(silentTimer);
     serverAsr?.stop();
     recognition?.abort();
-    window.speechSynthesis?.cancel();
+    voice.cancel();
   });
 
   return {

@@ -169,7 +169,7 @@ Windows PowerShell 5.1 用**控制台代码页**（本机是 GBK）解码两样�
 | `blender/__pycache__/`、`*.pyc` | Python 字节码 |
 | `blender/*.blend1` | Blender 保存时自动生成的上一版备份 |
 | `.mimosa/` | 本机安全扫描插件的钩子状态，与项目无关 |
-| `.cache/` | 本机版打包的中间物：构建用虚拟环境、228 MiB 识别模型、PyInstaller 工作目录 |
+| `.cache/` | 本机版打包的中间物：构建用虚拟环境、228 MiB 识别模型、117 MB 语音播报模型、PyInstaller 工作目录 |
 | `dist/` | 本机版的发行产物（约 400 MB），由 `tools/package-local.mjs` 随时重建 |
 
 前两项由 `tools/package-local.mjs` 生成，不进版本库；进版本库的是**打包脚本、spec 与文档**，所以换一台机器也能重建出同样的程序。

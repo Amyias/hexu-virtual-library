@@ -12,11 +12,16 @@ build has to use a virtual environment whose interpreter actually has a sherpa-o
 every one of those is easy to get subtly wrong by hand. Running it again is cheap — the
 environment and dependencies are reused when they are already there.
 
-    node tools/package-local.mjs [--zip] [--shortcut] [--no-build] [--skip-deps]
+    node tools/package-local.mjs [--zip] [--shortcut] [--no-build] [--skip-deps] [--no-voice]
 
 The model is not in this repository (it is 228 MiB and belongs to nobody's git history). Put it
 at .cache/models/<name>/ first, or point HEXU_ASR_MODEL_DIR at it; without it the script prints
-the exact command to fetch it from the deployment. See DEPLOY.md, 「本机版打包」. */
+the exact command to fetch it from the deployment. See DEPLOY.md, 「本机版打包」.
+
+The reply voice (PrimeTTS v2.1, 欣然, 117 MB, Apache-2.0) is not in the repository either. It is
+downloaded from a pinned Hugging Face revision into .cache/models/primetts-v2.1/ and checked
+against its SHA-256 before it is packaged; --no-voice builds without it, and the program then
+speaks with the system voice. See tools/primetts/NOTICE.md. */
 import fs from "node:fs";
 import path from "node:path";
 import zlib from "node:zlib";
@@ -29,6 +34,12 @@ const APP = "和序图书馆";
 const MODEL_NAME = "sherpa-onnx-sense-voice-zh-en-ja-ko-yue-int8-2024-07-17";
 const DEPLOY_HOST = "root@64.90.2.91";
 const DEPLOY_MODEL_PATH = `/opt/hexu-library/models/${MODEL_NAME}`;
+// PrimeTTS v2.1 at a fixed revision, so a rebuild cannot silently pick up a different voice.
+const VOICE_REVISION = "7c47a46121d7006b2fc3cf7c49349fe5a86a9c5d";
+const VOICE_FILE = "primetts_v21_3voice.onnx";
+const VOICE_URL = `https://huggingface.co/Luigi/PrimeTTS/resolve/${VOICE_REVISION}/v21_mbistft_16k/${VOICE_FILE}`;
+const VOICE_BYTES = 116947806;
+const VOICE_SHA256 = "0cf64ad010a9b92201222533900ece31562a0181e7a8e435e5de83b3d72b4bdf";
 // The repository of record, and the only one that carries the `model` branch.
 const GITHUB_REMOTE = "git@github.com:Amyias/hexu-virtual-library.git";
 
@@ -41,6 +52,10 @@ const venvPython = path.join(venv, "Scripts", "python.exe");
 const modelDir = path.resolve(
   process.env.HEXU_ASR_MODEL_DIR || path.join(cache, "models", MODEL_NAME),
 );
+const voiceDir = path.resolve(
+  process.env.HEXU_TTS_MODEL_DIR || path.join(cache, "models", "primetts-v2.1"),
+);
+const withVoice = !process.argv.includes("--no-voice");
 const stage = path.join(cache, "stage", "site");
 const dist = path.join(root, "dist");
 const appDir = path.join(dist, APP);
@@ -142,6 +157,10 @@ const DEPENDENCIES = [
   "jsonpath-ng==1.10.1",
   "quickjs-ng==0.17.0.1",
   "pypinyin==0.55.0",
+  // The reply voice: its ONNX model runs on onnxruntime (sherpa-onnx cannot load it, it takes
+  // tone and language inputs), and the borrowed text normaliser reads numbers with cn2an.
+  "onnxruntime==1.31.0",
+  "cn2an==0.5.24",
 ];
 /* Listed separately because the sherpa-onnx wheel does not pull it in, yet transcribe() needs
    it — and without it the packaged program starts, reports itself ready, and then fails on the
@@ -272,6 +291,38 @@ function checkModel() {
   log(`识别模型  ${megabytes(size)}  ${modelDir}`);
 }
 
+/** The reply voice, downloaded once from its pinned revision and checked before every build.
+ *  A model with the wrong bytes would load and then speak nonsense, so a mismatch is fatal. */
+async function checkVoiceModel() {
+  const target = path.join(voiceDir, VOICE_FILE);
+  const matches = (file) =>
+    fs.existsSync(file) &&
+    fs.statSync(file).size === VOICE_BYTES &&
+    createHash("sha256").update(fs.readFileSync(file)).digest("hex") === VOICE_SHA256;
+  if (!matches(target)) {
+    log(`下载语音模型 PrimeTTS v2.1（${megabytes(VOICE_BYTES)}）…`);
+    fs.mkdirSync(voiceDir, { recursive: true });
+    const partial = target + ".part";
+    try {
+      const response = await fetch(VOICE_URL);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      fs.writeFileSync(partial, Buffer.from(await response.arrayBuffer()));
+    } catch (error) {
+      fail(
+        `语音模型下载失败：${error.message}
+${VOICE_URL}
+` + "可以稍后重试，或加 --no-voice 打一个只用系统语音的版本。",
+      );
+    }
+    if (!matches(partial)) {
+      fs.rmSync(partial, { force: true });
+      fail("语音模型的大小或 SHA-256 与固定版本不符，拒绝用它打包。");
+    }
+    fs.renameSync(partial, target);
+  }
+  log(`语音模型  ${megabytes(VOICE_BYTES)}  ${voiceDir}（欣然，SHA-256 已校验）`);
+}
+
 /** Record what this build was made from, inside the bundle.
 
  *  The installed program can then say which commit it is, and the updater — which works by
@@ -375,7 +426,11 @@ function build(python) {
       stdio: "inherit",
       // Passed through the environment rather than argv: the project directory has a Chinese
       // name, and this shell converts non-ASCII in argv to the console code page.
-      env: { ...process.env, HEXU_ASR_MODEL_DIR: modelDir },
+      env: {
+        ...process.env,
+        HEXU_ASR_MODEL_DIR: modelDir,
+        HEXU_TTS_MODEL_DIR: withVoice ? voiceDir : "",
+      },
     },
   );
   if (result.status !== 0) fail("打包失败（PyInstaller 的输出见上）。");
@@ -404,6 +459,7 @@ function verify() {
     path.join(appDir, "_internal", "public", "models", "xiaohe-pet.glb"),
     path.join(appDir, "_internal", "public", "models", "celestial.glb"),
     path.join(appDir, "_internal", "models", "sense-voice", "model.int8.onnx"),
+    ...(withVoice ? [path.join(appDir, "_internal", "models", "primetts", VOICE_FILE)] : []),
   ];
   const missing = required.filter((file) => !fs.existsSync(file));
   if (missing.length) fail("打包结果缺少文件：\n  " + missing.join("\n  "));
@@ -564,6 +620,8 @@ const python = noBuild ? null : ensurePython();
 if (python && !process.argv.includes("--skip-deps")) ensureDependencies(python);
 if (python) {
   checkModel();
+  if (withVoice) await checkVoiceModel();
+  else log("--no-voice：不打包语音模型，程序将使用系统语音。");
   stageSite();
   build(python);
 } else {

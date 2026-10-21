@@ -397,8 +397,13 @@ footer{color:var(--muted);font-size:13px;margin-top:36px;padding-top:18px;border
 </tr>
 <tr>
 <td>Web Speech API</td>
-<td>浏览器识别和可选语音播报</td>
+<td>浏览器识别；本机语音不可用时的播报退回</td>
 <td>无需部署识别后端的路径</td>
+</tr>
+<tr>
+<td>PrimeTTS v2.1 / onnxruntime</td>
+<td>小和的语音播报：台湾女声「欣然」，本机 CPU 合成 16 kHz WAV</td>
+<td>免费（Apache-2.0）、离线、比系统语音自然；模型 117 MB 由打包脚本按固定版本下载并校验</td>
 </tr>
 <tr>
 <td>getUserMedia / Web Audio</td>
@@ -436,7 +441,7 @@ footer{color:var(--muted);font-size:13px;margin-top:36px;padding-top:18px;border
 <td>分发 Python 运行时、站点和识别模型</td>
 </tr>
 </tbody></table>
-<p>版本说明：建模统计记录 Blender <code>5.2.2 LTS</code>；打包脚本列出的构建依赖包括 PyInstaller <code>6.22.3</code>、sherpa-onnx <code>1.13.8</code> 和 NumPy；像素字体为 Fusion Pixel <code>2026.09.25</code>。这些是项目内记录的版本，不表示运行本机已安装全部依赖。</p>
+<p>版本说明：建模统计记录 Blender <code>5.2.2 LTS</code>；打包脚本列出的构建依赖包括 PyInstaller <code>6.22.3</code>、sherpa-onnx <code>1.13.8</code>、onnxruntime <code>1.31.0</code>、cn2an <code>0.5.24</code> 和 NumPy；像素字体为 Fusion Pixel <code>2026.09.25</code>。这些是项目内记录的版本，不表示运行本机已安装全部依赖。</p>
 <h2 id="section-4">4. 语音唤醒、识别、理解与对话</h2>
 <figure class="diagram" id="figure-voice-flow"><svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1000" viewBox="0 0 1440 1000" role="img" aria-labelledby="voice-flow-title voice-flow-desc"><title id="voice-flow-title">从一句话到一本书 · 语音与意图流程</title><desc id="voice-flow-desc">ASR 负责“听到什么”；规则与可选大模型负责“要做什么”；应用调度负责“如何执行”</desc><defs><marker id="voice-flow-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#526b69"/></marker></defs><style>text{font-family:'Microsoft YaHei','Noto Sans CJK SC',Arial,sans-serif;fill:#203b3b}.title{font-size:32px;font-weight:700}.sub{font-size:17px;fill:#627674}.lane{font-size:20px;font-weight:700}.node{font-size:19px;font-weight:700}.body{font-size:16px;fill:#4c6664}.label{font-size:15px;fill:#526b69;paint-order:stroke;stroke:#f5f7f4;stroke-width:7px;stroke-linejoin:round}</style><rect width="1440" height="1000" fill="#f5f7f4"/>
 <text x="40" y="58" class="title"><tspan x="40" dy="0">从一句话到一本书 · 语音与意图流程</tspan></text>
@@ -710,6 +715,11 @@ footer{color:var(--muted);font-size:13px;margin-top:36px;padding-top:18px;border
 <td>受约束的意图解析；超额返回 429</td>
 </tr>
 <tr>
+<td><code>GET /tts/ready</code>、<code>POST /tts</code></td>
+<td><code>{text}</code> → 16 kHz WAV</td>
+<td>本机语音播报；模型缺失时 503，页面退回系统语音；每分钟默认 240 次</td>
+</tr>
+<tr>
 <td><code>GET /chat/ready</code>、<code>POST /chat</code></td>
 <td><code>{text, phase, bookId, history, configuration}</code> → <code>{reply, sources, ...}</code></td>
 <td>自由问答与联网工具；仅回环访问，超额返回 429</td>
@@ -762,7 +772,7 @@ npm start
 npm run test:ui
 python -m unittest discover -s tests -p &quot;test_*.py&quot;
 </code></pre>
-<p><code>npm test</code> 共 65 项 Node 测试，覆盖状态机与意图路由、唤醒词与检索容错、误命中防线、11,360 个空槽位的几何与旧书库位置兼容、环境 / 阅读书 / 小和 GLB、灯光配置、日月模型、方位与时间表、像素气泡与定位、多轮对话与取消、阅读音乐、本机接口的来源校验与限流、发行附件策略及本机标题栏；其中需要 Python 或 Windows 的项目在缺少条件时自动跳过。<code>npm run test:ui</code> 用本机 Chrome / Edge 无头跑完整链路（加载空场景 → 日月切换 → 导入 TXT → 按编号找书 → 翻开封面 → 正文翻页 → 查看芯片 → 放回书架 → 按位置码再找一本），约 3–4 分钟。Python 单元测试共 69 项，覆盖书库、书源规则、内置书源、对话适配、限流、自动更新与打包归档，需要先安装 <code>tools/requirements-sources.txt</code>。识别生命周期与模型调用使用模拟数据，不能据此宣称真人语音准确率、噪声鲁棒性或端到端延迟已达标。</p>
+<p><code>npm test</code> 共 71 项 Node 测试，覆盖状态机与意图路由、唤醒词与检索容错、误命中防线、11,360 个空槽位的几何与旧书库位置兼容、环境 / 阅读书 / 小和 GLB、灯光配置、日月模型、方位与时间表、语音播报分句与退回、像素气泡与定位、多轮对话与取消、阅读音乐、本机接口的来源校验与限流、发行附件策略及本机标题栏；其中需要 Python 或 Windows 的项目在缺少条件时自动跳过。<code>npm run test:ui</code> 用本机 Chrome / Edge 无头跑完整链路（加载空场景 → 日月切换 → 导入 TXT → 按编号找书 → 翻开封面 → 正文翻页 → 查看芯片 → 放回书架 → 按位置码再找一本），约 3–4 分钟。Python 单元测试共 76 项，覆盖书库、书源规则、内置书源、对话适配、本机语音合成与接口、限流、自动更新与打包归档，需要先安装 <code>tools/requirements-sources.txt</code>。识别生命周期与模型调用使用模拟数据，不能据此宣称真人语音准确率、噪声鲁棒性或端到端延迟已达标。</p>
 <p>人工演示建议依次检查：</p>
 <ol>
 <li>场景加载完成，可旋转、缩放，五个分区正常显示，书架为空。</li>

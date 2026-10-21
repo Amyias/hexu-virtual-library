@@ -1,5 +1,6 @@
 import { createDialogueSounds } from "./dialogue-sounds.js";
 import { createPixelDialogue } from "./pixel-dialogue.js";
+import { voice } from "../voice/voice.js";
 
 export function createFeedback($) {
   let noticeTimer;
@@ -26,15 +27,8 @@ export function createFeedback($) {
     dialogue.show(text, hold, { ...options, typingSound: !voiced });
   }
   function say(text, hold = 6500, options = {}) {
-    bubble(text, hold, speaking && Boolean(window.speechSynthesis), options);
-    if (!speaking || !window.speechSynthesis) return;
-    speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = "zh-CN";
-    utterance.rate = 1;
-    const voice = speechSynthesis.getVoices().find((v) => v.lang.startsWith("zh"));
-    if (voice) utterance.voice = voice;
-    speechSynthesis.speak(utterance);
+    bubble(text, hold, speaking && voice.available, options);
+    if (speaking) voice.speak(text);
   }
   function toggleSpeaking() {
     speaking = !speaking;
@@ -42,8 +36,20 @@ export function createFeedback($) {
     $("sound").title = speaking ? "关闭语音播报" : "开启语音播报";
     $("sound").setAttribute("aria-label", $("sound").title);
     $("sound").setAttribute("aria-pressed", String(speaking));
-    if (!speaking) window.speechSynthesis?.cancel();
-    notice(speaking ? "语音播报已开启，建议使用耳机。" : "语音播报已关闭，像素气泡回应保持开启。");
+    if (!speaking) {
+      voice.cancel();
+      notice("语音播报已关闭，像素气泡回应保持开启。");
+      return;
+    }
+    voice
+      .probe()
+      .then((local) =>
+        notice(
+          local
+            ? `语音播报已开启：本机台湾女声「${local.voice}」（AI 合成语音），建议使用耳机。`
+            : "语音播报已开启：使用系统语音，建议使用耳机。",
+        ),
+      );
   }
   function paintSoundButton() {
     const enabled = sounds.getState().enabled;
@@ -69,6 +75,11 @@ export function createFeedback($) {
     say,
     toggleSpeaking,
     toggleSounds,
-    getState: () => ({ ...dialogue.getState(), sound: sounds.getState(), speaking }),
+    getState: () => ({
+      ...dialogue.getState(),
+      sound: sounds.getState(),
+      speaking,
+      voice: voice.getState(),
+    }),
   };
 }

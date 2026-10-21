@@ -80,7 +80,11 @@ const mime = {
 };
 const server = http.createServer(async (req, res) => {
   try {
-    if (/^\/(?:library\/|chat(?:[/?]|$)|understand(?:[/?]|$)|settings(?:[/?]|$))/.test(req.url)) {
+    if (
+      /^\/(?:library\/|tts(?:[/?]|$)|chat(?:[/?]|$)|understand(?:[/?]|$)|settings(?:[/?]|$))/.test(
+        req.url,
+      )
+    ) {
       try {
         const backendPort = await startBookService();
         const upstream = http.request(

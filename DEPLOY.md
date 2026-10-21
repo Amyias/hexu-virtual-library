@@ -253,6 +253,8 @@ scp -i ~/.ssh/rainyun-rcs-Snowy_Brew.pem \
 
 或用 `HEXU_ASR_MODEL_DIR` 指向别处的模型目录。模型是 Apache-2.0，`LICENSE` 会一起打进包里。
 
+**语音播报模型**（台湾女声「欣然」，PrimeTTS v2.1，117 MB，Apache-2.0）同样不在仓库里。打包脚本第一次运行时从 Hugging Face 的**固定版本**下载到 `.cache/models/primetts-v2.1/`，每次打包前都核对大小与 SHA-256，不符即中止；也可以用 `HEXU_TTS_MODEL_DIR` 指向别处。加 `--no-voice` 可以打一个不带它的版本，程序会改用系统语音。它打进程序包内（`_internal/models/primetts/`），所以程序 ZIP 比以前大约 100 MB。来源、改写方式与“标明 AI 合成语音”的要求见 `tools/primetts/NOTICE.md`。
+
 ### 产物
 
 ```
@@ -317,7 +319,7 @@ python tools/make-icon.py      # 需要 Pillow；图标已提交，构建本身�
 | 中文安装路径 | 通过（onnxruntime 的已知风险点） |
 | 包内 TLS | 通过：用无效密钥打 `https://api.deepseek.com` 得到 401（而非连接错误），证书链与系统信任库可用 |
 
-**没有验证到的一项**：可选的语音播报（右下角 ♪，默认关闭）在 WebView2 里能否发声我没有实测。播报关闭时气泡回应照常，所以即使系统不提供语音合成也只是少一个可选项。
+**语音播报**（右下角 ♪，默认关闭）：有本机模型时由服务端合成 WAV、页面用 `<audio>` 播放，不依赖 WebView2 自带的语音列表（WebView2 只提供 Windows 本机语音，拿不到 Edge 的在线自然语音）；没有模型时退回系统语音并优先选台湾女声。播报关闭时气泡回应照常。
 
 ### 更新
 

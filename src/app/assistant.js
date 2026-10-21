@@ -3,6 +3,7 @@ import { understand } from "../voice/understand.js";
 import { findBook } from "../voice/intent.js";
 import { decide, protocolResponse, NO_MATCH, FOUND, READING_HINT, BUSY_HINT } from "./dialogue.js";
 import { createChatSession } from "../voice/chat.js";
+import { voice } from "../voice/voice.js";
 import { IDLE } from "./phases.js";
 
 /* 小和 itself: carries out what dialogue.decide() concluded. Every text input — recognised speech,
@@ -108,7 +109,7 @@ export function createAssistant({
     chat.cancel();
     conversation?.busy(false);
     feedback.hideBubble();
-    window.speechSynthesis?.cancel();
+    voice.cancel();
   }
   function clearConversation() {
     cancelPending();

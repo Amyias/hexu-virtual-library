@@ -18,6 +18,9 @@ Routes:
     GET  /asr/ready        -> {"ready": bool, ...}  the page probes this and only then uses /asr
     POST /asr              -> 16 kHz mono WAV body, returns {"text": ...}
     GET  /understand/ready -> {"ready": bool, ...}  whether a semantic layer is configured
+    GET  /tts/ready        -> {"ready": bool, "voice": ...}  local Taiwan-Mandarin voice (tools/tts.py)
+    POST /tts              -> {"text": ...}, returns 16 kHz WAV; the page falls back to the
+                              browser's speechSynthesis while this answers 503
     POST /chat             -> general conversation with bounded, browser-owned history
     GET  /chat/ready       -> configured model and non-secret configuration identity
     POST /understand       -> {"text": ..., "phase": ...}, returns a parsed intent; 429 past
@@ -50,6 +53,7 @@ from pathlib import Path
 
 import updater
 import book_library
+import tts
 import llm_chat
 import web_tools
 
@@ -91,6 +95,17 @@ def model_dir():
         # resolve against the current drive. The packaging step puts the model here instead.
         return Path(__file__).resolve().parents[1] / ".cache" / "models" / MODEL_NAME
     return Path("/opt/hexu-library/models") / MODEL_NAME
+
+
+def tts_model_dir():
+    """Where the PrimeTTS voice lives: beside the site in a packaged build, under .cache in a
+    checkout (tools/package-local.mjs downloads it there), or wherever the deployment says."""
+    override = os.environ.get("HEXU_TTS_MODEL_DIR", "").strip()
+    if override:
+        return Path(override).expanduser()
+    if frozen():
+        return site_root() / "models" / "primetts"
+    return Path(__file__).resolve().parents[1] / ".cache" / "models" / "primetts-v2.1"
 
 
 def config_path():
@@ -295,6 +310,9 @@ class RateLimit:
 
 
 UNDERSTAND_LIMIT = RateLimit(LLM_PER_MINUTE)
+# A sentence costs a fraction of a second of CPU; generous for a reader, a ceiling for a script.
+SPEECH_LIMIT = RateLimit(int(os.environ.get("HEXU_TTS_PER_MINUTE", "240")))
+SPEAKER = tts.Speaker(tts_model_dir())
 
 CATALOG_PATH = ROOT / "public" / "models" / "book-inventory.json"
 try:
@@ -623,6 +641,10 @@ class Handler(SimpleHTTPRequestHandler):
             ready, payload = model_state()
             self._send_json(200 if ready else 503, payload)
             return
+        if pathname == "/tts/ready":
+            ready, payload = SPEAKER.state()
+            self._send_json(200 if ready else 503, payload)
+            return
         if pathname in ("/understand/ready", "/chat/ready"):
             if pathname == "/chat/ready" and not self._loopback_only():
                 return
@@ -816,6 +838,26 @@ class Handler(SimpleHTTPRequestHandler):
             hint = "服务未就绪。"
         self._send_json(502, {"ok": False, "message": hint + detail, **settings_summary()})
 
+    def _post_tts(self):
+        if not SPEAKER.state()[0]:
+            self.close_connection = True  # the unread body must not be parsed as a request
+            self._send_json(503, {"error": "本机语音模型不可用"})
+            return
+        wait = SPEECH_LIMIT.allow(self.client_address[0])
+        if wait:
+            self.close_connection = True
+            self._send_json(429, {"error": "朗读请求过于频繁"})
+            return
+        body = self._read_json()
+        if body is None:
+            return
+        try:
+            audio = SPEAKER.synthesize(body.get("text") if isinstance(body, dict) else None)
+        except ValueError as error:
+            self._send_json(400, {"error": str(error)})
+            return
+        self._send(200, audio, "audio/wav")
+
     def do_POST(self):
         # Recognition, the semantic layer and the reading library cost CPU, the reader's model
         # quota and their own shelf; none of it is for other sites' pages to spend or rewrite.
@@ -833,6 +875,9 @@ class Handler(SimpleHTTPRequestHandler):
             return
         if pathname == "/understand":
             self._post_understand()
+            return
+        if pathname == "/tts":
+            self._post_tts()
             return
         if pathname in ("/settings/key", "/settings/test"):
             if not self._loopback_only():
@@ -1221,6 +1266,9 @@ def main():
     ready, info = model_state()
     print(f"  识别模型   {MODEL_DIR}", flush=True)
     print(f"             {'就绪' if ready else '不可用 —— ' + info.get('reason', '')}", flush=True)
+    voiced, voice = SPEAKER.state()
+    print(f"  语音播报   {voice['model']} · {voice['voice']} · "
+          f"{'就绪' if voiced else '不可用（改用浏览器系统语音）—— ' + voice.get('reason', '')}", flush=True)
     key, _, semantic = llm_state()
     print(f"  语义解析   {semantic['model']} · {'已配置' if key else '未配置'}"
           f"（在 {address}settings 里填写）", flush=True)
@@ -1229,6 +1277,7 @@ def main():
     # where WinForms needs its message loop.
     threading.Thread(target=server.serve_forever, daemon=True).start()
     threading.Thread(target=warm_model, daemon=True).start()
+    threading.Thread(target=SPEAKER.warm, daemon=True).start()
     restart_args = ("--port", str(server.server_address[1]))
     if not options["browser"]:
         restart_args += ("--no-browser",)

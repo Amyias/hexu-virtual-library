@@ -36,9 +36,19 @@ for name in ("model.int8.onnx", "tokens.txt", "LICENSE"):
         raise SystemExit(f"缺少模型文件：{source}（先运行 node tools/package-local.mjs）")
     datas.append((str(source), "models/sense-voice"))
 
+# The reply voice (tools/tts.py). Optional: package-local passes an empty directory for
+# --no-voice, and the program then answers /tts/ready with 503 and the page uses system speech.
+VOICE_DIR = os.environ.get("HEXU_TTS_MODEL_DIR", "").strip()
+if VOICE_DIR:
+    voice_model = Path(VOICE_DIR) / "primetts_v21_3voice.onnx"
+    if not voice_model.is_file():
+        raise SystemExit(f"缺少语音模型：{voice_model}（先运行 node tools/package-local.mjs）")
+    datas.append((str(voice_model), "models/primetts"))
+    datas.append((str(HERE / "primetts" / "NOTICE.md"), "models/primetts"))
+
 # sherpa-onnx is a compiled extension plus its shared libraries; neither is discovered by
 # static analysis of the two deferred imports inside transcribe().
-binaries = collect_dynamic_libs("sherpa_onnx")
+binaries = collect_dynamic_libs("sherpa_onnx") + collect_dynamic_libs("onnxruntime")
 datas += collect_data_files("sherpa_onnx")
 datas += collect_data_files("pypinyin")
 datas += copy_metadata("pypinyin")
@@ -46,7 +56,8 @@ datas += copy_metadata("pypinyin")
 # and clr_loader sit behind it, so they are named here rather than left to the import graph.
 # PyInstaller's own hooks then collect what those need: Python.Runtime.dll for pythonnet, and
 # webview/lib — the WebView2 interop assemblies — for pywebview.
-hiddenimports = ["sherpa_onnx", "numpy", "window_host", "window_chrome", "updater", "book_library", "book_sources", "builtin_book_sources", "wyshu_source", "pypinyin", "windows_book_http", "source_rules", "lxml.html", "lxml.etree", "lxml.cssselect",
+hiddenimports = ["sherpa_onnx", "numpy", "tts", "primetts", "primetts.text_norm", "onnxruntime",
+                 "cn2an", "proces", "window_host", "window_chrome", "updater", "book_library", "book_sources", "builtin_book_sources", "wyshu_source", "pypinyin", "windows_book_http", "source_rules", "lxml.html", "lxml.etree", "lxml.cssselect",
                  "cssselect", "jsonpath_ng.ext", "jsonpath_ng._ply_tables.parser_table",
                  "jsonpath_ng._ply_tables.ext_parser_table", "jsonpath_ng._ply_tables.lexer_table",
                  "jsonpath_ng._ply_tables.ext_lexer_table", "quickjs", "_quickjs",

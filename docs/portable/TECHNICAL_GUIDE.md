@@ -83,7 +83,8 @@
 | GPU Instancing | 将同一书脊模板绘制最多 11,360 次 | 每册主要提供变换与颜色数据 |
 | Canvas 2D / CanvasTexture | 中文封面、简介页、芯片文字 | 动态生成不同书目的文字纹理 |
 | Fusion Pixel 字体 | 小和气泡的 12px 等宽简体中文像素字形 | 随项目离线分发，不依赖字体 CDN |
-| Web Speech API | 浏览器识别和可选语音播报 | 无需部署识别后端的路径 |
+| Web Speech API | 浏览器识别；本机语音不可用时的播报退回 | 无需部署识别后端的路径 |
+| PrimeTTS v2.1 / onnxruntime | 小和的语音播报：台湾女声「欣然」，本机 CPU 合成 16 kHz WAV | 免费（Apache-2.0）、离线、比系统语音自然；模型 117 MB 由打包脚本按固定版本下载并校验 |
 | getUserMedia / Web Audio | 录音、断句、重采样；气泡与打字音效合成 | 为后端准备固定格式音频，音效不需要音频文件 |
 | SVG 置换滤镜 | 阅读播放器与本机标题栏的液态玻璃折射 | 背景透出场景，文字与控件不参与扭曲 |
 | Python / sherpa-onnx / SenseVoice | 后端主机上的 ONNX 语音推理 | 在浏览器识别服务不可达时提供另一条路径 |
@@ -92,7 +93,7 @@
 | Node.js | 开发服务、生成清单、测试、打包与发行脚本 | 静态服务和回归测试使用内置模块 |
 | PyInstaller / pywebview / WebView2 | 打包可双击运行的 Windows 程序 | 分发 Python 运行时、站点和识别模型 |
 
-版本说明：建模统计记录 Blender `5.2.2 LTS`；打包脚本列出的构建依赖包括 PyInstaller `6.22.3`、sherpa-onnx `1.13.8` 和 NumPy；像素字体为 Fusion Pixel `2026.09.25`。这些是项目内记录的版本，不表示运行本机已安装全部依赖。
+版本说明：建模统计记录 Blender `5.2.2 LTS`；打包脚本列出的构建依赖包括 PyInstaller `6.22.3`、sherpa-onnx `1.13.8`、onnxruntime `1.31.0`、cn2an `0.5.24` 和 NumPy；像素字体为 Fusion Pixel `2026.09.25`。这些是项目内记录的版本，不表示运行本机已安装全部依赖。
 
 ## 4. 语音唤醒、识别、理解与对话
 
@@ -215,6 +216,7 @@ Blender 保存建筑、书架、家具和植物的源对象；导出时按集合
 | `POST /asr` | PCM WAV → `{text, ...}` | 音频转录 |
 | `GET /understand/ready` | 语义配置就绪情况 | 决定是否启用理解兜底 |
 | `POST /understand` | `{text, phase}` → `{action, bookId, say, ...}` | 受约束的意图解析；超额返回 429 |
+| `GET /tts/ready`、`POST /tts` | `{text}` → 16 kHz WAV | 本机语音播报；模型缺失时 503，页面退回系统语音；每分钟默认 240 次 |
 | `GET /chat/ready`、`POST /chat` | `{text, phase, bookId, history, configuration}` → `{reply, sources, ...}` | 自由问答与联网工具；仅回环访问，超额返回 429 |
 | `/library/*` | 书目、章节、搜索、下载、导入、书源、进度 | 正文书库 |
 | `GET /settings`、`GET /settings/state` | 设置页、脱敏状态 | 本机配置入口；只回 `configured` 与来源，不回显密钥 |
@@ -263,7 +265,7 @@ npm run test:ui
 python -m unittest discover -s tests -p "test_*.py"
 ```
 
-`npm test` 共 65 项 Node 测试，覆盖状态机与意图路由、唤醒词与检索容错、误命中防线、11,360 个空槽位的几何与旧书库位置兼容、环境 / 阅读书 / 小和 GLB、灯光配置、日月模型、方位与时间表、像素气泡与定位、多轮对话与取消、阅读音乐、本机接口的来源校验与限流、发行附件策略及本机标题栏；其中需要 Python 或 Windows 的项目在缺少条件时自动跳过。`npm run test:ui` 用本机 Chrome / Edge 无头跑完整链路（加载空场景 → 日月切换 → 导入 TXT → 按编号找书 → 翻开封面 → 正文翻页 → 查看芯片 → 放回书架 → 按位置码再找一本），约 3–4 分钟。Python 单元测试共 69 项，覆盖书库、书源规则、内置书源、对话适配、限流、自动更新与打包归档，需要先安装 `tools/requirements-sources.txt`。识别生命周期与模型调用使用模拟数据，不能据此宣称真人语音准确率、噪声鲁棒性或端到端延迟已达标。
+`npm test` 共 71 项 Node 测试，覆盖状态机与意图路由、唤醒词与检索容错、误命中防线、11,360 个空槽位的几何与旧书库位置兼容、环境 / 阅读书 / 小和 GLB、灯光配置、日月模型、方位与时间表、语音播报分句与退回、像素气泡与定位、多轮对话与取消、阅读音乐、本机接口的来源校验与限流、发行附件策略及本机标题栏；其中需要 Python 或 Windows 的项目在缺少条件时自动跳过。`npm run test:ui` 用本机 Chrome / Edge 无头跑完整链路（加载空场景 → 日月切换 → 导入 TXT → 按编号找书 → 翻开封面 → 正文翻页 → 查看芯片 → 放回书架 → 按位置码再找一本），约 3–4 分钟。Python 单元测试共 76 项，覆盖书库、书源规则、内置书源、对话适配、本机语音合成与接口、限流、自动更新与打包归档，需要先安装 `tools/requirements-sources.txt`。识别生命周期与模型调用使用模拟数据，不能据此宣称真人语音准确率、噪声鲁棒性或端到端延迟已达标。
 
 人工演示建议依次检查：
 
