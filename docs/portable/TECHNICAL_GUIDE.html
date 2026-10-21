@@ -35,9 +35,6 @@ footer{color:var(--muted);font-size:13px;margin-top:36px;padding-top:18px;border
 <a href="#section-12">12. 源码核对入口</a></nav><main>
 <h1>和序 · 虚拟智能图书馆：技术实现与系统架构</h1>
 <blockquote>
-<p>分享说明：Markdown 请与 diagrams/ 文件夹一起移动；单独移动文件请选 TECHNICAL_GUIDE.html。三张配图在 HTML 内嵌，可离线阅读；源码链接指向 GitHub，访问私有仓库需要联网并登录。</p>
-</blockquote>
-<blockquote>
 <p>文档日期：2026-10-21。源码基线：<code>2.5.4</code>（<code>master</code> 提交 <code>afa6930</code>，含发布后的灯光与窗口修正）。本文根据当前源码、馆藏清单和导出清单整理，适合项目介绍、技术交接与演示准备。标为“建议”的内容尚未实现；数量与资源大小是该基线的数据，不代表未来版本。</p>
 </blockquote>
 <h2 id="section-1">1. 项目解决什么问题</h2>
@@ -598,7 +595,8 @@ footer{color:var(--muted);font-size:13px;margin-top:36px;padding-top:18px;border
 <li><code>tools/asr-server.py</code>：语义层把本机书库的书映射回 HX 编号，只列出已入库书籍。</li>
 <li><code>blender/smart_books.py</code> 的 <code>load_inventory()</code>：Blender 放置书籍、生成标记。</li>
 </ul>
-<p>真实书目来自本机正文书库。书下载或导入后，<code>src/data/shelf-slots.js</code> 按固定顺序分配下一个空槽位：第 2 架“文学与历史哲学”优先，其余区域随后；清单中的 <code>library_deferred_ids</code> 是旧版本曾跳过的 12 个物理编号，排到最后。前端与后端遵守同一顺序，所以已有书库升级后编号、位置码与坐标都不变，无需迁移。</p>
+<p>真实书目来自本机正文书库。书库为每本书保存一个永不改变的槽位序号，<code>src/data/shelf-slots.js</code> 与 <code>tools/book_library.py</code> 的 <code>physical_rows()</code> 按同一固定顺序把序号映射到物理槽位：第 2 架“文学与历史哲学”优先，其余区域随后；清单中的 <code>library_deferred_ids</code> 是旧版本曾跳过的 12 个物理编号，排到最后。这个映射不变，所以已有书库升级后编号、位置码与坐标都不变，无需迁移。</p>
+<p>新书挑哪个空序号由 <code>shelf_fill_order()</code> 决定，按“读者先看到哪里”排序：从第 2 架 A 面（总览视角正对的一面）最靠前台端板的一列开始，同一列由第 4 层往下放满，再往里退一本的位置；第 2 架放满后再到其他书架。旧规则取“已用最大序号 + 1”，第一本落在靠窗一端的底层，总览中几乎看不见。</p>
 <p>生成器根据开间实际长度、立柱位置和 26 mm 书厚计算容量。每行共 284 个槽位，位置码里的 <code>P</code> 表示该面该层的全行槽位，并非某个开间内的第几本。</p>
 <table>
 <thead>
@@ -764,7 +762,7 @@ npm start
 npm run test:ui
 python -m unittest discover -s tests -p &quot;test_*.py&quot;
 </code></pre>
-<p><code>npm test</code> 共 64 项 Node 测试，覆盖状态机与意图路由、唤醒词与检索容错、误命中防线、11,360 个空槽位的几何与旧书库位置兼容、环境 / 阅读书 / 小和 GLB、灯光配置、日月模型与方位、像素气泡与定位、多轮对话与取消、阅读音乐、本机接口的来源校验与限流、发行附件策略及本机标题栏；其中需要 Python 或 Windows 的项目在缺少条件时自动跳过。<code>npm run test:ui</code> 用本机 Chrome / Edge 无头跑完整链路（加载空场景 → 日月切换 → 导入 TXT → 按编号找书 → 翻开封面 → 正文翻页 → 查看芯片 → 放回书架 → 按位置码再找一本），约 3–4 分钟。Python 单元测试共 57 项，覆盖书库、书源规则、内置书源、对话适配、限流、自动更新与打包归档，需要先安装 <code>tools/requirements-sources.txt</code>。识别生命周期与模型调用使用模拟数据，不能据此宣称真人语音准确率、噪声鲁棒性或端到端延迟已达标。</p>
+<p><code>npm test</code> 共 64 项 Node 测试，覆盖状态机与意图路由、唤醒词与检索容错、误命中防线、11,360 个空槽位的几何与旧书库位置兼容、环境 / 阅读书 / 小和 GLB、灯光配置、日月模型与方位、像素气泡与定位、多轮对话与取消、阅读音乐、本机接口的来源校验与限流、发行附件策略及本机标题栏；其中需要 Python 或 Windows 的项目在缺少条件时自动跳过。<code>npm run test:ui</code> 用本机 Chrome / Edge 无头跑完整链路（加载空场景 → 日月切换 → 导入 TXT → 按编号找书 → 翻开封面 → 正文翻页 → 查看芯片 → 放回书架 → 按位置码再找一本），约 3–4 分钟。Python 单元测试共 69 项，覆盖书库、书源规则、内置书源、对话适配、限流、自动更新与打包归档，需要先安装 <code>tools/requirements-sources.txt</code>。识别生命周期与模型调用使用模拟数据，不能据此宣称真人语音准确率、噪声鲁棒性或端到端延迟已达标。</p>
 <p>人工演示建议依次检查：</p>
 <ol>
 <li>场景加载完成，可旋转、缩放，五个分区正常显示，书架为空。</li>
