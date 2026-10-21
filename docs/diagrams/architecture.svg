@@ -1,89 +1,74 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1240" viewBox="0 0 1440 1240" role="img" aria-labelledby="title desc"><title id="title">和序图书馆 · 系统架构</title><desc id="desc">正文书库功能版 · 实线为主要数据流，虚线为可选服务或资源加载</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#526b69"/></marker></defs><style>text{font-family:'Microsoft YaHei','Noto Sans CJK SC',Arial,sans-serif;fill:#203b3b}.title{font-size:32px;font-weight:700}.sub{font-size:17px;fill:#627674}.lane{font-size:20px;font-weight:700}.node{font-size:19px;font-weight:700}.body{font-size:16px;fill:#4c6664}.label{font-size:15px;fill:#526b69;paint-order:stroke;stroke:#f5f7f4;stroke-width:7px;stroke-linejoin:round}</style><rect width="1440" height="1240" fill="#f5f7f4"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1830" viewBox="0 0 1440 1830" role="img" aria-labelledby="title desc"><title id="title">和序图书馆 · 系统架构</title><desc id="desc">2026-10-21 · 源码基线 b916856 · 实线：主要调用与数据流；虚线：构建与分发路径</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#526b69"/></marker></defs><style>text{font-family:'Microsoft YaHei','Noto Sans CJK SC',Arial,sans-serif;fill:#203b3b}.title{font-size:32px;font-weight:700}.sub{font-size:17px;fill:#627674}.lane{font-size:20px;font-weight:700}.node{font-size:19px;font-weight:700}.body{font-size:16px;fill:#4c6664}.label{font-size:15px;fill:#526b69;paint-order:stroke;stroke:#f5f7f4;stroke-width:7px;stroke-linejoin:round}</style><rect width="1440" height="1830" fill="#f5f7f4"/>
 <text x="40" y="58" class="title"><tspan x="40" dy="0">和序图书馆 · 系统架构</tspan></text>
-<text x="40" y="94" class="sub"><tspan x="40" dy="0">正文书库功能版 · 实线为主要数据流，虚线为可选服务或资源加载</tspan></text>
-<rect x="40" y="130" width="870" height="650" rx="20" fill="#e7eeea" stroke="#cddbd5"/>
-<text x="64" y="167" class="lane"><tspan x="64" dy="0">01 / 浏览器：展示、匹配与交互</tspan></text>
-<rect x="950" y="130" width="450" height="650" rx="20" fill="#e9edf4" stroke="#cddbd5"/>
-<text x="974" y="167" class="lane"><tspan x="974" dy="0">02 / Python：可选识别与语义</tspan></text>
-<rect x="40" y="815" width="1360" height="180" rx="20" fill="#f0ece2" stroke="#cddbd5"/>
-<text x="64" y="852" class="lane"><tspan x="64" dy="0">03 / 资产与发行：构建期生成，运行期读取</tspan></text>
-<rect x="65" y="200" width="255" height="100" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
-<text x="83" y="231" class="node"><tspan x="83" dy="0">用户入口</tspan></text>
-<text x="83" y="258" class="body"><tspan x="83" dy="0">麦克风 / 搜索框 / 按钮</tspan><tspan x="83" dy="25">指针拖动 / 键盘</tspan></text>
-<rect x="350" y="200" width="255" height="100" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
-<text x="368" y="231" class="node"><tspan x="368" dy="0">识别适配器</tspan></text>
-<text x="368" y="258" class="body"><tspan x="368" dy="0">speech.js + server-asr.js</tspan><tspan x="368" dy="25">探测后选择 ASR 通道</tspan></text>
-<rect x="635" y="200" width="250" height="100" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
-<text x="653" y="231" class="node"><tspan x="653" dy="0">浏览器语音服务</tspan></text>
-<text x="653" y="258" class="body"><tspan x="653" dy="0">Web Speech API</tspan><tspan x="653" dy="25">无后端时使用此通道</tspan></text>
-<polyline points="320,250 350,250" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
-<polyline points="605,250 635,250" fill="none" stroke="#526b69" stroke-width="2" stroke-dasharray="7 6" marker-end="url(#arrow)"/>
-<polyline points="192,300 192,335 365,335 365,370" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
-<text x="210" y="328" class="label"><tspan x="210" dy="0">文本 / 控件直达</tspan></text>
-<rect x="65" y="370" width="255" height="120" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
-<text x="83" y="401" class="node"><tspan x="83" dy="0">本地馆藏匹配</tspan></text>
-<text x="83" y="428" class="body"><tspan x="83" dy="0">intent.js：精确 / 片段 / 近似</tspan><tspan x="83" dy="25">标题、别名、编号、位置码</tspan><tspan x="83" dy="25">输出实际馆藏对象</tspan></text>
-<rect x="350" y="370" width="255" height="120" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
-<text x="368" y="401" class="node"><tspan x="368" dy="0">应用调度与状态</tspan></text>
-<text x="368" y="428" class="body"><tspan x="368" dy="0">app/ 状态机 + processText</tspan><tspan x="368" dy="25">唤醒、多轮、取书、归还</tspan><tspan x="368" dy="25">越序请求拒绝，不叠加动画</tspan></text>
-<rect x="635" y="370" width="250" height="120" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
-<text x="653" y="401" class="node"><tspan x="653" dy="0">实时 3D 渲染</tspan></text>
-<text x="653" y="428" class="body"><tspan x="653" dy="0">Three.js / WebGL</tspan><tspan x="653" dy="25">环境、灯光、小和、相机</tspan><tspan x="653" dy="25">架上书实例化</tspan></text>
-<polyline points="477,300 477,370" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
-<text x="488" y="340" class="label"><tspan x="488" dy="0">转录文本</tspan></text>
-<polyline points="350,423 320,423" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
-<text x="328" y="410" class="label"><tspan x="328" dy="0">查询</tspan></text>
-<polyline points="605,423 635,423" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
-<rect x="65" y="585" width="255" height="120" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
-<text x="83" y="616" class="node"><tspan x="83" dy="0">馆藏数据</tspan></text>
-<text x="83" y="643" class="body"><tspan x="83" dy="0">book-inventory.json：11,360 槽位</tspan><tspan x="83" dy="25">仅本机书库真实入库的书上架</tspan><tspan x="83" dy="25">由行号展开 bookId / chipPayload</tspan></text>
-<rect x="350" y="585" width="255" height="120" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
-<text x="368" y="616" class="node"><tspan x="368" dy="0">界面反馈</tspan></text>
-<text x="368" y="643" class="body"><tspan x="368" dy="0">DOM / CSS3 / 气泡</tspan><tspan x="368" dy="25">麦克风状态与识别记录</tspan><tspan x="368" dy="25">可选 speechSynthesis 播报</tspan></text>
-<rect x="635" y="585" width="250" height="120" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
-<text x="653" y="616" class="node"><tspan x="653" dy="0">3D 与正文阅读器</tspan></text>
-<text x="653" y="643" class="body"><tspan x="653" dy="0">book.js + novel.js</tspan><tspan x="653" dy="25">铰链 / 芯片 / 真实正文分页</tspan><tspan x="653" dy="25">目录 / 字号 / 阅读进度</tspan></text>
-<polyline points="192,585 192,490" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
-<text x="205" y="545" class="label"><tspan x="205" dy="0">读取索引</tspan></text>
-<polyline points="477,490 477,585" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
-<polyline points="760,490 760,585" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
-<rect x="975" y="200" width="400" height="100" rx="12" fill="#f8faff" stroke="#b5cbc0" stroke-width="1.5"/>
-<text x="993" y="231" class="node"><tspan x="993" dy="0">HTTP 服务与模式探测</tspan></text>
-<text x="993" y="258" class="body"><tspan x="993" dy="0">asr-server.py · 默认 127.0.0.1:8090</tspan><tspan x="993" dy="25">静态文件 / healthz / ready 接口</tspan></text>
-<rect x="975" y="370" width="400" height="120" rx="12" fill="#f8faff" stroke="#b5cbc0" stroke-width="1.5"/>
-<text x="993" y="401" class="node"><tspan x="993" dy="0">SenseVoice 本地识别</tspan></text>
-<text x="993" y="428" class="body"><tspan x="993" dy="0">POST /asr：16 kHz 单声道 WAV</tspan><tspan x="993" dy="25">sherpa-onnx + ONNX + NumPy</tspan><tspan x="993" dy="25">串行解码锁；模型运行在后端主机</tspan></text>
-<polyline points="605,270 620,270 620,316 930,316 930,423 975,423" fill="none" stroke="#526b69" stroke-width="2" stroke-dasharray="7 6" marker-end="url(#arrow)"/>
-<text x="650" y="333" class="label"><tspan x="650" dy="0">就绪时：音频 → 转录</tspan></text>
-<rect x="975" y="585" width="400" height="120" rx="12" fill="#f8faff" stroke="#b5cbc0" stroke-width="1.5"/>
-<text x="993" y="616" class="node"><tspan x="993" dy="0">可选大模型语义与对话</tspan></text>
-<text x="993" y="643" class="body"><tspan x="993" dy="0">/understand、/chat → /chat/completions</tspan><tspan x="993" dy="25">找书只选已入库书；可选联网工具</tspan><tspan x="993" dy="25">设置 / 对话 / 更新只允许回环访问</tspan></text>
-<polyline points="580,490 580,520 930,520 930,637 975,637" fill="none" stroke="#526b69" stroke-width="2" stroke-dasharray="7 6" marker-end="url(#arrow)"/>
-<text x="650" y="538" class="label"><tspan x="650" dy="0">未命中时：文本 → 意图</tspan></text>
-<text x="65" y="748" class="body"><tspan x="65" dy="0">浏览器不直接访问大模型密钥；Node 开发服务代理 /library/* 至 Python 书库。</tspan></text>
-<rect x="65" y="875" width="405" height="88" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
-<text x="83" y="906" class="node"><tspan x="83" dy="0">Blender + Python</tspan></text>
-<text x="83" y="933" class="body"><tspan x="83" dy="0">环境 / 植物 / 书籍模板 → GLB</tspan></text>
-<rect x="500" y="875" width="400" height="88" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
-<text x="518" y="906" class="node"><tspan x="518" dy="0">本地资产与馆藏清单</tspan></text>
-<text x="518" y="933" class="body"><tspan x="518" dy="0">GLB + 贴图 + vendor + 单份紧凑馆藏清单</tspan></text>
-<rect x="930" y="875" width="445" height="88" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
-<text x="948" y="906" class="node"><tspan x="948" dy="0">桌面打包与版本更新</tspan></text>
-<text x="948" y="933" class="body"><tspan x="948" dy="0">PyInstaller / WebView2 / GitHub Releases</tspan></text>
-<polyline points="470,920 500,920" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
-<polyline points="900,920 930,920" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
-<polyline points="700,875 700,802 900,802 900,430 885,430" fill="none" stroke="#526b69" stroke-width="2" stroke-dasharray="7 6" marker-end="url(#arrow)"/>
-<rect x="40" y="1020" width="1360" height="180" rx="20" fill="#e7eeea" stroke="#cddbd5"/>
-<text x="64" y="1057" class="lane"><tspan x="64" dy="0">04 / 正文书库：下载、持久化与阅读</tspan></text>
-<rect x="65" y="1080" width="405" height="95" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
-<text x="83" y="1111" class="node"><tspan x="83" dy="0">来源引擎与书库 API</tspan></text>
-<text x="83" y="1138" class="body"><tspan x="83" dy="0">内置书源 / 书源规则 / TXT / EPUB</tspan><tspan x="83" dy="25">book_sources.py + book_library.py</tspan></text>
-<rect x="500" y="1080" width="400" height="95" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
-<text x="518" y="1111" class="node"><tspan x="518" dy="0">本机持久化</tspan></text>
-<text x="518" y="1138" class="body"><tspan x="518" dy="0">SQLite：书目 / 章节 / 书源 / 进度</tspan><tspan x="518" dy="25">UTF-8 TXT：完整正文副本</tspan></text>
-<rect x="930" y="1080" width="445" height="95" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
-<text x="948" y="1111" class="node"><tspan x="948" dy="0">书架与正文联动</tspan></text>
-<text x="948" y="1138" class="body"><tspan x="948" dy="0">library.js：入库即绑定固定槽位</tspan><tspan x="948" dy="25">novel.js：测量分页与进度恢复</tspan></text>
-<polyline points="470,1125 500,1125" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
-<polyline points="900,1125 930,1125" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
+<text x="40" y="94" class="sub"><tspan x="40" dy="0">2026-10-21 · 源码基线 b916856 · 实线：主要调用与数据流；虚线：构建与分发路径</tspan></text>
+<rect x="40" y="135" width="1360" height="175" rx="20" fill="#e7eeea" stroke="#cddbd5"/>
+<text x="64" y="172" class="lane"><tspan x="64" dy="0">01 / 运行入口 · 共用同一套网页应用</tspan></text>
+<rect x="65" y="195" width="625" height="90" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
+<text x="83" y="226" class="node"><tspan x="83" dy="0">Windows 本机程序</tspan></text>
+<text x="83" y="253" class="body"><tspan x="83" dy="0">pywebview + WebView2 · 默认最大化 · 内嵌设置与窗口控制</tspan></text>
+<rect x="720" y="195" width="655" height="90" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
+<text x="738" y="226" class="node"><tspan x="738" dy="0">Chrome / Edge 浏览器</tspan></text>
+<text x="738" y="253" class="body"><tspan x="738" dy="0">HTML5 / CSS3 / ES Modules · 开发服务由 Node.js 提供</tspan></text>
+<polyline points="377,285 377,340 720,340 720,380" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
+<polyline points="1047,285 1047,340 720,340" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
+<rect x="40" y="380" width="1360" height="360" rx="20" fill="#e7eeea" stroke="#cddbd5"/>
+<text x="64" y="417" class="lane"><tspan x="64" dy="0">02 / 前端应用 · src/main.js → src/app.js</tspan></text>
+<rect x="65" y="450" width="400" height="145" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
+<text x="83" y="481" class="node"><tspan x="83" dy="0">输入与意图识别</tspan></text>
+<text x="83" y="508" class="body"><tspan x="83" dy="0">语音感知 /「和 · 对话」/ 鼠标键盘</tspan><tspan x="83" dy="25">speech.js → assistant.js / dialogue.js</tspan><tspan x="83" dy="25">唤醒词容错；先区分聊天与找书</tspan><tspan x="83" dy="25">仅匹配已入库书目的编号与位置</tspan></text>
+<rect x="500" y="450" width="400" height="145" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
+<text x="518" y="481" class="node"><tspan x="518" dy="0">调度与状态机</tspan></text>
+<text x="518" y="508" class="body"><tspan x="518" dy="0">phases.js + journey.js</tspan><tspan x="518" dy="25">待命 → 导航 → 展示 → 阅读 → 归还</tspan><tspan x="518" dy="25">自由问答与阅读指令分别执行</tspan><tspan x="518" dy="25">取还动画由 GSAP 串行编排</tspan></text>
+<rect x="935" y="450" width="440" height="145" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
+<text x="953" y="481" class="node"><tspan x="953" dy="0">3D 场景与阅读</tspan></text>
+<text x="953" y="508" class="body"><tspan x="953" dy="0">Three.js / WebGL · GLB / Draco</tspan><tspan x="953" dy="25">实例化书脊 / 翻盖书本 / 芯片查看</tspan><tspan x="953" dy="25">真实正文分页 / 阅读进度 / 阅读音乐</tspan><tspan x="953" dy="25">日月随时间切换 / 日光与灯光阴影</tspan></text>
+<polyline points="465,520 500,520" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
+<polyline points="900,520 935,520" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
+<polyline points="700,595 700,635" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
+<rect x="65" y="635" width="1310" height="80" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
+<text x="83" y="666" class="node"><tspan x="83" dy="0">统一反馈 · 所有回答回到小和身边</tspan></text>
+<text x="83" y="693" class="body"><tspan x="83" dy="0">像素气泡逐字显示 / 可滚动长回答 / 来源链接 / 气泡与打字音效 / 本机语音播报，缺模型时退回系统语音</tspan></text>
+<polyline points="720,740 720,810" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
+<text x="395" y="781" class="label"><tspan x="395" dy="0">同源 HTTP JSON / WAV · 就绪探测后启用服务；浏览器不持有模型 API 密钥</tspan></text>
+<rect x="40" y="810" width="1360" height="300" rx="20" fill="#e9edf4" stroke="#cddbd5"/>
+<text x="64" y="847" class="lane"><tspan x="64" dy="0">03 / 本机 Python 服务 · tools/asr-server.py</tspan></text>
+<rect x="65" y="875" width="305" height="170" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
+<text x="83" y="906" class="node"><tspan x="83" dy="0">听见与说话</tspan></text>
+<text x="83" y="933" class="body"><tspan x="83" dy="0">/asr · SenseVoice / sherpa-onnx</tspan><tspan x="83" dy="25">16 kHz 单声道 WAV → 文本</tspan><tspan x="83" dy="25">/tts · PrimeTTS v2.1 / ONNX</tspan><tspan x="83" dy="25">台湾女声「欣然」→ WAV</tspan><tspan x="83" dy="25">两种模型均在本机 CPU 推理</tspan></text>
+<rect x="395" y="875" width="305" height="170" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
+<text x="413" y="906" class="node"><tspan x="413" dy="0">模型代理与联网工具</tspan></text>
+<text x="413" y="933" class="body"><tspan x="413" dy="0">/chat · 自由问答与多轮对话</tspan><tspan x="413" dy="25">/understand · 可选语义解析</tspan><tspan x="413" dy="25">llm_chat.py + web_tools.py</tspan><tspan x="413" dy="25">DeepSeek 默认关闭思考模式</tspan><tspan x="413" dy="25">按需调用 Search / Fetch</tspan></text>
+<rect x="725" y="875" width="305" height="170" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
+<text x="743" y="906" class="node"><tspan x="743" dy="0">正文书库与书源</tspan></text>
+<text x="743" y="933" class="body"><tspan x="743" dy="0">/library/* · book_library.py</tspan><tspan x="743" dy="25">检索 / 下载 / 导入 TXT、EPUB</tspan><tspan x="743" dy="25">CSS / XPath / JSONPath / JS</tspan><tspan x="743" dy="25">真实书入库 → 固定槽位上架</tspan><tspan x="743" dy="25">书目、章节、进度持久化</tspan></text>
+<rect x="1055" y="875" width="320" height="170" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
+<text x="1073" y="906" class="node"><tspan x="1073" dy="0">设置与桌面维护</tspan></text>
+<text x="1073" y="933" class="body"><tspan x="1073" dy="0">/settings/* · /update/*</tspan><tspan x="1073" dy="25">window_host / window_chrome</tspan><tspan x="1073" dy="25">updater.py + 更新助手</tspan><tspan x="1073" dy="25">检查版本 → 校验 → 安装重启</tspan><tspan x="1073" dy="25">设置与更新接口限制回环访问</tspan></text>
+<text x="65" y="1083" class="body"><tspan x="65" dy="0">开发模式：tools/serve.mjs 将服务请求代理到 Python sidecar；本机版由 Python 同时提供站点与 API。</tspan></text>
+<polyline points="380,1110 380,1170" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
+<polyline points="1060,1110 1060,1170" fill="none" stroke="#526b69" stroke-width="2"  marker-end="url(#arrow)"/>
+<rect x="40" y="1170" width="660" height="250" rx="20" fill="#e7eeea" stroke="#cddbd5"/>
+<text x="64" y="1207" class="lane"><tspan x="64" dy="0">04 / 本机数据 · 离线资源与私有配置</tspan></text>
+<rect x="65" y="1230" width="610" height="175" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
+<text x="83" y="1261" class="node"><tspan x="83" dy="0">用户数据与模型</tspan></text>
+<text x="83" y="1288" class="body"><tspan x="83" dy="0">SQLite：书目 / 章节 / 书源 / 阅读进度；TXT 正文副本</tspan><tspan x="83" dy="25">book-inventory.json：11,360 个空槽位，只上架真实书籍</tspan><tspan x="83" dy="25">SenseVoice 识别模型 / PrimeTTS 播报模型</tspan><tspan x="83" dy="25">API 设置由用户保存在仓库外；对话上下文在页面内存</tspan><tspan x="83" dy="25">程序更新保留用户书库、配置与模型</tspan></text>
+<rect x="740" y="1170" width="660" height="250" rx="20" fill="#f0ece2" stroke="#cddbd5"/>
+<text x="764" y="1207" class="lane"><tspan x="764" dy="0">05 / 外部服务 · 按配置与请求访问</tspan></text>
+<rect x="765" y="1230" width="610" height="175" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
+<text x="783" y="1261" class="node"><tspan x="783" dy="0">模型 API、书源与版本服务</tspan></text>
+<text x="783" y="1288" class="body"><tspan x="783" dy="0">DeepSeek 或 Chat Completions 兼容服务：文本 → 回答</tspan><tspan x="783" dy="25">DeepSeek Search / Fetch：检索网页与抓取正文作为回答依据</tspan><tspan x="783" dy="25">小说书源：万卷书屋 / 天涯书库 / 书包网及导入的书源</tspan><tspan x="783" dy="25">GitHub Releases：程序与语音识别模型发行附件</tspan><tspan x="783" dy="25">浏览器 Web Speech：本机 ASR 未就绪时的识别备选</tspan></text>
+<rect x="40" y="1480" width="1360" height="245" rx="20" fill="#f0ece2" stroke="#cddbd5"/>
+<text x="64" y="1517" class="lane"><tspan x="64" dy="0">06 / 资产制作与发行 · 开发期生成，运行期读取</tspan></text>
+<rect x="65" y="1545" width="400" height="135" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
+<text x="83" y="1576" class="node"><tspan x="83" dy="0">Blender 5.2 + Python</tspan></text>
+<text x="83" y="1603" class="body"><tspan x="83" dy="0">环境 / 植物 / 统一书本 / 像素小和</tspan><tspan x="83" dy="25">程序化建模、定点替换与不变量校验</tspan><tspan x="83" dy="25">光照配置 / 烘焙接触遮蔽 / 日月模型</tspan></text>
+<rect x="500" y="1545" width="400" height="135" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
+<text x="518" y="1576" class="node"><tspan x="518" dy="0">public/ 离线站点资产</tspan></text>
+<text x="518" y="1603" class="body"><tspan x="518" dy="0">GLB / 贴图 / 物理槽位清单</tspan><tspan x="518" dy="25">本地 Three.js、GSAP、解码器、字体</tspan><tspan x="518" dy="25">public/models + public/vendor</tspan></text>
+<rect x="935" y="1545" width="440" height="135" rx="12" fill="#fff" stroke="#b5cbc0" stroke-width="1.5"/>
+<text x="953" y="1576" class="node"><tspan x="953" dy="0">构建、发布与校验</tspan></text>
+<text x="953" y="1603" class="body"><tspan x="953" dy="0">PyInstaller → Windows 程序</tspan><tspan x="953" dy="25">release.mjs → GitHub Release 草稿</tspan><tspan x="953" dy="25">程序包 + 识别模型包，校验后发布</tspan></text>
+<polyline points="465,1610 500,1610" fill="none" stroke="#526b69" stroke-width="2" stroke-dasharray="7 6" marker-end="url(#arrow)"/>
+<polyline points="900,1610 935,1610" fill="none" stroke="#526b69" stroke-width="2" stroke-dasharray="7 6" marker-end="url(#arrow)"/>
+<text x="65" y="1758" class="body"><tspan x="65" dy="0">能力边界：静态站点可展示场景；正文书库依赖 Python；自由问答需配置模型 API；真人语音需麦克风授权。</tspan><tspan x="65" dy="25">此图可单独移动并离线打开：全部图形、文字与样式内嵌 SVG，不依赖 CDN、图片文件或字体下载。</tspan></text>
 </svg>

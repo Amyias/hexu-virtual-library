@@ -24,6 +24,8 @@ npm test
 
 修改 SVG 后先运行 `node docs/generate-diagrams.mjs`，并用 SVG 渲染工具更新对应 PNG 预览，再导出。导出器会生成三张 SVG 内嵌的 HTML、含 PNG 配图的 Markdown、六张图文件和 ZIP；图表 ID 按文件名隔离，避免同页箭头与可访问性标题冲突。
 
+系统架构图的布局在 `docs/system-architecture.mjs`，由生成器调用。更新架构时同步图内的源码基线、技术文档说明和 PNG，保留 SVG 自包含特性，不引用外部图片、脚本或字体文件。
+
 ## 验证迁移
 
 1. 只复制 HTML 到项目外的新目录，用浏览器打开；断网也应显示正文和三张图。

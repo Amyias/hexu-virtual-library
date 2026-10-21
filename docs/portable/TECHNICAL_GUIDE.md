@@ -1,6 +1,6 @@
 # 和序 · 虚拟智能图书馆：技术实现与系统架构
 
-> 文档日期：2026-10-21。源码基线：`2.5.4`（`master` 提交 `afa6930`，含发布后的灯光与窗口修正）。本文根据当前源码、馆藏清单和导出清单整理，适合项目介绍、技术交接与演示准备。标为“建议”的内容尚未实现；数量与资源大小是该基线的数据，不代表未来版本。
+> 文档日期：2026-10-21。源码基线：`2.5.4`（`master` 提交 `b916856`，含发布后的灯光、窗口、上架顺序、日月调度与本机语音播报更新）。本文根据当前源码、馆藏清单和导出清单整理，适合项目介绍、技术交接与演示准备。标为“建议”的内容尚未实现；数量与资源大小是该基线的数据，不代表未来版本。
 
 ## 1. 项目解决什么问题
 
@@ -29,13 +29,13 @@
 
 ## 2. 系统架构
 
-![系统架构：浏览器、可选后端与资产构建](diagrams/architecture.png)
+![系统架构：运行入口、前端应用、本机服务、数据、外部服务与资产发行](diagrams/architecture.png)
 
-[单独打开架构 SVG](diagrams/architecture.svg)。图中文字与连线均为矢量元素，可在支持 SVG 的工具中编辑，缩放时不损失清晰度。
+[单独打开架构 SVG](diagrams/architecture.svg)。图中文字与连线均为矢量元素，可在支持 SVG 的工具中编辑，缩放时不损失清晰度。SVG 内嵌全部图形与样式，可单独复制到其他目录离线打开，不依赖外部图片、脚本或字体下载。布局源文件为 [system-architecture.mjs](https://github.com/Amyias/hexu-virtual-library/blob/master/docs/system-architecture.mjs)，由 [generate-diagrams.mjs](https://github.com/Amyias/hexu-virtual-library/blob/master/docs/generate-diagrams.mjs) 统一生成。
 
 若 Markdown 阅读器不显示 SVG，可打开 [架构图 PNG 预览](diagrams/architecture.png)。
 
-系统由四部分组成：浏览器负责界面、馆藏匹配、状态和三维动画；Python 服务提供正文书库，并可选提供本地模型识别、语义理解、大模型对话、联网工具及桌面设置；Blender 与构建脚本负责生成模型、贴图、馆藏清单和发行包；正文书库把下载或导入的书持久化在本机。静态站点可以独立运行，后端能力通过就绪接口自动探测。
+架构图按六个边界组织：桌面窗口与浏览器共用网页入口；前端负责输入、意图分流、状态机、3D 阅读与像素气泡；Python 服务承接识别、播报、模型代理、书库及桌面维护；本机数据保存真实正文、进度、模型和私有配置；外部服务提供可配置的模型 API、书源及发行附件；Blender 与构建脚本负责离线资产和程序发行。静态站点可以独立展示场景，正文书库依赖 Python，模型能力通过就绪接口自动探测。自由问答的结果回到气泡，并优先由本机 PrimeTTS「欣然」播报，缺少播报模型时退回系统语音。
 
 ### 主要模块及边界
 
@@ -52,11 +52,13 @@
 | `src/app/conversation.js`、`src/voice/chat.js` | 对话面板与有界多轮上下文 | 上下文只在页面内存，不写本地存储 |
 | `src/voice/speech.js` | 识别器生命周期、候选、重连、记录 | 将转录结果同步送到 `processText` |
 | `src/voice/server-asr.js` | 浏览器录音、断句、WAV 上传 | 启用前先探测 `/asr/ready` |
+| `src/voice/voice.js`、`tools/tts.py` | 分句请求本机 PrimeTTS，并播放 WAV | `/tts/ready` 不可用时退回系统语音；可取消当前播报 |
 | `src/voice/intent.js` | 标题、别名、编号与位置匹配 | 只索引已入库书籍，空槽位不参与 |
 | `src/voice/understand.js` | 语义请求与超时降级 | 放在应用调度层，不阻塞识别器同步派发 |
 | `src/scene/runtime.js` | 渲染器、相机、色调映射 | 统一米制坐标和渲染设置 |
 | `src/scene/lighting.js` | 窗侧日光、吊灯、阅读灯、接触遮蔽，昼夜配色 | 灯位来自 `public/models/lighting-rig.json`；昼夜只改颜色与强度，不移动光源 |
 | `src/scene/sky.js` | 窗外像素太阳与月亮、日月切换 | 方位与日光一致；不投射阴影，不受雾与色调映射影响 |
+| `src/scene/sky-schedule.js` | 按本地时间在 08:00 与 17:00 切换昼夜 | 手动切换只保持到下一个日夜边界 |
 | `src/scene/environment.js` | 环境与两种书籍模板加载 | 连接 Draco 解码器与书架实例化 |
 | `src/scene/smart-books.js` | 海量书脊实例、逐本颜色、显隐与高亮 | 只显示已入库书籍；取书时隐藏目标实例 |
 | `src/scene/companion.js` | 小和像素宠物的待机、唤醒与带路动作 | 视觉动作归宠物，导航锚点归应用 |
