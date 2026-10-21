@@ -153,6 +153,9 @@ function archive(version, withModel, modelOnly = false) {
       "_internal/models/sense-voice/model.int8.onnx",
       "--require",
       "_internal/models/sense-voice/tokens.txt",
+      // Since 2.6.0 the archive also carries the reply voice; installs that lack it fetch it.
+      "--require",
+      "_internal/models/primetts/primetts_v21_3voice.onnx",
     ],
     { stdio: "inherit" },
   );
@@ -186,6 +189,7 @@ function notes(version, commit) {
     "### 怎么装",
     "1. 下载 `*-program.zip`，解压覆盖到程序文件夹（模型原地保留，不会被覆盖）。",
     `2. 新机器还需要下载本发行版的 \`sense-voice-${version}.zip\`，解压到同一个文件夹；已有模型的机器更新时只下载程序包。`,
+    "   模型包同时包含识别模型与语音播报模型「欣然」（PrimeTTS v2.1，AI 合成语音）；缺少后者的已安装程序更新时会自动补下载一次模型包。",
     "",
     "已安装的程序启动后及运行中每 5 分钟自动检查一次，发现新版会自动下载、校验、安装并重启；",
     "也可以在「本机设置 → 更新」里手动检查。仓库是私有的，每台机器需要一个只读令牌。",

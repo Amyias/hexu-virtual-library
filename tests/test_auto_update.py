@@ -88,6 +88,19 @@ class AutomaticUpdateTests(unittest.TestCase):
             self.assertFalse(result['can_apply'])
             self.assertEqual(result['state'], 'error')
 
+    def test_an_install_without_the_reply_voice_fetches_the_model_archive_once(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            install = Path(temporary)
+            self.assertFalse(updater.has_model(install))
+            (install / updater.MODEL_RELATIVE).parent.mkdir(parents=True)
+            (install / updater.MODEL_RELATIVE).write_bytes(b'recogniser')
+            # A pre-2.6 install: recogniser present, voice absent -> the model archive is needed.
+            self.assertFalse(updater.has_model(install))
+            (install / updater.VOICE_RELATIVE).parent.mkdir(parents=True)
+            (install / updater.VOICE_RELATIVE).write_bytes(b'voice')
+            self.assertTrue(updater.has_model(install))
+        self.assertFalse(updater.has_model(None))
+
     def test_source_checkout_never_starts_automatic_install(self):
         with patch.object(server, 'install_root', return_value=None), patch.object(updater, 'status') as status:
             server.automatic_updates()

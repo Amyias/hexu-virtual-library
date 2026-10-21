@@ -253,7 +253,7 @@ scp -i ~/.ssh/rainyun-rcs-Snowy_Brew.pem \
 
 或用 `HEXU_ASR_MODEL_DIR` 指向别处的模型目录。模型是 Apache-2.0，`LICENSE` 会一起打进包里。
 
-**语音播报模型**（台湾女声「欣然」，PrimeTTS v2.1，117 MB，Apache-2.0）同样不在仓库里。打包脚本第一次运行时从 Hugging Face 的**固定版本**下载到 `.cache/models/primetts-v2.1/`，每次打包前都核对大小与 SHA-256，不符即中止；也可以用 `HEXU_TTS_MODEL_DIR` 指向别处。加 `--no-voice` 可以打一个不带它的版本，程序会改用系统语音。它打进程序包内（`_internal/models/primetts/`），所以程序 ZIP 比以前大约 100 MB。来源、改写方式与“标明 AI 合成语音”的要求见 `tools/primetts/NOTICE.md`。
+**语音播报模型**（台湾女声「欣然」，PrimeTTS v2.1，117 MB，Apache-2.0）同样不在仓库里。打包脚本第一次运行时从 Hugging Face 的**固定版本**下载到 `.cache/models/primetts-v2.1/`，每次打包前都核对大小与 SHA-256，不符即中止；也可以用 `HEXU_TTS_MODEL_DIR` 指向别处。加 `--no-voice` 可以打一个不带它的版本，程序会改用系统语音。它装在 `_internal/models/primetts/`，发行时和识别模型一起进**模型包**（程序包照旧不含模型）；更新器把“缺少语音模型”也视为需要模型包，所以 2.6.0 之前装的程序更新时会自动补下载一次模型包。来源、改写方式与“标明 AI 合成语音”的要求见 `tools/primetts/NOTICE.md`。
 
 ### 产物
 

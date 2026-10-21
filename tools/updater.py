@@ -42,6 +42,9 @@ API = "https://api.github.com"
 PROGRAM_ASSET = "-program.zip"
 MODEL_ASSET = "sense-voice-"
 MODEL_RELATIVE = Path("_internal") / "models" / "sense-voice" / "model.int8.onnx"
+# Since 2.6.0 the model archive also carries the reply voice. An install from before that has the
+# recogniser but not the voice, and must fetch the model archive once to get it.
+VOICE_RELATIVE = Path("_internal") / "models" / "primetts" / "primetts_v21_3voice.onnx"
 
 CACHE_SECONDS = 600
 REQUEST_TIMEOUT = 30
@@ -143,9 +146,13 @@ def version_tuple(text):
 
 
 def has_model(install_root):
-    """Whether this install carries the model already — checked before downloading 228 MB of it.
+    """Whether this install carries the models already — checked before downloading the model
+    archive. Both the recogniser and the reply voice count: without the voice an update would
+    leave the new program speaking with the system voice for good.
     A source checkout has no install folder, so it has no model in this sense either."""
-    return bool(install_root) and (Path(install_root) / MODEL_RELATIVE).is_file()
+    return bool(install_root) and all(
+        (Path(install_root) / relative).is_file() for relative in (MODEL_RELATIVE, VOICE_RELATIVE)
+    )
 
 
 # --- status -------------------------------------------------------------------
