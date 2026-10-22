@@ -234,6 +234,8 @@ node tools/package-local.mjs --shortcut --zip   # 顺带在桌面放一个快捷
 
 `--shortcut` 用 `WScript.Shell` 在桌面（含 OneDrive 重定向后的真实桌面）建一个指向 `和序图书馆.exe` 的 `.lnk`。**它指向 `dist` 里的那个文件**，所以把 `dist` 搬走或删掉就会失效——重新打包时加上 `--shortcut` 再建一次即可。
 
+所有下载与缓存都留在项目自己的 `.cache` 里（同一个磁盘）：虚拟环境、两个模型、pip 的 wheel 缓存（`.cache/pip`）、PyInstaller 的二进制缓存（`.cache/pyinstaller-config`）与工作目录，不会写进 C 盘的用户目录；`PIP_CACHE_DIR` / `PYINSTALLER_CONFIG_DIR` 已设置时以它们为准。
+
 脚本会：准备 `.cache/venv` 并安装 `pyinstaller==6.22.3` 与 `sherpa-onnx==1.13.8`（本机 Python 3.14 有对应的 win_amd64 轮子，不需要编译器）→ 校验 `.cache/models/` 里的模型 → 把站点复制到 `.cache/stage/site` 并**预压缩 `.gz` 兄弟文件** → 调 PyInstaller → 校验产物 → 写「使用说明.txt」。重复运行会复用已装好的依赖。
 
 模型**在一个单独的 `model` 分支上**（GitHub），不在 `master`：228 MiB 超过 GitHub 单文件 100 MiB 的硬限制，所以切成 3 块（每块 76.1 MB）放在那里；`master` 保持轻量。本地没有模型时，打包脚本会**自动从那个分支取回、逐块校验 SHA-256、拼回**——分支也没有时才需要手工拷一次：

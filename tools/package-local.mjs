@@ -44,6 +44,11 @@ const VOICE_SHA256 = "0cf64ad010a9b92201222533900ece31562a0181e7a8e435e5de83b3d7
 const GITHUB_REMOTE = "git@github.com:Amyias/hexu-virtual-library.git";
 
 const cache = path.join(root, ".cache");
+// Every byte the build downloads or caches stays inside the project's .cache, on the project's
+// drive: pip's wheel cache and PyInstaller's binary cache otherwise go to the user profile on C:,
+// which on this machine is the one running out of space. An explicit setting still wins.
+process.env.PIP_CACHE_DIR ||= path.join(cache, "pip");
+process.env.PYINSTALLER_CONFIG_DIR ||= path.join(cache, "pyinstaller-config");
 const venv = path.join(cache, "venv");
 const venvPython = path.join(venv, "Scripts", "python.exe");
 // Resolved to an absolute path: the value is handed to PyInstaller, which resolves relative data
