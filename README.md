@@ -14,6 +14,10 @@ Blender 精细环境模型 + Three.js 网页交互。此版本已从单文件拆
 
 ## 运行
 
+### 安装（给使用者）
+
+从 [GitHub 发行页](https://github.com/Amyias/hexu-virtual-library/releases) 下载最新的 `hexu-library-<版本>-setup.exe`，双击按中文向导安装即可：装在当前用户目录（`%LOCALAPPDATA%\Programs\和序图书馆`），不需要管理员权限，自带识别与语音模型，会建开始菜单与可选的桌面快捷方式，在「设置 → 应用」里可以卸载（读者的书库与设置保留在 `%APPDATA%\hexu-library`）。装好后程序会自动更新。安装程序没有代码签名，Windows 若提示“无法识别的应用”，点“更多信息 → 仍要运行”。
+
 ### 方式一：双击程序（推荐，含语音识别）
 
 ```

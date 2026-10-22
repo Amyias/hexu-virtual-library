@@ -51,6 +51,9 @@ try {
     Move-Item -LiteralPath $models -Destination (Join-Path $stage '_internal/models')
     $movedModel = $true
   }
+  # An install made by the setup program carries its uninstaller (unins000.exe/.dat/.msg) at the
+  # root. The archive does not, so keep a copy, or the first update breaks Settings > Uninstall.
+  Get-ChildItem -LiteralPath $old -File -Filter 'unins*' | Copy-Item -Destination $stage -Force
   Move-Item -LiteralPath $stage -Destination $install
   $installedNew = $true
   $restarted = Start-Library

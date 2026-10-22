@@ -148,6 +148,9 @@ var listener=new TcpListener(IPAddress.Loopback,port);listener.Start();File.Writ
             subprocess.run([str(compiler), '/nologo', '/target:winexe', '/out:' + str(exe), str(source)], check=True, capture_output=True)
             (install / '_internal/build-info.json').write_text(json.dumps({'version': '1.0.0', 'commit': 'old'}))
             (install / 'obsolete.txt').write_text('must disappear')
+            # Left by the setup program; the archive never carries it, the update must keep it.
+            (install / 'unins000.exe').write_bytes(b'uninstaller')
+            (install / 'unins000.dat').write_bytes(b'uninstall log')
             work = root / 'work'; work.mkdir()
             archive = work / 'program.zip'
             with zipfile.ZipFile(archive, 'w') as z:
@@ -168,6 +171,8 @@ var listener=new TcpListener(IPAddress.Loopback,port);listener.Start();File.Writ
                     self.assertEqual(json.load(response)['version'], '2.0.0')
                 self.assertEqual(hashlib.sha256(model.read_bytes()).hexdigest(), original_hash)
                 self.assertFalse((install / 'obsolete.txt').exists())
+                self.assertEqual((install / 'unins000.exe').read_bytes(), b'uninstaller')
+                self.assertEqual((install / 'unins000.dat').read_bytes(), b'uninstall log')
                 self.assertFalse(list(root.glob('.hexu-old-*')))
                 self.assertFalse(list(root.glob('.hexu-stage-*')))
                 self.assertFalse(archive.exists())

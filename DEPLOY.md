@@ -255,6 +255,22 @@ scp -i ~/.ssh/rainyun-rcs-Snowy_Brew.pem \
 
 **语音播报模型**（台湾女声「欣然」，PrimeTTS v2.1，117 MB，Apache-2.0）同样不在仓库里。打包脚本第一次运行时从 Hugging Face 的**固定版本**下载到 `.cache/models/primetts-v2.1/`，每次打包前都核对大小与 SHA-256，不符即中止；也可以用 `HEXU_TTS_MODEL_DIR` 指向别处。加 `--no-voice` 可以打一个不带它的版本，程序会改用系统语音。它装在 `_internal/models/primetts/`，发行时和识别模型一起进**模型包**（程序包照旧不含模型）；更新器把“缺少语音模型”也视为需要模型包，所以 2.6.0 之前装的程序更新时会自动补下载一次模型包。来源、改写方式与“标明 AI 合成语音”的要求见 `tools/primetts/NOTICE.md`。
 
+### 安装程序
+
+```bash
+node tools/build-setup.mjs     # 用现有的 dist/和序图书馆 生成 dist/release/hexu-library-<版本>-setup.exe
+```
+
+发布器（`tools/release.mjs`）会自动生成并上传它。配方是 `tools/installer/hexu-library.iss`（Inno Setup 6，简体中文向导用官方仓库的非官方翻译 `ChineseSimplified.isl`，两者都存成带 BOM 的 UTF-8，否则在繁体中文系统上按 cp950 读成乱码）。要点：
+
+- **按用户安装**到 `%LOCALAPPDATA%\Programs\和序图书馆`，不要管理员权限。自动更新是在安装目录的上一级暂存再整体替换，装在 Program Files 会每次更新都要提权而失败。
+- 安装程序自带两个模型（约 404 MB），模型文件不压缩，构建约半分钟。
+- 卸载按名称删除程序自己的文件树（自动更新后多出的文件不在卸载日志里），不碰 `%APPDATA%\hexu-library` 里的书库与设置。
+- `tools/update-helper.ps1` 替换安装目录时会把 `unins000.*` 一起带到新版本，否则第一次自动更新后就无法卸载；`tests/test_auto_update.py` 的真实替换测试锁住了这一点。
+- 已实测：静默安装到新目录 → 程序启动、识别与语音就绪 → 写入模拟“更新后才有”的文件 → 静默卸载，目录、注册表卸载项与开始菜单快捷方式都清除干净。
+
+用 Git Bash 手动测试时注意：`/DIR=...` 这类以 `/` 开头的参数会被它当成 POSIX 路径改写，要加 `MSYS_NO_PATHCONV=1`。
+
 ### 产物
 
 ```

@@ -49,7 +49,7 @@ GitHub 是唯一的权威仓库：源码、`model` 分支与发行版都在那�
 
 ### 4. 发行附件不是 Git 提交
 
-`git push` 不上传被忽略的 `dist/`。每个新 GitHub Release 必须带两个独立 ZIP：`hexu-library-<版本>-program.zip` 和 `sense-voice-<版本>.zip`。即使模型未变，也要在该版本下提供模型附件，保证新机器只看当前发行页就能安装。
+`git push` 不上传被忽略的 `dist/`。每个新 GitHub Release 必须带两个独立 ZIP：`hexu-library-<版本>-program.zip` 和 `sense-voice-<版本>.zip`。即使模型未变，也要在该版本下提供模型附件，保证新机器只看当前发行页就能安装。2.6.1 起另带安装程序 `hexu-library-<版本>-setup.exe`：发布器用 Inno Setup 6 从同一份打包产物生成（`tools/build-setup.mjs`，配方在 `tools/installer/`），缺少 Inno Setup 时发版失败；安装：`winget install --id JRSoftware.InnoSetup -e --scope user`。
 
 发布器默认生成并上传两个包，发布后核对 `uploaded` 状态、大小与 SHA-256。不能只凭附件名或相同大小跳过上传。`--no-model` 只能用于当前发行版已存在有效模型附件的补传场景；历史发行版有模型不满足这个条件。
 

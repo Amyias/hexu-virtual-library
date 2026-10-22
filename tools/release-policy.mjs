@@ -1,6 +1,23 @@
 // A release must support a fresh installation without searching older releases.
 export const programName = (version) => `hexu-library-${version}-program.zip`;
 export const modelName = (version) => `sense-voice-${version}.zip`;
+export const setupName = (version) => `hexu-library-${version}-setup.exe`;
+// The first version published with a setup program. Older releases are complete without one, so
+// repairing their attachments never demands a file they were not built to have.
+export const SETUP_SINCE = "2.6.1";
+
+export function compareVersions(a, b) {
+  const [x, y] = [a, b].map((v) => String(v).split(".").map(Number));
+  for (let i = 0; i < Math.max(x.length, y.length); i++)
+    if ((x[i] ?? 0) !== (y[i] ?? 0)) return (x[i] ?? 0) - (y[i] ?? 0);
+  return 0;
+}
+
+export const requiredAssets = (version) => [
+  programName(version),
+  modelName(version),
+  ...(compareVersions(version, SETUP_SINCE) >= 0 ? [setupName(version)] : []),
+];
 
 export function usableAsset(asset) {
   return (
@@ -31,7 +48,7 @@ export function notesRange(previousTag, commit) {
 }
 
 export function requireCompleteRelease(version, release) {
-  const missing = [programName(version), modelName(version)].filter(
+  const missing = requiredAssets(version).filter(
     (name) => !usableAsset(release?.assets?.find((asset) => asset.name === name)),
   );
   if (missing.length) throw new Error(`发行版附件不完整或未校验：${missing.join("、")}`);

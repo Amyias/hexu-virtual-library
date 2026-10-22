@@ -81,3 +81,20 @@ test("release notes cover the commits since the previous version, not a fixed wi
     "commits of v2.4.1 itself are not repeated",
   );
 });
+
+test("from 2.6.1 a complete release also carries the setup program; older ones never need it", async () => {
+  const { compareVersions, requiredAssets, setupName } =
+    await import("../tools/release-policy.mjs");
+  assert.ok(compareVersions("2.6.1", "2.6.0") > 0);
+  assert.ok(compareVersions("2.10.0", "2.9.9") > 0);
+  assert.equal(compareVersions("2.6.1", "2.6.1"), 0);
+  assert.deepEqual(requiredAssets("2.6.0"), [
+    "hexu-library-2.6.0-program.zip",
+    "sense-voice-2.6.0.zip",
+  ]);
+  const v = "2.6.1";
+  const parts = [asset(`hexu-library-${v}-program.zip`), asset(`sense-voice-${v}.zip`)];
+  assert.throws(() => requireCompleteRelease(v, { assets: parts }), /setup\.exe/);
+  assert.doesNotThrow(() => requireCompleteRelease(v, { assets: [...parts, asset(setupName(v))] }));
+  assert.doesNotThrow(() => requireCompleteRelease("2.3.0", { assets: [program, model] }));
+});

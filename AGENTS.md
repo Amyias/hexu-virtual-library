@@ -23,7 +23,7 @@
 ## 发行版附件规则
 
 - 源码提交和 GitHub Release 是两件事：`git push` 不会上传 `dist/` 的发行附件，发版必须另行运行 `tools/release.mjs`。
-- 每个新发行版必须同时包含 `hexu-library-<版本>-program.zip` 与 `sense-voice-<版本>.zip`，即使模型内容没有变化。旧版本里的模型包不能代替当前版本附件。
+- 每个新发行版必须同时包含 `hexu-library-<版本>-program.zip` 与 `sense-voice-<版本>.zip`，即使模型内容没有变化。旧版本里的模型包不能代替当前版本附件。2.6.1 起还必须包含安装程序 `hexu-library-<版本>-setup.exe`（Inno Setup 构建，自带模型，供新电脑首次安装；自动更新仍只用两个 ZIP）。
 - 新版本先创建草稿，两个附件校验完整后才公开发布；上传失败保留草稿待补传，不把缺附件的版本作为完成品发布。
 - `--no-model` 仅用于当前发行版已有完整、带 SHA-256 的模型附件时更新程序包；缺模型必须失败，不得报告发布成功。
 - 补传模型使用 `node tools/release.mjs --assets-only --model-only`，保留已发布程序包与标签，不为补附件改版本号。

@@ -36,7 +36,9 @@ import {
   requireCompleteRelease,
   findRelease,
   notesRange,
+  requiredAssets,
 } from "./release-policy.mjs";
+import { buildSetup } from "./build-setup.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const APP = "和序图书馆";
@@ -187,6 +189,9 @@ function notes(version, commit) {
     commits || "- （与上一版本相同的提交，仅重新打包）",
     "",
     "### 怎么装",
+    `**新电脑**：下载 \`hexu-library-${version}-setup.exe\`，双击按向导安装（装在当前用户目录，不需要管理员权限；自带识别与语音模型）。Windows 若提示“无法识别的应用”，点“更多信息 → 仍要运行”。`,
+    "",
+    "**手动更新已有安装**（一般不需要，程序会自动更新）：",
     "1. 下载 `*-program.zip`，解压覆盖到程序文件夹（模型原地保留，不会被覆盖）。",
     `2. 新机器还需要下载本发行版的 \`sense-voice-${version}.zip\`，解压到同一个文件夹；已有模型的机器更新时只下载程序包。`,
     "   模型包同时包含识别模型与语音播报模型「欣然」（PrimeTTS v2.1，AI 合成语音）；缺少后者的已安装程序更新时会自动补下载一次模型包。",
@@ -390,7 +395,7 @@ async function publish(version, commit, assets, token, assetsOnly, skipModel) {
     if (!published.ok || published.payload?.draft)
       fail(`附件已齐全但发布草稿失败：HTTP ${published.status}`);
   }
-  log("程序包与模型包均已上传，状态、大小和 SHA-256 校验通过。");
+  log(`${assets.map((asset) => asset.label).join("、")}均已上传，状态、大小和 SHA-256 校验通过。`);
   return release.payload?.html_url;
 }
 
@@ -440,6 +445,17 @@ if (!modelOnly && !process.argv.includes("--skip-build")) {
 }
 
 const assets = archive(version, !skipModel, modelOnly);
+// A new version also gets the setup program for first installs; it embeds the models, so it is
+// built from the same packaged folder the two archives were cut from.
+if (requiredAssets(version).some((name) => name.endsWith("-setup.exe")) && !modelOnly) {
+  log("生成安装程序（Inno Setup）…");
+  try {
+    const setup = buildSetup({ version, source: APP_DIR, output: OUT_DIR });
+    assets.push({ file: setup, name: path.basename(setup), label: "安装程序" });
+  } catch (error) {
+    fail(`${error.message}\n未发版。`);
+  }
+}
 for (const asset of assets) {
   log(
     `${asset.label}  ${asset.name}  ${megabytes(fs.statSync(asset.file).size)}  sha256 ${sha256(asset.file).slice(0, 16)}…`,
