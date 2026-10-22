@@ -70,6 +70,30 @@ export function isBookRequest(text) {
   );
 }
 
+/* Whether a find request names one particular book. "帮我找《三体》", "我想读红楼梦" and even
+   "霍金写的那本" do; "你能帮我找书吗", "怎么找书", "帮我找几本科幻小说" and "推荐一本好书" only
+   mention finding books. Those are conversation for the model, not a reason to open the reading
+   library and search for the sentence itself. Only the ends are trimmed, so a title is never cut
+   from the middle. */
+const NOT_ONE_BOOK =
+  /怎么|怎样|如何|为什么|为何|什么|哪些|哪几|几本|几部|一些|推荐|建议|随便|任意|好看|有趣|有意思|方法|技巧/;
+const LEADING =
+  /^(?:你能|你可以|能不能|可不可以|能否|可以|帮我|帮忙|给我|替我|我要|我想要|我想|我需要|请|麻烦|找一下|找一找|找到|寻找|找|搜索|检索|下载|借阅|借|阅读|读|看|一下|一本|一部|本|部)+/;
+const TRAILING =
+  /(?:的正文|的全文|正文|全文|在哪里|在哪儿|在哪|这本书|这本|一下|吗|呢|吧|啊|呀|哦)+$/;
+const GENRE_ONLY =
+  /^(?:科幻|悬疑|推理|历史|言情|武侠|奇幻|玄幻|恐怖|经典|外国|中国|儿童|英文|中文|哲学|文学|计算机|编程|人工智能|商业|经济|管理|艺术|设计|建筑|科普|心理|传记|诗歌|散文|好|新)*(?:的)?(?:小说|书籍|图书|书|作品|名著|读物|资料)?$/;
+
+export const NAME_A_BOOK = "请告诉我书名或编号，例如「帮我找《狂人日记》」或「HX-03408」。";
+
+export function namesABook(request) {
+  if (/《[^》]+》/.test(request)) return true;
+  if (/^HX-\d+$|^S[1-5]-[AB]-L[1-4]-/i.test(request)) return true;
+  if (NOT_ONE_BOOK.test(request)) return false;
+  const rest = request.replace(LEADING, "").replace(TRAILING, "");
+  return rest.length >= 2 && !GENRE_ONLY.test(rest);
+}
+
 export function readingCommand(request) {
   if (/为什么|如何|怎么|是什么|解释|介绍|分析|意义|区别|吗|能不能/.test(request)) return null;
   return READING_COMMANDS.find(([, pattern]) => pattern.test(request))?.[0] ?? null;
@@ -119,6 +143,11 @@ export function decide(
   const book = !webRequest && (!question || bookRequest) ? lookup(request) : null;
   if (book) return { type: "present", wake, book, speech: addressed ? FOUND : LOCATING };
   if (bookRequest || /^HX-\d+$/i.test(request)) {
+    // Talking about finding books is conversation; only a named book is searched for.
+    if (!namesABook(request))
+      return understand
+        ? { type: "chat", wake, request: conversationText(text) }
+        : { type: "reply", wake, speech: NAME_A_BOOK };
     if (understand) return { type: "model", wake, request: conversationText(text) };
     if (fullText) return { type: "full-text", wake, query: text };
     return { type: "no-match", wake };

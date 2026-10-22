@@ -171,3 +171,43 @@ test(
     assert.equal(result.status, 0, result.stderr);
   },
 );
+
+test("talking about finding books is conversation; only a named book opens the reading library", async () => {
+  const { namesABook, NAME_A_BOOK } = await import("../src/app/dialogue.js");
+  const general = [
+    "你能帮我找书吗？",
+    "小和，怎么找书",
+    "帮我找几本科幻小说",
+    "我想找本小说",
+    "帮我找书",
+    "书在哪里",
+    "帮我找一本好看的书",
+    "你可以帮我下载书吗",
+    "找书有什么技巧",
+  ];
+  const named = [
+    "帮我找三体",
+    "你能帮我找三体吗",
+    "帮我找《不存在的书》",
+    "霍金写的那本",
+    "HX-03408",
+  ];
+  const withModel = {
+    direct: true,
+    phase: "IDLE",
+    fullText: true,
+    understand: true,
+    lookup: () => null,
+  };
+  const offline = { ...withModel, understand: false };
+  for (const text of general) {
+    assert.equal(namesABook(text.replace(/^小和，/, "").replace(/[？?]/g, "")), false, text);
+    assert.equal(decide(text, withModel).type, "chat", text);
+    const hint = decide(text, offline);
+    assert.deepEqual([hint.type, hint.speech], ["reply", NAME_A_BOOK], text);
+  }
+  for (const text of named) {
+    assert.equal(decide(text, withModel).type, "model", text);
+    assert.equal(decide(text, offline).type, "full-text", text);
+  }
+});
