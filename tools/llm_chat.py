@@ -113,7 +113,24 @@ def completion(resolved, messages, validate_endpoint, *, timeout=60, intent=Fals
         return 502, {"error": "模型响应格式不兼容，请使用 Chat Completions 兼容接口"}
 
 
-def chat(body, resolved, validate_endpoint, *, timeout=60, selected=None):
+# Who 小和 is, the same in every reply. Replies are also read aloud sentence by sentence and shown
+# in a small pixel bubble, so they stay short, spoken and free of Markdown.
+PERSONA = (
+    "你是和序图书馆的馆员小和：一只陶土橙色的方块像素小宠物，住在前台，喜欢书，也喜欢陪读者聊天。"
+    "性格温暖、好奇、带一点俏皮，像熟悉的图书馆朋友，而不是客服；称呼对方“你”，偶尔用“呀”“呢”这样的语气词，"
+    "但不要每句都用，也不要卖萌过度。"
+    "说话要像当面聊天：先直接回应对方，再补充一两句；日常回答控制在三四句话、一百五十字以内，"
+    "对方要求详细、写作或讲解时再展开。"
+    "回答会被逐句朗读，所以不要用 Markdown：不要标题、加粗、表格、代码块或 emoji；需要分点时用“第一、第二”这样的口语。"
+    "遇到不知道或不确定的事要坦白说，不编造；不假装有自己没有的能力或记忆。"
+)
+
+
+def prepare(body, resolved, *, selected=None):
+    """Validate one chat request and build its messages.
+
+    Returns (status, payload) for a request that cannot be sent, otherwise a dict with the
+    messages and the configuration identity. Shared by the whole-reply and streaming paths."""
     if not isinstance(body, dict):
         return 400, {"error": "请求必须是 JSON 对象"}
     text = body.get("text")
@@ -129,9 +146,8 @@ def chat(body, resolved, validate_endpoint, *, timeout=60, selected=None):
     reset = bool(history and body.get("configuration") != identity)
     if reset:
         history = []
-    prompt = ("你是和序图书馆的助手小和，使用中文自然对话，也可按用户要求使用其他语言。"
-              "你可以回答知识、学习、编程、写作和日常问题，结合本轮对话历史承接追问。"
-              "回答清楚、诚实；不确定时说明，不要声称可以回答一切或编造事实。"
+    prompt = (PERSONA +
+              "你可以回答知识、学习、编程、写作和日常问题，结合本轮对话历史承接追问，也可按用户要求使用其他语言。"
               "你没有本地文件访问或下载执行工具，不要声称已经下载或操作书架。"
               "书架操作由程序单独执行，你在此仅回答问题，不输出动作 JSON。"
               "当前界面状态为：" + ("正在阅读。" if body.get("phase") == "READING" else "图书馆待命。"))
@@ -151,6 +167,15 @@ def chat(body, resolved, validate_endpoint, *, timeout=60, selected=None):
         prompt += "本轮没有联网工具；不得声称已经搜索或读取网上的网页。"
     messages = [{"role": "system", "content": prompt}, *history,
                 {"role": "user", "content": text.strip()}]
+    return {"messages": messages, "identity": identity, "reset": reset, "enabled": enabled}
+
+
+def chat(body, resolved, validate_endpoint, *, timeout=60, selected=None):
+    prepared = prepare(body, resolved, selected=selected)
+    if isinstance(prepared, tuple):
+        return prepared
+    messages, identity, reset = prepared["messages"], prepared["identity"], prepared["reset"]
+    enabled = prepared["enabled"]
     deadline = time.monotonic() + timeout
     web = web_tools.WebTools(resolved, open_completion, deadline)
     result = {}
@@ -176,3 +201,4 @@ def chat(body, resolved, validate_endpoint, *, timeout=60, selected=None):
         result.update(model=resolved["HEXU_LLM_MODEL"], configuration=identity, reset=reset,
                       sources=web.sources, web_calls=web.calls, web_tools=web.actions)
     return status, result
+
