@@ -22,6 +22,8 @@ Routes:
     POST /tts              -> {"text": ...}, returns 16 kHz WAV; the page falls back to the
                               browser's speechSynthesis while this answers 503
     POST /chat             -> general conversation with bounded, browser-owned history
+    POST /chat/stream      -> the same conversation as newline-delimited JSON events, so the
+                              page can show and speak the reply while it is still being written
     GET  /chat/ready       -> configured model and non-secret configuration identity
     POST /understand       -> {"text": ..., "phase": ...}, returns a parsed intent; 429 past
                               HEXU_LLM_PER_MINUTE calls a minute from one address
@@ -529,6 +531,11 @@ def understand(text, phase):
                  "seconds": round(time.perf_counter() - started, 3)}
 
 
+def _chain(first, rest):
+    yield first
+    yield from rest
+
+
 class Handler(SimpleHTTPRequestHandler):
     protocol_version = "HTTP/1.1"
     server_version = "hexu-library"
@@ -793,6 +800,45 @@ class Handler(SimpleHTTPRequestHandler):
             status, payload = understand(body.get("text"), body.get("phase"))
         self._send_json(status, payload)
 
+    def _post_chat_stream(self):
+        """Stream one reply as NDJSON: {"type":"delta","text":...} lines, then "done" or "error".
+
+        Validation failures still answer with a plain JSON status before any streaming starts.
+        Once streaming, the connection closes at the end, so no Content-Length is needed; if the
+        reader cancels, the broken pipe stops the generator, which closes the provider request."""
+        body = self._read_json(128_000)
+        if body is None:
+            return
+        wait = UNDERSTAND_LIMIT.allow(self.client_address[0])
+        if wait:
+            self._send_json(429, {"error": f"对话调用过于频繁，请 {wait} 秒后再试"})
+            return
+        resolved, _ = settings_state()
+        events = llm_chat.chat_stream(body, resolved, validate_endpoint,
+                                      timeout=float(os.environ.get("HEXU_LLM_CHAT_TIMEOUT", "60")),
+                                      selected=load_catalog()[0].get(str((body or {}).get("bookId", "")))
+                                      if isinstance(body, dict) else None)
+        first = next(events, None)
+        if first is None or (first["type"] == "error" and "status" in first):
+            first = first or {"error": "对话服务没有返回内容"}
+            self._send_json(first.pop("status", 502), {k: v for k, v in first.items() if k != "type"})
+            return
+        self.close_connection = True
+        self.send_response(200)
+        self.send_header("Content-Type", "application/x-ndjson; charset=utf-8")
+        self.send_header("Cache-Control", "no-store")
+        self.send_header("X-Content-Type-Options", "nosniff")
+        self.send_header("Connection", "close")
+        self.end_headers()
+        try:
+            for event in _chain(first, events):
+                self.wfile.write(json.dumps(event, ensure_ascii=False).encode("utf-8") + b"\n")
+                self.wfile.flush()
+        except (BrokenPipeError, ConnectionResetError, ConnectionAbortedError):
+            pass
+        finally:
+            events.close()
+
     def _post_settings_key(self):
         """Store what the reader typed. The reply carries the new summary, never the value."""
         body = self._read_json()
@@ -872,6 +918,10 @@ class Handler(SimpleHTTPRequestHandler):
         if pathname == "/chat":
             if self._loopback_only():
                 self._post_understand(conversation=True)
+            return
+        if pathname == "/chat/stream":
+            if self._loopback_only():
+                self._post_chat_stream()
             return
         if pathname == "/understand":
             self._post_understand()

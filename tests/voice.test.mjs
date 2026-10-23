@@ -1,6 +1,12 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { createVoice, pickSystemVoice, splitSentences } from "../src/voice/voice.js";
+import {
+  completedPart,
+  createVoice,
+  pickSystemVoice,
+  speakable,
+  splitSentences,
+} from "../src/voice/voice.js";
 
 const tick = () => new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -122,4 +128,40 @@ test("a new reply or a cancel silences the one still playing", async () => {
   await third;
   assert.equal(voice.isSpeaking(), false);
   assert.equal(spoken.length, 0);
+});
+
+test("a growing reply is spoken sentence by sentence as each one completes", async () => {
+  assert.equal(completedPart("你好呀，我是"), "", "an unfinished sentence waits");
+  assert.equal(completedPart("你好呀。我是小和"), "你好呀。");
+  assert.equal(completedPart("你好呀。我是小和。", 4), "我是小和。");
+  const long = "这是一段很长很长的回答".repeat(6) + "，后面还在写";
+  assert.ok(completedPart(long).endsWith("，"), "a long sentence starts at its last comma");
+  assert.equal(speakable("**重点**是[1]《三体》"), "重点是《三体》");
+
+  const { voice, requested, played } = harness();
+  const reply = voice.stream();
+  reply.push("你好呀，");
+  await tick();
+  assert.deepEqual(requested, [], "nothing is synthesised before a sentence ends");
+  reply.push("你好呀，我是小和。今天");
+  await tick();
+  assert.deepEqual(requested, ["你好呀，我是小和。"], "the first sentence starts at once");
+  assert.equal(voice.isSpeaking(), true);
+  reply.push("你好呀，我是小和。今天想读点什么？");
+  await reply.end("你好呀，我是小和。今天想读点什么？要我推荐吗");
+  assert.deepEqual(played, ["blob:你好呀，我是小和。", "blob:今天想读点什么？", "blob:要我推荐吗"]);
+  assert.equal(voice.isSpeaking(), false);
+});
+
+test("without the local voice a streamed reply goes to system speech batch by batch", async () => {
+  const { voice, spoken } = harness({ ready: false });
+  const reply = voice.stream();
+  reply.push("第一句。");
+  await tick();
+  reply.push("第一句。第二句。");
+  await reply.end("第一句。第二句。");
+  assert.deepEqual(
+    spoken.map((utterance) => utterance.text),
+    ["第一句。", "第二句。"],
+  );
 });

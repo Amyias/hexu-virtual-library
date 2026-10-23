@@ -123,8 +123,16 @@ export function createAssistant({
     intentGeneration++;
     attention.wake(120000);
     conversation.begin(request);
-    say("正在回应…", 0, { interactive: true, onCancel: cancelPending });
-    const result = await chat.ask(request, machine.phase, journey.selected?.bookId);
+    say("正在回应…", 0, { interactive: true, onCancel: cancelPending, silent: true });
+    // The first words replace the waiting bubble; later ones extend it and are spoken as each
+    // sentence completes, so the reader hears 小和 start answering within a second or so.
+    let live = null;
+    const result = await chat.ask(request, machine.phase, journey.selected?.bookId, {
+      onText(text) {
+        if (live) live.update(text);
+        else live = feedback.stream(text, { onCancel: cancelPending });
+      },
+    });
     if (result.cancelled) return;
     attention.wake(40000);
     if (result.error) {
@@ -136,7 +144,8 @@ export function createAssistant({
     }
     conversation.answer(result.reply, result.model, result.truncated, result.sources);
     respond(result.reply);
-    say(result.reply, 0, { interactive: true, sources: result.sources });
+    if (live) live.finish(result.reply, { sources: result.sources });
+    else say(result.reply, 0, { interactive: true, sources: result.sources });
     $("voiceTitle").textContent = "小和已回答，可以继续追问";
   }
 

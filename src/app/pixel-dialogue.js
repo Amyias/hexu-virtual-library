@@ -34,15 +34,7 @@ export function createTypewriter({
     onText(glyphs.join(""));
     onDone();
   }
-  function start(text, { instant = false } = {}) {
-    stop();
-    glyphs = splitGlyphs(text);
-    index = 0;
-    onText("");
-    if (instant || !glyphs.length) {
-      finish();
-      return;
-    }
+  function run(delay) {
     typing = true;
     const current = generation;
     function next() {
@@ -58,10 +50,29 @@ export function createTypewriter({
       }
       timer = schedule(next, PUNCTUATION.test(glyph) ? 170 : /[a-z0-9]/i.test(glyph) ? 42 : 65);
     }
-    timer = schedule(next, 45);
+    timer = schedule(next, delay);
+  }
+  function start(text, { instant = false } = {}) {
+    stop();
+    glyphs = splitGlyphs(text);
+    index = 0;
+    onText("");
+    if (instant || !glyphs.length) {
+      finish();
+      return;
+    }
+    run(45);
+  }
+  /** The same reply, grown longer while it streams in: keep typing from where it is. */
+  function extend(text) {
+    const more = splitGlyphs(text);
+    if (more.length <= glyphs.length) return;
+    glyphs = more;
+    if (!typing) run(30);
   }
   return {
     start,
+    extend,
     stop,
     finish,
     getState: () => ({ typing, revealed: index, total: glyphs.length }),
@@ -166,8 +177,28 @@ export function createPixelDialogue(root, sounds) {
     // Reduced motion disables spatial pop/caret animation in CSS; text still types as requested.
     writer.start(message, { instant: options.instant === true });
   }
+  /** A reply still being written: show() its first words, extend() as more arrive, then settle()
+   *  once it is complete, which drops the stop button and attaches any sources. */
+  function extend(value) {
+    if (!visible) return;
+    message = String(value);
+    measure.textContent = message + " ▂";
+    root.classList.add("typing");
+    writer.extend(message);
+  }
+  function settle(options = {}) {
+    if (!visible) return;
+    renderSources(sources, options.sources);
+    stopButton.hidden = true;
+    stopButton.onclick = null;
+    finishButton.hidden = !writer.getState().typing;
+    status.textContent = "可滚动阅读";
+    announcement.textContent = message;
+  }
   return {
     show,
+    extend,
+    settle,
     hide,
     getState: () => ({
       message,

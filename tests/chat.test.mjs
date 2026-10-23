@@ -6,6 +6,17 @@ import { createChatSession } from "../src/voice/chat.js";
 import { decide, conversationText } from "../src/app/dialogue.js";
 import { sourceEntries } from "../src/app/web-sources.js";
 const ok = (body, status = 200) => new Response(JSON.stringify(body), { status });
+/** The reply as /chat/stream sends it: delta lines, then one done line. */
+const streamed = (reply, extra = {}) =>
+  new Response(
+    [
+      ...Array.from(reply.matchAll(/[^。！？]+[。！？]?/g), ([text]) => ({ type: "delta", text })),
+      { type: "done", reply, ...extra },
+    ]
+      .map((event) => JSON.stringify(event) + "\n")
+      .join(""),
+    { status: 200, headers: { "Content-Type": "application/x-ndjson; charset=utf-8" } },
+  );
 function service() {
   const calls = [];
   let config = "one",
@@ -19,7 +30,7 @@ function service() {
       const body = JSON.parse(options.body);
       calls.push(body);
       if (mode === "error") return ok({ error: "模型服务返回 401" }, 502);
-      return ok({ reply: "自然语言回答", model: "test-model", configuration: config });
+      return streamed("自然语言回答", { model: "test-model", configuration: config });
     },
   };
 }
@@ -101,7 +112,7 @@ test("stopping a pending conversation rejects late replies and never contaminate
   const backend = service();
   const normal = backend.request;
   backend.request = async (url, options) =>
-    url === "/chat"
+    url === "/chat/stream"
       ? new Promise((resolve) => {
           complete = resolve;
         })

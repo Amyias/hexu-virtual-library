@@ -26,9 +26,35 @@ export function createFeedback($) {
   function bubble(text, hold = 6500, voiced = false, options = {}) {
     dialogue.show(text, hold, { ...options, typingSound: !voiced });
   }
+  /** options.silent: show without speaking, for placeholders such as 「正在回应…」 that would
+   *  otherwise be read aloud and compete with the real answer. */
   function say(text, hold = 6500, options = {}) {
+    if (options.silent) {
+      voice.cancel(); // a new question stops the previous answer being read out
+      bubble(text, hold, false, options);
+      return;
+    }
     bubble(text, hold, speaking && voice.available, options);
     if (speaking) voice.speak(text);
+  }
+  /** A reply that is still being written: the bubble types as text arrives and, with speech on,
+   *  each finished sentence is spoken while the model writes the next. */
+  function stream(first, options = {}) {
+    const voiced = speaking && voice.available;
+    dialogue.show(first, 0, { ...options, interactive: true, typingSound: !voiced });
+    const spoken = speaking ? voice.stream() : null;
+    spoken?.push(first);
+    return {
+      update(text) {
+        dialogue.extend(text);
+        spoken?.push(text);
+      },
+      finish(text, settled = {}) {
+        dialogue.extend(text);
+        dialogue.settle(settled);
+        spoken?.end(text);
+      },
+    };
   }
   function toggleSpeaking() {
     speaking = !speaking;
@@ -73,6 +99,7 @@ export function createFeedback($) {
     bubble,
     hideBubble: dialogue.hide,
     say,
+    stream,
     toggleSpeaking,
     toggleSounds,
     getState: () => ({

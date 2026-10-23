@@ -202,3 +202,170 @@ def chat(body, resolved, validate_endpoint, *, timeout=60, selected=None):
                       sources=web.sources, web_calls=web.calls, web_tools=web.actions)
     return status, result
 
+
+STREAM_INCOMPATIBLE = "模型响应格式不兼容，请使用支持流式输出的 Chat Completions 接口"
+
+
+def unsafe_tail(text, secrets):
+    """How many trailing characters could be the start of a key still arriving. Only those are
+    held back; an ordinary sentence is sent on at once."""
+    longest = 0
+    for secret in secrets:
+        for size in range(min(len(secret) - 1, len(text)), longest, -1):
+            if text.endswith(secret[:size]):
+                longest = size
+                break
+    return longest
+
+
+def stream_completion(resolved, messages, validate_endpoint, *, timeout=60, tools=None, tool_choice="auto"):
+    """One streamed Chat Completions call, as events: ("delta", text) while the answer arrives,
+    then exactly one of ("tool_calls", calls), ("end", finish_reason) or ("error", message).
+
+    Server-Sent Events are read line by line under the same bounds and privacy rules as
+    completion(): the key is used only here and provider error bodies are never forwarded."""
+    base = resolved["HEXU_LLM_BASE_URL"].rstrip("/")
+    try:
+        validate_endpoint(base)
+    except ValueError as error:
+        yield "error", str(error)
+        return
+    payload = {"model": resolved["HEXU_LLM_MODEL"], "messages": messages, "max_tokens": 4096, "stream": True}
+    if urllib.parse.urlsplit(base).hostname == "api.deepseek.com":
+        payload["thinking"] = {"type": "disabled"}
+    if tools:
+        payload.update(tools=tools, tool_choice=tool_choice, parallel_tool_calls=False)
+    request = urllib.request.Request(base + "/chat/completions",
+        data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
+        headers={"Content-Type": "application/json", "Accept": "text/event-stream",
+                 "Authorization": "Bearer " + resolved["HEXU_LLM_API_KEY"]})
+    calls = {}
+    finish = None
+    received = 0
+    try:
+        with open_completion(request, timeout=timeout) as response:
+            while True:
+                line = response.readline(65_536)
+                if not line:
+                    break
+                received += len(line)
+                if received > 2_000_000:
+                    yield "error", "模型响应体积超出限制"
+                    return
+                line = line.decode("utf-8").strip()
+                if not line.startswith("data:"):
+                    continue
+                data = line[5:].strip()
+                if data == "[DONE]":
+                    break
+                chunk = json.loads(data)
+                if not chunk.get("choices"):
+                    continue
+                choice = chunk["choices"][0]
+                delta = choice.get("delta") or {}
+                if isinstance(delta.get("content"), str) and delta["content"]:
+                    yield "delta", delta["content"]
+                for part in delta.get("tool_calls") or []:
+                    index = part.get("index", 0)
+                    if not isinstance(index, int) or not 0 <= index < 8:
+                        raise ValueError()
+                    call = calls.setdefault(index, {"id": "", "name": "", "arguments": ""})
+                    call["id"] = part.get("id") or call["id"]
+                    function = part.get("function") or {}
+                    call["name"] += function.get("name") or ""
+                    call["arguments"] += function.get("arguments") or ""
+                    if len(call["arguments"]) > 12000 or len(call["id"]) > 160:
+                        raise ValueError()
+                finish = choice.get("finish_reason") or finish
+    except urllib.error.HTTPError as error:
+        code = error.code
+        hint = "请检查密钥或权限" if code in (401, 403) else "请检查模型名称、额度或服务状态"
+        yield "error", f"模型服务返回 {code}，{hint}"
+        return
+    except (TimeoutError, OSError):
+        yield "error", "模型连接失败或超时，请检查网络与接入地址"
+        return
+    except (ValueError, KeyError, IndexError, TypeError, AttributeError, UnicodeDecodeError):
+        yield "error", STREAM_INCOMPATIBLE
+        return
+    if tools and calls:
+        normalized = []
+        for index in sorted(calls):
+            call = calls[index]
+            if not call["id"] or not call["name"]:
+                yield "error", STREAM_INCOMPATIBLE
+                return
+            normalized.append({"id": call["id"], "type": "function",
+                               "function": {"name": call["name"], "arguments": call["arguments"]}})
+        yield "tool_calls", normalized
+        return
+    yield "end", finish
+
+
+def chat_stream(body, resolved, validate_endpoint, *, timeout=60, selected=None):
+    """The streaming twin of chat(): yields {"type": "delta", "text": ...} while the reply
+    arrives, then one {"type": "done", ...} carrying the same fields chat() returns, or one
+    {"type": "error", ...}.
+
+    Web-tool rounds run in between exactly as in chat(). Keys are redacted from everything sent
+    on; a tail that could be the beginning of a key is held until the next piece decides it, so
+    a key split across two pieces is still caught whole."""
+    prepared = prepare(body, resolved, selected=selected)
+    if isinstance(prepared, tuple):
+        yield {"type": "error", "status": prepared[0], **prepared[1]}
+        return
+    messages, identity, reset = prepared["messages"], prepared["identity"], prepared["reset"]
+    enabled = prepared["enabled"]
+    secrets = [resolved.get(name) for name in ("HEXU_LLM_API_KEY", "HEXU_WEB_API_KEY") if resolved.get(name)]
+    deadline = time.monotonic() + timeout
+    started = time.perf_counter()
+    web = web_tools.WebTools(resolved, open_completion, deadline)
+    reply, sent, finish = "", 0, None
+    for turn in range(web_tools.MAX_ROUNDS + 1):
+        remaining = deadline - time.monotonic()
+        if remaining <= 0:
+            yield {"type": "error", "error": "本轮对话与联网查询超时，请重试。"}
+            return
+        last = turn == web_tools.MAX_ROUNDS or web.calls >= web_tools.MAX_CALLS
+        calls = None
+        for kind, value in stream_completion(resolved, messages, validate_endpoint, timeout=remaining,
+                                             tools=web_tools.TOOLS if enabled else None,
+                                             tool_choice="none" if last else "auto"):
+            if kind == "delta":
+                reply += value
+                if len(reply) > MAX_REPLY:
+                    reply, finish = reply[:MAX_REPLY], "length"
+                    break
+                safe = web_tools.redact(reply, resolved)
+                ready = len(safe) - unsafe_tail(safe, secrets)
+                if ready > sent:
+                    yield {"type": "delta", "text": safe[sent:ready]}
+                    sent = ready
+            elif kind == "tool_calls":
+                calls = value
+            elif kind == "end":
+                finish = value
+            else:
+                yield {"type": "error", "error": value}
+                return
+        if not calls:
+            break
+        if turn == web_tools.MAX_ROUNDS:
+            yield {"type": "error", "error": "模型未能在联网次数限制内生成回答，请重试。"}
+            return
+        messages.append({"role": "assistant", "content": reply or None, "tool_calls": calls})
+        for call in calls:
+            function = call["function"]
+            outcome = web.execute(function["name"], function["arguments"])
+            messages.append({"role": "tool", "tool_call_id": call["id"],
+                             "content": web_tools.redact(json.dumps(outcome, ensure_ascii=False), resolved)})
+    safe = web_tools.redact(reply, resolved)
+    if not safe.strip():
+        yield {"type": "error", "error": "模型返回了空回答，请检查模型名称与接口兼容性"}
+        return
+    if len(safe) > sent:
+        yield {"type": "delta", "text": safe[sent:]}
+    yield {"type": "done", "reply": safe.strip(), "truncated": finish == "length",
+           "seconds": round(time.perf_counter() - started, 3), "model": resolved["HEXU_LLM_MODEL"],
+           "configuration": identity, "reset": reset, "sources": web.sources,
+           "web_calls": web.calls, "web_tools": web.actions}

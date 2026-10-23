@@ -595,9 +595,21 @@ try {
     window.chatTest = { fetch: window.fetch.bind(window), calls: [], config: 'first' };
     window.fetch = async (url, options) => {
       if (url === '/chat/ready') return new Response(JSON.stringify({ready:true,configuration:chatTest.config}),{status:200});
-      if (url === '/chat') {
+      if (url === '/chat/stream') {
         chatTest.calls.push(JSON.parse(options.body));
-        return new Response(JSON.stringify({reply:'机器学习通过数据学习规律。'+ '这是完整回答。'.repeat(25) + '<img src=x onerror=alert(1)>',model:'mock-chat-model',configuration:chatTest.config,sources:[{id:1,title:'<img src=x onerror=alert(1)>参考资料',url:'https://example.com/evidence'},{url:'javascript:alert(1)'}]}),{status:200});
+        // Streamed like the real service: a delta line per sentence, a few ms apart, then done.
+        const reply = '机器学习通过数据学习规律。'+ '这是完整回答。'.repeat(25) + '<img src=x onerror=alert(1)>';
+        const events = [...reply.match(/[^。]+。?/g).map((text) => ({type:'delta',text})),
+          {type:'done',reply,model:'mock-chat-model',configuration:chatTest.config,sources:[{id:1,title:'<img src=x onerror=alert(1)>参考资料',url:'https://example.com/evidence'},{url:'javascript:alert(1)'}]}];
+        const encoder = new TextEncoder();
+        const body = new ReadableStream({ async start(controller) {
+          for (const event of events) {
+            controller.enqueue(encoder.encode(JSON.stringify(event) + '\\n'));
+            await new Promise((resolve) => setTimeout(resolve, 5));
+          }
+          controller.close();
+        } });
+        return new Response(body,{status:200,headers:{'Content-Type':'application/x-ndjson; charset=utf-8'}});
       }
       return chatTest.fetch(url,options);
     };
