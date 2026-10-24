@@ -374,17 +374,23 @@ export function createLocalLibrary({ books, onSelect, onBind, onLocate, notice }
     event.target.value = "";
   };
   initialize();
-  function find(text) {
-    return [...assigned.values()].find((book) =>
+  /** Every local book whose title or alias is exactly what was asked: two editions of the
+   *  same title are both returned, so the reader can be asked which one. */
+  function findAll(text) {
+    return [...assigned.values()].filter((book) =>
       [book.title, ...book.localAliases].some(
         (title) => normalize(title) === normalize(bookQuery(text)),
       ),
     );
   }
+  function find(text) {
+    return findAll(text)[0];
+  }
   return {
     search,
     refresh,
     find,
+    findAll,
     get busy() {
       return working;
     },

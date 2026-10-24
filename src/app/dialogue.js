@@ -4,7 +4,7 @@
    one against the current phase and returns a plain description — wake up, read this command,
    walk to this book, ask the model — and assistant.js carries it out. Keeping the decision free
    of the scene, the DOM and the network is what lets the routing rules be tested on their own. */
-import { wakeRE, wakeStripRE } from "../voice/intent.js";
+import { normalize, wakeRE, wakeStripRE } from "../voice/intent.js";
 import { IDLE, READING } from "./phases.js";
 
 /** How long 「小和」 keeps listening for a request without the wake word. */
@@ -106,6 +106,41 @@ export function rememberedFact(text) {
   return fact.length >= 2 ? fact.slice(0, 120) : null;
 }
 
+export const MAX_CHOICES = 4;
+const ORDINAL = { 一: 0, 1: 0, 二: 1, 两: 1, 2: 1, 三: 2, 3: 2, 四: 3, 4: 3 };
+
+/** Which of the offered books the reader means: 「第一本」「第二个」「最后那本」, a title or an
+ *  author. null when the answer does not pick one, so it is handled as a new request. */
+export function pickChoice(text, choices) {
+  const request = requestOf(text).replace(/^(?:我要|要|选|就|是)+/, "");
+  if (!request) return null;
+  if (/^(?:最后|末尾|最后面)(?:一|那)?(?:本|个|部)?/.test(request)) return choices.at(-1) ?? null;
+  const ordinal = request.match(/^第?([一两二三四1-4])(?:本|个|部|种|项)?(?:吧|吗|啊)?$/);
+  if (ordinal) return choices[ORDINAL[ordinal[1]]] ?? null;
+  const byTitle = choices.filter(
+    (book) =>
+      normalize(book.title) &&
+      (request.includes(normalize(book.title)) || normalize(book.title).includes(request)),
+  );
+  if (byTitle.length === 1) return byTitle[0];
+  const byAuthor = choices.filter(
+    (book) => book.author && request.includes(normalize(book.author)),
+  );
+  return byAuthor.length === 1 ? byAuthor[0] : null;
+}
+
+const CHINESE_ORDINAL = ["一", "二", "三", "四"];
+export function choiceSpeech(choices) {
+  const list = choices
+    .map(
+      (book, i) =>
+        `第${CHINESE_ORDINAL[i]}本《${book.title}》` +
+        (book.author && book.author !== "未知作者" ? `（${book.author}）` : ""),
+    )
+    .join("，");
+  return `我找到了 ${choices.length} 本：${list}。你要哪一本？说「第一本」或书名就好。`;
+}
+
 export function readingCommand(request) {
   if (/为什么|如何|怎么|是什么|解释|介绍|分析|意义|区别|吗|能不能/.test(request)) return null;
   return READING_COMMANDS.find(([, pattern]) => pattern.test(request))?.[0] ?? null;
@@ -155,7 +190,11 @@ export function decide(
   // Offline courtesy still works, but configured models answer naturally instead of canned text.
   const reply = !understand && PET_REPLIES.find(([pattern]) => pattern.test(request));
   if (reply) return { type: "reply", wake, speech: reply[1] };
-  const book = !webRequest && (!question || bookRequest) ? lookup(request) : null;
+  const found = !webRequest && (!question || bookRequest) ? lookup(request) : null;
+  // Several books fit equally well: ask which one rather than quietly take the first.
+  if (Array.isArray(found) && found.length > 1)
+    return { type: "choose", wake, books: found.slice(0, MAX_CHOICES) };
+  const book = Array.isArray(found) ? found[0] : found;
   if (book) return { type: "present", wake, book, speech: addressed ? FOUND : LOCATING };
   if (bookRequest || /^HX-\d+$/i.test(request)) {
     // Talking about finding books is conversation; only a named book is searched for.

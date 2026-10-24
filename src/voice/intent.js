@@ -56,6 +56,12 @@ function tierOf(query, candidate) {
 
 /* 返回命中的书、级别与命中的那个词。级别相同时先到者胜，即目录顺序。 */
 export function matchBook(text, collection = books) {
+  return matchBooks(text, collection)[0] ?? null;
+}
+
+/* 所有并列最高分的书（同一本只算一次），按目录顺序。两本以上时调用方应先请读者选择，
+   而不是悄悄取第一本：同名的两个版本、只说了「三体」而书架上有《三体Ⅱ》《三体Ⅲ》都会这样。 */
+export function matchBooks(text, collection = books) {
   // Titles and aliases change when real books are bound after startup. Never index empty slots.
   const INDEX = collection
     .filter((book) => book.localBookId)
@@ -68,20 +74,25 @@ export function matchBook(text, collection = books) {
       })),
     ]);
   const query = normalize(text);
-  let best = null;
+  let best = [];
   let bestRank = 0;
   for (const { book, text: candidate, isTitle } of INDEX) {
     const tier = tierOf(query, candidate);
     if (!tier) continue;
     const rank = tier * 2 + (isTitle ? 1 : 0);
+    const match = { book, tier, via: (isTitle ? "书名：" : "别名：") + candidate };
     if (rank > bestRank) {
       bestRank = rank;
-      best = { book, tier, via: (isTitle ? "书名：" : "别名：") + candidate };
-    }
+      best = [match];
+    } else if (rank === bestRank && !best.some((item) => item.book === book)) best.push(match);
   }
   return best;
 }
 
 export function findBook(text, collection = books) {
   return matchBook(text, collection)?.book;
+}
+
+export function findBooks(text, collection = books) {
+  return matchBooks(text, collection).map((match) => match.book);
 }

@@ -256,3 +256,54 @@ test("the session counts every finished turn so a summary takes only the new one
   assert.equal(session.getState().turns, 6, "context stays bounded");
   assert.equal(session.getState().total, 10, "but the count keeps going");
 });
+
+test("several equally good books are offered for choosing, then picked by number, title or author", async () => {
+  const { pickChoice, choiceSpeech, MAX_CHOICES } = await import("../src/app/dialogue.js");
+  const { findBooks } = await import("../src/voice/intent.js");
+  const shelf = [
+    { bookId: "HX-1", title: "三体Ⅱ·黑暗森林", author: "刘慈欣", keys: [], localBookId: "a" },
+    { bookId: "HX-2", title: "三体Ⅲ·死神永生", author: "刘慈欣", keys: [], localBookId: "b" },
+    { bookId: "HX-3", title: "红楼梦", author: "曹雪芹", keys: [], localBookId: "c" },
+    { bookId: "HX-4", title: "红楼梦", author: "脂砚斋评", keys: [], localBookId: "d" },
+    { bookId: "HX-5", title: "三体", author: "刘慈欣", keys: [], localBookId: "e" },
+  ];
+  // An exact title still wins outright; only a true tie is ambiguous.
+  assert.deepEqual(
+    findBooks("三体", shelf).map((b) => b.bookId),
+    ["HX-5"],
+  );
+  assert.deepEqual(
+    findBooks("红楼梦", shelf).map((b) => b.bookId),
+    ["HX-3", "HX-4"],
+  );
+  const noExact = shelf.filter((b) => b.bookId !== "HX-5");
+  const tied = findBooks("三体", noExact);
+  assert.deepEqual(
+    tied.map((b) => b.bookId),
+    ["HX-1", "HX-2"],
+  );
+
+  const ctx = { direct: true, phase: "IDLE", understand: true, lookup: () => tied };
+  const asked = decide("帮我找三体", ctx);
+  assert.equal(asked.type, "choose");
+  assert.deepEqual(asked.books, tied);
+  const many = Array.from({ length: 6 }, (_, i) => ({ ...tied[0], bookId: `X${i}` }));
+  assert.equal(decide("帮我找三体", { ...ctx, lookup: () => many }).books.length, MAX_CHOICES);
+  assert.equal(decide("帮我找三体", { ...ctx, lookup: () => [tied[0]] }).type, "present");
+
+  const speech = choiceSpeech(tied);
+  assert.match(speech, /第一本《三体Ⅱ·黑暗森林》（刘慈欣），第二本《三体Ⅲ·死神永生》/);
+  for (const [answer, id] of [
+    ["第一本", "HX-1"],
+    ["小和，第二个", "HX-2"],
+    ["2", "HX-2"],
+    ["最后那本", "HX-2"],
+    ["要死神永生", "HX-2"],
+    ["黑暗森林", "HX-1"],
+  ])
+    assert.equal(pickChoice(answer, tied)?.bookId, id, answer);
+  const editions = findBooks("红楼梦", shelf);
+  assert.equal(pickChoice("脂砚斋评的那本", editions)?.bookId, "HX-4");
+  for (const answer of ["第五本", "随便", "刘慈欣", "帮我找时间简史"])
+    assert.equal(pickChoice(answer, tied), null, answer);
+});
