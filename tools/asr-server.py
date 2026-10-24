@@ -557,6 +557,22 @@ class Handler(SimpleHTTPRequestHandler):
     def _send_json(self, status, payload):
         self._send(status, json.dumps(payload).encode("utf-8"), "application/json; charset=utf-8")
 
+    def _refuse(self, status, payload):
+        """Answer an early refusal cleanly. A small body is read first: closing a Windows socket
+        that still holds unread data resets the connection, and the client then sees "connection
+        aborted" instead of this status. Anything larger is left unread and the connection closed."""
+        try:
+            length = int(self.headers.get("Content-Length") or 0)
+        except ValueError:
+            length = 0
+        if 0 < length <= 65_536:
+            try:
+                self.rfile.read(length)
+            except OSError:
+                pass
+        self.close_connection = True
+        self._send_json(status, payload)
+
     def _cross_site(self):
         """True when a browser reports that another site's page sent this request.
 
@@ -588,12 +604,10 @@ class Handler(SimpleHTTPRequestHandler):
             loopback = False
         host = urllib.parse.urlsplit("//" + (self.headers.get("Host") or "")).hostname or ""
         if not loopback or host.rstrip(".").lower() not in LOOPBACK_NAMES:
-            self.close_connection = True  # the refused body is never read
-            self._send_json(403, {"error": "本机设置只能从本机访问"})
+            self._refuse(403, {"error": "本机设置只能从本机访问"})
             return False
         if self._cross_site():
-            self.close_connection = True
-            self._send_json(403, {"error": "本机设置不接受来自其它网页的请求"})
+            self._refuse(403, {"error": "本机设置不接受来自其它网页的请求"})
             return False
         return True
 
@@ -886,13 +900,11 @@ class Handler(SimpleHTTPRequestHandler):
 
     def _post_tts(self):
         if not SPEAKER.state()[0]:
-            self.close_connection = True  # the unread body must not be parsed as a request
-            self._send_json(503, {"error": "本机语音模型不可用"})
+            self._refuse(503, {"error": "本机语音模型不可用"})
             return
         wait = SPEECH_LIMIT.allow(self.client_address[0])
         if wait:
-            self.close_connection = True
-            self._send_json(429, {"error": "朗读请求过于频繁"})
+            self._refuse(429, {"error": "朗读请求过于频繁"})
             return
         body = self._read_json()
         if body is None:
@@ -909,8 +921,7 @@ class Handler(SimpleHTTPRequestHandler):
         # quota and their own shelf; none of it is for other sites' pages to spend or rewrite.
         # Checked before the library routes too, which also honour Sec-Fetch-Site this way.
         if self._cross_site():
-            self.close_connection = True
-            self._send_json(403, {"error": "不接受来自其它网页的请求"})
+            self._refuse(403, {"error": "不接受来自其它网页的请求"})
             return
         if book_library.handle_request(self):
             return

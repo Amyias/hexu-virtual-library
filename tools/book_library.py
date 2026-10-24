@@ -396,6 +396,11 @@ def handle_request(handler):
         elif handler.command == "POST":
             origin = handler.headers.get("Origin")
             if origin and urlsplit(origin).netloc != handler.headers.get("Host"):
+                # Read a small body first: closing a Windows socket with unread data resets the
+                # connection, and the page would see an abort instead of this refusal.
+                pending = handler.headers.get("Content-Length", "0")
+                if pending.isdigit() and 0 < int(pending) <= 65_536:
+                    handler.rfile.read(int(pending))
                 reply(403, {"error": "拒绝跨站修改本地书库"})
                 handler.close_connection = True
                 return True
