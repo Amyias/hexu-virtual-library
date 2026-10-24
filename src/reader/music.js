@@ -189,6 +189,12 @@ export function createReadingMusic() {
     start,
     stop,
     mount,
+    /** Asked for in conversation: play starts the player if reading has not started it yet. */
+    play() {
+      if (!active) start();
+      else void play();
+    },
+    pause,
     getState: () => ({
       active,
       playing: active && !audio.paused,

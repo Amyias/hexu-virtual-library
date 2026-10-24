@@ -43,7 +43,7 @@ export function createChatSession({ request = (...args) => fetch(...args), timeo
     history = [];
     configuration = "";
   }
-  async function ask(text, phase, bookId, { onText } = {}) {
+  async function ask(text, phase, bookId, { onText, onAction } = {}) {
     if (controller) return { error: "小和正在回答，请等待或停止当前回答。", busy: true };
     const current = ++generation;
     const pending = new AbortController();
@@ -79,7 +79,8 @@ export function createChatSession({ request = (...args) => fetch(...args), timeo
             if (event.type === "delta" && typeof event.text === "string") {
               reply += event.text;
               onText?.(reply);
-            } else if (event.type === "done" || event.type === "error") result = event;
+            } else if (event.type === "action") onAction?.(event);
+            else if (event.type === "done" || event.type === "error") result = event;
           },
           () => current !== generation,
         );

@@ -59,6 +59,7 @@ from pathlib import Path
 
 import updater
 import book_library
+import app_actions
 import book_text_search
 import reader_memory
 import tts
@@ -909,11 +910,14 @@ class Handler(SimpleHTTPRequestHandler):
             self._send_json(429, {"error": f"对话调用过于频繁，请 {wait} 秒后再试"})
             return
         resolved, _ = settings_state()
-        selected = (load_catalog()[0].get(str(body.get("bookId", ""))) if isinstance(body, dict) else None)
+        catalog = load_catalog()[0]
+        selected = catalog.get(str(body.get("bookId", ""))) if isinstance(body, dict) else None
+        phase = body.get("phase") if isinstance(body, dict) else None
+        app = app_actions.AppActions(phase, describe_book(selected["id"]) if selected else None, catalog)
         events = llm_chat.chat_stream(body, resolved, validate_endpoint,
                                       timeout=float(os.environ.get("HEXU_LLM_CHAT_TIMEOUT", "60")),
                                       selected=selected, memory=memory_context(),
-                                      passages=book_passages(body, selected))
+                                      passages=book_passages(body, selected), app=app)
         first = next(events, None)
         if first is None or (first["type"] == "error" and "status" in first):
             first = first or {"error": "对话服务没有返回内容"}

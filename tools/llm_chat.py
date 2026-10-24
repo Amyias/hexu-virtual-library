@@ -312,7 +312,8 @@ def stream_completion(resolved, messages, validate_endpoint, *, timeout=60, tool
     yield "end", finish
 
 
-def chat_stream(body, resolved, validate_endpoint, *, timeout=60, selected=None, memory="", passages=""):
+def chat_stream(body, resolved, validate_endpoint, *, timeout=60, selected=None, memory="", passages="",
+                app=None):
     """The streaming twin of chat(): yields {"type": "delta", "text": ...} while the reply
     arrives, then one {"type": "done", ...} carrying the same fields chat() returns, or one
     {"type": "error", ...}.
@@ -326,6 +327,11 @@ def chat_stream(body, resolved, validate_endpoint, *, timeout=60, selected=None,
         return
     messages, identity, reset = prepared["messages"], prepared["identity"], prepared["reset"]
     enabled = prepared["enabled"]
+    # Library actions (app_actions.AppActions) join the web tools; the page carries them out.
+    if app:
+        messages[0]["content"] += app.prompt()
+    tools = (web_tools.TOOLS if enabled else []) + (app.tools if app else [])
+    actions = []
     secrets = [resolved.get(name) for name in ("HEXU_LLM_API_KEY", "HEXU_WEB_API_KEY") if resolved.get(name)]
     deadline = time.monotonic() + timeout
     started = time.perf_counter()
@@ -339,7 +345,7 @@ def chat_stream(body, resolved, validate_endpoint, *, timeout=60, selected=None,
         last = turn == web_tools.MAX_ROUNDS or web.calls >= web_tools.MAX_CALLS
         calls = None
         for kind, value in stream_completion(resolved, messages, validate_endpoint, timeout=remaining,
-                                             tools=web_tools.TOOLS if enabled else None,
+                                             tools=tools or None,
                                              tool_choice="none" if last else "auto"):
             if kind == "delta":
                 reply += value
@@ -366,7 +372,13 @@ def chat_stream(body, resolved, validate_endpoint, *, timeout=60, selected=None,
         messages.append({"role": "assistant", "content": reply or None, "tool_calls": calls})
         for call in calls:
             function = call["function"]
-            outcome = web.execute(function["name"], function["arguments"])
+            if app and app.handles(function["name"]):
+                action, outcome = app.execute(function["name"], function["arguments"])
+                if action:
+                    actions.append(action)
+                    yield action
+            else:
+                outcome = web.execute(function["name"], function["arguments"])
             messages.append({"role": "tool", "tool_call_id": call["id"],
                              "content": web_tools.redact(json.dumps(outcome, ensure_ascii=False), resolved)})
     safe = web_tools.redact(reply, resolved)
@@ -378,7 +390,7 @@ def chat_stream(body, resolved, validate_endpoint, *, timeout=60, selected=None,
     yield {"type": "done", "reply": safe.strip(), "truncated": finish == "length",
            "seconds": round(time.perf_counter() - started, 3), "model": resolved["HEXU_LLM_MODEL"],
            "configuration": identity, "reset": reset, "sources": web.sources,
-           "web_calls": web.calls, "web_tools": web.actions}
+           "web_calls": web.calls, "web_tools": web.actions, "actions": actions}
 
 
 SUMMARY_PROMPT = (

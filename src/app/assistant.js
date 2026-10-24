@@ -24,7 +24,7 @@ const postJson = (url, body) =>
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
   });
-import { IDLE } from "./phases.js";
+import { IDLE, READING } from "./phases.js";
 
 /* 小和 itself: carries out what dialogue.decide() concluded. Every text input — recognised speech,
    the conversation panel, libraryDebug.processText — comes through processText(). */
@@ -42,6 +42,8 @@ export function createAssistant({
   novelReader,
   isUnderstandReady,
   conversation,
+  readingMusic,
+  actions = {},
 }) {
   const { notice, say } = feedback;
   let wakeTween;
@@ -107,6 +109,16 @@ export function createAssistant({
       }).catch(() => {});
   }
   window.addEventListener("pagehide", () => summarize({ leaving: true }));
+
+  /** Library actions requested in conversation, each checked again before it runs. */
+  function perform(name, args) {
+    if (name === "set_sky" && ["day", "night", "auto"].includes(args?.mode))
+      actions.setSky?.(args.mode);
+    else if (name === "reading_music" && machine.is(READING))
+      args?.action === "pause" ? readingMusic?.pause() : readingMusic?.play();
+    else if (name === "open_chapter" && machine.is(READING) && Number.isInteger(args?.chapter))
+      novelReader.goTo(args.chapter - 1);
+  }
 
   async function remember(fact) {
     attention.wake();
@@ -200,11 +212,18 @@ export function createAssistant({
     say("正在回应…", 0, { interactive: true, onCancel: cancelPending, silent: true });
     // The first words replace the waiting bubble; later ones extend it and are spoken as each
     // sentence completes, so the reader hears 小和 start answering within a second or so.
-    let live = null;
+    let live = null,
+      fetchRequest = null;
     const result = await chat.ask(request, machine.phase, journey.selected?.bookId, {
       onText(text) {
         if (live) live.update(text);
         else live = feedback.stream(text, { onCancel: cancelPending });
+      },
+      // The model asked for a library action; the server has validated it already. Fetching a
+      // book waits for the reply to be said, so 小和 does not fly off mid-sentence.
+      onAction({ name, args }) {
+        if (name === "fetch_book") fetchRequest = args;
+        else perform(name, args);
       },
     });
     if (result.cancelled) return;
@@ -218,8 +237,15 @@ export function createAssistant({
     }
     conversation.answer(result.reply, result.model, result.truncated, result.sources);
     respond(result.reply);
-    if (live) live.finish(result.reply, { sources: result.sources });
-    else say(result.reply, 0, { interactive: true, sources: result.sources });
+    const spoken = live
+      ? live.finish(result.reply, { sources: result.sources })
+      : (say(result.reply, 0, { interactive: true, sources: result.sources }), Promise.resolve());
+    if (fetchRequest) {
+      const book = books.find((entry) => entry.localBookId && entry.bookId === fetchRequest.bookId);
+      const asked = intentGeneration;
+      await Promise.race([spoken, new Promise((resolve) => setTimeout(resolve, 8000))]);
+      if (book && asked === intentGeneration && machine.is(IDLE)) present(book, FOUND);
+    }
     clearTimeout(summaryTimer);
     summaryTimer = setTimeout(summarize, SUMMARY_IDLE_MS);
     $("voiceTitle").textContent = "小和已回答，可以继续追问";

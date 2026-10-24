@@ -49,10 +49,11 @@ export function createFeedback($) {
         dialogue.extend(text);
         spoken?.push(text);
       },
+      /** Resolves once the spoken reply has finished (at once when speech is off). */
       finish(text, settled = {}) {
         dialogue.extend(text);
         dialogue.settle(settled);
-        spoken?.end(text);
+        return spoken ? spoken.end(text) : Promise.resolve();
       },
     };
   }

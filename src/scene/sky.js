@@ -126,6 +126,17 @@ export async function createSky({
       onChange({ night, automatic: false });
       return night;
     },
+    /** "day" / "night" behave like the button (held until the next boundary); "auto" returns
+     *  to the clock at once. Used when the reader asks 小和 to change the sky. */
+    choose(mode) {
+      const date = clock();
+      const next = mode === "auto" ? isNightAt(date) : mode === "night";
+      const manual = mode !== "auto" && next !== isNightAt(date);
+      remember(manual ? { night: next, until: +nextBoundary(date) } : null);
+      if (next !== night) set(next);
+      onChange({ night, automatic: false });
+      return night;
+    },
     get night() {
       return night;
     },

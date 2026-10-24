@@ -154,6 +154,8 @@ export async function startLibrary() {
     getLibrary: () => library,
     novelReader,
     isUnderstandReady: () => understandReady,
+    readingMusic,
+    actions: { setSky: (mode) => sky.choose(mode) },
   });
   library = createLocalLibrary({
     books,

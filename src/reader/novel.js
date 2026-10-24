@@ -201,12 +201,21 @@ export function createNovelReader({ notice, onShow = () => {}, onHide = () => {}
     render();
   });
   window.addEventListener("pagehide", () => persist(true));
+  /** Open the text at the start of chapter `index` (0-based), as 「翻到第五章」 asks. */
+  function goTo(index) {
+    if (!documentBook || !Number.isInteger(index)) return false;
+    chapter = Math.max(0, Math.min(index, documentBook.chapters.length - 1));
+    offset = 0;
+    show();
+    return true;
+  }
   return {
     attach,
     show,
     hide,
     next,
     previous,
+    goTo,
     clear() {
       hide();
       generation++;
