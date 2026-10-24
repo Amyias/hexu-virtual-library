@@ -237,6 +237,13 @@ export async function startLibrary() {
     })
     .catch(() => {});
 
+  // How long the reader has left 小和 alone: it starts amusing itself after a while.
+  let lastActivity = performance.now();
+  for (const type of ["pointerdown", "keydown", "wheel"])
+    addEventListener(type, () => (lastActivity = performance.now()), {
+      capture: true,
+      passive: true,
+    });
   const clock = new THREE.Clock();
   const projected = new THREE.Vector3();
   const bubbleAnchor = new THREE.Vector3(0, 0.63, 0);
@@ -248,7 +255,16 @@ export async function startLibrary() {
   function frame() {
     requestAnimationFrame(frame);
     const time = clock.getElapsedTime();
-    companion.update({ time, pulse: pulse.value, phase: machine.phase, camera });
+    if (!machine.is(IDLE) || pulse.value > 0.02 || feedback.getState().typing)
+      lastActivity = performance.now();
+    companion.update({
+      time,
+      pulse: pulse.value,
+      phase: machine.phase,
+      camera,
+      idleFor: (performance.now() - lastActivity) / 1000,
+      night: sky.night,
+    });
     sky.update({ time, camera });
     projectDialogueAnchor(camera, orb.position, bubbleAnchor, projected);
     petVisual.updateWorldMatrix(true, true);

@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { idleMotion } from "./pet-idle.js";
 
 /** The Blender pet owns its visual motion; the app owns the navigation anchor. */
 export async function createCompanion(scene, home) {
@@ -69,23 +70,27 @@ export async function createCompanion(scene, home) {
   let previousTime = 0,
     mode = "idle",
     lastPulse = 0;
-  function update({ time, pulse, phase, camera }) {
+  function update({ time, pulse, phase, camera, idleFor = 0, night = false }) {
     const dt = Math.min(0.1, Math.max(0, time - previousTime));
     previousTime = time;
     lastPulse = THREE.MathUtils.clamp(pulse, 0, 1);
     const travelling = ["NAVIGATING", "RETURNING"].includes(phase);
     mode = travelling ? "guiding" : lastPulse > 0.02 ? "awake" : "idle";
+    // Its own little life only while it is free: never while guiding or answering a call.
+    const life = mode === "idle" ? idleMotion(idleFor, night) : idleMotion(0, false);
+    if (mode === "idle") mode = life.mood;
     // Its square face remains readable when the reader orbits the library.
-    const yaw = Math.atan2(
-      camera.position.x - root.position.x,
-      camera.position.z - root.position.z,
-    );
+    const yaw =
+      Math.atan2(camera.position.x - root.position.x, camera.position.z - root.position.z) +
+      life.look;
     const delta = Math.atan2(Math.sin(yaw - root.rotation.y), Math.cos(yaw - root.rotation.y));
     root.rotation.y += delta * (1 - Math.exp(-9 * dt));
     visual.position.y =
-      Math.sin(time * 1.8) * 0.018 + lastPulse * (0.055 + 0.018 * Math.sin(time * 11));
+      Math.sin(time * 1.8 * life.breath) * 0.018 +
+      life.hop +
+      lastPulse * (0.055 + 0.018 * Math.sin(time * 11));
     visual.rotation.z = Math.sin(time * (travelling ? 6 : 1.5)) * (travelling ? 0.055 : 0.015);
-    const breath = Math.sin(time * 2) * 0.014;
+    const breath = Math.sin(time * 2 * life.breath) * (0.014 / life.breath);
     visual.scale.set(
       1 + breath + lastPulse * 0.13,
       1 - breath * 0.35 + lastPulse * 0.18,
@@ -93,12 +98,13 @@ export async function createCompanion(scene, home) {
     );
     const blink = time % 4.7 > 4.56 && lastPulse < 0.1 ? 0.12 : 1;
     eyes.forEach((eye) => {
-      eye.scale.y = blink;
+      eye.scale.y = Math.max(0.08, Math.min(blink, life.eyes));
     });
     arms.forEach((arm, index) => {
       arm.rotation.z =
         (index ? -1 : 1) *
         (lastPulse * 0.38 +
+          life.yawn * 0.9 +
           (travelling ? 0.16 : 0.025) * Math.sin(time * (travelling ? 7 : 2.2) + index));
     });
     legs.forEach((leg, index) => {
