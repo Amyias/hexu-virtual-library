@@ -59,6 +59,7 @@ from pathlib import Path
 
 import updater
 import book_library
+import book_text_search
 import reader_memory
 import tts
 import llm_chat
@@ -556,6 +557,55 @@ def memory_context():
         return ""  # a broken memory file must never stop 小和 answering
 
 
+_text_search = None
+
+
+def text_search():
+    global _text_search
+    if _text_search is None:
+        _text_search = book_text_search.BookTextSearch(book_library.instance())
+    return _text_search
+
+
+def chapter_label(number, title):
+    # Many imported books already title chapters 「第十二章 红岸之四」; do not say it twice.
+    return title if title.startswith("第") else f"第{number + 1}章 {title}".strip()
+
+
+def book_passages(body, selected):
+    """Passages from local books for the chat prompt, as labelled text; "" when no local book is
+    involved or nothing matches. The book being read always counts; so does any local title the
+    question names. Only these short passages are sent on, never a whole book."""
+    if not isinstance(body, dict) or not isinstance(body.get("text"), str):
+        return ""
+    try:
+        books = book_library.instance().list_books()
+        question = re.sub(r"\s+", "", body["text"])
+        targets = [selected["id"]] if selected and selected.get("id") else []
+        for book in sorted(books, key=lambda item: -len(item.get("title", ""))):
+            title = book.get("title", "")
+            # The whole title, or a part of it: 「星海」 names 《星海Ⅰ·启航》 as readers say it.
+            parts = [title, *re.split(r"[·・:：\-—_（）()\[\]【】ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩ\s]+", title)]
+            if any(len(part) >= 2 and part in question for part in parts) and book["id"] not in targets:
+                targets.append(book["id"])
+        if not targets:
+            return ""
+        hits = text_search().search(targets[:3], body["text"])
+    except (sqlite3.Error, OSError, book_library.SourceError):
+        return ""
+    if not hits:
+        return ""
+    names = {book["id"]: book.get("title", "") for book in books}
+    lines = [f"【《{names.get(hit['book_id'], '')}》{chapter_label(hit['chapter'], hit['chapter_title'])}】{hit['text']}"
+             for hit in hits]
+    if selected and selected.get("id"):
+        reading = describe_book(selected["id"])
+        if reading:
+            lines.append(f"（读者目前读到《{reading['title']}》第 {reading['chapter'] + 1} 章；"
+                         "之后的情节不要主动剧透，除非读者明确问起。）")
+    return "\n".join(lines)
+
+
 def _chain(first, rest):
     yield first
     yield from rest
@@ -836,10 +886,11 @@ class Handler(SimpleHTTPRequestHandler):
             return
         if conversation:
             resolved, _ = settings_state()
+            selected = load_catalog()[0].get(str(body.get("bookId", "")))
             status, payload = llm_chat.chat(body, resolved, validate_endpoint,
                                           timeout=float(os.environ.get("HEXU_LLM_CHAT_TIMEOUT", "60")),
-                                          selected=load_catalog()[0].get(str(body.get("bookId", ""))),
-                                          memory=memory_context())
+                                          selected=selected, memory=memory_context(),
+                                          passages=book_passages(body, selected))
         else:
             status, payload = understand(body.get("text"), body.get("phase"))
         self._send_json(status, payload)
@@ -858,11 +909,11 @@ class Handler(SimpleHTTPRequestHandler):
             self._send_json(429, {"error": f"对话调用过于频繁，请 {wait} 秒后再试"})
             return
         resolved, _ = settings_state()
+        selected = (load_catalog()[0].get(str(body.get("bookId", ""))) if isinstance(body, dict) else None)
         events = llm_chat.chat_stream(body, resolved, validate_endpoint,
                                       timeout=float(os.environ.get("HEXU_LLM_CHAT_TIMEOUT", "60")),
-                                      selected=load_catalog()[0].get(str((body or {}).get("bookId", "")))
-                                      if isinstance(body, dict) else None,
-                                      memory=memory_context())
+                                      selected=selected, memory=memory_context(),
+                                      passages=book_passages(body, selected))
         first = next(events, None)
         if first is None or (first["type"] == "error" and "status" in first):
             first = first or {"error": "对话服务没有返回内容"}

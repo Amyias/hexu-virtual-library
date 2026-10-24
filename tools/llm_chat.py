@@ -126,7 +126,7 @@ PERSONA = (
 )
 
 
-def prepare(body, resolved, *, selected=None, memory=""):
+def prepare(body, resolved, *, selected=None, memory="", passages=""):
     """Validate one chat request and build its messages.
 
     Returns (status, payload) for a request that cannot be sent, otherwise a dict with the
@@ -156,8 +156,14 @@ def prepare(body, resolved, *, selected=None, memory=""):
                    "只在和话题相关时自然地提起，例如接着上次的书聊；不要每次都复述，也不要逐条念出来；"
                    "这里没有的事不要声称记得。")
     if selected:
-        prompt += ("当前阅读书籍的已验证元数据如下，仅作上下文，正文未提供，不得假装读过本地正文："
-                   + json.dumps({"title": selected.get("title", ""), "author": selected.get("author", "")}, ensure_ascii=False))
+        prompt += ("当前阅读书籍的已验证元数据如下：" + json.dumps(
+            {"title": selected.get("title", ""), "author": selected.get("author", "")}, ensure_ascii=False)
+                   + ("。" if passages else "。正文未提供，不得假装读过本地正文。"))
+    if passages:
+        prompt += ("下面是从读者本机书库里按问题检索到的原文片段，可能不完整：\n" + passages + "\n"
+                   "回答书中人物和情节时以这些片段为准，提到时标出章节，例如（第12章）；"
+                   "片段里没有的情节不要编造，可以说书里这几段没提到，或者凭常识谈但说明不是出自片段。"
+                   "不要大段照抄原文。")
     enabled = bool(web_tools.key_for(resolved)) and body.get("web") is not False
     if enabled:
         prompt += ("当前 UTC 日期：" + time.strftime("%Y-%m-%d", time.gmtime()) + "。"
@@ -174,8 +180,8 @@ def prepare(body, resolved, *, selected=None, memory=""):
     return {"messages": messages, "identity": identity, "reset": reset, "enabled": enabled}
 
 
-def chat(body, resolved, validate_endpoint, *, timeout=60, selected=None, memory=""):
-    prepared = prepare(body, resolved, selected=selected, memory=memory)
+def chat(body, resolved, validate_endpoint, *, timeout=60, selected=None, memory="", passages=""):
+    prepared = prepare(body, resolved, selected=selected, memory=memory, passages=passages)
     if isinstance(prepared, tuple):
         return prepared
     messages, identity, reset = prepared["messages"], prepared["identity"], prepared["reset"]
@@ -306,7 +312,7 @@ def stream_completion(resolved, messages, validate_endpoint, *, timeout=60, tool
     yield "end", finish
 
 
-def chat_stream(body, resolved, validate_endpoint, *, timeout=60, selected=None, memory=""):
+def chat_stream(body, resolved, validate_endpoint, *, timeout=60, selected=None, memory="", passages=""):
     """The streaming twin of chat(): yields {"type": "delta", "text": ...} while the reply
     arrives, then one {"type": "done", ...} carrying the same fields chat() returns, or one
     {"type": "error", ...}.
@@ -314,7 +320,7 @@ def chat_stream(body, resolved, validate_endpoint, *, timeout=60, selected=None,
     Web-tool rounds run in between exactly as in chat(). Keys are redacted from everything sent
     on; a tail that could be the beginning of a key is held until the next piece decides it, so
     a key split across two pieces is still caught whole."""
-    prepared = prepare(body, resolved, selected=selected, memory=memory)
+    prepared = prepare(body, resolved, selected=selected, memory=memory, passages=passages)
     if isinstance(prepared, tuple):
         yield {"type": "error", "status": prepared[0], **prepared[1]}
         return
