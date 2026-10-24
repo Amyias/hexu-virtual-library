@@ -206,6 +206,14 @@ def context_if_present(describe):
     return instance().context(describe)
 
 
+def snapshot_if_present(describe):
+    """The settings snapshot, or an empty one without creating the memory file (the greeting
+    peeks at this on every start)."""
+    if _instance is None and not (memory_directory() / "memory.sqlite").is_file():
+        return {"enabled": True, "facts": [], "reading": [], "summaries": [], "path": ""}
+    return instance().snapshot(describe)
+
+
 _instance = None
 _instance_lock = threading.Lock()
 

@@ -129,6 +129,14 @@ class MemoryTests(unittest.TestCase):
         self.assertNotIn("你记得以下内容", llm_chat.prepare(body, CONFIG)["messages"][0]["content"])
 
 
+class PeekTests(unittest.TestCase):
+    def test_peeking_and_chat_context_never_create_the_memory_file(self):
+        with tempfile.TemporaryDirectory() as temp,                 patch.dict("os.environ", {"HEXU_MEMORY_DIR": temp}),                 patch.object(reader_memory, "_instance", None):
+            self.assertEqual(reader_memory.snapshot_if_present(describe)["facts"], [])
+            self.assertEqual(reader_memory.context_if_present(describe), "")
+            self.assertFalse((Path(temp) / "memory.sqlite").exists())
+
+
 def ReaderMemoryReopen(directory):
     return reader_memory.ReaderMemory(directory)
 

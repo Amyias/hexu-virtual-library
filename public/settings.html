@@ -324,6 +324,8 @@
         </p>
         <label for="memoryEnabled">记忆功能</label>
         <select id="memoryEnabled"><option value="1">开启：记住我交代的事、读过的书和聊过的话题</option><option value="0">关闭：不再记录，也不发送任何记忆</option></select>
+        <label for="greetingEnabled">主动问候</label>
+        <select id="greetingEnabled"><option value="on">开启：打开图书馆时打一声招呼（每次最多一句，不打断你）</option><option value="off">关闭</option></select>
         <h3>你让小和记住的事</h3>
         <ul id="memoryFacts" class="memory-list"></ul>
         <h3>读过的书</h3>
@@ -633,6 +635,13 @@
         loadMemory();
       };
       $("memoryRefresh").onclick = loadMemory;
+      // The greeting reads this from the same origin's storage on the next start.
+      $("greetingEnabled").value = localStorage.getItem("hexu-greeting") === "off" ? "off" : "on";
+      $("greetingEnabled").onchange = () => {
+        if ($("greetingEnabled").value === "off") localStorage.setItem("hexu-greeting", "off");
+        else localStorage.removeItem("hexu-greeting");
+        memoryMessage($("greetingEnabled").value === "off" ? "主动问候已关闭。" : "主动问候已开启，下次打开图书馆时生效。", true);
+      };
       $("memoryClear").onclick = async () => {
         if (!confirm("确定清空小和记得的所有事吗？这无法撤销。")) return;
         const { ok } = await memoryPost("/memory/clear");

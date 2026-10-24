@@ -22,6 +22,7 @@ import { createSettingsPanel } from "./app/settings.js";
 import { createConversation } from "./app/conversation.js";
 import { createAssistant } from "./app/assistant.js";
 import { bindInput } from "./app/input.js";
+import { createGreeting } from "./app/greeting.js";
 
 const gsap = window.gsap;
 
@@ -322,6 +323,17 @@ export async function startLibrary() {
   }
   frame();
   $("loading").style.display = "none";
+  // One greeting per start, only when it would interrupt nothing.
+  createGreeting({
+    say: (text) => feedback.say(text),
+    ready: () =>
+      machine.is(IDLE) &&
+      !feedback.getState().visible &&
+      !library.opened &&
+      !novelReader.visible &&
+      !settings.opened &&
+      !assistant.getChatState().busy,
+  }).start();
 
   // Read-only diagnostics plus the exact same text dispatcher used by real ASR.
   window.libraryDebug = {

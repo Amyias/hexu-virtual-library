@@ -740,7 +740,9 @@ class Handler(SimpleHTTPRequestHandler):
             return
         if pathname == "/memory/state":
             if self._loopback_only():
-                self._send_json(200, reader_memory.instance().snapshot(describe_book))
+                peek = "peek=1" in self.path  # the page's greeting: never creates the file
+                self._send_json(200, (reader_memory.snapshot_if_present if peek
+                                      else reader_memory.instance().snapshot)(describe_book))
             return
         if pathname == "/tts/ready":
             ready, payload = SPEAKER.state()
