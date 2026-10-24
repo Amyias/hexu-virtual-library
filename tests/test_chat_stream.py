@@ -119,6 +119,7 @@ class RouteTests(unittest.TestCase):
         self.addCleanup(httpd.shutdown)
         for target, value in [("chat_stream", lambda *a, **k: (event for event in events)),
                               ("load_catalog", lambda: ({}, [])),
+                              ("memory_context", lambda: ""),
                               ("settings_state", lambda: (OFFLINE, {}))]:
             module = llm_chat if target == "chat_stream" else server
             patcher = patch.object(module, target, value)

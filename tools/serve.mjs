@@ -81,7 +81,7 @@ const mime = {
 const server = http.createServer(async (req, res) => {
   try {
     if (
-      /^\/(?:library\/|tts(?:[/?]|$)|chat(?:[/?]|$)|understand(?:[/?]|$)|settings(?:[/?]|$))/.test(
+      /^\/(?:library\/|memory\/|tts(?:[/?]|$)|chat(?:[/?]|$)|understand(?:[/?]|$)|settings(?:[/?]|$))/.test(
         req.url,
       )
     ) {

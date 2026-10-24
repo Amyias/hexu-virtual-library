@@ -126,7 +126,7 @@ PERSONA = (
 )
 
 
-def prepare(body, resolved, *, selected=None):
+def prepare(body, resolved, *, selected=None, memory=""):
     """Validate one chat request and build its messages.
 
     Returns (status, payload) for a request that cannot be sent, otherwise a dict with the
@@ -151,6 +151,10 @@ def prepare(body, resolved, *, selected=None):
               "你没有本地文件访问或下载执行工具，不要声称已经下载或操作书架。"
               "书架操作由程序单独执行，你在此仅回答问题，不输出动作 JSON。"
               "当前界面状态为：" + ("正在阅读。" if body.get("phase") == "READING" else "图书馆待命。"))
+    if memory:
+        prompt += ("关于这位读者，你记得以下内容（来自本机记忆，读者可随时查看和删除）：\n" + memory + "\n"
+                   "只在和话题相关时自然地提起，例如接着上次的书聊；不要每次都复述，也不要逐条念出来；"
+                   "这里没有的事不要声称记得。")
     if selected:
         prompt += ("当前阅读书籍的已验证元数据如下，仅作上下文，正文未提供，不得假装读过本地正文："
                    + json.dumps({"title": selected.get("title", ""), "author": selected.get("author", "")}, ensure_ascii=False))
@@ -170,8 +174,8 @@ def prepare(body, resolved, *, selected=None):
     return {"messages": messages, "identity": identity, "reset": reset, "enabled": enabled}
 
 
-def chat(body, resolved, validate_endpoint, *, timeout=60, selected=None):
-    prepared = prepare(body, resolved, selected=selected)
+def chat(body, resolved, validate_endpoint, *, timeout=60, selected=None, memory=""):
+    prepared = prepare(body, resolved, selected=selected, memory=memory)
     if isinstance(prepared, tuple):
         return prepared
     messages, identity, reset = prepared["messages"], prepared["identity"], prepared["reset"]
@@ -302,7 +306,7 @@ def stream_completion(resolved, messages, validate_endpoint, *, timeout=60, tool
     yield "end", finish
 
 
-def chat_stream(body, resolved, validate_endpoint, *, timeout=60, selected=None):
+def chat_stream(body, resolved, validate_endpoint, *, timeout=60, selected=None, memory=""):
     """The streaming twin of chat(): yields {"type": "delta", "text": ...} while the reply
     arrives, then one {"type": "done", ...} carrying the same fields chat() returns, or one
     {"type": "error", ...}.
@@ -310,7 +314,7 @@ def chat_stream(body, resolved, validate_endpoint, *, timeout=60, selected=None)
     Web-tool rounds run in between exactly as in chat(). Keys are redacted from everything sent
     on; a tail that could be the beginning of a key is held until the next piece decides it, so
     a key split across two pieces is still caught whole."""
-    prepared = prepare(body, resolved, selected=selected)
+    prepared = prepare(body, resolved, selected=selected, memory=memory)
     if isinstance(prepared, tuple):
         yield {"type": "error", "status": prepared[0], **prepared[1]}
         return
@@ -369,3 +373,36 @@ def chat_stream(body, resolved, validate_endpoint, *, timeout=60, selected=None)
            "seconds": round(time.perf_counter() - started, 3), "model": resolved["HEXU_LLM_MODEL"],
            "configuration": identity, "reset": reset, "sources": web.sources,
            "web_calls": web.calls, "web_tools": web.actions}
+
+
+SUMMARY_PROMPT = (
+    "下面是读者和图书馆馆员小和的一段对话。请用一句不超过六十个字的中文记录它，写给小和自己日后回忆用："
+    "写清聊了什么，以及读者明确表达的喜好、打算或正在读的书。"
+    "只写对话里明确出现的事，不推测、不评价，不写小和说了什么客套话，不写密钥、电话、地址等隐私。"
+    "如果只是打招呼、寒暄或测试，没有值得记住的内容，只回答一个字：无"
+)
+
+
+def summarize(history, resolved, validate_endpoint, *, timeout=30):
+    """One line about a finished conversation, or "" when there is nothing worth keeping.
+
+    The history is the page's own bounded context, validated exactly as for chat; it is sent
+    once to the configured model and not stored. Only the returned line is kept."""
+    try:
+        messages = history_messages(history)
+    except ValueError as error:
+        return 400, {"error": str(error)}
+    if len(messages) < 2:
+        return 400, {"error": "对话太短，无需记录"}
+    if not resolved["HEXU_LLM_API_KEY"]:
+        return 503, {"error": "尚未配置大模型"}
+    transcript = "\n".join(("读者：" if m["role"] == "user" else "小和：") + m["content"][:1500] for m in messages)
+    status, result = completion(resolved, [{"role": "system", "content": SUMMARY_PROMPT},
+                                           {"role": "user", "content": transcript}],
+                                validate_endpoint, timeout=timeout)
+    if status != 200:
+        return status, result
+    line = " ".join(web_tools.redact(result["reply"], resolved).split()).strip("「」\"' ")
+    if not line or line in ("无", "无。") or len(line) < 4:
+        return 200, {"summary": ""}
+    return 200, {"summary": line[:120]}

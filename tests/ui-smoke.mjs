@@ -134,6 +134,8 @@ const site = spawn(process.execPath, [path.join(root, "tools", "serve.mjs")], {
     XDG_CONFIG_HOME: profile,
     PORT: String(sitePort),
     HEXU_BOOK_LIBRARY_DIR: path.join(profile, "books"),
+    // Opening a book records it in 小和's memory: keep that inside the throwaway profile too.
+    HEXU_MEMORY_DIR: path.join(profile, "memory"),
   },
   stdio: "ignore",
 });

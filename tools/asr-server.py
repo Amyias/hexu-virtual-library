@@ -27,6 +27,9 @@ Routes:
     GET  /chat/ready       -> configured model and non-secret configuration identity
     POST /understand       -> {"text": ..., "phase": ...}, returns a parsed intent; 429 past
                               HEXU_LLM_PER_MINUTE calls a minute from one address
+    GET  /memory/state     -> what 小和 remembers (facts, books opened, conversation summaries);
+    POST /memory/*         -> fact / reading / summarize / delete / clear / enabled. All
+                              loopback-only: the reader's own memory, kept in %APPDATA%
     GET  /settings         -> local settings page; /settings/state, /settings/key and
                               /settings/test answer it, and all four are loopback-only
     GET  <anything>        -> static file under the site root
@@ -41,6 +44,7 @@ import ipaddress
 import json
 import os
 import re
+import sqlite3
 import sys
 import threading
 import time
@@ -55,6 +59,7 @@ from pathlib import Path
 
 import updater
 import book_library
+import reader_memory
 import tts
 import llm_chat
 import web_tools
@@ -531,6 +536,26 @@ def understand(text, phase):
                  "seconds": round(time.perf_counter() - started, 3)}
 
 
+def describe_book(book_id):
+    """What the reading library knows about one book, for memory; None once it is deleted."""
+    try:
+        book = book_library.instance().get(book_id, include_text=False)
+    except (book_library.SourceError, OSError, ValueError):
+        return None
+    chapter = int(book.get("progress", {}).get("chapter", 0))
+    chapters = book.get("chapters") or []
+    title = chapters[chapter]["title"] if 0 <= chapter < len(chapters) else ""
+    return {"title": book.get("title", ""), "author": book.get("author", ""), "chapter": chapter,
+            "chapters": len(chapters), "chapter_title": title if chapter > 0 else ""}
+
+
+def memory_context():
+    try:
+        return reader_memory.context_if_present(describe_book)
+    except (sqlite3.Error, OSError):
+        return ""  # a broken memory file must never stop 小和 answering
+
+
 def _chain(first, rest):
     yield first
     yield from rest
@@ -661,6 +686,10 @@ class Handler(SimpleHTTPRequestHandler):
         if pathname == "/asr/ready":
             ready, payload = model_state()
             self._send_json(200 if ready else 503, payload)
+            return
+        if pathname == "/memory/state":
+            if self._loopback_only():
+                self._send_json(200, reader_memory.instance().snapshot(describe_book))
             return
         if pathname == "/tts/ready":
             ready, payload = SPEAKER.state()
@@ -809,7 +838,8 @@ class Handler(SimpleHTTPRequestHandler):
             resolved, _ = settings_state()
             status, payload = llm_chat.chat(body, resolved, validate_endpoint,
                                           timeout=float(os.environ.get("HEXU_LLM_CHAT_TIMEOUT", "60")),
-                                          selected=load_catalog()[0].get(str(body.get("bookId", ""))))
+                                          selected=load_catalog()[0].get(str(body.get("bookId", ""))),
+                                          memory=memory_context())
         else:
             status, payload = understand(body.get("text"), body.get("phase"))
         self._send_json(status, payload)
@@ -831,7 +861,8 @@ class Handler(SimpleHTTPRequestHandler):
         events = llm_chat.chat_stream(body, resolved, validate_endpoint,
                                       timeout=float(os.environ.get("HEXU_LLM_CHAT_TIMEOUT", "60")),
                                       selected=load_catalog()[0].get(str((body or {}).get("bookId", "")))
-                                      if isinstance(body, dict) else None)
+                                      if isinstance(body, dict) else None,
+                                      memory=memory_context())
         first = next(events, None)
         if first is None or (first["type"] == "error" and "status" in first):
             first = first or {"error": "对话服务没有返回内容"}
@@ -898,6 +929,49 @@ class Handler(SimpleHTTPRequestHandler):
             hint = "服务未就绪。"
         self._send_json(502, {"ok": False, "message": hint + detail, **settings_summary()})
 
+    def _post_memory(self, pathname):
+        body = self._read_json(128_000 if pathname == "/memory/summarize" else MAX_JSON_BODY)
+        if body is None:
+            return
+        if not isinstance(body, dict):
+            self._send_json(400, {"error": "请求必须是 JSON 对象"})
+            return
+        memory = reader_memory.instance()
+        try:
+            if pathname == "/memory/fact":
+                self._send_json(200, {"ok": True, "fact": memory.add_fact(body.get("text"))})
+            elif pathname == "/memory/reading":
+                self._send_json(200, {"ok": memory.record_opened(body.get("bookId"))})
+            elif pathname == "/memory/delete":
+                self._send_json(200, {"ok": memory.delete(body.get("kind"), body.get("id"))})
+            elif pathname == "/memory/clear":
+                memory.clear()
+                self._send_json(200, {"ok": True})
+            elif pathname == "/memory/enabled":
+                self._send_json(200, {"ok": True, "enabled": memory.set_enabled(body.get("enabled") is True)})
+            elif pathname == "/memory/summarize":
+                self._post_memory_summary(memory, body)
+            else:
+                self.send_error(404, "Not found")
+        except PermissionError as error:
+            self._send_json(409, {"error": str(error)})
+        except ValueError as error:
+            self._send_json(400, {"error": str(error)})
+
+    def _post_memory_summary(self, memory, body):
+        if not memory.enabled():
+            self._send_json(200, {"summary": "", "skipped": "记忆已关闭"})
+            return
+        wait = UNDERSTAND_LIMIT.allow(self.client_address[0])
+        if wait:
+            self._send_json(429, {"error": f"调用过于频繁，请 {wait} 秒后再试"})
+            return
+        resolved, _ = settings_state()
+        status, payload = llm_chat.summarize(body.get("history"), resolved, validate_endpoint)
+        if status == 200 and payload.get("summary"):
+            memory.add_summary(payload["summary"], len(body.get("history") or []) // 2)
+        self._send_json(status, payload)
+
     def _post_tts(self):
         if not SPEAKER.state()[0]:
             self._refuse(503, {"error": "本机语音模型不可用"})
@@ -939,6 +1013,10 @@ class Handler(SimpleHTTPRequestHandler):
             return
         if pathname == "/tts":
             self._post_tts()
+            return
+        if pathname.startswith("/memory/"):
+            if self._loopback_only():
+                self._post_memory(pathname)
             return
         if pathname in ("/settings/key", "/settings/test"):
             if not self._loopback_only():

@@ -222,3 +222,37 @@ test("talking about finding books is conversation; only a named book opens the r
     assert.equal(decide(text, offline).type, "full-text", text);
   }
 });
+
+test("only an explicit 「记住……」 stores a memory, in any phase, and moves nothing", async () => {
+  const { rememberedFact } = await import("../src/app/dialogue.js");
+  const ctx = { direct: true, phase: "IDLE", understand: true, lookup: () => null };
+  for (const [text, fact] of [
+    ["小和，记住我喜欢科幻小说。", "我喜欢科幻小说"],
+    ["请帮我记一下：我周末才有空读书", "我周末才有空读书"],
+    ["别忘了我对推理小说不感兴趣", "我对推理小说不感兴趣"],
+  ]) {
+    assert.equal(rememberedFact(text), fact, text);
+    for (const phase of ["IDLE", "READING", "NAVIGATING"])
+      assert.deepEqual(
+        [decide(text, { ...ctx, phase }).type, decide(text, { ...ctx, phase }).fact],
+        ["remember", fact],
+      );
+  }
+  for (const text of ["记住", "你还记得我喜欢什么吗？", "我记得这本书", "帮我找三体"])
+    assert.notEqual(decide(text, ctx).type, "remember", text);
+});
+
+test("the session counts every finished turn so a summary takes only the new ones", async () => {
+  const backend = service();
+  const session = createChatSession(backend);
+  await session.ask("第一问", "IDLE");
+  await session.ask("第二问", "IDLE");
+  assert.deepEqual(session.getState(), { busy: false, turns: 2, total: 2 });
+  assert.deepEqual(session.recent(1), [
+    { role: "user", content: "第二问" },
+    { role: "assistant", content: "自然语言回答" },
+  ]);
+  for (let i = 0; i < 8; i++) await session.ask(`问题${i}`, "IDLE");
+  assert.equal(session.getState().turns, 6, "context stays bounded");
+  assert.equal(session.getState().total, 10, "but the count keeps going");
+});

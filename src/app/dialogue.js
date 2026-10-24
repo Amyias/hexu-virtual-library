@@ -94,6 +94,18 @@ export function namesABook(request) {
   return rest.length >= 2 && !GENRE_ONLY.test(rest);
 }
 
+/* 「记住我喜欢科幻」: the one way a fact enters 小和's long-term memory. The reader says it in
+   so many words; the model never decides on its own what to remember. */
+const REMEMBER =
+  /^(?:请|麻烦)?(?:你)?(?:帮我)?(?:记住|记一下|记下来|记着|要记得|别忘了)(?:这件事|一下)?[：:，,、\s]*(.+)$/u;
+
+export function rememberedFact(text) {
+  const match = conversationText(text).match(REMEMBER);
+  if (!match) return null;
+  const fact = match[1].replace(/[。！!？?～~\s]+$/u, "").trim();
+  return fact.length >= 2 ? fact.slice(0, 120) : null;
+}
+
 export function readingCommand(request) {
   if (/为什么|如何|怎么|是什么|解释|介绍|分析|意义|区别|吗|能不能/.test(request)) return null;
   return READING_COMMANDS.find(([, pattern]) => pattern.test(request))?.[0] ?? null;
@@ -124,6 +136,9 @@ export function decide(
   const request = requestOf(text);
   if (!request) return { type: "wake-only", wake: !wasInterimWake };
   const wake = addressed && !wasInterimWake;
+  // Remembering works in any phase: it only stores a line, and moves nothing.
+  const fact = rememberedFact(text);
+  if (fact) return { type: "remember", wake, fact };
   const question = QUESTION_OR_DISCUSSION.test(request) || /[？?]\s*$/.test(text);
   const webRequest =
     /联网|上网|网页|https?:\/\//i.test(text) ||

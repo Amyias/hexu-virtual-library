@@ -161,11 +161,42 @@
         min-height: 1.4em;
         font-size: 13.5px;
       }
-      #message.ok {
+      #message.ok,
+      #memoryMessage.ok {
         color: var(--green);
       }
-      #message.bad {
+      #message.bad,
+      #memoryMessage.bad {
         color: #a2503c;
+      }
+      #memoryMessage {
+        min-height: 1.4em;
+        font-size: 13.5px;
+      }
+      #memorySection h3 {
+        margin: 18px 0 6px;
+        font-size: 14px;
+      }
+      .memory-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .memory-list li {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 7px 0;
+        border-bottom: 1px solid #e4e8df;
+        font-size: 13.5px;
+      }
+      .memory-list li button {
+        flex-shrink: 0;
+        padding: 3px 10px;
+      }
+      .memory-list .memory-empty {
+        color: var(--muted);
       }
       a {
         color: var(--green);
@@ -282,6 +313,25 @@
         <p class="note">对话使用官方 DeepSeek 时自动复用已有密钥，无需重填。改用其它对话服务后，可在此单独填写 DeepSeek 密钥，搜索仍由 DeepSeek 提供。密钥只发送给官方接口。</p>
         <div class="row"><button id="saveWeb" class="primary">保存联网设置</button><button id="clearWeb">清除独立搜索密钥</button></div>
         <p id="webMessage" role="status"></p>
+      </section>
+
+      <section id="memorySection">
+        <h2>小和记得的事</h2>
+        <p class="note">
+          小和会记住三类事：你明确说「记住……」的内容、你打开过的书和读到哪一章、每段对话结束后的一句话摘要。
+          它们只保存在这台电脑上（<code id="memoryPath">—</code>）。和小和聊天时，其中最相关的几条（不超过 400 字）
+          会随问题一起发给你配置的大模型服务，好让它接着上次聊；可以逐条删除、全部清空，或完全关闭。
+        </p>
+        <label for="memoryEnabled">记忆功能</label>
+        <select id="memoryEnabled"><option value="1">开启：记住我交代的事、读过的书和聊过的话题</option><option value="0">关闭：不再记录，也不发送任何记忆</option></select>
+        <h3>你让小和记住的事</h3>
+        <ul id="memoryFacts" class="memory-list"></ul>
+        <h3>读过的书</h3>
+        <ul id="memoryReading" class="memory-list"></ul>
+        <h3>聊过的话题</h3>
+        <ul id="memorySummaries" class="memory-list"></ul>
+        <div class="row"><button id="memoryRefresh">刷新</button><button id="memoryClear">全部清空</button></div>
+        <p id="memoryMessage" role="status"></p>
       </section>
 
       <section>
@@ -513,7 +563,85 @@
         }
       };
 
+      // --- 小和记得的事 -------------------------------------------------------
+      async function memoryPost(path, body) {
+        const response = await fetch(path, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body ?? {}),
+        });
+        return { ok: response.ok, payload: await response.json().catch(() => ({})) };
+      }
+      const when = (seconds) => new Date(seconds * 1000).toLocaleDateString("zh-CN");
+      function memoryItems(list, entries, describe, kind, key) {
+        list.replaceChildren();
+        if (!entries.length) {
+          const empty = document.createElement("li");
+          empty.className = "memory-empty";
+          empty.textContent = "（还没有）";
+          list.append(empty);
+          return;
+        }
+        for (const entry of entries) {
+          const item = document.createElement("li");
+          const text = document.createElement("span");
+          text.textContent = describe(entry); // text only: memory is never rendered as HTML
+          const remove = document.createElement("button");
+          remove.type = "button";
+          remove.textContent = "删除";
+          remove.setAttribute("aria-label", "删除这条记忆：" + text.textContent);
+          remove.onclick = async () => {
+            const { ok } = await memoryPost("/memory/delete", { kind, id: entry[key] });
+            memoryMessage(ok ? "已删除。" : "删除失败。", ok);
+            loadMemory();
+          };
+          item.append(text, remove);
+          list.append(item);
+        }
+      }
+      function memoryMessage(text, ok) {
+        $("memoryMessage").textContent = text;
+        $("memoryMessage").className = ok ? "ok" : "bad";
+      }
+      async function loadMemory() {
+        try {
+          const response = await fetch("/memory/state", { cache: "no-store" });
+          if (!response.ok) throw new Error();
+          const memory = await response.json();
+          $("memoryEnabled").value = memory.enabled ? "1" : "0";
+          $("memoryPath").textContent = memory.path;
+          memoryItems($("memoryFacts"), memory.facts, (f) => `${f.text}（${when(f.created_at)}）`, "fact", "id");
+          memoryItems(
+            $("memoryReading"),
+            memory.reading,
+            (b) =>
+              `《${b.title}》${b.author ? " · " + b.author : ""} —— ` +
+              (b.chapter_title ? `读到第 ${b.chapter + 1} 章「${b.chapter_title}」` : "刚开始读") +
+              `，打开过 ${b.opened} 次，最近 ${when(b.last_opened)}`,
+            "reading",
+            "book_id",
+          );
+          memoryItems($("memorySummaries"), memory.summaries, (s) => `${when(s.created_at)}：${s.text}`, "summary", "id");
+        } catch {
+          memoryMessage("无法读取记忆。", false);
+        }
+      }
+      $("memoryEnabled").onchange = async () => {
+        const on = $("memoryEnabled").value === "1";
+        const { ok } = await memoryPost("/memory/enabled", { enabled: on });
+        memoryMessage(ok ? (on ? "记忆已开启。" : "记忆已关闭：不再记录，聊天时也不再发送记忆。已有内容保留，可手动清空。") : "保存失败。", ok);
+        loadMemory();
+      };
+      $("memoryRefresh").onclick = loadMemory;
+      $("memoryClear").onclick = async () => {
+        if (!confirm("确定清空小和记得的所有事吗？这无法撤销。")) return;
+        const { ok } = await memoryPost("/memory/clear");
+        memoryMessage(ok ? "已全部清空。" : "清空失败。", ok);
+        loadMemory();
+      };
+
       load();
+      loadMemory();
       loadUpdate();
       setInterval(() => loadUpdate(), 10000);
     </script>

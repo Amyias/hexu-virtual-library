@@ -29,6 +29,7 @@ async function readEvents(response, onEvent, stale) {
 }
 export function createChatSession({ request = (...args) => fetch(...args), timeout = 90000 } = {}) {
   let history = [],
+    total = 0, // completed turns ever, so a summary can take only what is new since the last one
     configuration = "",
     controller = null,
     generation = 0;
@@ -95,6 +96,7 @@ export function createChatSession({ request = (...args) => fetch(...args), timeo
       if (result.reset) history = [];
       configuration = result.configuration;
       history.push({ role: "user", content: text }, { role: "assistant", content: result.reply });
+      total++;
       // Drop whole pairs, never an orphan answer. Match server character and message budgets.
       while (
         history.length > 12 ||
@@ -119,6 +121,8 @@ export function createChatSession({ request = (...args) => fetch(...args), timeo
     ask,
     cancel,
     clear,
-    getState: () => ({ busy: Boolean(controller), turns: history.length / 2 }),
+    /** The last `turns` completed turns still in context, as the server validates them. */
+    recent: (turns) => history.slice(-2 * turns).map((entry) => ({ ...entry })),
+    getState: () => ({ busy: Boolean(controller), turns: history.length / 2, total }),
   };
 }

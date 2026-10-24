@@ -4,6 +4,16 @@ import { findBook } from "../voice/intent.js";
 import { decide, protocolResponse, NO_MATCH, FOUND, READING_HINT, BUSY_HINT } from "./dialogue.js";
 import { createChatSession } from "../voice/chat.js";
 import { voice } from "../voice/voice.js";
+
+// A conversation is summarised into long-term memory once it has been quiet this long, when it
+// is cleared, or when the page goes away. Only the turns since the previous summary are sent.
+const SUMMARY_IDLE_MS = 3 * 60 * 1000;
+const postJson = (url, body) =>
+  fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
 import { IDLE } from "./phases.js";
 
 /* 小和 itself: carries out what dialogue.decide() concluded. Every text input — recognised speech,
@@ -49,9 +59,43 @@ export function createAssistant({
     $("voiceTitle").textContent = "我在，请告诉我书名或感兴趣的主题";
   }
 
+  let summaryTimer = null,
+    summarized = 0;
+  function summarize({ leaving = false } = {}) {
+    clearTimeout(summaryTimer);
+    const { total, turns } = chat.getState();
+    const fresh = Math.min(total - summarized, turns);
+    if (fresh < 1) return;
+    summarized = total;
+    const body = JSON.stringify({ history: chat.recent(fresh) });
+    if (leaving && navigator.sendBeacon)
+      navigator.sendBeacon("/memory/summarize", new Blob([body], { type: "application/json" }));
+    else
+      fetch("/memory/summarize", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body,
+      }).catch(() => {});
+  }
+  window.addEventListener("pagehide", () => summarize({ leaving: true }));
+
+  async function remember(fact) {
+    attention.wake();
+    let speech = "这件事我没能记下来，请稍后再试。";
+    try {
+      const response = await postJson("/memory/fact", { text: fact });
+      if (response.ok) speech = `好，我记住了：${fact}。`;
+      else if (response.status === 409)
+        speech = "我的记忆现在是关闭的，可以在本机设置的「小和记得的事」里打开。";
+    } catch {}
+    respond(speech);
+    say(speech);
+  }
+
   function present(book, speech) {
     cancelPending();
     attention.clear();
+    if (book.localBookId) postJson("/memory/reading", { bookId: book.localBookId }).catch(() => {});
     const response = respond(speech, book);
     say(speech);
     journey.fetchBook(book, response.target);
@@ -112,6 +156,7 @@ export function createAssistant({
     voice.cancel();
   }
   function clearConversation() {
+    summarize();
     cancelPending();
     chat.clear();
   }
@@ -146,6 +191,8 @@ export function createAssistant({
     respond(result.reply);
     if (live) live.finish(result.reply, { sources: result.sources });
     else say(result.reply, 0, { interactive: true, sources: result.sources });
+    clearTimeout(summaryTimer);
+    summaryTimer = setTimeout(summarize, SUMMARY_IDLE_MS);
     $("voiceTitle").textContent = "小和已回答，可以继续追问";
   }
 
@@ -190,6 +237,9 @@ export function createAssistant({
     switch (decision.type) {
       case "wake-only":
         return respond("有什么需求吗？", null, true);
+      case "remember":
+        remember(decision.fact);
+        return null;
       case "reply":
         attention.wake();
         respond(decision.speech);

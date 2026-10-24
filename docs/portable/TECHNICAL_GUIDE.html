@@ -521,7 +521,9 @@ footer{color:var(--muted);font-size:13px;margin-top:36px;padding-top:18px;border
 <p><code>intent.js</code> 先归一化空白、标点和大小写，只为<strong>已入库</strong>的书构造候选索引（书名、别名、编号、位置码）。匹配优先级为完整标题 / 别名命中、片段命中、编辑距离不超过 1 的近似命中；同级优先书名，再按目录顺序决定。查询太短时限制近似匹配，二字书名不做近似，以减少“身体”“三国”等误命中《三体》的情况。识别器提供的多个候选也参与匹配。</p>
 <p>明确的找书请求本地未命中、且 <code>/understand/ready</code> 就绪时，应用才调用语义层。后端把<strong>本机书库中真实入库的书</strong>（编号 | 书名 | 作者）、当前状态与读者文本交给配置的大模型 <code>/chat/completions</code> 接口；限制其输出 <code>find / return / open / close / chip / none</code>。后端检查 <code>bookId</code> 确实属于已入库书籍，前端再查找对应馆藏对象后执行。模型不可用、超时或结果不合法时转到正文书库的在线检索。前端预算 15 秒，后端模型请求默认预算 12 秒；同一地址每分钟默认最多 20 次语义与对话调用，超出返回 429。</p>
 <p>这使“霍金写的那本”有机会映射到已入库的《时间简史》，但并不构成全馆语义检索或推荐系统：没有向量索引，模型也只能在已入库书籍中选择。</p>
-<h3>4.4 自由对话与联网工具</h3>
+<h3>4.4 长期记忆</h3>
+<p>小和在本机记住三类事（<code>tools/reader_memory.py</code>，<code>%APPDATA%\hexu-library\memory.sqlite</code>）：读者明确说「记住……」的内容（<code>dialogue.js</code> 的 <code>rememberedFact()</code> 识别，模型<strong>不能</strong>自行写入记忆）；打开过的书及读到哪一章（章节取自书库的阅读进度，不重复保存）；每段对话安静 3 分钟、被清空或页面关闭时，由模型写成的一句话摘要（只寒暄则不记）。聊天时 <code>context()</code> 把最相关的几行压到 400 字以内放进系统提示，并要求只在相关时自然提起、没有记录的事不声称记得。设置页「小和记得的事」可逐条查看、删除、全部清空或关闭；关闭后不再记录，也不再发送任何记忆。只聊天、从未记录过时不会创建记忆文件。</p>
+<h3>4.5 自由对话与联网工具</h3>
 <p>不属于找书或阅读指令的话进入 <code>POST /chat/stream</code>：服务端以流式（SSE）读取模型输出，按行转发 NDJSON 事件，页面边收边在像素气泡里打字，每凑满一句就交给欣然朗读，不必等整段写完（实测 deepseek-flash 首字约 2 秒出现）；联网工具轮次在流中照常执行，密钥按“可能是密钥开头的尾巴”扣留后脱敏，普通文字不延迟。小和的人格设定（温暖俏皮的像素馆员、口语、短句、不用 Markdown 与 emoji）写在系统提示中。上下文最多保留最近 6 个成功轮次、24,000 个字符，只存在页面内存中；切换模型地址或名称后自动清空。回答在像素气泡中完整逐字显示，可滚动、显示全文或收起；对话面板只在手动打开时出现。</p>
 <p>配置 DeepSeek 时，模型可按需调用 <code>web_search</code> / <code>web_fetch</code>：服务端调用 DeepSeek 官方 Search / Fetch 接口，每轮最多 3 次网页请求、2 轮工具调用，来源最多 8 条并以安全链接显示。网页内容视为不可信资料，模型没有下载书籍、读写文件或执行代码的工具。配置与数据边界见 <a href="LLM_BRAIN.md">大模型对话说明</a> 与 <a href="WEB_TOOLS.md">联网工具说明</a>。</p>
 <h2 id="section-5">5. 三维场景、模型与性能</h2>
@@ -720,6 +722,11 @@ footer{color:var(--muted);font-size:13px;margin-top:36px;padding-top:18px;border
 <td>自由问答与联网工具；仅回环访问，超额返回 429；设置页连接测试使用</td>
 </tr>
 <tr>
+<td><code>GET /memory/state</code>、<code>POST /memory/{fact,reading,summarize,delete,clear,enabled}</code></td>
+<td>记忆条目 / 开关</td>
+<td>长期记忆的读写与管理；仅回环访问，摘要与对话共用限流</td>
+</tr>
+<tr>
 <td><code>POST /chat/stream</code></td>
 <td>同上 → NDJSON：<code>{type:&quot;delta&quot;,text}</code>…，最后一行 <code>{type:&quot;done&quot;,reply,sources,…}</code> 或 <code>{type:&quot;error&quot;}</code></td>
 <td>页面实际使用的流式对话；仅回环访问，校验失败仍返回普通 JSON 状态码</td>
@@ -772,7 +779,7 @@ npm start
 npm run test:ui
 python -m unittest discover -s tests -p &quot;test_*.py&quot;
 </code></pre>
-<p><code>npm test</code> 共 75 项 Node 测试，覆盖状态机与意图路由、唤醒词与检索容错、误命中防线、11,360 个空槽位的几何与旧书库位置兼容、环境 / 阅读书 / 小和 GLB、灯光配置、日月模型、方位与时间表、语音播报分句、流式朗读与退回、像素气泡与定位、多轮对话与取消、阅读音乐、本机接口的来源校验与限流、发行附件策略（含 2.6.1 起的安装程序）及本机标题栏；其中需要 Python 或 Windows 的项目在缺少条件时自动跳过。<code>npm run test:ui</code> 用本机 Chrome / Edge 无头跑完整链路（加载空场景 → 日月切换 → 导入 TXT → 按编号找书 → 翻开封面 → 正文翻页 → 查看芯片 → 放回书架 → 按位置码再找一本），约 3–4 分钟。Python 单元测试共 83 项，覆盖书库、书源规则、内置书源、对话适配与流式对话、本机语音合成与接口、限流、自动更新与打包归档，需要先安装 <code>tools/requirements-sources.txt</code>。识别生命周期与模型调用使用模拟数据，不能据此宣称真人语音准确率、噪声鲁棒性或端到端延迟已达标。</p>
+<p><code>npm test</code> 共 77 项 Node 测试，覆盖状态机与意图路由、唤醒词与检索容错、误命中防线、11,360 个空槽位的几何与旧书库位置兼容、环境 / 阅读书 / 小和 GLB、灯光配置、日月模型、方位与时间表、语音播报分句、流式朗读与退回、像素气泡与定位、多轮对话与取消、「记住……」识别、阅读音乐、本机接口的来源校验与限流、发行附件策略（含 2.6.1 起的安装程序）及本机标题栏；其中需要 Python 或 Windows 的项目在缺少条件时自动跳过。<code>npm run test:ui</code> 用本机 Chrome / Edge 无头跑完整链路（加载空场景 → 日月切换 → 导入 TXT → 按编号找书 → 翻开封面 → 正文翻页 → 查看芯片 → 放回书架 → 按位置码再找一本），约 3–4 分钟。Python 单元测试共 91 项，覆盖书库、书源规则、内置书源、对话适配与流式对话、长期记忆与摘要、本机语音合成与接口、限流、自动更新与打包归档，需要先安装 <code>tools/requirements-sources.txt</code>。识别生命周期与模型调用使用模拟数据，不能据此宣称真人语音准确率、噪声鲁棒性或端到端延迟已达标。</p>
 <p>人工演示建议依次检查：</p>
 <ol>
 <li>场景加载完成，可旋转、缩放，五个分区正常显示，书架为空。</li>
