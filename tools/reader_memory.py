@@ -20,6 +20,8 @@ import time
 from contextlib import contextmanager
 from pathlib import Path
 
+from book_text_search import grams
+
 MAX_FACTS = 30
 MAX_FACT_CHARS = 120
 MAX_SUMMARIES = 20
@@ -27,6 +29,9 @@ MAX_SUMMARY_CHARS = 120
 CONTEXT_CHARS = 400  # a ceiling on what every chat turn pays for in tokens
 RECENT_BOOKS = 3
 RECENT_SUMMARIES = 3
+HALF_LIFE_DAYS = 14  # how fast an old memory gives way to a newer one when neither fits better
+# Characters too common to say what a sentence is about.
+FUNCTION_CHARACTERS = set("我你他她它们的了吗呢吧啊呀是在有和就都也还要会能可不没这那个一么什怎哪谁很太想说过对把被给让")
 
 
 def memory_directory():
@@ -165,16 +170,23 @@ class ReaderMemory:
         return {"enabled": self.enabled(), "facts": facts, "reading": self.reading(describe),
                 "summaries": summaries, "path": str(self.path)}
 
-    def context(self, describe):
-        """The few lines a chat turn carries, within CONTEXT_CHARS, or "" when off or empty."""
+    def context(self, describe, question=""):
+        """The few lines a chat turn carries, within CONTEXT_CHARS, or "" when off or empty.
+        Facts and conversation summaries come in ranked() order, so what bears on the question
+        is not crowded out by whatever was said last; opened books stay newest first, except
+        that a book the question names comes first."""
         if not self.enabled():
             return ""
         now = self.clock()
+        question = question if isinstance(question, str) else ""
         lines = []
         with self.connect() as db:
-            facts = [row["text"] for row in db.execute("SELECT text FROM facts ORDER BY created_at DESC, id DESC")]
+            facts = [dict(row) for row in db.execute(
+                "SELECT text, created_at FROM facts ORDER BY created_at DESC, id DESC")]
             summaries = [dict(row) for row in db.execute(
-                "SELECT text, created_at FROM summaries ORDER BY id DESC LIMIT ?", (RECENT_SUMMARIES,))]
+                "SELECT text, created_at FROM summaries ORDER BY id DESC")]
+        facts = [fact["text"] for fact in ranked(facts, question, now)]
+        summaries = ranked(summaries, question, now)[:RECENT_SUMMARIES]
         if facts:
             # Newest first, fact by fact, within half the budget: many remembered preferences
             # must not crowd out the books and conversations, nor empty the block altogether.
@@ -184,7 +196,8 @@ class ReaderMemory:
                     break
                 line += "；" + fact
             lines.append(line)
-        for book in self.reading(describe)[:RECENT_BOOKS]:
+        books = sorted(self.reading(describe), key=lambda book: not (book.get("title") and book["title"] in question))
+        for book in books[:RECENT_BOOKS]:
             where = f"读到第 {book['chapter'] + 1} 章「{book['chapter_title']}」" if book.get("chapter_title") else "刚开始读"
             lines.append(f"在读《{book['title']}》（{book.get('author') or '未知作者'}），{where}，"
                          f"{ago(now - book['last_opened'])}打开过")
@@ -198,12 +211,40 @@ class ReaderMemory:
         return text.strip()
 
 
-def context_if_present(describe):
+def characters(text):
+    """The single CJK characters of a text that carry meaning: 「我能养猫吗」 and 「我对猫毛过敏」
+    share no character pair, only 猫."""
+    return {char for char in text if "一" <= char <= "鿿" and char not in FUNCTION_CHARACTERS}
+
+
+def ranked(entries, question, now):
+    """Entries ({"text", "created_at"}) best first, scored as Generative Agents scores memories:
+    3 × relevance + 0.5 × recency, recency halving every HALF_LIFE_DAYS. Relevance is the share of
+    the question's character pairs (as the book search indexes them) the entry contains, with the
+    share of its single meaningful characters counting for less. With no question, or nothing in
+    common, that is simply newest first. Importance, the third term there, is left out: every
+    fact here was said by the reader and weighs the same."""
+    pairs = set(grams(question, query=True).split())
+    chars = characters(question)
+
+    def score(entry):
+        shared = 0.0
+        if pairs:
+            shared += 0.6 * len(pairs & set(grams(entry["text"]).split())) / len(pairs)
+        if chars:
+            shared += 0.4 * len(chars & characters(entry["text"])) / len(chars)
+        recency = 0.5 ** (max(0, now - entry["created_at"]) / 86400 / HALF_LIFE_DAYS)
+        return 3 * shared + 0.5 * recency
+
+    return sorted(entries, key=score, reverse=True)
+
+
+def context_if_present(describe, question=""):
     """The chat prompt's memory block without creating a memory file just to find it empty: a
     conversation alone never leaves a file behind; remembering something or opening a book does."""
     if _instance is None and not (memory_directory() / "memory.sqlite").is_file():
         return ""
-    return instance().context(describe)
+    return instance().context(describe, question)
 
 
 def snapshot_if_present(describe):

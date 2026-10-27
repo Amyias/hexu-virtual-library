@@ -551,9 +551,11 @@ def describe_book(book_id):
             "chapters": len(chapters), "chapter_title": title if chapter > 0 else ""}
 
 
-def memory_context():
+def memory_context(body=None):
+    """The memory block for one chat request, ranked against what the reader just asked."""
+    question = body.get("text") if isinstance(body, dict) and isinstance(body.get("text"), str) else ""
     try:
-        return reader_memory.context_if_present(describe_book)
+        return reader_memory.context_if_present(describe_book, question)
     except (sqlite3.Error, OSError):
         return ""  # a broken memory file must never stop 小和 answering
 
@@ -909,7 +911,7 @@ class Handler(SimpleHTTPRequestHandler):
             selected = load_catalog()[0].get(str(body.get("bookId", "")))
             status, payload = llm_chat.chat(body, resolved, validate_endpoint,
                                           timeout=float(os.environ.get("HEXU_LLM_CHAT_TIMEOUT", "60")),
-                                          selected=selected, memory=memory_context(),
+                                          selected=selected, memory=memory_context(body),
                                           passages=book_passages(body, selected))
         else:
             status, payload = understand(body.get("text"), body.get("phase"))
@@ -935,7 +937,7 @@ class Handler(SimpleHTTPRequestHandler):
         app = app_actions.AppActions(phase, describe_book(selected["id"]) if selected else None, catalog)
         events = llm_chat.chat_stream(body, resolved, validate_endpoint,
                                       timeout=float(os.environ.get("HEXU_LLM_CHAT_TIMEOUT", "60")),
-                                      selected=selected, memory=memory_context(),
+                                      selected=selected, memory=memory_context(body),
                                       passages=book_passages(body, selected), app=app)
         first = next(events, None)
         if first is None or (first["type"] == "error" and "status" in first):

@@ -88,6 +88,38 @@ class MemoryTests(unittest.TestCase):
         self.assertIn("在读《三体》", packed, "many facts must not crowd out the books")
         self.assertTrue(all(line.startswith(("读者让你记住的事", "在读", "今天聊过")) for line in packed.split("\n")))
 
+    def test_what_bears_on_the_question_comes_before_what_was_said_last(self):
+        self.memory.add_fact("我对猫毛过敏")
+        for i in range(12):
+            self.clock.now += DAY
+            self.memory.add_fact(f"一条相当长的读者偏好说明，用来把记忆撑满，编号{i}")
+        self.memory.add_summary("聊了《红楼梦》里林黛玉葬花那一回", 2)
+        for i in range(4):
+            self.clock.now += DAY
+            self.memory.add_summary(f"闲聊了一会儿天气和晚饭，第{i}次", 2)
+        newest = self.memory.context(describe)
+        self.assertNotIn("猫毛", newest, "with no question, newest first as before")
+        self.assertNotIn("林黛玉", newest)
+        asked = self.memory.context(describe, "我能养猫吗")
+        self.assertTrue(asked.split("\n")[0].startswith("读者让你记住的事：我对猫毛过敏"), asked)
+        self.assertIn("林黛玉葬花", self.memory.context(describe, "林黛玉为什么要葬花"))
+        self.assertLessEqual(len(asked), reader_memory.CONTEXT_CHARS)
+
+    def test_a_book_the_question_names_is_brought_forward(self):
+        BOOKS["b3"] = {"title": "活着", "author": "余华", "chapter": 2, "chapters": 10, "chapter_title": "福贵"}
+        self.addCleanup(BOOKS.pop, "b3")
+        for book in ["b2", "b3", "b1"]:  # 红楼梦 opened longest ago
+            self.clock.now += DAY
+            self.memory.record_opened(book)
+        self.assertTrue(self.memory.context(describe).startswith("在读《三体》"))
+        lines = self.memory.context(describe, "红楼梦我读到哪了").split("\n")
+        self.assertTrue(lines[0].startswith("在读《红楼梦》"), lines)
+
+    def test_ranking_falls_back_to_recency_on_ties(self):
+        entries = [{"text": "喜欢科幻", "created_at": 100}, {"text": "喜欢历史", "created_at": 200}]
+        self.assertEqual([e["text"] for e in reader_memory.ranked(entries, "", 300)], ["喜欢历史", "喜欢科幻"])
+        self.assertEqual(reader_memory.ranked(entries, "推荐点科幻", 300)[0]["text"], "喜欢科幻")
+
     def test_entries_can_be_deleted_one_by_one_or_all_at_once(self):
         fact = self.memory.add_fact("我喜欢科幻")
         summary = self.memory.add_summary("聊了三体", 2)
