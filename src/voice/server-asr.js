@@ -32,7 +32,7 @@ export async function probeServerAsr() {
   }
 }
 
-function encodeWav(samples, rate) {
+export function encodeWav(samples, rate) {
   const buffer = new ArrayBuffer(44 + samples.length * 2);
   const view = new DataView(buffer);
   const text = (offset, value) => {
@@ -59,7 +59,7 @@ function encodeWav(samples, rate) {
 }
 
 /** Linear resample; only used when the browser refuses to open the context at 16 kHz. */
-function resample(samples, from, to) {
+export function resample(samples, from, to) {
   if (from === to) return samples;
   const ratio = from / to;
   const out = new Float32Array(Math.floor(samples.length / ratio));
@@ -78,13 +78,12 @@ function rms(frame) {
   return Math.sqrt(sum / frame.length);
 }
 
-export function createServerAsr({ post, onText, onStatus, onError }) {
-  let stream = null;
-  let context = null;
-  let node = null;
-  let source = null;
-  let wanted = false;
-  let busy = false; // a segment is being transcribed; ignore audio until it returns
+/** Cut a stream of FRAME-sample frames into speech segments by loudness: a segment opens on a
+ *  frame at or above SPEECH_RMS (keeping a little audio from before it), and closes after
+ *  SILENCE_FRAMES quiet frames or at MAX_SEGMENT_FRAMES. push(frame) returns the finished
+ *  segment's frames, or null; segments shorter than MIN_SEGMENT_FRAMES are dropped. Pure, so the
+ *  voice evaluation (tools/voice-eval.mjs) replays recordings through exactly this rule. */
+export function createSegmenter() {
   let speaking = false;
   let silence = 0;
   let preroll = [];
@@ -97,13 +96,51 @@ export function createServerAsr({ post, onText, onStatus, onError }) {
     segment = [];
   }
 
-  async function flush() {
-    if (segment.length < MIN_SEGMENT_FRAMES) {
-      reset();
-      return;
-    }
+  function finish() {
     const frames = segment;
     reset();
+    return frames.length < MIN_SEGMENT_FRAMES ? null : frames;
+  }
+
+  return {
+    push(frame) {
+      const level = rms(frame);
+      if (!speaking) {
+        if (level >= SPEECH_RMS) {
+          speaking = true;
+          silence = 0;
+          segment = [...preroll, frame];
+          preroll = [];
+        } else {
+          preroll.push(frame);
+          if (preroll.length > PREROLL_FRAMES) preroll.shift();
+        }
+        return null;
+      }
+      segment.push(frame);
+      if (level < SPEECH_RMS) {
+        silence++;
+        if (silence >= SILENCE_FRAMES) return finish();
+      } else silence = 0;
+      return segment.length >= MAX_SEGMENT_FRAMES ? finish() : null;
+    },
+    reset,
+  };
+}
+
+export const SEGMENT = { FRAME, TARGET_RATE, SPEECH_RMS, SILENCE_FRAMES };
+
+export function createServerAsr({ post, onText, onStatus, onError }) {
+  let stream = null;
+  let context = null;
+  let node = null;
+  let source = null;
+  let wanted = false;
+  let busy = false; // a segment is being transcribed; ignore audio until it returns
+  const segmenter = createSegmenter();
+  const reset = () => segmenter.reset();
+
+  async function flush(frames) {
     busy = true;
     onStatus("正在识别", "live");
     let wav;
@@ -137,29 +174,8 @@ export function createServerAsr({ post, onText, onStatus, onError }) {
 
   function onFrame(event) {
     if (!wanted || busy) return;
-    const frame = new Float32Array(event.inputBuffer.getChannelData(0));
-    const level = rms(frame);
-    if (!speaking) {
-      if (level >= SPEECH_RMS) {
-        speaking = true;
-        silence = 0;
-        segment = [...preroll, frame];
-        preroll = [];
-      } else {
-        preroll.push(frame);
-        if (preroll.length > PREROLL_FRAMES) preroll.shift();
-      }
-      return;
-    }
-    segment.push(frame);
-    if (level < SPEECH_RMS) {
-      silence++;
-      if (silence >= SILENCE_FRAMES) {
-        flush();
-        return;
-      }
-    } else silence = 0;
-    if (segment.length >= MAX_SEGMENT_FRAMES) flush();
+    const frames = segmenter.push(new Float32Array(event.inputBuffer.getChannelData(0)));
+    if (frames) flush(frames);
   }
 
   return {

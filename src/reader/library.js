@@ -1,6 +1,6 @@
 import { orderedShelfSlots } from "../data/shelf-slots.js";
 import { deferredSlotIds } from "../data/catalog.js";
-import { wakeStripRE, normalize } from "../voice/intent.js";
+import { wakeStripRE, normalize, findBook, findBooks } from "../voice/intent.js";
 
 export function bookQuery(text) {
   return text
@@ -13,6 +13,18 @@ export function bookQuery(text) {
     )
     .replace(/(?:这本小说|这本书|的正文|在哪里|在哪)$/, "")
     .trim();
+}
+
+/** The book a request names, or several equally good ones for the reader to choose from.
+ *  exact: the reading library's own whole-title matches, which win when there are any. Shared
+ *  by the assistant and the voice evaluation (tools/voice-eval.mjs), so both route alike. */
+export function lookupBooks(text, exact = [], collection = undefined) {
+  // Match the title words without 「帮我找」: a part of a title (「星海」 for 《星海Ⅰ·启航》) can
+  // only be recognised once the request around it is gone.
+  const named = bookQuery(text);
+  const found = exact.length ? exact : named ? findBooks(named, collection) : [];
+  if (!found.length) return findBook(text, collection);
+  return found.length > 1 ? found : found[0];
 }
 
 export function createLocalLibrary({ books, onSelect, onBind, onLocate, notice }) {

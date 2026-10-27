@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <title>和序图书馆 · 语音验收录音</title>
+    <style>
+      body { font-family: "Microsoft YaHei", sans-serif; margin: 0; display: flex; height: 100vh; background: #f6f1ea; color: #3a2d22; }
+      aside { width: 300px; overflow: auto; border-right: 1px solid #ddd0c0; background: #fffaf3; }
+      aside button { display: block; width: 100%; text-align: left; border: 0; border-bottom: 1px solid #efe5d8; background: none; padding: 6px 12px; font: inherit; font-size: 13px; cursor: pointer; }
+      aside button.done::before { content: "✓ "; color: #3d8b52; }
+      aside button.current { background: #f3dcc4; }
+      main { flex: 1; padding: 32px 48px; }
+      .meta { color: #8a7563; font-size: 14px; }
+      .say { font-size: 40px; margin: 24px 0 8px; line-height: 1.4; }
+      .say .pause { font-size: 20px; color: #b07a48; margin: 0 12px; }
+      .hint { color: #b5562e; font-size: 18px; min-height: 26px; }
+      .controls { margin: 28px 0; display: flex; gap: 12px; }
+      .controls button { font: inherit; font-size: 18px; padding: 10px 22px; border-radius: 8px; border: 1px solid #c79b72; background: #fff; cursor: pointer; }
+      .controls button.recording { background: #c8553d; color: #fff; border-color: #c8553d; }
+      .meter { height: 10px; width: 420px; background: #e8ddd0; border-radius: 5px; overflow: hidden; }
+      .meter div { height: 100%; width: 0; background: #d97b3f; transition: width 60ms; }
+      #status { margin-top: 16px; min-height: 24px; }
+      .tips { margin-top: 40px; color: #8a7563; font-size: 14px; line-height: 1.8; }
+    </style>
+  </head>
+  <body>
+    <aside id="list"></aside>
+    <main>
+      <div class="meta"><span id="progress"></span> · <span id="category"></span></div>
+      <div class="say" id="say"></div>
+      <div class="hint" id="hint"></div>
+      <div class="controls">
+        <button id="record">● 开始录（空格）</button>
+        <button id="play">▶ 回放</button>
+        <button id="next">下一条 →</button>
+      </div>
+      <div class="meter"><div id="level"></div></div>
+      <div id="status" role="status"></div>
+      <div class="tips">
+        按下“开始录”后先安静一秒再说，说完再安静一秒才停止：评测要用前后的安静来模拟程序断句。<br />
+        有“（停一秒）”的条目，两段之间真的停一秒左右。用平时和小和说话的距离、音量和语气即可。<br />
+        录音只保存在本机项目的 .cache/voice-eval/clips/，不会上传。
+      </div>
+    </main>
+    <script type="module">
+      import { encodeWav, resample } from "/src/voice/server-asr.js";
+
+      const $ = (id) => document.getElementById(id);
+      const RATE = 16000;
+      let prompts = [];
+      let done = new Set();
+      let index = 0;
+      let capture = null; // { stream, context, node, frames }
+
+      async function load() {
+        const data = await (await fetch("/prompts")).json();
+        prompts = data.prompts;
+        done = new Set(data.done);
+        index = Math.max(0, prompts.findIndex((prompt) => !done.has(prompt.id)));
+        render();
+      }
+
+      function render() {
+        const prompt = prompts[index];
+        $("progress").textContent = `第 ${index + 1} / ${prompts.length} 条，已录 ${done.size} 条`;
+        $("category").textContent = prompt.category + (prompt.phase === "READING" ? "（假设正在读书）" : "");
+        $("say").innerHTML = prompt.say
+          .map((part) => part.replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" })[c]))
+          .join('<span class="pause">（停一秒）</span>');
+        $("hint").textContent = prompt.hint || "";
+        $("play").disabled = !done.has(prompt.id);
+        $("list").innerHTML = "";
+        prompts.forEach((item, i) => {
+          const button = document.createElement("button");
+          button.textContent = `${item.id}  ${item.say.join(" / ")}`;
+          button.className = (done.has(item.id) ? "done " : "") + (i === index ? "current" : "");
+          button.onclick = () => {
+            if (capture) return;
+            index = i;
+            render();
+          };
+          $("list").append(button);
+        });
+        $("list").children[index]?.scrollIntoView({ block: "nearest" });
+      }
+
+      async function start() {
+        // The same constraints the program's server recognition uses (src/voice/server-asr.js).
+        const stream = await navigator.mediaDevices.getUserMedia({
+          audio: { channelCount: 1, echoCancellation: true, noiseSuppression: true },
+        });
+        const context = new AudioContext({ sampleRate: RATE });
+        const source = context.createMediaStreamSource(stream);
+        const node = context.createScriptProcessor(1024, 1, 1);
+        const frames = [];
+        node.onaudioprocess = (event) => {
+          const frame = new Float32Array(event.inputBuffer.getChannelData(0));
+          frames.push(frame);
+          let sum = 0;
+          for (const value of frame) sum += value * value;
+          $("level").style.width = Math.min(100, Math.sqrt(sum / frame.length) * 800) + "%";
+        };
+        source.connect(node);
+        node.connect(context.destination);
+        capture = { stream, context, node, frames };
+        $("record").textContent = "■ 停止并保存（空格）";
+        $("record").classList.add("recording");
+        $("status").textContent = "录音中…先安静一秒再说";
+      }
+
+      async function stop() {
+        const { stream, context, node, frames } = capture;
+        capture = null;
+        node.onaudioprocess = null;
+        node.disconnect();
+        stream.getTracks().forEach((track) => track.stop());
+        const rate = context.sampleRate;
+        await context.close();
+        $("record").textContent = "● 开始录（空格）";
+        $("record").classList.remove("recording");
+        $("level").style.width = "0";
+        const joined = new Float32Array(frames.length * 1024);
+        frames.forEach((frame, i) => joined.set(frame, i * 1024));
+        if (joined.length < rate) {
+          $("status").textContent = "太短了，没有保存，请再录一次";
+          return;
+        }
+        const prompt = prompts[index];
+        const response = await fetch(`/clips/${prompt.id}.wav`, {
+          method: "POST",
+          body: encodeWav(resample(joined, rate, RATE), RATE),
+        });
+        if (!response.ok) {
+          $("status").textContent = "保存失败：" + response.status;
+          return;
+        }
+        done.add(prompt.id);
+        $("status").textContent = `已保存 ${prompt.id}（${(joined.length / rate).toFixed(1)} 秒）`;
+        const next = prompts.findIndex((item, i) => i > index && !done.has(item.id));
+        if (next >= 0) index = next;
+        render();
+      }
+
+      async function toggle() {
+        try {
+          if (capture) await stop();
+          else await start();
+        } catch (error) {
+          capture = null;
+          $("status").textContent = "无法录音：" + error.message;
+        }
+      }
+
+      $("record").onclick = toggle;
+      $("play").onclick = () => new Audio(`/clips/${prompts[index].id}.wav?${Date.now()}`).play();
+      $("next").onclick = () => {
+        if (capture) return;
+        index = (index + 1) % prompts.length;
+        render();
+      };
+      document.addEventListener("keydown", (event) => {
+        if (event.code !== "Space" || event.repeat) return;
+        event.preventDefault();
+        // A focused button would also take the space as a click and toggle a second time.
+        document.activeElement?.blur?.();
+        toggle();
+      });
+      document.addEventListener("keyup", (event) => {
+        if (event.code === "Space") event.preventDefault();
+      });
+      load();
+    </script>
+  </body>
+</html>

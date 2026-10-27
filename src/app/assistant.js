@@ -1,7 +1,7 @@
 import { books, anchors, heights } from "../data/catalog.js";
 import { understand } from "../voice/understand.js";
-import { findBook, findBooks, wakeRE } from "../voice/intent.js";
-import { bookQuery } from "../reader/library.js";
+import { wakeRE } from "../voice/intent.js";
+import { lookupBooks } from "../reader/library.js";
 import {
   decide,
   protocolResponse,
@@ -50,15 +50,7 @@ export function createAssistant({
   const chat = createChatSession();
   let intentGeneration = 0;
   /* One book, or several equally good ones for the reader to choose from. */
-  const lookup = (text) => {
-    const exact = getLibrary()?.findAll?.(text) ?? [];
-    // Match the title words without 「帮我找」: a part of a title (「星海」 for 《星海Ⅰ·启航》) can
-    // only be recognised once the request around it is gone.
-    const named = bookQuery(text);
-    const found = exact.length ? exact : named ? findBooks(named) : [];
-    if (!found.length) return findBook(text);
-    return found.length > 1 ? found : found[0];
-  };
+  const lookup = (text) => lookupBooks(text, getLibrary()?.findAll?.(text) ?? []);
   let choice = null; // { books, until } while 小和 waits for 「第一本」 or a title
   function offerChoice(offered) {
     // Title order, so 《星海Ⅰ》 is offered before 《星海Ⅱ》 whatever shelf each stands on.

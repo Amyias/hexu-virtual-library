@@ -8,6 +8,7 @@
     "package:local": "node tools/package-local.mjs",
     "test": "node --test tests/*.test.mjs",
     "test:ui": "node tests/ui-smoke.mjs",
+    "eval:voice": "node tools/voice-eval.mjs",
     "format": "npx --yes prettier@3.9.10 --write \"src/**/*.{js,css}\" \"tests/**/*.mjs\" \"tools/**/*.mjs\" \"docs/*.mjs\"",
     "format:check": "npx --yes prettier@3.9.10 --check \"src/**/*.{js,css}\" \"tests/**/*.mjs\" \"tools/**/*.mjs\" \"docs/*.mjs\"",
     "release": "node tools/release.mjs"
