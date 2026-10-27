@@ -98,9 +98,11 @@ class BookTextSearch:
             db.execute("INSERT OR REPLACE INTO passage_index VALUES(?,?,?)", (book_id, VERSION, count))
             return count
 
-    def search(self, book_ids, question, *, limit=MAX_PASSAGES, budget=BUDGET):
+    def search(self, book_ids, question, *, limit=MAX_PASSAGES, budget=BUDGET, up_to=None):
         """The passages most relevant to the question, best first, within `budget` characters:
-        [{"book_id", "chapter", "chapter_title", "text"}]. Empty when nothing matches."""
+        [{"book_id", "chapter", "chapter_title", "text"}]. Empty when nothing matches.
+        up_to: {book id: last chapter allowed}; a book in it yields no passage from a later
+        chapter, so what the reader has not reached yet never reaches the model."""
         terms = grams(question, query=True).split()
         book_ids = [book_id for book_id in dict.fromkeys(book_ids) if book_id][:3]
         if not terms or not book_ids:
@@ -108,13 +110,21 @@ class BookTextSearch:
         for book_id in book_ids:
             self.ensure(book_id)
         match = " OR ".join(f'"{term}"' for term in terms[:40])
-        marks = ",".join("?" * len(book_ids))
+        up_to = up_to or {}
+        scopes, values = [], []
+        for book_id in book_ids:
+            if book_id in up_to:
+                scopes.append("(book_id = ? AND CAST(chapter AS INTEGER) <= ?)")
+                values += [book_id, int(up_to[book_id])]
+            else:
+                scopes.append("book_id = ?")
+                values.append(book_id)
         with self.library.connect() as db:
             rows = db.execute(
                 f"""SELECT book_id, chapter, text FROM passages
-                    WHERE passages MATCH ? AND book_id IN ({marks})
+                    WHERE passages MATCH ? AND ({" OR ".join(scopes)})
                     ORDER BY bm25(passages) LIMIT 12""",
-                (match, *book_ids)).fetchall()
+                (match, *values)).fetchall()
             titles = {}
             for row in rows:
                 key = (row["book_id"], row["chapter"])

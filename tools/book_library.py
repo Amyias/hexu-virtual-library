@@ -149,6 +149,12 @@ class BookLibrary:
                 CREATE TABLE IF NOT EXISTS progress(book_id TEXT PRIMARY KEY, chapter INTEGER, offset INTEGER);
                 CREATE TABLE IF NOT EXISTS sources(id TEXT PRIMARY KEY, config TEXT);
             """)
+            # The furthest chapter ever reached: 小和's book answers stop there (no spoilers), and
+            # turning back to reread an early chapter must not hide what was already read.
+            try:
+                db.execute("ALTER TABLE progress ADD COLUMN furthest INTEGER")
+            except sqlite3.OperationalError:
+                pass  # already there
 
     @contextmanager
     def connect(self):
@@ -345,8 +351,23 @@ class BookLibrary:
         if not isinstance(chapter, int) or not 0 <= chapter < len(book["chapters"]) or not isinstance(offset, int) or not 0 <= offset <= 10_000_000:
             raise SourceError("阅读进度参数不合法")
         with self.connect() as db:
-            db.execute("INSERT OR REPLACE INTO progress VALUES(?,?,?)", (identifier, chapter, offset))
+            db.execute("""INSERT INTO progress(book_id, chapter, offset, furthest) VALUES(?,?,?,?)
+                          ON CONFLICT(book_id) DO UPDATE SET chapter=excluded.chapter, offset=excluded.offset,
+                          furthest=MAX(COALESCE(furthest, chapter), excluded.chapter)""",
+                       (identifier, chapter, offset, chapter))
         return {"ok": True}
+
+    def read_up_to(self, identifiers):
+        """{book id: furthest chapter reached} for the given books the reader has opened; a book
+        never opened is absent (nothing read yet, so nothing to protect from spoilers)."""
+        identifiers = [item for item in identifiers if isinstance(item, str)]
+        if not identifiers:
+            return {}
+        marks = ",".join("?" * len(identifiers))
+        with self.connect() as db:
+            rows = db.execute(f"SELECT book_id, COALESCE(furthest, chapter) AS furthest FROM progress "
+                              f"WHERE book_id IN ({marks})", identifiers).fetchall()
+        return {row["book_id"]: int(row["furthest"]) for row in rows}
 
 
 _instance = None

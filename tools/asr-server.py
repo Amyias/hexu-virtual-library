@@ -573,6 +573,19 @@ def chapter_label(number, title):
     return title if title.startswith("第") else f"第{number + 1}章 {title}".strip()
 
 
+# The reader asks to hear what lies ahead. Checked after REFUSES_SPOILERS, so 「别剧透结局」
+# keeps the protection.
+WANTS_SPOILERS = re.compile(
+    r"(不怕|不介意|不在乎|没关系|无所谓|可以|允许|随便)[^。！？，,]{0,3}剧透"
+    r"|剧透[^。！？，,]{0,4}(没关系|没事|无所谓|也行|也可以|吧)"
+    r"|结局|结尾|最后[^。！？，,]{0,4}(怎么样|怎样|如何|结果)|后面[^。！？，,]{0,4}(会|发生|怎么)")
+REFUSES_SPOILERS = re.compile(r"(不要|别|不想|不许|不准|不能|不用)[^。！？，,]{0,6}(剧透|结局|结尾|后面)")
+
+
+def wants_spoilers(text):
+    return not REFUSES_SPOILERS.search(text) and bool(WANTS_SPOILERS.search(text))
+
+
 def book_passages(body, selected):
     """Passages from local books for the chat prompt, as labelled text; "" when no local book is
     involved or nothing matches. The book being read always counts; so does any local title the
@@ -591,20 +604,24 @@ def book_passages(body, selected):
                 targets.append(book["id"])
         if not targets:
             return ""
-        hits = text_search().search(targets[:3], body["text"])
+        targets = targets[:3]
+        # Books the reader has opened are searched only up to the furthest chapter reached, unless
+        # they ask for what comes later: a rule the retrieval keeps, not a request to the model.
+        spoilers = wants_spoilers(question)
+        up_to = {} if spoilers else book_library.instance().read_up_to(targets)
+        hits = text_search().search(targets, body["text"], up_to=up_to)
     except (sqlite3.Error, OSError, book_library.SourceError):
-        return ""
-    if not hits:
         return ""
     names = {book["id"]: book.get("title", "") for book in books}
     lines = [f"【《{names.get(hit['book_id'], '')}》{chapter_label(hit['chapter'], hit['chapter_title'])}】{hit['text']}"
              for hit in hits]
-    if selected and selected.get("id"):
-        reading = describe_book(selected["id"])
-        if reading:
-            lines.append(f"（读者目前读到《{reading['title']}》第 {reading['chapter'] + 1} 章；"
-                         "之后的情节不要主动剧透，除非读者明确问起。）")
-    return "\n".join(lines)
+    for book_id, chapter in up_to.items():
+        lines.append(f"（读者读到《{names.get(book_id, '')}》第 {chapter + 1} 章，片段只取自这一章及之前；"
+                     "之后的情节不要讲，读者明确想听后面的内容时才可以。）")
+    if spoilers and hits:
+        lines.append("（读者明确表示想听后面的情节，可以讲，但先提醒一句会剧透。）")
+    # With no passage but a book in progress, the note alone still stops a spoiler from memory.
+    return "\n".join(lines) if hits or up_to else ""
 
 
 def _chain(first, rest):
