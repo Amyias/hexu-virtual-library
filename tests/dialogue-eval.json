@@ -1,0 +1,60 @@
+{
+  "about": "对话回放集：文字输入的路由、多结果选择、记忆取用与剧透判断的离线场景，书目用 tests/voice-eval/books.json。routing 与 choices 由 tests/dialogue-eval.test.mjs 回放，memory 与 spoilers 由 tests/test_dialogue_eval.py 回放；都不调用大模型。gap 字段标记已知做不到的场景：不计入通过，只列出，修好后去掉 gap。",
+  "routing": [
+    { "text": "帮我找三体", "expect": { "type": "present", "book": "三体" } },
+    { "text": "三体", "expect": { "type": "present", "book": "三体" } },
+    { "text": "HX-03408", "expect": { "type": "present", "book": "狂人日记" } },
+    { "text": "S2-A-L4-P284", "expect": { "type": "present", "book": "狂人日记" } },
+    { "text": "帮我找星海", "expect": { "type": "choose", "books": ["星海Ⅰ·启航", "星海Ⅱ·归途"] } },
+    { "text": "我想读黑暗森林", "expect": { "type": "present", "book": "三体Ⅱ·黑暗森林" } },
+    { "text": "我想读星海归途", "expect": { "type": "present", "book": "星海Ⅱ·归途" }, "gap": "书名中间的「Ⅱ·」使连读的部分书名对不上" },
+    { "text": "三体讲了什么", "expect": { "type": "chat" } },
+    { "text": "总结一下红楼梦", "expect": { "type": "chat" } },
+    { "text": "写一篇活着的读后感", "expect": { "type": "chat" } },
+    { "text": "推荐几本科幻小说", "expect": { "type": "chat" } },
+    { "text": "帮我找几本科幻小说", "expect": { "type": "chat" } },
+    { "text": "怎么找书", "expect": { "type": "chat" } },
+    { "text": "帮我找霍金写的那本", "expect": { "type": "model" } },
+    { "text": "帮我找三国", "expect": { "type": "model" } },
+    { "text": "记住我喜欢科幻小说", "expect": { "type": "remember", "fact": "我喜欢科幻小说" } },
+    { "text": "联网搜索今天的新闻", "expect": { "type": "chat" } },
+    { "text": "下一页", "phase": "READING", "expect": { "type": "reading", "command": "next" } },
+    { "text": "合上", "phase": "READING", "expect": { "type": "reading", "command": "close" } },
+    { "text": "看看芯片", "phase": "READING", "expect": { "type": "reading", "command": "chip" } },
+    { "text": "这一章为什么叫红岸", "phase": "READING", "expect": { "type": "chat" } },
+    { "text": "记住我读到红岸这一章了", "phase": "READING", "expect": { "type": "remember", "fact": "我读到红岸这一章了" } }
+  ],
+  "choices": [
+    { "offered": ["星海Ⅰ·启航", "星海Ⅱ·归途"], "text": "第一本", "pick": "星海Ⅰ·启航" },
+    { "offered": ["星海Ⅰ·启航", "星海Ⅱ·归途"], "text": "第二个", "pick": "星海Ⅱ·归途" },
+    { "offered": ["星海Ⅰ·启航", "星海Ⅱ·归途"], "text": "要第二本吧", "pick": "星海Ⅱ·归途" },
+    { "offered": ["星海Ⅰ·启航", "星海Ⅱ·归途"], "text": "最后那本", "pick": "星海Ⅱ·归途" },
+    { "offered": ["星海Ⅰ·启航", "星海Ⅱ·归途"], "text": "星海Ⅱ·归途", "pick": "星海Ⅱ·归途", "gap": "书名里的罗马数字只在一边转成小写（Ⅱ→ⅱ），完整输入书名反而认不出" },
+    { "offered": ["星海Ⅰ·启航", "星海Ⅱ·归途"], "text": "启航那本", "pick": "星海Ⅰ·启航", "gap": "只说书名后半段加「那本」时认不出" },
+    { "offered": ["三体", "三体Ⅱ·黑暗森林"], "text": "刘慈欣的", "pick": null },
+    { "offered": ["星海Ⅰ·启航", "星海Ⅱ·归途"], "text": "今天天气怎么样", "pick": null }
+  ],
+  "memory": [
+    { "about": "只共用一个字的旧事实", "facts": [["我对猫毛过敏", 20], ["我喜欢科幻小说", 1], ["我最近在学日语", 0]], "question": "我能养猫吗", "first": "我对猫毛过敏" },
+    { "about": "话题相关胜过新近", "facts": [["我喜欢科幻小说", 30], ["我最近在学日语", 1]], "question": "推荐一本科幻小说", "first": "我喜欢科幻小说" },
+    { "about": "没有问题时最新优先", "facts": [["我喜欢科幻小说", 30], ["我最近在学日语", 1]], "question": "", "first": "我最近在学日语" },
+    { "about": "记得名字", "facts": [["我叫小林", 60], ["我喜欢喝茶", 2], ["我周末去爬山", 1]], "question": "你还记得我叫什么吗", "first": "我叫小林" },
+    { "about": "否定的偏好也算相关", "facts": [["我不喜欢恐怖小说", 40], ["我喜欢推理小说", 2]], "question": "有没有恐怖一点的书", "first": "我不喜欢恐怖小说" },
+    { "about": "身体状况", "facts": [["我晚上读书眼睛容易累", 25], ["我喜欢推理小说", 1]], "question": "我眼睛有点累", "first": "我晚上读书眼睛容易累" },
+    { "about": "无关问题退回最新", "facts": [["我喜欢推理小说", 10], ["我在准备考研", 1]], "question": "今天天气怎么样", "first": "我在准备考研" },
+    { "about": "旧对话摘要", "summaries": [["聊了《红楼梦》里林黛玉的性格", 10], ["闲聊了天气", 2], ["闲聊了晚饭", 1], ["闲聊了周末", 0]], "question": "林黛玉为什么爱哭", "summary": "林黛玉" }
+  ],
+  "spoilers": [
+    { "text": "不怕剧透，后来怎么了", "wants": true },
+    { "text": "结局是什么", "wants": true },
+    { "text": "剧透也没关系，叶文洁最后怎样了", "wants": true },
+    { "text": "最后怎么样了", "wants": true },
+    { "text": "后面会发生什么", "wants": true },
+    { "text": "可以剧透", "wants": true },
+    { "text": "别剧透，叶文洁是谁", "wants": false },
+    { "text": "不要告诉我结局", "wants": false },
+    { "text": "不想被剧透，这章讲了什么", "wants": false },
+    { "text": "叶文洁是谁", "wants": false },
+    { "text": "后来怎么样了", "wants": false }
+  ]
+}
