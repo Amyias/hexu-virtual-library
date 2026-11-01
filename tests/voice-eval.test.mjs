@@ -93,6 +93,15 @@ test("replay routes heard text exactly as the program does", () => {
   assert.ok(
     !matches(byId("title-01").expect, replay(byId("title-01"), ["小何帮我找三国"], shelf).outcome),
   );
+  // Continuous listening: the spotter heard the name the transcript spelt 「笑河」 or lost.
+  const spotted = replay(
+    byId("read-03"),
+    [{ text: "笑河读正文", woke: true, request: "读正文" }],
+    shelf,
+  );
+  assert.ok(spotted.wake && matches(byId("read-03").expect, spotted.outcome), "while reading");
+  const nameOnly = replay(byId("wake-02"), [{ text: "可以", woke: true, request: "" }], shelf);
+  assert.ok(matches(byId("wake-02").expect, nameOnly.outcome), "a misheard name is not a request");
 });
 
 test("character errors compare text the way the recogniser writes it", () => {

@@ -48,56 +48,87 @@ function runPython(args) {
     throw new Error((result.stderr || result.stdout || "Python 失败").trim());
 }
 
-async function run(clips, label) {
-  const stamp = new Date().toISOString().replace(/[-:]/g, "").slice(0, 13);
-  const work = path.join(home, "work", stamp);
-  fs.mkdirSync(work, { recursive: true });
-  const listing = [];
-  const clipsById = new Map();
-  const missing = [];
+/** Each recording as { seconds, segments: [{ text, woke, tailMs, recogMs }] }, by the engine the
+ *  program uses: "segment" cuts by loudness here and uploads each piece (createSegmenter, the
+ *  fallback path); "stream" feeds the whole recording to continuous listening (tools/listener.py)
+ *  a quarter second at a time, as the page does when the server offers it. */
+async function hear(clips, engine, work, missing) {
+  const files = [];
   for (const prompt of prompts) {
     const file = path.join(clips, prompt.id + ".wav");
-    if (!fs.existsSync(file)) {
-      missing.push(prompt.id);
-      continue;
+    if (fs.existsSync(file)) files.push([prompt.id, file]);
+    else missing.push(prompt.id);
+  }
+  if (!files.length)
+    throw new Error(`${clips} 里没有录音。先运行 node tools/voice-eval.mjs record`);
+  const heard = new Map();
+  if (engine === "stream") {
+    const listing = files.map(([key, file]) => ({ key, path: file }));
+    fs.writeFileSync(path.join(work, "list.json"), JSON.stringify(listing));
+    runPython(["listen", path.join(work, "list.json"), path.join(work, "out.json")]);
+    const out = JSON.parse(fs.readFileSync(path.join(work, "out.json"), "utf8"));
+    for (const [id] of files) {
+      const { seconds, events } = out[id];
+      const texts = events.filter((event) => event.type === "text");
+      const segments = texts.map((event) => ({
+        text: event.text,
+        woke: event.woke,
+        request: event.request,
+        // From the end of speech to the transcript: the silence that closes it, the wait for
+        // the chunk it ends in, and recognition.
+        tailMs: Math.round((event.at - event.end) * 1000),
+        recogMs: Math.round(event.seconds * 1000),
+      }));
+      // A wake heard with no utterance around it still woke 小和.
+      if (events.some((event) => event.type === "wake") && !texts.some((event) => event.woke))
+        segments.unshift({ text: "", woke: true, tailMs: 0, recogMs: 0 });
+      heard.set(id, { seconds, segments });
     }
+    return heard;
+  }
+  const listing = [];
+  const cut = new Map();
+  for (const [id, file] of files) {
     const samples = readWav(fs.readFileSync(file));
     const segments = segmentsOf(samples);
     for (const [index, segment] of segments.entries()) {
-      const key = `${prompt.id}#${index}`;
-      const target = path.join(work, `${prompt.id}-${index}.wav`);
+      segment.key = `${id}#${index}`;
+      const target = path.join(work, `${id}-${index}.wav`);
       const wav = encodeWav(segment.samples, SEGMENT.TARGET_RATE);
       fs.writeFileSync(target, Buffer.from(await wav.arrayBuffer()));
-      listing.push({ key, path: target });
-      segment.key = key;
+      listing.push({ key: segment.key, path: target });
     }
-    clipsById.set(prompt.id, { seconds: samples.length / SEGMENT.TARGET_RATE, segments });
+    cut.set(id, { seconds: samples.length / SEGMENT.TARGET_RATE, segments });
   }
-  if (!clipsById.size)
-    throw new Error(`${clips} 里没有录音。先运行 node tools/voice-eval.mjs record`);
   fs.writeFileSync(path.join(work, "list.json"), JSON.stringify(listing));
   runPython(["transcribe", path.join(work, "list.json"), path.join(work, "out.json")]);
-  const heard = JSON.parse(fs.readFileSync(path.join(work, "out.json"), "utf8"));
-  fs.rmSync(work, { recursive: true, force: true });
+  const out = JSON.parse(fs.readFileSync(path.join(work, "out.json"), "utf8"));
+  for (const [id, { seconds, segments }] of cut)
+    heard.set(id, {
+      seconds,
+      segments: segments.map((segment) => ({
+        text: out[segment.key]?.text || "",
+        tailMs: segment.tailMs,
+        recogMs: Math.round((out[segment.key]?.seconds || 0) * 1000),
+      })),
+    });
+  return heard;
+}
+
+async function run(clips, label, engine) {
+  const stamp = new Date().toISOString().replace(/[-:]/g, "").slice(0, 13);
+  const work = path.join(home, "work", stamp);
+  fs.mkdirSync(work, { recursive: true });
+  const missing = [];
+  const clipsById = await hear(clips, engine, work, missing).finally(() =>
+    fs.rmSync(work, { recursive: true, force: true }),
+  );
+  label = `${label}-${engine}`;
 
   const shelf = evaluationShelf(slots, bound);
   const rows = prompts
     .filter((prompt) => clipsById.has(prompt.id))
-    .map((prompt) => {
-      const clip = clipsById.get(prompt.id);
-      return scoreClip(
-        prompt,
-        {
-          seconds: clip.seconds,
-          segments: clip.segments.map((segment) => ({
-            text: heard[segment.key]?.text || "",
-            tailMs: segment.tailMs,
-            recogMs: Math.round((heard[segment.key]?.seconds || 0) * 1000),
-          })),
-        },
-        shelf,
-      );
-    });
+    .map((prompt) => scoreClip(prompt, clipsById.get(prompt.id), shelf));
   const used = prompts.filter((prompt) => clipsById.has(prompt.id));
   const summary = summarize(rows, used);
   const report = {
@@ -193,14 +224,23 @@ function record(port) {
 }
 
 const command = process.argv[2] || "run";
+const engine = option("--engine", "stream");
+if (!["stream", "segment"].includes(engine)) {
+  console.error("--engine 只能是 stream（连续收听）或 segment（按音量切段上传）");
+  process.exit(2);
+}
 if (command === "record") record(Number(option("--port", "8098")));
 else if (command === "run")
-  await run(path.resolve(option("--clips", path.join(home, "clips"))), option("--label", "real"));
+  await run(
+    path.resolve(option("--clips", path.join(home, "clips"))),
+    option("--label", "real"),
+    engine,
+  );
 else if (command === "synth") {
   const target = path.join(home, "synthetic");
   console.log("正在用本机欣然语音合成全部提示…");
   runPython(["synth", promptsFile, target]);
-  await run(target, "synthetic");
+  await run(target, "synthetic", engine);
 } else {
   console.error("用法：node tools/voice-eval.mjs record | run | synth");
   process.exit(2);

@@ -3,6 +3,7 @@
 import { decide } from "../../src/app/dialogue.js";
 import { lookupBooks } from "../../src/reader/library.js";
 import { wakeRE } from "../../src/voice/intent.js";
+import { heardRequest } from "../../src/voice/server-asr.js";
 
 /** The evaluation's own shelf: empty slots with the books of books.json bound to them, so the
  *  result never depends on what the reader's real library happens to hold. */
@@ -19,17 +20,39 @@ export function evaluationShelf(slots, bound) {
 /** Run one recording's segment texts through the dialogue as the program would: 「小和」 alone
  *  opens the waiting window, so a request in the next segment needs no wake word. The model is
  *  configured (understand: true) and the reading library is present (fullText: true), as in the
- *  desktop program; routes to the model are scored as routes, nothing is sent. */
+ *  desktop program; routes to the model are scored as routes, nothing is sent.
+ *
+ *  A segment is its text, or { text, woke } from continuous listening: woke means the keyword
+ *  spotter heard 小和 in it, which (as in speech.js) wakes 小和 at once, so the text needs no
+ *  wake word of its own and the name is not answered twice. */
 export function replay(prompt, texts, shelf) {
   const phase = prompt.phase || "IDLE";
   const lookup = (text) => lookupBooks(text, [], shelf);
   let awake = false;
   let heard = false;
   let outcome = { type: "ignore" };
-  for (const text of texts) {
+  for (const segment of texts) {
+    const {
+      text: heardText,
+      woke = false,
+      request,
+    } = typeof segment === "string" ? { text: segment } : segment;
+    // The page acts on the request after the name when the spotter heard it (speech.js).
+    const text = heardRequest(heardText, { woke, request });
+    if (woke) {
+      heard = true;
+      if (phase === "IDLE") awake = true;
+    }
     if (!text) continue;
     heard ||= wakeRE.test(text);
-    const decision = decide(text, { phase, awake, lookup, fullText: true, understand: true });
+    const decision = decide(text, {
+      phase,
+      awake,
+      lookup,
+      fullText: true,
+      understand: true,
+      wasInterimWake: woke && phase === "IDLE",
+    });
     if (decision.type === "ignore") continue;
     if (decision.type === "wake-only") awake = true;
     outcome = decision;
@@ -99,7 +122,11 @@ const ratio = (part, whole) => (whole ? Math.round((part / whole) * 1000) / 1000
 /** One clip's result: { prompt, seconds, segments: [{ text, tailMs, recogMs }] } → scored row. */
 export function scoreClip(prompt, clip, shelf) {
   const texts = clip.segments.map((segment) => segment.text);
-  const { wake, outcome } = replay(prompt, texts, shelf);
+  const { wake, outcome } = replay(
+    prompt,
+    clip.segments.map(({ text, woke = false, request }) => ({ text, woke, request })),
+    shelf,
+  );
   const reference = plain(prompt.say.join(""));
   return {
     id: prompt.id,

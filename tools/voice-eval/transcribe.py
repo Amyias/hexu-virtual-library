@@ -3,6 +3,9 @@
     transcribe LIST OUT   LIST: [{"key", "path"}] of 16 kHz mono WAV segments. Each is decoded by
                           the program's own transcribe() in tools/asr-server.py, the same model,
                           settings and silence check. OUT: {key: {"text", "seconds"}}.
+    listen LIST OUT       LIST: [{"key", "path"}] of whole recordings, fed to continuous listening
+                          (tools/listener.py) a quarter second at a time. OUT: {key: {"seconds",
+                          "events"}} with the wake and text events the page would receive.
     synth PROMPTS DIR     Speak every prompt with the local PrimeTTS voice into DIR/<id>.wav: a
                           stand-in recording to prove the pipeline end to end. One synthetic voice
                           says nothing about how well real readers are heard.
@@ -41,6 +44,26 @@ def transcribe(listing, out):
         status, payload = asr.transcribe(Path(item["path"]).read_bytes())
         results[item["key"]] = {"text": payload.get("text", "") if status == 200 else "",
                                 "seconds": payload.get("seconds", 0.0), "status": status}
+    Path(out).write_text(json.dumps(results, ensure_ascii=False), encoding="utf-8")
+
+
+def listen(listing, out):
+    """Whole recordings through continuous listening (tools/listener.py), a quarter second at a
+    time as the page sends them. LIST: [{"key", "path"}]; OUT: {key: {"seconds", "events"}}."""
+    import listener
+
+    asr = server()
+    if not asr.model_state()[0] or not asr.LISTENER.state()[0]:
+        sys.exit("识别模型或连续收听模型不可用")
+    results = {}
+    for index, item in enumerate(json.loads(Path(listing).read_text(encoding="utf-8"))):
+        audio = samples_of(Path(item["path"]).read_bytes())
+        session = asr.LISTENER.session(f"eval-{index:04d}-{item['key']}"[:64])
+        events = []
+        for at in range(0, len(audio), 4000):
+            events += session.feed(audio[at:at + 4000], asr.decode)[0]
+        asr.LISTENER.close(f"eval-{index:04d}-{item['key']}"[:64])
+        results[item["key"]] = {"seconds": len(audio) / listener.RATE, "events": events}
     Path(out).write_text(json.dumps(results, ensure_ascii=False), encoding="utf-8")
 
 
@@ -86,6 +109,7 @@ def speaker_wav(audio, rate):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 4 or sys.argv[1] not in ("transcribe", "synth"):
-        sys.exit("用法：transcribe LIST OUT | synth PROMPTS DIR")
-    (transcribe if sys.argv[1] == "transcribe" else synth)(sys.argv[2], sys.argv[3])
+    modes = {"transcribe": transcribe, "listen": listen, "synth": synth}
+    if len(sys.argv) != 4 or sys.argv[1] not in modes:
+        sys.exit("用法：transcribe LIST OUT | listen LIST OUT | synth PROMPTS DIR")
+    modes[sys.argv[1]](sys.argv[2], sys.argv[3])
