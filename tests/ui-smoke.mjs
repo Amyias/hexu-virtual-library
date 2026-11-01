@@ -604,12 +604,12 @@ try {
         const events = [...reply.match(/[^。]+。?/g).map((text) => ({type:'delta',text})),
           {type:'done',reply,model:'mock-chat-model',configuration:chatTest.config,sources:[{id:1,title:'<img src=x onerror=alert(1)>参考资料',url:'https://example.com/evidence'},{url:'javascript:alert(1)'}]}];
         const encoder = new TextEncoder();
-        const body = new ReadableStream({ async start(controller) {
-          for (const event of events) {
-            controller.enqueue(encoder.encode(JSON.stringify(event) + '\\n'));
-            await new Promise((resolve) => setTimeout(resolve, 5));
-          }
-          controller.close();
+        // One line per read, as a network stream delivers them. Not paced by timers: in software
+        // WebGL a timer waits for the next frame, seconds away, and 27 of them outlast the step.
+        const body = new ReadableStream({ pull(controller) {
+          const event = events.shift();
+          if (event) controller.enqueue(encoder.encode(JSON.stringify(event) + '\\n'));
+          else controller.close();
         } });
         return new Response(body,{status:200,headers:{'Content-Type':'application/x-ndjson; charset=utf-8'}});
       }
@@ -622,6 +622,13 @@ try {
     "自由提问完成",
   );
   await page.evaluate("document.querySelector('#bubble [data-bubble-finish]').click()");
+  // The bubble takes its full height in the next frame (frame() sets its available height), and
+  // a software-rendered frame takes seconds: wait for it instead of measuring straight away.
+  await waitFor(
+    () => page.evaluate("document.getElementById('bubble').getBoundingClientRect().height > 240"),
+    "完整回答气泡展开",
+    30_000,
+  );
   const chatCheck = await page.evaluate(`({
     panelHidden:document.getElementById('conversation').hidden,
     visible:libraryDebug.getState().dialogue.visible,
