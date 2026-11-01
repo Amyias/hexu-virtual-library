@@ -129,6 +129,12 @@ function archive(version, withModel, modelOnly = false) {
         ...entries,
         "--exclude",
         "_internal/models",
+        // Continuous listening travels with the program, not the model archive, so installs
+        // that keep their speech model across updates still receive it.
+        "--require",
+        "_internal/listen-models/silero_vad.onnx",
+        "--require",
+        "_internal/listen-models/kws-encoder.int8.onnx",
       ],
       { stdio: "inherit" },
     );

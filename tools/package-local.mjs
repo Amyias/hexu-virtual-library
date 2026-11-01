@@ -40,6 +40,47 @@ const VOICE_FILE = "primetts_v21_3voice.onnx";
 const VOICE_URL = `https://huggingface.co/Luigi/PrimeTTS/resolve/${VOICE_REVISION}/v21_mbistft_16k/${VOICE_FILE}`;
 const VOICE_BYTES = 116947806;
 const VOICE_SHA256 = "0cf64ad010a9b92201222533900ece31562a0181e7a8e435e5de83b3d72b4bdf";
+// Continuous listening (tools/listener.py): Silero VAD and a Chinese keyword spotter, from the
+// sherpa-onnx project's own releases. Small enough (about 6 MB) to travel in the program archive,
+// so installs that keep their speech model across updates still receive them.
+const LISTEN_RELEASES = "https://github.com/k2-fsa/sherpa-onnx/releases/download";
+const LISTEN_VAD_URL = `${LISTEN_RELEASES}/asr-models/silero_vad.onnx`;
+const LISTEN_KWS_NAME = "sherpa-onnx-kws-zipformer-wenetspeech-3.3M-2024-01-01";
+const LISTEN_KWS_URL = `${LISTEN_RELEASES}/kws-models/${LISTEN_KWS_NAME}.tar.bz2`;
+const LISTEN_KWS_SHA256 = "b2f7c89690dc8ce4c6ed6afeab7cd800c36ad1421fb6b6302b4a4b194cf7f35f";
+// name in .cache/models/listen ← member of the archive (null: the VAD file itself), bytes, sha256
+const LISTEN_FILES = [
+  [
+    "silero_vad.onnx",
+    null,
+    643854,
+    "9e2449e1087496d8d4caba907f23e0bd3f78d91fa552479bb9c23ac09cbb1fd6",
+  ],
+  [
+    "kws-encoder.int8.onnx",
+    "encoder-epoch-12-avg-2-chunk-16-left-64.int8.onnx",
+    4777666,
+    "dd784973fc9d2fabb3b800d6dcd20fc3b0ca84f8e2415afe54b032878e447f4d",
+  ],
+  [
+    "kws-decoder.int8.onnx",
+    "decoder-epoch-12-avg-2-chunk-16-left-64.int8.onnx",
+    181069,
+    "ed83454004d5bd16d831eaf00adcd181ed7734886aab6ef440f3ffa5aa3cfe3b",
+  ],
+  [
+    "kws-joiner.int8.onnx",
+    "joiner-epoch-12-avg-2-chunk-16-left-64.int8.onnx",
+    65242,
+    "f79760052b87239e325f0567c752ad3130b30d92effb847d4307743c20c59a24",
+  ],
+  [
+    "kws-tokens.txt",
+    "tokens.txt",
+    1627,
+    "72316508d9119696145abc6f1f8cdc46287535c34e5ce7e595f845cb1499cf2e",
+  ],
+];
 // The repository of record, and the only one that carries the `model` branch.
 const GITHUB_REMOTE = "git@github.com:Amyias/hexu-virtual-library.git";
 
@@ -59,6 +100,9 @@ const modelDir = path.resolve(
 );
 const voiceDir = path.resolve(
   process.env.HEXU_TTS_MODEL_DIR || path.join(cache, "models", "primetts-v2.1"),
+);
+const listenDir = path.resolve(
+  process.env.HEXU_LISTEN_MODEL_DIR || path.join(cache, "models", "listen"),
 );
 const withVoice = !process.argv.includes("--no-voice");
 const stage = path.join(cache, "stage", "site");
@@ -328,6 +372,70 @@ ${VOICE_URL}
   log(`语音模型  ${megabytes(VOICE_BYTES)}  ${voiceDir}（欣然，SHA-256 已校验）`);
 }
 
+/** The continuous-listening models, fetched from their pinned sherpa-onnx releases when missing
+ *  and checked file by file before every build. The keyword archive (32 MB, mostly test audio
+ *  and full-precision copies) is unpacked into a folder of its own and only four files kept. */
+async function checkListenModels() {
+  const matches = (file, bytes, sha) =>
+    fs.existsSync(file) &&
+    fs.statSync(file).size === bytes &&
+    createHash("sha256").update(fs.readFileSync(file)).digest("hex") === sha;
+  const missing = LISTEN_FILES.filter(
+    ([name, , bytes, sha]) => !matches(path.join(listenDir, name), bytes, sha),
+  );
+  if (missing.length) {
+    log(`下载连续收听模型（VAD 与唤醒词，约 33 MB）…`);
+    const downloads = path.join(cache, "downloads", "listen");
+    const unpacked = path.join(downloads, "unpacked");
+    fs.mkdirSync(downloads, { recursive: true });
+    fs.mkdirSync(listenDir, { recursive: true });
+    const fetchTo = async (url, file) => {
+      try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        fs.writeFileSync(file, Buffer.from(await response.arrayBuffer()));
+      } catch (error) {
+        fail(`连续收听模型下载失败：${error.message}\n${url}`);
+      }
+    };
+    const archive = path.join(downloads, `${LISTEN_KWS_NAME}.tar.bz2`);
+    if (missing.some(([, member]) => member)) {
+      if (
+        !matches(
+          archive,
+          fs.existsSync(archive) ? fs.statSync(archive).size : -1,
+          LISTEN_KWS_SHA256,
+        )
+      )
+        await fetchTo(LISTEN_KWS_URL, archive);
+      if (createHash("sha256").update(fs.readFileSync(archive)).digest("hex") !== LISTEN_KWS_SHA256)
+        fail("唤醒词模型包的 SHA-256 与固定版本不符，拒绝使用。");
+      fs.rmSync(unpacked, { recursive: true, force: true });
+      // tarfile's "data" filter refuses links and paths that would leave the target folder.
+      const extracted = run(venvPython, [
+        "-I",
+        "-c",
+        "import sys, tarfile; tarfile.open(sys.argv[1], 'r:bz2').extractall(sys.argv[2], filter='data')",
+        archive,
+        unpacked,
+      ]);
+      if (extracted.status !== 0) fail("唤醒词模型包解压失败。");
+    }
+    for (const [name, member] of missing) {
+      const target = path.join(listenDir, name);
+      if (member) fs.copyFileSync(path.join(unpacked, LISTEN_KWS_NAME, member), target);
+      else await fetchTo(LISTEN_VAD_URL, target);
+    }
+    fs.rmSync(unpacked, { recursive: true, force: true });
+    const wrong = LISTEN_FILES.filter(
+      ([name, , bytes, sha]) => !matches(path.join(listenDir, name), bytes, sha),
+    );
+    if (wrong.length) fail(`连续收听模型与固定版本不符：${wrong.map(([name]) => name).join("、")}`);
+  }
+  const total = LISTEN_FILES.reduce((sum, [, , bytes]) => sum + bytes, 0);
+  log(`收听模型  ${megabytes(total)}  ${listenDir}（VAD 与唤醒词，SHA-256 已校验）`);
+}
+
 /** Record what this build was made from, inside the bundle.
 
  *  The installed program can then say which commit it is, and the updater — which works by
@@ -463,6 +571,7 @@ function build(python) {
         ...process.env,
         HEXU_ASR_MODEL_DIR: modelDir,
         HEXU_TTS_MODEL_DIR: withVoice ? voiceDir : "",
+        HEXU_LISTEN_MODEL_DIR: listenDir,
       },
     },
   );
@@ -493,6 +602,8 @@ function verify() {
     path.join(appDir, "_internal", "public", "models", "celestial.glb"),
     path.join(appDir, "_internal", "models", "sense-voice", "model.int8.onnx"),
     ...(withVoice ? [path.join(appDir, "_internal", "models", "primetts", VOICE_FILE)] : []),
+    ...LISTEN_FILES.map(([name]) => path.join(appDir, "_internal", "listen-models", name)),
+    path.join(appDir, "_internal", "listen-models", "listen-keywords.txt"),
   ];
   const missing = required.filter((file) => !fs.existsSync(file));
   if (missing.length) fail("打包结果缺少文件：\n  " + missing.join("\n  "));
@@ -655,6 +766,7 @@ if (python) {
   checkModel();
   if (withVoice) await checkVoiceModel();
   else log("--no-voice：不打包语音模型，程序将使用系统语音。");
+  await checkListenModels();
   stageSite();
   build(python);
 } else {

@@ -46,6 +46,19 @@ if VOICE_DIR:
     datas.append((str(voice_model), "models/primetts"))
     datas.append((str(HERE / "primetts" / "NOTICE.md"), "models/primetts"))
 
+# Continuous listening (tools/listener.py): VAD, the keyword spotter and the wake words. Outside
+# models/ on purpose: the program archive carries them, so an update reaches installs that keep
+# their speech model. Without them the program still works and uploads whole segments instead.
+LISTEN_DIR = os.environ.get("HEXU_LISTEN_MODEL_DIR", "").strip()
+if LISTEN_DIR:
+    for name in ("silero_vad.onnx", "kws-encoder.int8.onnx", "kws-decoder.int8.onnx",
+                 "kws-joiner.int8.onnx", "kws-tokens.txt"):
+        source = Path(LISTEN_DIR) / name
+        if not source.is_file():
+            raise SystemExit(f"缺少连续收听模型：{source}（先运行 node tools/package-local.mjs）")
+        datas.append((str(source), "listen-models"))
+    datas.append((str(HERE / "listen-keywords.txt"), "listen-models"))
+
 # sherpa-onnx is a compiled extension plus its shared libraries; neither is discovered by
 # static analysis of the two deferred imports inside transcribe().
 binaries = collect_dynamic_libs("sherpa_onnx") + collect_dynamic_libs("onnxruntime")
@@ -56,7 +69,7 @@ datas += copy_metadata("pypinyin")
 # and clr_loader sit behind it, so they are named here rather than left to the import graph.
 # PyInstaller's own hooks then collect what those need: Python.Runtime.dll for pythonnet, and
 # webview/lib — the WebView2 interop assemblies — for pywebview.
-hiddenimports = ["sherpa_onnx", "numpy", "tts", "primetts", "primetts.text_norm", "onnxruntime",
+hiddenimports = ["sherpa_onnx", "numpy", "tts", "listener", "primetts", "primetts.text_norm", "onnxruntime",
                  "cn2an", "proces", "window_host", "window_chrome", "updater", "book_library", "book_sources", "builtin_book_sources", "wyshu_source", "pypinyin", "windows_book_http", "source_rules", "lxml.html", "lxml.etree", "lxml.cssselect",
                  "cssselect", "jsonpath_ng.ext", "jsonpath_ng._ply_tables.parser_table",
                  "jsonpath_ng._ply_tables.ext_parser_table", "jsonpath_ng._ply_tables.lexer_table",

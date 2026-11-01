@@ -88,7 +88,8 @@ npm start
 | `src/data/inventory.js` | 紧凑清单的展开规则：编号、位置码、检索关键词、芯片载荷都由行号与坐标推出 |
 | `src/voice/intent.js` | 唤醒词与馆藏匹配 |
 | `src/voice/speech.js` | Web Speech API 生命周期和识别事件 |
-| `src/voice/server-asr.js` | 服务端识别通道：录音、能量断句、上传（后端可用时才启用） |
+| `src/voice/server-asr.js` | 服务端识别通道：连续收听（每 0.25 秒上传，服务端报告唤醒与整句），或退回能量断句后整段上传 |
+| `src/voice/capture-worklet.js` | 连续收听的麦克风采集，跑在音频线程，主线程卡顿时也不丢音频 |
 | `src/voice/understand.js` | 语义解析通道：本地规则读不懂的说法交给大语言模型（已配置时才启用） |
 | `src/scene/runtime.js` | 相机、光照、阴影、环境反射 |
 | `src/scene/environment.js` | 加载 Blender GLB、悬浮分类标识、书架实例化入口 |
@@ -140,6 +141,7 @@ npm start
 | `public/vendor/draco/` | Draco 解码器（Apache-2.0），环境模型用它解压几何 |
 | `tools/serve.mjs` | Node 本地服务与按需启动的 Python 正文书库代理 |
 | `tools/asr-server.py` | 一个进程两种跑法：服务器模式（静态站点 + 本机模型识别），或经 PyInstaller 冻结成本机程序 |
+| `tools/listener.py` | 连续收听：Silero VAD 断句、开放词表唤醒词（`tools/listen-keywords.txt`）、按发音找出名字之后的请求 |
 | `tools/window_host.py` | 打包版的窗口：用 WebView2 承载页面，并替页面放行麦克风（WebView2 默认拒绝） |
 | `tools/updater.py` | 更新：查 GitHub 最新发行版、下载并校验程序包（断点续传）、退出后替换并重开；模型不变时不重下 |
 | `tools/package-local.mjs` | 本机版打包：准备虚拟环境、校验模型、暂存站点并预压缩、调 PyInstaller、可选桌面快捷方式 |

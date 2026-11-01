@@ -61,6 +61,7 @@ import updater
 import book_library
 import app_actions
 import book_text_search
+import listener
 import reader_memory
 import tts
 import llm_chat
@@ -138,6 +139,7 @@ LOOPBACK_NAMES = {"localhost", "127.0.0.1", "::1"}
 
 MODEL_DIR = model_dir()
 MODEL_FILE = MODEL_DIR / "model.int8.onnx"
+LISTENER = listener.Listener(listener.model_dir(site_root(), frozen()))
 TOKENS_FILE = MODEL_DIR / "tokens.txt"
 
 MAX_BODY = 1_500_000        # ~47 s of 16 kHz mono 16-bit PCM, half a megabyte of slack
@@ -197,6 +199,9 @@ def model_state():
         "languages": ["zh", "en", "ja", "ko", "yue"],
         "model_dir": str(MODEL_DIR),
         "max_seconds": MAX_SECONDS,
+        # Continuous listening (POST /asr/stream): the page streams audio and is told the moment
+        # 小和 is named. Without its small models the page uploads whole segments instead.
+        "streaming": LISTENER.state()[0],
     }
 
 
@@ -257,19 +262,28 @@ def transcribe(raw):
         return 200, {"text": "", "duration": round(duration, 3), "silent": True}
 
     started = time.perf_counter()
-    if not _result_lock.acquire(timeout=25):
+    try:
+        text = decode(samples)
+    except TimeoutError:
         return 503, {"error": "正在准备识别模型，请稍后再说一次"}
+    return 200, {
+        "text": text,
+        "duration": round(duration, 3),
+        "seconds": round(time.perf_counter() - started, 3),
+    }
+
+
+def decode(samples):
+    """Text for 16 kHz float samples; TimeoutError when the model stays busy. Shared by whole
+    uploads (transcribe) and continuous listening (listener.Session)."""
+    if not _result_lock.acquire(timeout=25):
+        raise TimeoutError("recogniser busy")
     try:
         stream = recognizer().create_stream()
         stream.accept_waveform(16000, samples)
         _recognizer.decode_stream(stream)
         # Tags such as <|zh|> are already split out of .text by this build; strip defensively.
-        text = re.sub(r"<\|.*?\|>", "", stream.result.text).strip()
-        return 200, {
-            "text": text,
-            "duration": round(duration, 3),
-            "seconds": round(time.perf_counter() - started, 3),
-        }
+        return re.sub(r"<\|.*?\|>", "", stream.result.text).strip()
     finally:
         _result_lock.release()
 
@@ -1107,6 +1121,9 @@ class Handler(SimpleHTTPRequestHandler):
                 return
             self._post_update_apply()
             return
+        if pathname == "/asr/stream":
+            self._post_asr_stream()
+            return
         if pathname != "/asr":
             self.send_error(404, "Not found")
             return
@@ -1124,6 +1141,38 @@ class Handler(SimpleHTTPRequestHandler):
         raw = self.rfile.read(length)
         status, payload = transcribe(raw)
         self._send_json(status, payload)
+
+
+    def _post_asr_stream(self):
+        """One chunk of a page's continuous audio (16 kHz mono 16-bit PCM, ?session=<id>):
+        answers the wake words heard and the utterances finished since the last chunk."""
+        if not (model_state()[0] and LISTENER.state()[0]):
+            self._send_json(503, {"error": "连续收听不可用"})
+            return
+        query = urllib.parse.parse_qs(urllib.parse.urlsplit(self.path).query)
+        identifier = (query.get("session") or [""])[0]
+        if (query.get("end") or [""])[0] == "1":  # the page stopped listening
+            LISTENER.close(identifier)
+            self._send_json(200, {"events": [], "speaking": False})
+            return
+        try:
+            length = int(self.headers.get("Content-Length") or 0)
+            if length <= 0 or length > listener.MAX_CHUNK_SECONDS * listener.RATE * 2:
+                raise ValueError("音频块无效")
+            session = LISTENER.session(identifier)
+            samples = listener.samples_from_pcm(self.rfile.read(length))
+        except ValueError as error:
+            self._send_json(400, {"error": str(error)})
+            return
+
+        def recognize(audio):
+            try:
+                return decode(audio)
+            except TimeoutError:
+                return ""
+
+        events, speaking = session.feed(samples, recognize)
+        self._send_json(200, {"events": events, "speaking": speaking})
 
 
 def parse_argv(argv):

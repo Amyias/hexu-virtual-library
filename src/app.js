@@ -196,6 +196,8 @@ export async function startLibrary() {
     processText: assistant.processText,
     getPhase: () => machine.phase,
     lookupBook: assistant.lookup,
+    // 「小和」 said over 小和's own voice stops the reply being spoken and written.
+    interrupt: assistant.cancelPending,
   });
   bindInput({
     $,

@@ -130,7 +130,206 @@ export function createSegmenter() {
 
 export const SEGMENT = { FRAME, TARGET_RATE, SPEECH_RMS, SILENCE_FRAMES };
 
-export function createServerAsr({ post, onText, onStatus, onError }) {
+/** The server recogniser for this page: continuous listening when the server offers it
+ *  (info.streaming from /asr/ready), otherwise whole segments cut by loudness here. */
+export function createServerAsr(options) {
+  return options.streaming ? createStreamingAsr(options) : createSegmentAsr(options);
+}
+
+/** The text to act on for one heard utterance. When the keyword spotter heard 小和 in it, the
+ *  server found the request after the name by sound (listener.request_after_name): the
+ *  transcript may spell the name 「笑河」 or lose it, so the name is put back in its usual
+ *  form and the leftover is never mistaken for a request. */
+export function heardRequest(text, { woke = false, request } = {}) {
+  return woke && typeof request === "string" ? "小和，" + request : text;
+}
+
+/** 16 kHz float samples as the 16-bit little-endian PCM /asr/stream takes. */
+export function toPcm16(samples) {
+  const out = new Int16Array(samples.length);
+  for (let i = 0; i < samples.length; i++) {
+    const clamped = Math.max(-1, Math.min(1, samples[i]));
+    out[i] = clamped < 0 ? clamped * 0x8000 : clamped * 0x7fff;
+  }
+  return out;
+}
+
+const STREAM_SEND = 4000; // a quarter of a second: how soon a wake word can be answered
+const STREAM_MAX = 3 * TARGET_RATE; // a backlog after a slow request goes in pieces this big
+const STREAM_FAILURES = 3;
+
+/** Continuous listening's send loop, without the microphone: push(samples at `rate`) queues
+ *  audio, and one request at a time carries what has gathered to /asr/stream. The server's
+ *  events come back through onEvents; after STREAM_FAILURES failed requests in a row, onFail.
+ *  While a sentence is being recognised the audio keeps queueing, so nothing is lost. */
+export function createStreamClient({ post, rate, session, onEvents, onFail }) {
+  let queue = [];
+  let queued = 0;
+  let sending = false;
+  let failures = 0;
+  let open = true;
+  const ratio = rate / TARGET_RATE;
+
+  async function pump() {
+    if (sending || !open || queued < STREAM_SEND * ratio) return;
+    const joined = new Float32Array(queued);
+    let at = 0;
+    for (const part of queue) {
+      joined.set(part, at);
+      at += part.length;
+    }
+    const take = Math.min(joined.length, Math.floor(STREAM_MAX * ratio));
+    const rest = joined.subarray(take);
+    queue = rest.length ? [rest] : [];
+    queued = rest.length;
+    sending = true;
+    try {
+      const pcm = toPcm16(resample(joined.subarray(0, take), rate, TARGET_RATE));
+      const payload = await post(`${ASR_PATH}/stream?session=${session}`, pcm.buffer);
+      failures = 0;
+      if (open) onEvents(payload);
+    } catch (error) {
+      if (++failures >= STREAM_FAILURES && open) {
+        open = false;
+        onFail(error);
+      }
+    } finally {
+      sending = false;
+    }
+    pump();
+  }
+
+  return {
+    push(samples) {
+      if (!open) return;
+      queue.push(samples);
+      queued += samples.length;
+      pump();
+    },
+    close() {
+      open = false;
+      queue = [];
+      queued = 0;
+    },
+    get sending() {
+      return sending;
+    },
+  };
+}
+
+function newSession() {
+  return (
+    globalThis.crypto?.randomUUID?.() ?? `s${Date.now()}${Math.random().toString(36).slice(2)}`
+  );
+}
+
+/** Continuous listening: the microphone streams to the server, which says when 小和 is named
+ *  (onWake, mid-sentence) and when an utterance is finished (onText with { woke }). */
+function createStreamingAsr({ onText, onWake, onStatus, onError }) {
+  let stream = null;
+  let context = null;
+  let node = null;
+  let source = null;
+  let client = null;
+  let session = null;
+
+  async function post(url, body) {
+    const response = await fetch(url, { method: "POST", body });
+    const payload = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(payload.error || "识别服务返回 " + response.status);
+    return payload;
+  }
+
+  function handle({ events = [], speaking = false }) {
+    for (const event of events) {
+      if (event.type === "wake") onWake?.();
+      else if (event.type === "text" && event.text)
+        onText(event.text, { woke: Boolean(event.woke), request: event.request });
+    }
+    onStatus(speaking ? "正在听…" : "监听中：请说“小和”", "live");
+  }
+
+  function release() {
+    if (node) {
+      node.port.onmessage = null;
+      node.disconnect();
+      node = null;
+    }
+    if (source) {
+      source.disconnect();
+      source = null;
+    }
+    if (context) {
+      context.close();
+      context = null;
+    }
+    if (stream) {
+      stream.getTracks().forEach((track) => track.stop());
+      stream = null;
+    }
+  }
+
+  return {
+    async start() {
+      onStatus("正在连接语音服务");
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({
+          audio: { channelCount: 1, echoCancellation: true, noiseSuppression: true },
+        });
+      } catch (error) {
+        onError(
+          error && error.name === "NotFoundError"
+            ? "未找到可用麦克风"
+            : "麦克风未获授权，请检查站点权限",
+        );
+        return false;
+      }
+      context = new AudioContext({ sampleRate: TARGET_RATE });
+      if (context.state === "suspended") await context.resume();
+      await context.audioWorklet.addModule(new URL("./capture-worklet.js", import.meta.url));
+      source = context.createMediaStreamSource(stream);
+      // No outputs: the node is a sink, rendered without being wired to the speakers.
+      node = new AudioWorkletNode(context, "hexu-capture", { numberOfOutputs: 0 });
+      session = newSession();
+      client = createStreamClient({
+        post,
+        rate: context.sampleRate,
+        session,
+        onEvents: handle,
+        onFail(error) {
+          release();
+          onError("连续收听中断：" + error.message);
+          onStatus("语音感知已关闭", "off");
+        },
+      });
+      node.port.onmessage = (event) => client?.push(event.data);
+      source.connect(node);
+      onStatus("监听中：请说“小和”", "live");
+      return true;
+    },
+    stop() {
+      client?.close();
+      client = null;
+      if (session) {
+        // Let the server forget this page's detector now rather than after its idle timeout.
+        fetch(`${ASR_PATH}/stream?session=${session}&end=1`, {
+          method: "POST",
+          keepalive: true,
+        }).catch(() => {});
+        session = null;
+      }
+      release();
+    },
+    get running() {
+      return Boolean(node);
+    },
+    get paused() {
+      return false;
+    },
+  };
+}
+
+function createSegmentAsr({ onText, onStatus, onError }) {
   let stream = null;
   let context = null;
   let node = null;

@@ -1,8 +1,16 @@
 import { findBook, wakeRE } from "./intent.js";
-import { createServerAsr, probeServerAsr } from "./server-asr.js";
+import { createServerAsr, heardRequest, probeServerAsr } from "./server-asr.js";
 import { voice } from "./voice.js";
 /* Browser recognizer lifecycle, independent of rendering and animation. */
-export function createSpeech({ $, notice, wake, processText, getPhase, lookupBook = findBook }) {
+export function createSpeech({
+  $,
+  notice,
+  wake,
+  processText,
+  getPhase,
+  lookupBook = findBook,
+  interrupt = () => voice.cancel(),
+}) {
   // Real Web Speech API: one live recognizer, interim wake-up, final intent, automatic restart.
   const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   let recognition = null,
@@ -191,13 +199,35 @@ export function createSpeech({ $, notice, wake, processText, getPhase, lookupBoo
   /* A deployment may serve a local recogniser (tools/asr-server.py). Probing must not block the
      wiring above: the Web Speech path is bound synchronously either way, so a plain static
      deployment keeps behaving exactly as it did. */
+  /* While 小和 speaks, the microphone mostly hears 小和 (echo cancellation is not guaranteed in
+     every window), so a transcript then, or just after, is not the reader's — the gate the
+     browser transport has too. Its name is the exception: continuous listening hears 「小和」
+     the moment it is said, which stops the voice mid-sentence (barge-in). */
+  const ECHO_TAIL_MS = 600;
+  let lastSpoke = 0;
+  let echoWatch = null;
+  const echoing = () => voice.isSpeaking() || Date.now() - lastSpoke < ECHO_TAIL_MS;
   probeServerAsr().then((info) => {
     if (info) {
+      echoWatch = setInterval(() => {
+        if (voice.isSpeaking()) lastSpoke = Date.now();
+      }, 200);
       serverAsr = createServerAsr({
-        onText(text) {
+        streaming: Boolean(info.streaming),
+        onWake() {
+          if (voice.isSpeaking()) {
+            interrupt();
+            lastSpoke = 0; // what follows the name is the reader speaking, not an echo
+          }
+          if (getPhase() === "IDLE") wake();
+        },
+        onText(text, { woke = false, request } = {}) {
           $("transcript").textContent = "听到：" + text;
-          record(text, text, 1, Boolean(lookupBook(text)));
-          processText(text, false, false);
+          if (!woke && echoing()) return;
+          const used = heardRequest(text, { woke, request });
+          record(text, used, 1, Boolean(lookupBook(used)));
+          // woke: the name was already answered mid-sentence, so it must not be answered twice.
+          processText(used, false, woke && getPhase() === "IDLE");
         },
         onStatus: micStatus,
         onError(message) {
@@ -308,6 +338,7 @@ export function createSpeech({ $, notice, wake, processText, getPhase, lookupBoo
     disarmAutoStart();
     clearTimeout(restartTimer);
     clearTimeout(silentTimer);
+    clearInterval(echoWatch);
     serverAsr?.stop();
     recognition?.abort();
     voice.cancel();
@@ -320,6 +351,7 @@ export function createSpeech({ $, notice, wake, processText, getPhase, lookupBoo
       disarmAutoStart();
       clearTimeout(restartTimer);
       clearTimeout(silentTimer);
+      clearInterval(echoWatch);
       serverAsr?.stop();
       recognition?.abort();
     },
