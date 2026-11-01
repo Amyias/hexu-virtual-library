@@ -112,7 +112,9 @@ const ORDINAL = { 一: 0, 1: 0, 二: 1, 两: 1, 2: 1, 三: 2, 3: 2, 四: 3, 4: 3
 /** Which of the offered books the reader means: 「第一本」「第二个」「最后那本」, a title or an
  *  author. null when the answer does not pick one, so it is handled as a new request. */
 export function pickChoice(text, choices) {
-  const request = requestOf(text).replace(/^(?:我要|要|选|就|是)+/, "");
+  // Normalised like the titles it is compared with: lower case turns 「Ⅱ」 into 「ⅱ」 and
+  // 「Austen」 into 「austen」, so an answer typed exactly as the title would otherwise miss it.
+  const request = normalize(requestOf(text)).replace(/^(?:我要|要|选|就|是)+/, "");
   if (!request) return null;
   if (/^(?:最后|末尾|最后面)(?:一|那)?(?:本|个|部)?/.test(request)) return choices.at(-1) ?? null;
   const ordinal = request.match(/^第?([一两二三四1-4])(?:本|个|部|种|项)?(?:吧|吗|啊)?$/);
