@@ -307,3 +307,23 @@ test("several equally good books are offered for choosing, then picked by number
   for (const answer of ["第五本", "随便", "刘慈欣", "帮我找时间简史"])
     assert.equal(pickChoice(answer, tied), null, answer);
 });
+
+test("a question about 「this page」 while reading carries the page, and only then", async () => {
+  const { asksAboutPage } = await import("../src/app/dialogue.js");
+  for (const text of [
+    "这段什么意思",
+    "这里看不懂",
+    "解释一下",
+    "上面这句是什么意思",
+    "刚才那段讲了啥",
+  ])
+    assert.ok(asksAboutPage(text), text);
+  for (const text of ["叶文洁是谁", "下一页", "推荐一本书", ""])
+    assert.ok(!asksAboutPage(text), text);
+  const backend = service();
+  const chat = createChatSession({ request: backend.request });
+  await chat.ask("这段什么意思", "READING", "HX-00001", { page: "红岸基地的天线指向天空。" });
+  await chat.ask("叶文洁是谁", "READING", "HX-00001");
+  assert.equal(backend.calls[0].page, "红岸基地的天线指向天空。");
+  assert.ok(!("page" in backend.calls[1]), "no page unless asked about it");
+});

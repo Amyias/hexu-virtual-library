@@ -901,6 +901,14 @@ try {
   await click("nextPage");
   await waitFor(async () => (await state()).novel.offset > 0, "正文翻到下一页");
   step("正文翻页");
+  // Back a page and staying there: 小和 offers, quietly and once, to explain.
+  await click("previousPage");
+  await waitFor(
+    async () => /解释一下/.test((await state()).dialogue.message || ""),
+    "翻回停留后小和询问",
+    90_000,
+  );
+  step("翻回停留时轻声询问", "约 30 秒后，不出声");
   await click("closeNovel");
 
   await click("inspectChip");

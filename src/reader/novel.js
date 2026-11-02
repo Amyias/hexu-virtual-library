@@ -1,5 +1,10 @@
 /** Real text pagination measured in the current viewport; progress uses a character offset. */
-export function createNovelReader({ notice, onShow = () => {}, onHide = () => {} }) {
+export function createNovelReader({
+  notice,
+  onShow = () => {},
+  onHide = () => {},
+  onLinger = () => {},
+}) {
   const section = document.createElement("section");
   section.id = "novelReader";
   section.hidden = true;
@@ -102,6 +107,8 @@ export function createNovelReader({ notice, onShow = () => {}, onHide = () => {}
     hide();
     documentBook = null;
     openedCover = false;
+    offered = false;
+    clearTimeout(lingerTimer);
     previousOffsets.clear();
     const current = ++generation;
     if (!book?.localBookId) return;
@@ -166,7 +173,7 @@ export function createNovelReader({ notice, onShow = () => {}, onHide = () => {}
     render();
   }
   $("nextPage").onclick = next;
-  $("previousPage").onclick = previous;
+  $("previousPage").onclick = stepBack;
   $("closeNovel").onclick = hide;
   $("novelToc").onchange = () => {
     chapter = Number($("novelToc").value);
@@ -192,7 +199,7 @@ export function createNovelReader({ notice, onShow = () => {}, onHide = () => {}
       Math.abs(event.clientX - touchStart.x) > 65
     ) {
       if (event.clientX < touchStart.x) next();
-      else previous();
+      else stepBack();
     }
     touchStart = null;
   };
@@ -201,6 +208,21 @@ export function createNovelReader({ notice, onShow = () => {}, onHide = () => {}
     render();
   });
   window.addEventListener("pagehide", () => persist(true));
+  /* Going back a page and staying there is the reader puzzling over something. After
+     LINGER_MS on that same page 小和 offers, once per opened book, to explain (onLinger). */
+  const LINGER_MS = 30000;
+  let lingerTimer = null;
+  let offered = false;
+  function stepBack() {
+    previous();
+    clearTimeout(lingerTimer);
+    const here = chapter + ":" + offset;
+    lingerTimer = setTimeout(() => {
+      if (offered || section.hidden || chapter + ":" + offset !== here) return;
+      offered = true;
+      onLinger();
+    }, LINGER_MS);
+  }
   /** Open the text at chapter `index` (0-based), as 「翻到第五章」 asks, at character `at`
    *  within it (a bookmark's place) or its start. */
   function goTo(index, at = 0) {
@@ -221,7 +243,8 @@ export function createNovelReader({ notice, onShow = () => {}, onHide = () => {}
     show,
     hide,
     next,
-    previous,
+    previous: stepBack,
+    pageText: () => (section.hidden ? "" : $("novelText").textContent),
     goTo,
     fontSize,
     clear() {
@@ -243,7 +266,7 @@ export function createNovelReader({ notice, onShow = () => {}, onHide = () => {}
       if (section.hidden) return false;
       if (event.key === "Escape") hide();
       else if (event.key === "ArrowRight" || event.key === "PageDown") next();
-      else if (event.key === "ArrowLeft" || event.key === "PageUp") previous();
+      else if (event.key === "ArrowLeft" || event.key === "PageUp") stepBack();
       else return false;
       event.preventDefault();
       return true;

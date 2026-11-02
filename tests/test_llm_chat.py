@@ -195,5 +195,18 @@ class ChatTests(unittest.TestCase):
         final = json.loads(call.call_args.args[0].data)
         self.assertIn("余额不足", final["messages"][-1]["content"])
 
+class PageTests(unittest.TestCase):
+    def test_the_page_in_front_of_the_reader_is_used_only_while_reading(self):
+        config = {"HEXU_LLM_BASE_URL": "https://compatible.example/v1", "HEXU_LLM_MODEL": "test-model",
+                  "HEXU_LLM_API_KEY": "invalid-test-credential"}
+        page = "红岸基地的天线指向天空。" * 200
+        reading = llm_chat.prepare({"text": "这段什么意思", "phase": "READING", "page": page}, config)
+        system = reading["messages"][0]["content"]
+        self.assertIn("读者眼前这一页的正文", system)
+        self.assertLessEqual(system.count("红岸基地的天线指向天空"), llm_chat.MAX_PAGE // 12 + 1, "capped")
+        for body in ({"text": "x", "phase": "IDLE", "page": page}, {"text": "x", "phase": "READING", "page": 3},
+                     {"text": "x", "phase": "READING"}):
+            self.assertNotIn("读者眼前这一页", llm_chat.prepare(body, config)["messages"][0]["content"])
+
 if __name__ == "__main__":
     unittest.main()

@@ -43,7 +43,7 @@ export function createChatSession({ request = (...args) => fetch(...args), timeo
     history = [];
     configuration = "";
   }
-  async function ask(text, phase, bookId, { onText, onAction } = {}) {
+  async function ask(text, phase, bookId, { onText, onAction, page } = {}) {
     if (controller) return { error: "小和正在回答，请等待或停止当前回答。", busy: true };
     const current = ++generation;
     const pending = new AbortController();
@@ -67,7 +67,14 @@ export function createChatSession({ request = (...args) => fetch(...args), timeo
         method: "POST",
         headers: { "Content-Type": "application/json" },
         signal: pending.signal,
-        body: JSON.stringify({ text, phase, bookId, history, configuration }),
+        body: JSON.stringify({
+          text,
+          phase,
+          bookId,
+          history,
+          configuration,
+          ...(page ? { page } : {}),
+        }),
       });
       let result;
       const streamed = /ndjson/.test(response.headers?.get?.("Content-Type") ?? "");

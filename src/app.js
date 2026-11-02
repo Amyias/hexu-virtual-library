@@ -96,6 +96,7 @@ export async function startLibrary() {
 
   const readingMusic = createReadingMusic();
   const novelReader = createNovelReader({
+    onLinger: () => assistant.offerHelp(),
     notice: feedback.notice,
     onShow: (host) => {
       readingMusic.mount(host);

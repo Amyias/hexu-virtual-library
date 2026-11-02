@@ -99,6 +99,15 @@ export function namesABook(request) {
 const REMEMBER =
   /^(?:请|麻烦)?(?:你)?(?:帮我)?(?:记住|记一下|记下来|记着|要记得|别忘了)(?:这件事|一下)?[：:，,、\s]*(.+)$/u;
 
+/* 「这段什么意思」「这里看不懂」「解释一下」: a question about the page in front of the reader,
+   which then travels with it. Only while reading, and only when asked: the page is not sent
+   with every remark. */
+const ABOUT_PAGE =
+  /这(?:一)?(?:段|页|句|里|一节|几行)|上面(?:这|那)|刚才(?:这|那)(?:段|句)|看不懂|读不懂|什么意思|啥意思|解释一下|讲讲这|说说这/;
+export function asksAboutPage(text) {
+  return ABOUT_PAGE.test(String(text || ""));
+}
+
 export function rememberedFact(text) {
   const match = conversationText(text).match(REMEMBER);
   if (!match) return null;

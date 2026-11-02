@@ -330,6 +330,8 @@
         <select id="memoryInference"><option value="1">开启：小和可以记下自己的推测和对我的印象</option><option value="0">关闭：只记我交代的事、读过的书和聊过的话题</option></select>
         <label for="greetingEnabled">主动问候</label>
         <select id="greetingEnabled"><option value="on">开启：打开图书馆时打一声招呼（每次最多一句，不打断你）</option><option value="off">关闭</option></select>
+        <label for="readingHelp">阅读中的轻声询问</label>
+        <select id="readingHelp"><option value="on">开启：翻回前一页停留一会儿时，小和在气泡里问一句要不要解释（每本书最多一次，不出声）</option><option value="off">关闭</option></select>
         <h3>你让小和记住的事</h3>
         <ul id="memoryFacts" class="memory-list"></ul>
         <h3>读过的书</h3>
@@ -684,6 +686,13 @@
         if ($("greetingEnabled").value === "off") localStorage.setItem("hexu-greeting", "off");
         else localStorage.removeItem("hexu-greeting");
         memoryMessage($("greetingEnabled").value === "off" ? "主动问候已关闭。" : "主动问候已开启，下次打开图书馆时生效。", true);
+      };
+      // Read by the reading page (src/app/assistant.js offerHelp) from the same origin's storage.
+      $("readingHelp").value = localStorage.getItem("hexu-reading-help") === "off" ? "off" : "on";
+      $("readingHelp").onchange = () => {
+        if ($("readingHelp").value === "off") localStorage.setItem("hexu-reading-help", "off");
+        else localStorage.removeItem("hexu-reading-help");
+        memoryMessage($("readingHelp").value === "off" ? "阅读中的轻声询问已关闭。" : "阅读中的轻声询问已开启。", true);
       };
       $("memoryClear").onclick = async () => {
         if (!confirm("确定清空小和记得的所有事吗？这无法撤销。")) return;

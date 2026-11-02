@@ -9,6 +9,7 @@ import urllib.request
 import web_tools
 
 MAX_TEXT = 4000
+MAX_PAGE = 1200  # the page in front of the reader, sent with 「这段什么意思」
 MAX_HISTORY = 12  # six completed turns, kept only in the page's memory
 MAX_HISTORY_CHARS = 24000
 MAX_REPLY = 16000
@@ -160,6 +161,11 @@ def prepare(body, resolved, *, selected=None, memory="", passages=""):
         prompt += ("当前阅读书籍的已验证元数据如下：" + json.dumps(
             {"title": selected.get("title", ""), "author": selected.get("author", "")}, ensure_ascii=False)
                    + ("。" if passages else "。正文未提供，不得假装读过本地正文。"))
+    page = body.get("page")
+    if body.get("phase") == "READING" and isinstance(page, str) and page.strip():
+        # Sent by the page only when the reader asks about 「这段」「这里」 while reading.
+        prompt += ("读者眼前这一页的正文如下，读者说“这段”“这里”“这句”时指的就是它：\n" + page.strip()[:MAX_PAGE] + "\n"
+                   "解释时紧扣这一页，用口语讲清楚，不要大段照抄；这一页之后的情节不要讲。")
     if passages:
         prompt += ("下面是从读者本机书库里按问题检索到的原文片段，可能不完整：\n" + passages + "\n"
                    "回答书中人物和情节时以这些片段为准，提到时标出章节，例如（第12章）；"

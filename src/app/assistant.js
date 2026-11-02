@@ -5,6 +5,7 @@ import { lookupBooks } from "../reader/library.js";
 import {
   decide,
   requestOf,
+  asksAboutPage,
   protocolResponse,
   pickChoice,
   choiceSpeech,
@@ -150,6 +151,18 @@ export function createAssistant({
     attempt();
   }
 
+  /* The reader went back a page and stayed (novel.js onLinger): offer once, quietly, to
+     explain. Not spoken, and off when the reader turned it off in the settings. */
+  function offerHelp() {
+    let off = false;
+    try {
+      off = localStorage.getItem("hexu-reading-help") === "off";
+    } catch {}
+    if (off || !machine.is(READING) || chat.getState().busy) return;
+    attention.wake(30000);
+    say("这一段要我帮你解释一下吗？说「解释一下」就好。", 0, { interactive: true, silent: true });
+  }
+
   /* Downloading is never done on the model's word alone: 小和 asks, and only a 「要」 within
      DOWNLOAD_WAIT_MS starts it. Anything else is handled as a new request. */
   const DOWNLOAD_WAIT_MS = 30000;
@@ -274,7 +287,11 @@ export function createAssistant({
     // sentence completes, so the reader hears 小和 start answering within a second or so.
     let live = null,
       fetchRequest = null;
+    // 「这段什么意思」 while reading: the page in front of the reader goes with the question.
+    const page =
+      machine.is(READING) && asksAboutPage(request) ? novelReader.pageText?.().slice(0, 800) : "";
     const result = await chat.ask(request, machine.phase, journey.selected?.bookId, {
+      page,
       onText(text) {
         if (live) live.update(text);
         else live = feedback.stream(text, { onCancel: cancelPending });
@@ -415,6 +432,7 @@ export function createAssistant({
     lookup,
     cancelPending,
     clearConversation,
+    offerHelp,
     getChatState: chat.getState,
   };
 }
