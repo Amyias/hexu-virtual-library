@@ -15,6 +15,7 @@ import zipfile
 from contextlib import contextmanager
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
+import urllib.request
 from urllib.parse import parse_qs, urlsplit
 from xml.etree import ElementTree
 
@@ -85,6 +86,73 @@ def normalize(text):
     return re.sub(r"[\W_]+", "", unicodedata.normalize("NFKC", text).casefold())
 
 
+def isbn_of(text):
+    """The first valid ISBN-13 or ISBN-10 in a text (an EPUB identifier is often
+    「urn:isbn:978-7-5366-9293-0」), as bare digits; "" when there is none."""
+    for found in re.findall(r"(?:97[89][\d\- ]{10,16}|\b\d[\d\- ]{8,12}[\dXx]\b)", text or ""):
+        digits = re.sub(r"[^\dXx]", "", found).upper()
+        if len(digits) == 13 and digits.isdigit():
+            if sum(int(d) * (1 if i % 2 == 0 else 3) for i, d in enumerate(digits)) % 10 == 0:
+                return digits
+        elif len(digits) == 10 and digits[:9].isdigit():
+            total = sum((10 - i) * (10 if d == "X" else int(d)) for i, d in enumerate(digits))
+            if total % 11 == 0:
+                return digits
+    return ""
+
+
+OPEN_LIBRARY = "https://openlibrary.org/api/books?bibkeys=ISBN:{isbn}&jscmd=data&format=json"
+
+
+def lookup_isbn(isbn, opener=urllib.request.urlopen, timeout=10):
+    """What Open Library (free, no key) knows about an ISBN: subjects, publisher, date and
+    pages; {} when it knows nothing or cannot be reached. Only the ISBN is sent."""
+    try:
+        with opener(urllib.request.Request(OPEN_LIBRARY.format(isbn=isbn),
+                                           headers={"User-Agent": "hexu-library"}), timeout=timeout) as response:
+            entry = json.loads(response.read(512_000).decode("utf-8")).get(f"ISBN:{isbn}") or {}
+    except (OSError, ValueError, AttributeError):
+        return {}
+    found = {}
+    # Whole names, without machine tags such as 「award:hugo_award=2015」.
+    subjects = [item.get("name", "") for item in entry.get("subjects", []) if isinstance(item, dict)]
+    subjects = [name for name in subjects if name and len(name) <= 40 and not set(name) & set(":=")]
+    if subjects:
+        found["subjects"] = subjects[:8]
+    publishers = [item.get("name", "") for item in entry.get("publishers", []) if isinstance(item, dict)]
+    if publishers and publishers[0]:
+        found["publisher"] = publishers[0][:60]
+    if isinstance(entry.get("publish_date"), str):
+        found["published"] = entry["publish_date"][:20]
+    if isinstance(entry.get("number_of_pages"), int):
+        found["pages"] = entry["number_of_pages"]
+    return found
+
+
+def epub_details(opf):
+    """What an EPUB says about itself beyond title and author: ISBN, subjects, description,
+    publisher and date. Tags in the description are dropped; nothing is fetched."""
+    fields = {}
+    for node in opf.iter():
+        name = node.tag.split("}")[-1]
+        if name in {"identifier", "subject", "description", "publisher", "date", "language"} and node.text:
+            fields.setdefault(name, []).append(node.text.strip())
+    details = {}
+    isbn = next((isbn_of(value) for value in fields.get("identifier", []) if isbn_of(value)), "")
+    if isbn:
+        details["isbn"] = isbn
+    subjects = [value[:20] for value in fields.get("subject", []) if value][:8]
+    if subjects:
+        details["subjects"] = subjects
+    if fields.get("description"):
+        details["description"] = " ".join(re.sub(r"<[^>]+>", " ", fields["description"][0]).split())[:300]
+    if fields.get("publisher"):
+        details["publisher"] = fields["publisher"][0][:60]
+    if fields.get("date"):
+        details["published"] = fields["date"][0][:10]
+    return details
+
+
 def import_document(filename, raw, title="", author=""):
     if not raw or len(raw) > 8 * 1024 * 1024:
         raise SourceError("文件为空或超过 8 MiB")
@@ -101,6 +169,7 @@ def import_document(filename, raw, title="", author=""):
                 opf_path = next(node.attrib["full-path"] for node in container.iter() if node.tag.endswith("rootfile"))
                 opf = ElementTree.fromstring(archive.read(opf_path))
                 metadata = {node.tag.split("}")[-1]: node.text for node in opf.iter() if node.tag.split("}")[-1] in {"title", "creator"} and node.text}
+                details = epub_details(opf)
                 title = title if title != Path(filename).stem else metadata.get("title", title)
                 author = author or metadata.get("creator", "未知作者")
                 manifest = {node.attrib["id"]: node.attrib["href"] for node in opf.iter() if node.tag.endswith("}item")}
@@ -131,7 +200,10 @@ def import_document(filename, raw, title="", author=""):
         chapters = split_text(text)
     else:
         raise SourceError("只支持 TXT 与无 DRM 的 EPUB")
-    return {"title": title, "author": author or "未知作者", "chapters": chapters, "source_id": "local", "source_key": hashlib.sha256(raw).hexdigest(), "source": "本地导入", "source_url": "", "license": "用户本地文件"}
+    document = {"title": title, "author": author or "未知作者", "chapters": chapters, "source_id": "local", "source_key": hashlib.sha256(raw).hexdigest(), "source": "本地导入", "source_url": "", "license": "用户本地文件"}
+    if filename.lower().endswith(".epub"):
+        document.update(details)
+    return document
 
 
 class BookLibrary:
@@ -243,7 +315,8 @@ class BookLibrary:
                 raise SourceError("本地书架位置已满")
             metadata = {key: value for key, value in document.items() if key != "chapters"}
             metadata.update(id=identifier, slot=slot, title=str(document["title"])[:160], author=str(document.get("author", "未知作者"))[:120],
-                            chapter_count=len(chapters), characters=len(content), synopsis=chapters[0]["text"][:120],
+                            chapter_count=len(chapters), characters=len(content),
+                            synopsis=(document.get("description") or chapters[0]["text"])[:120],
                             sha256=hashlib.sha256(content.encode()).hexdigest(), created_at=int(time.time()))
             if not metadata["title"]:
                 raise SourceError("书名不能为空")
@@ -253,7 +326,31 @@ class BookLibrary:
             temporary = target.with_suffix(".tmp")
             temporary.write_text(content, encoding="utf-8")
             temporary.replace(target)
-            return metadata
+        # A book that carries an ISBN is looked up once, in the background, to fill in what the
+        # file left out. HEXU_METADATA_LOOKUP=0 turns it off; nothing but the ISBN is sent.
+        if metadata.get("isbn") and os.environ.get("HEXU_METADATA_LOOKUP", "1") != "0":
+            threading.Thread(target=self.enrich, args=(identifier,), daemon=True).start()
+        return metadata
+
+    def enrich(self, identifier, lookup=lookup_isbn):
+        """Fill a book's missing subjects, publisher, date and pages from its ISBN, once. What the
+        book's own file said is never overwritten. Returns the fields added."""
+        with self.connect() as db:
+            row = db.execute("SELECT metadata FROM books WHERE id=?", (identifier,)).fetchone()
+        if not row:
+            return {}
+        metadata = json.loads(row[0])
+        if not metadata.get("isbn") or metadata.get("looked_up"):
+            return {}
+        added = {key: value for key, value in lookup(metadata["isbn"]).items() if not metadata.get(key)}
+        with self.lock, self.connect() as db:
+            row = db.execute("SELECT metadata FROM books WHERE id=?", (identifier,)).fetchone()
+            if not row:
+                return {}
+            current = json.loads(row[0])
+            current.update(added, looked_up=int(time.time()))
+            db.execute("UPDATE books SET metadata=? WHERE id=?", (json.dumps(current, ensure_ascii=False), identifier))
+        return added
 
     def search(self, query, source_id="all"):
         query = query.strip()

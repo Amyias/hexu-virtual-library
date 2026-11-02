@@ -115,8 +115,9 @@ class AppActions:
                 "但只在读者明确提出要求时调用；调用后用一句话告诉读者做了什么，不要假装做了没调用的操作。")
         if self.phase == "IDLE" and self.catalog:
             lines = [f"{key} | {book.get('title', '')} | {book.get('author', '')}"
+                     + (f" | {'、'.join(book['subjects'][:2])}" if book.get("subjects") else "")
                      for key, book in list(self.catalog.items())[:CATALOG_LINES]]
-            text += "本机书库（编号 | 书名 | 作者）：" + "；".join(lines) + "。"
+            text += "本机书库（编号 | 书名 | 作者 | 分类，有的话）：" + "；".join(lines) + "。"
         return text
 
     def execute(self, name, arguments):

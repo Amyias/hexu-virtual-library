@@ -93,7 +93,9 @@ export function createLocalLibrary({ books, onSelect, onBind, onLocate, notice }
       title = document.createElement("strong"),
       detail = document.createElement("small");
     title.textContent = item.title;
-    detail.textContent = `${item.author} · ${item.source}${item.chapter_count ? ` · ${item.chapter_count} 章` : ""}`;
+    detail.textContent =
+      `${item.author} · ${item.source}${item.chapter_count ? ` · ${item.chapter_count} 章` : ""}` +
+      (item.subjects?.length ? ` · ${item.subjects[0]}` : "");
     info.append(title, detail);
     const bound = assigned.get(item.id);
     if (bound) {
