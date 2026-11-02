@@ -64,9 +64,26 @@ BOOKMARK_ADD = tool("add_bookmark", "在读者现在读到的位置加一个书�
 BOOKMARK_LIST = tool("list_bookmarks", "列出正在读的这本书的书签。读者问有哪些书签、上次标记在哪时调用。")
 BOOKMARK_OPEN = tool("open_bookmark", "翻到正在读的这本书的某个书签。id 只能来自 list_bookmarks 的结果。",
                      {"id": {"type": "integer", "minimum": 1}}, ["id"])
+RECOMMEND = tool("recommend_books", "从本机书库里推荐至多三本书，附推荐理由。like 是读者描述的口味（如“轻松一点的科幻”），"
+                 "bookId 是读者说“像这本的”那一本；都不给时按读者最近读过的书推荐。只能推荐结果里的书，不要推荐书库里没有的书。",
+                 {"like": {"type": "string", "maxLength": 40}, "bookId": {"type": "string", "pattern": "^HX-\\d{5}$"}})
 PAGE_ACTIONS = {"set_sky", "reading_music", "open_chapter", "fetch_book", "locate_book", "download_book",
                 "set_font_size", "open_bookmark"}
-NAMES = PAGE_ACTIONS | {"search_library", "add_bookmark", "list_bookmarks"}
+NAMES = PAGE_ACTIONS | {"search_library", "add_bookmark", "list_bookmarks", "recommend_books"}
+RECOMMENDATIONS = 3
+CLOSE_VECTOR = 0.62  # cosine at which two books' descriptions count as close (see book_text_search)
+CLOSE_WORDS = 0.25
+_signatures = {}  # (book id, signature text) -> vector, shared by every turn
+
+
+def signature(book):
+    """What a book is about, in one line: title, author, subjects and synopsis."""
+    return " ".join([book.get("title", ""), book.get("author", ""), " ".join(book.get("subjects") or []),
+                     (book.get("description") or book.get("synopsis") or "")[:120]]).strip()
+
+
+def pairs(text):
+    return {text[i:i + 2] for i in range(len(text) - 1) if not text[i:i + 2].isspace()}
 
 
 class AppActions:
@@ -76,12 +93,15 @@ class AppActions:
     "chapters"), or None; reading_id: its id in the reading library; catalog: HX number -> local
     book; library: the reading library (book_library.BookLibrary), for searches and bookmarks."""
 
-    def __init__(self, phase, reading=None, catalog=None, *, reading_id=None, library=None):
+    def __init__(self, phase, reading=None, catalog=None, *, reading_id=None, library=None, embedder=None,
+                 recent=()):
         self.phase = phase
         self.reading = reading
         self.reading_id = reading_id
         self.catalog = catalog or {}
         self.library = library
+        self.embedder = embedder if embedder is not None and embedder.state()[0] else None
+        self.recent = [book_id for book_id in recent if isinstance(book_id, str)][:3]  # local ids, newest first
         self.count = 0
         self.incoming = None  # the book fetched this turn: {"bookId", "chapters"}
         self.candidates = {}  # this turn's online search results by "C1".."C5"
@@ -93,6 +113,8 @@ class AppActions:
         offered = [SKY]
         if self.library:
             offered.append(SEARCH)
+        if len(self.catalog) >= 2:
+            offered.append(RECOMMEND)
         reading = self.phase == "READING" and self.reading
         if reading or self.incoming:
             offered += [MUSIC, CHAPTER]
@@ -223,6 +245,59 @@ class AppActions:
             if found.get("errors"):
                 result["failed_sources"] = len(found["errors"])
         return None, result
+
+    def _recommend_books(self, args):
+        """Up to RECOMMENDATIONS local books like the reader's description, a given book, or what
+        they read lately, best first, each with a reason. Only books of this library."""
+        like = args.get("like") if isinstance(args.get("like"), str) else ""
+        numbers = {book.get("id"): key for key, book in self.catalog.items()}
+        seed_number = args.get("bookId")
+        if seed_number and seed_number not in self.catalog:
+            return None, {"error": "本机书库里没有这个编号"}
+        seeds = [self.catalog[seed_number]] if seed_number else []
+        if not seeds and not like:
+            seeds = [self.catalog[numbers[book_id]] for book_id in self.recent if book_id in numbers]
+        if not seeds and not like:
+            return None, {"error": "还不知道读者的口味：请问读者想看什么样的书"}
+        excluded = {book.get("id") for book in seeds} | {self.reading_id}
+        candidates = [(key, book) for key, book in self.catalog.items() if book.get("id") not in excluded]
+        if not candidates:
+            return None, {"error": "书库里没有别的书可以推荐"}
+        wanted = " ".join([like, *(signature(book) for book in seeds)]).strip()
+        seed_subjects = {subject for book in seeds for subject in book.get("subjects") or []}
+        seed_authors = {book.get("author") for book in seeds if book.get("author") not in (None, "", "未知作者")}
+        similar = self._similarity(wanted, [book for _, book in candidates])
+        asked = pairs(wanted)
+        scored = []
+        for (key, book), score in zip(candidates, similar):
+            shared = [subject for subject in book.get("subjects") or [] if subject in seed_subjects][:2]
+            same_author = book.get("author") in seed_authors
+            # Words in common count too: short synopses give the vectors little to go on.
+            words = len(asked & pairs(signature(book))) / max(1, len(asked))
+            close = score >= (CLOSE_VECTOR if self.embedder else CLOSE_WORDS)
+            score += 0.5 * words + 0.1 * len(shared) + 0.05 * same_author
+            # The reason has to be true: a weak match is offered as one of the other books here.
+            why = (f"同属{'、'.join(shared)}" if shared else "") or ("同一位作者" if same_author else "") or (
+                "内容相近" if close else "书库里的其他选择")
+            scored.append((score, key, book, why))
+        scored.sort(key=lambda item: -item[0])
+        return None, {"books": [{"bookId": key, "title": book.get("title", ""), "author": book.get("author", ""),
+                                 "subjects": (book.get("subjects") or [])[:2], "why": why}
+                                for _, key, book, why in scored[:RECOMMENDATIONS]]}
+
+    def _similarity(self, wanted, books):
+        """How close each book's signature is to `wanted`: sentence vectors when the model is here,
+        else the share of `wanted`'s character pairs the signature contains."""
+        if self.embedder:
+            texts = [signature(book) for book in books]
+            missing = [(book.get("id"), text) for book, text in zip(books, texts) if (book.get("id"), text) not in _signatures]
+            if missing:
+                for key, vector in zip(missing, self.embedder.encode([text for _, text in missing])):
+                    _signatures[key] = vector
+            query = self.embedder.encode([wanted])[0]
+            return [float(_signatures[(book.get("id"), text)] @ query) for book, text in zip(books, texts)]
+        asked = pairs(wanted)
+        return [len(asked & pairs(signature(book))) / max(1, len(asked)) for book in books]
 
     def _add_bookmark(self, args):
         mark = self.library.add_bookmark(self.reading_id, args.get("note", ""))

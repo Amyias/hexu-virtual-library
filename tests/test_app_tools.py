@@ -127,5 +127,66 @@ class LibraryToolTests(unittest.TestCase):
                           ("open_chapter", {"chapter": 2, "after": "arrival"})])
 
 
+class Keywords:
+    """A stand-in sentence-vector model: one dimension per theme word, unit length."""
+    THEMES = ["科幻", "宇宙", "历史", "明朝", "乡村", "奋斗"]
+
+    def state(self):
+        return True, ""
+
+    def encode(self, texts):
+        import numpy as np
+
+        rows = np.array([[float(word in text) for word in self.THEMES] + [0.01] for text in texts], np.float32)
+        return rows / np.linalg.norm(rows, axis=1, keepdims=True)
+
+
+SHELF = {
+    "HX-00001": {"id": "a", "title": "三体", "author": "刘慈欣", "subjects": ["科幻"], "synopsis": "宇宙文明的黑暗森林"},
+    "HX-00002": {"id": "b", "title": "球状闪电", "author": "刘慈欣", "subjects": ["科幻"], "synopsis": "宇宙中奇异的闪电"},
+    "HX-00003": {"id": "c", "title": "明朝那些事儿", "author": "当年明月", "subjects": ["历史"], "synopsis": "明朝三百年"},
+    "HX-00004": {"id": "d", "title": "平凡的世界", "author": "路遥", "subjects": ["当代小说"], "synopsis": "乡村青年的奋斗"},
+}
+
+
+class RecommendTests(unittest.TestCase):
+    def actions(self, **kwargs):
+        return app_actions.AppActions("IDLE", None, SHELF, embedder=Keywords(), **kwargs)
+
+    def recommend(self, actions, arguments):
+        return actions.execute("recommend_books", json.dumps(arguments, ensure_ascii=False))
+
+    def test_like_a_book_recommends_others_from_this_library_with_a_reason(self):
+        action, result = self.recommend(self.actions(), {"bookId": "HX-00001"})
+        self.assertIsNone(action, "a recommendation moves nothing")
+        books = result["books"]
+        self.assertEqual(books[0]["bookId"], "HX-00002")
+        self.assertEqual(books[0]["why"], "同属科幻")
+        self.assertNotIn("HX-00001", [book["bookId"] for book in books], "not the book it is like")
+        self.assertLessEqual(len(books), app_actions.RECOMMENDATIONS)
+        self.assertTrue(all(book["bookId"] in SHELF for book in books), "only books of this library")
+
+    def test_a_described_taste_or_recent_reading_guides_it(self):
+        self.assertEqual(self.recommend(self.actions(), {"like": "想看点讲明朝历史的"})[1]["books"][0]["bookId"],
+                         "HX-00003")
+        recent = self.recommend(self.actions(recent=["d"]), {})[1]["books"]
+        self.assertNotIn("HX-00004", [book["bookId"] for book in recent], "not what was just read")
+        self.assertIn("error", self.recommend(self.actions(), {})[1], "no taste and no history: ask the reader")
+        self.assertIn("error", self.recommend(self.actions(), {"bookId": "HX-09999"})[1])
+
+    def test_the_book_being_read_is_not_recommended_and_tiny_libraries_are_not_offered_it(self):
+        reading = app_actions.AppActions("READING", {"title": "球状闪电", "chapters": 3}, SHELF,
+                                         reading_id="b", embedder=Keywords())
+        books = self.recommend(reading, {"like": "科幻"})[1]["books"]
+        self.assertNotIn("HX-00002", [book["bookId"] for book in books])
+        single = app_actions.AppActions("IDLE", None, {"HX-00001": SHELF["HX-00001"]}, embedder=Keywords())
+        self.assertNotIn("recommend_books", names(single))
+
+    def test_without_the_vector_model_it_compares_words(self):
+        plain = app_actions.AppActions("IDLE", None, SHELF)
+        self.assertIsNone(plain.embedder)
+        self.assertEqual(self.recommend(plain, {"like": "明朝历史"})[1]["books"][0]["bookId"], "HX-00003")
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -568,6 +568,16 @@ def describe_book(book_id):
             "chapters": len(chapters), "chapter_title": title if chapter > 0 else ""}
 
 
+def recent_reading():
+    """Local ids of the books opened lately, newest first, for recommendations; none while the
+    reader has memory switched off (their reading history is then not used at all)."""
+    try:
+        snapshot = reader_memory.snapshot_if_present(describe_book)
+    except (sqlite3.Error, OSError):
+        return []
+    return [entry["book_id"] for entry in snapshot.get("reading", [])] if snapshot.get("enabled") else []
+
+
 def memory_context(body=None):
     """The memory block for one chat request, ranked against what the reader just asked."""
     question = body.get("text") if isinstance(body, dict) and isinstance(body.get("text"), str) else ""
@@ -986,7 +996,8 @@ class Handler(SimpleHTTPRequestHandler):
         phase = body.get("phase") if isinstance(body, dict) else None
         app = app_actions.AppActions(phase, describe_book(selected["id"]) if selected else None, catalog,
                                      reading_id=selected["id"] if selected else None,
-                                     library=book_library.instance())
+                                     library=book_library.instance(), embedder=EMBEDDER,
+                                     recent=recent_reading())
         events = llm_chat.chat_stream(body, resolved, validate_endpoint,
                                       timeout=float(os.environ.get("HEXU_LLM_CHAT_TIMEOUT", "60")),
                                       selected=selected, memory=memory_context(body),
