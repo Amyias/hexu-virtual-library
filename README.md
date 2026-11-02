@@ -141,6 +141,7 @@ npm start
 | `public/vendor/draco/` | Draco 解码器（Apache-2.0），环境模型用它解压几何 |
 | `tools/serve.mjs` | Node 本地服务与按需启动的 Python 正文书库代理 |
 | `tools/asr-server.py` | 一个进程两种跑法：服务器模式（静态站点 + 本机模型识别），或经 PyInstaller 冻结成本机程序 |
+| `tools/embedder.py` | 书中段落的句向量（bge-small-zh-v1.5 int8），与全文索引融合检索；模型随模型包分发 |
 | `tools/listener.py` | 连续收听：Silero VAD 断句、开放词表唤醒词（`tools/listen-keywords.txt`）、按发音找出名字之后的请求 |
 | `tools/window_host.py` | 打包版的窗口：用 WebView2 承载页面，并替页面放行麦克风（WebView2 默认拒绝） |
 | `tools/updater.py` | 更新：查 GitHub 最新发行版、下载并校验程序包（断点续传）、退出后替换并重开；模型不变时不重下 |

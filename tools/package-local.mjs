@@ -81,6 +81,24 @@ const LISTEN_FILES = [
     "72316508d9119696145abc6f1f8cdc46287535c34e5ce7e595f845cb1499cf2e",
   ],
 ];
+// Sentence vectors for book search (tools/embedder.py): bge-small-zh-v1.5 int8, MIT, at a fixed
+// revision of its ONNX conversion. Carried in the model archive (about 24 MB).
+const EMBED_REVISION = "75c43b069aac4d136ba6bc1122f995fedcfd2781";
+const EMBED_BASE = `https://huggingface.co/Xenova/bge-small-zh-v1.5/resolve/${EMBED_REVISION}`;
+const EMBED_FILES = [
+  [
+    "model_int8.onnx",
+    "onnx/model_int8.onnx",
+    23903394,
+    "b9837c19ce154ff0726d398ee77abbc03a7faf0476c6f93016c84e531be7ebb5",
+  ],
+  [
+    "vocab.txt",
+    "vocab.txt",
+    109540,
+    "45bbac6b341c319adc98a532532882e91a9cefc0329aa57bac9ae761c27b291c",
+  ],
+];
 // The repository of record, and the only one that carries the `model` branch.
 const GITHUB_REMOTE = "git@github.com:Amyias/hexu-virtual-library.git";
 
@@ -103,6 +121,9 @@ const voiceDir = path.resolve(
 );
 const listenDir = path.resolve(
   process.env.HEXU_LISTEN_MODEL_DIR || path.join(cache, "models", "listen"),
+);
+const embedDir = path.resolve(
+  process.env.HEXU_EMBED_MODEL_DIR || path.join(cache, "models", "embed"),
 );
 const withVoice = !process.argv.includes("--no-voice");
 const stage = path.join(cache, "stage", "site");
@@ -436,6 +457,35 @@ async function checkListenModels() {
   log(`收听模型  ${megabytes(total)}  ${listenDir}（VAD 与唤醒词，SHA-256 已校验）`);
 }
 
+/** The book-search vectors, fetched from their pinned revision when missing and checked before
+ *  every build: a model with the wrong bytes would quietly rank passages by nonsense. */
+async function checkEmbedModel() {
+  const matches = (file, bytes, sha) =>
+    fs.existsSync(file) &&
+    fs.statSync(file).size === bytes &&
+    createHash("sha256").update(fs.readFileSync(file)).digest("hex") === sha;
+  fs.mkdirSync(embedDir, { recursive: true });
+  for (const [name, remote, bytes, sha] of EMBED_FILES) {
+    const target = path.join(embedDir, name);
+    if (matches(target, bytes, sha)) continue;
+    log(`下载向量模型 ${name}（${megabytes(bytes)}）…`);
+    const partial = target + ".part";
+    try {
+      const response = await fetch(`${EMBED_BASE}/${remote}`);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      fs.writeFileSync(partial, Buffer.from(await response.arrayBuffer()));
+    } catch (error) {
+      fail(`向量模型下载失败：${error.message}\n${EMBED_BASE}/${remote}`);
+    }
+    if (!matches(partial, bytes, sha)) {
+      fs.rmSync(partial, { force: true });
+      fail(`向量模型 ${name} 的大小或 SHA-256 与固定版本不符，拒绝用它打包。`);
+    }
+    fs.renameSync(partial, target);
+  }
+  log(`向量模型  ${megabytes(EMBED_FILES[0][2])}  ${embedDir}（bge-small-zh，SHA-256 已校验）`);
+}
+
 /** Record what this build was made from, inside the bundle.
 
  *  The installed program can then say which commit it is, and the updater — which works by
@@ -572,6 +622,7 @@ function build(python) {
         HEXU_ASR_MODEL_DIR: modelDir,
         HEXU_TTS_MODEL_DIR: withVoice ? voiceDir : "",
         HEXU_LISTEN_MODEL_DIR: listenDir,
+        HEXU_EMBED_MODEL_DIR: embedDir,
       },
     },
   );
@@ -604,6 +655,7 @@ function verify() {
     ...(withVoice ? [path.join(appDir, "_internal", "models", "primetts", VOICE_FILE)] : []),
     ...LISTEN_FILES.map(([name]) => path.join(appDir, "_internal", "listen-models", name)),
     path.join(appDir, "_internal", "listen-models", "listen-keywords.txt"),
+    ...EMBED_FILES.map(([name]) => path.join(appDir, "_internal", "models", "embed", name)),
   ];
   const missing = required.filter((file) => !fs.existsSync(file));
   if (missing.length) fail("打包结果缺少文件：\n  " + missing.join("\n  "));
@@ -767,6 +819,7 @@ if (python) {
   if (withVoice) await checkVoiceModel();
   else log("--no-voice：不打包语音模型，程序将使用系统语音。");
   await checkListenModels();
+  await checkEmbedModel();
   stageSite();
   build(python);
 } else {

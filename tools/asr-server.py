@@ -61,6 +61,7 @@ import updater
 import book_library
 import app_actions
 import book_text_search
+import embedder
 import listener
 import reader_memory
 import tts
@@ -140,6 +141,8 @@ LOOPBACK_NAMES = {"localhost", "127.0.0.1", "::1"}
 MODEL_DIR = model_dir()
 MODEL_FILE = MODEL_DIR / "model.int8.onnx"
 LISTENER = listener.Listener(listener.model_dir(site_root(), frozen()))
+# Sentence vectors for book search (tools/embedder.py); without the model, full text alone.
+EMBEDDER = embedder.Embedder(embedder.model_dir(site_root(), frozen()))
 TOKENS_FILE = MODEL_DIR / "tokens.txt"
 
 MAX_BODY = 1_500_000        # ~47 s of 16 kHz mono 16-bit PCM, half a megabyte of slack
@@ -580,7 +583,7 @@ _text_search = None
 def text_search():
     global _text_search
     if _text_search is None:
-        _text_search = book_text_search.BookTextSearch(book_library.instance())
+        _text_search = book_text_search.BookTextSearch(book_library.instance(), EMBEDDER)
     return _text_search
 
 
@@ -797,7 +800,8 @@ class Handler(SimpleHTTPRequestHandler):
         pathname = self.path.split("?", 1)[0]
         if pathname == "/healthz":
             self._send_json(200, {"app": "hexu-library", "pid": os.getpid(), "asr_ready": model_state()[0],
-                                  "semantic_ready": llm_state()[0] is not None})
+                                  "semantic_ready": llm_state()[0] is not None,
+                                  "book_vectors": EMBEDDER.state()[0], "streaming": LISTENER.state()[0]})
             return
         if pathname == "/asr/ready":
             ready, payload = model_state()

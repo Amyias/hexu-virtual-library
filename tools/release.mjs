@@ -164,6 +164,9 @@ function archive(version, withModel, modelOnly = false) {
       // Since 2.6.0 the archive also carries the reply voice; installs that lack it fetch it.
       "--require",
       "_internal/models/primetts/primetts_v21_3voice.onnx",
+      // Since 2.8.0 also the sentence vectors for book search; installs that lack them fetch it.
+      "--require",
+      "_internal/models/embed/model_int8.onnx",
     ],
     { stdio: "inherit" },
   );

@@ -98,6 +98,10 @@ class AutomaticUpdateTests(unittest.TestCase):
             self.assertFalse(updater.has_model(install))
             (install / updater.VOICE_RELATIVE).parent.mkdir(parents=True)
             (install / updater.VOICE_RELATIVE).write_bytes(b'voice')
+            # A 2.6–2.7 install: no book-search vectors yet -> the model archive once more.
+            self.assertFalse(updater.has_model(install))
+            (install / updater.EMBED_RELATIVE).parent.mkdir(parents=True)
+            (install / updater.EMBED_RELATIVE).write_bytes(b'vectors')
             self.assertTrue(updater.has_model(install))
         self.assertFalse(updater.has_model(None))
 
