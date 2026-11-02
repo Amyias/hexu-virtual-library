@@ -927,6 +927,83 @@ try {
   await click("returnBook");
   await waitFor(phaseIs("IDLE"), "第二本放回");
   step("第二本放回");
+
+  // Library actions from a conversation (mocked model, no real API): a chapter asked for with a
+  // fetch waits until the book is open in the reader's hands, and a download the model proposes
+  // starts only after the reader says yes. The download itself is intercepted too.
+  await page.evaluate(`(() => {
+    const original = window.fetch;
+    window.toolTest = { downloads: [], next: [] };
+    window.fetch = async (url, options) => {
+      const path = String(url);
+      if (path === '/chat/ready') return new Response(JSON.stringify({ready:true,configuration:'tools'}),{status:200});
+      if (path === '/chat/stream') {
+        const events = toolTest.next.splice(0);
+        const encoder = new TextEncoder();
+        return new Response(new ReadableStream({ pull(controller) {
+          const event = events.shift();
+          if (event) controller.enqueue(encoder.encode(JSON.stringify(event) + '\\n'));
+          else controller.close();
+        } }), {status:200, headers:{'Content-Type':'application/x-ndjson; charset=utf-8'}});
+      }
+      if (path.endsWith('/library/download')) {
+        toolTest.downloads.push(JSON.parse(options.body));
+        return new Response(JSON.stringify({id:'tool-job'}),{status:200});
+      }
+      if (path.endsWith('/library/jobs/tool-job'))
+        return new Response(JSON.stringify({state:'cancelled',message:'测试下载已取消'}),{status:200});
+      return original(url, options);
+    };
+  })()`);
+  const turn = async (events, text) => {
+    const before = (await state()).chat.turns;
+    await page.evaluate(
+      `toolTest.next = ${JSON.stringify(events)}; libraryDebug.processText(${JSON.stringify(text)}, true);`,
+    );
+    await waitFor(async () => (await state()).chat.turns > before, "对话回合完成");
+  };
+  const reply = (text) => ({ type: "done", reply: text, configuration: "tools", sources: [] });
+  await turn(
+    [
+      { type: "delta", text: "好，我去取。" },
+      { type: "action", name: "fetch_book", args: { bookId: secondBook.bookId, title: "第二本" } },
+      { type: "action", name: "open_chapter", args: { chapter: 1, after: "arrival" } },
+      reply("好，我去取。"),
+    ],
+    "你推荐我读哪本？",
+  );
+  await waitFor(async () => {
+    const now = await state();
+    // The fixture book has one chapter. Arriving shows the 3D book, not the text: the text
+    // being open at chapter 1 is the step having run.
+    return now.phase === "READING" && now.novel.visible && now.novel.chapter === 0;
+  }, "取书后翻到第二章");
+  step("对话里取书并翻章", "书到手后打开第 1 章");
+  await click("closeNovel");
+  await click("returnBook");
+  await waitFor(phaseIs("IDLE"), "翻章后放回");
+  const candidate = {
+    title: "测试下载",
+    author: "测试",
+    source_id: "test",
+    source_key: "/book/1",
+    source: "测试书源",
+  };
+  await turn(
+    [
+      { type: "delta", text: "要下载吗？" },
+      { type: "action", name: "download_book", args: { candidate } },
+      reply("要下载吗？"),
+    ],
+    "今天心情不错，陪我聊聊天吧",
+  );
+  if ((await page.evaluate("toolTest.downloads.length")) !== 0)
+    throw new Error("未经读者同意就开始下载");
+  await page.evaluate("libraryDebug.processText('要', true)");
+  await waitFor(() => page.evaluate("toolTest.downloads.length === 1"), "读者同意后开始下载");
+  const asked = await page.evaluate("toolTest.downloads[0]");
+  if (asked.source_key !== candidate.source_key) throw new Error("下载了另一本书");
+  step("对话里下载需先确认", "说「要」之前不下载");
   await page.send("Page.reload");
   await waitFor(
     async () =>

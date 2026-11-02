@@ -148,6 +148,8 @@ class BookLibrary:
                     PRIMARY KEY(book_id,number));
                 CREATE TABLE IF NOT EXISTS progress(book_id TEXT PRIMARY KEY, chapter INTEGER, offset INTEGER);
                 CREATE TABLE IF NOT EXISTS sources(id TEXT PRIMARY KEY, config TEXT);
+                CREATE TABLE IF NOT EXISTS bookmarks(id INTEGER PRIMARY KEY, book_id TEXT, chapter INTEGER,
+                    offset INTEGER, note TEXT, created_at INTEGER);
             """)
             # The furthest chapter ever reached: 小和's book answers stop there (no spoilers), and
             # turning back to reread an early chapter must not hide what was already read.
@@ -356,6 +358,31 @@ class BookLibrary:
                           furthest=MAX(COALESCE(furthest, chapter), excluded.chapter)""",
                        (identifier, chapter, offset, chapter))
         return {"ok": True}
+
+    MAX_BOOKMARKS = 50  # per book; the oldest goes first
+
+    def add_bookmark(self, identifier, note=""):
+        """A bookmark where the reader is now (the saved reading position), with an optional note
+        of up to 40 characters. Returns it, with the chapter title for saying it back."""
+        book = self.get(identifier, False)
+        note = " ".join(note.split())[:40] if isinstance(note, str) else ""
+        chapter, offset = int(book["progress"]["chapter"]), int(book["progress"]["offset"])
+        with self.connect() as db:
+            cursor = db.execute("INSERT INTO bookmarks(book_id, chapter, offset, note, created_at) VALUES(?,?,?,?,?)",
+                                (identifier, chapter, offset, note, int(time.time())))
+            db.execute("""DELETE FROM bookmarks WHERE book_id=? AND id NOT IN
+                          (SELECT id FROM bookmarks WHERE book_id=? ORDER BY id DESC LIMIT ?)""",
+                       (identifier, identifier, self.MAX_BOOKMARKS))
+        return {"id": cursor.lastrowid, "chapter": chapter, "offset": offset, "note": note,
+                "chapter_title": book["chapters"][chapter]["title"] if chapter < len(book["chapters"]) else ""}
+
+    def bookmarks(self, identifier):
+        """A book's bookmarks, oldest first, each with its chapter title."""
+        titles = {item["number"]: item["title"] for item in self.get(identifier, False)["chapters"]}
+        with self.connect() as db:
+            rows = db.execute("SELECT id, chapter, offset, note, created_at FROM bookmarks WHERE book_id=? ORDER BY id",
+                              (identifier,)).fetchall()
+        return [{**dict(row), "chapter_title": titles.get(row["chapter"], "")} for row in rows]
 
     def read_up_to(self, identifiers):
         """{book id: furthest chapter reached} for the given books the reader has opened; a book

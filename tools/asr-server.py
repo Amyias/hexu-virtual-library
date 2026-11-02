@@ -984,7 +984,9 @@ class Handler(SimpleHTTPRequestHandler):
         catalog = load_catalog()[0]
         selected = catalog.get(str(body.get("bookId", ""))) if isinstance(body, dict) else None
         phase = body.get("phase") if isinstance(body, dict) else None
-        app = app_actions.AppActions(phase, describe_book(selected["id"]) if selected else None, catalog)
+        app = app_actions.AppActions(phase, describe_book(selected["id"]) if selected else None, catalog,
+                                     reading_id=selected["id"] if selected else None,
+                                     library=book_library.instance())
         events = llm_chat.chat_stream(body, resolved, validate_endpoint,
                                       timeout=float(os.environ.get("HEXU_LLM_CHAT_TIMEOUT", "60")),
                                       selected=selected, memory=memory_context(body),

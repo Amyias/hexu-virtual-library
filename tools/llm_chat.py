@@ -331,7 +331,6 @@ def chat_stream(body, resolved, validate_endpoint, *, timeout=60, selected=None,
     # Library actions (app_actions.AppActions) join the web tools; the page carries them out.
     if app:
         messages[0]["content"] += app.prompt()
-    tools = (web_tools.TOOLS if enabled else []) + (app.tools if app else [])
     actions = []
     secrets = [resolved.get(name) for name in ("HEXU_LLM_API_KEY", "HEXU_WEB_API_KEY") if resolved.get(name)]
     deadline = time.monotonic() + timeout
@@ -344,6 +343,8 @@ def chat_stream(body, resolved, validate_endpoint, *, timeout=60, selected=None,
             yield {"type": "error", "error": "本轮对话与联网查询超时，请重试。"}
             return
         last = turn == web_tools.MAX_ROUNDS or web.calls >= web_tools.MAX_CALLS
+        # Offered afresh each round: fetching a book opens that book's chapters and music.
+        tools = (web_tools.TOOLS if enabled else []) + (app.tools if app else [])
         calls = None
         for kind, value in stream_completion(resolved, messages, validate_endpoint, timeout=remaining,
                                              tools=tools or None,

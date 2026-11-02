@@ -34,10 +34,10 @@ def sse_text(text):
 
 class AppActionTests(unittest.TestCase):
     def test_only_actions_that_make_sense_now_are_offered(self):
-        self.assertEqual(names(app_actions.AppActions("IDLE", None, CATALOG)), ["set_sky", "fetch_book"])
+        self.assertEqual(names(app_actions.AppActions("IDLE", None, CATALOG)), ["set_sky", "fetch_book", "locate_book"])
         self.assertEqual(names(app_actions.AppActions("IDLE", None, {})), ["set_sky"], "no books, nothing to fetch")
         self.assertEqual(names(app_actions.AppActions("READING", READING, CATALOG)),
-                         ["set_sky", "reading_music", "open_chapter"])
+                         ["set_sky", "reading_music", "open_chapter", "set_font_size"])
         self.assertEqual(names(app_actions.AppActions("NAVIGATING", None, CATALOG)), ["set_sky"])
         prompt = app_actions.AppActions("IDLE", None, CATALOG).prompt()
         self.assertIn("HX-03408 | 三体 | 刘慈欣", prompt)
@@ -73,7 +73,7 @@ class AppActionTests(unittest.TestCase):
             events = list(llm_chat.chat_stream({"text": "把天变成晚上"}, {**CONFIG, "HEXU_WEB_ENABLED": "0"},
                                                lambda _url: None, app=actions))
         first = json.loads(call.call_args_list[0].args[0].data)
-        self.assertEqual([tool["function"]["name"] for tool in first["tools"]], ["set_sky", "fetch_book"])
+        self.assertEqual([tool["function"]["name"] for tool in first["tools"]], ["set_sky", "fetch_book", "locate_book"])
         self.assertIn("界面工具", first["messages"][0]["content"])
         self.assertEqual(events[0], {"type": "action", "name": "set_sky", "args": {"mode": "night"}})
         second = json.loads(call.call_args_list[1].args[0].data)["messages"]

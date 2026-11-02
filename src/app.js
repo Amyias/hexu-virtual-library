@@ -141,6 +141,27 @@ export async function startLibrary() {
     onCancel: () => assistant.cancelPending(),
     onClear: () => assistant.clearConversation(),
   });
+  /** Show where a book stands, from the library panel's 「定位书架」 or when 小和 is asked. */
+  function locateOnShelf(book) {
+    if (!machine.is(IDLE)) {
+      feedback.notice("书已上架。请先放回当前书籍，再定位书架。");
+      return false;
+    }
+    // Look straight into the assigned face from its aisle. At overview scale a single
+    // 26 mm spine is less than a pixel wide; locating keeps it standing in its real slot.
+    focus.copy(book.origin);
+    Object.assign(orbit, {
+      angle: book.side === "A" ? Math.PI / 2 : -Math.PI / 2,
+      elevation: 0.22,
+      radius: 1.55,
+    });
+    updateCamera();
+    environment.shelfBooks.highlight(book, true);
+    $("locationText").textContent =
+      `《${book.title}》 · 第 ${book.shelf} 架 ${book.side} 面 · 第 ${book.layer} 层 · 第 ${book.slot} 本`;
+    feedback.notice(`已定位 ${book.locationCode}，书本保留在架上；可在正文书库取阅。`);
+    return true;
+  }
   const assistant = createAssistant({
     conversation,
     gsap,
@@ -156,32 +177,13 @@ export async function startLibrary() {
     novelReader,
     isUnderstandReady: () => understandReady,
     readingMusic,
-    actions: { setSky: (mode) => sky.choose(mode) },
+    actions: { setSky: (mode) => sky.choose(mode), locate: (book) => locateOnShelf(book) },
   });
   library = createLocalLibrary({
     books,
     notice: feedback.notice,
     onBind: (book) => environment.shelfBooks.setVisible(book, true),
-    onLocate(book) {
-      if (!machine.is(IDLE)) {
-        feedback.notice("书已上架。请先放回当前书籍，再定位书架。");
-        return false;
-      }
-      // Look straight into the assigned face from its aisle. At overview scale a single
-      // 26 mm spine is less than a pixel wide; locating keeps it standing in its real slot.
-      focus.copy(book.origin);
-      Object.assign(orbit, {
-        angle: book.side === "A" ? Math.PI / 2 : -Math.PI / 2,
-        elevation: 0.22,
-        radius: 1.55,
-      });
-      updateCamera();
-      environment.shelfBooks.highlight(book, true);
-      $("locationText").textContent =
-        `《${book.title}》 · 第 ${book.shelf} 架 ${book.side} 面 · 第 ${book.layer} 层 · 第 ${book.slot} 本`;
-      feedback.notice(`已定位 ${book.locationCode}，书本保留在架上；可在正文书库取阅。`);
-      return true;
-    },
+    onLocate: locateOnShelf,
     onSelect(book) {
       if (machine.is(IDLE)) assistant.present(book, "正文已在本地书库，正在为您定位。");
       else if (machine.is(READING) && journey.selected?.localBookId === book.localBookId)

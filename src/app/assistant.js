@@ -4,6 +4,7 @@ import { wakeRE } from "../voice/intent.js";
 import { lookupBooks } from "../reader/library.js";
 import {
   decide,
+  requestOf,
   protocolResponse,
   pickChoice,
   choiceSpeech,
@@ -24,7 +25,7 @@ const postJson = (url, body) =>
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
   });
-import { IDLE, READING } from "./phases.js";
+import { IDLE, NAVIGATING, PRESENTING, READING } from "./phases.js";
 
 /* 小和 itself: carries out what dialogue.decide() concluded. Every text input — recognised speech,
    the conversation panel, libraryDebug.processText — comes through processText(). */
@@ -104,12 +105,79 @@ export function createAssistant({
 
   /** Library actions requested in conversation, each checked again before it runs. */
   function perform(name, args) {
+    // Asked together with fetching a book: done once the book is in the reader's hands.
+    if (args?.after === "arrival" && ["reading_music", "open_chapter"].includes(name)) {
+      afterArrival.push({ name, args: { ...args, after: undefined } });
+      return;
+    }
     if (name === "set_sky" && ["day", "night", "auto"].includes(args?.mode))
       actions.setSky?.(args.mode);
     else if (name === "reading_music" && machine.is(READING))
       args?.action === "pause" ? readingMusic?.pause() : readingMusic?.play();
     else if (name === "open_chapter" && machine.is(READING) && Number.isInteger(args?.chapter))
-      novelReader.goTo(args.chapter - 1);
+      return novelReader.goTo(args.chapter - 1);
+    else if (name === "open_bookmark" && machine.is(READING) && Number.isInteger(args?.chapter))
+      return novelReader.goTo(args.chapter - 1, args.offset);
+    else if (name === "set_font_size" && machine.is(READING)) novelReader.fontSize?.(args?.size);
+    else if (name === "locate_book" && machine.is(IDLE)) {
+      const book = books.find((entry) => entry.localBookId && entry.bookId === args?.bookId);
+      if (book) actions.locate?.(book);
+    } else if (name === "download_book" && args?.candidate?.title) offerDownload(args.candidate);
+    return true;
+  }
+
+  /* Steps asked for with a fetch (「取《三体》翻到第三章」) wait while the book is on its way, and
+     run once it is open in the reader's hands. They get SETTLE_MS there (the text may still be
+     loading); if they cannot run then, or the fetch ends without the book arriving, the reader
+     is told rather than left waiting. */
+  const SETTLE_MS = 10000;
+  let afterArrival = [];
+  function runAfterArrival() {
+    if (!afterArrival.length) return;
+    const steps = afterArrival;
+    afterArrival = [];
+    let until = null;
+    const attempt = () => {
+      if (machine.is(NAVIGATING, PRESENTING)) return setTimeout(attempt, 500); // still on its way
+      if (!machine.is(READING)) return notice("书没有取到，刚才翻章或音乐的要求没有执行。");
+      until ??= Date.now() + SETTLE_MS;
+      const left = steps.filter((step) => !perform(step.name, step.args));
+      steps.splice(0, steps.length, ...left);
+      if (!steps.length) return;
+      if (Date.now() < until) setTimeout(attempt, 500);
+      else notice("书到手后没能接着完成刚才的要求，请再说一次。");
+    };
+    attempt();
+  }
+
+  /* Downloading is never done on the model's word alone: 小和 asks, and only a 「要」 within
+     DOWNLOAD_WAIT_MS starts it. Anything else is handled as a new request. */
+  const DOWNLOAD_WAIT_MS = 30000;
+  let pendingDownload = null; // { candidate, until }
+  const YES = /^(?:要|好|好的|可以|行|下载|下载吧|要的|是的|确定|嗯|对)(?:吧|呀|啊|的)?$/;
+  const NO = /^(?:不|不要|不用|算了|取消|不下载|不用了)(?:吧|了|啦)?$/;
+  function offerDownload(candidate) {
+    pendingDownload = { candidate, until: Date.now() + DOWNLOAD_WAIT_MS };
+    attention.wake(DOWNLOAD_WAIT_MS);
+    notice(`说「要」开始下载《${candidate.title}》，说「不用」取消（30 秒内有效）。`);
+  }
+  function answerDownload(text) {
+    const offer = pendingDownload;
+    pendingDownload = null;
+    const answer = requestOf(text);
+    if (YES.test(answer)) {
+      const speech = `好的，开始下载《${offer.candidate.title}》，下载好就放上书架。`;
+      respond(speech);
+      say(speech);
+      getLibrary()?.download?.(offer.candidate);
+      return true;
+    }
+    if (NO.test(answer)) {
+      respond("好的，不下载了。");
+      say("好的，不下载了。");
+      return true;
+    }
+    return false;
   }
 
   async function remember(fact) {
@@ -236,7 +304,10 @@ export function createAssistant({
       const book = books.find((entry) => entry.localBookId && entry.bookId === fetchRequest.bookId);
       const asked = intentGeneration;
       await Promise.race([spoken, new Promise((resolve) => setTimeout(resolve, 8000))]);
-      if (book && asked === intentGeneration && machine.is(IDLE)) present(book, FOUND);
+      if (book && asked === intentGeneration && machine.is(IDLE)) {
+        present(book, FOUND);
+        runAfterArrival();
+      } else afterArrival = [];
     }
     clearTimeout(summaryTimer);
     summaryTimer = setTimeout(summarize, SUMMARY_IDLE_MS);
@@ -266,6 +337,13 @@ export function createAssistant({
   };
 
   function processText(text, direct = false, wasInterimWake = false) {
+    if (
+      pendingDownload &&
+      Date.now() < pendingDownload.until &&
+      (direct || attention.active() || wakeRE.test(text)) &&
+      answerDownload(text)
+    )
+      return null;
     if (
       choice &&
       Date.now() < choice.until &&

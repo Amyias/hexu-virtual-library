@@ -201,13 +201,20 @@ export function createNovelReader({ notice, onShow = () => {}, onHide = () => {}
     render();
   });
   window.addEventListener("pagehide", () => persist(true));
-  /** Open the text at the start of chapter `index` (0-based), as 「翻到第五章」 asks. */
-  function goTo(index) {
+  /** Open the text at chapter `index` (0-based), as 「翻到第五章」 asks, at character `at`
+   *  within it (a bookmark's place) or its start. */
+  function goTo(index, at = 0) {
     if (!documentBook || !Number.isInteger(index)) return false;
     chapter = Math.max(0, Math.min(index, documentBook.chapters.length - 1));
-    offset = 0;
+    offset = Number.isInteger(at) && at > 0 ? at : 0;
     show();
     return true;
+  }
+  /** 「字大一点」: one step larger or smaller, or back to the default size. */
+  function fontSize(step) {
+    if (step === "larger") font(2);
+    else if (step === "smaller") font(-2);
+    else if (step === "default") font(20 - size);
   }
   return {
     attach,
@@ -216,6 +223,7 @@ export function createNovelReader({ notice, onShow = () => {}, onHide = () => {}
     next,
     previous,
     goTo,
+    fontSize,
     clear() {
       hide();
       generation++;

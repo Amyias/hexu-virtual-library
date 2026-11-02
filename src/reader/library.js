@@ -400,6 +400,7 @@ export function createLocalLibrary({ books, onSelect, onBind, onLocate, notice }
   }
   return {
     search,
+    download,
     refresh,
     find,
     findAll,
