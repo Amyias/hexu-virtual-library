@@ -54,6 +54,52 @@ function tierOf(query, candidate) {
   return 0;
 }
 
+/* 书名的念法：《星海Ⅱ·归途》念出来是「星海归途」，罗马数字与间隔号都不出声。与书名相同、
+   或去掉后不足三字时不另建，免得「Ⅱ」这类书名只剩一两个字而撞上别的书。 */
+const UNSPOKEN = /[ⅰ-ⅿ·・:：\-—_()（）[\]【】]/g;
+export function spokenTitle(title) {
+  const written = normalize(title || "");
+  const spoken = written.replace(UNSPOKEN, "");
+  return spoken !== written && spoken.length >= 3 ? spoken : "";
+}
+
+/* 编号与位置码的念法：数字念成中文或英文都换回阿拉伯数字，只留字母和数字。
+   「HX 零三四零八」「S two A L4 P二八四」→「hx03408」「s2al4p284」。 */
+const SPOKEN_DIGITS = {
+  零: 0,
+  〇: 0,
+  幺: 1,
+  一: 1,
+  二: 2,
+  两: 2,
+  三: 3,
+  四: 4,
+  五: 5,
+  六: 6,
+  七: 7,
+  八: 8,
+  九: 9,
+  zero: 0,
+  one: 1,
+  two: 2,
+  three: 3,
+  four: 4,
+  five: 5,
+  six: 6,
+  seven: 7,
+  eight: 8,
+  nine: 9,
+};
+export function codeForm(text) {
+  return String(text || "")
+    .toLowerCase()
+    .replace(
+      /zero|one|two|three|four|five|six|seven|eight|nine|[零〇幺一二两三四五六七八九]/g,
+      (word) => String(SPOKEN_DIGITS[word]),
+    )
+    .replace(/[^a-z0-9]/g, "");
+}
+
 /* 返回命中的书、级别与命中的那个词。级别相同时先到者胜，即目录顺序。 */
 export function matchBook(text, collection = books) {
   return matchBooks(text, collection)[0] ?? null;
@@ -65,19 +111,31 @@ export function matchBooks(text, collection = books) {
   // Titles and aliases change when real books are bound after startup. Never index empty slots.
   const INDEX = collection
     .filter((book) => book.localBookId)
-    .flatMap((book) => [
-      { book, text: normalize(book.title), isTitle: true },
-      ...[...book.keys, ...(book.localAliases || [])].map((key) => ({
-        book,
-        text: normalize(key),
-        isTitle: false,
-      })),
-    ]);
+    .flatMap((book) => {
+      const spoken = spokenTitle(book.title);
+      return [
+        { book, text: normalize(book.title), isTitle: true },
+        ...(spoken ? [{ book, text: spoken, isTitle: true }] : []),
+        ...[...book.keys, ...(book.localAliases || [])].map((key) => ({
+          book,
+          text: normalize(key),
+          isTitle: false,
+        })),
+        // Numbers and position codes as they come out of speech: 「S2 A L4 P284」 has no hyphens.
+        ...book.keys.map((key) => ({ book, text: codeForm(key), isTitle: false, code: true })),
+      ];
+    });
   const query = normalize(text);
+  const code = codeForm(text);
   let best = [];
   let bestRank = 0;
-  for (const { book, text: candidate, isTitle } of INDEX) {
-    const tier = tierOf(query, candidate);
+  for (const { book, text: candidate, isTitle, code: isCode } of INDEX) {
+    // A code matches whole or not at all: one digit off is the shelf next door, not a near miss.
+    const tier = isCode
+      ? candidate && code.includes(candidate)
+        ? EXACT
+        : 0
+      : tierOf(query, candidate);
     if (!tier) continue;
     const rank = tier * 2 + (isTitle ? 1 : 0);
     const match = { book, tier, via: (isTitle ? "书名：" : "别名：") + candidate };

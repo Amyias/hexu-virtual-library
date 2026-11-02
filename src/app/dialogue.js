@@ -4,7 +4,7 @@
    one against the current phase and returns a plain description — wake up, read this command,
    walk to this book, ask the model — and assistant.js carries it out. Keeping the decision free
    of the scene, the DOM and the network is what lets the routing rules be tested on their own. */
-import { normalize, wakeRE, wakeStripRE } from "../voice/intent.js";
+import { normalize, spokenTitle, wakeRE, wakeStripRE } from "../voice/intent.js";
 import { IDLE, READING } from "./phases.js";
 
 /** How long 「小和」 keeps listening for a request without the wake word. */
@@ -119,10 +119,13 @@ export function pickChoice(text, choices) {
   if (/^(?:最后|末尾|最后面)(?:一|那)?(?:本|个|部)?/.test(request)) return choices.at(-1) ?? null;
   const ordinal = request.match(/^第?([一两二三四1-4])(?:本|个|部|种|项)?(?:吧|吗|啊)?$/);
   if (ordinal) return choices[ORDINAL[ordinal[1]]] ?? null;
-  const byTitle = choices.filter(
-    (book) =>
-      normalize(book.title) &&
-      (request.includes(normalize(book.title)) || normalize(book.title).includes(request)),
+  // 「启航那本」「归途的」: the pointing words around a part of the title are not part of it.
+  const named =
+    request.replace(/(?:的)?(?:那|这)?(?:一)?(?:本|部|个)?(?:吧|呢|啊)?$/, "") || request;
+  const byTitle = choices.filter((book) =>
+    [normalize(book.title), spokenTitle(book.title)].some(
+      (title) => title && (named.includes(title) || title.includes(named)),
+    ),
   );
   if (byTitle.length === 1) return byTitle[0];
   const byAuthor = choices.filter(
