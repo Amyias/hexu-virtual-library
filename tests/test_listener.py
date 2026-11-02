@@ -67,6 +67,18 @@ class NameBySoundTests(unittest.TestCase):
             self.assertEqual(listener.request_after_name(heard), request, heard)
 
 
+def heard_named(listener_, session, *parts):
+    """Events for the parts said by the local voice, re-synthesised until the spotter hears the
+    name at all. The voice varies a little each time and the spotter misses a short 「小和」 now
+    and then (its recall is what docs/VOICE_EVAL.md measures); these tests are about what
+    happens once it is heard, so a miss is not their failure."""
+    for attempt in range(5):
+        heard = listen(listener_.session(f"{session}-{attempt}"), spoken(*parts))
+        if any(event["type"] == "wake" for _, event in heard):
+            return heard
+    raise AssertionError("the spotter missed 「小和」 five times in a row")
+
+
 class KeywordFileTests(unittest.TestCase):
     def test_every_wake_word_is_spelt_in_units_the_model_knows(self):
         words = listener.keywords()
@@ -86,7 +98,7 @@ class SessionTests(unittest.TestCase):
         self.assertEqual(self.listener.state(), (True, ""))
 
     def test_the_name_is_heard_before_the_sentence_ends(self):
-        heard = listen(self.listener.session("test-wake-1"), spoken("小和，帮我找三体"))
+        heard = heard_named(self.listener, "test-wake", "小和，帮我找三体")
         kinds = [event["type"] for _, event in heard]
         self.assertEqual(kinds, ["wake", "text"], heard)
         (woke_at, _), (text_at, text) = heard
@@ -101,7 +113,7 @@ class SessionTests(unittest.TestCase):
             self.assertFalse(heard[0][1]["woke"])
 
     def test_a_pause_separates_the_name_from_the_request(self):
-        heard = listen(self.listener.session("test-step-1"), spoken("小和", "帮我找三体"))
+        heard = heard_named(self.listener, "test-step", "小和", "帮我找三体")
         texts = [event for _, event in heard if event["type"] == "text"]
         self.assertEqual(len(texts), 2, heard)
         self.assertTrue(texts[0]["woke"])
