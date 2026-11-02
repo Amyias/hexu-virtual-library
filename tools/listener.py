@@ -46,7 +46,10 @@ MAX_CHUNK_SECONDS = 4.0  # one request's audio; the page sends about a quarter o
 SESSION_IDLE = 30.0  # a page that stopped sending is forgotten after this long
 MAX_SESSIONS = 4
 SESSION_ID = re.compile(r"^[A-Za-z0-9-]{8,64}$")
-WAKE_SLACK = 0.3  # a wake heard this soon after an utterance ended still belongs to it
+# A wake heard this soon after an utterance ended still belongs to it. The spotter decides a chunk
+# (0.25 s) at a time and waits for a little silence after the name, so it can report the name up
+# to about the VAD's closing silence (MIN_SILENCE) plus a chunk after the utterance ended.
+WAKE_SLACK = 0.8
 
 
 def keywords():
