@@ -177,7 +177,7 @@ class AppActions:
             return None, {"error": "参数不正确"}
         if self.incoming:
             return ({"action": args["action"], "after": "arrival"},
-                    {"ok": True, "done": "书到读者手上后执行"})
+                    {"ok": True, "done": "还没有执行：书到读者手上后才执行，不要说已经做了"})
         return {"action": args["action"]}, {"ok": True, "done": "界面会立即执行"}
 
     def _open_chapter(self, args):
@@ -186,7 +186,7 @@ class AppActions:
         if type(chapter) is not int or not 1 <= chapter <= total:
             return None, {"error": f"这本书只有 {total} 章"}
         if self.incoming:
-            return {"chapter": chapter, "after": "arrival"}, {"ok": True, "done": "书到读者手上后翻到这一章"}
+            return {"chapter": chapter, "after": "arrival"}, {"ok": True, "done": "还没有翻：书到读者手上后才翻到这一章；你没读过这一章，不要描述它的内容"}
         return {"chapter": chapter}, {"ok": True, "done": "界面会立即执行"}
 
     def _fetch_book(self, args):
@@ -195,7 +195,8 @@ class AppActions:
             return None, {"error": "本机书库里没有这个编号"}
         self.incoming = {"bookId": args["bookId"], "chapters": int(book.get("chapter_count") or 0)}
         return ({"bookId": args["bookId"], "title": book.get("title", "")},
-                {"ok": True, "done": "小和说完这句话就去取书", "chapters": self.incoming["chapters"]})
+                {"ok": True, "done": "还没有取：小和说完这句话才出发去取，告诉读者这就去取，不要说已经取来",
+                 "chapters": self.incoming["chapters"]})
 
     def _locate_book(self, args):
         book = self.catalog.get(args.get("bookId"))
