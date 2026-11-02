@@ -602,22 +602,53 @@ def wants_spoilers(text):
     return not REFUSES_SPOILERS.search(text) and bool(WANTS_SPOILERS.search(text))
 
 
+# A question that leans on the one before: 「她后来怎么样了」 names nobody to search for.
+FOLLOW_UP = re.compile(r"他|她|它|这个人|那个人|这件事|那件事|后来|然后|接着|之后|那时|为什么|怎么回事|还有呢|继续")
+FOLLOW_UP_CHARS = 12
+
+
+def previous_question(body):
+    """The reader's last question in this conversation, or ""."""
+    history = body.get("history") if isinstance(body, dict) else None
+    if not isinstance(history, list):
+        return ""
+    for entry in reversed(history):
+        if isinstance(entry, dict) and entry.get("role") == "user" and isinstance(entry.get("content"), str):
+            return entry["content"][:400]
+    return ""
+
+
+def named_books(question, books):
+    """Ids of the local books a question names: the whole title, or a part of it, since 「星海」
+    names 《星海Ⅰ·启航》 as readers say it."""
+    found = []
+    for book in sorted(books, key=lambda item: -len(item.get("title", ""))):
+        title = book.get("title", "")
+        parts = [title, *re.split(r"[·・:：\-—_（）()\[\]【】ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩ\s]+", title)]
+        if any(len(part) >= 2 and part in question for part in parts) and book["id"] not in found:
+            found.append(book["id"])
+    return found
+
+
 def book_passages(body, selected):
     """Passages from local books for the chat prompt, as labelled text; "" when no local book is
     involved or nothing matches. The book being read always counts; so does any local title the
-    question names. Only these short passages are sent on, never a whole book."""
+    question names. Only these short passages are sent on, never a whole book.
+
+    A follow-up (short, or leaning on 他 / 后来 / 为什么) is searched together with the reader's
+    previous question, and keeps the book that question named: 「叶文洁在红岸做了什么」 then
+    「她后来怎么样了」 searches for 叶文洁 in 《三体》. A rule, not a model call: no quota is spent."""
     if not isinstance(body, dict) or not isinstance(body.get("text"), str):
         return ""
     try:
         books = book_library.instance().list_books()
         question = re.sub(r"\s+", "", body["text"])
+        earlier = re.sub(r"\s+", "", previous_question(body))
+        follow_up = bool(earlier) and (len(question) <= FOLLOW_UP_CHARS or bool(FOLLOW_UP.search(question)))
         targets = [selected["id"]] if selected and selected.get("id") else []
-        for book in sorted(books, key=lambda item: -len(item.get("title", ""))):
-            title = book.get("title", "")
-            # The whole title, or a part of it: 「星海」 names 《星海Ⅰ·启航》 as readers say it.
-            parts = [title, *re.split(r"[·・:：\-—_（）()\[\]【】ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩ\s]+", title)]
-            if any(len(part) >= 2 and part in question for part in parts) and book["id"] not in targets:
-                targets.append(book["id"])
+        targets += [book_id for book_id in named_books(question, books) if book_id not in targets]
+        if follow_up and not targets:
+            targets = named_books(earlier, books)
         if not targets:
             return ""
         targets = targets[:3]
@@ -625,7 +656,8 @@ def book_passages(body, selected):
         # they ask for what comes later: a rule the retrieval keeps, not a request to the model.
         spoilers = wants_spoilers(question)
         up_to = {} if spoilers else book_library.instance().read_up_to(targets)
-        hits = text_search().search(targets, body["text"], up_to=up_to)
+        search_for = body["text"] + ("\n" + earlier if follow_up else "")
+        hits = text_search().search(targets, search_for, up_to=up_to)
     except (sqlite3.Error, OSError, book_library.SourceError):
         return ""
     names = {book["id"]: book.get("title", "") for book in books}

@@ -148,6 +148,19 @@ class ServerPassageTests(unittest.TestCase):
             self.assertFalse(server.wants_spoilers(text), text)
             self.assertNotIn("倒计时", server.book_passages({"text": text}, {"id": self.book["id"]}), text)
 
+    def test_a_follow_up_is_searched_with_the_question_before_it(self):
+        history = [{"role": "user", "content": "三体里叶文洁在红岸基地做了什么"},
+                   {"role": "assistant", "content": "她在红岸基地工作。"}]
+        alone = server.book_passages({"text": "她后来怎么样了"}, None)
+        self.assertEqual(alone, "", "without the earlier question there is no book and no name")
+        followed = server.book_passages({"text": "她后来怎么样了", "history": history}, None)
+        self.assertIn("【《三体》第2章 红岸之一】", followed, "the book and 叶文洁 carry over")
+        self.assertIn("叶文洁", followed)
+        unrelated = server.book_passages(
+            {"text": "请帮我写一段明天去公园散步的计划安排", "history": history}, None)
+        self.assertEqual(unrelated, "", "a new, unrelated request does not inherit the book")
+        self.assertEqual(server.previous_question({"history": "nonsense"}), "")
+
     def test_a_book_never_opened_has_nothing_to_protect(self):
         other = book_library.instance().save({"title": "球状闪电", "author": "刘慈欣", "source_id": "local",
                                               "source_key": "b", "chapters": CHAPTERS})
