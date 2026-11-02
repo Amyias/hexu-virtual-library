@@ -1071,6 +1071,11 @@ class Handler(SimpleHTTPRequestHandler):
                 self._send_json(200, {"ok": True})
             elif pathname == "/memory/enabled":
                 self._send_json(200, {"ok": True, "enabled": memory.set_enabled(body.get("enabled") is True)})
+            elif pathname == "/memory/inference":
+                self._send_json(200, {"ok": True, "inference": memory.set_inference(body.get("enabled") is True)})
+            elif pathname == "/memory/profile":  # the reader's own edit; "" clears it
+                self._send_json(200, {"ok": memory.set_profile(body.get("text"), by_reader=True),
+                                      "profile": memory.profile()})
             elif pathname == "/memory/summarize":
                 self._post_memory_summary(memory, body)
             else:
@@ -1089,10 +1094,22 @@ class Handler(SimpleHTTPRequestHandler):
             self._send_json(429, {"error": f"调用过于频繁，请 {wait} 秒后再试"})
             return
         resolved, _ = settings_state()
-        status, payload = llm_chat.summarize(body.get("history"), resolved, validate_endpoint)
-        if status == 200 and payload.get("summary"):
-            memory.add_summary(payload["summary"], len(body.get("history") or []) // 2)
-        self._send_json(status, payload)
+        # Guessing on: the same call also proposes changes to 小和's notes and the impression.
+        record = None
+        if memory.inference():
+            record = {"facts": [fact["text"] for fact in memory.snapshot(lambda _: None)["facts"]],
+                      "notes": [{"id": note["id"], "text": note["text"]} for note in memory.active_notes()],
+                      "profile": memory.profile()}
+        status, payload = llm_chat.summarize(body.get("history"), resolved, validate_endpoint, record=record)
+        if status != 200:
+            self._send_json(status, payload)
+            return
+        if payload.get("summary"):
+            memory.add_summary(payload["summary"], len(body.get("history") or []) // 2, payload.get("importance"))
+        applied = memory.apply_notes(payload.get("notes")) if record is not None else 0
+        profiled = bool(record is not None and payload.get("profile") and memory.set_profile(payload["profile"]))
+        # The page needs only to know what happened, not the proposals themselves.
+        self._send_json(200, {"summary": payload.get("summary", ""), "notes": applied, "profile": profiled})
 
     def _post_tts(self):
         if not SPEAKER.state()[0]:

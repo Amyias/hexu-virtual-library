@@ -1,6 +1,7 @@
 """Provider-neutral conversation transport. No credentials or conversation are persisted here."""
 import hashlib
 import json
+import re
 import time
 import urllib.error
 import urllib.parse
@@ -401,11 +402,63 @@ SUMMARY_PROMPT = (
 )
 
 
-def summarize(history, resolved, validate_endpoint, *, timeout=30):
+# The same one call, when 小和 may also keep guesses: the summary plus proposed changes to its
+# own notes and the overall impression (reader_memory.apply_notes / set_profile decide what is
+# actually kept). Asked as plain JSON rather than a tool call, so it works with any compatible
+# provider; anything that does not parse changes nothing but the summary.
+CONSOLIDATE_PROMPT = (
+    "下面是读者和图书馆馆员小和的一段对话，后面附有小和目前对这位读者的记录。"
+    "请只输出一个 JSON 对象，不要输出其他文字，格式为："
+    '{"summary": "…", "importance": 5, "notes": [], "profile": null}。'
+    "summary：一句不超过六十字的中文，写清聊了什么，以及读者明确表达的喜好、打算或正在读的书；"
+    "只写对话里明确出现的事，不写小和的客套话；只是打招呼、寒暄或测试时给空字符串。"
+    "importance：1 到 10 的整数，这段对话对了解读者有多重要（寒暄 1，说出重要喜好或计划 8 以上）。"
+    "notes：至多 3 条对「小和的推测」的修改，每条是 {\"op\": \"add\", \"text\": \"…\"}、"
+    "{\"op\": \"update\", \"id\": 编号, \"text\": \"…\"} 或 {\"op\": \"retire\", \"id\": 编号}；"
+    "只在对话明显透露读者的偏好、习惯或近况时添加，每条不超过四十字；与已有推测矛盾或过时时 update 或 retire 那一条；"
+    "不要重复读者亲口让记住的事，那些只读、不能修改；没有就给空数组。"
+    "profile：用不超过一百字重写你对读者的整体印象（称呼偏好、爱读的类型、阅读习惯），没有新信息时给 null。"
+    "推测必须有对话依据，不编造；不写密钥、电话、地址、身份证号等隐私。"
+)
+MAX_PROPOSED_NOTES = 3
+
+
+def parse_consolidation(reply):
+    """The model's JSON answer as {"summary", "importance", "notes", "profile"}, or None when it
+    is not that shape. Code fences are tolerated; anything else is not guessed at."""
+    text = re.sub(r"^```(?:json)?|```$", "", (reply or "").strip()).strip()
+    try:
+        data = json.loads(text)
+    except ValueError:
+        return None
+    if not isinstance(data, dict) or not isinstance(data.get("summary", ""), str):
+        return None
+    importance = data.get("importance")
+    notes = data.get("notes")
+    profile = data.get("profile")
+    return {
+        "summary": data.get("summary", ""),
+        "importance": importance if type(importance) is int and 1 <= importance <= 10 else None,
+        "notes": [note for note in notes if isinstance(note, dict)][:MAX_PROPOSED_NOTES] if isinstance(notes, list) else [],
+        "profile": profile if isinstance(profile, str) else None,
+    }
+
+
+def clean_summary(line):
+    line = " ".join((line or "").split()).strip("「」\"' ")
+    return "" if not line or line in ("无", "无。") or len(line) < 4 else line[:120]
+
+
+def summarize(history, resolved, validate_endpoint, *, timeout=30, record=None):
     """One line about a finished conversation, or "" when there is nothing worth keeping.
 
     The history is the page's own bounded context, validated exactly as for chat; it is sent
-    once to the configured model and not stored. Only the returned line is kept."""
+    once to the configured model and not stored. Only the returned line is kept.
+
+    record: what 小和 already keeps about the reader, when it may also guess —
+    {"facts": [text], "notes": [{"id", "text"}], "profile": text}. The same call then also
+    proposes changes to the notes and the profile, returned as "notes" and "profile"; a reply
+    that is not the JSON asked for is treated as a plain summary line, with no other change."""
     try:
         messages = history_messages(history)
     except ValueError as error:
@@ -415,12 +468,22 @@ def summarize(history, resolved, validate_endpoint, *, timeout=30):
     if not resolved["HEXU_LLM_API_KEY"]:
         return 503, {"error": "尚未配置大模型"}
     transcript = "\n".join(("读者：" if m["role"] == "user" else "小和：") + m["content"][:1500] for m in messages)
-    status, result = completion(resolved, [{"role": "system", "content": SUMMARY_PROMPT},
+    if record is not None:
+        facts = "；".join(record.get("facts") or []) or "（无）"
+        notes = "；".join(f"{note['id']}: {note['text']}" for note in record.get("notes") or []) or "（无）"
+        transcript += (f"\n\n读者亲口让小和记住的事（只读）：{facts}\n"
+                       f"小和的推测（编号: 内容，可修改）：{notes}\n"
+                       f"小和目前对读者的印象：{record.get('profile') or '（无）'}")
+    prompt = CONSOLIDATE_PROMPT if record is not None else SUMMARY_PROMPT
+    status, result = completion(resolved, [{"role": "system", "content": prompt},
                                            {"role": "user", "content": transcript}],
                                 validate_endpoint, timeout=timeout)
     if status != 200:
         return status, result
-    line = " ".join(web_tools.redact(result["reply"], resolved).split()).strip("「」\"' ")
-    if not line or line in ("无", "无。") or len(line) < 4:
-        return 200, {"summary": ""}
-    return 200, {"summary": line[:120]}
+    reply = web_tools.redact(result["reply"], resolved)
+    parsed = parse_consolidation(reply) if record is not None else None
+    if parsed is None:
+        # The plain one-line answer, or a JSON reply that went wrong: keep at most the summary.
+        return 200, {"summary": "" if reply.lstrip().startswith(("{", "```")) else clean_summary(reply)}
+    return 200, {"summary": clean_summary(parsed["summary"]), "importance": parsed["importance"],
+                 "notes": parsed["notes"], "profile": parsed["profile"]}

@@ -319,11 +319,15 @@
         <h2>小和记得的事</h2>
         <p class="note">
           小和会记住三类事：你明确说「记住……」的内容、你打开过的书和读到哪一章、每段对话结束后的一句话摘要。
-          它们只保存在这台电脑上（<code id="memoryPath">—</code>）。和小和聊天时，其中最相关的几条（不超过 400 字）
+          写摘要的同一次调用里，小和还可以记下自己的推测（例如「最近在看历史书」）和对你的整体印象；这些都标明是推测，
+          不会改动你亲口交代的事，也可以单独关掉。
+          它们只保存在这台电脑上（<code id="memoryPath">—</code>）。和小和聊天时，其中最相关的几条（不超过 520 字）
           会随问题一起发给你配置的大模型服务，好让它接着上次聊；可以逐条删除、全部清空，或完全关闭。
         </p>
         <label for="memoryEnabled">记忆功能</label>
         <select id="memoryEnabled"><option value="1">开启：记住我交代的事、读过的书和聊过的话题</option><option value="0">关闭：不再记录，也不发送任何记忆</option></select>
+        <label for="memoryInference">让小和推测</label>
+        <select id="memoryInference"><option value="1">开启：小和可以记下自己的推测和对我的印象</option><option value="0">关闭：只记我交代的事、读过的书和聊过的话题</option></select>
         <label for="greetingEnabled">主动问候</label>
         <select id="greetingEnabled"><option value="on">开启：打开图书馆时打一声招呼（每次最多一句，不打断你）</option><option value="off">关闭</option></select>
         <h3>你让小和记住的事</h3>
@@ -332,6 +336,11 @@
         <ul id="memoryReading" class="memory-list"></ul>
         <h3>聊过的话题</h3>
         <ul id="memorySummaries" class="memory-list"></ul>
+        <h3>小和对你的印象（推测）</h3>
+        <p id="memoryProfile" class="note">（还没有）</p>
+        <div class="row"><button id="memoryProfileEdit">修改</button><button id="memoryProfileClear">清除</button></div>
+        <h3>小和猜的（推测）</h3>
+        <ul id="memoryNotes" class="memory-list"></ul>
         <div class="row"><button id="memoryRefresh">刷新</button><button id="memoryClear">全部清空</button></div>
         <p id="memoryMessage" role="status"></p>
       </section>
@@ -624,6 +633,18 @@
             "book_id",
           );
           memoryItems($("memorySummaries"), memory.summaries, (s) => `${when(s.created_at)}：${s.text}`, "summary", "id");
+          $("memoryInference").value = memory.inference === false ? "0" : "1";
+          $("memoryProfile").textContent = memory.profile || "（还没有）";
+          memoryItems(
+            $("memoryNotes"),
+            memory.notes || [],
+            (n) =>
+              n.retired_at
+                ? `${n.text}（已失效，${when(n.retired_at)}）`
+                : `${n.text}（${when(n.updated_at)}）`,
+            "note",
+            "id",
+          );
         } catch {
           memoryMessage("无法读取记忆。", false);
         }
@@ -632,6 +653,28 @@
         const on = $("memoryEnabled").value === "1";
         const { ok } = await memoryPost("/memory/enabled", { enabled: on });
         memoryMessage(ok ? (on ? "记忆已开启。" : "记忆已关闭：不再记录，聊天时也不再发送记忆。已有内容保留，可手动清空。") : "保存失败。", ok);
+        loadMemory();
+      };
+      $("memoryInference").onchange = async () => {
+        const on = $("memoryInference").value === "1";
+        const { ok } = await memoryPost("/memory/inference", { enabled: on });
+        memoryMessage(
+          ok ? (on ? "小和可以记下自己的推测了。" : "已关闭推测：不再记录，聊天时也不再发送推测；已有推测保留，可逐条删除。") : "保存失败。",
+          ok,
+        );
+        loadMemory();
+      };
+      $("memoryProfileEdit").onclick = async () => {
+        const current = $("memoryProfile").textContent === "（还没有）" ? "" : $("memoryProfile").textContent;
+        const text = prompt("小和对你的印象（不超过 120 字，留空则清除）：", current);
+        if (text === null) return;
+        const { ok, payload } = await memoryPost("/memory/profile", { text });
+        memoryMessage(ok ? "已保存。" : payload.error || "保存失败。", ok);
+        loadMemory();
+      };
+      $("memoryProfileClear").onclick = async () => {
+        const { ok } = await memoryPost("/memory/delete", { kind: "profile" });
+        memoryMessage(ok ? "已清除。" : "没有可清除的印象。", ok);
         loadMemory();
       };
       $("memoryRefresh").onclick = loadMemory;
