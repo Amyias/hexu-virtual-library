@@ -10,6 +10,7 @@ const { marked } = await import(pathToFileURL(require.resolve("marked")).href);
 const docs = path.dirname(fileURLToPath(import.meta.url));
 const output = path.join(docs, "portable");
 const names = ["architecture", "voice-flow", "asset-pipeline"];
+const rasters = ["agent-loop"];
 const sourceBase = "https://github.com/Amyias/hexu-virtual-library/blob/master/";
 await fs.mkdir(path.join(output, "diagrams"), { recursive: true });
 
@@ -61,6 +62,24 @@ for (const name of names) {
       `href="data:image/png;base64,${png.toString("base64")}" download="${name}.png"`,
     );
 }
+// Raster-only diagrams (drawn in draw.io, tools/make-agent-diagram.py) travel as embedded PNG,
+// with the editable .drawio source offered as a download.
+for (const name of rasters) {
+  const png = await fs.readFile(path.join(docs, "diagrams", `${name}.png`));
+  const drawio = await fs.readFile(path.join(docs, "diagrams", `${name}.drawio`));
+  await fs.writeFile(path.join(output, "diagrams", `${name}.png`), png);
+  await fs.writeFile(path.join(output, "diagrams", `${name}.drawio`), drawio);
+  body = body
+    .replace(
+      new RegExp(`<img src="diagrams/${name}\\.png" alt="([^"]*)"[^>]*>`),
+      (_, alt) =>
+        `<figure class="diagram" id="figure-${name}"><img src="data:image/png;base64,${png.toString("base64")}" alt="${alt}"><figcaption>${alt}</figcaption></figure>`,
+    )
+    .replaceAll(
+      `href="diagrams/${name}.drawio"`,
+      `href="data:application/xml;base64,${drawio.toString("base64")}" download="${name}.drawio"`,
+    );
+}
 const toc = [];
 body = body.replace(/<h2>(.*?)<\/h2>/g, (_, title) => {
   const id = `section-${toc.length + 1}`;
@@ -98,7 +117,7 @@ ${body}
 </main></div></body></html>\n`;
 if (
   (html.match(/<svg\b/g) || []).length !== 3 ||
-  /<img\b/.test(html) ||
+  /<img\b(?![^>]*src="data:)/.test(html) ||
   /(?:href|src)="(?:\.\.\/|diagrams\/)/.test(html)
 ) {
   throw new Error("Portable HTML must contain all three SVGs and no external local resources");
