@@ -1,5 +1,6 @@
 import { findBook, wakeRE } from "./intent.js";
-import { createServerAsr, heardRequest, probeServerAsr } from "./server-asr.js";
+import { createAltGesture } from "./alt-gesture.js";
+import { createPushToTalk, createServerAsr, heardRequest, probeServerAsr } from "./server-asr.js";
 import { voice } from "./voice.js";
 /* Browser recognizer lifecycle, independent of rendering and animation. */
 export function createSpeech({
@@ -25,6 +26,7 @@ export function createSpeech({
     resultSeen = false,
     silentTimer = null,
     serverAsr = null,
+    pushToTalk = null,
     autoKick = null;
   /* A recogniser can report "listening" and then never deliver a single result, because the
      fault is upstream of this module: no audio is reaching the browser, or the browser vendor's
@@ -234,6 +236,19 @@ export function createSpeech({
           notice(message);
         },
       });
+      pushToTalk = createPushToTalk({
+        onText(text) {
+          $("transcript").textContent = "听到：" + text;
+          record(text, text, 1, Boolean(lookupBook(text)));
+          // The key already said it is meant for 小和, as typing into the panel does.
+          processText(text, true);
+        },
+        onError: notice,
+        onStatus(text, kind) {
+          if (text) micStatus(text, kind);
+          else restoreStatus();
+        },
+      });
       // Equally, a browser without Web Speech can still be used here, so undo that branch's lock.
       $("micButton").disabled = false;
       $("transcript").textContent = "服务端识别已就绪";
@@ -315,6 +330,58 @@ export function createSpeech({
     startSession();
   }
 
+  function restoreStatus() {
+    if (wanted && live()) micStatus("监听中：请说“小和”", "live");
+    else micStatus(wanted ? "识别重连中" : "语音感知已关闭");
+  }
+
+  /* Left Alt: a tap is 「小和」, a tap then a held press is push-to-talk (alt-gesture.js).
+     Read from storage on every press, so the switch in the settings page applies at once. */
+  const ALT_PREFERENCE = "hexu-alt-key";
+  function altEnabled() {
+    try {
+      return localStorage.getItem(ALT_PREFERENCE) !== "off";
+    } catch {
+      return true;
+    }
+  }
+  const altGesture = createAltGesture({
+    onTap() {
+      if (voice.isSpeaking()) interrupt();
+      if (["IDLE", "READING"].includes(getPhase())) wake();
+    },
+    onHoldStart() {
+      if (!pushToTalk) {
+        notice("按住说话需要本机识别服务（随图书馆一起启动的语音服务）。");
+        return;
+      }
+      if (voice.isSpeaking()) interrupt();
+      serverAsr?.mute(true);
+      pushToTalk.begin();
+    },
+    onHoldEnd({ cancelled }) {
+      if (!pushToTalk) return;
+      pushToTalk.end({ cancelled }).finally(() => serverAsr?.mute(false));
+    },
+  });
+  const typing = (target) =>
+    target?.matches?.("textarea, input, select, [contenteditable]") ?? false;
+  for (const [type, feed] of [
+    ["keydown", (event) => altGesture.keydown(event)],
+    ["keyup", (event) => altGesture.keyup(event)],
+  ])
+    document.addEventListener(
+      type,
+      (event) => {
+        if (!altEnabled() || typing(event.target)) return;
+        // Windows otherwise moves the focus to the window menu on a bare Alt.
+        if (feed(event)) event.preventDefault();
+      },
+      { capture: true },
+    );
+  document.addEventListener("pointerdown", () => altGesture.pointerdown(), { capture: true });
+  window.addEventListener("blur", () => altGesture.blur());
+
   $("micButton").onclick = () => {
     if (!recognition && !serverAsr) return;
     if (wanted) stopSession();
@@ -322,6 +389,7 @@ export function createSpeech({
   };
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) {
+      altGesture.blur();
       clearTimeout(restartTimer);
       if (wanted) {
         // Both transports stop listening in a background tab, so speech the page was never
@@ -339,6 +407,7 @@ export function createSpeech({
     clearTimeout(restartTimer);
     clearTimeout(silentTimer);
     clearInterval(echoWatch);
+    pushToTalk?.end({ cancelled: true });
     serverAsr?.stop();
     recognition?.abort();
     voice.cancel();
@@ -352,6 +421,8 @@ export function createSpeech({
       clearTimeout(restartTimer);
       clearTimeout(silentTimer);
       clearInterval(echoWatch);
+      altGesture.blur();
+      pushToTalk?.end({ cancelled: true });
       serverAsr?.stop();
       recognition?.abort();
     },

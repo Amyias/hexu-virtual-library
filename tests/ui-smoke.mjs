@@ -1012,6 +1012,32 @@ try {
   const asked = await page.evaluate("toolTest.downloads[0]");
   if (asked.source_key !== candidate.source_key) throw new Error("下载了另一本书");
   step("对话里下载需先确认", "说「要」之前不下载");
+  /* From the reload on, the page believes it is served with the local recogniser, and its
+     microphone is a steady tone: push-to-talk then runs its real capture and encoding path. */
+  await page.send("Page.addScriptToEvaluateOnNewDocument", {
+    source: `(() => {
+      window.asrTest = { posts: [], reply: "" };
+      const realFetch = window.fetch.bind(window);
+      window.fetch = async (url, options) => {
+        if (url === "/asr/ready")
+          return new Response(JSON.stringify({ ready: true, streaming: false }));
+        if (url === "/asr") {
+          asrTest.posts.push(options.body.size);
+          return new Response(JSON.stringify({ text: asrTest.reply }));
+        }
+        return realFetch(url, options);
+      };
+      navigator.mediaDevices.getUserMedia = async () => {
+        const context = new AudioContext();
+        const tone = context.createOscillator();
+        const out = context.createMediaStreamDestination();
+        tone.connect(out);
+        tone.start();
+        await context.resume();
+        return out.stream;
+      };
+    })()`,
+  });
   await page.send("Page.reload");
   await waitFor(
     async () =>
@@ -1024,6 +1050,48 @@ try {
   if (JSON.stringify(rebound) !== JSON.stringify(bound.map((b) => [b.localBookId, b.bookId])))
     throw new Error("重新加载后真实书籍的位置发生变化");
   step("重载后保留书籍与编号");
+
+  const alt = (type) =>
+    page.send("Input.dispatchKeyEvent", {
+      type,
+      key: "Alt",
+      code: "AltLeft",
+      windowsVirtualKeyCode: 18,
+      modifiers: type === "keyUp" ? 0 : 1,
+    });
+  const message = async () => (await state()).dialogue.message;
+  const before = await message();
+  await alt("rawKeyDown");
+  for (const type of ["rawKeyDown", "keyUp"])
+    await page.send("Input.dispatchKeyEvent", {
+      type,
+      key: "Tab",
+      code: "Tab",
+      windowsVirtualKeyCode: 9,
+      modifiers: 1,
+    });
+  await alt("keyUp");
+  await sleep(800);
+  if ((await message()) !== before) throw new Error("Alt+Tab 被当成了单击 Alt");
+  await alt("rawKeyDown");
+  await alt("keyUp");
+  await waitFor(async () => (await message()) === "有什么需求吗？", "单击 Alt 唤醒小和");
+  await page.evaluate(`asrTest.reply = ${JSON.stringify(secondBook.bookId)}`);
+  await alt("rawKeyDown");
+  await alt("keyUp");
+  await sleep(100);
+  await alt("rawKeyDown");
+  await sleep(1200);
+  await alt("keyUp");
+  await waitFor(() => page.evaluate("asrTest.posts.length === 1"), "松开 Alt 后送出录音");
+  const bytes = await page.evaluate("asrTest.posts[0]");
+  if (bytes < 16000 * 2 * 0.5) throw new Error(`按住说话的录音太短：${bytes} 字节`);
+  await waitFor(
+    async () => (await text("transcript")) === "听到：" + secondBook.bookId,
+    "按住说话的识别结果交给小和",
+  );
+  await waitFor(async () => (await state()).phase !== "IDLE", "不必叫名字就按话找书");
+  step("Alt 键唤醒与按住说话", `Alt+Tab 不误触；录音 ${Math.round(bytes / 32000)} 秒`);
 
   if (page.errors.length) throw new Error("页面报错：\n  " + page.errors.join("\n  "));
   console.log(`\n界面冒烟测试通过（${Math.round((Date.now() - started) / 1000)} 秒）`);

@@ -315,6 +315,17 @@
         <p id="webMessage" role="status"></p>
       </section>
 
+      <section>
+        <h2>语音快捷键</h2>
+        <p class="note">
+          轻按一下左边的 Alt 键，等于叫一声「小和」；轻按一下再马上按住 Alt，就可以直接说话，松开时把这段话交给小和，不用先叫名字。
+          按住说话时麦克风只在按住期间打开，即使关闭了语音感知也能用。Alt 和别的键一起按（例如 Alt+Tab）不会触发；在输入框里打字时也不会。
+        </p>
+        <label for="altKey">Alt 键唤醒与按住说话</label>
+        <select id="altKey"><option value="on">开启</option><option value="off">关闭</option></select>
+        <p id="altKeyMessage" role="status"></p>
+      </section>
+
       <section id="memorySection">
         <h2>小和记得的事</h2>
         <p class="note">
@@ -693,6 +704,13 @@
         if ($("readingHelp").value === "off") localStorage.setItem("hexu-reading-help", "off");
         else localStorage.removeItem("hexu-reading-help");
         memoryMessage($("readingHelp").value === "off" ? "阅读中的轻声询问已关闭。" : "阅读中的轻声询问已开启。", true);
+      };
+      // Read by the library page (src/voice/speech.js) on every key press, so it applies at once.
+      $("altKey").value = localStorage.getItem("hexu-alt-key") === "off" ? "off" : "on";
+      $("altKey").onchange = () => {
+        if ($("altKey").value === "off") localStorage.setItem("hexu-alt-key", "off");
+        else localStorage.removeItem("hexu-alt-key");
+        $("altKeyMessage").textContent = $("altKey").value === "off" ? "Alt 键快捷方式已关闭。" : "Alt 键快捷方式已开启。";
       };
       $("memoryClear").onclick = async () => {
         if (!confirm("确定清空小和记得的所有事吗？这无法撤销。")) return;

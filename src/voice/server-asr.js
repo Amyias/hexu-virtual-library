@@ -232,6 +232,7 @@ function createStreamingAsr({ onText, onWake, onStatus, onError }) {
   let source = null;
   let client = null;
   let session = null;
+  let muted = false;
 
   async function post(url, body) {
     const response = await fetch(url, { method: "POST", body });
@@ -302,7 +303,7 @@ function createStreamingAsr({ onText, onWake, onStatus, onError }) {
           onStatus("语音感知已关闭", "off");
         },
       });
-      node.port.onmessage = (event) => client?.push(event.data);
+      node.port.onmessage = (event) => muted || client?.push(event.data);
       source.connect(node);
       onStatus("监听中：请说“小和”", "live");
       return true;
@@ -320,6 +321,10 @@ function createStreamingAsr({ onText, onWake, onStatus, onError }) {
       }
       release();
     },
+    /** Push-to-talk records the same voice on its own; the stream must not hear it too. */
+    mute(on) {
+      muted = Boolean(on);
+    },
     get running() {
       return Boolean(node);
     },
@@ -336,6 +341,7 @@ function createSegmentAsr({ onText, onStatus, onError }) {
   let source = null;
   let wanted = false;
   let busy = false; // a segment is being transcribed; ignore audio until it returns
+  let muted = false;
   const segmenter = createSegmenter();
   const reset = () => segmenter.reset();
 
@@ -372,7 +378,7 @@ function createSegmentAsr({ onText, onStatus, onError }) {
   }
 
   function onFrame(event) {
-    if (!wanted || busy) return;
+    if (!wanted || busy || muted) return;
     const frames = segmenter.push(new Float32Array(event.inputBuffer.getChannelData(0)));
     if (frames) flush(frames);
   }
@@ -428,11 +434,106 @@ function createSegmentAsr({ onText, onStatus, onError }) {
         stream = null;
       }
     },
+    mute(on) {
+      muted = Boolean(on);
+      reset();
+    },
     get running() {
       return Boolean(node);
     },
     get paused() {
       return busy;
+    },
+  };
+}
+
+/** Push-to-talk: begin() opens the microphone, end() closes it and posts what was said in
+ *  between to /asr as one utterance. No loudness cut, no wake word — the key marks the speech.
+ *  Its own microphone, because the reader may use it with continuous listening switched off.
+ *  end() before the microphone has opened still ends it: the recording is simply empty. */
+export function createPushToTalk({ onText, onError, onStatus = () => {} }) {
+  let take = null; // the recording in progress
+
+  function close(current) {
+    current.node && (current.node.port.onmessage = null);
+    current.source?.disconnect();
+    current.node?.disconnect();
+    current.context?.close();
+    current.stream?.getTracks().forEach((track) => track.stop());
+  }
+
+  async function open(current) {
+    try {
+      current.stream = await navigator.mediaDevices.getUserMedia({
+        audio: { channelCount: 1, echoCancellation: true, noiseSuppression: true },
+      });
+      if (current.ended) return;
+      current.context = new AudioContext({ sampleRate: TARGET_RATE });
+      if (current.context.state === "suspended") await current.context.resume();
+      await current.context.audioWorklet.addModule(
+        new URL("./capture-worklet.js", import.meta.url),
+      );
+      if (current.ended) return;
+      current.source = current.context.createMediaStreamSource(current.stream);
+      current.node = new AudioWorkletNode(current.context, "hexu-capture", {
+        numberOfOutputs: 0,
+      });
+      current.node.port.onmessage = (event) => current.chunks.push(event.data);
+      current.source.connect(current.node);
+    } catch (error) {
+      current.failed = true;
+      onError(
+        error && error.name === "NotFoundError"
+          ? "未找到可用麦克风"
+          : error && error.name === "NotAllowedError"
+            ? "麦克风未获授权，请检查站点权限"
+            : "无法开始录音：" + (error?.message ?? error),
+      );
+    }
+  }
+
+  return {
+    begin() {
+      if (take) return;
+      take = { chunks: [], ended: false, failed: false };
+      take.opening = open(take);
+      onStatus("按住说话：正在听…", "live");
+    },
+    /** Stop recording; unless cancelled, transcribe it. Resolves once the text was delivered. */
+    async end({ cancelled = false } = {}) {
+      const current = take;
+      take = null;
+      if (!current) return;
+      current.ended = true;
+      await current.opening;
+      const rate = current.context?.sampleRate ?? TARGET_RATE;
+      close(current);
+      const length = current.chunks.reduce((sum, chunk) => sum + chunk.length, 0);
+      if (cancelled || current.failed || length < rate * 0.2) {
+        onStatus(null);
+        return;
+      }
+      const joined = new Float32Array(length);
+      let at = 0;
+      for (const chunk of current.chunks) {
+        joined.set(chunk, at);
+        at += chunk.length;
+      }
+      onStatus("正在识别", "live");
+      try {
+        const wav = encodeWav(resample(joined, rate, TARGET_RATE), TARGET_RATE);
+        const response = await fetch(ASR_PATH, { method: "POST", body: wav });
+        const payload = await response.json().catch(() => ({}));
+        if (!response.ok) onError(payload.error || "识别服务返回 " + response.status);
+        else if (payload.text) onText(payload.text);
+      } catch (error) {
+        onError("无法连接识别服务：" + error.message);
+      } finally {
+        onStatus(null);
+      }
+    },
+    get recording() {
+      return Boolean(take);
     },
   };
 }

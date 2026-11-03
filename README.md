@@ -89,6 +89,7 @@ npm start
 | `src/voice/intent.js` | 唤醒词与馆藏匹配 |
 | `src/voice/speech.js` | Web Speech API 生命周期和识别事件 |
 | `src/voice/server-asr.js` | 服务端识别通道：连续收听（每 0.25 秒上传，服务端报告唤醒与整句），或退回能量断句后整段上传 |
+| `src/voice/alt-gesture.js` | 左 Alt 键：单击唤醒小和，单击后按住说话、松开送出（设置页可关闭） |
 | `src/voice/capture-worklet.js` | 连续收听的麦克风采集，跑在音频线程，主线程卡顿时也不丢音频 |
 | `src/voice/understand.js` | 语义解析通道：本地规则读不懂的说法交给大语言模型（已配置时才启用） |
 | `src/scene/runtime.js` | 相机、光照、阴影、环境反射 |
