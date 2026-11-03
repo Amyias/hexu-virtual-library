@@ -208,5 +208,33 @@ class PageTests(unittest.TestCase):
                      {"text": "x", "phase": "READING"}):
             self.assertNotIn("读者眼前这一页", llm_chat.prepare(body, config)["messages"][0]["content"])
 
+class CompactTests(unittest.TestCase):
+    CONFIG = {"HEXU_LLM_BASE_URL": "https://compatible.example/v1", "HEXU_LLM_MODEL": "test-model",
+              "HEXU_LLM_API_KEY": "invalid-test-credential"}
+    TURNS = [{"role": "user", "content": "我在读三体"}, {"role": "assistant", "content": "读到哪了？"}]
+
+    def test_older_turns_and_the_previous_digest_are_folded_in_one_call(self):
+        from unittest.mock import patch
+        answer = io.BytesIO(json.dumps({"choices": [{"message": {"content": "读者在读《三体》，聊到红岸。"}}]}).encode())
+        with patch("llm_chat.open_completion", return_value=answer) as call:
+            status, result = llm_chat.compact({"digest": "读者喜欢科幻", "history": self.TURNS}, self.CONFIG,
+                                              lambda _url: None)
+        self.assertEqual((status, result), (200, {"digest": "读者在读《三体》，聊到红岸。"}))
+        self.assertEqual(call.call_count, 1)
+        sent = json.loads(call.call_args[0][0].data)["messages"][1]["content"]
+        self.assertIn("此前的摘要：读者喜欢科幻", sent)
+        self.assertIn("读者：我在读三体", sent)
+
+    def test_malformed_requests_are_refused_before_any_call(self):
+        for body in ({"digest": 3, "history": self.TURNS}, {"digest": "x" * 500, "history": self.TURNS},
+                     {"digest": "", "history": []}, {"digest": "", "history": "nope"}, "nope"):
+            self.assertEqual(llm_chat.compact(body, self.CONFIG, lambda _url: None)[0], 400, body)
+
+    def test_the_digest_goes_into_later_prompts(self):
+        system = llm_chat.prepare({"text": "接着说", "digest": "读者在读《三体》"}, self.CONFIG)["messages"][0]["content"]
+        self.assertIn("本次对话更早的部分已压缩成摘要", system)
+        self.assertIn("读者在读《三体》", system)
+        self.assertNotIn("压缩成摘要", llm_chat.prepare({"text": "x", "digest": 5}, self.CONFIG)["messages"][0]["content"])
+
 if __name__ == "__main__":
     unittest.main()

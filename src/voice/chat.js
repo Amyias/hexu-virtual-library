@@ -27,12 +27,24 @@ async function readEvents(response, onEvent, stale) {
   }
   if (buffer.trim()) onEvent(JSON.parse(buffer));
 }
+/* The context budget, as the server checks it: six turns or 24,000 characters. Past it the oldest
+   turns are not simply forgotten: they are folded into a short running summary (POST
+   /chat/compact) that travels with later questions, and only KEEP_TURNS stay word for word.
+   Folding several turns at once keeps it to one extra model call every few turns. */
+const MAX_MESSAGES = 12;
+const MAX_CHARS = 24000;
+const KEEP_TURNS = 3;
+const characters = (entries) => entries.reduce((n, item) => n + Array.from(item.content).length, 0);
+
 export function createChatSession({ request = (...args) => fetch(...args), timeout = 90000 } = {}) {
   let history = [],
     total = 0, // completed turns ever, so a summary can take only what is new since the last one
     configuration = "",
     controller = null,
-    generation = 0;
+    generation = 0,
+    digest = "", // the earlier turns of this conversation, compacted
+    epoch = 0, // bumped when the conversation starts over, so a late digest is not kept
+    compacting = null;
   function cancel() {
     generation++;
     controller?.abort();
@@ -42,6 +54,25 @@ export function createChatSession({ request = (...args) => fetch(...args), timeo
     cancel();
     history = [];
     configuration = "";
+    digest = "";
+    epoch++;
+  }
+  /** Fold `dropped` (whole turns) into the digest, in the background. A failure only loses
+   *  those turns, as it did before compaction existed. */
+  function compact(dropped) {
+    const asked = epoch;
+    compacting = request("/chat/compact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ digest, history: dropped }),
+    })
+      .then((response) => (response.ok ? response.json() : null))
+      .then((payload) => {
+        if (asked === epoch && typeof payload?.digest === "string" && payload.digest.trim())
+          digest = payload.digest;
+      })
+      .catch(() => {})
+      .finally(() => (compacting = null));
   }
   async function ask(text, phase, bookId, { onText, onAction, page } = {}) {
     if (controller) return { error: "小和正在回答，请等待或停止当前回答。", busy: true };
@@ -61,6 +92,8 @@ export function createChatSession({ request = (...args) => fetch(...args), timeo
         return { error: ready.reason || "请在本机设置配置大模型 API。" };
       if (ready.configuration !== configuration) {
         history = [];
+        digest = "";
+        epoch++;
         configuration = ready.configuration;
       }
       const response = await request("/chat/stream", {
@@ -74,6 +107,7 @@ export function createChatSession({ request = (...args) => fetch(...args), timeo
           history,
           configuration,
           ...(page ? { page } : {}),
+          ...(digest ? { digest } : {}),
         }),
       });
       let result;
@@ -101,16 +135,22 @@ export function createChatSession({ request = (...args) => fetch(...args), timeo
       }
       if (typeof result.reply !== "string" || !result.reply.trim())
         return { error: "模型没有返回回答，请重试。" };
-      if (result.reset) history = [];
+      if (result.reset) {
+        history = [];
+        digest = "";
+        epoch++;
+      }
       configuration = result.configuration;
       history.push({ role: "user", content: text }, { role: "assistant", content: result.reply });
       total++;
-      // Drop whole pairs, never an orphan answer. Match server character and message budgets.
-      while (
-        history.length > 12 ||
-        history.reduce((n, item) => n + Array.from(item.content).length, 0) > 24000
-      )
-        history.splice(0, 2);
+      if (history.length > MAX_MESSAGES || characters(history) > MAX_CHARS) {
+        // Whole pairs only, never an orphan answer: keep the newest turns, fold the rest.
+        const kept = history.slice(-2 * KEEP_TURNS);
+        while (kept.length > 2 && characters(kept) > MAX_CHARS) kept.splice(0, 2);
+        const dropped = history.slice(0, history.length - kept.length);
+        history = kept;
+        compact(dropped);
+      }
       return result;
     } catch (error) {
       if (current !== generation) return { cancelled: true };
@@ -131,6 +171,12 @@ export function createChatSession({ request = (...args) => fetch(...args), timeo
     clear,
     /** The last `turns` completed turns still in context, as the server validates them. */
     recent: (turns) => history.slice(-2 * turns).map((entry) => ({ ...entry })),
-    getState: () => ({ busy: Boolean(controller), turns: history.length / 2, total }),
+    getState: () => ({
+      busy: Boolean(controller),
+      turns: history.length / 2,
+      total,
+      digest,
+      compacting: Boolean(compacting),
+    }),
   };
 }

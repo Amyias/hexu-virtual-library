@@ -10,6 +10,7 @@ import web_tools
 
 MAX_TEXT = 4000
 MAX_PAGE = 1200  # the page in front of the reader, sent with 「这段什么意思」
+MAX_DIGEST = 400  # the running summary of earlier turns that no longer fit (compact())
 MAX_HISTORY = 12  # six completed turns, kept only in the page's memory
 MAX_HISTORY_CHARS = 24000
 MAX_REPLY = 16000
@@ -161,6 +162,11 @@ def prepare(body, resolved, *, selected=None, memory="", passages=""):
         prompt += ("当前阅读书籍的已验证元数据如下：" + json.dumps(
             {"title": selected.get("title", ""), "author": selected.get("author", "")}, ensure_ascii=False)
                    + ("。" if passages else "。正文未提供，不得假装读过本地正文。"))
+    digest = body.get("digest")
+    if isinstance(digest, str) and digest.strip():
+        # The page keeps only the newest turns word for word; what came before is this summary.
+        prompt += ("本次对话更早的部分已压缩成摘要（读者那边看得到完整记录）：" + digest.strip()[:MAX_DIGEST] + "\n"
+                   "需要时据此承接，不要说自己记不得刚才聊过的事。")
     page = body.get("page")
     if body.get("phase") == "READING" and isinstance(page, str) and page.strip():
         # Sent by the page only when the reader asks about 「这段」「这里」 while reading.
@@ -454,6 +460,42 @@ def parse_consolidation(reply):
 def clean_summary(line):
     line = " ".join((line or "").split()).strip("「」\"' ")
     return "" if not line or line in ("无", "无。") or len(line) < 4 else line[:120]
+
+
+COMPACT_PROMPT = (
+    "下面是读者和图书馆馆员小和在同一次对话里较早的几轮，以及这次对话此前已有的摘要。"
+    "请把它们合并成一段不超过一百五十字的中文摘要，供小和在接下来的对话里承接用："
+    "保留读者问过的问题、提到的书和人物、表达的喜好与要求、双方已经定下的事；"
+    "去掉寒暄与客套，不写密钥、电话、地址等隐私。只输出摘要本身。"
+)
+
+
+def compact(body, resolved, validate_endpoint, *, timeout=30):
+    """The running summary of a conversation's earlier turns: the previous digest merged with
+    the turns the page is about to let go of. One call, made only when the page's history is
+    over its budget; the result replaces the dropped turns in later prompts."""
+    if not isinstance(body, dict):
+        return 400, {"error": "请求必须是 JSON 对象"}
+    digest = body.get("digest", "")
+    if not isinstance(digest, str) or len(digest) > MAX_DIGEST:
+        return 400, {"error": "摘要格式不正确"}
+    try:
+        messages = history_messages(body.get("history"))
+    except ValueError as error:
+        return 400, {"error": str(error)}
+    if len(messages) < 2:
+        return 400, {"error": "没有需要压缩的对话"}
+    if not resolved["HEXU_LLM_API_KEY"]:
+        return 503, {"error": "尚未配置大模型"}
+    transcript = ("此前的摘要：" + (digest.strip() or "（无）") + "\n\n" +
+                  "\n".join(("读者：" if m["role"] == "user" else "小和：") + m["content"][:1500] for m in messages))
+    status, result = completion(resolved, [{"role": "system", "content": COMPACT_PROMPT},
+                                           {"role": "user", "content": transcript}],
+                                validate_endpoint, timeout=timeout)
+    if status != 200:
+        return status, result
+    text = " ".join(web_tools.redact(result["reply"], resolved).split()).strip("「」\"' ")
+    return 200, {"digest": text[:MAX_DIGEST]}
 
 
 def summarize(history, resolved, validate_endpoint, *, timeout=30, record=None):

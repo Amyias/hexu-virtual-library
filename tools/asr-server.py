@@ -1102,6 +1102,19 @@ class Handler(SimpleHTTPRequestHandler):
         except ValueError as error:
             self._send_json(400, {"error": str(error)})
 
+    def _post_chat_compact(self):
+        """Fold a conversation's oldest turns into its running summary (llm_chat.compact)."""
+        body = self._read_json(128_000)
+        if body is None:
+            return
+        wait = UNDERSTAND_LIMIT.allow(self.client_address[0])
+        if wait:
+            self._send_json(429, {"error": f"调用过于频繁，请 {wait} 秒后再试"})
+            return
+        resolved, _ = settings_state()
+        status, payload = llm_chat.compact(body, resolved, validate_endpoint)
+        self._send_json(status, payload)
+
     def _post_memory_summary(self, memory, body):
         if not memory.enabled():
             self._send_json(200, {"summary": "", "skipped": "记忆已关闭"})
@@ -1163,6 +1176,10 @@ class Handler(SimpleHTTPRequestHandler):
         if pathname == "/chat/stream":
             if self._loopback_only():
                 self._post_chat_stream()
+            return
+        if pathname == "/chat/compact":
+            if self._loopback_only():
+                self._post_chat_compact()
             return
         if pathname == "/understand":
             self._post_understand()

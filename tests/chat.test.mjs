@@ -19,14 +19,24 @@ const streamed = (reply, extra = {}) =>
   );
 function service() {
   const calls = [];
+  const compacts = [];
   let config = "one",
-    mode = "ok";
+    mode = "ok",
+    folding = "ok";
   return {
     calls,
+    compacts,
     setConfig: (value) => (config = value),
     setMode: (value) => (mode = value),
+    setFolding: (value) => (folding = value),
     request: async (url, options) => {
       if (url.endsWith("ready")) return ok({ ready: true, configuration: config });
+      if (url.endsWith("compact")) {
+        const body = JSON.parse(options.body);
+        compacts.push(body);
+        if (folding === "error") return ok({ error: "模型服务返回 401" }, 502);
+        return ok({ digest: `摘要${compacts.length}` });
+      }
       const body = JSON.parse(options.body);
       calls.push(body);
       if (mode === "error") return ok({ error: "模型服务返回 401" }, 502);
@@ -99,11 +109,13 @@ test("conversation sends successful pairs, bounds context and resets when provid
   assert.equal(session.getState().turns, 2);
   backend.setMode("ok");
   for (let i = 0; i < 9; i++) await session.ask(`问题${i}`, "IDLE");
-  assert.equal(session.getState().turns, 6);
-  assert.equal(backend.calls.at(-1).history.length, 12);
+  // Past six turns the oldest are folded into a digest and three stay word for word.
+  assert.equal(session.getState().turns, 3);
+  assert.equal(backend.calls.at(-1).history.length, 12, "never more than the server accepts");
   backend.setConfig("other-provider");
   await session.ask("换模型", "IDLE");
   assert.deepEqual(backend.calls.at(-1).history, []);
+  assert.ok(!("digest" in backend.calls.at(-1)), "a new provider starts without the old digest");
   session.clear();
   assert.equal(session.getState().turns, 0);
 });
@@ -247,7 +259,8 @@ test("the session counts every finished turn so a summary takes only the new one
   const session = createChatSession(backend);
   await session.ask("第一问", "IDLE");
   await session.ask("第二问", "IDLE");
-  assert.deepEqual(session.getState(), { busy: false, turns: 2, total: 2 });
+  const { busy, turns, total } = session.getState();
+  assert.deepEqual({ busy, turns, total }, { busy: false, turns: 2, total: 2 });
   assert.deepEqual(session.recent(1), [
     { role: "user", content: "第二问" },
     { role: "assistant", content: "自然语言回答" },
@@ -326,4 +339,38 @@ test("a question about 「this page」 while reading carries the page, and only 
   await chat.ask("叶文洁是谁", "READING", "HX-00001");
   assert.equal(backend.calls[0].page, "红岸基地的天线指向天空。");
   assert.ok(!("page" in backend.calls[1]), "no page unless asked about it");
+});
+
+test("turns past the budget are folded into a running digest instead of forgotten", async () => {
+  const backend = service();
+  const session = createChatSession(backend);
+  const settle = () => new Promise((resolve) => setImmediate(resolve));
+  for (let i = 1; i <= 6; i++) await session.ask(`第${i}问`, "IDLE");
+  assert.equal(backend.compacts.length, 0, "within the budget nothing is compacted");
+  await session.ask("第7问", "IDLE");
+  assert.equal(backend.compacts.length, 1, "one call folds several turns at once");
+  assert.deepEqual(
+    backend.compacts[0].history
+      .filter((entry) => entry.role === "user")
+      .map((entry) => entry.content),
+    ["第1问", "第2问", "第3问", "第4问"],
+  );
+  assert.equal(backend.compacts[0].digest, "");
+  assert.equal(session.getState().turns, 3);
+  await settle();
+  assert.equal(session.getState().digest, "摘要1");
+  await session.ask("第8问", "IDLE");
+  assert.equal(backend.calls.at(-1).digest, "摘要1", "later questions carry the digest");
+  for (let i = 9; i <= 11; i++) await session.ask(`第${i}问`, "IDLE");
+  await settle();
+  assert.equal(backend.compacts.length, 2);
+  assert.equal(backend.compacts[1].digest, "摘要1", "the old digest is merged, not replaced");
+  backend.setFolding("error");
+  for (let i = 12; i <= 15; i++) await session.ask(`第${i}问`, "IDLE");
+  await settle();
+  assert.equal(backend.compacts.length, 3, "the fold was attempted");
+  assert.equal(session.getState().digest, "摘要2", "a failed fold keeps the last digest");
+  assert.equal(session.getState().turns, 3, "and the conversation carries on");
+  session.clear();
+  assert.equal(session.getState().digest, "");
 });
