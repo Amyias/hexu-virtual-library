@@ -104,7 +104,9 @@ npm start
 | `tools/builtin_book_sources.py` | 天涯书库 POST 搜索、书包网搜索与完整目录下载 |
 | `tools/wyshu_source.py` | 无忧书城公开目录检索、书名拼音候选与真实元数据核对 |
 | `tools/windows_book_http.py` | 内置书源连接异常时的 Windows 系统 HTTPS／IPv4 有界重试 |
-| `tools/source_rules.py` | CSS、XPath、JSONPath 与受限 QuickJS 规则解析 |
+| `tools/source_rules.py` | Legado 规则引擎：链式 CSS、XPath、JSONPath、正则分组与受限 QuickJS |
+| `tools/legado_host.py` | `java.*` 有界宿主接口（纯计算、变量表、同站点 ajax、界面类空实现） |
+| `tools/aggregate_search.py` | 多书源聚合检索、同书合并排序、书源健康度与增量任务 |
 | `tools/library-service.py` | 开发服务使用的 Python 书库子进程 |
 | `docs/BOOK_LIBRARY.md` | 正文书库、书源格式与接口说明 |
 | `src/styles/library.css` | 页面与响应式布局 |
@@ -233,11 +235,15 @@ npm test
 
 ## 书源兼容与文件导入
 
-“正文书库 → 书源管理与导入”支持 CSS、XPath 1.0、JSONPath（含递归、通配与过滤）及纯 JavaScript 规则。JS 在 QuickJS 中执行，每次上限 0.5 秒、32 MiB 内存，不暴露文件、进程、环境变量或网络接口。支持 `@js:`、`<js>`、URL 的 `{{表达式}}`、`jsLib`、规则后的 JS 转换与 `##正则##替换`；XPath/JSONPath/CSS 可分别用于搜索、书籍信息、目录和正文。实现为自有兼容层，并非完整的 Legado 运行时。
+“正文书库 → 书源管理与导入”可以导入 JSON 文件，也可以直接粘贴书源网址（源仓库直链、GitHub raw、Gist）由程序拉取。规则按阅读 App（Legado）的语法执行：`class.x.0@tag.a.1@text` 链式选择器（含 `.0`、`.-1`、`!0`、`[0:2]` 切片、`children[n]`、`text.文字`）、标准 CSS（含 `:not()`、分组，尾部 `span.0` 索引先剥离再套用）、XPath 1.0、JSONPath（含递归、通配、过滤）与 `data[0].name` 取值、`&&`/`||`、`##正则##替换`、`{{key}}`/`{{$.字段}}`/`{{@@规则}}`，以及整条正则配合 `$1…$n` 取分组。
+
+JS 在 QuickJS 中执行，纯 JS 规则上限 0.5 秒、32 MiB，不暴露文件、进程、环境变量或任意网络接口。`java.*` 做成有界宿主接口（`tools/legado_host.py`）：base64/hex/md5/时间格式化、`java.put/get` 变量表、`java.getString`，以及只允许访问该书源自身域名的 `java.ajax`（GET/POST、4 MiB、单规则最多 4 次、正常 TLS 校验）。界面类接口是空实现，`getVerificationCode` 与 `Packages.*` 明确报错。实现为自有兼容层，并非完整的 Legado 运行时。
+
+检索是**多源聚合**：默认并发搜全部启用源（上限 40 个、12 路并发、每源 12 秒独立超时），同名同作者结果合并成一条并给出多源备选，按书名精确度、命中源数、作者与源健康度排序；每个源的成功/失败/延迟/最近错误记在 `source_health` 表，面板里能「体检全部书源」，下载失败自动换下一个源。`tools/aggregate_search.py` 实现，接口与实测数字见 [正文书库说明](docs/BOOK_LIBRARY.md#多书源聚合检索)。
 
 导入成功后自动启用（若源原本 `enabled:false` 则保持停用），可在书源列表勾选开关。没有搜索规则的源标记“不提供搜索”，不再因 `ruleSearch:[]` 报错，也不会参加按书名搜索。在线正文通过书名搜索后下载并上架；本地文件使用 TXT / EPUB 导入。支持 `ruleBookInfo`、`ownText`、`href`、`@html`、目录及正文分页；存入书库的是清理后的纯文本。任一章节失败、分页循环或取消均不保存半本书。
 
-当前边界：不提供阅读 App 的 `java.*`/`Packages.*`、Android 设备注册、Java 加密类、WebView 登录或验证码流程，也不完整实现 Legado 的所有组合选择器。依赖这些能力的源会列明原因并拒绝启用，不能把“支持 JS”当作全部 App 书源已兼容。以本次检查的“番茄小说(APP)”源为例，其正文依赖 Java 加密和设备注册，尚未适配；书海阁文件的目录及正文规则可被解析，但外站 HTTP 403 等服务状态仍可能阻止下载。
+当前边界：不提供 Android 设备接口（`Packages.*`、设备号、APP 注册）、WebView 登录与人工验证码、跨域章节、图像/PDF 转文字，也不保证 Legado 的每种组合都能跑通。依赖这些能力的源会列明原因并拒绝启用，不能把“支持 JS”当作全部 App 书源已兼容。番茄小说这类正文依赖设备注册与加密的 APP 源无法在本机复现；源规则本身写坏（例如 `<js>` 里的正则没闭合）会被拒绝并指明是 JS 语法错误，阅读 App 同样跑不通。
 
 源码运行先安装解析依赖：
 

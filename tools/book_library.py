@@ -13,14 +13,15 @@ import unicodedata
 import uuid
 import zipfile
 from contextlib import contextmanager
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, wait
 from pathlib import Path
 import urllib.request
 from urllib.parse import parse_qs, urlsplit
 from xml.etree import ElementTree
 
+from aggregate_search import SearchJobs, group_candidates
 from builtin_book_sources import BUILTIN_SOURCES, BuiltinNovelSource
-from book_sources import CssSource, Document, SourceError, Wikisource, clean, normalize_source, split_chapters as split_text
+from book_sources import CssSource, Document, SourceError, Wikisource, clean, fetch, normalize_source, split_chapters as split_text, validate_url
 
 
 def library_directory():
@@ -212,6 +213,7 @@ class BookLibrary:
         self.directory.mkdir(parents=True, exist_ok=True)
         self.lock = threading.RLock()
         self.jobs = {}
+        self.searches = SearchJobs(self)
         with self.connect() as db:
             db.executescript("""
                 CREATE TABLE IF NOT EXISTS books(id TEXT PRIMARY KEY, source_id TEXT, source_key TEXT,
@@ -222,6 +224,9 @@ class BookLibrary:
                 CREATE TABLE IF NOT EXISTS sources(id TEXT PRIMARY KEY, config TEXT);
                 CREATE TABLE IF NOT EXISTS bookmarks(id INTEGER PRIMARY KEY, book_id TEXT, chapter INTEGER,
                     offset INTEGER, note TEXT, created_at INTEGER);
+                CREATE TABLE IF NOT EXISTS source_health(id TEXT PRIMARY KEY, attempts INTEGER DEFAULT 0,
+                    ok INTEGER DEFAULT 0, fail INTEGER DEFAULT 0, consecutive_fail INTEGER DEFAULT 0,
+                    latency_ms INTEGER DEFAULT 0, last_error TEXT DEFAULT '', updated INTEGER DEFAULT 0);
             """)
             # The furthest chapter ever reached: 小和's book answers stop there (no spoilers), and
             # turning back to reread an early chapter must not hide what was already read.
@@ -260,14 +265,27 @@ class BookLibrary:
         return CssSource(identifier, config)
 
     def list_sources(self):
+        health = self.health_map()
+        def with_health(item):
+            state = health.get(item["id"]) or {}
+            item["health"] = {"attempts": int(state.get("attempts") or 0), "ok": int(state.get("ok") or 0),
+                              "fail": int(state.get("fail") or 0),
+                              "consecutive_fail": int(state.get("consecutive_fail") or 0),
+                              "latency_ms": int(state.get("latency_ms") or 0),
+                              "last_error": state.get("last_error") or ""}
+            return item
         built_in = [{"id": key, "name": value["name"], "enabled": True,
                      "default_search": value.get("default_search", True),
                      "capabilities": {"search": True, "engines": ["CSS"]}, "builtin": True}
                     for key, value in BUILTIN_SOURCES.items()]
-        return [*built_in, *[{"id": key, "name": value["name"], "enabled": value.get("enabled", True),
-                            "capabilities": {"search": value.get("capabilities", {}).get("search", True),
-                                             "engines": value.get("capabilities", {}).get("engines", ["CSS"])}}
-                           for key, value in self.sources().items()]]
+        return [*map(with_health, built_in), *[with_health(
+            {"id": key, "name": value["name"], "enabled": value.get("enabled", True),
+             "capabilities": {"search": value.get("capabilities", {}).get("search", True),
+                              "engines": value.get("capabilities", {}).get("engines", ["CSS"]),
+                              "java_ajax": bool(value.get("capabilities", {}).get("java_ajax")),
+                              "needs_browser": bool(value.get("capabilities", {}).get("needs_browser")),
+                              "header_note": value.get("capabilities", {}).get("header_note", "")}})
+            for key, value in self.sources().items()]]
 
     def set_source_enabled(self, identifier, enabled):
         if not isinstance(enabled, bool):
@@ -359,30 +377,141 @@ class BookLibrary:
         local = [book for book in self.list_books() if any(normalize(query) in normalize(title) for title in [book["title"], *book.get("aliases", [])])]
         if any(any(normalize(query) == normalize(title) for title in [book["title"], *book.get("aliases", [])]) for book in local):
             return {"local": local, "results": [], "errors": []}
-        candidates, errors = [], []
-        available = self.sources()
-        providers = [source_id] if source_id != "all" else [*[key for key, value in BUILTIN_SOURCES.items() if value.get("default_search", True)], *[key for key, value in available.items()
-            if value.get("enabled", True) and value.get("capabilities", {}).get("search", True)][:5]]
-        if source_id in available and not available[source_id].get("capabilities", {}).get("search", True):
-            return {"local": local, "results": [], "errors": [{"source_id": source_id, "message": "此源不提供按书名搜索，请选择支持搜索的书源"}]}
-        def search_source(identifier):
+        providers, errors = self.search_providers(source_id)
+        if not providers:
+            return {"local": local, "results": [], "errors": errors, "groups": []}
+        candidates, search_errors = self.run_search(query, providers)
+        return {"local": local, "results": candidates, "errors": [*errors, *search_errors],
+                "groups": group_candidates(candidates, query, self.health_map())}
+
+    def search_providers(self, source_id="all"):
+        """参与检索的书源：默认全部启用且支持搜索的源，不再只取前五个。"""
+        available, errors, providers = self.sources(), [], []
+        if source_id != "all":
+            if source_id in available and not available[source_id].get("capabilities", {}).get("search", True):
+                return [], [{"source_id": source_id, "message": "此源不提供按书名搜索，请选择支持搜索的书源"}]
+            if source_id not in available and source_id not in BUILTIN_SOURCES and source_id != "wikisource":
+                return [], [{"source_id": source_id, "message": "书源不存在或已被移除"}]
+            identifiers = [source_id]
+        else:
+            identifiers = [key for key, value in BUILTIN_SOURCES.items() if value.get("default_search", True)]
+            identifiers += [key for key, value in available.items()
+                            if value.get("enabled", True) and value.get("capabilities", {}).get("search", True)]
+            identifiers = identifiers[:40]
+        for identifier in identifiers:
             try:
-                return self.provider(identifier).search(query), None
+                providers.append(self.provider(identifier))
             except (SourceError, ValueError, KeyError, TypeError) as error:
-                config = BUILTIN_SOURCES.get(identifier) or available.get(identifier, {})
-                return [], {"source_id": identifier, "source_name": config.get("name", identifier), "message": str(error)[:160]}
-        with ThreadPoolExecutor(max_workers=6) as pool:
-            for result, error in pool.map(search_source, providers):
-                candidates.extend(result)
-                if error:
-                    errors.append(error)
-        return {"local": local, "results": candidates, "errors": errors}
+                config = BUILTIN_SOURCES.get(identifier) or available.get(identifier) or {}
+                errors.append({"source_id": identifier, "source_name": config.get("name", identifier), "message": str(error)[:160]})
+        return providers, errors
+
+    def run_search(self, query, providers, timeout=None):
+        """并发检索；每个源独立超时，结果按书源顺序归位，健康度写进 SQLite。"""
+        import aggregate_search
+        timeout = timeout or aggregate_search.SOURCE_TIMEOUT
+        order = {provider.id: index for index, provider in enumerate(providers)}
+        results, errors = [], []
+
+        def search(provider):
+            started = time.monotonic()
+            try:
+                return provider, provider.search(query) or [], None, int((time.monotonic() - started) * 1000)
+            except (SourceError, ValueError, KeyError, TypeError) as error:
+                return provider, [], str(error)[:160], int((time.monotonic() - started) * 1000)
+            except Exception:
+                return provider, [], "检索失败，请稍后重试或换源", int((time.monotonic() - started) * 1000)
+
+        if not providers:
+            return [], []
+        pool = ThreadPoolExecutor(max_workers=min(aggregate_search.MAX_WORKERS, len(providers)))
+        owners = {pool.submit(search, provider): provider for provider in providers}
+        done, pending = wait(owners, timeout=timeout)
+        for future in done:
+            provider, found, message, latency = future.result()
+            self.record_health(provider.id, not message, latency, message or "")
+            results.extend(found)
+            if message:
+                errors.append({"source_id": provider.id, "source_name": getattr(provider, "name", provider.id), "message": message})
+        for future in pending:
+            provider = owners[future]
+            future.cancel()
+            self.record_health(provider.id, False, int(timeout * 1000), "响应超时")
+            errors.append({"source_id": provider.id, "source_name": getattr(provider, "name", provider.id),
+                           "message": "书源响应超时，请稍后重试或单独选择该书源"})
+        pool.shutdown(wait=False)
+        results.sort(key=lambda item: order.get(item.get("source_id"), 99))
+        return results, errors
+
+    def record_health(self, identifier, ok, latency_ms=0, message=""):
+        if not isinstance(identifier, str) or not identifier:
+            return
+        with self.connect() as db:
+            db.execute("""INSERT INTO source_health(id, attempts, ok, fail, consecutive_fail, latency_ms, last_error, updated)
+                          VALUES(?,1,?,?,?,?,?,?)
+                          ON CONFLICT(id) DO UPDATE SET attempts=attempts+1, ok=ok+excluded.ok, fail=fail+excluded.fail,
+                          consecutive_fail=CASE WHEN excluded.ok>0 THEN 0 ELSE consecutive_fail+1 END,
+                          latency_ms=CASE WHEN excluded.latency_ms>0 THEN excluded.latency_ms ELSE latency_ms END,
+                          last_error=excluded.last_error, updated=excluded.updated""",
+                       (identifier, 1 if ok else 0, 0 if ok else 1, 0 if ok else 1,
+                        int(latency_ms or 0), message[:160], int(time.time())))
+
+    def health_map(self):
+        try:
+            with self.connect() as db:
+                return {row["id"]: dict(row) for row in db.execute("SELECT * FROM source_health")}
+        except sqlite3.Error:
+            return {}
+
+    def probe_source(self, identifier, query="三体"):
+        """给单个书源做一次真实体检：能不能连通、多快、能不能解析出书名。"""
+        try:
+            provider = self.provider(identifier)
+        except (SourceError, ValueError, KeyError, TypeError) as error:
+            return {"id": identifier, "ok": False, "count": 0, "latency_ms": 0, "message": str(error)[:160]}
+        started = time.monotonic()
+        try:
+            found = provider.search(query) or []
+        except Exception as error:
+            message = str(error)[:160] if isinstance(error, (SourceError, ValueError)) else "书源请求失败"
+            self.record_health(provider.id, False, int((time.monotonic() - started) * 1000), message)
+            return {"id": provider.id, "name": provider.name, "ok": False, "count": 0,
+                    "latency_ms": int((time.monotonic() - started) * 1000), "message": message}
+        latency = int((time.monotonic() - started) * 1000)
+        self.record_health(provider.id, True, latency, "")
+        return {"id": provider.id, "name": provider.name, "ok": True, "count": len(found), "latency_ms": latency,
+                "message": "可用" if found else "能连上，但这个书名没有结果", "sample": [item.get("title", "") for item in found[:4]]}
+
+    def import_sources_from_url(self, url):
+        """从公开 URL 直接导入书源 JSON（源仓库、GitHub raw、Gist 都可以）。"""
+        if not isinstance(url, str) or not re.match(r"^https?://", url.strip(), re.I):
+            raise SourceError("请填写书源 JSON 的 http(s) 地址")
+        url = url.strip()
+        host = urlsplit(url).hostname
+        if not host:
+            raise SourceError("书源地址缺少域名")
+        validate_url(url, host)
+        raw = fetch(url, host)
+        try:
+            data = json.loads(raw.replace("\ufeff", ""))
+        except ValueError as error:
+            raise SourceError("这个地址返回的不是 JSON 书源文件") from error
+        return self.add_sources(data)
 
     def start_download(self, candidate):
         provider = self.provider(candidate.get("source_id"))
         key = candidate.get("source_key")
         if not isinstance(key, str) or len(key) > 2048:
             raise SourceError("下载目标无效")
+        # 同一本书可能有多个源；主源失败时按给定顺序换源，最多再试两个。
+        attempts = [(provider, key)]
+        for alternate in (candidate.get("alternates") or [])[:2]:
+            if not isinstance(alternate, dict) or not isinstance(alternate.get("source_key"), str):
+                continue
+            try:
+                attempts.append((self.provider(alternate.get("source_id")), alternate["source_key"][:2048]))
+            except (SourceError, ValueError, KeyError, TypeError):
+                continue
         with self.lock:
             for job in self.jobs.values():
                 if job["source_id"] == provider.id and job["source_key"] == key and job["state"] in {"queued", "downloading"}:
@@ -398,13 +527,31 @@ class BookLibrary:
             job = {"id": identifier, "state": "queued", "source_id": provider.id, "source_key": key, "done": 0, "total": 0, "message": "正在连接书源", "cancel": threading.Event()}
             self.jobs[identifier] = job
         def work():
+            failures = []
             try:
                 with self.lock:
                     job["state"] = "downloading"
                 def report(done, total, title):
                     with self.lock:
                         job.update(done=done, total=total, message="正在下载：" + title)
-                document = provider.download(key, report, job["cancel"].is_set)
+                document = None
+                for attempt, alternate_key in attempts:
+                    if job["cancel"].is_set():
+                        raise SourceError("已取消下载")
+                    started = time.monotonic()
+                    try:
+                        with self.lock:
+                            job.update(source_id=attempt.id, source_key=alternate_key, message="正在连接：" + getattr(attempt, "name", attempt.id))
+                        document = attempt.download(alternate_key, report, job["cancel"].is_set)
+                        self.record_health(attempt.id, True, int((time.monotonic() - started) * 1000), "")
+                        break
+                    except Exception as error:
+                        message = str(error)[:160] if isinstance(error, (SourceError, ValueError)) else "下载失败"
+                        self.record_health(attempt.id, False, int((time.monotonic() - started) * 1000), message)
+                        failures.append(message)
+                        document = None
+                if document is None:
+                    raise SourceError(failures[0] if failures else "下载失败，未保存不完整正文")
                 if job["cancel"].is_set():
                     raise SourceError("已取消下载")
                 document["title"] = document.get("title") or str(candidate.get("title", "未命名书籍"))[:160]
@@ -415,7 +562,8 @@ class BookLibrary:
                     job.update(state="completed", book=saved, done=job["total"], message="正文已下载并入库")
             except Exception as error:
                 with self.lock:
-                    job.update(state="cancelled" if job["cancel"].is_set() else "failed", message=str(error)[:200] if isinstance(error, (SourceError, ValueError)) else "下载失败，未保存不完整正文，请换源或重试")
+                    job.update(state="cancelled" if job["cancel"].is_set() else "failed",
+                               message=str(error)[:200] if isinstance(error, (SourceError, ValueError)) else "下载失败，未保存不完整正文，请换源或重试")
         threading.Thread(target=work, daemon=True).start()
         return self.job(identifier)
 
@@ -530,6 +678,8 @@ def handle_request(handler):
                 reply(200, {"books": library.list_books()})
             elif url.path == "/library/search":
                 reply(200, library.search(query.get("q", [""])[0], query.get("source", ["all"])[0]))
+            elif url.path.startswith("/library/search/jobs/"):
+                reply(200, library.searches.get(url.path.rsplit("/", 1)[-1]))
             elif url.path.startswith("/library/books/"):
                 reply(200, library.get(url.path.rsplit("/", 1)[-1]))
             elif url.path.startswith("/library/jobs/"):
@@ -559,6 +709,17 @@ def handle_request(handler):
                 raise SourceError("请求必须为 JSON 对象")
             if url.path == "/library/download":
                 reply(202, library.start_download(body))
+            elif url.path == "/library/search/jobs":
+                query_text = str(body.get("q", "")).strip()
+                if not query_text or len(query_text) > 160:
+                    raise SourceError("请输入 1～160 字的书名")
+                reply(202, library.searches.start(query_text, str(body.get("source", "all"))))
+            elif url.path.startswith("/library/search/jobs/"):
+                reply(200, library.searches.get(url.path.rsplit("/", 1)[-1], cancel=True))
+            elif url.path == "/library/sources/import-url":
+                reply(200, library.import_sources_from_url(body.get("url")))
+            elif url.path.startswith("/library/sources/") and url.path.endswith("/probe"):
+                reply(200, library.probe_source(url.path.rsplit("/", 2)[-2], str(body.get("q", "三体"))))
             elif url.path.startswith("/library/sources/"):
                 reply(200, library.set_source_enabled(url.path.rsplit("/", 1)[-1], body.get("enabled")))
             elif url.path == "/library/import":

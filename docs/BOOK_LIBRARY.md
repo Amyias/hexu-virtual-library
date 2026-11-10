@@ -44,9 +44,23 @@ Windows 默认位置为 `%APPDATA%\hexu-library\books`；其他系统默认 `~/.
 
 历史维基文库下载的书籍、来源记录、书架编号和阅读进度继续保留；本地精确命中时不发起网络请求。内置源走代码中固定的 HTTPS 域名并保留证书校验，支持本机系统 DNS／网络代理；导入的自定义源仍逐次检查公网地址，不能通过 JSON 放宽限制。
 
-「正文书库 → 书源管理与导入」提供 [源仓库](https://www.yckceo.com/yuedu/shuyuan/index.html) 入口。先下载 JSON 文件再导入；面板分别列出成功和拒绝的书源及原因。支持 CSS、XPath 1.0、JSONPath 和纯 JavaScript 规则，以及 Legado 3.x 的部分规则语法，**不等同于完整兼容阅读 App 的所有书源**。
+「正文书库 → 书源管理与导入」提供 [源仓库](https://www.yckceo.com/yuedu/shuyuan/index.html) 入口。可以下载 JSON 文件后导入，也可以直接**粘贴书源网址**（源仓库直链、GitHub raw、Gist 都可以）由程序拉取；面板分别列出成功和拒绝的书源及原因。
 
-支持 CSS 选择器及 `class.xxx@tag.a` 的基础链式写法；字段支持 `@text`、`ownText`、`href`、`@src`、`@title` 和 `@html`。XPath 使用 `@XPath:` 或 `//` 前缀；JSONPath 使用 `@Json:` 或 `$`，支持递归、通配和过滤。纯 JS 支持 `@js:`、`<js>...</js>`、`jsLib`、规则后的 JS 转换与 `##正则##替换`，可用变量为 `result`、`baseUrl`、`key`、`page`。每次执行限制 0.5 秒、32 MiB 内存，不提供本机文件、环境变量、进程或网络访问接口。
+书源规则按阅读 App（Legado）的语法执行：
+
+| 规则 | 支持的写法 |
+| --- | --- |
+| 链式选择器 | `class.名称.序号@tag.标签.序号@属性`，支持 `.0`、`.-1`、`!0` 排除、`[0:2]` 切片、`children[n]`、`text.文字` 按文字取节点 |
+| 标准 CSS | `#id .cls:not([href='#'])`、`a.btn,.page>span`，尾部 `span.0` 这类 Legado 索引会先剥离再套用 |
+| XPath / JSONPath | `@XPath:`、`//` 前缀；`@Json:`、`$` 前缀，以及 `data[0].name` 形式的取值 |
+| 属性 | `@text`、`ownText`、`textNodes`、`html`、`all`、`href`、`src`、`title`、`content` 和任意属性名 |
+| 拼接与备选 | `&&` 合并、`||` 依次尝试、`##正则##替换`、`{{key}}`/`{{page}}`/`{{$.字段}}`、`{{@@规则}}` 嵌套规则 |
+| 整条正则 | 规则本身就是正则时按正则抽取，配合 `$1`…`$n` 取分组（起点这类目录用得到） |
+| JS | `@js:`、`<js>…</js>`、`jsLib`，可用 `result`、`baseUrl`、`key`、`page`、`book`、`source` |
+
+`java.*` 宿主接口做成了**有界实现**（`tools/legado_host.py`）：`base64Decode/Encode`、`hexDecodeToString`、`md5Encode/md5Encode16`、`timeFormat`、`encodeURI`、`java.put/get`（每源作用域的变量表）、`java.getString`，以及`java.ajax`——只能访问该书源自己的域名，GET/POST，单次响应 4 MiB，单条规则最多 4 次，仍然走公网地址检查与正常 TLS 校验。`longToast`、`startBrowserAwait`、`setContent` 这类界面接口是空实现；`getVerificationCode`（人工验证码）与 `Packages.*`（安卓类/设备注册）明确报错，这类源在导入时就会被拒绝并说明原因。
+
+JS 的执行边界：纯 JS 规则仍限制 0.5 秒、32 MiB，没有本机文件、环境变量、进程与任意网络接口。带 `java.*` 的规则因为 quickjs 的限制不能同时设 JS 时间限制，改由每次宿主调用前的墙钟预算（默认 25 秒）与 4 次请求上限收口。
 
 搜索 URL 支持 `{{key}}`、`{query}`、`{{page}}`（第一页）及 `{{JS表达式}}`；支持 `URL,{"method":"POST","body":"...","headers":{...}}` 请求选项。请求头仅允许 User-Agent、Accept、Accept-Language、Content-Type、Referer；正文为字符串，编码可为 UTF-8/GBK/GB18030。请求及跳转仍需符合该源同域与公网地址限制。
 
@@ -75,13 +89,27 @@ Windows 默认位置为 `%APPDATA%\hexu-library\books`；其他系统默认 `~/.
 }
 ```
 
-暂不支持 Android／Java 宿主桥接（`java.*`、`Packages.*`）、设备注册、WebView 登录、验证码、跨域章节与图像/PDF 转文字，也不完整兼容 Legado 的所有选择器组合。依赖这些能力的源会明确显示原因并拒绝启用；导入时不会运行 JS，也不会绕过站点访问控制。本次检查的“番茄小说(APP)”源正文依赖 Java 加密和设备注册，尚不能使用；不能用纯 JS 支持代替这一运行环境。
+仍不支持：Android 设备接口（`Packages.*`、设备号、APP 注册）、WebView 登录与人工验证码、跨域章节、图像/PDF 转文字，也不保证 Legado 的每一种选择器组合都能跑通。依赖这些能力的源会明确显示原因并拒绝启用；导入时不会运行 JS，也不会绕过站点访问控制。番茄小说这类正文依赖设备注册与加密的 APP 源无法在本机复现，请换网页源。
 
 自定义书源仅访问其同域公开 HTTP(S) 地址；本机、内网和保留地址被拒绝。代理返回保留地址的 DNS 环境也可能阻止站点访问。书源启用表示配置已保存、规则已验证，不保证外站可连接或每本书都提供可下载正文。
 
 「导入 TXT / EPUB」支持 UTF-8、带 BOM 的 UTF-16 与 GB18030 TXT，以及无加密的 EPUB。EPUB 按 spine 顺序读取，并将 HTML 转为纯文本，脚本不会进入页面。导入的是本机实际文件内容，不会发送给大语言模型。EPUB 自带的 ISBN（校验位核对过）、分类、简介、出版社与出版日期一并保存，简介用作书目摘要。带 ISBN 的书入库后会在后台查一次 [Open Library](https://openlibrary.org/dev/docs/api/books)（免费、无需密钥），只补文件里没有的分类、出版社、日期与页数，不覆盖文件自带的内容；查询只发送 ISBN，查不到或无法联网时什么都不改。设环境变量 `HEXU_METADATA_LOOKUP=0` 可关闭查询。
 
-当前限制：单次导入文件 8 MiB，EPUB 解压后总量 32 MiB；在线单页响应 4 MiB，内置小说站与自定义书源一次最多 2000 章（历史维基文库适配器仍为 500 章）、目录最多 50 页、每章正文最多 20 页，整书最多 1000 万字符；最多两个同时下载任务。所有来源检索默认包括无忧书城、天涯书库及前五个已启用且支持搜索的自定义源，其他书源可通过下拉框单独选择。取消会在当前网络请求结束后生效；失败或取消的任务不会作为完整书籍入库，重试从头下载。
+当前限制：单次导入文件 8 MiB，EPUB 解压后总量 32 MiB；在线单页响应 4 MiB，内置小说站与自定义书源一次最多 2000 章（历史维基文库适配器仍为 500 章）、目录最多 50 页、每章正文最多 20 页，整书最多 1000 万字符；最多两个同时下载任务。
+取消会在当前网络请求结束后生效；失败或取消的任务不会作为完整书籍入库，重试从头下载。
+
+## 多书源聚合检索
+
+这一层相当于阅读 App 的「换源搜索」，代码在 `tools/aggregate_search.py`：
+
+1. **全部源参与**：`默认搜索` 并发检索所有启用且支持搜索的书源（上限 40 个，12 路并发），不再只取前五个。
+2. **独立超时**：每个源 12 秒独立超时，慢源不会拖住整次检索，其余源的结果照常返回；失败项仍可按源重试。
+3. **同书合并**：书名与作者归一化后相同的结果合并成一条，附带每个源的下载入口。命中源越多分越高，排序依次看：书名完全一致、书名包含、多源命中、作者是否已知、书源健康度、源响应速度。
+4. **健康度**：每个源的成功次数、失败次数、连续失败、最近延迟与最近错误都写进 `library.sqlite` 的 `source_health` 表。连续失败的源排序会被压低，成功一次立刻恢复；书源列表里直接显示「可用 N 次 · 320 ms」或「上次失败：HTTP 403」。
+5. **书源体检**：`体检全部书源` 用当前搜索框里的书名（默认《三体》）逐个实跑一次，报告可用性、结果数与耗时，比「导入成功」更能说明这个源到底能不能用。
+6. **失败换源下载**：下载任务按「主源 → 备用源 1 → 备用源 2」的顺序尝试，任一成功即入库，并把实际使用的源写进任务结果与书目元数据。
+
+实测（`XIU2/Yuedu` 公开书源包，22 个热门源）：本版之前导入 0 个，本版导入 18 个；拒绝的 4 个里，1 个是 APP 专属源（番茄小说 2，需要安卓设备注册），3 个是源自身 `<js>` 里的正则没闭合（阅读 App 同样会报错）。用《三体》实跑，全部源并发 3.5 秒返回结果，命中的第一个就是《三体》/刘慈欣。其余 10 个源在当前网络下分别返回 403／502／503、连接中断或域名解析失败——这是站点侧与线路问题，健康度里会记下原因，不再表现为「导入成功但搜不到」。
 
 ## 模块与接口
 
@@ -101,6 +129,8 @@ src/reader/library.js       src/reader/novel.js
  天涯 / 书包网     CSS / XPath / JSONPath / JS 书源
 ```
 
+聚合检索在 `tools/aggregate_search.py`，规则引擎在 `tools/source_rules.py`，Legado 宿主接口在 `tools/legado_host.py`。
+
 `npm start` 的 Node 服务按需启动 `tools/library-service.py` 子进程并代理 `/library/*`；Python 本机程序与服务器则直接复用 `book_library`，两条运行路径使用相同的数据库与下载逻辑。正文显示使用 `textContent`，不会把远端 HTML 当作可执行页面。
 
 | 接口 | 用途 |
@@ -108,13 +138,18 @@ src/reader/library.js       src/reader/novel.js
 | `GET /library/ready` | 探测书库服务与实际存储路径 |
 | `GET /library/books` | 已入库目录 |
 | `GET /library/books/<id>` | 全部章节与保存的阅读位置 |
-| `GET /library/search?q=...&source=all` | 本地优先、在线候选与分来源错误 |
+| `GET /library/search?q=...&source=all` | 本地优先、在线候选、同书合并分组与分来源错误 |
+| `POST /library/search/jobs` | 建立增量检索任务（`{q, source}`），边搜边出 |
+| `GET /library/search/jobs/<id>` | 任务进度、已到结果、分组与错误 |
+| `POST /library/search/jobs/<id>` | 取消该检索任务 |
 | `GET /library/sources` | 可用书源 |
 | `POST /library/download` | 根据搜索候选建立异步任务 |
 | `GET /library/jobs/<id>` | 下载状态和进度 |
 | `POST /library/jobs/<id>` | 请求取消任务 |
 | `POST /library/import` | 导入文件名与 Base64 文件内容 |
 | `POST /library/sources` | 导入书源 JSON 对象或数组，返回能力与拒绝原因 |
+| `POST /library/sources/import-url` | 从公开 URL 拉取并导入书源 `{ "url": ... }` |
+| `POST /library/sources/<id>/probe` | 单个书源真实体检 `{ "q": "三体" }` |
 | `POST /library/sources/<id>` | 设置 `{ "enabled": true/false }` |
 | `POST /library/progress/<id>` | 保存 `chapter` 和 `offset` |
 

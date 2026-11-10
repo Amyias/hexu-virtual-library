@@ -12,8 +12,12 @@ from html.parser import HTMLParser
 
 MAX_RESPONSE = 4 * 1024 * 1024
 USER_AGENT = "HexuLibrary/2.4 (personal local reading; MediaWiki API)"
+# 书源里常见的编码写法都收敛到 Python 能解的名字，认不出的按 UTF-8 处理。
+CHARSET_ALIASES = {"utf8": "utf-8", "utf-8": "utf-8", "utf8mb4": "utf-8", "gbk": "gbk", "gb2312": "gb18030",
+                   "gb18030": "gb18030", "big5": "big5", "utf-16": "utf-8"}
 
 
+from legado_host import LegadoHost
 from source_rules import SourceError, RuleEngine, plain, tree
 
 
@@ -178,8 +182,9 @@ def fetch(url, host, trusted=False, headers=None, method="GET", body=None, chars
         def redirect_request(self, req, fp, code, msg, headers, newurl):
             check(newurl)
             return super().redirect_request(req, fp, code, msg, headers, newurl)
-    if method not in {"GET", "POST"} or charset.lower() not in {"utf-8", "gbk", "gb18030"}:
-        raise SourceError("书源只支持 GET/POST 与 UTF-8/GBK 编码")
+    if method not in {"GET", "POST"}:
+        raise SourceError("书源只支持 GET 与 POST 请求")
+    charset = CHARSET_ALIASES.get(str(charset or "utf-8").lower(), "utf-8")
     if body is not None and (not isinstance(body, str) or len(body) > 128 * 1024):
         raise SourceError("书源请求体必须为不超过 128 KiB 的字符串")
     payload = body.encode(charset) if body is not None else None
@@ -289,9 +294,10 @@ def normalize_source(data):
                 "toc": {"items": toc.get("chapterList", ""), "title": toc.get("chapterName", ""), "url": toc.get("chapterUrl", ""), "next": toc.get("nextTocUrl", "")},
                 "content": {"body": content.get("content", ""), "next": content.get("nextContentUrl", "")},
                 "js_lib": data.get("jsLib", "") or "", "headers": data.get("header", {}) or {},
+                "legacy_url": data.get("bookSourceUrl", ""), "source_type": data.get("bookSourceType", 0),
                 "license": "导入书源：仅获取站点公开提供的免费正文"}
     # Keep only known fields; comments and Android event hooks are never executable configuration.
-    data = {k: v for k, v in data.items() if k in {"name", "base_url", "search_url", "search", "info", "toc", "content", "js_lib", "headers", "license"}}
+    data = {k: v for k, v in data.items() if k in {"name", "base_url", "search_url", "search", "info", "toc", "content", "js_lib", "headers", "license", "legacy_url", "source_type"}}
     if not isinstance(data.get("name"), str) or not data["name"].strip() or not isinstance(data.get("base_url"), str):
         raise SourceError("书源缺少名称或合法网址")
     data.setdefault("search_url", "")
@@ -311,21 +317,18 @@ def normalize_source(data):
     if data["search_url"] and not has_search:
         raise SourceError("书源搜索地址已配置，但搜索列表、书名或链接规则不完整")
     encoded = json.dumps(data, ensure_ascii=False)
-    if re.search(r"\bPackages\s*\.|\b(?:android|javax)\.", encoded):
-        raise SourceError("此源还依赖 Android/Java 类桥接（Packages、加密或设备注册）；JS、XPath、JSONPath 已支持，但这些专用接口尚未实现")
-    if re.search(r"\bjava\s*\.", encoded):
-        raise SourceError("此源调用阅读 App 的 java 桥接接口；当前支持纯 JS，尚不提供 java.ajax 等宿主接口")
+    # 安卓宿主类接口（Packages.*、设备注册、APP 专属源）无法在本机复现；
+    # 其余 java.* 走 legado_host 的有界实现：纯计算、变量表、同站点 ajax、UI 类空实现。
+    if re.search(r"\bPackages\s*\.|\b(?:android|javax)\.[A-Za-z]|\bgetAndroidId\b|\bandroidId\b", encoded):
+        raise SourceError("此源依赖 Android 设备接口（Packages/设备号/APP 注册），本机运行环境无法复现；请换用网页源")
+    if isinstance(data.get("source_type"), int) and data["source_type"] not in (0, 4):
+        raise SourceError("此源是 APP 专属源（bookSourceType 非网页类型），本机只能下载网页正文")
     host = urllib.parse.urlsplit(data["base_url"]).hostname
     if not host:
         raise SourceError("书源缺少合法域名")
     # Import is offline validation; DNS/public-address checks happen on every actual request.
     validate_url(data["base_url"], host, public_only=False)
-    if isinstance(data.get("headers", {}), str):
-        try:
-            data["headers"] = json.loads(data["headers"])
-        except ValueError as error:
-            raise SourceError("书源请求头必须为 JSON 对象") from error
-    data["headers"] = safe_headers(data.get("headers", {}))
+    data["headers"], header_note = parse_headers(data.get("headers", {}))
     engine = RuleEngine(data["js_lib"])
     for group in ("search", "info", "toc", "content"):
         for rule in data[group].values():
@@ -336,14 +339,82 @@ def normalize_source(data):
     if re.search(r"@js:|<js>|\{\{(?!key\}\}|page\}\})", encoded, re.I): engines.append("JS")
     if re.search(r"@xpath:|\"(?://|\.//)", encoded, re.I): engines.append("XPath")
     if re.search(r"@json:|\$[.\[]", encoded, re.I): engines.append("JSONPath")
-    data["capabilities"] = {"search": has_search, "engines": engines}
+    capabilities = {"search": has_search, "engines": engines,
+                    "java_ajax": bool(re.search(r"java\.(?:ajax|get)\s*\(", encoded)),
+                    "needs_browser": bool(re.search(r"startBrowserAwait|getVerificationCode|startBrowser\s*\(", encoded))}
+    if header_note:
+        capabilities["header_note"] = header_note
+    data["capabilities"] = capabilities
     return data
+
+
+def parse_headers(value):
+    """Legado 的 header 既可能是对象、JSON 字符串，也可能是一段 JS；后者的请求头无法离线求值。"""
+    if isinstance(value, dict):
+        return keep_headers(value)
+    if isinstance(value, str):
+        text = value.strip()
+        if not text:
+            return {}, ""
+        if re.match(r"^[<@]|^\s*(?:js|javascript)\b", text, re.I):
+            return {}, "此源的请求头由 JS 生成，本机先按空请求头访问"
+        try:
+            parsed = json.loads(text)
+        except ValueError:
+            parsed = None
+        if isinstance(parsed, dict):
+            return keep_headers(parsed)
+        pairs = {}
+        for line in text.splitlines():
+            if ":" in line:
+                key, _, item = line.partition(":")
+                pairs[key.strip()] = item.strip()
+        if pairs:
+            return keep_headers(pairs)
+        return {}, "此源的请求头格式无法解析，已按空请求头访问"
+    return {}, ""
+
+
+HEADER_ALLOWED = {"user-agent", "accept", "accept-language", "content-type", "referer", "cookie"}
+
+
+def keep_headers(headers):
+    """只保留我们确实会发送的请求头；其余丢弃并说明，不因一个自定义头就拒整个源。"""
+    kept, dropped = {}, []
+    for key, value in (headers or {}).items():
+        ok = (isinstance(key, str) and isinstance(value, str) and key.lower() in HEADER_ALLOWED
+              and len(value) <= 2048 and "\r" not in value and "\n" not in value)
+        if ok:
+            kept[key] = value
+        else:
+            dropped.append(str(key)[:24])
+    note = ""
+    if dropped:
+        note = "已忽略本机不发送的请求头：" + "、".join(dropped[:4])
+    return kept, note
+
+
+def parse_options(text):
+    """Legado 的请求选项是单引号伪 JSON（{'method':'POST'}），也要能吃。"""
+    try:
+        value = json.loads(text)
+    except ValueError:
+        import ast
+        prepared = re.sub(r"\btrue\b", "True", re.sub(r"\bfalse\b", "False", text))
+        prepared = re.sub(r"\bnull\b", "None", prepared)
+        try:
+            value = ast.literal_eval(prepared)
+        except (ValueError, SyntaxError) as error:
+            raise SourceError("书源搜索请求选项不是合法 JSON") from error
+    if not isinstance(value, dict):
+        raise SourceError("书源搜索请求选项不受支持")
+    return value
 
 
 def safe_headers(headers):
     if not isinstance(headers, dict) or len(headers) > 16:
         raise SourceError("书源请求头必须为对象且不超过 16 项")
-    allowed = {"user-agent", "accept", "accept-language", "content-type", "referer"}
+    allowed = {"user-agent", "accept", "accept-language", "content-type", "referer", "cookie"}
     result = {}
     for key, value in headers.items():
         if not isinstance(key, str) or key.lower() not in allowed or not isinstance(value, str) or len(value) > 2048 or "\r" in value or "\n" in value:
@@ -357,9 +428,12 @@ class CssSource:
     def __init__(self, identifier, config):
         self.id, self.config = identifier, config
         self.name, self.host = config["name"], urllib.parse.urlsplit(config["base_url"]).hostname
+        # java.put / java.get 的作用域是这本源（阅读 App 的行为），跨字段、跨章节保留。
+        self.variables = {}
 
     def engine(self, url, key=""):
-        return RuleEngine(self.config.get("js_lib", ""), {"baseUrl": url, "key": key})
+        host = LegadoHost(request=self.request, base_url=url, variables=self.variables)
+        return RuleEngine(self.config.get("js_lib", ""), {"baseUrl": url, "key": key}, host=host)
 
     def check_url(self, url):
         return validate_url(url, self.host)
@@ -379,10 +453,7 @@ class CssSource:
         parts = re.split(r",\s*(?=\{)", spec, maxsplit=1)
         url = urllib.parse.urljoin(config["base_url"], parts[0])
         if len(parts) == 2:
-            try:
-                options = json.loads(parts[1])
-            except ValueError as error:
-                raise SourceError("书源搜索请求选项不是合法 JSON") from error
+            options = parse_options(parts[1])
             if not isinstance(options, dict) or set(options) - {"method", "body", "headers", "charset"}:
                 raise SourceError("书源请求选项不受支持")
             root = self.request(url, headers={**config.get("headers", {}), **safe_headers(options.get("headers", {}))},

@@ -36,7 +36,7 @@ export function createLocalLibrary({ books, onSelect, onBind, onLocate, notice }
   panel.setAttribute("role", "dialog");
   panel.setAttribute("aria-modal", "true");
   panel.setAttribute("aria-label", "本地正文书库");
-  panel.innerHTML = `<div class="library-dialog"><div class="library-heading"><div><small>YOUR READING COLLECTION</small><h2>本地正文书库</h2></div><button id="closeLibrary" aria-label="关闭正文书库">✕</button></div><p id="libraryStatus" role="status">正在连接本地正文库…</p><form id="librarySearch"><input id="libraryQuery" aria-label="搜索正文书名" placeholder="例如：狂人日记、红楼梦"><select id="librarySource" aria-label="选择书源"><option value="all">所有书源</option></select><button id="searchOnline">在线找正文</button></form><div id="downloadRow" hidden><span id="downloadStatus" aria-live="polite"></span><button id="cancelDownload">取消</button></div><div id="libraryResults"></div><div class="library-subheading"><h3>已入库 · 可离线阅读</h3><label class="file-button">导入 TXT / EPUB<input id="importBookFile" type="file" accept=".txt,.epub" hidden></label></div><div id="localBooks"></div><details class="source-import"><summary>书源管理与导入</summary><p>从 <a href="https://www.yckceo.com/yuedu/shuyuan/index.html" target="_blank" rel="noopener noreferrer">源仓库</a> 下载书源 JSON 后导入。支持 CSS、XPath、JSONPath 和纯 JavaScript 规则；书源导入后可在下方勾选启用。仅支持搜索的书源会出现在搜索列表中。Android／Java 专用接口、登录和验证码流程暂不支持。仅获取站点公开提供的免费正文。</p><label class="file-button">导入书源 JSON<input id="importSourceFile" type="file" accept=".json" hidden></label><pre id="sourceReport" role="status"></pre><div id="sourceList"></div></details><details><summary>书库位置</summary><code id="libraryDirectory"></code><p>数据库与 UTF-8 正文保存在程序目录之外，升级不会覆盖。备份时复制整个书库目录。</p></details></div>`;
+  panel.innerHTML = `<div class="library-dialog"><div class="library-heading"><div><small>YOUR READING COLLECTION</small><h2>本地正文书库</h2></div><button id="closeLibrary" aria-label="关闭正文书库">✕</button></div><p id="libraryStatus" role="status">正在连接本地正文库…</p><form id="librarySearch"><input id="libraryQuery" aria-label="搜索正文书名" placeholder="例如：狂人日记、红楼梦"><select id="librarySource" aria-label="选择书源"><option value="all">所有书源</option></select><button id="searchOnline">在线找正文</button></form><div id="downloadRow" hidden><span id="downloadStatus" aria-live="polite"></span><button id="cancelDownload">取消</button></div><div id="libraryResults"></div><div class="library-subheading"><h3>已入库 · 可离线阅读</h3><label class="file-button">导入 TXT / EPUB<input id="importBookFile" type="file" accept=".txt,.epub" hidden></label></div><div id="localBooks"></div><details class="source-import"><summary>书源管理与导入</summary><p>从 <a href="https://www.yckceo.com/yuedu/shuyuan/index.html" target="_blank" rel="noopener noreferrer">源仓库</a> 下载书源 JSON 后导入。支持 CSS、XPath、JSONPath 和纯 JavaScript 规则；书源导入后可在下方勾选启用。仅支持搜索的书源会出现在搜索列表中。Android／Java 专用接口、登录和验证码流程暂不支持。仅获取站点公开提供的免费正文。</p><label class="file-button">导入书源 JSON<input id="importSourceFile" type="file" accept=".json" hidden></label><div class="source-url"><input id="importSourceUrl" aria-label="书源 JSON 网址" placeholder="粘贴书源网址：源仓库 / GitHub raw / Gist 直链"><button id="importSourceUrlButton" type="button">从网址导入</button></div><button id="probeSources" type="button">体检全部书源</button><pre id="sourceReport" role="status"></pre><div id="sourceList"></div></details><details><summary>书库位置</summary><code id="libraryDirectory"></code><p>数据库与 UTF-8 正文保存在程序目录之外，升级不会覆盖。备份时复制整个书库目录。</p></details></div>`;
   document.body.append(panel);
   const button = document.createElement("button");
   button.id = "libraryButton";
@@ -151,13 +151,25 @@ export function createLocalLibrary({ books, onSelect, onBind, onLocate, notice }
         toggle.setAttribute("aria-label", "启用书源：" + item.name);
         label.append(toggle, document.createTextNode(item.name));
         const detail = document.createElement("small");
+        const health = item.health || {};
+        const tried = health.attempts || 0;
+        const state = !tried
+          ? "未测"
+          : health.consecutive_fail
+            ? `上次失败：${health.last_error || "请求失败"}`
+            : `可用 ${health.ok} 次 · ${health.latency_ms ? health.latency_ms + " ms" : "已连通"}`;
+        const abilities = (item.capabilities.engines || []).join("/");
+        const notes = [
+          item.capabilities.java_ajax ? "含 java.ajax" : "",
+          item.capabilities.needs_browser ? "需浏览器验证" : "",
+        ]
+          .filter(Boolean)
+          .join(" · ");
         detail.textContent = item.builtin
           ? item.default_search === false
             ? "内置 · 请在下拉框单独选择"
             : "内置 · 按书名搜索"
-          : item.capabilities.search
-            ? "按书名搜索"
-            : "不提供搜索";
+          : `${item.capabilities.search ? "按书名搜索" : "不提供搜索"} · ${abilities || "CSS"} · ${state}${notes ? " · " + notes : ""}`;
         toggle.onchange = async () => {
           toggle.disabled = true;
           try {
@@ -372,20 +384,63 @@ export function createLocalLibrary({ books, onSelect, onBind, onLocate, notice }
       const result = await request("sources", {
         sources: JSON.parse((await file.text()).replace(/^\uFEFF/, "")),
       });
-      $("sourceReport").textContent =
-        `成功导入 ${result.accepted.length} 个（已启用 ${result.accepted.filter((item) => item.enabled).length} 个），未导入 ${result.rejected.length} 个\n` +
-        [
-          ...result.accepted.map(
-            (item) =>
-              `${item.name}：${item.enabled ? "已启用" : "已停用"} · ${item.capabilities.search ? "支持搜索" : "不提供搜索"}`,
-          ),
-          ...result.rejected.map((item) => `${item.name}：${item.message}`),
-        ].join("\n");
+      report(result, "导入书源");
       await refresh();
     } catch (error) {
       $("sourceReport").textContent = error.message;
     }
     event.target.value = "";
+  };
+  function report(result, label) {
+    $("sourceReport").textContent =
+      `${label}：成功 ${result.accepted.length} 个（已启用 ${result.accepted.filter((item) => item.enabled).length} 个），未导入 ${result.rejected.length} 个\n` +
+      [
+        ...result.accepted.map(
+          (item) =>
+            `${item.name}：${item.enabled ? "已启用" : "已停用"} · ${item.capabilities.search ? "支持搜索" : "不提供搜索"}`,
+        ),
+        ...result.rejected.map((item) => `${item.name}：${item.message}`),
+      ].join("\n");
+  }
+  $("importSourceUrlButton").onclick = async () => {
+    const url = $("importSourceUrl").value.trim();
+    if (!url) return;
+    $("sourceReport").textContent = "正在从网址下载并校验书源…";
+    $("importSourceUrlButton").disabled = true;
+    try {
+      report(await request("sources/import-url", { url }, 60000), "从网址导入");
+      await refresh();
+    } catch (error) {
+      $("sourceReport").textContent = error.message;
+    } finally {
+      $("importSourceUrlButton").disabled = false;
+    }
+  };
+  $("probeSources").onclick = async () => {
+    const lines = [];
+    $("probeSources").disabled = true;
+    try {
+      const list = (await request("sources")).sources.filter(
+        (item) => item.enabled && item.capabilities.search,
+      );
+      const book = $("libraryQuery").value.trim() || "三体";
+      $("sourceReport").textContent = `正在用《${book}》体检 ${list.length} 个书源…`;
+      for (const item of list.slice(0, 20)) {
+        const result = await request("sources/" + item.id + "/probe", { q: book }, 40000);
+        lines.push(
+          result.ok
+            ? `${result.name || item.name}：可用 · ${result.count} 个结果 · ${result.latency_ms} ms`
+            : `${result.name || item.name}：不可用 · ${result.message}`,
+        );
+        $("sourceReport").textContent = lines.join("\n");
+      }
+      await refresh();
+    } catch (error) {
+      lines.push(error.message);
+      $("sourceReport").textContent = lines.join("\n");
+    } finally {
+      $("probeSources").disabled = false;
+    }
   };
   initialize();
   /** Every local book whose title or alias is exactly what was asked: two editions of the
