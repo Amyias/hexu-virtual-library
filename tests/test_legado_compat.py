@@ -127,6 +127,103 @@ class SourceImportTests(unittest.TestCase):
         self.assertEqual(result["accepted"][0]["name"], "Legado fixture")
 
 
+class AutoDisableTests(unittest.TestCase):
+    def test_repeated_failures_disable_and_reenable_clears_the_streak(self):
+        with tempfile.TemporaryDirectory() as temp, patch("book_sources.validate_url"):
+            library = BookLibrary(temp)
+            library.set_setting("auto_disable_after", "3")
+            library.add_sources([legado_source()])
+            source_id = next(iter(library.sources()))
+            for _ in range(2):
+                library.record_health(source_id, False, 50, "书源返回 HTTP 503，请稍后重试或换源")
+            self.assertTrue(library.sources()[source_id]["enabled"])
+            library.record_health(source_id, False, 50, "书源返回 HTTP 503，请稍后重试或换源")
+            config = library.sources()[source_id]
+            self.assertFalse(config["enabled"])
+            self.assertTrue(config["auto_disabled"])
+            self.assertIn("503", config["auto_disabled_reason"])
+            listed = next(item for item in library.list_sources() if item["id"] == source_id)
+            self.assertTrue(listed["auto_disabled"])
+            library.set_source_enabled(source_id, True)
+            self.assertTrue(library.sources()[source_id]["enabled"])
+            self.assertFalse(library.sources()[source_id].get("auto_disabled"))
+            self.assertEqual(library.health_map()[source_id]["consecutive_fail"], 0)
+
+    def test_policy_errors_and_builtin_sources_are_never_auto_disabled(self):
+        with tempfile.TemporaryDirectory() as temp, patch("book_sources.validate_url"):
+            library = BookLibrary(temp)
+            library.set_setting("auto_disable_after", "2")
+            library.add_sources([legado_source()])
+            source_id = next(iter(library.sources()))
+            for _ in range(6):
+                library.record_health(source_id, False, 1, "书源不能访问本机、内网或保留地址")
+                library.record_health("wyshu", False, 1, "书源返回 HTTP 503")
+            self.assertTrue(library.sources()[source_id]["enabled"])
+            builtin = next(item for item in library.list_sources() if item["id"] == "wyshu")
+            self.assertTrue(builtin["enabled"])
+            self.assertTrue(builtin["builtin"])
+
+    def test_threshold_zero_turns_the_feature_off(self):
+        with tempfile.TemporaryDirectory() as temp, patch("book_sources.validate_url"):
+            library = BookLibrary(temp)
+            library.set_setting("auto_disable_after", "0")
+            library.add_sources([legado_source()])
+            source_id = next(iter(library.sources()))
+            for _ in range(9):
+                library.record_health(source_id, False, 1, "书源返回 HTTP 503")
+            self.assertTrue(library.sources()[source_id]["enabled"])
+
+
+class SubscriptionTests(unittest.TestCase):
+    def payload(self, *sources):
+        return json.dumps(list(sources), ensure_ascii=False)
+
+    def test_subscription_syncs_adds_and_removes_only_its_own_sources(self):
+        first = legado_source()
+        second = legado_source(bookSourceUrl="https://second.example.org", bookSourceName="Second")
+        manual = legado_source(bookSourceUrl="https://manual.example.net", bookSourceName="Manual")
+        with tempfile.TemporaryDirectory() as temp:
+            library = BookLibrary(temp)
+            with patch("book_sources.validate_url"), patch("book_library.validate_url"),                     patch("book_library.fetch", return_value=self.payload(first, second)):
+                library.add_sources([manual])
+                subscription = library.add_subscription("https://example.com/list.json", "测试订阅")
+            self.assertEqual(subscription["status"], "ok")
+            self.assertEqual(subscription["imported"], 2)
+            self.assertEqual(len(library.sources()), 3)
+            self.assertEqual(library.subscriptions()[0]["sources"], 2)
+
+            with patch("book_sources.validate_url"), patch("book_library.validate_url"),                     patch("book_library.fetch", return_value=self.payload(first)):
+                result = library.sync_subscription(subscription["id"])
+            self.assertEqual(result["imported"], 1)
+            self.assertEqual(result["removed"], 1)
+            self.assertIn("Second", result["removed_names"])
+            names = sorted(item["name"] for item in library.sources().values())
+            self.assertEqual(names, ["Legado fixture", "Manual"])
+
+            with patch("book_sources.validate_url"), patch("book_library.validate_url"),                     patch("book_library.fetch", return_value=self.payload(second)):
+                library.update_subscription(subscription["id"], enabled=False)
+                self.assertFalse(library.subscriptions()[0]["enabled"])
+                library.update_subscription(subscription["id"], sync=True)
+                self.assertEqual(len(library.sources()), 2)
+                removed = library.update_subscription(subscription["id"], delete=True)
+            self.assertTrue(removed["deleted"])
+            self.assertEqual(removed["removed"], 1)
+            self.assertEqual([item["name"] for item in library.sources().values()], ["Manual"])
+
+    def test_failed_sync_keeps_existing_sources_and_records_the_reason(self):
+        with tempfile.TemporaryDirectory() as temp:
+            library = BookLibrary(temp)
+            with patch("book_sources.validate_url"), patch("book_library.validate_url"),                     patch("book_library.fetch", return_value=self.payload(legado_source())):
+                subscription = library.add_subscription("https://example.com/list.json")
+            with patch("book_sources.validate_url"), patch("book_library.validate_url"),                     patch("book_library.fetch", side_effect=SourceError("书源返回 HTTP 503，请稍后重试或换源")):
+                result = library.sync_subscription(subscription["id"])
+            self.assertEqual(result["status"], "failed")
+            self.assertEqual(len(library.sources()), 1)
+            record = library.subscriptions()[0]
+            self.assertEqual(record["last_status"], "failed")
+            self.assertIn("503", record["last_message"])
+
+
 class FakeIpTests(unittest.TestCase):
     def setUp(self):
         from book_sources import set_fake_ip_allowed

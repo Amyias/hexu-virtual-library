@@ -885,6 +885,53 @@ body.inspecting #reader > .reader-bottom {
 .library-dialog a {
   color: #356c4e;
 }
+.subscription-block {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px dashed #c8d3c0;
+}
+.subscription-url,
+.auto-disable {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  margin: 6px 0;
+}
+.subscription-url input {
+  flex: 1 1 260px;
+}
+.auto-disable input {
+  width: 58px;
+  padding: 5px 8px;
+  font-size: 12px;
+}
+#subscriptionList {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0;
+}
+.subscription-entry {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 0;
+  border-bottom: 1px solid #28473818;
+}
+.subscription-entry small {
+  display: block;
+  color: #6e7e68;
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+.subscription-actions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
 .fake-ip-inline {
   display: inline-flex;
   flex: 0 0 auto;

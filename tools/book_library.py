@@ -215,6 +215,7 @@ class BookLibrary:
         self.lock = threading.RLock()
         self.jobs = {}
         self.searches = SearchJobs(self)
+        self._sync_thread = None
         with self.connect() as db:
             db.executescript("""
                 CREATE TABLE IF NOT EXISTS books(id TEXT PRIMARY KEY, source_id TEXT, source_key TEXT,
@@ -229,6 +230,11 @@ class BookLibrary:
                     ok INTEGER DEFAULT 0, fail INTEGER DEFAULT 0, consecutive_fail INTEGER DEFAULT 0,
                     latency_ms INTEGER DEFAULT 0, last_error TEXT DEFAULT '', updated INTEGER DEFAULT 0);
                 CREATE TABLE IF NOT EXISTS settings(key TEXT PRIMARY KEY, value TEXT);
+                CREATE TABLE IF NOT EXISTS subscriptions(id TEXT PRIMARY KEY, url TEXT, name TEXT,
+                    enabled INTEGER DEFAULT 1, last_sync INTEGER DEFAULT 0, last_status TEXT DEFAULT '',
+                    last_message TEXT DEFAULT '', imported INTEGER DEFAULT 0, removed INTEGER DEFAULT 0);
+                CREATE TABLE IF NOT EXISTS subscription_sources(subscription_id TEXT, source_id TEXT,
+                    name TEXT, PRIMARY KEY(subscription_id, source_id));
             """)
             # 上次打开过的 fake-IP 例外要保持；否则用户每次重启程序都得重新勾一次。
             set_fake_ip_allowed(self.setting("allow_fake_ip", "0") in {"1", "true", "True", "on"})
@@ -269,6 +275,7 @@ class BookLibrary:
         return CssSource(identifier, config)
 
     def list_sources(self):
+        self._ensure_sync_thread()
         health = self.health_map()
         def with_health(item):
             state = health.get(item["id"]) or {}
@@ -284,6 +291,8 @@ class BookLibrary:
                     for key, value in BUILTIN_SOURCES.items()]
         return [*map(with_health, built_in), *[with_health(
             {"id": key, "name": value["name"], "enabled": value.get("enabled", True),
+             "auto_disabled": bool(value.get("auto_disabled")),
+             "auto_disabled_reason": value.get("auto_disabled_reason", ""),
              "capabilities": {"search": value.get("capabilities", {}).get("search", True),
                               "engines": value.get("capabilities", {}).get("engines", ["CSS"]),
                               "java_ajax": bool(value.get("capabilities", {}).get("java_ajax")),
@@ -300,7 +309,12 @@ class BookLibrary:
                 raise SourceError("书源不存在或为内置书源")
             config = json.loads(row["config"])
             config["enabled"] = enabled
+            config.pop("auto_disabled", None)
+            config.pop("auto_disabled_reason", None)
+            config.pop("auto_disabled_at", None)
             db.execute("UPDATE sources SET config=? WHERE id=?", (json.dumps(config, ensure_ascii=False), identifier))
+            if enabled:
+                db.execute("UPDATE source_health SET consecutive_fail=0 WHERE id=?", (identifier,))
         return {"id": identifier, "enabled": enabled}
 
     def list_books(self):
@@ -459,6 +473,38 @@ class BookLibrary:
                           last_error=excluded.last_error, updated=excluded.updated""",
                        (identifier, 1 if ok else 0, 0 if ok else 1, 0 if ok else 1,
                         int(latency_ms or 0), message[:160], int(time.time())))
+        if not ok:
+            self._maybe_auto_disable(identifier, str(message or ""))
+
+    #: 连续失败到这个次数就自动停用；0 表示关闭。可在设置里改（auto_disable_after）。
+    AUTO_DISABLE_DEFAULT = 5
+    #: 这些失败是配置/环境问题，整批源都会中招，不能拿来判定某个源坏了。
+    _NON_DISABLING = ("书源不能访问本机", "解析依赖未安装", "书源已停用")
+
+    def auto_disable_after(self):
+        try:
+            return int(self.setting("auto_disable_after", str(self.AUTO_DISABLE_DEFAULT)))
+        except ValueError:
+            return self.AUTO_DISABLE_DEFAULT
+
+    def _maybe_auto_disable(self, identifier, message):
+        """连败到阈值就把这个自定义源停用；内置源不在 sources 表里，天生不受影响。"""
+        limit = self.auto_disable_after()
+        if limit <= 0 or any(token in message for token in self._NON_DISABLING):
+            return None
+        with self.lock, self.connect() as db:
+            health = db.execute("SELECT consecutive_fail FROM source_health WHERE id=?", (identifier,)).fetchone()
+            row = db.execute("SELECT config FROM sources WHERE id=?", (identifier,)).fetchone()
+            if not health or not row or int(health[0] or 0) < limit:
+                return None
+            config = json.loads(row[0])
+            if not config.get("enabled", True) or config.get("auto_disabled"):
+                return None
+            config.update(enabled=False, auto_disabled=True,
+                          auto_disabled_reason=message[:120] or "连续 %d 次检索失败" % limit,
+                          auto_disabled_at=int(time.time()))
+            db.execute("UPDATE sources SET config=? WHERE id=?", (json.dumps(config, ensure_ascii=False), identifier))
+        return identifier
 
     def setting(self, key, default=""):
         try:
@@ -471,7 +517,15 @@ class BookLibrary:
     def set_setting(self, key, value):
         if not isinstance(key, str) or len(key) > 60:
             raise SourceError("设置项不合法")
-        stored = "1" if value in {True, 1, "1", "true", "True", "on"} else "0"
+        # 布尔项按 1/0 存，其余（例如自动停用阈值）按原值存；早先只认布尔，把 "3" 存成了 "0"。
+        if isinstance(value, bool):
+            stored = "1" if value else "0"
+        elif isinstance(value, int):
+            stored = str(value)
+        else:
+            text = str(value).strip()
+            lowered = text.lower()
+            stored = "1" if lowered in {"1", "true", "on"} else "0" if lowered in {"0", "false", "off"} else text[:80]
         with self.lock, self.connect() as db:
             db.execute("INSERT OR REPLACE INTO settings VALUES(?,?)", (key, stored))
         if key == "allow_fake_ip":
@@ -522,6 +576,144 @@ class BookLibrary:
         except ValueError as error:
             raise SourceError("这个地址返回的不是 JSON 书源文件") from error
         return self.add_sources(data)
+
+    # ---- 书源订阅：一个 URL 定时同步，只管理"这本书源是自己带进来的"那些 ----
+
+    def subscriptions(self):
+        with self.connect() as db:
+            rows = [dict(row) for row in db.execute("SELECT * FROM subscriptions ORDER BY name")]
+            counts = {row[0]: row[1] for row in db.execute("SELECT subscription_id, COUNT(*) FROM subscription_sources GROUP BY subscription_id")}
+        for row in rows:
+            row["sources"] = int(counts.get(row["id"], 0))
+            row["last_status"] = row["last_status"] or "never"
+        return rows
+
+    def add_subscription(self, url, name=""):
+        if not isinstance(url, str) or not re.match(r"^https?://", url.strip(), re.I):
+            raise SourceError("请填写订阅的 http(s) 地址")
+        url = url.strip()
+        host = urlsplit(url).hostname
+        if not host:
+            raise SourceError("订阅地址缺少域名")
+        validate_url(url, host)
+        identifier = hashlib.sha256(url.encode()).hexdigest()[:16]
+        with self.lock, self.connect() as db:
+            db.execute("INSERT OR IGNORE INTO subscriptions(id, url, name, enabled) VALUES(?,?,?,1)",
+                       (identifier, url, (name or host)[:80]))
+        return {**self.sync_subscription(identifier), "id": identifier}
+
+    def update_subscription(self, identifier, enabled=None, sync=False, delete=False):
+        with self.lock, self.connect() as db:
+            row = db.execute("SELECT * FROM subscriptions WHERE id=?", (identifier,)).fetchone()
+            if not row:
+                raise SourceError("订阅不存在")
+            if delete:
+                owned = [item[0] for item in db.execute("SELECT source_id FROM subscription_sources WHERE subscription_id=?", (identifier,))]
+                for source_id in owned:
+                    db.execute("DELETE FROM sources WHERE id=?", (source_id,))
+                db.execute("DELETE FROM subscription_sources WHERE subscription_id=?", (identifier,))
+                db.execute("DELETE FROM subscriptions WHERE id=?", (identifier,))
+                return {"id": identifier, "deleted": True, "removed": len(owned)}
+            if enabled is not None:
+                if not isinstance(enabled, bool):
+                    raise SourceError("启用状态必须为布尔值")
+                db.execute("UPDATE subscriptions SET enabled=? WHERE id=?", (1 if enabled else 0, identifier))
+        if sync:
+            return self.sync_subscription(identifier)
+        return next(item for item in self.subscriptions() if item["id"] == identifier)
+
+    def sync_subscription(self, identifier):
+        """拉取订阅并把书源写进库：新增/更新它带来的源，只删除它自己带过、这次消失的源。"""
+        with self.connect() as db:
+            row = db.execute("SELECT * FROM subscriptions WHERE id=?", (identifier,)).fetchone()
+        if not row:
+            raise SourceError("订阅不存在")
+        url, host = row["url"], urlsplit(row["url"]).hostname
+        accepted, rejected = [], []
+        try:
+            validate_url(url, host)
+            raw = fetch(url, host)
+            data = json.loads(raw.lstrip("\ufeff"))
+            items = data if isinstance(data, list) else [data]
+            if len(items) > 200:
+                raise SourceError("订阅文件超过 200 个书源")
+            for item in items:
+                try:
+                    config = normalize_source(item)
+                    config["enabled"] = True
+                    config["subscription"] = identifier
+                    accepted.append((hashlib.sha256(config["base_url"].encode()).hexdigest()[:16], config))
+                except Exception as error:
+                    rejected.append({"name": str(item.get("bookSourceName", "书源"))[:80] if isinstance(item, dict) else "书源",
+                                     "message": str(error)[:120]})
+        except Exception as error:
+            message = str(error)[:160] or "同步失败"
+            with self.lock, self.connect() as db:
+                db.execute("UPDATE subscriptions SET last_sync=?, last_status=?, last_message=? WHERE id=?",
+                           (int(time.time()), "failed", message, identifier))
+            return {"id": identifier, "status": "failed", "message": message,
+                    "imported": 0, "removed": 0, "rejected": rejected}
+
+        imported, removed = 0, []
+        with self.lock, self.connect() as db:
+            previous = {item["source_id"]: item["name"] for item in
+                        db.execute("SELECT * FROM subscription_sources WHERE subscription_id=?", (identifier,))}
+            db.execute("DELETE FROM subscription_sources WHERE subscription_id=?", (identifier,))
+            for source_id, config in accepted:
+                existing = db.execute("SELECT config FROM sources WHERE id=?", (source_id,)).fetchone()
+                if existing:
+                    current = json.loads(existing[0])
+                    # 订阅刷新不覆盖用户手动的启用状态与自动停用标记
+                    config["enabled"] = current.get("enabled", True)
+                    for key in ("auto_disabled", "auto_disabled_reason", "auto_disabled_at"):
+                        if current.get(key):
+                            config[key] = current[key]
+                db.execute("INSERT OR REPLACE INTO sources VALUES(?,?)", (source_id, json.dumps(config, ensure_ascii=False)))
+                db.execute("INSERT OR REPLACE INTO subscription_sources VALUES(?,?,?)", (identifier, source_id, config["name"]))
+                imported += 1
+            fresh = {source_id for source_id, _ in accepted}
+            for source_id, name in previous.items():
+                if source_id in fresh:
+                    continue
+                db.execute("DELETE FROM sources WHERE id=?", (source_id,))
+                removed.append(name)
+            message = "导入 %d，移除 %d，未通过 %d" % (imported, len(removed), len(rejected))
+            db.execute("""UPDATE subscriptions SET last_sync=?, last_status=?, last_message=?, imported=?, removed=?
+                          WHERE id=?""", (int(time.time()), "ok", message, imported, len(removed), identifier))
+        return {"id": identifier, "status": "ok", "message": message, "imported": imported,
+                "removed": len(removed), "removed_names": removed[:10], "rejected": rejected}
+
+    def sync_due_subscriptions(self, hours=12):
+        now, results = int(time.time()), []
+        with self.connect() as db:
+            rows = db.execute("SELECT id, last_sync FROM subscriptions WHERE enabled=1").fetchall()
+        for row in rows:
+            if now - int(row["last_sync"] or 0) < hours * 3600:
+                continue
+            try:
+                results.append(self.sync_subscription(row["id"]))
+            except Exception:
+                continue
+        return results
+
+    def _ensure_sync_thread(self):
+        """每 30 分钟看一次有没有到期的订阅；没有订阅时这条循环什么都不做。"""
+        if os.environ.get("HEXU_DISABLE_SYNC") == "1":
+            return
+        with self.lock:
+            if self._sync_thread and self._sync_thread.is_alive():
+                return
+            self._sync_thread = threading.Thread(target=self._sync_loop, daemon=True)
+            self._sync_thread.start()
+
+    def _sync_loop(self):
+        time.sleep(25)
+        while True:
+            try:
+                self.sync_due_subscriptions()
+            except Exception:
+                pass
+            time.sleep(1800)
 
     def start_download(self, candidate):
         provider = self.provider(candidate.get("source_id"))
@@ -710,7 +902,11 @@ def handle_request(handler):
             elif url.path.startswith("/library/jobs/"):
                 reply(200, library.job(url.path.rsplit("/", 1)[-1]))
             elif url.path == "/library/sources":
-                reply(200, {"sources": library.list_sources(), "allow_fake_ip": library.allow_fake_ip()})
+                reply(200, {"sources": library.list_sources(), "allow_fake_ip": library.allow_fake_ip(),
+                            "auto_disable_after": library.auto_disable_after()})
+            elif url.path == "/library/subscriptions":
+                reply(200, {"subscriptions": library.subscriptions(),
+                            "auto_disable_after": library.auto_disable_after()})
             else:
                 reply(404, {"error": "接口不存在"})
         elif handler.command == "POST":
@@ -741,11 +937,27 @@ def handle_request(handler):
                 reply(202, library.searches.start(query_text, str(body.get("source", "all"))))
             elif url.path.startswith("/library/search/jobs/"):
                 reply(200, library.searches.get(url.path.rsplit("/", 1)[-1], cancel=True))
+            elif url.path == "/library/subscriptions":
+                reply(200, library.add_subscription(str(body.get("url", "")), str(body.get("name", ""))))
+            elif url.path.startswith("/library/subscriptions/"):
+                reply(200, library.update_subscription(url.path.rsplit("/", 1)[-1],
+                                                       enabled=body.get("enabled"),
+                                                       sync=bool(body.get("sync")),
+                                                       delete=bool(body.get("delete"))))
             elif url.path == "/library/settings":
                 key = str(body.get("key", ""))[:60]
-                if key != "allow_fake_ip":
+                if key == "auto_disable_after":
+                    try:
+                        limit = int(body.get("value"))
+                    except (TypeError, ValueError):
+                        raise SourceError("自动停用阈值必须是整数")
+                    if not 0 <= limit <= 99:
+                        raise SourceError("自动停用阈值需在 0（关闭）到 99 之间")
+                    reply(200, library.set_setting(key, str(limit)))
+                elif key == "allow_fake_ip":
+                    reply(200, library.set_setting(key, body.get("value")))
+                else:
                     raise SourceError("不支持这个设置项")
-                reply(200, library.set_setting(key, body.get("value")))
             elif url.path == "/library/sources/import-url":
                 reply(200, library.import_sources_from_url(body.get("url")))
             elif url.path.startswith("/library/sources/") and url.path.endswith("/probe"):

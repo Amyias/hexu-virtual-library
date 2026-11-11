@@ -36,7 +36,7 @@ export function createLocalLibrary({ books, onSelect, onBind, onLocate, notice }
   panel.setAttribute("role", "dialog");
   panel.setAttribute("aria-modal", "true");
   panel.setAttribute("aria-label", "本地正文书库");
-  panel.innerHTML = `<div class="library-dialog"><div class="library-heading"><div><small>YOUR READING COLLECTION</small><h2>本地正文书库</h2></div><button id="closeLibrary" aria-label="关闭正文书库">✕</button></div><p id="libraryStatus" role="status">正在连接本地正文库…</p><form id="librarySearch"><input id="libraryQuery" aria-label="搜索正文书名" placeholder="例如：狂人日记、红楼梦"><select id="librarySource" aria-label="选择书源"><option value="all">所有书源</option></select><button id="searchOnline">在线找正文</button></form><div class="source-quick"><span>书源</span><input id="importSourceUrl" aria-label="书源 JSON 网址" placeholder="粘贴书源网址：源仓库 / GitHub raw / Gist 直链，回车或点右侧按钮导入"><button id="importSourceUrlButton" type="button">从网址导入</button><button id="probeSources" type="button">体检全部书源</button><label class="fake-ip-inline" title="本机代理会把域名解析成 198.18.x.x 这类保留地址，打开后只放行这一段"><input id="allowFakeIp" type="checkbox"> 允许代理 fake-IP</label></div><div id="downloadRow" hidden><span id="downloadStatus" aria-live="polite"></span><button id="cancelDownload">取消</button></div><div id="libraryResults"></div><div class="library-subheading"><h3>已入库 · 可离线阅读</h3><label class="file-button">导入 TXT / EPUB<input id="importBookFile" type="file" accept=".txt,.epub" hidden></label></div><div id="localBooks"></div><details class="source-import"><summary>书源管理与导入</summary><p>从 <a href="https://www.yckceo.com/yuedu/shuyuan/index.html" target="_blank" rel="noopener noreferrer">源仓库</a> 下载书源 JSON 后导入。支持 CSS、XPath、JSONPath 和纯 JavaScript 规则；书源导入后可在下方勾选启用。仅支持搜索的书源会出现在搜索列表中。Android／Java 专用接口、登录和验证码流程暂不支持。仅获取站点公开提供的免费正文。</p><label class="file-button">导入书源 JSON<input id="importSourceFile" type="file" accept=".json" hidden></label><p class="fake-ip-note">勾选上面的「允许代理 fake-IP」后，书源才能访问被代理改写成 198.18.x.x 的域名；本机与内网地址始终拒绝。</p><pre id="sourceReport" role="status"></pre><div id="sourceList"></div></details><details><summary>书库位置</summary><code id="libraryDirectory"></code><p>数据库与 UTF-8 正文保存在程序目录之外，升级不会覆盖。备份时复制整个书库目录。</p></details></div>`;
+  panel.innerHTML = `<div class="library-dialog"><div class="library-heading"><div><small>YOUR READING COLLECTION</small><h2>本地正文书库</h2></div><button id="closeLibrary" aria-label="关闭正文书库">✕</button></div><p id="libraryStatus" role="status">正在连接本地正文库…</p><form id="librarySearch"><input id="libraryQuery" aria-label="搜索正文书名" placeholder="例如：狂人日记、红楼梦"><select id="librarySource" aria-label="选择书源"><option value="all">所有书源</option></select><button id="searchOnline">在线找正文</button></form><div class="source-quick"><span>书源</span><input id="importSourceUrl" aria-label="书源 JSON 网址" placeholder="粘贴书源网址：源仓库 / GitHub raw / Gist 直链，回车或点右侧按钮导入"><button id="importSourceUrlButton" type="button">从网址导入</button><button id="probeSources" type="button">体检全部书源</button><label class="fake-ip-inline" title="本机代理会把域名解析成 198.18.x.x 这类保留地址，打开后只放行这一段"><input id="allowFakeIp" type="checkbox"> 允许代理 fake-IP</label></div><div id="downloadRow" hidden><span id="downloadStatus" aria-live="polite"></span><button id="cancelDownload">取消</button></div><div id="libraryResults"></div><div class="library-subheading"><h3>已入库 · 可离线阅读</h3><label class="file-button">导入 TXT / EPUB<input id="importBookFile" type="file" accept=".txt,.epub" hidden></label></div><div id="localBooks"></div><details class="source-import"><summary>书源管理与导入</summary><p>从 <a href="https://www.yckceo.com/yuedu/shuyuan/index.html" target="_blank" rel="noopener noreferrer">源仓库</a> 下载书源 JSON 后导入。支持 CSS、XPath、JSONPath 和纯 JavaScript 规则；书源导入后可在下方勾选启用。仅支持搜索的书源会出现在搜索列表中。Android／Java 专用接口、登录和验证码流程暂不支持。仅获取站点公开提供的免费正文。</p><label class="file-button">导入书源 JSON<input id="importSourceFile" type="file" accept=".json" hidden></label><p class="fake-ip-note">勾选上面的「允许代理 fake-IP」后，书源才能访问被代理改写成 198.18.x.x 的域名；本机与内网地址始终拒绝。</p><div class="subscription-block"><label class="subscription-url">书源订阅<input id="subscriptionUrl" placeholder="订阅 JSON 地址，添加后每 12 小时自动同步"><button id="addSubscription" type="button">添加订阅</button></label><label class="auto-disable">连续失败 <input id="autoDisableAfter" type="number" min="0" max="99" step="1"> 次后自动停用（0 = 关闭）<button id="saveAutoDisable" type="button">保存</button></label><ul id="subscriptionList"></ul></div><pre id="sourceReport" role="status"></pre><div id="sourceList"></div></details><details><summary>书库位置</summary><code id="libraryDirectory"></code><p>数据库与 UTF-8 正文保存在程序目录之外，升级不会覆盖。备份时复制整个书库目录。</p></details></div>`;
   document.body.append(panel);
   const button = document.createElement("button");
   button.id = "libraryButton";
@@ -140,6 +140,9 @@ export function createLocalLibrary({ books, onSelect, onBind, onLocate, notice }
         ),
     );
     $("allowFakeIp").checked = !!sources.allow_fake_ip;
+    $("autoDisableAfter").value = String(sources.auto_disable_after ?? 5);
+    const subscriptions = await request("subscriptions");
+    $("subscriptionList").replaceChildren(...subscriptions.subscriptions.map(subscriptionRow));
     $("sourceList").replaceChildren(
       ...sources.sources.map((item) => {
         const entry = document.createElement("div");
@@ -166,11 +169,21 @@ export function createLocalLibrary({ books, onSelect, onBind, onLocate, notice }
         ]
           .filter(Boolean)
           .join(" · ");
+        const disabled = item.auto_disabled
+          ? `已自动停用（${item.auto_disabled_reason || "连续失败"}）· 勾选即恢复`
+          : "";
         detail.textContent = item.builtin
           ? item.default_search === false
             ? "内置 · 请在下拉框单独选择"
             : "内置 · 按书名搜索"
-          : `${item.capabilities.search ? "按书名搜索" : "不提供搜索"} · ${abilities || "CSS"} · ${state}${notes ? " · " + notes : ""}`;
+          : [
+              item.capabilities.search ? "按书名搜索" : "不提供搜索",
+              abilities || "CSS",
+              disabled || state,
+              notes,
+            ]
+              .filter(Boolean)
+              .join(" · ");
         toggle.onchange = async () => {
           toggle.disabled = true;
           try {
@@ -391,6 +404,77 @@ export function createLocalLibrary({ books, onSelect, onBind, onLocate, notice }
       $("sourceReport").textContent = error.message;
     }
     event.target.value = "";
+  };
+  function subscriptionRow(item) {
+    const element = document.createElement("li");
+    element.className = "subscription-entry";
+    const info = document.createElement("div");
+    const name = document.createElement("strong");
+    name.textContent = item.name || item.url;
+    const meta = document.createElement("small");
+    const when = item.last_sync
+      ? new Date(item.last_sync * 1000).toLocaleString("zh-CN", { hour12: false })
+      : "还没同步过";
+    meta.textContent = `${item.url} · 上次同步 ${when} · ${item.last_message || "无结果"} · 带进来 ${item.sources} 个源`;
+    info.append(name, meta);
+    const actions = document.createElement("div");
+    actions.className = "subscription-actions";
+    const act = (text, body, confirmText = "") => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.textContent = text;
+      button.onclick = async () => {
+        if (confirmText && !window.confirm(confirmText)) return;
+        button.disabled = true;
+        try {
+          const result = await request("subscriptions/" + item.id, body, 60000);
+          $("sourceReport").textContent = result.deleted
+            ? `已删除订阅，同时移除它带来的 ${result.removed} 个源`
+            : result.message || "已完成";
+          await refresh();
+        } catch (error) {
+          $("sourceReport").textContent = error.message;
+          button.disabled = false;
+        }
+      };
+      return button;
+    };
+    actions.append(
+      act("立即同步", { sync: true }),
+      act(item.enabled ? "停用" : "启用", { enabled: !item.enabled }),
+      act("删除", { delete: true }, `删除订阅「${item.name || item.url}」并移除它带来的书源？`),
+    );
+    element.append(info, actions);
+    return element;
+  }
+  $("addSubscription").onclick = async () => {
+    const url = $("subscriptionUrl").value.trim();
+    if (!url) return;
+    $("addSubscription").disabled = true;
+    $("sourceReport").textContent = "正在拉取订阅…";
+    try {
+      const result = await request("subscriptions", { url }, 60000);
+      $("sourceReport").textContent =
+        `订阅已添加：${result.message}` +
+        (result.rejected?.length ? `；未通过 ${result.rejected.length} 个` : "");
+      $("subscriptionUrl").value = "";
+      await refresh();
+    } catch (error) {
+      $("sourceReport").textContent = error.message;
+    } finally {
+      $("addSubscription").disabled = false;
+    }
+  };
+  $("saveAutoDisable").onclick = async () => {
+    try {
+      const value = Number($("autoDisableAfter").value);
+      await request("settings", { key: "auto_disable_after", value });
+      $("sourceReport").textContent =
+        value > 0 ? `连续失败 ${value} 次后会自动停用该书源` : "已关闭自动停用";
+      await refresh();
+    } catch (error) {
+      $("sourceReport").textContent = error.message;
+    }
   };
   function report(result, label) {
     $("sourceReport").textContent =
