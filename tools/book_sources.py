@@ -198,10 +198,13 @@ def connection_message(error):
 
 
 def fetch(url, host, trusted=False, headers=None, method="GET", body=None, charset="utf-8", https_only=False, windows_fallback=False):
+    """host 为 None 表示"任意公网域名"：只给 java.ajax 用——有些源的接口在另一个子域，
+    但仍必须通过公网地址检查（本机、内网、保留地址一律拒绝）。"""
     def check(target):
         if https_only and urllib.parse.urlsplit(target).scheme != "https":
             raise SourceError("内置书源仅允许 HTTPS，不能降级到不安全连接")
-        return validate_url(target, host, not trusted)
+        wanted = host if host is not None else urllib.parse.urlsplit(target).hostname
+        return validate_url(target, wanted, not trusted)
     check(url)
     class Redirect(urllib.request.HTTPRedirectHandler):
         def redirect_request(self, req, fp, code, msg, headers, newurl):
@@ -457,7 +460,12 @@ class CssSource:
         self.variables = {}
 
     def engine(self, url, key=""):
-        host = LegadoHost(request=self.request, base_url=url, variables=self.variables)
+        # 页面请求（搜索、目录、正文）仍然只能打本站；只有规则里的 java.ajax 可以跨域，
+        # 因为不少源的接口挂在另一个子域上，但它同样要过公网地址检查。
+        def ajax(target, **options):
+            return fetch(target, None, **options)
+
+        host = LegadoHost(request=ajax, base_url=url, variables=self.variables)
         return RuleEngine(self.config.get("js_lib", ""), {"baseUrl": url, "key": key}, host=host)
 
     def check_url(self, url):

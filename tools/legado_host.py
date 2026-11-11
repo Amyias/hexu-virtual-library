@@ -51,9 +51,31 @@ class LegadoHost:
     def _fail(message):
         return json.dumps({"ok": False, "v": str(message)[:200]}, ensure_ascii=False)
 
+    @staticmethod
+    def _parse_options(text):
+        """Legado 的选项是单引号伪 JSON：{'method':'POST','body':'x'}。"""
+        raw = (text or "").strip()
+        if not raw:
+            return {}
+        try:
+            value = json.loads(raw)
+        except ValueError:
+            import ast
+            prepared = re.sub(r"\btrue\b", "True", re.sub(r"\bfalse\b", "False", raw))
+            try:
+                value = ast.literal_eval(prepared)
+            except (ValueError, SyntaxError):
+                return {}
+        return value if isinstance(value, dict) else {}
+
     def ajax(self, url, options=""):
         if self.request is None:
             return self._fail("此运行环境不允许书源发起网络请求")
+        # 有些源把请求选项直接拼在地址后面：java.ajax("/search.php,{'method':'POST',...}")
+        target = str(url or "")
+        inline = re.search(r",\s*\{", target)
+        if inline:
+            url, options = target[: inline.start()], target[inline.start() + 1:] or options
         with self.lock:
             if self.calls >= MAX_AJAX_CALLS:
                 return self._fail("单个规则最多发起 4 次 java.ajax 请求")
@@ -61,12 +83,9 @@ class LegadoHost:
         target = urllib.parse.urljoin(self.base_url or "/", str(url or ""))
         method, body, headers, charset = "GET", None, {}, "utf-8"
         if options:
-            try:
-                data = json.loads(options) if str(options).lstrip().startswith("{") else {"method": str(options)}
-            except ValueError:
-                return self._fail("java.ajax 的选项不是合法 JSON")
-            if not isinstance(data, dict):
-                return self._fail("java.ajax 的选项必须是对象")
+            data = self._parse_options(options) if str(options).lstrip().startswith("{") else {"method": str(options)}
+            if not data:
+                return self._fail("java.ajax 的选项无法解析")
             method = str(data.get("method", "GET")).upper()
             body = data.get("body")
             headers = data.get("headers") or {}

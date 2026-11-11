@@ -73,6 +73,18 @@ class LegadoRuleTests(unittest.TestCase):
         with self.assertRaises(SourceError):
             engine.value("", "@js:java.ajax('/a');java.ajax('/b');java.ajax('/c');java.ajax('/d');java.ajax('/e')")
 
+    def test_ajax_accepts_legado_inline_options_and_cross_host(self):
+        seen = []
+
+        def request(url, **options):
+            seen.append((url, options.get("method")))
+            return "<html>ok</html>"
+
+        engine = RuleEngine(host=LegadoHost(request=request, base_url="https://example.com"))
+        self.assertEqual(engine.value("", "@js:java.ajax(\"/search.php,{'method':'POST','body':'a=1'}\")"), "<html>ok</html>")
+        self.assertEqual(seen[0][0], "https://example.com/search.php")
+        self.assertEqual(seen[0][1], "POST")
+
     def test_without_a_request_callback_ajax_is_refused(self):
         with self.assertRaises(SourceError):
             self.engine.value("", "@js:java.ajax('/page')")
