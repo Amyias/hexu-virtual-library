@@ -36,7 +36,7 @@ export function createLocalLibrary({ books, onSelect, onBind, onLocate, notice }
   panel.setAttribute("role", "dialog");
   panel.setAttribute("aria-modal", "true");
   panel.setAttribute("aria-label", "本地正文书库");
-  panel.innerHTML = `<div class="library-dialog"><div class="library-heading"><div><small>YOUR READING COLLECTION</small><h2>本地正文书库</h2></div><button id="closeLibrary" aria-label="关闭正文书库">✕</button></div><p id="libraryStatus" role="status">正在连接本地正文库…</p><form id="librarySearch"><input id="libraryQuery" aria-label="搜索正文书名" placeholder="例如：狂人日记、红楼梦"><select id="librarySource" aria-label="选择书源"><option value="all">所有书源</option></select><button id="searchOnline">在线找正文</button></form><div id="downloadRow" hidden><span id="downloadStatus" aria-live="polite"></span><button id="cancelDownload">取消</button></div><div id="libraryResults"></div><div class="library-subheading"><h3>已入库 · 可离线阅读</h3><label class="file-button">导入 TXT / EPUB<input id="importBookFile" type="file" accept=".txt,.epub" hidden></label></div><div id="localBooks"></div><details class="source-import"><summary>书源管理与导入</summary><p>从 <a href="https://www.yckceo.com/yuedu/shuyuan/index.html" target="_blank" rel="noopener noreferrer">源仓库</a> 下载书源 JSON 后导入。支持 CSS、XPath、JSONPath 和纯 JavaScript 规则；书源导入后可在下方勾选启用。仅支持搜索的书源会出现在搜索列表中。Android／Java 专用接口、登录和验证码流程暂不支持。仅获取站点公开提供的免费正文。</p><label class="file-button">导入书源 JSON<input id="importSourceFile" type="file" accept=".json" hidden></label><div class="source-url"><input id="importSourceUrl" aria-label="书源 JSON 网址" placeholder="粘贴书源网址：源仓库 / GitHub raw / Gist 直链"><button id="importSourceUrlButton" type="button">从网址导入</button></div><button id="probeSources" type="button">体检全部书源</button><pre id="sourceReport" role="status"></pre><div id="sourceList"></div></details><details><summary>书库位置</summary><code id="libraryDirectory"></code><p>数据库与 UTF-8 正文保存在程序目录之外，升级不会覆盖。备份时复制整个书库目录。</p></details></div>`;
+  panel.innerHTML = `<div class="library-dialog"><div class="library-heading"><div><small>YOUR READING COLLECTION</small><h2>本地正文书库</h2></div><button id="closeLibrary" aria-label="关闭正文书库">✕</button></div><p id="libraryStatus" role="status">正在连接本地正文库…</p><form id="librarySearch"><input id="libraryQuery" aria-label="搜索正文书名" placeholder="例如：狂人日记、红楼梦"><select id="librarySource" aria-label="选择书源"><option value="all">所有书源</option></select><button id="searchOnline">在线找正文</button></form><div class="source-quick"><span>书源</span><input id="importSourceUrl" aria-label="书源 JSON 网址" placeholder="粘贴书源网址：源仓库 / GitHub raw / Gist 直链，回车或点右侧按钮导入"><button id="importSourceUrlButton" type="button">从网址导入</button><button id="probeSources" type="button">体检全部书源</button></div><div id="downloadRow" hidden><span id="downloadStatus" aria-live="polite"></span><button id="cancelDownload">取消</button></div><div id="libraryResults"></div><div class="library-subheading"><h3>已入库 · 可离线阅读</h3><label class="file-button">导入 TXT / EPUB<input id="importBookFile" type="file" accept=".txt,.epub" hidden></label></div><div id="localBooks"></div><details class="source-import"><summary>书源管理与导入</summary><p>从 <a href="https://www.yckceo.com/yuedu/shuyuan/index.html" target="_blank" rel="noopener noreferrer">源仓库</a> 下载书源 JSON 后导入。支持 CSS、XPath、JSONPath 和纯 JavaScript 规则；书源导入后可在下方勾选启用。仅支持搜索的书源会出现在搜索列表中。Android／Java 专用接口、登录和验证码流程暂不支持。仅获取站点公开提供的免费正文。</p><label class="file-button">导入书源 JSON<input id="importSourceFile" type="file" accept=".json" hidden></label><pre id="sourceReport" role="status"></pre><div id="sourceList"></div></details><details><summary>书库位置</summary><code id="libraryDirectory"></code><p>数据库与 UTF-8 正文保存在程序目录之外，升级不会覆盖。备份时复制整个书库目录。</p></details></div>`;
   document.body.append(panel);
   const button = document.createElement("button");
   button.id = "libraryButton";
@@ -414,6 +414,12 @@ export function createLocalLibrary({ books, onSelect, onBind, onLocate, notice }
       $("sourceReport").textContent = error.message;
     } finally {
       $("importSourceUrlButton").disabled = false;
+    }
+  };
+  $("importSourceUrl").onkeydown = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      $("importSourceUrlButton").click();
     }
   };
   $("probeSources").onclick = async () => {

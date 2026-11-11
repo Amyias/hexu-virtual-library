@@ -885,6 +885,27 @@ body.inspecting #reader > .reader-bottom {
 .library-dialog a {
   color: #356c4e;
 }
+.source-quick {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: -8px 0 16px;
+}
+.source-quick span {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: #66785f;
+}
+.source-quick input {
+  flex: 1 1 260px;
+  min-width: 160px;
+  font-size: 13px;
+  padding: 8px 10px;
+}
+.source-quick button {
+  flex-shrink: 0;
+}
 #downloadRow {
   padding: 12px;
   background: #e4eddd;
