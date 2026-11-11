@@ -229,11 +229,15 @@ export function createLocalLibrary({ books, onSelect, onBind, onLocate, notice }
       $("libraryResults").textContent = "正在检索书源，找到后可下载完整正文…";
     }
     try {
+      // 手打搜索框 / 点「在线找正文」时 online=1：即使书架里已有同名，也照样去搜书源；
+      // 只有语音自动找书（auto）才用本地优先，省一次联网。
       let result = await request(
         "search?q=" +
           encodeURIComponent(query) +
           "&source=" +
-          encodeURIComponent(retrySource || $("librarySource").value),
+          encodeURIComponent(retrySource || $("librarySource").value) +
+          "&online=" +
+          (auto ? "0" : "1"),
       );
       if (current !== generation) return;
       if (previous) {

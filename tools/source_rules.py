@@ -103,7 +103,11 @@ def javascript(code, value, context=None, library="", host=None):
     except SourceError:
         raise
     except (quickjs.JSException, TypeError, ValueError) as error:
-        # Never include the script or response in diagnostics (may contain source-specific keys).
+        # 只回传异常第一行：它是宿主接口给出的可读原因（HTTP 403、域名解析失败……），
+        # 不含脚本内容与响应正文，也就不可能带出书源自己的密钥。
+        detail = str(error).splitlines()[0].replace("Error: ", "").strip()[:120]
+        if detail and not detail.startswith(("InternalError", "SyntaxError")):
+            raise SourceError("JS 规则执行失败：" + detail) from error
         raise SourceError("JS 规则执行失败、超时或超过内存限制；宿主接口只提供同站点的 java.ajax 与纯计算函数") from error
 
 

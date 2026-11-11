@@ -429,13 +429,15 @@ class BookLibrary:
             db.execute("UPDATE books SET metadata=? WHERE id=?", (json.dumps(current, ensure_ascii=False), identifier))
         return added
 
-    def search(self, query, source_id="all"):
+    def search(self, query, source_id="all", online=False):
+        """online=True：即使用户书架里已有精确同名，也照样去搜书源。
+        手打搜索框、点「在线找正文」走这条路；语音"帮我找 X"仍用本地优先，省一次联网。"""
         query = query.strip()
         if not query or len(query) > 160:
             raise SourceError("请输入 1～160 字的书名")
         local = [book for book in self.list_books() if any(normalize(query) in normalize(title) for title in [book["title"], *book.get("aliases", [])])]
-        if any(any(normalize(query) == normalize(title) for title in [book["title"], *book.get("aliases", [])]) for book in local):
-            return {"local": local, "results": [], "errors": []}
+        if not online and any(any(normalize(query) == normalize(title) for title in [book["title"], *book.get("aliases", [])]) for book in local):
+            return {"local": local, "results": [], "errors": [], "groups": []}
         providers, errors = self.search_providers(source_id)
         if not providers:
             return {"local": local, "results": [], "errors": errors, "groups": []}
@@ -941,7 +943,8 @@ def handle_request(handler):
             elif url.path == "/library/books":
                 reply(200, {"books": library.list_books()})
             elif url.path == "/library/search":
-                reply(200, library.search(query.get("q", [""])[0], query.get("source", ["all"])[0]))
+                reply(200, library.search(query.get("q", [""])[0], query.get("source", ["all"])[0],
+                                          online=query.get("online", ["0"])[0] in {"1", "true"}))
             elif url.path.startswith("/library/search/jobs/"):
                 reply(200, library.searches.get(url.path.rsplit("/", 1)[-1]))
             elif url.path.startswith("/library/books/"):

@@ -172,6 +172,27 @@ class AutoDisableTests(unittest.TestCase):
             self.assertTrue(library.sources()[source_id]["enabled"])
 
 
+class OnlineSearchTests(unittest.TestCase):
+    def test_manual_search_does_not_stop_at_an_exact_local_hit(self):
+        with tempfile.TemporaryDirectory() as temp, patch("book_sources.validate_url"):
+            library = BookLibrary(temp)
+            library.save({"title": "三体", "author": "刘慈欣", "source_id": "local", "source_key": "k1",
+                          "source": "本地导入", "source_url": "", "license": "x",
+                          "chapters": [{"title": "第一章", "text": "正文" * 40}]})
+            provider = FakeProvider("src", items=[{"title": "三体（全集）", "author": "刘慈欣",
+                                                   "source_id": "src", "source_source": "src", "source_key": "u1"}])
+            library.search_providers = lambda source_id="all": ([provider], [])
+            # 语音自动找书：本地精确命中就返回，不联网
+            offline = library.search("三体")
+            self.assertEqual(len(offline["local"]), 1)
+            self.assertEqual(offline["results"], [])
+            # 手打搜索：仍然要去搜书源
+            online = library.search("三体", online=True)
+            self.assertEqual(len(online["local"]), 1)
+            self.assertEqual(len(online["results"]), 1)
+            self.assertEqual(online["groups"][0]["title"], "三体（全集）")
+
+
 class DefaultSourceTests(unittest.TestCase):
     def test_first_run_seeds_bundled_sources_and_a_default_subscription(self):
         with tempfile.TemporaryDirectory() as temp, patch("book_sources.validate_url"), \
