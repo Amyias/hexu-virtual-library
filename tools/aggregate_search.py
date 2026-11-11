@@ -82,11 +82,13 @@ class SearchJobs:
         self.jobs = {}
 
     def start(self, query, source_id="all"):
-        providers = self.library.search_providers(source_id)
+        # search_providers() 返回 (可用书源, 建源阶段的错误)；早期版本在这里漏了拆分，
+        # 结果任务里把整个元组当书源列表，total 变成 2、任务永远停在 searching。
+        providers, setup_errors = self.library.search_providers(source_id)
         identifier = uuid.uuid4().hex
         job = {"id": identifier, "query": query, "source": source_id, "state": "searching",
                "total": len(providers), "done": 0, "results": [], "groups": [],
-               "errors": [], "finished": [], "cancel": threading.Event(), "started": time.time()}
+               "errors": list(setup_errors), "finished": [], "cancel": threading.Event(), "started": time.time()}
         with self.lock:
             self.jobs[identifier] = job
             for stale in [key for key, value in self.jobs.items()
@@ -124,7 +126,10 @@ class SearchJobs:
         while pending and not job["cancel"].is_set() and time.monotonic() <= deadline:
             reached, pending = wait(pending, timeout=0.3, return_when="FIRST_COMPLETED")
             for future in reached:
-                provider, found, error = future.result()
+                try:
+                    provider, found, error = future.result()
+                except Exception:  # 单个书源的意外错误不能让任务停在 searching
+                    continue
                 with self.lock:
                     job["results"].extend(found)
                     if error:

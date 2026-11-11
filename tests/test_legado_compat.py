@@ -9,7 +9,7 @@ from unittest.mock import patch
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1] / "tools"))
 
-from aggregate_search import group_candidates
+from aggregate_search import SearchJobs, group_candidates
 from book_library import BookLibrary
 from book_sources import SourceError, normalize_source
 from legado_host import LegadoHost
@@ -120,7 +120,7 @@ class SourceImportTests(unittest.TestCase):
     def test_import_from_url_reads_public_json(self):
         payload = json.dumps([legado_source()])
         with tempfile.TemporaryDirectory() as temp, patch("book_sources.validate_url"), \
-                patch("book_library.fetch", return_value=payload):
+                patch("book_library.validate_url"), patch("book_library.fetch", return_value=payload):
             library = BookLibrary(temp)
             result = library.import_sources_from_url("https://example.com/sources.json")
         self.assertEqual(len(result["accepted"]), 1)
@@ -184,6 +184,39 @@ class AggregateSearchTests(unittest.TestCase):
         self.assertLess(elapsed, 2.5)
         self.assertEqual([item["title"] for item in results], ["A"])
         self.assertIn("超时", errors[0]["message"])
+
+    def test_search_job_carries_every_provider_and_finishes(self):
+        """任务接口必须把 search_providers 的 (列表, 错误) 拆开，否则 total 变成 2、停在 searching。"""
+        providers = [FakeProvider("fast", items=[{"title": "三体", "author": "刘慈欣", "source_id": "fast", "source_key": "1"}]),
+                     FakeProvider("broken", error="书源返回 HTTP 503，请稍后重试或换源")]
+
+        class Stub:
+            def __init__(self):
+                self.health = {}
+
+            def search_providers(self, source_id="all"):
+                return providers, [{"source_id": "gone", "message": "书源不存在或已被移除"}]
+
+            def record_health(self, identifier, ok, latency_ms=0, message=""):
+                self.health[identifier] = (ok, message)
+
+            def health_map(self):
+                return {}
+
+        jobs = SearchJobs(Stub())
+        job = jobs.start("三体")
+        self.assertEqual(job["total"], 2, job)
+        self.assertEqual([item["source_id"] for item in job["errors"]], ["gone"])
+        deadline = time.monotonic() + 10
+        while time.monotonic() < deadline:
+            job = jobs.get(job["id"])
+            if job["state"] != "searching":
+                break
+            time.sleep(0.05)
+        self.assertEqual(job["state"], "completed", job)
+        self.assertEqual(job["done"], 2)
+        self.assertEqual(job["groups"][0]["title"], "三体")
+        self.assertIn("broken", [error["source_id"] for error in job["errors"]])
 
     def test_probe_reports_latency_and_keeps_health(self):
         with tempfile.TemporaryDirectory() as temp:
