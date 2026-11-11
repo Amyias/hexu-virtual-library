@@ -889,11 +889,15 @@ body.inspecting #reader > .reader-bottom {
   display: flex;
   gap: 7px;
   align-items: center;
+  justify-content: flex-start;
+  text-align: left;
+  width: 100%;
   font-size: 12px;
   margin-top: 8px;
 }
 .fake-ip-note {
   margin: 2px 0 0;
+  text-align: left;
   color: #77856f;
   font-size: 11px;
   line-height: 1.6;
