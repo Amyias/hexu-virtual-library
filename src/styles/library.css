@@ -885,15 +885,28 @@ body.inspecting #reader > .reader-bottom {
 .library-dialog a {
   color: #356c4e;
 }
-.fake-ip-toggle {
-  display: flex;
-  gap: 7px;
+.fake-ip-inline {
+  display: inline-flex;
+  flex: 0 0 auto;
   align-items: center;
   justify-content: flex-start;
-  text-align: left;
-  width: 100%;
+  gap: 6px;
   font-size: 12px;
-  margin-top: 8px;
+  color: #4a5e4c;
+  white-space: nowrap;
+  cursor: pointer;
+}
+/* .source-quick input 给了输入框 flex: 1 1 260px 与 min-width: 160px，
+   勾选框必须把这三样都收回来，否则会被撑到 160px 宽、把文字顶到最右。 */
+.fake-ip-inline input[type="checkbox"] {
+  flex: 0 0 14px;
+  width: 14px;
+  min-width: 14px;
+  max-width: 14px;
+  height: 14px;
+  margin: 0;
+  padding: 0;
+  accent-color: #386e50;
 }
 .fake-ip-note {
   margin: 2px 0 0;
