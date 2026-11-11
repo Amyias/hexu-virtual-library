@@ -885,6 +885,19 @@ body.inspecting #reader > .reader-bottom {
 .library-dialog a {
   color: #356c4e;
 }
+.fake-ip-toggle {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  font-size: 12px;
+  margin-top: 8px;
+}
+.fake-ip-note {
+  margin: 2px 0 0;
+  color: #77856f;
+  font-size: 11px;
+  line-height: 1.6;
+}
 .source-quick {
   display: flex;
   flex-wrap: wrap;

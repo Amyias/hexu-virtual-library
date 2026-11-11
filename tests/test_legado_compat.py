@@ -127,6 +127,35 @@ class SourceImportTests(unittest.TestCase):
         self.assertEqual(result["accepted"][0]["name"], "Legado fixture")
 
 
+class FakeIpTests(unittest.TestCase):
+    def setUp(self):
+        from book_sources import set_fake_ip_allowed
+        set_fake_ip_allowed(False)
+        self.addCleanup(set_fake_ip_allowed, False)
+
+    def test_fake_ip_exception_is_narrow_and_opt_in(self):
+        from book_sources import set_fake_ip_allowed, validate_url
+        proxy = [(2, 1, 6, "", ("198.18.0.154", 0))]
+        with patch("book_sources.socket.getaddrinfo", return_value=proxy):
+            with self.assertRaises(SourceError):
+                validate_url("https://example.com/x", "example.com")
+            set_fake_ip_allowed(True)
+            self.assertEqual(validate_url("https://example.com/x", "example.com"), "https://example.com/x")
+        private = [(2, 1, 6, "", ("192.168.1.9", 0))]
+        with patch("book_sources.socket.getaddrinfo", return_value=private):
+            set_fake_ip_allowed(True)
+            with self.assertRaises(SourceError):
+                validate_url("https://example.com/x", "example.com")
+
+    def test_fake_ip_setting_persists_across_restart(self):
+        with tempfile.TemporaryDirectory() as temp:
+            library = BookLibrary(temp)
+            self.assertFalse(library.allow_fake_ip())
+            library.set_setting("allow_fake_ip", "1")
+            self.assertTrue(library.allow_fake_ip())
+            self.assertTrue(BookLibrary(temp).allow_fake_ip())
+
+
 class FakeProvider:
     def __init__(self, identifier, items=None, error=None, delay=0.0, document=None):
         self.id, self.name = identifier, identifier

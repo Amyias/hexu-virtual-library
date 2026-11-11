@@ -21,7 +21,8 @@ from xml.etree import ElementTree
 
 from aggregate_search import SearchJobs, group_candidates
 from builtin_book_sources import BUILTIN_SOURCES, BuiltinNovelSource
-from book_sources import CssSource, Document, SourceError, Wikisource, clean, fetch, normalize_source, split_chapters as split_text, validate_url
+from book_sources import (CssSource, Document, SourceError, Wikisource, clean, fetch, normalize_source,
+                          set_fake_ip_allowed, split_chapters as split_text, validate_url)
 
 
 def library_directory():
@@ -227,7 +228,10 @@ class BookLibrary:
                 CREATE TABLE IF NOT EXISTS source_health(id TEXT PRIMARY KEY, attempts INTEGER DEFAULT 0,
                     ok INTEGER DEFAULT 0, fail INTEGER DEFAULT 0, consecutive_fail INTEGER DEFAULT 0,
                     latency_ms INTEGER DEFAULT 0, last_error TEXT DEFAULT '', updated INTEGER DEFAULT 0);
+                CREATE TABLE IF NOT EXISTS settings(key TEXT PRIMARY KEY, value TEXT);
             """)
+            # 上次打开过的 fake-IP 例外要保持；否则用户每次重启程序都得重新勾一次。
+            set_fake_ip_allowed(self.setting("allow_fake_ip", "0") in {"1", "true", "True", "on"})
             # The furthest chapter ever reached: 小和's book answers stop there (no spoilers), and
             # turning back to reread an early chapter must not hide what was already read.
             try:
@@ -455,6 +459,27 @@ class BookLibrary:
                           last_error=excluded.last_error, updated=excluded.updated""",
                        (identifier, 1 if ok else 0, 0 if ok else 1, 0 if ok else 1,
                         int(latency_ms or 0), message[:160], int(time.time())))
+
+    def setting(self, key, default=""):
+        try:
+            with self.connect() as db:
+                row = db.execute("SELECT value FROM settings WHERE key=?", (key,)).fetchone()
+        except sqlite3.Error:
+            return default
+        return row[0] if row else default
+
+    def set_setting(self, key, value):
+        if not isinstance(key, str) or len(key) > 60:
+            raise SourceError("设置项不合法")
+        stored = "1" if value in {True, 1, "1", "true", "True", "on"} else "0"
+        with self.lock, self.connect() as db:
+            db.execute("INSERT OR REPLACE INTO settings VALUES(?,?)", (key, stored))
+        if key == "allow_fake_ip":
+            set_fake_ip_allowed(stored == "1")
+        return {key: stored}
+
+    def allow_fake_ip(self):
+        return self.setting("allow_fake_ip", "0") == "1"
 
     def health_map(self):
         try:
@@ -685,7 +710,7 @@ def handle_request(handler):
             elif url.path.startswith("/library/jobs/"):
                 reply(200, library.job(url.path.rsplit("/", 1)[-1]))
             elif url.path == "/library/sources":
-                reply(200, {"sources": library.list_sources()})
+                reply(200, {"sources": library.list_sources(), "allow_fake_ip": library.allow_fake_ip()})
             else:
                 reply(404, {"error": "接口不存在"})
         elif handler.command == "POST":
@@ -716,6 +741,11 @@ def handle_request(handler):
                 reply(202, library.searches.start(query_text, str(body.get("source", "all"))))
             elif url.path.startswith("/library/search/jobs/"):
                 reply(200, library.searches.get(url.path.rsplit("/", 1)[-1], cancel=True))
+            elif url.path == "/library/settings":
+                key = str(body.get("key", ""))[:60]
+                if key != "allow_fake_ip":
+                    raise SourceError("不支持这个设置项")
+                reply(200, library.set_setting(key, body.get("value")))
             elif url.path == "/library/sources/import-url":
                 reply(200, library.import_sources_from_url(body.get("url")))
             elif url.path.startswith("/library/sources/") and url.path.endswith("/probe"):

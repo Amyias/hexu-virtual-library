@@ -137,6 +137,22 @@ def field(root, rule, default=""):
     raise SourceError("不支持书源属性：" + attribute)
 
 
+#: 本机代理（Clash 一类）的 fake-IP 段：198.18.0.0/15 是保留的基准测试网段，路由不到内网，
+#: 只是被拿来当"域名→一个虚拟地址"的占位。默认仍然按保留地址拒绝，用户显式打开才放行这一段。
+FAKE_IP_RANGE = ipaddress.ip_network("198.18.0.0/15")
+_allow_fake_ip = False
+
+
+def set_fake_ip_allowed(value):
+    """书源管理里的开关：允许经本机代理的 fake-IP 段访问书源。"""
+    global _allow_fake_ip
+    _allow_fake_ip = bool(value)
+
+
+def fake_ip_allowed():
+    return _allow_fake_ip
+
+
 def validate_url(url, host, public_only=True):
     parts = urllib.parse.urlsplit(url)
     if parts.scheme not in {"https", "http"} or parts.hostname != host or parts.username or parts.password or parts.port not in {None, 80, 443}:
@@ -146,8 +162,17 @@ def validate_url(url, host, public_only=True):
             addresses = socket.getaddrinfo(host, None)
         except OSError as error:
             raise SourceError("无法解析书源域名") from error
-        if not addresses or any(not ipaddress.ip_address(item[4][0]).is_global for item in addresses):
-            raise SourceError("书源不能访问本机、内网或保留地址")
+        allowed = []
+        for item in addresses:
+            try:
+                address = ipaddress.ip_address(item[4][0])
+            except ValueError:
+                continue
+            if address.is_global or (_allow_fake_ip and address in FAKE_IP_RANGE):
+                allowed.append(address)
+        if not allowed:
+            raise SourceError("书源不能访问本机、内网或保留地址"
+                              "（若使用本机代理，请在书源管理里允许 fake-IP 段）")
     return url
 
 
@@ -457,7 +482,8 @@ class CssSource:
             if not isinstance(options, dict) or set(options) - {"method", "body", "headers", "charset"}:
                 raise SourceError("书源请求选项不受支持")
             root = self.request(url, headers={**config.get("headers", {}), **safe_headers(options.get("headers", {}))},
-                         method=options.get("method", "GET"), body=options.get("body"), charset=options.get("charset", "utf-8"))
+                         method=str(options.get("method", "GET")).upper(), body=options.get("body"),
+                         charset=options.get("charset", "utf-8"))
         else:
             root = self.document(url)
         engine, rule = self.engine(url, query), config["search"]
