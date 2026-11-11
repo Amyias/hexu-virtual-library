@@ -36,26 +36,29 @@ class BuiltinSourceTests(unittest.TestCase):
                 self.assertNotIn("private-diagnostic-marker", str(caught.exception))
 
     def test_failed_source_has_name_and_does_not_hide_successful_results(self):
-        candidate = {"source_id": "tianya", "title": "Fixture"}
+        # 内置站已下线，这里直接把两个测试用适配器当成"参与检索的书源"喂进去，
+        # 锁住的仍是"失败的源要带名字、且不能吃掉别的源的结果"。
+        candidate = {"source_id": "shubao", "title": "Fixture"}
+
         def search(source, _query):
             if source.id == "shubao":
                 raise SourceError("DNS 解析失败")
             return [candidate]
-        with tempfile.TemporaryDirectory() as directory, patch.object(BuiltinNovelSource, "search", search), patch.object(WyshuSource, "search", side_effect=SourceError("DNS 解析失败")):
-            result = BookLibrary(directory).search("Fixture")
-        self.assertEqual(result["results"], [candidate])
-        self.assertEqual(result["errors"], [{"source_id": "wyshu", "source_name": "无忧书城", "message": "DNS 解析失败"}])
 
-    def test_default_sources_replace_wiki_but_existing_books_stay_local(self):
+        with tempfile.TemporaryDirectory() as directory, \
+                patch.object(BuiltinNovelSource, "search", search), \
+                patch.object(BuiltinNovelSource, "name", "书包网 · 简体", create=True):
+            library = BookLibrary(directory)
+            providers = [BuiltinNovelSource("shubao"), BuiltinNovelSource("tianya")]
+            with patch.object(library, "search_providers", return_value=(providers, [])):
+                result = library.search("Fixture")
+        self.assertEqual(result["results"], [candidate])
+        self.assertEqual(result["errors"][0]["source_id"], "shubao")
+        self.assertIn("DNS", result["errors"][0]["message"])
+
+    def test_local_match_never_touches_the_network(self):
         with tempfile.TemporaryDirectory() as directory:
             library = BookLibrary(directory)
-            self.assertEqual([s["id"] for s in library.list_sources()], ["wyshu", "tianya", "shubao"])
-            with patch.object(BuiltinNovelSource, "search", return_value=[]) as search, patch.object(WyshuSource, "search", return_value=[]) as wyshu:
-                library.search("Fixture")
-                self.assertEqual(search.call_count, 1)
-                self.assertEqual(wyshu.call_count, 1)
-                library.search("Fixture", "shubao")
-                self.assertEqual(search.call_count, 2)
             document = import_document("old.txt", b"Previously downloaded real body. " * 8, "Old book")
             document.update(source_id="wikisource", source_key="Old book")
             book = library.save(document)
@@ -89,6 +92,8 @@ class BuiltinSourceTests(unittest.TestCase):
         }
         with tempfile.TemporaryDirectory() as directory, patch("builtin_book_sources.fetch", side_effect=lambda url, *_a, **_k: pages[url]) as request, patch("builtin_book_sources.time.sleep"):
             library = BookLibrary(directory)
+            # 内置站不再注册，直接把书包网适配器塞给下载管线（它自己就是被删功能之外的实现）。
+            library.provider = lambda identifier: BuiltinNovelSource("shubao")
             job = library.start_download({"source_id": "shubao", "source_key": base, "title": "Fixture"})
             for _ in range(200):
                 job = library.job(job["id"])

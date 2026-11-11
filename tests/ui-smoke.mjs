@@ -773,6 +773,7 @@ try {
     search: !!document.getElementById('librarySearch'),
     fileImport: !!document.getElementById('importBookFile'),
     sourceImport: !!document.getElementById('importSourceFile'),
+    sourceRow: !!document.getElementById('importSourceUrl'),
     sources: [...document.getElementById('librarySource').options].map(o => o.value)
   })`);
   if (
@@ -781,14 +782,18 @@ try {
     libraryControls.urlButton ||
     !libraryControls.search ||
     !libraryControls.fileImport ||
-    !libraryControls.sourceImport
+    libraryControls.sourceImport ||
+    libraryControls.sourceRow
   )
     throw new Error(`书库入口清理不完整：${JSON.stringify(libraryControls)}`);
+  // 书源随程序内置（首次启动自动灌入）；界面上不再有导入入口，下拉里也不再有旧的三个内置站。
   if (
-    JSON.stringify(libraryControls.sources) !== JSON.stringify(["all", "wyshu", "tianya", "shubao"])
+    libraryControls.sources[0] !== "all" ||
+    libraryControls.sources.length < 2 ||
+    libraryControls.sources.some((id) => ["wyshu", "tianya", "shubao"].includes(id))
   )
     throw new Error(`内置书源列表不正确：${JSON.stringify(libraryControls.sources)}`);
-  step("书库入口与无忧／天涯／书包网内置书源");
+  step("书库入口与随包内置书源", libraryControls.sources.length - 1 + " 个源");
   await page.evaluate(`(() => {
     window.networkTest = { fetch: window.fetch.bind(window), calls: [], retries: 0 };
     window.fetch = async (url, options) => {

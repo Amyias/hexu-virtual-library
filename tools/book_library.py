@@ -7,6 +7,7 @@ import os
 import posixpath
 import re
 import sqlite3
+import sys
 import threading
 import time
 import unicodedata
@@ -20,9 +21,23 @@ from urllib.parse import parse_qs, urlsplit
 from xml.etree import ElementTree
 
 from aggregate_search import SearchJobs, group_candidates
-from builtin_book_sources import BUILTIN_SOURCES, BuiltinNovelSource
+from builtin_book_sources import BuiltinNovelSource
+
+#: 原来的三个内置小说站（无忧书城 / 天涯书库 / 书包网）已经下线，换成随程序分发的
+#: default_sources.json + 一个默认订阅；模块本身留着，历史书目的下载路径不受影响。
+BUILTIN_SOURCES = {}
+
+#: 随程序分发的默认书源（18 个网页源，导入时不联网）与默认订阅（用于自动更新）。
+DEFAULT_SOURCES_FILE = "default_sources.json"
+DEFAULT_SUBSCRIPTION_URL = "https://fastly.jsdelivr.net/gh/XIU2/Yuedu@master/shuyuan"
 from book_sources import (CssSource, Document, SourceError, Wikisource, clean, fetch, normalize_source,
                           set_fake_ip_allowed, split_chapters as split_text, validate_url)
+
+
+def bundled(name):
+    """默认书源文件在源码树里与模块同目录，打包后落在 _internal/ 下。"""
+    base = Path(getattr(sys, "_MEIPASS", Path(__file__).resolve().parent))
+    return base / name
 
 
 def library_directory():
@@ -245,6 +260,37 @@ class BookLibrary:
             except sqlite3.OperationalError:
                 pass  # already there
 
+    def ensure_default_sources(self):
+        """第一次启动（书库还没有任何自定义源）时，把随程序分发的那 18 个源灌进去，
+        并建一条默认订阅让它以后自动更新。已有源的库不动。"""
+        if self.sources():
+            return 0
+        seeded = 0
+        path = bundled(DEFAULT_SOURCES_FILE)
+        if path.is_file():
+            try:
+                data = json.loads(path.read_text(encoding="utf-8"))
+                items = data if isinstance(data, list) else [data]
+                # 原始书源里带 enabled:false 的一律按启用导入：这是随程序的默认书源，
+                # 用户拿到就该能直接搜。
+                for item in items:
+                    if isinstance(item, dict):
+                        item.pop("enabled", None)
+                result = self.add_sources(items)
+                seeded = len(result["accepted"])
+            except (OSError, ValueError):
+                seeded = 0
+        if seeded:
+            # 这批源在代理把域名改写成 198.18.x.x 的网络里也要能用。
+            if self.setting("allow_fake_ip", "") == "":
+                self.set_setting("allow_fake_ip", "1")
+            if not self.subscriptions():
+                with self.lock, self.connect() as db:
+                    identifier = hashlib.sha256(DEFAULT_SUBSCRIPTION_URL.encode()).hexdigest()[:16]
+                    db.execute("INSERT OR IGNORE INTO subscriptions(id, url, name, enabled) VALUES(?,?,?,1)",
+                               (identifier, DEFAULT_SUBSCRIPTION_URL, "内置书源订阅"))
+        return seeded
+
     @contextmanager
     def connect(self):
         db = sqlite3.connect(self.directory / "library.sqlite", timeout=15)
@@ -260,13 +306,8 @@ class BookLibrary:
             return {row["id"]: json.loads(row["config"]) for row in db.execute("SELECT * FROM sources ORDER BY id")}
 
     def provider(self, identifier):
-        if identifier == "wyshu":
-            from wyshu_source import WyshuSource
-            return WyshuSource()
-        if identifier == "wikisource":
+        if identifier == "wikisource":  # 历史书目仍用它重下
             return Wikisource()
-        if identifier in BUILTIN_SOURCES:
-            return BuiltinNovelSource(identifier)
         config = self.sources().get(identifier)
         if not config:
             raise SourceError("书源不存在")
@@ -868,6 +909,12 @@ def instance():
     with _instance_lock:
         if _instance is None:
             _instance = BookLibrary()
+            # 只在程序真正跑起来时灌默认书源：单元测试直接构造 BookLibrary，
+            # 不该莫名多出 18 个源。
+            try:
+                _instance.ensure_default_sources()
+            except Exception:
+                pass
     return _instance
 
 

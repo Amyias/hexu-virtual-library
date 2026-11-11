@@ -29,6 +29,8 @@ MODEL_DIR = Path(
 # loose copies only feed Blender.
 datas = [(str(STAGE), ".")]
 datas.append((str(HERE / "update-helper.ps1"), "."))
+# 随程序分发的默认书源：首次启动时 book_library.ensure_default_sources() 读它灌进书库。
+datas.append((str(HERE / "default_sources.json"), "."))
 # Only what the recogniser opens at runtime; test_wavs and the export script stay behind.
 for name in ("model.int8.onnx", "tokens.txt", "LICENSE"):
     source = MODEL_DIR / name

@@ -149,7 +149,7 @@ class AutoDisableTests(unittest.TestCase):
             self.assertFalse(library.sources()[source_id].get("auto_disabled"))
             self.assertEqual(library.health_map()[source_id]["consecutive_fail"], 0)
 
-    def test_policy_errors_and_builtin_sources_are_never_auto_disabled(self):
+    def test_policy_errors_are_not_counted_and_no_builtin_source_remains(self):
         with tempfile.TemporaryDirectory() as temp, patch("book_sources.validate_url"):
             library = BookLibrary(temp)
             library.set_setting("auto_disable_after", "2")
@@ -157,11 +157,9 @@ class AutoDisableTests(unittest.TestCase):
             source_id = next(iter(library.sources()))
             for _ in range(6):
                 library.record_health(source_id, False, 1, "书源不能访问本机、内网或保留地址")
-                library.record_health("wyshu", False, 1, "书源返回 HTTP 503")
             self.assertTrue(library.sources()[source_id]["enabled"])
-            builtin = next(item for item in library.list_sources() if item["id"] == "wyshu")
-            self.assertTrue(builtin["enabled"])
-            self.assertTrue(builtin["builtin"])
+            # 旧的内置小说站已经下线，列表里不该再有 builtin 项。
+            self.assertEqual([item for item in library.list_sources() if item.get("builtin")], [])
 
     def test_threshold_zero_turns_the_feature_off(self):
         with tempfile.TemporaryDirectory() as temp, patch("book_sources.validate_url"):
@@ -172,6 +170,32 @@ class AutoDisableTests(unittest.TestCase):
             for _ in range(9):
                 library.record_health(source_id, False, 1, "书源返回 HTTP 503")
             self.assertTrue(library.sources()[source_id]["enabled"])
+
+
+class DefaultSourceTests(unittest.TestCase):
+    def test_first_run_seeds_bundled_sources_and_a_default_subscription(self):
+        with tempfile.TemporaryDirectory() as temp, patch("book_sources.validate_url"), \
+                patch("book_library.validate_url"):
+            library = BookLibrary(temp)
+            self.assertEqual(library.sources(), {})
+            seeded = library.ensure_default_sources()
+            self.assertGreaterEqual(seeded, 15, seeded)
+            self.assertEqual(len(library.sources()), seeded)
+            self.assertTrue(all(config["enabled"] for config in library.sources().values()))
+            self.assertEqual(library.setting("allow_fake_ip"), "1")
+            subscriptions = library.subscriptions()
+            self.assertEqual(len(subscriptions), 1)
+            self.assertIn("jsdelivr", subscriptions[0]["url"])
+            # 第二次启动不再重复灌
+            self.assertEqual(library.ensure_default_sources(), 0)
+            self.assertEqual(len(library.sources()), seeded)
+
+    def test_a_library_that_already_has_sources_is_left_alone(self):
+        with tempfile.TemporaryDirectory() as temp, patch("book_sources.validate_url"):
+            library = BookLibrary(temp)
+            library.add_sources([legado_source()])
+            self.assertEqual(library.ensure_default_sources(), 0)
+            self.assertEqual(len(library.sources()), 1)
 
 
 class SubscriptionTests(unittest.TestCase):
